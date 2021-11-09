@@ -1,0 +1,17 @@
+{
+  "name": "vocably",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:sneas/vocably.git",
+  "author": "Dmytro Snisarenko <dmytro@sneas.io>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.6",
+    "prettier": "^2.4.1"
+  }
+}
