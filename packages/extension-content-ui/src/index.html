@@ -10,9 +10,40 @@
 
     <script type="module" src="/build/extension-content-ui.esm.js"></script>
     <script nomodule src="/build/extension-content-ui.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <p>This is the button</p>
-    <vocably-button></vocably-button>
+    <div class="container">
+      <p>This is a button</p>
+      <p>
+        <vocably-button></vocably-button>
+      </p>
+
+      <p>This is a popup</p>
+
+      <div class="p">
+        <vocably-popup
+          id="popup"
+          phrase="geweldig"
+          meaning="great"
+        ></vocably-popup>
+        <div id="closed" class="d-none pt-2">Close clicked.</div>
+      </div>
+
+      <script type="text/javascript">
+        const popup = document.getElementById('popup');
+        const closed = document.getElementById('closed');
+
+        popup.addEventListener('close', () => {
+          closed.classList.remove('d-none');
+          setTimeout(() => {
+            closed.classList.add('d-none');
+          }, 2000);
+        });
+      </script>
+    </div>
   </body>
 </html>

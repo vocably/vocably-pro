@@ -1,0 +1,49 @@
+@import '../../styles/variables';
+
+:host {
+  $padding: 1rem;
+
+  display: block;
+
+  .popup {
+    font-family: $font-family;
+    font-size: 16px;
+    display: inline-block;
+    background-color: White;
+    box-shadow: 0px 0px 5px 1px $gray-500;
+  }
+
+  .caption {
+    text-align: right;
+    height: $padding;
+  }
+
+  .body {
+    padding: 0 $padding $padding;
+    min-width: 5rem;
+  }
+
+  .label {
+    color: $color-muted;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+
+  .phrase {
+    padding-bottom: 1rem;
+  }
+
+  .close {
+    $size: 1.6rem;
+
+    border: none;
+    padding: 0;
+    background: none;
+    font-size: 1.4rem;
+    height: $size;
+    line-height: $size;
+    width: $size;
+    text-align: center;
+    cursor: pointer;
+  }
+}

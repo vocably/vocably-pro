@@ -7,6 +7,10 @@
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
   interface VocablyButton {}
+  interface VocablyPopup {
+    meaning: string;
+    phrase: string;
+  }
 }
 declare global {
   interface HTMLVocablyButtonElement
@@ -16,14 +20,28 @@ declare global {
     prototype: HTMLVocablyButtonElement;
     new (): HTMLVocablyButtonElement;
   };
+  interface HTMLVocablyPopupElement
+    extends Components.VocablyPopup,
+      HTMLStencilElement {}
+  var HTMLVocablyPopupElement: {
+    prototype: HTMLVocablyPopupElement;
+    new (): HTMLVocablyPopupElement;
+  };
   interface HTMLElementTagNameMap {
     'vocably-button': HTMLVocablyButtonElement;
+    'vocably-popup': HTMLVocablyPopupElement;
   }
 }
 declare namespace LocalJSX {
   interface VocablyButton {}
+  interface VocablyPopup {
+    meaning?: string;
+    onClose?: (event: CustomEvent<void>) => void;
+    phrase?: string;
+  }
   interface IntrinsicElements {
     'vocably-button': VocablyButton;
+    'vocably-popup': VocablyPopup;
   }
 }
 export { LocalJSX as JSX };
@@ -32,6 +50,8 @@ declare module '@stencil/core' {
     interface IntrinsicElements {
       'vocably-button': LocalJSX.VocablyButton &
         JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
+      'vocably-popup': LocalJSX.VocablyPopup &
+        JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;
     }
   }
 }
