@@ -1,0 +1,30 @@
+{
+  "name": "@vocably/extension-content-script",
+  "version": "1.0.0",
+  "description": "translation-extension",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+    "build": "webpack --env production",
+    "start": "webpack serve --env development --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sneas/vocably.git"
+  },
+  "dependencies": {
+    "@vocably/extension-content-ui": "^0.0.1"
+  },
+  "devDependencies": {
+    "html-loader": "^3.0.1",
+    "html-webpack-plugin": "^5.5.0",
+    "rimraf": "^3.0.2",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.4.4",
+    "webpack": "^5.63.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.4.0",
+    "webpack-merge": "^5.8.0"
+  }
+}
