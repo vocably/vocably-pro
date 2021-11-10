@@ -6,58 +6,32 @@
  */
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 export namespace Components {
-  interface MyComponent {
-    /**
-     * The first name
-     */
-    first: string;
-    /**
-     * The last name
-     */
-    last: string;
-    /**
-     * The middle name
-     */
-    middle: string;
-  }
+  interface VocablyButton {}
 }
 declare global {
-  interface HTMLMyComponentElement
-    extends Components.MyComponent,
+  interface HTMLVocablyButtonElement
+    extends Components.VocablyButton,
       HTMLStencilElement {}
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  var HTMLVocablyButtonElement: {
+    prototype: HTMLVocablyButtonElement;
+    new (): HTMLVocablyButtonElement;
   };
   interface HTMLElementTagNameMap {
-    'my-component': HTMLMyComponentElement;
+    'vocably-button': HTMLVocablyButtonElement;
   }
 }
 declare namespace LocalJSX {
-  interface MyComponent {
-    /**
-     * The first name
-     */
-    first?: string;
-    /**
-     * The last name
-     */
-    last?: string;
-    /**
-     * The middle name
-     */
-    middle?: string;
-  }
+  interface VocablyButton {}
   interface IntrinsicElements {
-    'my-component': MyComponent;
+    'vocably-button': VocablyButton;
   }
 }
 export { LocalJSX as JSX };
 declare module '@stencil/core' {
   export namespace JSX {
     interface IntrinsicElements {
-      'my-component': LocalJSX.MyComponent &
-        JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+      'vocably-button': LocalJSX.VocablyButton &
+        JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
     }
   }
 }

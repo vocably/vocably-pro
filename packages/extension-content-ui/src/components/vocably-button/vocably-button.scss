@@ -1,0 +1,27 @@
+@import 'icon';
+@import '../../styles/variables';
+
+:host {
+  display: block;
+}
+
+.button {
+  @extend %icon;
+
+  border-radius: 5px;
+  width: 19px;
+  height: 19px;
+  background-color: #fff;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 3px;
+  border: 1px solid $gray-300;
+  cursor: pointer;
+  box-sizing: content-box;
+
+  &:hover {
+    border-color: $gray-500;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+  }
+}

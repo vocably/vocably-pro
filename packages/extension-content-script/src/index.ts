@@ -1,15 +1,20 @@
-const getTranslationButton = (): HTMLElement => {
-  const extensionButtonId = 'translation-extension-button';
-  const existingIcon = document.getElementById(extensionButtonId);
+import { defineCustomElements } from '@vocably/extension-content-ui';
 
-  if (existingIcon) {
-    return existingIcon;
+defineCustomElements();
+
+const getTranslationButton = (): HTMLElement => {
+  const buttonId = 'translation-extension-button';
+  let button = document.getElementById(buttonId);
+
+  if (button) {
+    return button;
   }
 
-  const translationButton = document.createElement('div');
-  translationButton.id = extensionButtonId;
-  document.body.appendChild(translationButton);
-  return translationButton;
+  button = document.createElement('vocably-button');
+  button.id = buttonId;
+  button.style.position = 'absolute';
+  document.body.appendChild(button);
+  return button;
 };
 
 const hideTranslationIcon = (translationIcon: HTMLElement) => {
