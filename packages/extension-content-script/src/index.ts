@@ -1,6 +1,35 @@
 import { defineCustomElements } from '@vocably/extension-content-ui';
+import { calculatePopupPosition, getPopup, isTop } from './getPopup';
 
 defineCustomElements();
+
+const displayPopup = () => {
+  const popup = getPopup();
+  const selection = window.document.getSelection();
+
+  if (!selection) {
+    return;
+  }
+
+  const rect = selection.getRangeAt(0).getBoundingClientRect();
+  const popupPosition = calculatePopupPosition(rect);
+  popup.style.position = 'absolute';
+  popup.style.transform = 'translateX(-50%)';
+  popup.style.left = `${popupPosition.left}px`;
+  if (isTop(popupPosition)) {
+    popup.style.top = `${popupPosition.top}px`;
+    popup.style.bottom = 'auto';
+  } else {
+    popup.style.bottom = `${popupPosition.bottom}px`;
+    popup.style.top = 'auto';
+  }
+  popup.style.display = 'block';
+};
+
+const hidePopup = () => {
+  const popup = getPopup();
+  popup.style.display = 'none';
+};
 
 const getTranslationButton = (): HTMLElement => {
   const buttonId = 'translation-extension-button';
@@ -12,29 +41,47 @@ const getTranslationButton = (): HTMLElement => {
 
   button = document.createElement('vocably-button');
   button.id = buttonId;
-  button.style.position = 'absolute';
   document.body.appendChild(button);
+
+  button.addEventListener('mousedown', (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    displayPopup();
+  });
+
+  button.addEventListener('click', (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+  });
+
+  button.addEventListener('mouseup', (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    hideTranslationButton();
+  });
+
   return button;
 };
 
-const hideTranslationIcon = (translationIcon: HTMLElement) => {
-  translationIcon.style.display = 'none';
+const hideTranslationButton = () => {
+  const button = getTranslationButton();
+  button.style.display = 'none';
 };
 
 type ShowTranslationIconOptions = {
-  translationIcon: HTMLElement;
   left: number;
   top: number;
 };
 
-const showTranslationIcon = ({
-  translationIcon,
+const displayTranslationButton = ({
   left,
   top,
 }: ShowTranslationIconOptions) => {
-  translationIcon.style.display = 'block';
-  translationIcon.style.left = `${left}px`;
-  translationIcon.style.top = `${top}px`;
+  const button = getTranslationButton();
+  button.style.display = 'block';
+  button.style.position = 'absolute';
+  button.style.left = `${left}px`;
+  button.style.top = `${top}px`;
 };
 
 type ElementOffset = {
@@ -50,25 +97,24 @@ const getElementOffset = (element: HTMLElement): ElementOffset => {
 };
 
 document.addEventListener('mouseup', (event) => {
-  const translationIcon = getTranslationButton();
-
   const selection = window.getSelection();
   if (!selection || !selection.toString()) {
-    hideTranslationIcon(translationIcon);
     return;
   }
-
-  const selectedText = selection.toString();
 
   setTimeout(() => {
     const gtxIcon = document.getElementById('gtx-trans');
     if (gtxIcon) {
       const offset = getElementOffset(gtxIcon);
-      showTranslationIcon({
-        translationIcon,
+      displayTranslationButton({
         left: offset.left + 30,
         top: offset.top,
       });
     }
   }, 100);
+});
+
+document.addEventListener('click', () => {
+  hideTranslationButton();
+  hidePopup();
 });
