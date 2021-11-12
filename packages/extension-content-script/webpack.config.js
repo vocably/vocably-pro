@@ -36,7 +36,7 @@ const devConfig = {
     }),
   ],
   devServer: {
-    port: 8010,
+    port: 8020,
   },
 };
 
@@ -50,10 +50,6 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
-      // {
-      //   test: /src\/.+\.html/,
-      //   loader: 'html-loader',
-      // }
     ],
   },
   resolve: {

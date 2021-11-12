@@ -21,4 +21,7 @@ export const config: Config = {
     },
   ],
   plugins: [sass()],
+  devServer: {
+    port: 8010,
+  },
 };

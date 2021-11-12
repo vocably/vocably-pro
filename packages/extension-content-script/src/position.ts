@@ -18,10 +18,16 @@ export const applyPosition = (element: HTMLElement, position: Position) => {
   element.style.position = 'absolute';
   element.style.left = `${position.left}px`;
   if (isTop(position)) {
-    element.style.bottom = 'auto';
     element.style.top = `${position.top}px`;
   } else {
-    element.style.top = 'auto';
-    element.style.bottom = `${position.bottom}px`;
+    element.style.top = `${position.bottom}px`;
+  }
+};
+
+export const applyTransform = (element: HTMLElement, position: Position) => {
+  if (isTop(position)) {
+    element.style.transform = `translate(-50%)`;
+  } else {
+    element.style.transform = `translate(-50%, -100%)`;
   }
 };
