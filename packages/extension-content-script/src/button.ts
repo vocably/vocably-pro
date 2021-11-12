@@ -8,6 +8,9 @@ const getPosition = (): Promise<Position> => {
     setTimeout(() => {
       const gtxIcon = document.getElementById('gtx-trans');
       if (gtxIcon) {
+        gtxIcon.addEventListener('mouseup', (event) => {
+          event.stopPropagation();
+        });
         const rect = gtxIcon.getBoundingClientRect();
 
         resolve({
