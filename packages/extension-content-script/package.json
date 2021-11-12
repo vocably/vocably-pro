@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prebuild": "rimraf ./dist",
+    "prebuild": "rimraf ./dist && yarn build:ui",
     "build": "webpack --env production",
+    "build:ui": "cd ../extension-content-ui && yarn build",
     "start": "webpack serve --env development --open"
   },
   "repository": {
