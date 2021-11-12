@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+
+  "name": "Vocably",
+  "description": "Vocably Extension",
+  "version": "0.0.1",
+
+  "options_ui": {
+    "page": "options.html"
+  },
+
+  "action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"]
+    }
+  ],
+
+  "permissions": ["storage"],
+
+  "host_permissions": ["<all_urls>"]
+}
