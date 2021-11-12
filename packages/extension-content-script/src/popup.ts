@@ -39,6 +39,8 @@ export const createPopup = () => {
     destroyPopup();
   });
 
+  popup.phrase = window.getSelection().toString();
+
   const position = calculatePosition();
   applyPosition(popup, position);
 };
