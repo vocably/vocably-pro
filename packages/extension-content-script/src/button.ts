@@ -14,7 +14,7 @@ const getPosition = (): Promise<Position> => {
         const rect = gtxIcon.getBoundingClientRect();
 
         resolve({
-          left: rect.right + window.scrollX + 6,
+          left: rect.right + window.scrollX + 3,
           top: rect.top + window.scrollY,
         });
       }
