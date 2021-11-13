@@ -6,18 +6,11 @@ const rootDir = resolve(__dirname, '../');
 process.chdir(rootDir);
 
 const svgFilename = 'icon.svg';
-const pngFilename = 'icon.png';
 const devFaviconFilename = 'dev-favicon.ico';
-console.log(`Creating ${pngFilename}...`);
-execSync(`convert ${svgFilename} ${pngFilename}`, {
-  cwd: `assets`,
-  stdio: 'inherit',
-});
-console.log(`${pngFilename} has been successfully created.`);
 
 console.log(`Creating ${devFaviconFilename}...`);
 execSync(
-  `convert ${pngFilename} -set colorspace Gray -separate -average ${devFaviconFilename}`,
+  `convert ${svgFilename} -set colorspace Gray -separate -average ${devFaviconFilename}`,
   {
     cwd: `assets`,
     stdio: 'inherit',
@@ -25,8 +18,19 @@ execSync(
 );
 console.log(`${devFaviconFilename} has been successfully created.`);
 
+console.log('Creating extension icons...');
+['16', '32', '48', '128'].forEach((size) => {
+  const iconFileName = `icon-${size}x${size}.png`;
+  execSync(
+    `convert assets/${svgFilename} -resize ${size}x${size} packages/extension/assets/images/${iconFileName}`,
+    {
+      stdio: 'inherit',
+    }
+  );
+});
+console.log('Extension icons have been successfully created');
+
 [
-  [`assets/${pngFilename}`, `packages/extension/assets/icon.png`],
   [
     `assets/${devFaviconFilename}`,
     `packages/extension-content-script/public/favicon.ico`,
