@@ -1,3 +1,4 @@
 {
-  "*.{js,jsx,ts,tsx,md,html,css,scss,json,yml}": "prettier --write"
+  "*.{js,jsx,ts,tsx,md,html,css,scss,json,yml}": "prettier --write",
+  "*.tf": "terraform-fmt"
 }
