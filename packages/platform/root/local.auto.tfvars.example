@@ -1,0 +1,1 @@
+google_oauth2_client_secret = "should-be-copied-from-gcp-console-and-never-stored-in-git-repo"

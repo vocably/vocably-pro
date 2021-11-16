@@ -82,6 +82,7 @@ override.tf.json
 *_override.tf.json
 .terraformrc
 terraform.rc
+local.auto.tfvars
 
 # Misc
 
