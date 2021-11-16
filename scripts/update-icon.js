@@ -35,6 +35,7 @@ console.log('Extension icons have been successfully created');
     `assets/${devFaviconFilename}`,
     `packages/extension-content-script/public/favicon.ico`,
   ],
+  [`assets/${devFaviconFilename}`, `packages/app/src/favicon.ico`],
 ].forEach(([source, dest]) => {
   console.log(`Copy ${source} to ${dest}`);
   execSync(`cp ${source} ${dest}`, {
