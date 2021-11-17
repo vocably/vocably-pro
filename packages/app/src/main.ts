@@ -3,7 +3,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify, Hub } from 'aws-amplify';
+import { sendSession } from './extension/sendSession';
 
 if (environment.production) {
   enableProdMode();
@@ -11,6 +12,12 @@ if (environment.production) {
 
 Amplify.configure({
   Auth: environment.auth,
+});
+
+Hub.listen('auth', async (capsule) => {
+  if (capsule.payload.event === 'signIn') {
+    await sendSession();
+  }
 });
 
 platformBrowserDynamic()

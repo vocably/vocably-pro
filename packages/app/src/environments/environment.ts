@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  chromeExtensionId: 'cdjdmfegiddjmikilbjoaofmjmdgceib',
   auth: {
     region: 'eu-central-1',
     userPoolId: 'eu-central-1_e2NoKqwUm',
