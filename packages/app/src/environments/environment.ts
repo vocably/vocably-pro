@@ -4,6 +4,21 @@
 
 export const environment = {
   production: false,
+  auth: {
+    region: 'eu-central-1',
+    userPoolId: 'eu-central-1_e2NoKqwUm',
+    userPoolWebClientId: 'ghmfj9p2kv8de9v2755pmo82r',
+    oauth: {
+      domain: 'auth.vocably.pro',
+      scope: ['email', 'profile', 'openid'],
+      redirectSignIn: 'http://localhost:8030',
+      redirectSignOut: 'http://localhost:8030',
+      responseType: 'code',
+      options: {
+        AdvancedSecurityDataCollectionFlag: true,
+      },
+    },
+  },
 };
 
 /*

@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthModule } from './auth/auth.module';
-import { CallbackComponent } from './auth/pages/callback/callback.component';
+import { HomePageModule } from './pages/home-page/home-page.module';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 const routes: Routes = [
   {
-    path: 'cb',
-    component: CallbackComponent,
+    path: '',
+    component: HomePageComponent,
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), AuthModule],
+  imports: [RouterModule.forRoot(routes), HomePageModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
