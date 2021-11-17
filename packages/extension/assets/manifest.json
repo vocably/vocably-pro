@@ -39,6 +39,10 @@
   "host_permissions": ["<all_urls>"],
 
   "externally_connectable": {
-    "matches": ["https://*/*", "http://localhost:8030/*"]
+    "matches": ["https://*.vocably.pro/*", "http://localhost:8030/*"]
+  },
+
+  "background": {
+    "service_worker": "background.js"
   }
 }

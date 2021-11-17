@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "translation-extension",
   "scripts": {
-    "prebuild": "rimraf ./dist && yarn build:contentScript",
     "build": "webpack --env production",
-    "build:contentScript": "cd ../extension-content-script && yarn build",
+    "prebuild": "rimraf ./dist",
+    "build-all": "webpack --env production",
+    "prebuild-all": "yarn --cwd ../extension-content-script build-all",
     "start": "webpack --watch --env development"
   },
   "repository": {
