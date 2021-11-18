@@ -11,7 +11,7 @@ export const environment = {
     userPoolWebClientId: 'ghmfj9p2kv8de9v2755pmo82r',
     oauth: {
       domain: 'auth.vocably.pro',
-      scope: ['email', 'profile', 'openid'],
+      scope: ['email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
       redirectSignIn: 'http://localhost:8030',
       redirectSignOut: 'http://localhost:8030',
       responseType: 'code',
