@@ -9,7 +9,7 @@ export class ExtensionStorage {
 
   setItem(key: string, value: string) {
     this.localStorage.setItem(key, value);
-    sendMessage('storage.setItem', { key, value });
+    sendMessage('storage.setItem', { key, value }).catch(() => {});
   }
 
   getItem(key: string) {
@@ -18,12 +18,12 @@ export class ExtensionStorage {
 
   removeItem(key: string) {
     this.localStorage.removeItem(key);
-    sendMessage('storage.removeItem', { key });
+    sendMessage('storage.removeItem', { key }).catch(() => {});
   }
 
   clear() {
     this.localStorage.clear();
-    sendMessage('storage.clear');
+    sendMessage('storage.clear').catch(() => {});
   }
 
   sync() {
@@ -31,13 +31,13 @@ export class ExtensionStorage {
       return this.syncPromise;
     }
 
-    this.syncPromise = sendMessage<Record<string, string>>(
-      'storage.getAll'
-    ).then((data) => {
-      Object.entries(data).forEach(([key, value]) => {
-        this.localStorage.setItem(key, value);
-      });
-    });
+    this.syncPromise = sendMessage<Record<string, string>>('storage.getAll')
+      .then((data) => {
+        Object.entries(data).forEach(([key, value]) => {
+          this.localStorage.setItem(key, value);
+        });
+      })
+      .catch(() => {});
 
     return this.syncPromise;
   }
