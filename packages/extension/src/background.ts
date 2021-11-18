@@ -1,3 +1,15 @@
+import { Auth } from '@aws-amplify/auth';
+import { ChromeStorage } from './background/authStorage';
+
+Auth.configure({
+  region: process.env.AUTH_REGION,
+  userPoolId: process.env.AUTH_USER_POOL_ID,
+  userPoolWebClientId: process.env.AUTH_USER_POOL_WEB_CLIENT_ID,
+  storage: ChromeStorage,
+});
+
+Auth.currentSession().then(console.log);
+
 chrome.runtime.onMessageExternal.addListener(
   async (request, sender, sendResponse) => {
     switch (request?.message) {

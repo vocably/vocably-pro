@@ -14,10 +14,12 @@
     "url": "https://github.com/sneas/vocably.git"
   },
   "dependencies": {
+    "@aws-amplify/auth": "^4.3.15",
     "@vocably/extension-content-script": "^0.0.1"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^9.1.0",
+    "dotenv-flow-webpack": "^1.1.0",
     "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
     "rimraf": "^3.0.2",

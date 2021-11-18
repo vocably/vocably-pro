@@ -2,6 +2,7 @@ const { merge } = require('webpack-merge');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const DotenvFlow = require('dotenv-flow-webpack');
 
 const prodConfig = {
   mode: 'production',
@@ -23,7 +24,7 @@ const prodConfig = {
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.mjs'],
   },
   output: {
     filename: '[name].js',
@@ -42,6 +43,7 @@ const prodConfig = {
       patterns: [{ from: '.', to: '.', context: 'assets' }],
       options: {},
     }),
+    new DotenvFlow(),
   ],
 };
 

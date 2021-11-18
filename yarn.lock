@@ -269,7 +269,7 @@
     "@aws-amplify/api-graphql" "2.2.14"
     "@aws-amplify/api-rest" "2.0.25"
 
-"@aws-amplify/auth@4.3.15":
+"@aws-amplify/auth@4.3.15", "@aws-amplify/auth@^4.3.15":
   version "4.3.15"
   resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-4.3.15.tgz#41c2a2f09425367e9eef222e4324bbea2c5a6c8e"
   integrity sha512-bl9GUZbjHMntvZHkNsNC4vKF07t5ffxq0pNLeY1W7oAW+N42o5Sqq/pJXtu7k7ErkLY0kJ3J6NTglDEiHvIusQ==
@@ -5415,6 +5415,25 @@ dot-case@^3.0.4:
   dependencies:
     no-case "^3.0.4"
     tslib "^2.0.3"
+
+dotenv-flow-webpack@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/dotenv-flow-webpack/-/dotenv-flow-webpack-1.1.0.tgz#40976386d3bf93ad1d636cacd62ef79ed14917d5"
+  integrity sha512-U6klxT4Tjeka7RoEr//8b4fBm+LupsWgiHOoAE/vSfKzx4g8xpRh4dn59QyyTczbLS7SjKSHchlAHzhSu2ER3Q==
+  dependencies:
+    dotenv-flow "^3.2.0"
+
+dotenv-flow@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv-flow/-/dotenv-flow-3.2.0.tgz#a5d79dd60ddb6843d457a4874aaf122cf659a8b7"
+  integrity sha512-GEB6RrR4AbqDJvNSFrYHqZ33IKKbzkvLYiD5eo4+9aFXr4Y4G+QaFrB/fNp0y6McWBmvaPn3ZNjIufnj8irCtg==
+  dependencies:
+    dotenv "^8.0.0"
+
+dotenv@^8.0.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
+  integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
 
 ee-first@1.1.1:
   version "1.1.1"
