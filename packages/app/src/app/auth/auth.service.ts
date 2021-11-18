@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Auth } from 'aws-amplify';
-import { catchError, from, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, from, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  isLoggedIn$ = new BehaviorSubject<boolean | undefined>(undefined);
+
+  constructor() {
+    from(Auth.currentAuthenticatedUser())
+      .pipe(
+        map(() => true),
+        catchError(() => of(false))
+      )
+      .subscribe((isLoggedIn) => this.isLoggedIn$.next(isLoggedIn));
+  }
 
   async login() {
     return Auth.federatedSignIn();
   }
 
-  isLoggedIn(): Observable<boolean> {
-    return from(Auth.currentAuthenticatedUser()).pipe(
-      map(() => true),
-      catchError(() => of(false))
-    );
+  async logout() {
+    return Auth.signOut({
+      global: true,
+    });
   }
 }
