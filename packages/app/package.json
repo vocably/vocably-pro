@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
     "aws-amplify": "^4.3.7",
+    "lodash-es": "^4.17.21",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -29,6 +30,7 @@
     "@angular/compiler-cli": "~13.0.0",
     "@types/chrome": "^0.0.164",
     "@types/jasmine": "~3.10.0",
+    "@types/lodash-es": "^4.17.5",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
