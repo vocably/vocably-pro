@@ -1,15 +1,19 @@
 import { StorageHelper } from '@aws-amplify/core';
-import { sendMessage } from './send-message';
+import { message } from './message';
+import { Message } from './types';
 
-export class ExtensionStorage {
+export class AppAuthStorage {
   private localStorage = new StorageHelper().getStorage();
   private syncPromise: Promise<void> | null = null;
+  private sendMessage: ReturnType<typeof message>;
 
-  constructor() {}
+  constructor(extensionId: string) {
+    this.sendMessage = message(extensionId);
+  }
 
   setItem(key: string, value: string) {
     this.localStorage.setItem(key, value);
-    sendMessage('storage.setItem', { key, value }).catch(() => {});
+    this.sendMessage(Message.setItem, { key, value }).catch(() => {});
   }
 
   getItem(key: string) {
@@ -18,12 +22,12 @@ export class ExtensionStorage {
 
   removeItem(key: string) {
     this.localStorage.removeItem(key);
-    sendMessage('storage.removeItem', { key }).catch(() => {});
+    this.sendMessage(Message.removeItem, { key }).catch(() => {});
   }
 
   clear() {
     this.localStorage.clear();
-    sendMessage('storage.clear').catch(() => {});
+    this.sendMessage(Message.clear).catch(() => {});
   }
 
   sync() {
@@ -31,7 +35,7 @@ export class ExtensionStorage {
       return this.syncPromise;
     }
 
-    this.syncPromise = sendMessage<Record<string, string>>('storage.getAll')
+    this.syncPromise = this.sendMessage<Record<string, string>>(Message.getAll)
       .then((data) => {
         Object.entries(data).forEach(([key, value]) => {
           this.localStorage.setItem(key, value);

@@ -1,14 +1,16 @@
 import { Auth } from '@aws-amplify/auth';
-import { ChromeStorage } from './background/authStorage';
+import { registerExtensionStorage } from 'aws-cognito-chrome-extension';
+
+const storage = registerExtensionStorage('sync');
 
 Auth.configure({
   region: process.env.AUTH_REGION,
   userPoolId: process.env.AUTH_USER_POOL_ID,
   userPoolWebClientId: process.env.AUTH_USER_POOL_WEB_CLIENT_ID,
-  storage: ChromeStorage,
+  storage,
 });
 
-Auth.currentSession().then(console.log);
+Auth.currentSession().then(console.log).catch(console.log);
 
 chrome.runtime.onMessageExternal.addListener(
   async (request, sender, sendResponse) => {

@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "@aws-amplify/auth": "^4.3.15",
-    "@vocably/extension-content-script": "^0.0.1"
+    "@vocably/extension-content-script": "^0.0.1",
+    "aws-cognito-chrome-extension": "0.0.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^9.1.0",

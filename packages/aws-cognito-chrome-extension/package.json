@@ -1,0 +1,23 @@
+{
+  "name": "aws-cognito-chrome-extension",
+  "version": "0.0.0",
+  "description": "",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+    "build": "tsc",
+    "start": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sneas/aws-cognito-chrome-extension.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@aws-amplify/core": "^4.3.8",
+    "@types/chrome": "^0.0.164",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.4.4"
+  }
+}

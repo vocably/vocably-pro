@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { Amplify } from 'aws-amplify';
-import { ExtensionStorage } from './extension/storage';
+import { AppAuthStorage } from 'aws-cognito-chrome-extension';
 
 if (environment.production) {
   enableProdMode();
@@ -12,7 +12,7 @@ if (environment.production) {
 
 Amplify.configure({
   Auth: {
-    storage: new ExtensionStorage(),
+    storage: new AppAuthStorage(environment.chromeExtensionId),
     ...environment.auth,
   },
 });

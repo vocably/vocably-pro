@@ -45,10 +45,13 @@ const prodConfig = {
     }),
     new DotenvFlow(),
   ],
+  performance: {
+    hints: false,
+  },
 };
 
 const devConfig = {
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
 };
 
 module.exports = (env) => {
