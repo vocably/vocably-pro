@@ -1,12 +1,17 @@
-<ng-container *ngIf="auth.isLoggedIn$ | async">
+<ng-container>
   <nav class="navbar navbar-light bg-light mb-3">
     <div class="container">
       <a class="navbar-brand" href="/">{{ title }}</a>
-      <button class="btn btn-link" (click)="auth.logout()">Logout</button>
+      <button
+        *ngIf="auth.isLoggedIn$ | async"
+        class="btn btn-link"
+        (click)="auth.logout()"
+      >
+        Logout
+      </button>
     </div>
   </nav>
   <div class="container">
     <router-outlet></router-outlet>
   </div>
 </ng-container>
-<ng-container *ngIf="!(auth.isLoggedIn$ | async)"> Logging in... </ng-container>

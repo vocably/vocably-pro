@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,5 @@ import { AuthService } from './auth/auth.service';
 export class AppComponent {
   title = 'vocably';
 
-  constructor(public auth: AuthService) {
-    this.auth.isLoggedIn$.subscribe((isLoggedIn) => {
-      if (isLoggedIn === false) {
-        this.auth.login();
-      }
-    });
-  }
+  constructor(public auth: AuthService) {}
 }

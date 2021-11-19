@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 import { Auth } from 'aws-amplify';
-import { BehaviorSubject, catchError, from, map, of } from 'rxjs';
+import { catchError, from, map, of, ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  isLoggedIn$ = new BehaviorSubject<boolean | undefined>(undefined);
+  isLoggedIn$ = new ReplaySubject<boolean>(1);
 
   constructor() {
     from(Auth.currentAuthenticatedUser())
