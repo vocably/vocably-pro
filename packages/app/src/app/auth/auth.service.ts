@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 import { Auth } from 'aws-amplify';
 import { BehaviorSubject, catchError, from, map, of } from 'rxjs';
 
@@ -18,7 +19,9 @@ export class AuthService {
   }
 
   async login() {
-    return Auth.federatedSignIn();
+    return Auth.federatedSignIn({
+      provider: CognitoHostedUIIdentityProvider.Google,
+    });
   }
 
   async logout() {
