@@ -22,9 +22,18 @@ const getPosition = (): Promise<Position> => {
   });
 };
 
+const hide = (button: HTMLElement) => {
+  button.style.display = 'none';
+};
+
+const show = (button: HTMLElement) => {
+  button.style.display = 'block';
+};
+
 export const createButton = async () => {
   const button = document.createElement('vocably-button');
   button.id = buttonId;
+  hide(button);
   document.body.appendChild(button);
 
   button.addEventListener('click', () => {
@@ -44,6 +53,7 @@ export const createButton = async () => {
 
   const position = await getPosition();
   applyPosition(button, position);
+  show(button);
 };
 
 export const destroyButton = () => {
