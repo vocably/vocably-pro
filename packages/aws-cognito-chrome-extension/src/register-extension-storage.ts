@@ -9,7 +9,7 @@ export const registerExtensionStorage = (
   const authStorage = new ExtensionAuthStorage(extensionStorage);
 
   chrome.runtime.onMessageExternal.addListener(
-    (request, sender, sendResponse) => {
+    async (request, sender, sendResponse) => {
       const message = request?.message;
       const data = request?.data;
 
@@ -27,7 +27,7 @@ export const registerExtensionStorage = (
           sendResponse();
           return;
         case Message.getAll:
-          const all = getAll(extensionStorage);
+          const all = await getAll(extensionStorage);
           sendResponse(all);
           return;
       }
