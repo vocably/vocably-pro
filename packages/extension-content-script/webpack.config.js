@@ -1,10 +1,9 @@
-const { merge } = require('webpack-merge');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const prodConfig = {
-  mode: 'production',
-  entry: './src/index.ts',
+module.exports = {
+  mode: 'development',
+  entry: './public/index.ts',
   module: {
     rules: [
       {
@@ -21,14 +20,6 @@ const prodConfig = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
-  output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist'),
-    chunkFormat: 'commonjs',
-  },
-};
-
-const devConfig = {
   devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
@@ -39,36 +30,4 @@ const devConfig = {
   devServer: {
     port: 8020,
   },
-};
-
-module.exports = {
-  mode: 'production',
-  entry: './src/index.ts',
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-    ],
-  },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-  },
-  output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
-};
-
-module.exports = (env) => {
-  switch (true) {
-    case env.development:
-      return merge(prodConfig, devConfig);
-    case env.production:
-      return prodConfig;
-    default:
-      throw new Error('No matching configuration was found!');
-  }
 };
