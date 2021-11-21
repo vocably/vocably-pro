@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "webpack --env production",
+    "build": "tsc",
     "prebuild": "rimraf ./dist",
     "build-all": "webpack --env production",
     "prebuild-all": "yarn --cwd ../extension-content-ui build",
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@vocably/extension-content-ui": "^0.0.1",
+    "@vocably/extension-messages": "^0.0.0",
     "@webcomponents/custom-elements": "^1.5.0"
   },
   "devDependencies": {
