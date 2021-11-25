@@ -1,0 +1,54 @@
+openapi: 3.0.1
+info:
+  title: 'Vocably API'
+  version: 1.0.0
+x-amazon-apigateway-request-validators:
+  all:
+    validateRequestBody: true
+    validateRequestParameters: true
+x-amazon-apigateway-request-validator: all
+paths:
+  /translate:
+    options:
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        uri: arn:$${AWS::Partition}:apigateway:$${AWS::Region}:lambda:path/2015-03-31/functions/${translateLambdaArn}/invocations
+        httpMethod: POST
+      responses:
+        200:
+          description: Successful operation
+    post:
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        uri: arn:$${AWS::Partition}:apigateway:$${AWS::Region}:lambda:path/2015-03-31/functions/${translateLambdaArn}/invocations
+        httpMethod: POST
+      operationId: updateProject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Phrase'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Translation'
+components:
+  schemas:
+    Phrase:
+      type: object
+      properties:
+        phrase:
+          type: string
+        required:
+          - phrase
+    Translation:
+      type: object
+      properties:
+        asIs:
+          type: string
+        required:
+          - asIs
