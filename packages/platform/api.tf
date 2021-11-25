@@ -92,6 +92,29 @@ resource "aws_lambda_permission" "translate" {
   source_arn = "${aws_api_gateway_rest_api.rest_api.execution_arn}/*/*/*"
 }
 
+resource "aws_api_gateway_domain_name" "api" {
+  certificate_arn = data.aws_acm_certificate.primary.arn
+  domain_name     = local.api_domain
+}
+
+resource "aws_route53_record" "example" {
+  name    = aws_api_gateway_domain_name.api.domain_name
+  type    = "A"
+  zone_id = data.aws_route53_zone.primary.id
+
+  alias {
+    evaluate_target_health = true
+    name                   = aws_api_gateway_domain_name.api.cloudfront_domain_name
+    zone_id                = aws_api_gateway_domain_name.api.cloudfront_zone_id
+  }
+}
+
+resource "aws_api_gateway_base_path_mapping" "deployment" {
+  api_id      = aws_api_gateway_rest_api.rest_api.id
+  stage_name  = aws_api_gateway_deployment.deployment.stage_name
+  domain_name = aws_api_gateway_domain_name.api.domain_name
+}
+
 output "gateway-url" {
-  value = aws_api_gateway_deployment.deployment.invoke_url
+  value = "https://${aws_api_gateway_domain_name.api.domain_name}"
 }
