@@ -8,7 +8,7 @@ export const environment = {
   auth: {
     region: 'eu-central-1',
     userPoolId: 'eu-central-1_e2NoKqwUm',
-    userPoolWebClientId: 'ghmfj9p2kv8de9v2755pmo82r',
+    userPoolWebClientId: '4p94j2g6678lieetfnso636edd',
     oauth: {
       domain: 'auth.vocably.pro',
       scope: ['email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],

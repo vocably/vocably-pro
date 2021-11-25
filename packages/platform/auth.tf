@@ -16,3 +16,11 @@ resource "aws_cognito_user_pool_client" "client" {
   allowed_oauth_flows_user_pool_client = true
   supported_identity_providers         = ["Google"]
 }
+
+output "auth_user_pool_id" {
+  value = tolist(data.aws_cognito_user_pools.users.ids)[0]
+}
+
+output "auth_client_id" {
+  value = aws_cognito_user_pool_client.client.id
+}
