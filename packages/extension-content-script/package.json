@@ -18,6 +18,7 @@
   "dependencies": {
     "@vocably/extension-content-ui": "^0.0.1",
     "@vocably/extension-messages": "^0.0.0",
+    "@vocably/webpack": "^0.0.0",
     "@webcomponents/custom-elements": "^1.5.0"
   },
   "devDependencies": {

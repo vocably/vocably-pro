@@ -15,6 +15,8 @@ export const registerContentScript = async ({
     return;
   }
 
+  console.log('is logged in');
+
   defineCustomElements();
 
   document.addEventListener('mouseup', async (event) => {

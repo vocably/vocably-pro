@@ -3,6 +3,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const DotenvFlow = require('dotenv-flow-webpack');
+const { WatchTimerPlugin } = require('@vocably/webpack');
+const { basename } = require('path');
 
 const prodConfig = {
   mode: 'production',
@@ -52,6 +54,7 @@ const prodConfig = {
 
 const devConfig = {
   devtool: 'inline-source-map',
+  plugins: [new WatchTimerPlugin(basename(__dirname))],
 };
 
 module.exports = (env) => {

@@ -1,5 +1,6 @@
-const path = require('path');
+const { basename } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { WatchTimerPlugin } = require('@vocably/webpack');
 
 module.exports = {
   mode: 'development',
@@ -26,6 +27,7 @@ module.exports = {
       template: './public/index.html',
       inject: true,
     }),
+    new WatchTimerPlugin(basename(__dirname)),
   ],
   devServer: {
     port: 8020,
