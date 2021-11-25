@@ -11,7 +11,7 @@ resource "aws_cognito_user_pool_client" "client" {
   user_pool_id                         = tolist(data.aws_cognito_user_pools.users.ids)[0]
   callback_urls                        = local.available_urls
   logout_urls                          = local.available_urls
-  allowed_oauth_flows                  = ["code"]
+  allowed_oauth_flows                  = ["code", "implicit"]
   allowed_oauth_scopes                 = ["profile", "email", "openid", "aws.cognito.signin.user.admin"]
   allowed_oauth_flows_user_pool_client = true
   supported_identity_providers         = ["Google"]

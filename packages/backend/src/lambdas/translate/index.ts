@@ -9,7 +9,7 @@ export const translate = async (
 ): Promise<APIGatewayProxyResult> =>
   lastValueFrom(
     of(event).pipe(
-      map(() => ({ time: new Date().toISOString() })),
+      map((event) => ({ time: new Date().toISOString(), event })),
       map((data) =>
         buildResponse({
           body: JSON.stringify(data),
