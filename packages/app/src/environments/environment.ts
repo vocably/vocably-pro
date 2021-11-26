@@ -20,6 +20,9 @@ export const environment = {
       },
     },
   },
+  api: {
+    baseURL: 'https://api.vocably.pro',
+  },
 };
 
 /*

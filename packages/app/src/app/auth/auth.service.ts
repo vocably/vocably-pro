@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
-import { Auth } from 'aws-amplify';
+import { Auth, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 import { catchError, from, map, of, ReplaySubject } from 'rxjs';
 
 @Injectable({

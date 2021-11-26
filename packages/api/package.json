@@ -1,0 +1,27 @@
+{
+  "name": "@vocably/api",
+  "version": "0.0.0",
+  "description": "",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+    "build": "tsc",
+    "start": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sneas/vocably.git"
+  },
+  "dependencies": {
+    "@vespaiach/axios-fetch-adapter": "^0.1.1",
+    "axios": "^0.24.0",
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@aws-amplify/auth": "^4.3.15",
+    "@types/lodash-es": "^4.17.5",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.4.4"
+  }
+}
