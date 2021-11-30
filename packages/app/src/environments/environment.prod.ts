@@ -1,3 +1,6 @@
-export const environment = {
+import { merge } from 'lodash-es';
+import { environmentLocal } from './environmentLocal';
+
+export const environment = merge(environmentLocal, {
   production: true,
-};
+});

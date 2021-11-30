@@ -6,3 +6,8 @@ variable "dev_urls" {
   type    = list(string)
   default = []
 }
+
+variable "auth_domain" {
+  type    = string
+  default = "auth.vocably.pro"
+}
