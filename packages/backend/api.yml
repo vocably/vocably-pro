@@ -20,13 +20,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Translation'
       security:
-        - UserPool: []
+        - jwt-authorizer: []
       x-amazon-apigateway-request-validator: 'all'
       x-amazon-apigateway-integration:
-        httpMethod: 'POST'
-        uri: 'arn:$${AWS::Partition}:apigateway:$${AWS::Region}:lambda:path/2015-03-31/functions/${translateLambdaArn}/invocations'
-        passthroughBehavior: 'when_no_match'
+        payloadFormatVersion: '2.0'
         type: 'aws_proxy'
+        httpMethod: 'POST'
+        uri: '${translateLambdaInvokeArn}'
+        connectionType: 'INTERNET'
 components:
   schemas:
     Translation:
@@ -40,15 +41,16 @@ components:
         phrase:
           type: 'string'
   securitySchemes:
-    UserPool:
-      type: 'apiKey'
-      name: 'Authorization'
-      in: 'header'
-      x-amazon-apigateway-authtype: 'cognito_user_pools'
+    jwt-authorizer:
+      type: 'oauth2'
+      flows: {}
       x-amazon-apigateway-authorizer:
-        providerARNs:
-          - '${userPoolArn}'
-        type: 'cognito_user_pools'
+        identitySource: '$request.header.Authorization'
+        jwtConfiguration:
+          audience:
+            - '${authClientId}'
+          issuer: 'https://cognito-idp.$${AWS::Region}.amazonaws.com/${userPoolId}'
+        type: 'jwt'
 x-amazon-apigateway-request-validators:
   all:
     validateRequestParameters: true

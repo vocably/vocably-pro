@@ -63,12 +63,14 @@ resource "aws_cloudwatch_log_group" "translate" {
   retention_in_days = 14
 }
 
-resource "aws_api_gateway_rest_api" "rest_api" {
-  name = "${terraform.workspace}-rest-api"
-  body = templatefile("${local.backend_root}/api.yml", { translateLambdaArn = aws_lambda_function.translate.arn, userPoolArn = tolist(data.aws_cognito_user_pools.users.arns)[0] })
-  endpoint_configuration {
-    types = ["REGIONAL"]
-  }
+resource "aws_apigatewayv2_api" "rest_api" {
+  protocol_type = "HTTP"
+  name          = "${terraform.workspace}-rest-api"
+  body = templatefile("${local.backend_root}/api.yml", {
+    translateLambdaInvokeArn = aws_lambda_function.translate.invoke_arn,
+    userPoolId               = tolist(data.aws_cognito_user_pools.users.ids)[0]
+    authClientId             = aws_cognito_user_pool_client.client.id
+  })
 }
 
 locals {
@@ -76,8 +78,8 @@ locals {
   apiYamlMd5    = md5(file("${local.backend_root}/api.yml"))
 }
 
-resource "aws_api_gateway_deployment" "deployment" {
-  rest_api_id = aws_api_gateway_rest_api.rest_api.id
+resource "aws_apigatewayv2_deployment" "deployment" {
+  api_id = aws_apigatewayv2_api.rest_api.id
   triggers = {
     redeployment = "${local.apiGatewayMd5}${local.apiYamlMd5}"
   }
@@ -86,43 +88,46 @@ resource "aws_api_gateway_deployment" "deployment" {
   }
 }
 
-resource "aws_api_gateway_stage" "stage" {
-  deployment_id = aws_api_gateway_deployment.deployment.id
-  rest_api_id   = aws_api_gateway_rest_api.rest_api.id
-  stage_name    = "stage"
+resource "aws_apigatewayv2_stage" "stage" {
+  deployment_id = aws_apigatewayv2_deployment.deployment.id
+  api_id        = aws_apigatewayv2_api.rest_api.id
+  name          = "v1"
+}
+
+resource "aws_apigatewayv2_domain_name" "api" {
+  domain_name = local.api_domain
+  domain_name_configuration {
+    certificate_arn = data.aws_acm_certificate.primary.arn
+    endpoint_type   = "REGIONAL"
+    security_policy = "TLS_1_2"
+  }
+}
+
+resource "aws_route53_record" "example" {
+  name    = aws_apigatewayv2_domain_name.api.domain_name
+  type    = "A"
+  zone_id = data.aws_route53_zone.primary.id
+
+  alias {
+    evaluate_target_health = true
+    name                   = aws_apigatewayv2_domain_name.api.domain_name_configuration[0].target_domain_name
+    zone_id                = aws_apigatewayv2_domain_name.api.domain_name_configuration[0].hosted_zone_id
+  }
+}
+
+resource "aws_apigatewayv2_api_mapping" "deployment" {
+  api_id      = aws_apigatewayv2_api.rest_api.id
+  stage       = aws_apigatewayv2_stage.stage.name
+  domain_name = aws_apigatewayv2_domain_name.api.domain_name
 }
 
 resource "aws_lambda_permission" "translate" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.translate.function_name
   principal     = "apigateway.amazonaws.com"
-
-  source_arn = "${aws_api_gateway_rest_api.rest_api.execution_arn}/*/*/*"
-}
-
-resource "aws_api_gateway_domain_name" "api" {
-  certificate_arn = data.aws_acm_certificate.primary.arn
-  domain_name     = local.api_domain
-}
-
-resource "aws_route53_record" "example" {
-  name    = aws_api_gateway_domain_name.api.domain_name
-  type    = "A"
-  zone_id = data.aws_route53_zone.primary.id
-
-  alias {
-    evaluate_target_health = true
-    name                   = aws_api_gateway_domain_name.api.cloudfront_domain_name
-    zone_id                = aws_api_gateway_domain_name.api.cloudfront_zone_id
-  }
-}
-
-resource "aws_api_gateway_base_path_mapping" "deployment" {
-  api_id      = aws_api_gateway_rest_api.rest_api.id
-  stage_name  = aws_api_gateway_stage.stage.stage_name
-  domain_name = aws_api_gateway_domain_name.api.domain_name
+  source_arn    = "${aws_apigatewayv2_api.rest_api.execution_arn}/*/*/*"
 }
 
 output "gateway-url" {
-  value = "https://${aws_api_gateway_domain_name.api.domain_name}"
+  value = "https://${aws_apigatewayv2_domain_name.api.domain_name}"
 }
