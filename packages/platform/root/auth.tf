@@ -28,7 +28,7 @@ resource "aws_cognito_identity_provider" "google" {
 
 resource "aws_cognito_user_pool_domain" "auth" {
   domain          = "auth.vocably.pro"
-  certificate_arn = aws_acm_certificate.primary.arn
+  certificate_arn = aws_acm_certificate.primary-global.arn
   user_pool_id    = aws_cognito_user_pool.users.id
 
   depends_on = [aws_route53_record.www]
