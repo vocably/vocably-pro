@@ -71,6 +71,12 @@ resource "aws_apigatewayv2_api" "rest_api" {
     userPoolId               = tolist(data.aws_cognito_user_pools.users.ids)[0]
     authClientId             = aws_cognito_user_pool_client.client.id
   })
+  cors_configuration {
+    allow_credentials = true
+    allow_headers     = ["*"]
+    allow_methods     = ["*"]
+    allow_origins     = ["https://*", "http://*"]
+  }
 }
 
 locals {
