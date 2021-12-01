@@ -7,6 +7,7 @@
     "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
+    "@google-cloud/translate": "^6.3.1",
     "aws-sdk": "^2.1036.0",
     "lodash-es": "^4.17.21",
     "rxjs": "^7.4.0"

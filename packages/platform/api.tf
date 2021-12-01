@@ -22,8 +22,17 @@ EOF
 }
 
 locals {
+  google_key_filename = "google-key.json"
+}
+
+resource "local_file" "google_key" {
+  content  = base64decode(google_service_account_key.credentials.private_key)
+  filename = "${local.backend_root}/${local.google_key_filename}"
+}
+
+locals {
   backend_env_local_content = <<EOT
-GOOGLE_APPLICATION_CREDENTIALS="${google_service_account_key.credentials.private_key}"
+GOOGLE_APPLICATION_CREDENTIALS="${local.google_key_filename}"
   EOT
 }
 
