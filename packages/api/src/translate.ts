@@ -1,5 +1,7 @@
-import { restClient } from './restClient';
+import { request } from './restClient';
 
 export const translate = (): Promise<any> => {
-  return restClient.post('/translate');
+  return request('/translate', {
+    method: 'POST',
+  });
 };

@@ -1,22 +1,25 @@
-import axios from 'axios';
-import adapter from '@vespaiach/axios-fetch-adapter';
 import { Auth } from '@aws-amplify/auth';
-import { assignIn } from 'lodash-es';
+import { merge } from 'lodash-es';
 
-export const restClient = axios.create({ adapter });
+let baseUrl = '';
 
-restClient.interceptors.request.use(async (config) => {
+export const request = (url: string, init: RequestInit): Promise<any> => {
   return Auth.currentSession()
     .then((session) => {
-      return assignIn(config, {
+      return merge(init, {
         headers: {
           Authorization: `Bearer ${session.getIdToken().getJwtToken()}`,
         },
       });
     })
-    .catch(console.log);
-});
+    .then((initWithHeaders) => fetch(baseUrl + url, initWithHeaders))
+    .then((response) => response.json());
+};
 
-export const configureClient = (options: Partial<typeof axios.defaults>) => {
-  restClient.defaults = assignIn(restClient.defaults, options);
+type ClientOptions = {
+  baseUrl: string;
+};
+
+export const configureClient = (options: ClientOptions) => {
+  baseUrl = options.baseUrl;
 };

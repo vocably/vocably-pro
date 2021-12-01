@@ -14,6 +14,6 @@ export const environmentLocal = {
     },
   },
   api: {
-    baseURL: 'https://api.vocably.pro',
+    baseUrl: 'https://api.vocably.pro',
   },
 };
