@@ -23,6 +23,7 @@ EOF
 
 locals {
   backend_env_local_content = <<EOT
+GOOGLE_APPLICATION_CREDENTIALS="${google_service_account_key.credentials.private_key}"
   EOT
 }
 

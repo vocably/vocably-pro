@@ -6,9 +6,15 @@
   "author": "Dmytro Snisarenko <dmytro@sneas.io>",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/jest*",
+      "**/*jest*/**"
+    ]
+  },
   "devDependencies": {
     "husky": "^7.0.4",
     "lint-staged": "^11.2.6",

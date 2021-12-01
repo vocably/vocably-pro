@@ -11,3 +11,8 @@ terraform {
 provider "aws" {
   region = "eu-central-1"
 }
+
+provider "google" {
+  region  = "europe-central2"
+  project = var.gcloud_project
+}

@@ -11,3 +11,8 @@ variable "auth_domain" {
   type    = string
   default = "auth.vocably.pro"
 }
+
+variable "gcloud_project" {
+  type    = string
+  default = "vocably-332109"
+}
