@@ -18,7 +18,7 @@ export const environmentLocal = {
     },
   },
   api: {
-    baseURL: 'https://${aws_apigatewayv2_domain_name.api.domain_name}',
+    baseUrl: 'https://${aws_apigatewayv2_domain_name.api.domain_name}',
   },
 };
   EOT

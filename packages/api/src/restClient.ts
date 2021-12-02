@@ -8,6 +8,8 @@ export const request = (url: string, init: RequestInit): Promise<any> => {
     .then((session) => {
       return merge(init, {
         headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
           Authorization: `Bearer ${session.getIdToken().getJwtToken()}`,
         },
       });

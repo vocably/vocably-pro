@@ -5,7 +5,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { Auth } from '@aws-amplify/auth';
 import { AppAuthStorage } from 'aws-cognito-chrome-extension';
-import { configureClient, translate } from '@vocably/api';
+import { configureClient } from '@vocably/api';
 
 if (environment.production) {
   enableProdMode();
