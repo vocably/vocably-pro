@@ -6,10 +6,12 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "watch": "tsc --watch",
+    "serve": "webpack serve --env development --open",
     "prebuild": "rimraf ./dist",
     "build-all": "webpack --env production",
     "prebuild-all": "yarn --cwd ../extension-content-ui build",
-    "start": "webpack serve --env development --open"
+    "start": "npm-run-all --parallel watch serve"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
   "devDependencies": {
     "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
+    "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "ts-loader": "^9.2.6",
     "typescript": "^4.4.4",
