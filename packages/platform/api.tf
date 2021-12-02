@@ -1,5 +1,6 @@
 locals {
   backend_root = abspath("../backend")
+  api_config   = abspath("../api-types/api.yml")
 }
 
 resource "aws_iam_role" "iam_for_lambda" {
@@ -76,7 +77,7 @@ resource "aws_cloudwatch_log_group" "translate" {
 resource "aws_apigatewayv2_api" "rest_api" {
   protocol_type = "HTTP"
   name          = "${terraform.workspace}-rest-api"
-  body = templatefile("${local.backend_root}/api.yml", {
+  body = templatefile(local.api_config, {
     translateLambdaInvokeArn = aws_lambda_function.translate.invoke_arn,
     userPoolId               = tolist(data.aws_cognito_user_pools.users.ids)[0]
     authClientId             = aws_cognito_user_pool_client.client.id
@@ -91,7 +92,7 @@ resource "aws_apigatewayv2_api" "rest_api" {
 
 locals {
   apiGatewayMd5 = md5(file("${path.module}/api.tf"))
-  apiYamlMd5    = md5(file("${local.backend_root}/api.yml"))
+  apiYamlMd5    = md5(file(local.api_config))
 }
 
 resource "aws_apigatewayv2_deployment" "deployment" {

@@ -40,6 +40,8 @@ components:
       properties:
         phrase:
           type: 'string'
+      required:
+        - phrase
   securitySchemes:
     jwt-authorizer:
       type: 'oauth2'

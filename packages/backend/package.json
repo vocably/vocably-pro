@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@google-cloud/translate": "^6.3.1",
+    "@vocably/api-types": "^0.0.0",
     "aws-sdk": "^2.1036.0",
     "lodash-es": "^4.17.21",
     "rxjs": "^7.4.0"
