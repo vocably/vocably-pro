@@ -1,5 +1,5 @@
+import { api } from './api';
 import { applyPosition, applyTransform, Position } from './position';
-
 const popupId = 'translation-extension-popup';
 
 const calculatePosition = (): Position => {
@@ -21,7 +21,7 @@ const calculatePosition = (): Position => {
   }
 };
 
-export const createPopup = () => {
+export const createPopup = (phrase: string) => {
   const popup = document.createElement('vocably-popup');
   popup.id = popupId;
   document.body.appendChild(popup);
@@ -39,6 +39,10 @@ export const createPopup = () => {
   });
 
   popup.phrase = window.getSelection().toString();
+
+  api.translate({ phrase }).then((translation) => {
+    popup.meaning = translation.asIs;
+  });
 
   const position = calculatePosition();
   applyPosition(popup, position);

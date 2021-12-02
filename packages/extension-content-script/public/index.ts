@@ -1,5 +1,11 @@
 import { registerContentScript } from '../src/index';
 
 registerContentScript({
-  isLoggedIn: () => Promise.resolve(true),
+  api: {
+    isLoggedIn: () => Promise.resolve(true),
+    translate: (phrase) =>
+      Promise.resolve({
+        asIs: `Translated ${phrase.phrase}`,
+      }),
+  },
 }).then();

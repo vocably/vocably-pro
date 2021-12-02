@@ -30,14 +30,14 @@ const show = (button: HTMLElement) => {
   button.style.display = 'block';
 };
 
-export const createButton = async () => {
+export const createButton = async (phrase: string) => {
   const button = document.createElement('vocably-button');
   button.id = buttonId;
   hide(button);
   document.body.appendChild(button);
 
   button.addEventListener('click', () => {
-    createPopup();
+    createPopup(phrase);
     destroyButton();
   });
 

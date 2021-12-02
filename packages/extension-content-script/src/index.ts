@@ -2,20 +2,19 @@ import '@webcomponents/custom-elements';
 import { defineCustomElements } from '@vocably/extension-content-ui';
 import { createButton, destroyButton } from './button';
 import { destroyPopup } from './popup';
-import { isLoggedIn } from '@vocably/extension-messages';
+import { api, ApiOptions, configureApi } from './api';
 
 type RegisterContentScriptOptions = {
-  isLoggedIn: typeof isLoggedIn;
+  api: ApiOptions;
 };
 
 export const registerContentScript = async ({
-  isLoggedIn,
+  api: apiOptions,
 }: RegisterContentScriptOptions) => {
-  if (!(await isLoggedIn())) {
+  configureApi(apiOptions);
+  if (!(await api.isLoggedIn())) {
     return;
   }
-
-  console.log('is logged in');
 
   defineCustomElements();
 
@@ -25,7 +24,7 @@ export const registerContentScript = async ({
       return;
     }
 
-    await createButton();
+    await createButton(selection.toString());
   });
 
   document.addEventListener('mousedown', async (event) => {
