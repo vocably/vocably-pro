@@ -10,7 +10,7 @@ const prodConfig = {
   mode: 'production',
   entry: {
     contentScript: './src/contentScript.ts',
-    background: './src/background.ts',
+    serviceWorker: './src/serviceWorker.ts',
   },
   module: {
     rules: [

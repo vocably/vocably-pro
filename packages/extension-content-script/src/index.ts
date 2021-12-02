@@ -2,15 +2,15 @@ import '@webcomponents/custom-elements';
 import { defineCustomElements } from '@vocably/extension-content-ui';
 import { createButton, destroyButton } from './button';
 import { destroyPopup } from './popup';
-import { api, ApiOptions, configureApi } from './api';
+import { api, ApiConfigOptions, configureApi } from './api';
 
 type RegisterContentScriptOptions = {
-  api: ApiOptions;
+  api: ApiConfigOptions;
 };
 
-export const registerContentScript = async ({
-  api: apiOptions,
-}: RegisterContentScriptOptions) => {
+export const registerContentScript = async (
+  { api: apiOptions }: RegisterContentScriptOptions = { api: {} }
+) => {
   configureApi(apiOptions);
   if (!(await api.isLoggedIn())) {
     return;

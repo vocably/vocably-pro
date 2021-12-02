@@ -3,16 +3,13 @@ import {
   translate as translateMessage,
 } from '@vocably/extension-messages';
 
-export type ApiOptions = {
-  isLoggedIn: typeof isLoggedInMessage;
-  translate: typeof translateMessage;
-};
-
-export const api: ApiOptions = {
+export const api = {
   isLoggedIn: isLoggedInMessage,
   translate: translateMessage,
 };
 
-export const configureApi = (options: Partial<ApiOptions>) => {
+export type ApiConfigOptions = Partial<typeof api>;
+
+export const configureApi = (options: Partial<ApiConfigOptions>) => {
   Object.assign(api, options);
 };
