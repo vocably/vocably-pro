@@ -21,7 +21,7 @@
     "aws-cognito-chrome-extension": "0.0.0"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^9.1.0",
+    "copy-webpack-plugin": "^10.0.0",
     "dotenv-flow-webpack": "^1.1.0",
     "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",

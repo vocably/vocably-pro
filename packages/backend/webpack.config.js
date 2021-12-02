@@ -1,6 +1,7 @@
 const path = require('path');
 const getModules = require('./webpack/getModules.js');
 const DotenvFlow = require('dotenv-flow-webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -18,7 +19,12 @@ module.exports = {
   module: {
     rules: [{ test: /\.tsx?$/, loader: 'ts-loader' }],
   },
-  plugins: [new DotenvFlow()],
+  plugins: [
+    new DotenvFlow(),
+    new CopyPlugin({
+      patterns: [{ from: 'google-key.json', to: 'google-key.json' }],
+    }),
+  ],
   output: {
     path: path.join(__dirname, 'dist'),
     libraryTarget: 'commonjs',
