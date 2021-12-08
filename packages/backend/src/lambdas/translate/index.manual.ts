@@ -1,6 +1,5 @@
 import { translate } from './index';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { TranslationServiceClient } from '@google-cloud/translate';
 
 // @ts-ignore
 let mockEvent: APIGatewayProxyEvent = {};
