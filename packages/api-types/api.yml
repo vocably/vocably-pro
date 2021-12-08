@@ -30,16 +30,55 @@ paths:
         connectionType: 'INTERNET'
 components:
   schemas:
-    Translation:
-      type: 'object'
+    Card:
+      type: object
       properties:
-        asIs:
-          type: 'string'
+        deck:
+          type: string
+        sideA:
+          type: string
+        sideB:
+          type: string
+      required:
+        - deck
+        - sideA
+        - sideB
+    CardItem:
+      type: object
+      properties:
+        id:
+          type: string
+        created:
+          type: number
+        updated:
+          type: number
+        data:
+          $ref: '#/components/schemas/Card'
+      required:
+        - id
+        - created
+        - updated
+        - data
+    Translation:
+      type: object
+      properties:
+        language:
+          type: string
+        text:
+          type: string
+        cards:
+          type: array
+          items:
+            $ref: '#/components/schemas/CardItem'
+      required:
+        - language
+        - text
+        - cards
     Phrase:
-      type: 'object'
+      type: object
       properties:
         phrase:
-          type: 'string'
+          type: string
       required:
         - phrase
   securitySchemes:

@@ -9,8 +9,23 @@
  * ---------------------------------------------------------------
  */
 
+export interface Card {
+  deck: string;
+  sideA: string;
+  sideB: string;
+}
+
+export interface CardItem {
+  id: string;
+  created: number;
+  updated: number;
+  data: Card;
+}
+
 export interface Translation {
-  asIs?: string;
+  language: string;
+  text: string;
+  cards: CardItem[];
 }
 
 export interface Phrase {

@@ -3,19 +3,28 @@ import { catchError, map } from 'rxjs/operators';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { buildResponse } from '../../utils/buildResponse';
 import { buildErrorResponse } from '../../utils/buildErrorResponse';
-import { translateText } from './translateText';
+import { buildResult } from './buildResult';
 
 export const translate = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> =>
   lastValueFrom(
     of(event).pipe(
-      mergeMap(translateText),
-      map((data) =>
-        buildResponse({
-          body: JSON.stringify(data),
-        })
-      ),
+      mergeMap(buildResult),
+      map((result) => {
+        if (result.success === false) {
+          return buildResponse({
+            statusCode: 500,
+            body: JSON.stringify({
+              error: result.errorCode,
+            }),
+          });
+        }
+
+        return buildResponse({
+          body: JSON.stringify(result.value),
+        });
+      }),
       catchError(buildErrorResponse)
     )
   );
