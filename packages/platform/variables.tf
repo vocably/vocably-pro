@@ -16,3 +16,7 @@ variable "gcloud_project" {
   type    = string
   default = "vocably-332109"
 }
+
+variable "lexicala_password" {
+  type = string
+}
