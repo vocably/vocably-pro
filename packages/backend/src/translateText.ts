@@ -1,6 +1,5 @@
 import { TranslationServiceClient } from '@google-cloud/translate';
 import { Result } from './utils/result';
-import { VocablyErrorCode } from '@vocably/api-types';
 
 const translationClient = new TranslationServiceClient();
 const location = 'global';
@@ -26,7 +25,7 @@ export const translateText = async (
     if (response.translations.length === 0) {
       return {
         success: false,
-        errorCode: VocablyErrorCode.AS_IS_TRANSLATION_UNABLE_TO_TRANSLATE,
+        errorCode: 'AS_IS_TRANSLATION_UNABLE_TO_TRANSLATE',
         reason: `Google Translation API can't find a translation for the text "${text}"`,
       };
     }
@@ -43,7 +42,7 @@ export const translateText = async (
   } catch (e) {
     return {
       success: false,
-      errorCode: VocablyErrorCode.AS_IS_TRANSLATION_REQUEST_EXCEPTION,
+      errorCode: 'AS_IS_TRANSLATION_REQUEST_EXCEPTION',
       reason: `An error during the text translation has occurred.`,
       extra: e,
     };
