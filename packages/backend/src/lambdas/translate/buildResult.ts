@@ -1,4 +1,4 @@
-import { Phrase, Translation, VocablyErrorCode } from '@vocably/api-types';
+import { isAvailableLanguage, Phrase, Translation } from '@vocably/api-types';
 import { Result } from '../../utils/result';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { translateText } from '../../translateText';
@@ -11,21 +11,40 @@ export const buildResult = async (
   if (!phrase || !phrase.phrase) {
     return {
       success: false,
-      errorCode: VocablyErrorCode.TRANSLATION_REQUEST_MISSING_PHRASE,
+      errorCode: 'TRANSLATION_REQUEST_MISSING_PHRASE',
       reason: 'The translation phrase is missing.',
     };
   }
 
-  const asIsTranslationResult = await translateText(phrase.phrase);
-  if (asIsTranslationResult.success === false) {
-    return asIsTranslationResult;
+  if (phrase.language && !isAvailableLanguage(phrase.language)) {
+    return {
+      success: false,
+      errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_REQUESTED_LANGUAGE',
+      reason: `The REQUESTED source language (${phrase.language}) is not available.`,
+    };
+  }
+
+  const translationResult = await translateText(phrase.phrase, phrase.language);
+
+  if (translationResult.success === false) {
+    return translationResult;
+  }
+
+  const language = phrase.language ?? translationResult.value.detectedLanguage;
+
+  if (!isAvailableLanguage(language)) {
+    return {
+      success: false,
+      errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_DETECTED_LANGUAGE',
+      reason: `The DETECTED source language (${phrase.language}) is not available.`,
+    };
   }
 
   return {
     success: true,
     value: {
-      text: asIsTranslationResult.value.text,
-      language: asIsTranslationResult.value.detectedLanguage,
+      text: translationResult.value.text,
+      language,
       cards: [],
     },
   };

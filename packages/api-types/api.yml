@@ -79,6 +79,8 @@ components:
       properties:
         phrase:
           type: string
+        language:
+          type: string
       required:
         - phrase
   securitySchemes:

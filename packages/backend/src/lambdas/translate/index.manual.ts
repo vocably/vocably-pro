@@ -18,4 +18,14 @@ describe('integration check for translate lambda', () => {
     console.log({ result });
     expect(result.statusCode).toEqual(200);
   });
+
+  it('is not a big fan of unsupported languages', async () => {
+    mockEvent.body = JSON.stringify({
+      phrase: 'labas rytas',
+      language: 'lt',
+    });
+    const result = await translate(mockEvent);
+    console.log({ result });
+    expect(result.statusCode).toEqual(500);
+  });
 });

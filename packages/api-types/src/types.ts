@@ -30,4 +30,5 @@ export interface Translation {
 
 export interface Phrase {
   phrase: string;
+  language?: string;
 }

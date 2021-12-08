@@ -6,17 +6,19 @@ const location = 'global';
 
 type Translation = {
   text: string;
-  detectedLanguage: string;
+  detectedLanguage: string | null;
 };
 
 export const translateText = async (
-  text: string
+  text: string,
+  sourceLanguage: string | null = null
 ): Promise<Result<Translation>> => {
   const request = {
     parent: `projects/${process.env.GOOGLE_PROJECT_ID}/locations/${location}`,
     contents: [text],
     mimeType: 'text/plain',
     targetLanguageCode: 'en',
+    sourceLanguageCode: sourceLanguage,
   };
 
   try {
@@ -35,7 +37,7 @@ export const translateText = async (
     return {
       success: true,
       value: {
-        detectedLanguage: translation.detectedLanguageCode,
+        detectedLanguage: translation.detectedLanguageCode || null,
         text: translation.translatedText,
       },
     };
