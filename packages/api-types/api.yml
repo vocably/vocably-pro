@@ -33,7 +33,7 @@ components:
     Card:
       type: object
       properties:
-        deck:
+        language:
           type: string
         sideA:
           type: string
@@ -57,7 +57,6 @@ components:
       required:
         - id
         - created
-        - updated
         - data
     Translation:
       type: object

@@ -10,7 +10,7 @@
  */
 
 export interface Card {
-  deck: string;
+  language?: string;
   sideA: string;
   sideB: string;
 }
@@ -18,7 +18,7 @@ export interface Card {
 export interface CardItem {
   id: string;
   created: number;
-  updated: number;
+  updated?: number;
   data: Card;
 }
 
