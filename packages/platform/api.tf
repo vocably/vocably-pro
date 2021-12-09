@@ -1,8 +1,3 @@
-locals {
-  backend_root = abspath("../backend")
-  api_config   = abspath("../api-types/api.yml")
-}
-
 resource "aws_iam_role" "iam_for_lambda" {
   name               = "iam_for_lambda"
   assume_role_policy = <<EOF
@@ -22,28 +17,8 @@ resource "aws_iam_role" "iam_for_lambda" {
 EOF
 }
 
-locals {
-  google_key_filename = "google-key.json"
-}
-
-resource "local_file" "google_key" {
-  content  = base64decode(google_service_account_key.credentials.private_key)
-  filename = "${local.backend_root}/${local.google_key_filename}"
-}
-
-locals {
-  backend_env_local_content = <<EOT
-GOOGLE_APPLICATION_CREDENTIALS="${local.google_key_filename}"
-  EOT
-}
-
-resource "local_file" "backend_env_local" {
-  content  = local.backend_env_local_content
-  filename = "${local.backend_root}/.env.local"
-}
-
 data "external" "backend_build" {
-  depends_on = [local_file.backend_env_local]
+  depends_on = [local_file.backend_environment]
   program = ["bash", "-c", <<EOT
 (yarn build) >&2 && echo "{\"dest\": \"dist\"}"
 EOT
