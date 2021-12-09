@@ -6,30 +6,10 @@
     "prebuild": "rimraf dist",
     "build": "webpack --config webpack.config.js"
   },
-  "dependencies": {
-    "@google-cloud/translate": "^6.3.1",
-    "@vocably/api-types": "^0.0.0",
-    "aws-sdk": "^2.1036.0",
-    "lodash-es": "^4.17.21",
-    "rxjs": "^7.4.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.85",
     "@types/jest": "^27.0.3",
-    "@types/lodash-es": "^4.17.5",
-    "@types/node": "^16.11.10",
-    "console-info": "^0.0.5",
-    "copy-webpack-plugin": "^10.0.0",
-    "dotenv-flow": "^3.2.0",
-    "dotenv-flow-webpack": "^1.1.0",
     "jest": "^27.4.3",
-    "request": "^2.88.2",
-    "rimraf": "^3.0.2",
-    "stable": "^0.1.8",
-    "ts-jest": "^27.0.7",
-    "ts-loader": "^9.2.6",
-    "typescript": "^4.5.2",
-    "webpack": "^5.64.3",
-    "webpack-cli": "^4.9.1"
+    "ts-jest": "^27.0.7"
   }
 }
