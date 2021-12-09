@@ -57,7 +57,7 @@ GOOGLE_APPLICATION_CREDENTIALS="${local.google_key_filename}"
 GOOGLE_PROJECT_ID="${var.gcloud_project}"
 LEXICALA_USERNAME="${var.lexicala_username}"
 LESICALA_PASSWORD="${var.lexicala_password}"
-CARDS_S3_BUCKET="${aws_s3_bucket.cards.bucket_regional_domain_name}"
+CARDS_S3_BUCKET="${aws_s3_bucket.cards.bucket}"
   EOT
 }
 
