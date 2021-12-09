@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "repository": "git@github.com:sneas/vocably.git",
+  "license": "LicenseRef-LICENSE.md",
   "author": "Dmytro Snisarenko <dmytro@sneas.io>",
   "main": "index.js",
   "workspaces": {
