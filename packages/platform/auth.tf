@@ -7,7 +7,7 @@ locals {
 }
 
 resource "aws_cognito_user_pool_client" "client" {
-  name                                 = "web"
+  name                                 = "vocably-${terraform.workspace}-web"
   user_pool_id                         = tolist(data.aws_cognito_user_pools.users.ids)[0]
   callback_urls                        = local.available_urls
   logout_urls                          = local.available_urls

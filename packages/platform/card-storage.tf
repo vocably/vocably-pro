@@ -1,5 +1,9 @@
+locals {
+  cards_bucket_name = "vocably-${terraform.workspace}-cards"
+}
+
 resource "aws_s3_bucket" "cards" {
-  bucket = "vocably-${terraform.workspace}-cards"
+  bucket = local.cards_bucket_name
   acl    = "private"
 
   versioning {
@@ -12,5 +16,11 @@ resource "aws_s3_bucket" "cards" {
         sse_algorithm = "AES256"
       }
     }
+  }
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["PUT", "POST", "GET", "DELETE", "HEAD"]
+    allowed_origins = ["*"]
   }
 }
