@@ -9,6 +9,8 @@ export const Errors = [
   'S3_LOAD_MISSING_KEY',
   'S3_REMOVE_ERROR',
   'CARD_COLLECTION_UPDATE_MISSING_CARD',
+  'CARDS_SAVE_ERROR',
+  'CARDS_LOAD_ERROR',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];

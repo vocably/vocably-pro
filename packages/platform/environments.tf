@@ -1,6 +1,10 @@
 data "aws_region" "current" {}
 
 locals {
+  api_base_url = "https://${aws_apigatewayv2_domain_name.api.domain_name}"
+}
+
+locals {
   app_env_content = <<EOT
 export const environmentLocal = {
   chromeExtensionId: 'cdjdmfegiddjmikilbjoaofmjmdgceib',
@@ -19,7 +23,9 @@ export const environmentLocal = {
     },
   },
   api: {
-    baseUrl: 'https://${aws_apigatewayv2_domain_name.api.domain_name}',
+    baseUrl: '${local.api_base_url}',
+    region: '${data.aws_region.current.name}',
+    cardsBucket: '${aws_s3_bucket.cards.bucket}'
   },
 };
   EOT
@@ -36,6 +42,9 @@ AUTH_REGION="${data.aws_region.current.name}"
 AUTH_USER_POOL_ID="${tolist(data.aws_cognito_user_pools.users.ids)[0]}"
 AUTH_USER_POOL_WEB_CLIENT_ID="${aws_cognito_user_pool_client.client.id}"
 AUTH_IDENTITY_POOL_ID="${aws_cognito_identity_pool.main.id}"
+API_BASE_URL="${local.api_base_url}"
+API_REGION="${data.aws_region.current.name}"
+API_CARDS_BUCKET="${aws_s3_bucket.cards.bucket}"
   EOT
 }
 
@@ -59,7 +68,6 @@ GOOGLE_APPLICATION_CREDENTIALS="${local.google_key_filename}"
 GOOGLE_PROJECT_ID="${var.gcloud_project}"
 LEXICALA_USERNAME="${var.lexicala_username}"
 LESICALA_PASSWORD="${var.lexicala_password}"
-CARDS_S3_BUCKET="${aws_s3_bucket.cards.bucket}"
   EOT
 }
 

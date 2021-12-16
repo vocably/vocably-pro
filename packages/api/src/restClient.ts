@@ -1,7 +1,6 @@
 import { Auth } from '@aws-amplify/auth';
 import { merge } from 'lodash-es';
-
-let baseUrl = '';
+import { apiOptions } from './config';
 
 export const request = (url: string, init: RequestInit): Promise<any> => {
   return Auth.currentSession()
@@ -14,14 +13,6 @@ export const request = (url: string, init: RequestInit): Promise<any> => {
         },
       });
     })
-    .then((initWithHeaders) => fetch(baseUrl + url, initWithHeaders))
+    .then((initWithHeaders) => fetch(apiOptions.baseUrl + url, initWithHeaders))
     .then((response) => response.json());
-};
-
-type ClientOptions = {
-  baseUrl: string;
-};
-
-export const configureClient = (options: ClientOptions) => {
-  baseUrl = options.baseUrl;
 };
