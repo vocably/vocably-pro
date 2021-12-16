@@ -27,6 +27,16 @@ describe('s3 functionality', () => {
     expect(removeResult.success).toBeTruthy();
   });
 
+  it('creates necessary object', async () => {
+    const bucket = process.env.CARDS_S3_BUCKET;
+    const key = 'eu-central-1:acd8c175-7270-4f58-a683-33f0abea919a/en';
+
+    const save = buildSaveFunction<any>(bucket);
+    const saveResult = await save(key, ['a', 'b', 'c', 'e']);
+    console.log({ saveResult });
+    expect(saveResult.success).toBeTruthy();
+  });
+
   it('fetches non existing key', async () => {
     const bucket = process.env.CARDS_S3_BUCKET;
     const key = 'non-existing-key';

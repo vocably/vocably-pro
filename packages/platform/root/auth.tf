@@ -45,3 +45,7 @@ resource "aws_route53_record" "auth-cognito-A" {
     zone_id = "Z2FDTNDATAQYW2"
   }
 }
+
+output "auth_user_pool_endpoint" {
+  value = aws_cognito_user_pool.users.endpoint
+}
