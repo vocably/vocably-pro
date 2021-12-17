@@ -1,5 +1,5 @@
 import * as https from 'https';
-import { Result } from '@vocably/api-types';
+import { Result } from '@vocably/model';
 
 export const request = async (requestOptions: any): Promise<Result<string>> => {
   return new Promise<Result<string>>((resolve) => {

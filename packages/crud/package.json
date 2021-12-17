@@ -15,6 +15,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@vocably/api-types": "^0.0.0"
+    "@vocably/model": "^0.0.0"
   }
 }

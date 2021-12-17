@@ -2,7 +2,7 @@ import {
   AvailableLanguage,
   LexicalaSearchResultItem,
   Result,
-} from '@vocably/api-types';
+} from '@vocably/model';
 import { URLSearchParams } from 'url';
 import { request } from './utils/request';
 

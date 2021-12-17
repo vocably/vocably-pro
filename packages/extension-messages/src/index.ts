@@ -1,5 +1,5 @@
 import { createMessage } from '@vocably/hermes';
-import { Phrase, Translation } from '@vocably/api-types';
+import { Phrase, Translation } from '@vocably/model';
 
 const createScope =
   (scope: string): typeof createMessage =>

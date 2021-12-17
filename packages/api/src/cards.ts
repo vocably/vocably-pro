@@ -1,4 +1,4 @@
-import { AvailableLanguage, CardItem, Result } from '@vocably/api-types';
+import { AvailableLanguage, CardItem, Result } from '@vocably/model';
 import { Auth } from '@aws-amplify/auth';
 import {
   GetObjectCommand,

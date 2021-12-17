@@ -1,5 +1,5 @@
 {
-  "name": "@vocably/api-types",
+  "name": "@vocably/model",
   "version": "0.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -8,7 +8,7 @@
     "prebuild": "rimraf ./dist",
     "build": "tsc",
     "start": "tsc --watch",
-    "generate-types": "swagger-typescript-api -p api.yml -o src -n types.ts --no-client"
+    "generate-types": "swagger-typescript-api -p api.yml -o src -n api-types.ts --no-client"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,4 @@
-export * from './types';
+export * from './api-types';
 export * from './errors';
 export * from './language';
 export { Result } from './result';

@@ -3,7 +3,7 @@ import {
   Phrase,
   Result,
   Translation,
-} from '@vocably/api-types';
+} from '@vocably/model';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { translateText } from '../../translateText';
 import { analyze } from '../../lexicala';
