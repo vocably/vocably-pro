@@ -11,6 +11,8 @@ export const Errors = [
   'LEXICALA_UNCAUGHT_ERROR',
   'HTTP_REQUEST_NOT_OK',
   'HTTP_REQUEST_UNCAUGHT',
+  'API_TRANSLATION_REQUEST_FAILED',
+  'EXTENSION_SERVICE_WORKER_ERROR_CREATING_CARDS',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];

@@ -1,5 +1,5 @@
 import { createMessage } from '@vocably/hermes';
-import { Phrase, Translation } from '@vocably/model';
+import { CardItem, Phrase, Result } from '@vocably/model';
 
 const createScope =
   (scope: string): typeof createMessage =>
@@ -13,7 +13,12 @@ export const [isLoggedIn, onIsLoggedInRequest] = createScopedMessage<
   boolean
 >('isLoggedIn');
 
+export type Translation = {
+  language: string;
+  direct: string;
+  cards: CardItem[];
+};
 export const [translate, onTranslationRequest] = createScopedMessage<
   Phrase,
-  Translation
+  Result<Translation>
 >('translate');

@@ -1,4 +1,4 @@
-import { AvailableLanguage, CardItem, Result } from '@vocably/model';
+import { CardItem, Result } from '@vocably/model';
 import { Auth } from '@aws-amplify/auth';
 import {
   GetObjectCommand,
@@ -10,7 +10,7 @@ import { apiOptions } from './config';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 export const storeCards = async (
-  language: AvailableLanguage,
+  language: string,
   cards: CardItem[]
 ): Promise<Result<null>> => {
   try {
@@ -58,7 +58,7 @@ export const storeCards = async (
 };
 
 export const loadCards = async (
-  language: AvailableLanguage
+  language: string
 ): Promise<Result<CardItem[]>> => {
   try {
     const credentials = await Auth.currentUserCredentials();
