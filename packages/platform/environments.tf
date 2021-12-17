@@ -67,7 +67,7 @@ locals {
 GOOGLE_APPLICATION_CREDENTIALS="${local.google_key_filename}"
 GOOGLE_PROJECT_ID="${var.gcloud_project}"
 LEXICALA_USERNAME="${var.lexicala_username}"
-LESICALA_PASSWORD="${var.lexicala_password}"
+LEXICALA_PASSWORD="${var.lexicala_password}"
   EOT
 }
 

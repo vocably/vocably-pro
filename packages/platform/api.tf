@@ -1,5 +1,5 @@
-resource "aws_iam_role" "iam_for_lambda" {
-  name               = "iam_for_lambda"
+resource "aws_iam_role" "lambda_execution" {
+  name               = "LambdaExecution"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -15,6 +15,30 @@ resource "aws_iam_role" "iam_for_lambda" {
   ]
 }
 EOF
+}
+
+resource "aws_iam_policy" "lambda_execution" {
+  name = "LambdaExecutionPolicy"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "DefaultLogging",
+        "Effect" : "Allow",
+        "Action" : [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource" : "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_logging" {
+  role       = aws_iam_role.lambda_execution.name
+  policy_arn = aws_iam_policy.lambda_execution.arn
 }
 
 data "external" "backend_build" {
@@ -38,7 +62,7 @@ data "archive_file" "backend_build" {
 resource "aws_lambda_function" "translate" {
   filename         = data.archive_file.backend_build.output_path
   function_name    = "${terraform.workspace}-translate"
-  role             = aws_iam_role.iam_for_lambda.arn
+  role             = aws_iam_role.lambda_execution.arn
   handler          = "translate.translate"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
   runtime          = "nodejs14.x"
@@ -120,6 +144,6 @@ resource "aws_lambda_permission" "translate" {
   source_arn    = "${aws_apigatewayv2_api.rest_api.execution_arn}/*/*/*"
 }
 
-output "gateway-url" {
+output "gateway_url" {
   value = "https://${aws_apigatewayv2_domain_name.api.domain_name}"
 }
