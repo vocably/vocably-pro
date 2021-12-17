@@ -9,23 +9,17 @@
  * ---------------------------------------------------------------
  */
 
-export interface Card {
-  language?: string;
-  sideA: string;
-  sideB: string;
-}
-
-export interface CardItem {
+export interface LexicalaSearchResultItem {
   id: string;
-  created: number;
-  updated?: number;
-  data: Card;
+  language: string;
+  headword: { text?: string; pos?: string };
+  senses: { id?: string; definition?: string }[];
 }
 
 export interface Translation {
   language: string;
   text: string;
-  cards: CardItem[];
+  lexicala?: LexicalaSearchResultItem[];
 }
 
 export interface Phrase {

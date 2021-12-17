@@ -30,34 +30,34 @@ paths:
         connectionType: 'INTERNET'
 components:
   schemas:
-    Card:
-      type: object
-      properties:
-        language:
-          type: string
-        sideA:
-          type: string
-        sideB:
-          type: string
-      required:
-        - deck
-        - sideA
-        - sideB
-    CardItem:
+    LexicalaSearchResultItem:
       type: object
       properties:
         id:
           type: string
-        created:
-          type: number
-        updated:
-          type: number
-        data:
-          $ref: '#/components/schemas/Card'
+        language:
+          type: string
+        headword:
+          type: object
+          properties:
+            text:
+              type: string
+            pos:
+              type: string
+        senses:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              definition:
+                type: string
       required:
         - id
-        - created
-        - data
+        - language
+        - headword
+        - senses
     Translation:
       type: object
       properties:
@@ -65,10 +65,10 @@ components:
           type: string
         text:
           type: string
-        cards:
+        lexicala:
           type: array
           items:
-            $ref: '#/components/schemas/CardItem'
+            $ref: '#/components/schemas/LexicalaSearchResultItem'
       required:
         - language
         - text

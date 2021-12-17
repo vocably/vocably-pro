@@ -1,5 +1,5 @@
 import { TranslationServiceClient } from '@google-cloud/translate';
-import { Result } from './utils/result';
+import { Result } from '@vocably/api-types';
 
 const translationClient = new TranslationServiceClient();
 const location = 'global';

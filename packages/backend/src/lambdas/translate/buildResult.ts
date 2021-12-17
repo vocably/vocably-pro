@@ -1,7 +1,12 @@
-import { isAvailableLanguage, Phrase, Translation } from '@vocably/api-types';
-import { Result } from '../../utils/result';
+import {
+  isAvailableLanguage,
+  Phrase,
+  Result,
+  Translation,
+} from '@vocably/api-types';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { translateText } from '../../translateText';
+import { analyze } from '../../lexicala';
 
 export const buildResult = async (
   event: APIGatewayProxyEvent
@@ -40,12 +45,18 @@ export const buildResult = async (
     };
   }
 
+  const lexicalaResult = await analyze(language, phrase.phrase);
+
+  if (lexicalaResult.success === false) {
+    return lexicalaResult;
+  }
+
   return {
     success: true,
     value: {
       text: translationResult.value.text,
       language,
-      cards: [],
+      lexicala: lexicalaResult.value,
     },
   };
 };
