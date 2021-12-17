@@ -31,7 +31,10 @@ export const analyze = async (
     const result = await request(requestOptions);
 
     if (result.success === false) {
-      return result;
+      return {
+        ...result,
+        errorCode: 'LEXICALA_UNSUCCESSFUL_FETCH',
+      };
     }
 
     const searchResult: any = JSON.parse(result.value);
@@ -43,7 +46,7 @@ export const analyze = async (
   } catch (e) {
     return {
       success: false,
-      errorCode: 'LEXICALA_UNCAUGHT_FETCH_ERROR',
+      errorCode: 'LEXICALA_UNCAUGHT_ERROR',
       reason: `An unhandled error while fetching data from Lexicala.`,
       extra: e,
     };
