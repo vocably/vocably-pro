@@ -1,5 +1,6 @@
 import { translate } from './index';
 import { APIGatewayProxyEvent } from 'aws-lambda';
+import { inspect } from '../../utils/inspect';
 
 // @ts-ignore
 let mockEvent: APIGatewayProxyEvent = {};
@@ -15,7 +16,7 @@ describe('integration check for translate lambda', () => {
       phrase: 'dankjewel',
     });
     const result = await translate(mockEvent);
-    console.log({ result });
+    console.log(inspect({ result }));
     expect(result.statusCode).toEqual(200);
   });
 

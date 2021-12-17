@@ -40,8 +40,12 @@ export const createPopup = (phrase: string) => {
 
   popup.phrase = window.getSelection().toString();
 
-  api.translate(phrase).then((translation) => {
-    popup.meaning = translation.direct;
+  api.translate({ phrase }).then((translation) => {
+    console.info('The word has been translated.', translation);
+
+    if (translation.success === true) {
+      popup.meaning = translation.value.direct;
+    }
   });
 
   const position = calculatePosition();

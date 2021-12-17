@@ -13,6 +13,8 @@ export const Errors = [
   'HTTP_REQUEST_UNCAUGHT',
   'API_TRANSLATION_REQUEST_FAILED',
   'EXTENSION_SERVICE_WORKER_ERROR_CREATING_CARDS',
+  'API_REQUEST_NOT_OK',
+  'API_REQUEST_UNHANDLED_ERROR',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];

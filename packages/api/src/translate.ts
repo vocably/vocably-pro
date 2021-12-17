@@ -5,15 +5,10 @@ export const translate = async (
   phrase: Phrase
 ): Promise<Result<Translation>> => {
   try {
-    const result = await request('/translate', {
+    return await request('/translate', {
       method: 'POST',
       body: JSON.stringify(phrase),
     });
-
-    return {
-      success: true,
-      value: result,
-    };
   } catch (e) {
     return {
       success: false,
