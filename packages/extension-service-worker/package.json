@@ -1,5 +1,5 @@
 {
-  "name": "@vocably/extension-messages",
+  "name": "@vocably/extension-service-worker",
   "version": "0.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -13,9 +13,10 @@
     "type": "git",
     "url": "https://github.com/sneas/vocably.git"
   },
-  "dependencies": {
-    "@vocably/model": "^0.0.0",
-    "@vocably/hermes": "0.0.0"
-  },
-  "devDependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "jest": "^27.4.3",
+    "ts-jest": "^27.0.7"
+  }
 }

@@ -4,5 +4,5 @@ locals {
   app_root       = abspath("../app")
   extension_root = abspath("../extension")
   backend_root   = abspath("../backend")
-  api_config     = abspath("../api-types/api.yml")
+  api_config     = abspath("../model/api.yml")
 }

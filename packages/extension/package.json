@@ -15,9 +15,8 @@
   },
   "dependencies": {
     "aws-cognito-chrome-extension": "0.0.0",
-    "@vocably/api": "^0.0.0",
     "@vocably/extension-content-script": "^0.0.1",
-    "@vocably/extension-messages": "^0.0.0"
+    "@vocably/extension-service-worker": "^0.0.0"
   },
   "devDependencies": {}
 }
