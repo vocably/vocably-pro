@@ -15,6 +15,7 @@ export const Errors = [
   'EXTENSION_SERVICE_WORKER_ERROR_CREATING_CARDS',
   'API_REQUEST_NOT_OK',
   'API_REQUEST_UNHANDLED_ERROR',
+  'AUTH_INVALID_USER_CREDENTIALS',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];

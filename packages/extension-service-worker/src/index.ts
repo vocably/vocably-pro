@@ -1,3 +1,4 @@
+import './fixAuth';
 import { Auth } from '@aws-amplify/auth';
 import { configureApi, translate, loadCards, storeCards } from '@vocably/api';
 import {

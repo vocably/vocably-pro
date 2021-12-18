@@ -9,12 +9,31 @@ import {
 import { apiOptions } from './config';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
+const isValidCredentials = (
+  credentials: any
+): credentials is Awaited<ReturnType<typeof Auth.currentUserCredentials>> =>
+  typeof credentials === 'object' &&
+  credentials !== null &&
+  credentials.authenticated;
+
 export const storeCards = async (
   language: string,
   cards: CardItem[]
 ): Promise<Result<null>> => {
+  console.info('Store Cards: Operation requested.');
   try {
     const credentials = await Auth.currentUserCredentials();
+    console.info('Store Cards: Credentials have been obtained.');
+
+    if (!isValidCredentials(credentials)) {
+      return {
+        success: false,
+        errorCode: 'AUTH_INVALID_USER_CREDENTIALS',
+        reason: `The fetched credentials are not valid`,
+        extra: credentials,
+      };
+    }
+
     const s3Configuration: S3ClientConfig = {
       credentials: credentials,
       region: apiOptions.region,
@@ -28,6 +47,8 @@ export const storeCards = async (
       }),
       { expiresIn: 15 * 60 }
     );
+
+    console.info('Store Cards: Signed URL has been successfully created.');
 
     await fetch(url, {
       method: 'PUT',
@@ -60,8 +81,20 @@ export const storeCards = async (
 export const loadCards = async (
   language: string
 ): Promise<Result<CardItem[]>> => {
+  console.info('Load Cards: Operation requested.');
   try {
     const credentials = await Auth.currentUserCredentials();
+    console.info('Load Cards: Credentials have been obtained.');
+
+    if (!isValidCredentials(credentials)) {
+      return {
+        success: false,
+        errorCode: 'AUTH_INVALID_USER_CREDENTIALS',
+        reason: `The fetched credentials are not valid`,
+        extra: credentials,
+      };
+    }
+
     const s3Configuration: S3ClientConfig = {
       credentials: credentials,
       region: apiOptions.region,
@@ -75,6 +108,8 @@ export const loadCards = async (
       }),
       { expiresIn: 15 * 60 }
     );
+
+    console.info('Load Cards: Secure URL have been created.');
 
     return fetch(url)
       .then((response) => response.json())
