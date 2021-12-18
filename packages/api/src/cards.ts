@@ -50,19 +50,25 @@ export const storeCards = async (
 
     console.info('Store Cards: Signed URL has been successfully created.');
 
-    await fetch(url, {
+    const response = await fetch(url, {
       method: 'PUT',
       body: JSON.stringify(cards),
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((response) => {
-      if (!response.ok) {
-        throw new Error(
-          `Unable PUT signed URL. Response object: ${JSON.stringify(response)}.`
-        );
-      }
     });
+
+    if (!response.ok) {
+      return {
+        success: false,
+        errorCode: 'CARDS_SAVE_HTTP_FETCH_ERROR',
+        reason: `The HTTP PUT operation has ended up with an unsuccessful status.`,
+        extra: {
+          response,
+          body: await response.text(),
+        },
+      };
+    }
 
     return {
       success: true,
@@ -111,12 +117,31 @@ export const loadCards = async (
 
     console.info('Load Cards: Secure URL have been created.');
 
-    return fetch(url)
-      .then((response) => response.json())
-      .then((cards) => ({
+    const response = await fetch(url);
+
+    if (response.status === 403) {
+      return {
         success: true,
-        value: cards,
-      }));
+        value: [],
+      };
+    }
+
+    if (!response.ok) {
+      return {
+        success: false,
+        errorCode: 'CARDS_LOAD_HTTP_FETCH_ERROR',
+        reason: `Error during cards HTTP loading.`,
+        extra: {
+          response,
+          body: await response.text(),
+        },
+      };
+    }
+
+    return {
+      success: true,
+      value: await response.json(),
+    };
   } catch (e) {
     return {
       success: false,
