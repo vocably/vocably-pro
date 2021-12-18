@@ -4,8 +4,14 @@ registerContentScript({
   api: {
     isLoggedIn: () => Promise.resolve(true),
     translate: (phrase) =>
-      Promise.resolve({
-        asIs: `Translated ${phrase.phrase}`,
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(
+            JSON.parse(
+              (document.getElementById('response') as HTMLTextAreaElement).value
+            )
+          );
+        }, parseInt((document.getElementById('delay') as HTMLInputElement).value));
       }),
   },
 }).then();
