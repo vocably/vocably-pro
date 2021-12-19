@@ -1,13 +1,13 @@
 @import '../../styles/variables';
 
 :host {
-  $padding: 1rem;
+  $padding: 16px;
 
   display: block;
 
   .popup {
     font-family: $font-family;
-    font-size: 16px;
+    font-size: $base-font-size;
     display: inline-block;
     background-color: White;
     box-shadow: 0px 0px 5px 1px $gray-500;
@@ -23,12 +23,12 @@
   }
 
   .close {
-    $size: 1.6rem;
+    $size: 18px;
 
     border: none;
     padding: 0;
     background: none;
-    font-size: 1.4rem;
+    font-size: $size - 3px;
     height: $size;
     line-height: $size;
     width: $size;
