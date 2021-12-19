@@ -12,6 +12,8 @@ export namespace Components {
         "meaning": string;
         "phrase": string;
     }
+    interface VocablySpinner {
+    }
 }
 declare global {
     interface HTMLVocablyButtonElement extends Components.VocablyButton, HTMLStencilElement {
@@ -26,9 +28,16 @@ declare global {
         prototype: HTMLVocablyPopupElement;
         new (): HTMLVocablyPopupElement;
     };
+    interface HTMLVocablySpinnerElement extends Components.VocablySpinner, HTMLStencilElement {
+    }
+    var HTMLVocablySpinnerElement: {
+        prototype: HTMLVocablySpinnerElement;
+        new (): HTMLVocablySpinnerElement;
+    };
     interface HTMLElementTagNameMap {
         "vocably-button": HTMLVocablyButtonElement;
         "vocably-popup": HTMLVocablyPopupElement;
+        "vocably-spinner": HTMLVocablySpinnerElement;
     }
 }
 declare namespace LocalJSX {
@@ -39,9 +48,12 @@ declare namespace LocalJSX {
         "onClose"?: (event: CustomEvent<void>) => void;
         "phrase"?: string;
     }
+    interface VocablySpinner {
+    }
     interface IntrinsicElements {
         "vocably-button": VocablyButton;
         "vocably-popup": VocablyPopup;
+        "vocably-spinner": VocablySpinner;
     }
 }
 export { LocalJSX as JSX };
@@ -50,6 +62,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "vocably-button": LocalJSX.VocablyButton & JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;
+            "vocably-spinner": LocalJSX.VocablySpinner & JSXBase.HTMLAttributes<HTMLVocablySpinnerElement>;
         }
     }
 }
