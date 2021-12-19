@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Host, h, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'vocably-popup',
@@ -6,8 +6,6 @@ import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
   shadow: true,
 })
 export class VocablyPopup {
-  @Prop() phrase: string;
-  @Prop() meaning: string;
   @Event() close: EventEmitter<void>;
   render() {
     return (
@@ -19,11 +17,7 @@ export class VocablyPopup {
             </button>
           </div>
           <div class="body">
-            <div class="label">Dutch</div>
-            <div class="phrase">{this.phrase}</div>
-
-            <div class="label">English</div>
-            <div class="meaning">{this.meaning}</div>
+            <slot></slot>
           </div>
         </div>
       </Host>

@@ -1,0 +1,45 @@
+@import '../../styles/variables';
+
+:host {
+  display: block;
+  font-size: 16px;
+}
+
+.translation {
+  display: flex;
+  align-items: stretch;
+
+  .label {
+    color: $color-muted;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+
+  .header {
+    color: $color-muted;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+
+  .direct {
+    $padding: 1.5rem;
+    padding-right: $padding;
+    margin-right: $padding;
+    border-right: 1px solid $gray-700;
+
+    .phrase {
+      padding-bottom: 1rem;
+    }
+  }
+
+  .cards {
+    .card + .card {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.error {
+  color: $color-danger;
+}

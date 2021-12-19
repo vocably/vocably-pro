@@ -21,7 +21,9 @@
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@vocably/model": "^0.0.0"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "jest": "^26.6.3",

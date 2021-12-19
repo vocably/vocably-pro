@@ -23,6 +23,8 @@ const calculatePosition = (): Position => {
 
 export const createPopup = (phrase: string) => {
   const popup = document.createElement('vocably-popup');
+  const translation = document.createElement('vocably-translation');
+
   popup.id = popupId;
   document.body.appendChild(popup);
 
@@ -38,14 +40,13 @@ export const createPopup = (phrase: string) => {
     destroyPopup();
   });
 
-  popup.phrase = window.getSelection().toString();
+  translation.phrase = window.getSelection().toString();
 
-  api.translate({ phrase }).then((translation) => {
-    console.info('The word has been translated.', translation);
+  popup.appendChild(translation);
 
-    if (translation.success === true) {
-      popup.meaning = translation.value.direct;
-    }
+  api.translate({ phrase }).then((translationResult) => {
+    console.info('The word has been translated.', translationResult);
+    translation.result = translationResult;
   });
 
   const position = calculatePosition();

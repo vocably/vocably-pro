@@ -5,14 +5,17 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Result, TranslationCards } from "@vocably/model";
 export namespace Components {
     interface VocablyButton {
     }
     interface VocablyPopup {
-        "meaning": string;
-        "phrase": string;
     }
     interface VocablySpinner {
+    }
+    interface VocablyTranslation {
+        "phrase": string;
+        "result": Result<TranslationCards> | null;
     }
 }
 declare global {
@@ -34,26 +37,36 @@ declare global {
         prototype: HTMLVocablySpinnerElement;
         new (): HTMLVocablySpinnerElement;
     };
+    interface HTMLVocablyTranslationElement extends Components.VocablyTranslation, HTMLStencilElement {
+    }
+    var HTMLVocablyTranslationElement: {
+        prototype: HTMLVocablyTranslationElement;
+        new (): HTMLVocablyTranslationElement;
+    };
     interface HTMLElementTagNameMap {
         "vocably-button": HTMLVocablyButtonElement;
         "vocably-popup": HTMLVocablyPopupElement;
         "vocably-spinner": HTMLVocablySpinnerElement;
+        "vocably-translation": HTMLVocablyTranslationElement;
     }
 }
 declare namespace LocalJSX {
     interface VocablyButton {
     }
     interface VocablyPopup {
-        "meaning"?: string;
         "onClose"?: (event: CustomEvent<void>) => void;
-        "phrase"?: string;
     }
     interface VocablySpinner {
+    }
+    interface VocablyTranslation {
+        "phrase"?: string;
+        "result"?: Result<TranslationCards> | null;
     }
     interface IntrinsicElements {
         "vocably-button": VocablyButton;
         "vocably-popup": VocablyPopup;
         "vocably-spinner": VocablySpinner;
+        "vocably-translation": VocablyTranslation;
     }
 }
 export { LocalJSX as JSX };
@@ -63,6 +76,7 @@ declare module "@stencil/core" {
             "vocably-button": LocalJSX.VocablyButton & JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;
             "vocably-spinner": LocalJSX.VocablySpinner & JSXBase.HTMLAttributes<HTMLVocablySpinnerElement>;
+            "vocably-translation": LocalJSX.VocablyTranslation & JSXBase.HTMLAttributes<HTMLVocablyTranslationElement>;
         }
     }
 }

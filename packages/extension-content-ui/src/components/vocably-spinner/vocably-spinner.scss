@@ -1,17 +1,22 @@
 @import '../../styles/variables';
 
+$dot-size: 18px;
+
 :host {
   display: inline-block;
+  width: 70px;
+  height: $dot-size;
+  vertical-align: middle;
 }
 
 .spinner {
-  width: 70px;
   text-align: center;
+  height: $dot-size;
 }
 
 .spinner > div {
-  width: 18px;
-  height: 18px;
+  width: $dot-size;
+  height: $dot-size;
   background-color: $gray-700;
 
   border-radius: 100%;

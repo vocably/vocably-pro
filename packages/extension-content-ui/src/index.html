@@ -25,10 +25,8 @@
       <p>This is a popup</p>
 
       <div class="mb-3">
-        <vocably-popup
-          id="popup"
-          phrase="geweldig"
-          meaning="great"
+        <vocably-popup id="popup"
+          ><vocably-spinner></vocably-spinner
         ></vocably-popup>
         <div id="closed" class="d-none pt-2">Close clicked.</div>
       </div>
@@ -49,6 +47,67 @@
 
       <div class="mb-3">
         <vocably-spinner></vocably-spinner>
+      </div>
+
+      <p>This is a translation result. Loading.</p>
+
+      <div class="mb-3">
+        <vocably-translation phrase="geweldig"></vocably-translation>
+      </div>
+
+      <p>This is a translation result. Success.</p>
+
+      <div class="mb-3">
+        <vocably-translation
+          phrase="geweldig"
+          id="translationSuccess"
+        ></vocably-translation>
+        <script type="text/javascript">
+          document.getElementById('translationSuccess').result = {
+            success: true,
+            value: {
+              direct: 'created',
+              language: 'nl',
+              cards: [
+                {
+                  id: 'NYS4L',
+                  created: 1639827779683,
+                  data: {
+                    language: 'nl',
+                    sideA: 'gemaakt',
+                    sideB: 'als iets niet natuurlijk is of gebeurt',
+                  },
+                },
+                {
+                  id: 'S5FSK',
+                  created: 1639827779683,
+                  data: {
+                    language: 'nl',
+                    sideA: 'maken',
+                    sideB: '(iets dat nog niet bestond) laten ontstaan',
+                  },
+                },
+              ],
+            },
+          };
+        </script>
+      </div>
+
+      <p>This is a translation result. Error.</p>
+
+      <div class="mb-3">
+        <vocably-translation
+          phrase="geweldig"
+          id="translationError"
+        ></vocably-translation>
+        <script type="text/javascript">
+          document.getElementById('translationError').result = {
+            success: false,
+            errorCode: 'CARDS_SAVE_HTTP_FETCH_ERROR',
+            reason: 'Unable to fetch cards',
+            extra: { a: 'b' },
+          };
+        </script>
       </div>
     </div>
   </body>
