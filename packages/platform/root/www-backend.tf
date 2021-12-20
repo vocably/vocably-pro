@@ -1,5 +1,15 @@
-resource "aws_iam_role" "lambda_execution" {
-  name               = "RootLambdaExecution"
+resource "aws_dynamodb_table" "emails" {
+  name         = "emails"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+  attribute {
+    name = "id"
+    type = "S"
+  }
+}
+
+resource "aws_iam_role" "save_email_lambda" {
+  name               = "RootSaveEmailLambda"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -17,8 +27,8 @@ resource "aws_iam_role" "lambda_execution" {
 EOF
 }
 
-resource "aws_iam_policy" "lambda_execution" {
-  name = "RootLambdaExecutionPolicy"
+resource "aws_iam_policy" "logs" {
+  name = "RootLambdaLogsPolicy"
   policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -36,19 +46,31 @@ resource "aws_iam_policy" "lambda_execution" {
   })
 }
 
-resource "aws_dynamodb_table" "emails" {
-  name         = "emails"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "id"
-  attribute {
-    name = "id"
-    type = "S"
-  }
+resource "aws_iam_policy" "save_email" {
+  name = "RootLambdaSaveEmailsPolicy"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "SaveEmails",
+        "Effect" : "Allow",
+        "Action" : [
+          "dynamodb:PutItem"
+        ],
+        "Resource" : aws_dynamodb_table.emails.arn
+      }
+    ]
+  })
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_logging" {
-  role       = aws_iam_role.lambda_execution.name
-  policy_arn = aws_iam_policy.lambda_execution.arn
+resource "aws_iam_role_policy_attachment" "save_emails_lambda_logging" {
+  role       = aws_iam_role.save_email_lambda.name
+  policy_arn = aws_iam_policy.logs.arn
+}
+
+resource "aws_iam_role_policy_attachment" "save_emails_db" {
+  role       = aws_iam_role.save_email_lambda.name
+  policy_arn = aws_iam_policy.save_email.arn
 }
 
 data "external" "www_backend_build" {
@@ -72,7 +94,7 @@ data "archive_file" "www_backend_build" {
 resource "aws_lambda_function" "save_email" {
   filename         = data.archive_file.www_backend_build.output_path
   function_name    = "save_email"
-  role             = aws_iam_role.lambda_execution.arn
+  role             = aws_iam_role.save_email_lambda.arn
   handler          = "saveEmail.saveEmail"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
   runtime          = "nodejs14.x"
