@@ -1,5 +1,5 @@
 data "aws_route53_zone" "primary" {
-  name = "vocably.pro"
+  name = local.root_domain
 }
 
 provider "aws" {
@@ -70,7 +70,7 @@ resource "aws_acm_certificate_validation" "primary" {
 }
 
 resource "aws_route53_zone" "dev" {
-  name = "dev.vocably.pro"
+  name = local.dev_domain
 
   tags = {
     Environment = "dev"
@@ -79,7 +79,7 @@ resource "aws_route53_zone" "dev" {
 
 resource "aws_route53_record" "dev-ns" {
   zone_id = data.aws_route53_zone.primary.zone_id
-  name    = "dev.vocably.pro"
+  name    = local.dev_domain
   type    = "NS"
   ttl     = "30"
   records = aws_route53_zone.dev.name_servers
