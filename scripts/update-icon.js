@@ -6,6 +6,7 @@ const rootDir = resolve(__dirname, '../');
 process.chdir(rootDir);
 
 const svgFilename = 'icon.svg';
+const icoFilename = 'favicon.ico';
 const devFaviconFilename = 'dev-favicon.ico';
 
 console.log(`Creating ${devFaviconFilename}...`);
@@ -17,6 +18,13 @@ execSync(
   }
 );
 console.log(`${devFaviconFilename} has been successfully created.`);
+
+console.log(`Creating ${icoFilename}...`);
+execSync(`convert ${svgFilename} ${icoFilename}`, {
+  cwd: `assets`,
+  stdio: 'inherit',
+});
+console.log(`${icoFilename} has been successfully created.`);
 
 console.log('Creating extension icons...');
 ['16', '32', '48', '128'].forEach((size) => {
@@ -36,6 +44,7 @@ console.log('Extension icons have been successfully created');
     `packages/extension-content-script/public/favicon.ico`,
   ],
   [`assets/${devFaviconFilename}`, `packages/app/src/favicon.ico`],
+  [`assets/${icoFilename}`, `packages/www/favicon.ico`],
 ].forEach(([source, dest]) => {
   console.log(`Copy ${source} to ${dest}`);
   execSync(`cp ${source} ${dest}`, {
