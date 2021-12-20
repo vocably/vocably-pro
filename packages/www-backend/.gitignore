@@ -1,0 +1,4 @@
+.env.test.local
+.env.local
+/dist
+google-key.json

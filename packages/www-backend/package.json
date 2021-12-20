@@ -1,0 +1,10 @@
+{
+  "name": "@vocably/www-backend",
+  "version": "0.0.0",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "webpack --config webpack.config.js"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
