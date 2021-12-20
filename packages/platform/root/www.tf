@@ -25,7 +25,11 @@ EOF
 
 resource "null_resource" "deploy" {
   provisioner "local-exec" {
-    command = "aws s3 sync ../../www s3://${data.aws_route53_zone.primary.name}"
+    command = "aws s3 sync ${local.www_root} s3://${data.aws_route53_zone.primary.name}"
+  }
+
+  triggers = {
+    dir_sha1 = sha1(join("", [for f in fileset(local.www_root, "**") : filesha1("${local.www_root}/${f}")]))
   }
 
   depends_on = [aws_s3_bucket.www]
