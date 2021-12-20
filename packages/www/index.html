@@ -1,7 +1,38 @@
 <!DOCTYPE html>
 <head>
   <title>Vocably</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="text/javascript" src="index.js"></script>
 </head>
 <body>
-  Coming soon.
+  <div class="screen-center">
+    <div class="title">Vocably</div>
+    <div class="description">
+      The easiest and most natural way
+      <br />
+      to start reading in a foreign language.
+    </div>
+    <div class="cta">
+      <form class="form" id="form">
+        <input
+          type="text"
+          id="email"
+          class="email"
+          placeholder="Enter your email address here"
+        />
+        <input type="submit" class="submit" value="Request early access" />
+      </form>
+      <div class="success" id="success">
+        You have successfully submitted your email address.<br />
+        We will contact you soon. Thank you for your interest.
+      </div>
+    </div>
+  </div>
 </body>

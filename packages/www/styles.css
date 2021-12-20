@@ -1,0 +1,90 @@
+html {
+  height: 100%;
+  background: #000 url(background.jpg) no-repeat center top fixed;
+  background-size: cover;
+}
+
+body {
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 1) 70%
+  );
+
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 100;
+  color: #fff;
+}
+
+.screen-center {
+  min-height: 100vh; /* height of the browser viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 50px;
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 60px;
+  margin-bottom: 18px;
+  text-shadow: 0px 0px 4px #000000;
+}
+
+.description {
+  font-size: 24px;
+  margin-bottom: 50px;
+  text-shadow: 0px 0px 4px #000000;
+  text-align: center;
+}
+
+.cta {
+  position: relative;
+}
+
+.form {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s 0.5s, opacity 0.1s linear;
+}
+
+.form.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.success {
+  font-weight: 300;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+}
+
+.success.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.email {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  padding: 12px;
+  min-width: 250px;
+}
+
+.submit {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  padding: 12px;
+  cursor: pointer;
+}
