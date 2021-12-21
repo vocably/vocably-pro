@@ -15,7 +15,7 @@ window.addEventListener('load', () => {
     form.classList.add('hidden');
     success.classList.add('visible');
 
-    fetch('https://backend.vocably.pro/email', {
+    fetch('https://www-api.vocably.pro/email', {
       method: 'POST',
       body: JSON.stringify({ email }),
     });

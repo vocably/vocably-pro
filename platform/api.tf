@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda_execution" {
-  name               = "LambdaExecution"
+  name               = "${terraform.workspace}-lambda-execution"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -18,7 +18,7 @@ EOF
 }
 
 resource "aws_iam_policy" "lambda_execution" {
-  name = "LambdaExecutionPolicy"
+  name = "${terraform.workspace}-lambda-execution-policy"
   policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -73,9 +73,9 @@ resource "aws_cloudwatch_log_group" "translate" {
   retention_in_days = 14
 }
 
-resource "aws_apigatewayv2_api" "rest_api" {
+resource "aws_apigatewayv2_api" "app_api" {
   protocol_type = "HTTP"
-  name          = "${terraform.workspace}-rest-api"
+  name          = "${terraform.workspace}-app-api"
   body = templatefile(local.api_config, {
     translateLambdaInvokeArn = aws_lambda_function.translate.invoke_arn,
     userPoolId               = tolist(data.aws_cognito_user_pools.users.ids)[0]
@@ -94,8 +94,8 @@ locals {
   apiYamlMd5    = md5(file(local.api_config))
 }
 
-resource "aws_apigatewayv2_deployment" "deployment" {
-  api_id = aws_apigatewayv2_api.rest_api.id
+resource "aws_apigatewayv2_deployment" "app_api" {
+  api_id = aws_apigatewayv2_api.app_api.id
   triggers = {
     redeployment = "${local.apiGatewayMd5}${local.apiYamlMd5}"
   }
@@ -104,13 +104,13 @@ resource "aws_apigatewayv2_deployment" "deployment" {
   }
 }
 
-resource "aws_apigatewayv2_stage" "stage" {
-  deployment_id = aws_apigatewayv2_deployment.deployment.id
-  api_id        = aws_apigatewayv2_api.rest_api.id
+resource "aws_apigatewayv2_stage" "app_api" {
+  deployment_id = aws_apigatewayv2_deployment.app_api.id
+  api_id        = aws_apigatewayv2_api.app_api.id
   name          = "v1"
 }
 
-resource "aws_apigatewayv2_domain_name" "api" {
+resource "aws_apigatewayv2_domain_name" "app_api" {
   domain_name = local.api_domain
   domain_name_configuration {
     certificate_arn = data.aws_acm_certificate.primary.arn
@@ -119,31 +119,31 @@ resource "aws_apigatewayv2_domain_name" "api" {
   }
 }
 
-resource "aws_route53_record" "example" {
-  name    = aws_apigatewayv2_domain_name.api.domain_name
+resource "aws_route53_record" "app_api" {
+  name    = aws_apigatewayv2_domain_name.app_api.domain_name
   type    = "A"
   zone_id = data.aws_route53_zone.primary.id
 
   alias {
     evaluate_target_health = true
-    name                   = aws_apigatewayv2_domain_name.api.domain_name_configuration[0].target_domain_name
-    zone_id                = aws_apigatewayv2_domain_name.api.domain_name_configuration[0].hosted_zone_id
+    name                   = aws_apigatewayv2_domain_name.www_api.domain_name_configuration[0].target_domain_name
+    zone_id                = aws_apigatewayv2_domain_name.www_api.domain_name_configuration[0].hosted_zone_id
   }
 }
 
-resource "aws_apigatewayv2_api_mapping" "deployment" {
-  api_id      = aws_apigatewayv2_api.rest_api.id
-  stage       = aws_apigatewayv2_stage.stage.name
-  domain_name = aws_apigatewayv2_domain_name.api.domain_name
+resource "aws_apigatewayv2_api_mapping" "app_api" {
+  api_id      = aws_apigatewayv2_api.app_api.id
+  stage       = aws_apigatewayv2_stage.app_api.name
+  domain_name = aws_apigatewayv2_domain_name.app_api.domain_name
 }
 
 resource "aws_lambda_permission" "translate" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.translate.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_apigatewayv2_api.rest_api.execution_arn}/*/*/*"
+  source_arn    = "${aws_apigatewayv2_api.app_api.execution_arn}/*/*/*"
 }
 
-output "gateway_url" {
-  value = "https://${aws_apigatewayv2_domain_name.api.domain_name}"
+output "app_api_url" {
+  value = "https://${aws_apigatewayv2_domain_name.app_api.domain_name}"
 }

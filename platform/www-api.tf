@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "emails" {
-  name         = "emails"
+  name         = "${terraform.workspace}-emails"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
   attribute {
@@ -9,7 +9,7 @@ resource "aws_dynamodb_table" "emails" {
 }
 
 resource "aws_iam_role" "save_email_lambda" {
-  name               = "RootSaveEmailLambda"
+  name               = "${terraform.workspace}-save-email-lambda"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -28,7 +28,7 @@ EOF
 }
 
 resource "aws_iam_policy" "logs" {
-  name = "RootLambdaLogsPolicy"
+  name = "${terraform.workspace}-save-email-lambda-logs-policy"
   policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -47,7 +47,7 @@ resource "aws_iam_policy" "logs" {
 }
 
 resource "aws_iam_policy" "save_email" {
-  name = "RootLambdaSaveEmailsPolicy"
+  name = "${terraform.workspace}-save-email-lambda-storage-policy"
   policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -93,7 +93,7 @@ data "archive_file" "www_backend_build" {
 
 resource "aws_lambda_function" "save_email" {
   filename         = data.archive_file.www_backend_build.output_path
-  function_name    = "save_email"
+  function_name    = "${terraform.workspace}-save-email"
   role             = aws_iam_role.save_email_lambda.arn
   handler          = "saveEmail.saveEmail"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
@@ -105,15 +105,15 @@ resource "aws_cloudwatch_log_group" "save_email" {
   retention_in_days = 14
 }
 
-resource "aws_apigatewayv2_api" "api" {
-  name          = "root_api"
+resource "aws_apigatewayv2_api" "www_api" {
+  name          = "${terraform.workspace}-www-api"
   protocol_type = "HTTP"
 }
 
-resource "aws_apigatewayv2_stage" "api" {
-  api_id = aws_apigatewayv2_api.api.id
+resource "aws_apigatewayv2_stage" "www_api" {
+  api_id = aws_apigatewayv2_api.www_api.id
 
-  name        = "root_api_stage"
+  name        = "v1"
   auto_deploy = true
 
   access_log_settings {
@@ -136,7 +136,7 @@ resource "aws_apigatewayv2_stage" "api" {
 }
 
 resource "aws_apigatewayv2_integration" "save_email" {
-  api_id = aws_apigatewayv2_api.api.id
+  api_id = aws_apigatewayv2_api.www_api.id
 
   integration_uri    = aws_lambda_function.save_email.invoke_arn
   integration_type   = "AWS_PROXY"
@@ -144,54 +144,54 @@ resource "aws_apigatewayv2_integration" "save_email" {
 }
 
 resource "aws_apigatewayv2_route" "save_email" {
-  api_id = aws_apigatewayv2_api.api.id
+  api_id = aws_apigatewayv2_api.www_api.id
 
   route_key = "POST /email"
   target    = "integrations/${aws_apigatewayv2_integration.save_email.id}"
 }
 
 resource "aws_cloudwatch_log_group" "api_gw" {
-  name = "/aws/api_gw/${aws_apigatewayv2_api.api.name}"
+  name = "/aws/api_gw/${aws_apigatewayv2_api.www_api.name}"
 
   retention_in_days = 30
 }
 
-resource "aws_lambda_permission" "api_gw" {
+resource "aws_lambda_permission" "www_api" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.save_email.function_name
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
+  source_arn = "${aws_apigatewayv2_api.www_api.execution_arn}/*/*"
 }
 
-resource "aws_apigatewayv2_domain_name" "api" {
-  domain_name = local.backend_domain
+resource "aws_apigatewayv2_domain_name" "www_api" {
+  domain_name = local.www_api_domain
   domain_name_configuration {
-    certificate_arn = aws_acm_certificate.primary.arn
+    certificate_arn = data.aws_acm_certificate.primary.arn
     endpoint_type   = "REGIONAL"
     security_policy = "TLS_1_2"
   }
 }
 
-resource "aws_route53_record" "api" {
-  name    = aws_apigatewayv2_domain_name.api.domain_name
+resource "aws_route53_record" "www_api" {
+  name    = aws_apigatewayv2_domain_name.www_api.domain_name
   type    = "A"
   zone_id = data.aws_route53_zone.primary.id
 
   alias {
     evaluate_target_health = true
-    name                   = aws_apigatewayv2_domain_name.api.domain_name_configuration[0].target_domain_name
-    zone_id                = aws_apigatewayv2_domain_name.api.domain_name_configuration[0].hosted_zone_id
+    name                   = aws_apigatewayv2_domain_name.www_api.domain_name_configuration[0].target_domain_name
+    zone_id                = aws_apigatewayv2_domain_name.www_api.domain_name_configuration[0].hosted_zone_id
   }
 }
 
-resource "aws_apigatewayv2_api_mapping" "deployment" {
-  api_id      = aws_apigatewayv2_api.api.id
-  stage       = aws_apigatewayv2_stage.api.name
-  domain_name = aws_apigatewayv2_domain_name.api.domain_name
+resource "aws_apigatewayv2_api_mapping" "www_api" {
+  api_id      = aws_apigatewayv2_api.www_api.id
+  stage       = aws_apigatewayv2_stage.www_api.name
+  domain_name = aws_apigatewayv2_domain_name.www_api.domain_name
 }
 
-output "root_gateway_url" {
-  value = "https://${aws_apigatewayv2_domain_name.api.domain_name}"
+output "www_api_url" {
+  value = "https://${aws_apigatewayv2_domain_name.www_api.domain_name}"
 }

@@ -1,7 +1,7 @@
 data "aws_region" "current" {}
 
 locals {
-  api_base_url = "https://${aws_apigatewayv2_domain_name.api.domain_name}"
+  api_base_url = "https://${aws_apigatewayv2_domain_name.www_api.domain_name}"
 }
 
 locals {
@@ -74,4 +74,15 @@ LEXICALA_PASSWORD="${var.lexicala_password}"
 resource "local_file" "backend_environment" {
   content  = local.backend_env_content
   filename = "${local.backend_root}/.env.local"
+}
+
+locals {
+  www_backend_env_content = <<EOT
+EMAILS_TABLE="${aws_dynamodb_table.emails.name}"
+  EOT
+}
+
+resource "local_file" "www_backend_environment" {
+  content  = local.www_backend_env_content
+  filename = "${local.www_backed_root}/.env.local"
 }
