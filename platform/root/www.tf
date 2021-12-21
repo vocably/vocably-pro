@@ -1,5 +1,9 @@
+locals {
+  www_bucket_name = "vocably-www"
+}
+
 resource "aws_s3_bucket" "www" {
-  bucket = data.aws_route53_zone.primary.name
+  bucket = local.www_bucket_name
   acl    = "public-read"
   policy = <<EOF
 {
@@ -9,7 +13,7 @@ resource "aws_s3_bucket" "www" {
         "Effect":"Allow",
           "Principal": "*",
       "Action":["s3:GetObject"],
-      "Resource":["arn:aws:s3:::${data.aws_route53_zone.primary.name}/*"]
+      "Resource":["arn:aws:s3:::${local.www_bucket_name}/*"]
     }
   ]
 }
@@ -23,27 +27,79 @@ EOF
   }
 }
 
-resource "null_resource" "deploy" {
-  provisioner "local-exec" {
-    command = "aws s3 sync ${local.www_root} s3://${data.aws_route53_zone.primary.name}"
+resource "aws_cloudfront_origin_access_identity" "www" {
+  comment = "vocably-www-cloudfront-origin-access-identity"
+}
+
+resource "aws_cloudfront_distribution" "www" {
+  origin {
+    domain_name = aws_s3_bucket.www.bucket_regional_domain_name
+    origin_id   = aws_s3_bucket.www.bucket_regional_domain_name
+
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.www.cloudfront_access_identity_path
+    }
   }
 
-  triggers = {
-    dir_sha1 = sha1(join("", [for f in fileset(local.www_root, "**") : filesha1("${local.www_root}/${f}")]))
+  enabled             = true
+  is_ipv6_enabled     = true
+  default_root_object = "index.html"
+
+  aliases = [local.root_domain]
+
+  default_cache_behavior {
+    allowed_methods        = ["HEAD", "GET"]
+    cached_methods         = ["HEAD", "GET"]
+    target_origin_id       = aws_s3_bucket.www.bucket_regional_domain_name
+    viewer_protocol_policy = "redirect-to-https"
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
   }
 
-  depends_on = [aws_s3_bucket.www]
+  viewer_certificate {
+    acm_certificate_arn = aws_acm_certificate.primary-global.arn
+    ssl_support_method  = "sni-only"
+  }
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+
+  custom_error_response {
+    error_code         = 404
+    response_code      = 200
+    response_page_path = "/index.html"
+  }
+
+  custom_error_response {
+    error_code         = 403
+    response_code      = 200
+    response_page_path = "/index.html"
+  }
 }
 
 resource "aws_route53_record" "www" {
   zone_id = data.aws_route53_zone.primary.zone_id
   name    = data.aws_route53_zone.primary.name
   type    = "A"
+
   alias {
-    name                   = aws_s3_bucket.www.website_domain
-    zone_id                = aws_s3_bucket.www.hosted_zone_id
+    name                   = aws_cloudfront_distribution.www.domain_name
+    zone_id                = aws_cloudfront_distribution.www.hosted_zone_id
     evaluate_target_health = false
   }
+}
+
+output "www_bucket" {
+  value = aws_s3_bucket.www.bucket
 }
 
 

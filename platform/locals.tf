@@ -5,5 +5,6 @@ locals {
   extension_root = abspath("../packages/extension")
   backend_root   = abspath("../packages/backend")
   model_root     = abspath("../packages/model")
+  www_root       = abspath("../packages/www")
   api_config     = abspath("${local.model_root}/api.yml")
 }
