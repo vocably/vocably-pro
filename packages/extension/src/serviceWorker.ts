@@ -1,4 +1,4 @@
-import { registerExtensionStorage } from 'aws-cognito-chrome-extension';
+import { registerExtensionStorage } from '@vocably/pontis';
 import { registerServiceWorker } from '@vocably/extension-service-worker';
 
 const storage = registerExtensionStorage('sync');

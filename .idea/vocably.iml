@@ -7,7 +7,6 @@
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/packages/api/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/app/.angular/cache" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/aws-cognito-chrome-extension/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/extension-content-ui/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/extension-content-ui/loader" />
       <excludeFolder url="file://$MODULE_DIR$/packages/extension-content-ui/www" />
@@ -17,6 +16,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/platform/.terraform/providers" />
       <excludeFolder url="file://$MODULE_DIR$/packages/platform/root/.terraform/providers" />
       <excludeFolder url="file://$MODULE_DIR$/packages/webpack/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/pontis/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

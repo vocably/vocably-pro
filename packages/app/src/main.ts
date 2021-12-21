@@ -4,7 +4,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { Auth } from '@aws-amplify/auth';
-import { AppAuthStorage } from 'aws-cognito-chrome-extension';
+import { AppAuthStorage } from '@vocably/pontis';
 import { configureApi } from '@vocably/api';
 
 if (environment.production) {
