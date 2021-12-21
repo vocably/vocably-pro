@@ -1,6 +1,6 @@
 {
   "name": "@vocably/extension-content-script",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "translation-extension",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
