@@ -6,8 +6,11 @@
     "prebuild": "rimraf dist",
     "build": "webpack --config webpack.config.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@vocably/model": "^0.0.0"
+  },
   "devDependencies": {
+    "@vocably/webpack": "^0.0.0",
     "@types/jest": "^27.0.3",
     "jest": "^27.4.3",
     "ts-jest": "^27.0.7"

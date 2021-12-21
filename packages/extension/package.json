@@ -18,5 +18,7 @@
     "@vocably/extension-content-script": "^0.0.0",
     "@vocably/extension-service-worker": "^0.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@vocably/webpack": "^0.0.0"
+  }
 }
