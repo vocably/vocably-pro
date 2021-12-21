@@ -1,5 +1,5 @@
 data "aws_s3_bucket" "www" {
-  bucket = var.www_bucket
+  bucket = local.root_www_bucket
 }
 
 resource "null_resource" "deploy" {
@@ -8,7 +8,7 @@ resource "null_resource" "deploy" {
   }
 
   triggers = {
-    www_bucket = var.www_bucket
+    www_bucket = local.root_www_bucket
     dir_sha1   = sha1(join("", [for f in fileset(local.www_root, "**") : filesha1("${local.www_root}/${f}")]))
   }
 }

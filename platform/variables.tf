@@ -34,8 +34,3 @@ variable "user_pool_endpoint" {
   type    = string
   default = "cognito-idp.eu-central-1.amazonaws.com/eu-central-1_vWIKfxc8A"
 }
-
-variable "www_bucket" {
-  type    = string
-  default = "vocably-www"
-}
