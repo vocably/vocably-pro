@@ -3,7 +3,7 @@ data "aws_cognito_user_pools" "users" {
 }
 
 locals {
-  available_urls = concat(["https://${local.web_domain}"], var.dev_urls)
+  available_urls = concat(["https://${local.web_domain}"], local.dev_urls)
 }
 
 resource "aws_cognito_user_pool_client" "client" {
