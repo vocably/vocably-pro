@@ -12,11 +12,11 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/extension-content-ui/www" />
       <excludeFolder url="file://$MODULE_DIR$/packages/extension-messages/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/hermes/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/platform/.terraform/modules" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/platform/.terraform/providers" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/platform/root/.terraform/providers" />
       <excludeFolder url="file://$MODULE_DIR$/packages/webpack/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/pontis/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/platform/root/.terraform/providers" />
+      <excludeFolder url="file://$MODULE_DIR$/platform/.terraform/modules" />
+      <excludeFolder url="file://$MODULE_DIR$/platform/.terraform/providers" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
