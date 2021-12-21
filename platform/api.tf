@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda_execution" {
-  name               = "${terraform.workspace}-lambda-execution"
+  name               = "vocably-${terraform.workspace}-lambda-execution"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -18,7 +18,7 @@ EOF
 }
 
 resource "aws_iam_policy" "lambda_execution" {
-  name = "${terraform.workspace}-lambda-execution-policy"
+  name = "vocably-${terraform.workspace}-lambda-execution-policy"
   policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -61,7 +61,7 @@ data "archive_file" "backend_build" {
 
 resource "aws_lambda_function" "translate" {
   filename         = data.archive_file.backend_build.output_path
-  function_name    = "${terraform.workspace}-translate"
+  function_name    = "vocably-${terraform.workspace}-translate"
   role             = aws_iam_role.lambda_execution.arn
   handler          = "translate.translate"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
@@ -75,7 +75,7 @@ resource "aws_cloudwatch_log_group" "translate" {
 
 resource "aws_apigatewayv2_api" "app_api" {
   protocol_type = "HTTP"
-  name          = "${terraform.workspace}-app-api"
+  name          = "vocably-${terraform.workspace}-app-api"
   body = templatefile(local.api_config, {
     translateLambdaInvokeArn = aws_lambda_function.translate.invoke_arn,
     userPoolId               = tolist(data.aws_cognito_user_pools.users.ids)[0]
