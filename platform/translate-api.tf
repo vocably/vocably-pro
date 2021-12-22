@@ -1,6 +1,6 @@
 resource "google_service_account" "translation_user" {
-  account_id   = "translate-api-user"
-  display_name = "Translate API User"
+  account_id   = "${terraform.workspace}-translate-api-user"
+  display_name = "Translate ${terraform.workspace} API User"
 }
 
 resource "google_project_iam_binding" "translation" {

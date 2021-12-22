@@ -37,7 +37,7 @@ resource "aws_route53_record" "primary-global" {
 resource "aws_acm_certificate_validation" "primary-global" {
   provider                = aws.us-east-1
   certificate_arn         = aws_acm_certificate.primary-global.arn
-  validation_record_fqdns = [for record in aws_route53_record.primary : record.fqdn]
+  validation_record_fqdns = [for record in aws_route53_record.primary-global : record.fqdn]
 }
 
 
