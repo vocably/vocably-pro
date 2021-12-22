@@ -8,7 +8,6 @@ locals {
   model_root      = abspath("../packages/model")
   www_root        = abspath("../packages/www")
   www_backed_root = abspath("../packages/www-backend")
-  root_www_bucket = "vocably-www"
   api_config      = abspath("${local.model_root}/api.yml")
   dev_urls        = ["http://localhost:8030", "https://oauth.pstmn.io/v1/callback"]
 }
