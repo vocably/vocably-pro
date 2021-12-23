@@ -16,4 +16,4 @@ jobs:
 
       - uses: docker://hashicorp/terraform:latest
         with:
-          cmd: terraform init
+          cmd: init
