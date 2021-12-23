@@ -7,13 +7,12 @@ jobs:
   deploy:
     name: Deploy Site
     runs-on: ubuntu-latest
+    container: hashicorp/terraform:latest
     steps:
       - uses: actions/checkout@v1
 
-#      - uses: borales/actions-yarn@v2.3.0
-#        with:
-#          cmd: install
-
-      - uses: docker://hashicorp/terraform:latest
+      - uses: borales/actions-yarn@v2.3.0
         with:
-          cmd: init
+          cmd: install
+
+      - run: "terraform init"
