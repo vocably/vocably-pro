@@ -15,4 +15,5 @@ jobs:
           cmd: install
 
       - uses: docker://hashicorp/terraform:latest
-        run: terraform init
+        with:
+          cmd: terraform init
