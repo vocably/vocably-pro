@@ -1,5 +1,14 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 2.7.0"
+    }
+  }
+}
+
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "vocably-tf-state"
+  bucket = "vocably-${var.environment}-tf-state"
   acl    = "private"
 
   versioning {
@@ -23,7 +32,7 @@ resource "aws_s3_bucket_public_access_block" "terraform_state" {
 }
 
 resource "aws_dynamodb_table" "terraform_state_lock" {
-  name           = "vocably-tf-state-lock"
+  name           = "vocably-${var.environment}-tf-state-lock"
   hash_key       = "LockID"
   read_capacity  = 20
   write_capacity = 20

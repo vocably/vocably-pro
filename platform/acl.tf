@@ -5,7 +5,7 @@ resource "aws_cognito_identity_pool" "main" {
 
   cognito_identity_providers {
     client_id               = aws_cognito_user_pool_client.client.id
-    provider_name           = var.user_pool_endpoint
+    provider_name           = aws_cognito_user_pool.users.endpoint
     server_side_token_check = false
   }
 }

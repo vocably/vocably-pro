@@ -1,10 +1,9 @@
 locals {
   is_dev          = terraform.workspace != "prod"
-  dev_domain      = "dev.${var.root_domain}"
-  root_domain     = local.is_dev ? "${terraform.workspace}.${local.dev_domain}" : var.root_domain
-  web_domain      = "web.${local.root_domain}"
-  api_domain      = "api.${local.root_domain}"
-  www_api_domain  = "www-api.${local.root_domain}"
+  auth_domain     = "auth.${var.root_domain}"
+  web_domain      = "web.${var.root_domain}"
+  api_domain      = "api.${var.root_domain}"
+  www_api_domain  = "www-api.${var.root_domain}"
   app_root        = abspath("../packages/app")
   extension_root  = abspath("../packages/extension")
   backend_root    = abspath("../packages/backend")

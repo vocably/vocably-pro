@@ -77,8 +77,8 @@ resource "aws_apigatewayv2_api" "app_api" {
   protocol_type = "HTTP"
   name          = "vocably-${terraform.workspace}-app-api"
   body = templatefile(local.api_config, {
-    translateLambdaInvokeArn = aws_lambda_function.translate.invoke_arn,
-    userPoolId               = tolist(data.aws_cognito_user_pools.users.ids)[0]
+    translateLambdaInvokeArn = aws_lambda_function.translate.invoke_arn
+    userPoolId               = aws_cognito_user_pool.users.id
     authClientId             = aws_cognito_user_pool_client.client.id
   })
   cors_configuration {
@@ -113,10 +113,11 @@ resource "aws_apigatewayv2_stage" "app_api" {
 resource "aws_apigatewayv2_domain_name" "app_api" {
   domain_name = local.api_domain
   domain_name_configuration {
-    certificate_arn = data.aws_acm_certificate.primary.arn
+    certificate_arn = aws_acm_certificate.primary.arn
     endpoint_type   = "REGIONAL"
     security_policy = "TLS_1_2"
   }
+  depends_on = [aws_acm_certificate_validation.primary]
 }
 
 resource "aws_route53_record" "app_api" {
