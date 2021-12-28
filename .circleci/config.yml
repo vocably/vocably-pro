@@ -4,8 +4,13 @@ jobs:
     docker:
       - image: circleci/node:14
     environment:
-      LEXICALA_USERNAME: ${STAGE_LEXICALA_USERNAME}
+      ENV_NAME: STAGE
     steps:
       - run: echo "Building building building!"
-      - run: echo $STAGE_LEXICALA_USERNAME
-      - run: echo $LEXICALA_USERNAME
+      - run:
+          name: Steup variables
+          command: |
+            echo "Environment ${ENV_NAME}"
+            LEXICALA_USERNAME_VAR="${ENV_NAME}_LEXICALA_USERNAME"
+            LEXICALA_USERNAME="${!LEXICALA_USERNAME_VAR}"
+            echo $LEXICALA_USERNAME
