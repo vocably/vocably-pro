@@ -4,7 +4,7 @@ resource "google_service_account" "translation_user" {
 }
 
 resource "google_project_iam_binding" "translation" {
-  project = var.gcloud_project
+  project = var.gcloud_project_id
   role    = "roles/cloudtranslate.user"
 
   members = [

@@ -7,7 +7,9 @@ jobs:
   deploy:
     name: Deploy Site
     runs-on: ubuntu-latest
+    container: hashicorp/terraform:light
     steps:
       - uses: actions/checkout@v1
       - run: sudo apt-get install -y nodejs yarn
       - run: "yarn -v"
+      - run: "terraform -version"

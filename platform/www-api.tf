@@ -108,6 +108,13 @@ resource "aws_cloudwatch_log_group" "save_email" {
 resource "aws_apigatewayv2_api" "www_api" {
   name          = "vocably-${terraform.workspace}-www-api"
   protocol_type = "HTTP"
+
+  cors_configuration {
+    allow_credentials = true
+    allow_headers     = ["*"]
+    allow_methods     = ["*"]
+    allow_origins     = ["https://*", "http://*"]
+  }
 }
 
 resource "aws_apigatewayv2_stage" "www_api" {
@@ -168,10 +175,11 @@ resource "aws_lambda_permission" "www_api" {
 resource "aws_apigatewayv2_domain_name" "www_api" {
   domain_name = local.www_api_domain
   domain_name_configuration {
-    certificate_arn = data.aws_acm_certificate.primary.arn
+    certificate_arn = aws_acm_certificate.primary.arn
     endpoint_type   = "REGIONAL"
     security_policy = "TLS_1_2"
   }
+  depends_on = [aws_acm_certificate_validation.primary]
 }
 
 resource "aws_route53_record" "www_api" {

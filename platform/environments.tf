@@ -10,11 +10,11 @@ export const environmentLocal = {
   chromeExtensionId: 'cdjdmfegiddjmikilbjoaofmjmdgceib',
   auth: {
     region: '${data.aws_region.current.name}',
-    userPoolId: '${tolist(data.aws_cognito_user_pools.users.ids)[0]}',
+    userPoolId: '${aws_cognito_user_pool.users.id}',
     userPoolWebClientId: '${aws_cognito_user_pool_client.client.id}',
     identityPoolId: '${aws_cognito_identity_pool.main.id}',
     oauth: {
-      domain: '${var.auth_domain}',
+      domain: '${local.auth_domain}',
       scope: ['email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
       responseType: 'code',
       options: {
@@ -39,7 +39,7 @@ resource "local_file" "app_environment" {
 locals {
   extension_env_content = <<EOT
 AUTH_REGION="${data.aws_region.current.name}"
-AUTH_USER_POOL_ID="${tolist(data.aws_cognito_user_pools.users.ids)[0]}"
+AUTH_USER_POOL_ID="${aws_cognito_user_pool.users.id}"
 AUTH_USER_POOL_WEB_CLIENT_ID="${aws_cognito_user_pool_client.client.id}"
 AUTH_IDENTITY_POOL_ID="${aws_cognito_identity_pool.main.id}"
 API_BASE_URL="${local.api_base_url}"
@@ -65,7 +65,7 @@ resource "local_file" "google_key" {
 locals {
   backend_env_content = <<EOT
 GOOGLE_APPLICATION_CREDENTIALS="${local.google_key_filename}"
-GOOGLE_PROJECT_ID="${var.gcloud_project}"
+GOOGLE_PROJECT_ID="${var.gcloud_project_id}"
 LEXICALA_USERNAME="${var.lexicala_username}"
 LEXICALA_PASSWORD="${var.lexicala_password}"
   EOT
