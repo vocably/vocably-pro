@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:14
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+      - image: hashicorp/terraform:light
     working_directory: ~/repo
     environment:
       ENV_NAME: STAGE
