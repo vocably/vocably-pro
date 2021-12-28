@@ -8,5 +8,6 @@ jobs:
     steps:
       - run: echo "Building building building!"
       - run: pwd
+      - run: ls -la
       - run: sh ./scripts/declare-variables.sh
       - run: echo $LEXICALA_USERNAME
