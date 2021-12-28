@@ -3,11 +3,11 @@ jobs:
   build:
     docker:
       - image: circleci/node:14
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     working_directory: ~/repo
     environment:
       ENV_NAME: STAGE
     steps:
       - checkout
-      - run: echo "Building building building!"
       - run: bash ./scripts/declare-variables.sh
-      - run: echo $LEXICALA_USERNAME
+      - run: terraform -version
