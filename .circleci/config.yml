@@ -7,4 +7,5 @@ jobs:
       LEXICALA_USERNAME: ${STAGE_LEXICALA_USERNAME}
     steps:
       - run: echo "Building building building!"
+      - run: echo $STAGE_LEXICALA_USERNAME
       - run: echo $LEXICALA_USERNAME
