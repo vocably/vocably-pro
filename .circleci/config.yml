@@ -7,6 +7,7 @@ jobs:
     environment:
       ENV_NAME: STAGE
     steps:
+      - checkout
       - run: echo "Building building building!"
       - run: ls -la
       - run: sh ./scripts/declare-variables.sh
