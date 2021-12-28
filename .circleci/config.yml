@@ -6,3 +6,4 @@ jobs:
     steps:
       - run: echo "Building building building!"
       - run: yarn -v
+      - run: node -v
