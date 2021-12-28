@@ -9,5 +9,5 @@ jobs:
     steps:
       - checkout
       - run: echo "Building building building!"
-      - run: sh ./scripts/declare-variables.sh
+      - run: bash ./scripts/declare-variables.sh
       - run: echo $LEXICALA_USERNAME
