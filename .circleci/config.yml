@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/node:14
     environment:
-      LEXICALA_USERNAME: $STAGE_LEXICALA_USERNAME
+      LEXICALA_USERNAME: ${STAGE_LEXICALA_USERNAME}
     steps:
       - run: echo "Building building building!"
       - run: echo $LEXICALA_USERNAME
