@@ -3,7 +3,8 @@ jobs:
   build:
     docker:
       - image: circleci/node:14
+    environment:
+      LEXICALA_USERNAME: $STAGE_LEXICALA_USERNAME
     steps:
       - run: echo "Building building building!"
-      - run: echo 'export PIU="miu"' >> $BASH_ENV
-      - run: echo $PIU
+      - run: echo $LEXICALA_USERNAME
