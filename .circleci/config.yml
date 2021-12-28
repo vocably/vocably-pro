@@ -7,10 +7,5 @@ jobs:
       ENV_NAME: STAGE
     steps:
       - run: echo "Building building building!"
-      - run:
-          name: Steup variables
-          command: |
-            echo "Environment ${ENV_NAME}"
-            LEXICALA_USERNAME_VAR="${ENV_NAME}_LEXICALA_USERNAME"
-            LEXICALA_USERNAME="${!LEXICALA_USERNAME_VAR}"
-            echo $LEXICALA_USERNAME
+      - run: sh ./scripts/declare-variables.sh
+      - run: echo $LEXICALA_USERNAME
