@@ -7,5 +7,6 @@ jobs:
       ENV_NAME: STAGE
     steps:
       - run: echo "Building building building!"
+      - run: pwd
       - run: sh ./scripts/declare-variables.sh
       - run: echo $LEXICALA_USERNAME
