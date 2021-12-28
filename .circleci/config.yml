@@ -2,8 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      #      - image: circleci/node:14
       - image: hashicorp/terraform:light
+      - image: circleci/node:14
     working_directory: ~/repo
     environment:
       ENV_NAME: STAGE
