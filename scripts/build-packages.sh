@@ -7,13 +7,14 @@ declare -a packages=(
   "webpack"
   "crud"
   "api"
-  "extension-service-worker"
   "extension-messages"
+  "extension-service-worker"
   "extension-content-ui"
   "extension-content-script"
 )
 
 for package in "${packages[@]}"
 do
+   echo "Building ${package}..."
    yarn --cwd packages/${package} build
 done
