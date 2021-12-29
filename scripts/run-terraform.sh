@@ -5,6 +5,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/google.json"
 
 echo $GOOGLE_APPLICATION_CREDENTIALS
 cat google.json
+echo $GCP_KEY
 
 cd ./platform
 terraform init -backend-config=./${ENV_NAME}.remote
