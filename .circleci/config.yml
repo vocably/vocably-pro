@@ -11,3 +11,4 @@ jobs:
       - run: bash ./scripts/install-build-depdendencies.sh
       - run: terraform --version
       - run: bash ./scripts/declare-variables.sh
+      - run: bash ./scripts/run-terraform.sh
