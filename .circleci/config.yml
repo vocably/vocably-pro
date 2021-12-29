@@ -1,14 +1,42 @@
 version: 2
 jobs:
-  build:
+  install:
+    working_directory: ~/repo
     docker:
       - image: circleci/node:14
+    steps:
+      - checkout
+  stage:
     working_directory: ~/repo
+    docker:
+      - image: circleci/node:14
     environment:
       ENV_NAME: STAGE
     steps:
-      - checkout
       - run: bash ./scripts/install-build-depdendencies.sh
-      - run: terraform --version
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
+  prod:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:14
+    environment:
+      ENV_NAME: PROD
+    steps:
+      - run: bash ./scripts/install-build-depdendencies.sh
+      - run: bash ./scripts/declare-variables.sh
+      - run: bash ./scripts/run-terraform.sh
+workflows:
+  deploy:
+    jobs:
+      - install
+      - stage:
+          requires:
+            - install
+      - hold:
+          type: approval
+          requires:
+            - stage
+      - prod:
+          requires:
+            - hold

@@ -14,3 +14,6 @@ do
    envVar="${ENV_NAME}_${variable}"
    echo "export ${variable}='${!envVar}'" >> $BASH_ENV
 done
+
+env_name=$(echo "$ENV_NAME" | tr '[:upper:]' '[:lower:]')
+echo "export env_name=${env_name}" >> $BASH_ENV
