@@ -57,4 +57,4 @@ workflows:
             - stage
       - prod:
           requires:
-            - hold
+            - manual-testing
