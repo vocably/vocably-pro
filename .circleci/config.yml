@@ -8,18 +8,19 @@ jobs:
       ENV_NAME: STAGE
     steps:
       - checkout
-      #      - restore_cache:
-      #          name: Restore Yarn Package Cache
-      #          keys:
-      #            - yarn-packages-{{ checksum "yarn.lock" }}
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: yarn install --cache-folder ~/.cache/yarn
-      #      - save_cache:
-      #          name: Save Yarn Package Cache
-      #          key: yarn-packages-{{ checksum "yarn.lock" }}
-      #          paths:
-      #            - ~/.cache/yarn
+          command: yarn install --frozen-lockfile ~/.cache/yarn
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run: bash ./scripts/build-packages.sh
       - run: bash ./scripts/install-build-depdendencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
@@ -37,12 +38,13 @@ jobs:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: yarn install --cache-folder ~/.cache/yarn
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
+      - run: bash ./scripts/build-packages.sh
       - run: bash ./scripts/install-build-depdendencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
