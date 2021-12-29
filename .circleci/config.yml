@@ -1,4 +1,8 @@
 version: 2
+main_only: &main_only
+  filters:
+    branches:
+      only: main
 jobs:
   stage:
     working_directory: ~/repo
@@ -52,11 +56,14 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - stage
+      - stage:
+          <<: *main_only
       - manual-testing:
+          <<: *main_only
           type: approval
           requires:
             - stage
       - prod:
+          <<: *main_only
           requires:
             - manual-testing
