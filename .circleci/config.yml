@@ -2,7 +2,7 @@ version: 2
 main_only: &main_only
   filters:
     branches:
-      only: main
+      only: feat/infra
 jobs:
   stage:
     working_directory: ~/repo
