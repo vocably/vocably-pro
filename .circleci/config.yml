@@ -51,7 +51,7 @@ workflows:
   deploy:
     jobs:
       - stage
-      - hold:
+      - manual-testing:
           type: approval
           requires:
             - stage
