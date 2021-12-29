@@ -1,5 +1,5 @@
 locals {
-  www_bucket = "vocably-${terraform.workspace}-www"
+  www_bucket = "vocably-${terraform.workspace}-www-1"
 }
 
 resource "aws_s3_bucket" "www" {

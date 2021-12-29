@@ -1,0 +1,69 @@
+version: 2
+main_only: &main_only
+  filters:
+    branches:
+      only: main
+jobs:
+  stage:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:14
+    environment:
+      ENV_NAME: STAGE
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run: bash ./scripts/build-packages.sh
+      - run: bash ./scripts/install-build-depdendencies.sh
+      - run: bash ./scripts/declare-variables.sh
+      - run: bash ./scripts/run-terraform.sh
+  prod:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:14
+    environment:
+      ENV_NAME: PROD
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run: bash ./scripts/build-packages.sh
+      - run: bash ./scripts/install-build-depdendencies.sh
+      - run: bash ./scripts/declare-variables.sh
+      - run: bash ./scripts/run-terraform.sh
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - stage:
+          <<: *main_only
+      - manual-testing:
+          <<: *main_only
+          type: approval
+          requires:
+            - stage
+      - prod:
+          <<: *main_only
+          requires:
+            - manual-testing

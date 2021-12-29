@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
     bucket         = "vocably-prod-tf-state"
     region         = "eu-central-1"
-    key            = "prod"
+    key            = "vocably"
     dynamodb_table = "vocably-prod-tf-state-lock"
     encrypt        = true
   }
