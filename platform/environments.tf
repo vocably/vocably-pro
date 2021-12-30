@@ -1,7 +1,7 @@
 data "aws_region" "current" {}
 
 locals {
-  api_base_url = "https://${aws_apigatewayv2_domain_name.www_api.domain_name}"
+  api_base_url = "https://${aws_apigatewayv2_domain_name.app_api.domain_name}"
 }
 
 locals {
@@ -74,6 +74,18 @@ LEXICALA_PASSWORD="${var.lexicala_password}"
 resource "local_file" "backend_environment" {
   content  = local.backend_env_content
   filename = "${local.backend_root}/.env.local"
+}
+
+locals {
+  backend_test_env_content = <<EOT
+${local.backend_env_content}
+TEST_SKIP_SPEC="false"
+  EOT
+}
+
+resource "local_file" "backend_test_environment" {
+  content  = local.backend_test_env_content
+  filename = "${local.backend_root}/.env.test.local"
 }
 
 locals {

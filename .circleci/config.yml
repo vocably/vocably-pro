@@ -3,7 +3,39 @@ main_only: &main_only
   filters:
     branches:
       only: main
+
+new_version_only: &new_version_only
+  filters:
+    tags:
+      only: /^v\d+\.\d+\.\d+$/
+
 jobs:
+  bumpNewVersion:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:14
+    environment:
+      ENV_NAME: STAGE
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run: bash ./scripts/build-packages.sh
+      - run: yarn workspaces run test
+      - run: bash ./scripts/install-build-depdendencies.sh
+      - run: bash ./scripts/declare-variables.sh
+      - run: bash ./scripts/run-terraform.sh
+      - run: yarn workspaces run test
   stage:
     working_directory: ~/repo
     docker:
@@ -56,16 +88,20 @@ jobs:
       - run: bash ./scripts/run-terraform.sh
 workflows:
   version: 2
+  bumpNewVersion:
+    jobs:
+      - bumpNewVersion:
+          <<: *main_only
   deploy:
     jobs:
       - stage:
-          <<: *main_only
+          <<: *new_version_only
       - manual-testing:
-          <<: *main_only
+          <<: *new_version_only
           type: approval
           requires:
             - stage
       - prod:
-          <<: *main_only
+          <<: *new_version_only
           requires:
             - manual-testing
