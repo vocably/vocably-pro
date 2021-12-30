@@ -14,7 +14,7 @@
     "url": "https://github.com/sneas/vocably.git"
   },
   "dependencies": {
-    "@vocably/model": "^0.0.0"
+    "@vocably/model": "0.0.0"
   },
   "devDependencies": {}
 }

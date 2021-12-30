@@ -14,11 +14,11 @@
     "url": "https://github.com/sneas/vocably.git"
   },
   "dependencies": {
-    "@vocably/pontis": "^0.0.0",
-    "@vocably/extension-content-script": "^0.0.0",
-    "@vocably/extension-service-worker": "^0.0.0"
+    "@vocably/pontis": "0.0.0",
+    "@vocably/extension-content-script": "0.0.0",
+    "@vocably/extension-service-worker": "0.0.0"
   },
   "devDependencies": {
-    "@vocably/webpack": "^0.0.0"
+    "@vocably/webpack": "0.0.0"
   }
 }

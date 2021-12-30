@@ -22,7 +22,7 @@
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@vocably/model": "^0.0.0"
+    "@vocably/model": "0.0.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
