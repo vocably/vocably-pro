@@ -1,6 +1,7 @@
 {
   "name": "@vocably/www-backend",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "webpack --config webpack.config.js",

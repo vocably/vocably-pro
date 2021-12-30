@@ -1,6 +1,7 @@
 {
   "name": "@vocably/pontis",
   "version": "0.0.0",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

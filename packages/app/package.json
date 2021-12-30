@@ -1,6 +1,7 @@
 {
   "name": "@vocably/app",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

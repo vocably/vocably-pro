@@ -1,6 +1,7 @@
 {
   "name": "@vocably/backend",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "test": "jest",
     "prebuild": "rimraf dist",
