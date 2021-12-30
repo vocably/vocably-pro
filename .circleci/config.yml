@@ -25,6 +25,7 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run: bash ./scripts/build-packages.sh
+      - run: yarn workspaces run test
       - run: bash ./scripts/install-build-depdendencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
@@ -49,6 +50,7 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run: bash ./scripts/build-packages.sh
+      - run: yarn workspaces run test
       - run: bash ./scripts/install-build-depdendencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh

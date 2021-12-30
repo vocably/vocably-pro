@@ -6,8 +6,8 @@ import { inspect } from '../../utils/inspect';
 let mockEvent: APIGatewayProxyEvent = {};
 
 describe('integration check for translate lambda', () => {
-  if (process.env.TEST_SKIP_MANUAL === 'true') {
-    it('skip manual testing', () => {});
+  if (process.env.TEST_SKIP_SPEC === 'true') {
+    it('skip spec testing', () => {});
     return;
   }
 

@@ -11,7 +11,8 @@
     "prebuild": "rimraf ./dist",
     "build-all": "webpack --env production",
     "prebuild-all": "yarn --cwd ../extension-content-ui build",
-    "start": "npm-run-all --parallel watch serve"
+    "start": "npm-run-all --parallel watch serve",
+    "test": "echo '@vocably/extension-content-script has no tests.'"
   },
   "repository": {
     "type": "git",

@@ -17,8 +17,9 @@
   "scripts": {
     "build": "stencil build --docs",
     "start": "stencil build --dev --watch --serve",
-    "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll",
+    "test": "echo 'Use `yarn integration` to test @vocably/extension-content-ui.'",
+    "integration": "stencil test --spec --e2e",
+    "integration.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
   },
   "dependencies": {

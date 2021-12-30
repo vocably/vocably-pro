@@ -1,12 +1,13 @@
 {
-  "name": "vocably",
+  "name": "@vocably/app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "echo 'Use `yarn integration` to test @vocably/app.'",
+    "integration": "ng test"
   },
   "private": true,
   "dependencies": {

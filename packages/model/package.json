@@ -8,7 +8,8 @@
     "prebuild": "rimraf ./dist",
     "build": "tsc",
     "start": "tsc --watch",
-    "generate-types": "swagger-typescript-api -p api.yml -o src -n api-types.ts --no-client"
+    "generate-types": "swagger-typescript-api -p api.yml -o src -n api-types.ts --no-client",
+    "test": "echo '@vocably/model has no tests.'"
   },
   "repository": {
     "type": "git",

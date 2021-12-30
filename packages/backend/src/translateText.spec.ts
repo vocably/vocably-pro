@@ -1,6 +1,11 @@
 import { translateText } from './translateText';
 
 describe('translateText', () => {
+  if (process.env.TEST_SKIP_SPEC === 'true') {
+    it('skip spec testing', () => {});
+    return;
+  }
+
   it('returns successful result', async () => {
     const result = await translateText('машина');
 

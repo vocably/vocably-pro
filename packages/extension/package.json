@@ -7,7 +7,8 @@
     "prebuild": "rimraf ./dist",
     "build-all": "webpack --env production",
     "prebuild-all": "yarn --cwd ../extension-content-script build-all",
-    "start": "webpack --watch --env development"
+    "start": "webpack --watch --env development",
+    "test": "echo '@vocably/extension has no tests.'"
   },
   "repository": {
     "type": "git",

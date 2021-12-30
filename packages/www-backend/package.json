@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "test": "echo '@vocably/www-backend has no tests.'"
   },
   "dependencies": {},
   "devDependencies": {}
