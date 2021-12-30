@@ -38,6 +38,7 @@ jobs:
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
       - run: yarn workspaces run test
+      - run: yarn run semantic-release
   stage:
     working_directory: ~/repo
     docker:
