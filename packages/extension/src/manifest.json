@@ -3,7 +3,7 @@
 
   "name": "Vocably",
   "description": "Vocably Extension",
-  "version": "0.0.1",
+  "version": "{{ process.env.VERSION }}",
 
   "icons": {
     "16": "images/icon-16x16.png",

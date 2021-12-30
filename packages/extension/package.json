@@ -1,7 +1,8 @@
 {
   "name": "@vocably/extension",
-  "version": "1.0.0",
-  "description": "translation-extension",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
   "scripts": {
     "build": "webpack --env production",
     "prebuild": "rimraf ./dist",

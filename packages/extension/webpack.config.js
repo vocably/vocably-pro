@@ -3,8 +3,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const DotenvFlow = require('dotenv-flow-webpack');
-const { WatchTimerPlugin } = require('@vocably/webpack');
+const { WatchTimerPlugin, replaceDefinitions } = require('@vocably/webpack');
 const { basename } = require('path');
+
+const dotEnvPlugin = new DotenvFlow();
 
 const prodConfig = {
   mode: 'production',
@@ -42,10 +44,23 @@ const prodConfig = {
       filename: 'options.html',
     }),
     new CopyPlugin({
-      patterns: [{ from: '.', to: '.', context: 'assets' }],
+      patterns: [
+        { from: '.', to: '.', context: 'assets' },
+        {
+          from: 'manifest.json',
+          to: '.',
+          context: 'src',
+          transform(content) {
+            return replaceDefinitions(
+              content.toString(),
+              dotEnvPlugin.definitions
+            );
+          },
+        },
+      ],
       options: {},
     }),
-    new DotenvFlow(),
+    dotEnvPlugin,
   ],
   performance: {
     hints: false,
