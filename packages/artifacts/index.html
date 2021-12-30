@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vocably - Artifacts</title>
+  </head>
+
+  <body>
+    <script>
+      var bucket = window.location.host.split('.')[0];
+      var host = window.location.host;
+      var startPosition = host.search('s3-website');
+      var region2 = host.substring(startPosition + 11).split('.')[0];
+      var urlSuffix;
+      if (region2 === 'us-east-1') {
+        urlSuffix = '.s3.amazonaws.com';
+      } else {
+        urlSuffix = '.s3.' + region2 + '.amazonaws.com';
+      }
+
+      var url = 'http://' + bucket + urlSuffix;
+      fetch(url).then((res) => {
+        sMyString = res.text().then((text) => {
+          var oParser = new DOMParser();
+          var oDOM = oParser.parseFromString(text, 'text/xml');
+          oDOM.childNodes.forEach((value, index, listObj) => {
+            value.childNodes.forEach((value1, index1, listObj1) => {
+              value1.childNodes.forEach((value2, index2, listObj2) => {
+                if (
+                  value2.localName === 'Key' &&
+                  value2.textContent !== 'index.html'
+                ) {
+                  var fileName = value2.textContent;
+                  var url = window.location + fileName;
+                  document.writeln(
+                    "<a href='" + url + "'>" + fileName + '</a> <br>'
+                  );
+                }
+              });
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
