@@ -45,6 +45,10 @@ resource "aws_s3_bucket_object" "artifacts" {
   content_type = lookup(local.mime_types, split(".", each.value)[length(split(".", each.value)) - 1])
 }
 
-output "artifacts" {
+output "artifacts_url" {
   value = "http://${aws_s3_bucket.artifacts.website_endpoint}"
+}
+
+output "artifacts_bucket" {
+  value = aws_s3_bucket.artifacts.bucket
 }

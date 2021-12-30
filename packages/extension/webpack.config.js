@@ -6,7 +6,9 @@ const DotenvFlow = require('dotenv-flow-webpack');
 const { WatchTimerPlugin, replaceDefinitions } = require('@vocably/webpack');
 const { basename } = require('path');
 
-const dotEnvPlugin = new DotenvFlow();
+const dotEnvPlugin = new DotenvFlow({
+  system_vars: true,
+});
 
 const prodConfig = {
   mode: 'production',
