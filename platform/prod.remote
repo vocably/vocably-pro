@@ -1,0 +1,2 @@
+bucket = "vocably-prod-tf-state"
+dynamodb_table = "vocably-prod-tf-state-lock"

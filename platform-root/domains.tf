@@ -32,8 +32,8 @@ resource "aws_route53_record" "dev-ns" {
 }
 
 resource "aws_route53_zone" "stage" {
-  name = "stage.${aws_route53_zone.env.name}"
-  #  provider = aws.stage
+  name     = "stage.${aws_route53_zone.env.name}"
+  provider = aws.stage
 }
 
 resource "aws_route53_record" "stage-ns" {

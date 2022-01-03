@@ -1,5 +1,5 @@
 locals {
-  cards_bucket_name = "vocably-${terraform.workspace}-cards-1"
+  cards_bucket_name = "vocably-${terraform.workspace}-cards"
 }
 
 resource "aws_s3_bucket" "cards" {

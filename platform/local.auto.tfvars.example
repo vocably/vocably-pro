@@ -1,4 +1,4 @@
-root_domain = "vocably.pro"
-gcloud_project_id = "vocably-332109"
-google_oauth2_client_id = "356478205648-le03fnat0mcc5ro8u9d7bphr5gsvgveb.apps.googleusercontent.com"
+root_domain = "dev.env.vocably.pro"
+gcloud_project_id = "vocably-dev"
+google_oauth2_client_id = "358366140631-qgk8e24k3ia92115kkl13arvj6vccdt8.apps.googleusercontent.com"
 google_oauth2_client_secret = "never-stored-in-github-repo"

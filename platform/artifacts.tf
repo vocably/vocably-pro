@@ -1,5 +1,5 @@
 locals {
-  artifacts_bucket = "vocably-${terraform.workspace}-artifacts-1"
+  artifacts_bucket = "vocably-${terraform.workspace}-artifacts"
 }
 resource "aws_s3_bucket" "artifacts" {
   bucket = local.artifacts_bucket
