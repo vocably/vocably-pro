@@ -44,5 +44,12 @@
 
   "background": {
     "service_worker": "serviceWorker.js"
-  }
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["manifest.json"],
+      "matches": ["https://*.vocably.pro/*", "http://localhost:8030/*"]
+    }
+  ]
 }

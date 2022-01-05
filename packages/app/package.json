@@ -10,7 +10,6 @@
     "test": "echo 'Use `yarn integration` to test @vocably/app.'",
     "integration": "ng test"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~13.0.0",
     "@angular/common": "~13.0.0",
@@ -23,6 +22,7 @@
     "@vocably/api": "0.0.0",
     "@vocably/pontis": "0.0.0",
     "bootstrap": "^5.1.3",
+    "bowser": "^2.11.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
