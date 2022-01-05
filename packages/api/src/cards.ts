@@ -8,13 +8,7 @@ import {
 } from '@aws-sdk/client-s3';
 import { apiOptions } from './config';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-
-const isValidCredentials = (
-  credentials: any
-): credentials is Awaited<ReturnType<typeof Auth.currentUserCredentials>> =>
-  typeof credentials === 'object' &&
-  credentials !== null &&
-  credentials.authenticated;
+import { isValidCredentials } from './isValidCredentials';
 
 export const storeCards = async (
   language: string,

@@ -1,1 +1,7 @@
-<app-no-cards></app-no-cards>
+<!--<app-no-cards></app-no-cards>-->
+<app-languages
+  *ngIf="languages && languages.length > 1"
+  [languages]="languages"
+  [selected]="selectedLanguage"
+></app-languages>
+<app-cards></app-cards>
