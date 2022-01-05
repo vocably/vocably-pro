@@ -1,5 +1,8 @@
-<ng-container>
-  <nav class="navbar navbar-light bg-light mb-3">
+<div class="d-flex flex-column min-vh-100">
+  <nav
+    class="navbar navbar-light bg-light mb-3"
+    *ngIf="auth.isLoggedIn$ | async"
+  >
     <div class="container">
       <a class="navbar-brand" href="/">{{ title }}</a>
       <button
@@ -11,7 +14,7 @@
       </button>
     </div>
   </nav>
-  <div class="container">
-    <router-outlet></router-outlet>
+  <div class="container d-flex flex-column flex-grow-1">
+    <router-outlet class="router-outlet"></router-outlet>
   </div>
-</ng-container>
+</div>
