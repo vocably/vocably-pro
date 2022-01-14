@@ -1,7 +1,7 @@
 data "aws_region" "current" {}
 
 locals {
-  api_base_url = "https://${aws_apigatewayv2_domain_name.app_api.domain_name}"
+  api_base_url = "https://${aws_api_gateway_domain_name.api.domain_name}"
 }
 
 locals {
