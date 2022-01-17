@@ -1,5 +1,5 @@
 import {
-  AvailableLanguage,
+  LexicalaLanguage,
   LexicalaSearchResultItem,
   Result,
 } from '@vocably/model';
@@ -7,7 +7,7 @@ import { URLSearchParams } from 'url';
 import { request } from './utils/request';
 
 export const analyze = async (
-  language: AvailableLanguage,
+  language: LexicalaLanguage,
   text: string
 ): Promise<Result<LexicalaSearchResultItem[]>> => {
   try {

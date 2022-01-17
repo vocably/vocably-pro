@@ -1,6 +1,11 @@
 import './fixAuth';
 import { Auth } from '@aws-amplify/auth';
-import { configureApi, translate, loadCards, storeCards } from '@vocably/api';
+import {
+  configureApi,
+  translate,
+  loadLanguageDeck,
+  saveLanguageDeck,
+} from '@vocably/api';
 import {
   onIsLoggedInRequest,
   onTranslationRequest,
@@ -37,22 +42,23 @@ export const registerServiceWorker = (
         return sendResponse(translationResult);
       }
 
-      const languageCardsResult = await loadCards(
+      const loadLanguageDeckResult = await loadLanguageDeck(
         translationResult.value.language
       );
-      console.info(`Cards loading has been requested.`, languageCardsResult);
+      console.info(`Cards loading has been requested.`, loadLanguageDeckResult);
 
-      if (languageCardsResult.success === false) {
-        return sendResponse(languageCardsResult);
+      if (loadLanguageDeckResult.success === false) {
+        return sendResponse(loadLanguageDeckResult);
       }
 
-      const collection = languageCardsResult.value;
-      const cards = createCards(collection, phrase, translationResult.value);
-
-      const saveCardsCollectionResult = await storeCards(
-        translationResult.value.language,
-        collection
+      const languageDeck = loadLanguageDeckResult.value;
+      const cards = createCards(
+        languageDeck.cards,
+        phrase,
+        translationResult.value
       );
+
+      const saveCardsCollectionResult = await saveLanguageDeck(languageDeck);
       console.info(
         `Cards saving has been requested.`,
         saveCardsCollectionResult

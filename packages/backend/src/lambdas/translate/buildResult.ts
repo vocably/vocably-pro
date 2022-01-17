@@ -1,5 +1,5 @@
 import {
-  isAvailableLanguage,
+  isLexicalaLanguage,
   Phrase,
   Result,
   Translation,
@@ -21,7 +21,7 @@ export const buildResult = async (
     };
   }
 
-  if (phrase.language && !isAvailableLanguage(phrase.language)) {
+  if (phrase.language && !isLexicalaLanguage(phrase.language)) {
     return {
       success: false,
       errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_REQUESTED_LANGUAGE',
@@ -37,7 +37,7 @@ export const buildResult = async (
 
   const language = phrase.language ?? translationResult.value.detectedLanguage;
 
-  if (!isAvailableLanguage(language)) {
+  if (!isLexicalaLanguage(language)) {
     return {
       success: false,
       errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_DETECTED_LANGUAGE',

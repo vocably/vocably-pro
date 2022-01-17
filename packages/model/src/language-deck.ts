@@ -10,3 +10,8 @@ export interface CardItem {
   updated?: number;
   data: Card;
 }
+
+export interface LanguageDeck {
+  language?: string;
+  cards: CardItem;
+}

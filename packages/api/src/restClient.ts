@@ -29,9 +29,19 @@ export const request = async (
       };
     }
 
+    if (
+      response.headers.has('Content-Type') &&
+      response.headers.get('Content-Type') === 'application/json'
+    ) {
+      return {
+        success: true,
+        value: await response.json(),
+      };
+    }
+
     return {
       success: true,
-      value: await response.json(),
+      value: await response.text(),
     };
   } catch (e) {
     return {

@@ -1,6 +1,6 @@
-export * from './api-types';
+export * from './translate';
 export * from './errors';
 export * from './language';
 export { Result } from './result';
-export * from './card';
+export * from './language-deck';
 export * from './translation-cards';

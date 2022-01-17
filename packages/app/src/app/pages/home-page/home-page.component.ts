@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
-import { loadCards, loadDecks } from '@vocably/api';
-import { AvailableLanguage } from '@vocably/model';
+import { listLanguages } from '@vocably/api';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,13 +8,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  public languages: AvailableLanguage[] | null = null;
-  public selectedLanguage: AvailableLanguage | null = null;
+  public languages: string[] | null = null;
+  public selectedLanguage: string | null = null;
 
   constructor(private route: ActivatedRoute) {}
 
   async ngOnInit() {
-    const decksLoadResult = await loadDecks();
+    const decksLoadResult = await listLanguages();
 
     if (decksLoadResult.success === false) {
       // ToDo: Handle decks load error

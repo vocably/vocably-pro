@@ -12,7 +12,6 @@ export const environmentLocal = {
     region: '${data.aws_region.current.name}',
     userPoolId: '${aws_cognito_user_pool.users.id}',
     userPoolWebClientId: '${aws_cognito_user_pool_client.client.id}',
-    identityPoolId: '${aws_cognito_identity_pool.main.id}',
     oauth: {
       domain: '${local.auth_domain}',
       scope: ['email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
@@ -41,7 +40,6 @@ locals {
 AUTH_REGION="${data.aws_region.current.name}"
 AUTH_USER_POOL_ID="${aws_cognito_user_pool.users.id}"
 AUTH_USER_POOL_WEB_CLIENT_ID="${aws_cognito_user_pool_client.client.id}"
-AUTH_IDENTITY_POOL_ID="${aws_cognito_identity_pool.main.id}"
 API_BASE_URL="${local.api_base_url}"
 API_REGION="${data.aws_region.current.name}"
 API_CARDS_BUCKET="${aws_s3_bucket.cards.bucket}"

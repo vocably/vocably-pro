@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AvailableLanguage } from '@vocably/model';
 
 @Component({
   selector: 'app-languages',
@@ -7,8 +6,8 @@ import { AvailableLanguage } from '@vocably/model';
   styleUrls: ['./languages.component.scss'],
 })
 export class LanguagesComponent implements OnInit {
-  @Input() languages: AvailableLanguage[] = [];
-  @Input() selected: AvailableLanguage | null = null;
+  @Input() languages: string[] = [];
+  @Input() selected: string | null = null;
 
   constructor() {}
 

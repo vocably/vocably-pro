@@ -1,4 +1,4 @@
-export const AvailableLanguages = [
+export const LexicalaLanguages = [
   'ar',
   'br',
   'cs',
@@ -26,9 +26,9 @@ export const AvailableLanguages = [
   'zh',
 ] as const;
 
-export type AvailableLanguage = typeof AvailableLanguages[number];
+export type LexicalaLanguage = typeof LexicalaLanguages[number];
 
-export const isAvailableLanguage = (
+export const isLexicalaLanguage = (
   language: string
-): language is AvailableLanguage =>
-  AvailableLanguages.indexOf(language as AvailableLanguage) !== -1;
+): language is LexicalaLanguage =>
+  LexicalaLanguages.indexOf(language as LexicalaLanguage) !== -1;

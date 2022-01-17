@@ -84,7 +84,12 @@ resource "aws_api_gateway_deployment" "deployment" {
     aws_api_gateway_integration.put_language,
     aws_api_gateway_integration.get_language,
     aws_api_gateway_integration.delete_language,
-    aws_api_gateway_integration.list_languages
+    aws_api_gateway_integration.list_languages,
+    aws_api_gateway_integration_response.put_language_200,
+    aws_api_gateway_integration_response.delete_language_200,
+    aws_api_gateway_integration_response.get_language_200,
+    aws_api_gateway_integration_response.get_language_4xx,
+    aws_api_gateway_integration_response.list_languages_200
   ]
   lifecycle {
     create_before_destroy = true

@@ -121,13 +121,14 @@ resource "aws_api_gateway_method_response" "put_language_200" {
   status_code = "200"
 
   response_parameters = {
-    "method.response.header.Timestamp"      = true
-    "method.response.header.Content-Length" = true
-    "method.response.header.Content-Type"   = true
+    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Timestamp"                   = true
+    "method.response.header.Content-Length"              = true
+    "method.response.header.Content-Type"                = true
   }
 
   response_models = {
-    "application/json" = "Empty"
+    "text/plain" = "Empty"
   }
 }
 
@@ -155,9 +156,10 @@ resource "aws_api_gateway_integration_response" "put_language_200" {
   status_code = aws_api_gateway_method_response.put_language_200.status_code
 
   response_parameters = {
-    "method.response.header.Timestamp"      = "integration.response.header.Date"
-    "method.response.header.Content-Length" = "integration.response.header.Content-Length"
-    "method.response.header.Content-Type"   = "integration.response.header.Content-Type"
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Timestamp"                   = "integration.response.header.Date"
+    "method.response.header.Content-Length"              = "integration.response.header.Content-Length"
+    "method.response.header.Content-Type"                = "integration.response.header.Content-Type"
   }
 }
 
@@ -182,9 +184,10 @@ resource "aws_api_gateway_method_response" "get_language_200" {
   status_code = "200"
 
   response_parameters = {
-    "method.response.header.Timestamp"      = true
-    "method.response.header.Content-Length" = true
-    "method.response.header.Content-Type"   = true
+    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Timestamp"                   = true
+    "method.response.header.Content-Length"              = true
+    "method.response.header.Content-Type"                = true
   }
 
   response_models = {
@@ -199,13 +202,14 @@ resource "aws_api_gateway_method_response" "get_language_204" {
   status_code = "204"
 
   response_parameters = {
-    "method.response.header.Timestamp"      = true
-    "method.response.header.Content-Length" = true
-    "method.response.header.Content-Type"   = true
+    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Timestamp"                   = true
+    "method.response.header.Content-Length"              = true
+    "method.response.header.Content-Type"                = true
   }
 
   response_models = {
-    "application/json" = "Empty"
+    "text/plain" = "Empty"
   }
 }
 
@@ -233,13 +237,14 @@ resource "aws_api_gateway_integration_response" "get_language_200" {
   status_code = aws_api_gateway_method_response.get_language_200.status_code
 
   response_parameters = {
-    "method.response.header.Timestamp"      = "integration.response.header.Date"
-    "method.response.header.Content-Length" = "integration.response.header.Content-Length"
-    "method.response.header.Content-Type"   = "integration.response.header.Content-Type"
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Timestamp"                   = "integration.response.header.Date"
+    "method.response.header.Content-Length"              = "integration.response.header.Content-Length"
+    "method.response.header.Content-Type"                = "integration.response.header.Content-Type"
   }
 }
 
-resource "aws_api_gateway_integration_response" "get_language_403" {
+resource "aws_api_gateway_integration_response" "get_language_4xx" {
   depends_on = [aws_api_gateway_integration.get_language]
 
   rest_api_id = aws_api_gateway_rest_api.rest_api.id
@@ -247,7 +252,11 @@ resource "aws_api_gateway_integration_response" "get_language_403" {
   http_method = aws_api_gateway_method.get_language.http_method
   status_code = aws_api_gateway_method_response.get_language_204.status_code
 
-  selection_pattern = "403"
+  selection_pattern = "4\\d{2}"
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
 }
 
 // Delete language:
@@ -271,9 +280,10 @@ resource "aws_api_gateway_method_response" "delete_language_200" {
   status_code = "200"
 
   response_parameters = {
-    "method.response.header.Timestamp"      = true
-    "method.response.header.Content-Length" = true
-    "method.response.header.Content-Type"   = true
+    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Timestamp"                   = true
+    "method.response.header.Content-Length"              = true
+    "method.response.header.Content-Type"                = true
   }
 
   response_models = {
@@ -305,9 +315,10 @@ resource "aws_api_gateway_integration_response" "delete_language_200" {
   status_code = aws_api_gateway_method_response.delete_language_200.status_code
 
   response_parameters = {
-    "method.response.header.Timestamp"      = "integration.response.header.Date"
-    "method.response.header.Content-Length" = "integration.response.header.Content-Length"
-    "method.response.header.Content-Type"   = "integration.response.header.Content-Type"
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Timestamp"                   = "integration.response.header.Date"
+    "method.response.header.Content-Length"              = "integration.response.header.Content-Length"
+    "method.response.header.Content-Type"                = "integration.response.header.Content-Type"
   }
 }
 
@@ -332,9 +343,10 @@ resource "aws_api_gateway_method_response" "list_languages_200" {
   status_code = "200"
 
   response_parameters = {
-    "method.response.header.Timestamp"      = true
-    "method.response.header.Content-Length" = true
-    "method.response.header.Content-Type"   = true
+    "method.response.header.Access-Control-Allow-Origin" = true
+    "method.response.header.Timestamp"                   = true
+    "method.response.header.Content-Length"              = true
+    "method.response.header.Content-Type"                = true
   }
 
   response_models = {
@@ -365,8 +377,9 @@ resource "aws_api_gateway_integration_response" "list_languages_200" {
   status_code = aws_api_gateway_method_response.list_languages_200.status_code
 
   response_parameters = {
-    "method.response.header.Timestamp"      = "integration.response.header.Date"
-    "method.response.header.Content-Length" = "integration.response.header.Content-Length"
-    "method.response.header.Content-Type"   = "integration.response.header.Content-Type"
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Timestamp"                   = "integration.response.header.Date"
+    "method.response.header.Content-Length"              = "integration.response.header.Content-Length"
+    "method.response.header.Content-Type"                = "integration.response.header.Content-Type"
   }
 }
