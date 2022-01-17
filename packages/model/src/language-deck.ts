@@ -13,5 +13,5 @@ export interface CardItem {
 
 export interface LanguageDeck {
   language?: string;
-  cards: CardItem;
+  cards: CardItem[];
 }
