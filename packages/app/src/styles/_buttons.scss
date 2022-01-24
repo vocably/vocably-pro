@@ -1,0 +1,28 @@
+button.unstyled {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.button {
+  background: var(--button-bg);
+  color: inherit;
+  border: 1px solid var(--button-border-color);
+  padding: 0.5rem;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: $border-radius;
+
+  &.block {
+    width: 100%;
+  }
+
+  &:hover {
+    background: var(--button-bg-hover);
+    border-color: var(--button-border-color-hover);
+  }
+}

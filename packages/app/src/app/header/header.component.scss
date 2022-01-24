@@ -1,0 +1,46 @@
+@import '../../styles/variables';
+
+.header {
+  padding-bottom: $header-bottom-padding;
+}
+
+.header-items {
+  display: flex;
+  flex-direction: row;
+  height: $header-items-height;
+  align-items: center;
+  justify-content: center;
+
+  .logo,
+  .content,
+  .menu {
+    flex: 1;
+  }
+
+  .content {
+    text-align: center;
+  }
+
+  .menu {
+    text-align: right;
+  }
+
+  .icon {
+    vertical-align: middle;
+  }
+
+  .logo-link {
+    display: inline-block;
+  }
+
+  .logo-image {
+    height: $header-items-height;
+    user-select: none;
+  }
+}
+
+.mini {
+  .logo {
+    flex: 0;
+  }
+}

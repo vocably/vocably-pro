@@ -1,0 +1,34 @@
+<header class="header" [class.mini]="mini">
+  <div class="header-items">
+    <div class="logo">
+      <a [routerLink]="['/']" *ngIf="!mini"
+        ><vocably-logo class="logo-image"></vocably-logo
+      ></a>
+      <vocably-logo class="logo-image" *ngIf="mini"></vocably-logo>
+    </div>
+    <div class="content" *ngIf="!mini">
+      <div class="inline-block">
+        <ng-content></ng-content>
+      </div>
+    </div>
+    <div class="menu" *ngIf="!mini">
+      <button class="unstyled" id="menu-button">
+        <ion-icon class="icon" name="menu-outline" size="large"></ion-icon>
+      </button>
+      <ion-popover trigger="menu-button" show-backdrop="false">
+        <ng-template>
+          <ion-content>
+            <ion-list lines="none">
+              <ion-item [button]="true">
+                <ion-label>Settings</ion-label>
+              </ion-item>
+              <ion-item [button]="true">
+                <ion-label>Logout</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+    </div>
+  </div>
+</header>

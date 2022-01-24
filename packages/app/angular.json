@@ -18,7 +18,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "vocably",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

@@ -1,0 +1,10 @@
+.container {
+  margin: 0 auto;
+  padding: $container-padding;
+
+  @media (min-width: 768px) {
+    width: 768px;
+  }
+
+  min-height: 100%;
+}

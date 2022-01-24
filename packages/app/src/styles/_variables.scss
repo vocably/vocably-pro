@@ -1,0 +1,74 @@
+$gray-50: rgb(247, 247, 247);
+$gray-100: rgb(239, 239, 239);
+$gray-200: rgb(223, 223, 223);
+$gray-300: rgb(202, 202, 202);
+$gray-400: rgb(168, 168, 168);
+$gray-500: rgb(135, 135, 135);
+$gray-600: rgb(109, 109, 109);
+$gray-700: rgb(95, 95, 95);
+$gray-800: rgb(74, 74, 74);
+$gray-900: rgb(61, 61, 61);
+$gray-1000: rgb(42, 42, 42);
+$gray-1100: rgb(28, 28, 28);
+$gray-1200: rgb(18, 18, 18);
+
+$white: #ffffff;
+$white-rgb: 255, 255, 255;
+
+$dark-primary: $white;
+$dark-primary-rgb: $white-rgb;
+$dark-body-bg: $gray-1100;
+$dark-body-bg-rgb: 28, 28, 28;
+$dark-text-color: $white;
+$dark-text-color-rgb: $white-rgb;
+$dark-border-color: $gray-600;
+
+$dark-theme: (
+  primary-color: $dark-primary,
+  body-bg: $dark-body-bg,
+  text-color: $dark-text-color,
+  contrast-bg: $gray-1000,
+  button-border-color: $dark-border-color,
+  button-border-color-hover: $gray-400,
+  button-bg: $gray-900,
+  button-bg-hover: $gray-800,
+  // Ionic
+  // Generated via the theme generator at https://ionicframework.com/docs/theming/themes
+  ion-color-primary: $dark-primary,
+  ion-color-primary-rgb: $dark-primary-rgb,
+  ion-background-color: $dark-body-bg,
+  ion-background-color-rgb: $dark-body-bg-rgb,
+  ion-text-color: $dark-text-color,
+  ion-text-color-rgb: $dark-text-color-rgb,
+  ion-border-color: $dark-border-color,
+  ion-color-step-50: #272727,
+  ion-color-step-100: #333333,
+  ion-color-step-150: #3e3e3e,
+  ion-color-step-200: #494949,
+  ion-color-step-250: #555555,
+  ion-color-step-300: #606060,
+  ion-color-step-350: #6b6b6b,
+  ion-color-step-400: #777777,
+  ion-color-step-450: #828282,
+  ion-color-step-500: #8e8e8e,
+  ion-color-step-550: #999999,
+  ion-color-step-600: #a4a4a4,
+  ion-color-step-650: #b0b0b0,
+  ion-color-step-700: #bbbbbb,
+  ion-color-step-750: #c6c6c6,
+  ion-color-step-800: #d2d2d2,
+  ion-color-step-850: #dddddd,
+  ion-color-step-900: #e8e8e8,
+  ion-color-step-950: #f4f4f4,
+  ion-item-background: $gray-1000,
+  ion-toolbar-background: #1f1f1f,
+  ion-tab-bar-background: #1f1f1f,
+  ion-card-background: #1e1e1e,
+);
+
+$container-padding: 2rem;
+
+$header-items-height: 2rem;
+$header-bottom-padding: $container-padding;
+
+$border-radius: 4px;
