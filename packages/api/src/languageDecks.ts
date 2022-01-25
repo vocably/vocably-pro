@@ -41,6 +41,8 @@ export const loadLanguageDeck = async (
         },
       };
     }
+
+    return result;
   } catch (e) {
     return {
       success: false,
