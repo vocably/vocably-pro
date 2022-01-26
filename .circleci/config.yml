@@ -39,7 +39,7 @@ jobs:
       - run: bash ./scripts/run-terraform.sh
       - run: yarn workspaces run test
       - run: yarn run semantic-release
-      - run: bash ./scripts/build-extension.sh
+      - run: npx zx ./scripts/build-extension.mjs
   stage:
     working_directory: ~/repo
     docker:
