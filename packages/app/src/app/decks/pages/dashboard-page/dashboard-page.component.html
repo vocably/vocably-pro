@@ -1,1 +1,15 @@
-<p>dashboard-page works!</p>
+<button class="button block mb-1">Practice</button>
+<ul class="unstyled mb-1" *ngIf="deckStore.deck$ | async as deck">
+  <li
+    *ngFor="let card of deck.cards.slice(0, 3); last as isLast"
+    class="card mb-1"
+    [class.to-be-continued]="isLast && deck.cards.length > 3"
+  >
+    <div class="side-a">{{ card.data.sideA }}</div>
+    <div>{{ card.data.sideB }}</div>
+  </li>
+</ul>
+
+<div class="text-right">
+  <a [routerLink]="['edit']">Edit deck</a>
+</div>

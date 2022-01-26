@@ -1,0 +1,27 @@
+@import '../../../../styles/variables';
+
+.card {
+  background-color: var(--contrast-bg);
+  padding: 1rem;
+  border-radius: $border-radius;
+
+  &.to-be-continued {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      position: absolute;
+      content: '';
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(transparent, var(--body-bg));
+      pointer-events: none;
+    }
+  }
+}
+
+.side-a {
+  font-size: 2rem;
+}
