@@ -1,0 +1,5 @@
+<ion-select [value]="value" interface="popover" (ionChange)="onChange($event)">
+  <ion-select-option *ngFor="let language of languages" [value]="language">{{
+    language | language
+  }}</ion-select-option>
+</ion-select>

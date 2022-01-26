@@ -7,6 +7,8 @@ import { DecksComponent } from './decks.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { NoDecksPageComponent } from './pages/no-decks-page/no-decks-page.component';
 import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
+import { LanguageModule } from '../language/language.module';
+import { DeckSelectorComponent } from './deck-selector/deck-selector.component';
 
 @NgModule({
   declarations: [
@@ -14,8 +16,15 @@ import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
     DashboardPageComponent,
     NoDecksPageComponent,
     SelectedDeckComponent,
+    DeckSelectorComponent,
   ],
-  imports: [CommonModule, IonicModule, HeaderModule, DecksRoutingModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    HeaderModule,
+    DecksRoutingModule,
+    LanguageModule,
+  ],
   exports: [],
 })
 export class DecksModule {}

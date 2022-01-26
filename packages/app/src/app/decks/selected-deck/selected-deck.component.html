@@ -1,3 +1,11 @@
-<vocably-header></vocably-header>
+<vocably-header>
+  <ng-container *ngIf="deckListStore.decks$ | async as deckList">
+    <vocably-deck-selector
+      [languages]="deckList"
+      [value]="language"
+      (change)="changeLanguage($event)"
+    ></vocably-deck-selector>
+  </ng-container>
+</vocably-header>
 <div *ngIf="isLoading">Loading deck...</div>
 <router-outlet *ngIf="!isLoading"></router-outlet>
