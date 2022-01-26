@@ -7,5 +7,7 @@
     ></vocably-deck-selector>
   </ng-container>
 </vocably-header>
-<div *ngIf="isLoading">Loading deck...</div>
+<div *ngIf="isLoading">
+  <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading cards...
+</div>
 <router-outlet *ngIf="!isLoading"></router-outlet>

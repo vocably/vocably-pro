@@ -1,2 +1,4 @@
-<div *ngIf="isLoading">Loading decks...</div>
+<div *ngIf="isLoading">
+  <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading decks...
+</div>
 <router-outlet *ngIf="!isLoading"></router-outlet>
