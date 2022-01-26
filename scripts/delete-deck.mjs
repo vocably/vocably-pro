@@ -1,8 +1,8 @@
-import 'zx/globals'
+import 'zx/globals';
 
-const env = process.argv[3];
-const sub = process.argv[4]
-const language = process.argv[5];
+const language = process.argv[3];
+const sub = process.argv[4] ?? process.env.DEFAULT_SUB;
+const env = process.argv[5] ?? process.env.DEFAULT_ENV;
 
 if (!env) {
   console.error(`User environment has not been specified.`);
@@ -19,4 +19,4 @@ if (!language) {
   process.exit(1);
 }
 
-await $`aws s3 rm s3://vocably-${env}-cards/${sub}/languages/${language}`
+await $`aws s3 rm s3://vocably-${env}-cards/${sub}/languages/${language}`;

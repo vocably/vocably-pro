@@ -8,4 +8,6 @@
     language | language
   }}</ion-select-option>
 </ion-select>
-<span *ngIf="languages.length === 1">{{ languages[0] | language }}</span>
+<span *ngIf="languages.length === 1" class="strong">{{
+  languages[0] | language
+}}</span>
