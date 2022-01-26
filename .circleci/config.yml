@@ -32,7 +32,7 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-      - run: bash ./scripts/build-packages.sh
+      - run: npx zx ./scripts/build-packages.mjs
       - run: yarn workspaces run test
       - run: bash ./scripts/install-build-depdendencies.sh
       - run: bash ./scripts/declare-variables.sh
@@ -60,7 +60,7 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-      - run: bash ./scripts/build-packages.sh
+      - run: npx zx ./scripts/build-packages.mjs
       - run: yarn workspaces run test
       - run: bash ./scripts/install-build-depdendencies.sh
       - run: bash ./scripts/declare-variables.sh
@@ -85,7 +85,7 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-      - run: bash ./scripts/build-packages.sh
+      - run: npx zx ./scripts/build-packages.mjs
       - run: yarn workspaces run test
       - run: bash ./scripts/install-build-depdendencies.sh
       - run: bash ./scripts/declare-variables.sh
