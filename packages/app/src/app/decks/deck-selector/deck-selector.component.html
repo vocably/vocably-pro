@@ -1,5 +1,11 @@
-<ion-select [value]="value" interface="popover" (ionChange)="onChange($event)">
+<ion-select
+  *ngIf="languages.length > 1"
+  [value]="value"
+  interface="popover"
+  (ionChange)="onChange($event)"
+>
   <ion-select-option *ngFor="let language of languages" [value]="language">{{
     language | language
   }}</ion-select-option>
 </ion-select>
+<span *ngIf="languages.length === 1">{{ languages[0] | language }}</span>
