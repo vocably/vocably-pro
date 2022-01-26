@@ -1,1 +1,2 @@
-<p>decks spage</p>
+<div *ngIf="isLoading">Loading decks...</div>
+<router-outlet *ngIf="!isLoading"></router-outlet>

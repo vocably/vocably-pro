@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { CognitoAuthGuard } from './auth/cognito-auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
-import { DecksResolverService } from './decks-resolver.service';
 
 const routes: Routes = [
   {
@@ -16,9 +15,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./decks/decks.module').then((m) => m.DecksModule),
     canActivate: [CognitoAuthGuard],
-    resolve: {
-      decks: DecksResolverService,
-    },
   },
   {
     path: 'login',

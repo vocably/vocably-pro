@@ -29,7 +29,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "**/*.svg",
+                "input": "../../node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
+            ],
             "styles": ["src/styles.scss"],
             "scripts": [],
             "allowedCommonJsDependencies": [
@@ -96,8 +104,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -153,7 +161,15 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "**/*.svg",
+                "input": "../../node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
+            ],
             "styles": ["src/styles.scss"],
             "scripts": []
           }
