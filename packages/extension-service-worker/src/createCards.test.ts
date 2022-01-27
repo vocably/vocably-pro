@@ -1,12 +1,13 @@
 import { addCardCandidates } from './createCards';
 import { CardItem } from '@vocably/model';
+import { createSrsItem } from '@vocably/srs';
 
 describe('createCards', () => {
   it('properly adds candidates when no such words exist in dictionary', () => {
     const collection = [];
     const cardItems = addCardCandidates(collection, [
-      { language: 'en', sideA: 'do', sideB: 'делать' },
-      { language: 'en', sideA: 'fuck', sideB: 'пекаться' },
+      { language: 'en', sideA: 'do', sideB: 'делать', ...createSrsItem() },
+      { language: 'en', sideA: 'fuck', sideB: 'пекаться', ...createSrsItem() },
     ]);
 
     expect(collection.length).toEqual(2);
@@ -17,14 +18,14 @@ describe('createCards', () => {
   it('properly returns an existing item if such a candidate already exists', () => {
     const collection: CardItem[] = [];
     addCardCandidates(collection, [
-      { language: 'en', sideA: 'do', sideB: 'делать' },
-      { language: 'en', sideA: 'fuck', sideB: 'пекаться' },
+      { language: 'en', sideA: 'do', sideB: 'делать', ...createSrsItem() },
+      { language: 'en', sideA: 'fuck', sideB: 'пекаться', ...createSrsItem() },
     ]);
 
     const doId = collection[0].id;
     const cardItems = addCardCandidates(collection, [
-      { language: 'en', sideA: 'fight', sideB: 'бороться' },
-      { language: 'en', sideA: 'do', sideB: 'делать' },
+      { language: 'en', sideA: 'fight', sideB: 'бороться', ...createSrsItem() },
+      { language: 'en', sideA: 'do', sideB: 'делать', ...createSrsItem() },
     ]);
 
     expect(collection.length).toEqual(3);
