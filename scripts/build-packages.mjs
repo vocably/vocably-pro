@@ -3,6 +3,7 @@ import { packagesDir } from './helpers/dirs.mjs';
 
 const packages = [
   'model',
+  'srs',
   'hermes',
   'pontis',
   'webpack',

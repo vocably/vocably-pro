@@ -1,17 +1,25 @@
-export interface Card {
-  language?: string;
+export type SrsItem = {
+  interval: number;
+  repetition: number;
+  eFactor: number;
+  dueDate: number;
+};
+
+export type Card = {
+  language: string;
   sideA: string;
   sideB: string;
-}
+  partOfSpeech?: string;
+} & SrsItem;
 
-export interface CardItem {
+export type CardItem = {
   id: string;
   created: number;
   updated?: number;
   data: Card;
-}
+};
 
-export interface LanguageDeck {
+export type LanguageDeck = {
   language?: string;
   cards: CardItem[];
-}
+};

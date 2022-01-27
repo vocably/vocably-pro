@@ -1,5 +1,5 @@
 {
-  "name": "@vocably/extension-service-worker",
+  "name": "@vocably/srs",
   "version": "0.0.0",
   "private": true,
   "description": "",
@@ -16,11 +16,7 @@
     "url": "https://github.com/sneas/vocably.git"
   },
   "dependencies": {
-    "@vocably/api": "0.0.0",
-    "@vocably/crud": "0.0.0",
-    "@vocably/extension-messages": "0.0.0",
-    "@vocably/model": "0.0.0",
-    "@vocably/srs": "0.0.0"
+    "@vocably/model": "0.0.0"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
