@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "scripts": {
     "prebuild": "rimraf ./dist",
     "build": "tsc",

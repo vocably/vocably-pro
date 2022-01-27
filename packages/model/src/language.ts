@@ -1,4 +1,5 @@
 export const LexicalaLanguages = [
+  'pi',
   'ar',
   'br',
   'cs',

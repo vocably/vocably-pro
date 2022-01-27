@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "module": "CommonJS",
+    "outDir": "dist/esm",
+    "module": "esnext",
     "target": "esnext",
     "moduleResolution": "node",
     "declaration": true,

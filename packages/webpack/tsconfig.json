@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "module": "CommonJS",
-    "target": "es6",
+    "outDir": "./dist/esm",
+    "module": "esnext",
+    "target": "esnext",
     "moduleResolution": "node",
     "declaration": true,
     "esModuleInterop": true,
