@@ -8,6 +8,7 @@ button.unstyled {
 }
 
 .button {
+  display: inline-block;
   background: var(--button-bg);
   color: inherit;
   border: 1px solid var(--button-border-color);
@@ -16,6 +17,8 @@ button.unstyled {
   font-weight: bold;
   cursor: pointer;
   border-radius: $border-radius;
+  text-align: center;
+  text-decoration: none;
 
   &.block {
     width: 100%;

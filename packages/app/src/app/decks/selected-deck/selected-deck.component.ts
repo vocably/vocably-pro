@@ -1,6 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { from, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import {
+  filter,
+  from,
+  map,
+  startWith,
+  Subject,
+  switchMap,
+  takeUntil,
+  tap,
+  withLatestFrom,
+} from 'rxjs';
 import { loadLanguageDeck } from '@vocably/api';
 import { DeckListStoreService } from '../deck-list-store.service';
 import { DeckStoreService } from '../deck-store.service';
@@ -22,13 +32,17 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
     public deckListStore: DeckListStoreService,
     public deckStore: DeckStoreService
   ) {
-    this.route.params
+    this.router.events
       .pipe(
+        takeUntil(this.destroy$),
+        filter((event) => event instanceof NavigationStart),
+        startWith(null),
+        withLatestFrom(this.route.params),
+        map(([_, params]) => params),
         tap(() => (this.isLoading = true)),
         tap((params) => {
           this.language = params['language'];
         }),
-        takeUntil(this.destroy$),
         switchMap((params) => {
           return from(loadLanguageDeck(params['language']));
         })

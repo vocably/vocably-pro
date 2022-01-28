@@ -4,6 +4,7 @@ import { DecksComponent } from './decks.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { NoDecksPageComponent } from './pages/no-decks-page/no-decks-page.component';
 import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
+import { StudyPageComponent } from './pages/study-page/study-page.component';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
           },
           {
             path: 'study',
-            component: DashboardPageComponent,
+            component: StudyPageComponent,
             data: {
               hideHeader: true,
             },

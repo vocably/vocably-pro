@@ -9,6 +9,7 @@ import { NoDecksPageComponent } from './pages/no-decks-page/no-decks-page.compon
 import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
 import { LanguageModule } from '../language/language.module';
 import { DeckSelectorComponent } from './deck-selector/deck-selector.component';
+import { StudyPageComponent } from './pages/study-page/study-page.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { DeckSelectorComponent } from './deck-selector/deck-selector.component';
     NoDecksPageComponent,
     SelectedDeckComponent,
     DeckSelectorComponent,
+    StudyPageComponent,
   ],
   imports: [
     CommonModule,
