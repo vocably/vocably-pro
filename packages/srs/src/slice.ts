@@ -10,9 +10,11 @@ export const slice = (
     return [];
   }
 
-  const dueDate = new Date(date);
-  dueDate.setHours(0, 0, 0, 0);
-  const dueTs = dueDate.getTime();
+  const dueTs = Date.UTC(
+    date.getUTCFullYear(),
+    date.getUTCMonth(),
+    date.getUTCDate()
+  );
 
   const batch: CardItem[] = [];
   const sortedList = list.sort(byDueDate);

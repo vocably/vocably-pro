@@ -2,9 +2,9 @@ import { CardItem } from '@vocably/model';
 import { slice } from './slice';
 
 describe('slice', () => {
-  const dueDay0 = 1643151600000;
-  const dueDay1 = 1643238000000;
-  const dueDay2 = 1643324400000;
+  const dueDay0 = 1643155200000;
+  const dueDay1 = 1643241600000;
+  const dueDay2 = 1643328000000;
 
   let cards: CardItem[];
 
