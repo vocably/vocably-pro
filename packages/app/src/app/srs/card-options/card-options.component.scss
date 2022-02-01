@@ -16,15 +16,19 @@
 
 .button {
   margin: 0 8px;
+  font-weight: normal;
   border: none;
   background: none;
   cursor: pointer;
   text-decoration: underline;
 
   .icon {
-    vertical-align: middle;
     margin-left: 3px;
-    opacity: 0.2;
+  }
+
+  .space-icon {
+    vertical-align: bottom;
+    --ionicon-stroke-width: 32px;
   }
 }
 
