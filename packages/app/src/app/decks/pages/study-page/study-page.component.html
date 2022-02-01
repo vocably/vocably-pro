@@ -1,5 +1,9 @@
 <div class="study-container">
-  <vocably-srs-list class="study-list" [cards]="this.cards"></vocably-srs-list>
+  <vocably-srs-list
+    class="study-list"
+    [cards]="this.cards"
+    (grade)="onGrade($event)"
+  ></vocably-srs-list>
   <div class="nav">
     <a [routerLink]="['../']"
       ><ion-icon class="mr-0_5" name="arrow-back-outline"></ion-icon>Back</a

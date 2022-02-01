@@ -18,6 +18,7 @@ export const Errors = [
   'API_REQUEST_NOT_OK',
   'API_REQUEST_UNHANDLED_ERROR',
   'AUTH_INVALID_USER_CREDENTIALS',
+  'CRUD_UNABLE_TO_FIND_ITEM',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];

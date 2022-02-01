@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+import { Result } from '@vocably/model';
 
 export type Timestamp = number;
 
@@ -32,11 +33,15 @@ export const makeCreate =
 
 export const makeUpdate =
   <T>(collection: Collection<T>) =>
-  (id: string, data: Partial<T>): Item<T> | false => {
+  (id: string, data: Partial<T>): Result<Item<T>> => {
     const itemToUpdate = collection.find(byId(id));
 
     if (itemToUpdate === undefined) {
-      return false;
+      return {
+        success: false,
+        errorCode: 'CRUD_UNABLE_TO_FIND_ITEM',
+        reason: `Unable to find item with ID ${id}`,
+      };
     }
 
     itemToUpdate.updated = +new Date();
@@ -45,17 +50,27 @@ export const makeUpdate =
       ...data,
     };
 
-    return itemToUpdate;
+    return {
+      success: true,
+      value: itemToUpdate,
+    };
   };
 
 export const makeDelete =
   <T>(collection: Collection<T>) =>
-  (id: string): boolean => {
+  (id: string): Result<true> => {
     const index = collection.findIndex(byId(id));
     if (index === -1) {
-      return false;
+      return {
+        success: false,
+        errorCode: 'CRUD_UNABLE_TO_FIND_ITEM',
+        reason: `Unable to find item with ID ${id}`,
+      };
     }
 
     collection.splice(index, 1);
-    return true;
+    return {
+      success: true,
+      value: true,
+    };
   };

@@ -18,6 +18,8 @@
     "type": "git",
     "url": "https://github.com/sneas/vocably.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@vocably/model": "0.0.0"
+  },
   "devDependencies": {}
 }
