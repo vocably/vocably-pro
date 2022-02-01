@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DeckStoreService } from '../../deck-store.service';
+import { slice } from '@vocably/srs';
+import { CardItem } from '@vocably/model';
 
 @Component({
   selector: 'vocably-study-page',
@@ -6,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./study-page.component.scss'],
 })
 export class StudyPageComponent implements OnInit {
-  constructor() {}
+  public cards: CardItem[];
+  constructor(deckStore: DeckStoreService) {
+    this.cards = slice(new Date(), 10, deckStore.deck$.value.cards);
+  }
 
   ngOnInit(): void {}
 }

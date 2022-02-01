@@ -1,0 +1,50 @@
+.card-options {
+  display: none;
+
+  @media (hover: hover) and (pointer: fine) {
+    & {
+      position: absolute;
+      left: 0;
+      bottom: 16px;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+  }
+}
+
+.button {
+  margin: 0 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: underline;
+
+  .icon {
+    vertical-align: middle;
+    margin-left: 3px;
+    opacity: 0.2;
+  }
+}
+
+.tooltip {
+  background-color: #000;
+  color: #fff;
+  position: absolute;
+  padding: 6px;
+  pointer-events: none;
+  border-radius: 3px;
+  transform: translate(-50%, calc(-100% - 6px));
+  transition: opacity 500ms;
+  top: 0;
+  opacity: 0;
+
+  &.visible {
+    opacity: 0.85;
+  }
+
+  .icon {
+    vertical-align: middle;
+  }
+}

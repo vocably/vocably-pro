@@ -1,0 +1,60 @@
+<div #flipCardTooltip class="tooltip">
+  Alternatively, use <strong>:space:</strong> button on the keyboard
+</div>
+<div #weakTooltip class="tooltip">
+  Alternatively, use
+  <ion-icon class="icon" name="arrow-back-outline"></ion-icon> button on the
+  keyboard
+</div>
+<div #somewhatTooltip class="tooltip">
+  Alternatively, use
+  <ion-icon class="icon" name="arrow-down-outline"></ion-icon> button on the
+  keyboard
+</div>
+<div #strongTooltip class="tooltip">
+  Alternatively, use
+  <ion-icon class="icon" name="arrow-forward-outline"></ion-icon> button on the
+  keyboard
+</div>
+<div class="card-options">
+  <span
+    #flipCardButton
+    class="button"
+    (click)="flip.emit()"
+    (mouseenter)="showTooltip(flipCardTooltip, flipCardButton)"
+    (mouseleave)="hideTooltip(flipCardTooltip)"
+  >
+    Flip card<ion-icon
+      class="icon"
+      style="vertical-align: bottom"
+      name="remove-outline"
+    ></ion-icon>
+  </span>
+  <span
+    #weakButton
+    class="button"
+    (click)="answer.emit('weak')"
+    (mouseenter)="showTooltip(weakTooltip, weakButton)"
+    (mouseleave)="hideTooltip(weakTooltip)"
+  >
+    Learn again<ion-icon class="icon" name="arrow-back-outline"></ion-icon>
+  </span>
+  <span
+    #somewhatButton
+    class="button"
+    (click)="answer.emit('somewhat')"
+    (mouseenter)="showTooltip(somewhatTooltip, somewhatButton)"
+    (mouseleave)="hideTooltip(somewhatTooltip)"
+  >
+    Repeat soon<ion-icon class="icon" name="arrow-down-outline"></ion-icon>
+  </span>
+  <span
+    #strongButton
+    class="button"
+    (click)="answer.emit('strong')"
+    (mouseenter)="showTooltip(strongTooltip, strongButton)"
+    (mouseleave)="hideTooltip(strongTooltip)"
+  >
+    That was easy<ion-icon class="icon" name="arrow-forward-outline"></ion-icon>
+  </span>
+</div>

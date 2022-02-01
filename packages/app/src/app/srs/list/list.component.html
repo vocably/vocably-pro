@@ -1,0 +1,18 @@
+<vocably-srs-card
+  *ngFor="let card of cards.slice(0, 1)"
+  [sideA]="card.data.sideA"
+  [sideB]="card.data.sideB"
+  [flip$]="flip$"
+  [answer$]="answer$"
+  (answer)="onAnswer($event)"
+  @displayComponent
+></vocably-srs-card>
+<vocably-srs-card-options
+  *ngIf="cards.length > 0"
+  (flip)="flip$.next(null)"
+  (answer)="answer$.next($event)"
+></vocably-srs-card-options>
+<vocably-srs-success
+  *ngIf="cards.length === 0"
+  @displayComponent
+></vocably-srs-success>

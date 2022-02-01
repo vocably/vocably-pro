@@ -1,0 +1,44 @@
+<div
+  class="card"
+  [class.flip]="isFlipped"
+  (touchstart)="onTouchStart($event)"
+  (touchmove)="onTouchMove($event)"
+  (touchend)="onTouchEnd()"
+  [style.transform]="'translate(' + displaceX + 'px, ' + displaceY + 'px)'"
+  [@card]="userAnswer"
+>
+  <div class="card-inner">
+    <div appTextLength class="side side-a">
+      {{ sideA }}
+    </div>
+    <div appTextLength class="side side-b">
+      {{ sideB }}
+    </div>
+  </div>
+</div>
+<div
+  class="operation"
+  [style.opacity]="toFixedState"
+  [style.transform]="'scale(' + toFixedState + ')'"
+  [class.somewhat]="
+    userAnswer === 'somewhat' || (!isHorizontalMovement && displaceY > 0)
+  "
+  [class.weak]="
+    userAnswer === 'weak' || (isHorizontalMovement && displaceX < 0)
+  "
+  [class.strong]="
+    userAnswer === 'strong' || (isHorizontalMovement && displaceX > 0)
+  "
+  [@operation]="userAnswer === 'unknown' ? 'unknown' : 'known'"
+  (@operation.done)="onSelectionAnimationCompleted()"
+>
+  <ion-icon
+    class="operation-icon strong-icon"
+    name="checkmark-done-outline"
+  ></ion-icon>
+  <ion-icon
+    class="operation-icon somewhat-icon"
+    name="checkmark-outline"
+  ></ion-icon>
+  <ion-icon class="operation-icon weak-icon" name="close-outline"></ion-icon>
+</div>
