@@ -8,6 +8,10 @@
   </ng-container>
 </vocably-header>
 <div *ngIf="isLoading">
-  <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading cards...
+  <div class="hero">
+    <div class="hero-body text-center">
+      <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading cards...
+    </div>
+  </div>
 </div>
 <router-outlet *ngIf="!isLoading"></router-outlet>
