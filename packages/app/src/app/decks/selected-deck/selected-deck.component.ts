@@ -14,6 +14,7 @@ import {
 import { loadLanguageDeck } from '@vocably/api';
 import { DeckListStoreService } from '../deck-list-store.service';
 import { DeckStoreService } from '../deck-store.service';
+import { RouterParamsService } from '../../router-params.service';
 
 @Component({
   selector: 'vocably-selected-deck',
@@ -25,13 +26,19 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
 
   public isLoading = true;
   public language = '';
+  clearScreen = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public deckListStore: DeckListStoreService,
-    public deckStore: DeckStoreService
+    public deckStore: DeckStoreService,
+    routerParams: RouterParamsService
   ) {
+    routerParams.data$.subscribe((data) => {
+      this.clearScreen = data['clearScreen'] ?? false;
+    });
+
     this.router.events
       .pipe(
         takeUntil(this.destroy$),

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from './auth/auth.service';
+import { RouterParamsService } from './router-params.service';
 
 @Component({
   selector: 'vocably-root',
@@ -7,5 +7,10 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(public auth: AuthService) {}
+  clearScreen = false;
+  constructor(routerParams: RouterParamsService) {
+    routerParams.data$.subscribe((data) => {
+      this.clearScreen = data['clearScreen'] ?? false;
+    });
+  }
 }

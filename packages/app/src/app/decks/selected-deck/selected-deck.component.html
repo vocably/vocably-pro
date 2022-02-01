@@ -1,4 +1,4 @@
-<vocably-header>
+<vocably-header *ngIf="!clearScreen">
   <ng-container *ngIf="deckListStore.decks$ | async as deckList">
     <vocably-deck-selector
       [languages]="deckList"

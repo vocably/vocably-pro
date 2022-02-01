@@ -27,7 +27,7 @@ const routes: Routes = [
             path: 'study',
             component: StudyPageComponent,
             data: {
-              hideHeader: true,
+              clearScreen: true,
             },
           },
         ],
