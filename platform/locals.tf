@@ -1,7 +1,7 @@
 locals {
   is_dev          = terraform.workspace != "prod"
   auth_domain     = "auth.${var.root_domain}"
-  web_domain      = "web.${var.root_domain}"
+  app_domain      = "app.${var.root_domain}"
   api_domain      = "api.${var.root_domain}"
   www_api_domain  = "www-api.${var.root_domain}"
   app_root        = abspath("../packages/app")
@@ -26,5 +26,7 @@ locals {
     json = "application/json"
     jpg  = "image/jpeg"
     ico  = "image/x-icon"
+    txt  = "text/plain"
+    svg  = "image/svg+xml"
   }
 }

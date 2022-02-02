@@ -47,7 +47,7 @@ resource "aws_route53_record" "auth-cognito-A" {
 }
 
 locals {
-  available_urls = concat(["https://${local.web_domain}"], local.dev_urls)
+  available_urls = concat(["https://${local.app_domain}"], local.dev_urls)
 }
 
 resource "aws_cognito_user_pool_client" "client" {
