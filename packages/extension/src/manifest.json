@@ -1,7 +1,6 @@
 {
   "manifest_version": 3,
-
-  "name": "Vocably",
+  "name": "{{ process.env.NAME }}",
   "description": "Vocably Extension",
   "version": "{{ process.env.VERSION }}",
 

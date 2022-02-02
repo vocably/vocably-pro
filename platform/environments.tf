@@ -37,6 +37,7 @@ resource "local_file" "app_environment" {
 
 locals {
   extension_env_content = <<EOT
+NAME="${var.extension_name}"
 AUTH_REGION="${data.aws_region.current.name}"
 AUTH_USER_POOL_ID="${aws_cognito_user_pool.users.id}"
 AUTH_USER_POOL_WEB_CLIENT_ID="${aws_cognito_user_pool_client.client.id}"

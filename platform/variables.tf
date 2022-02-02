@@ -21,3 +21,7 @@ variable "lexicala_username" {
 variable "lexicala_password" {
   type = string
 }
+
+variable "extension_name" {
+  type = string
+}
