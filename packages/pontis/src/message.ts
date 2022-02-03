@@ -3,7 +3,7 @@ import { Message } from './types';
 export const message =
   (extensionId: string) =>
   <R, T = undefined | any>(message: Message, data?: T): Promise<R> => {
-    if (!chrome || !chrome.runtime) {
+    if (typeof chrome !== 'object' || chrome === null || !chrome.runtime) {
       return Promise.reject({
         error: 'chrome or chrome.runtime is not defined',
       });
