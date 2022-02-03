@@ -6,6 +6,7 @@ import { environment } from './environments/environment';
 import { Auth } from '@aws-amplify/auth';
 import { AppAuthStorage } from '@vocably/pontis';
 import { configureApi } from '@vocably/api';
+import { maintainAppHeight } from './app-height';
 
 if (environment.production) {
   enableProdMode();
@@ -17,6 +18,8 @@ Auth.configure({
 });
 
 configureApi(environment.api);
+
+maintainAppHeight();
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)

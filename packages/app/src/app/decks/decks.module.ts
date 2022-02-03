@@ -11,6 +11,7 @@ import { LanguageModule } from '../language/language.module';
 import { DeckSelectorComponent } from './deck-selector/deck-selector.component';
 import { StudyPageComponent } from './pages/study-page/study-page.component';
 import { SrsModule } from '../srs/srs.module';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SrsModule } from '../srs/srs.module';
     DecksRoutingModule,
     LanguageModule,
     SrsModule,
+    ComponentsModule,
   ],
   exports: [],
 })

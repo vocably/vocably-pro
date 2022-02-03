@@ -6,4 +6,5 @@
 
 :root {
   @include theme-variables($dark-theme);
+  --app-height: 100vh;
 }

@@ -1,7 +1,9 @@
 $header-height: $header-items-height + $header-bottom-padding;
 
 .hero {
-  height: calc(100vh - #{$header-height} - #{$container-padding * 2});
+  height: calc(
+    var(--app-height) - #{$header-height} - #{$container-padding * 2}
+  );
   display: flex;
   flex-direction: column;
   justify-content: center;
