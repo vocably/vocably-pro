@@ -23,6 +23,7 @@
     "@vocably/api": "0.0.0",
     "@vocably/pontis": "0.0.0",
     "@vocably/srs": "0.0.0",
+    "@vocably/sulna": "0.0.0",
     "bowser": "^2.11.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",

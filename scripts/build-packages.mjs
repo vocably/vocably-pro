@@ -2,6 +2,7 @@ import 'zx/globals';
 import { packagesDir } from './helpers/dirs.mjs';
 
 const packages = [
+  'sulna',
   'model',
   'srs',
   'hermes',

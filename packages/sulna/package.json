@@ -1,5 +1,5 @@
 {
-  "name": "@vocably/extension-service-worker",
+  "name": "@vocably/sulna",
   "version": "0.0.0",
   "private": true,
   "description": "",
@@ -8,22 +8,17 @@
   "types": "dist/esm/index.d.ts",
   "scripts": {
     "prebuild": "rimraf ./dist",
-    "build": "tsc",
-    "start": "tsc --watch",
+    "build": "tsc && tsc --project tsconfig.commonjs.json",
+    "watch-esm": "tsc --watch",
+    "watch-commonjs": "tsc --watch --project tsconfig.commonjs.json",
+    "start": "run-p watch*",
     "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/sneas/vocably.git"
   },
-  "dependencies": {
-    "@vocably/api": "0.0.0",
-    "@vocably/crud": "0.0.0",
-    "@vocably/extension-messages": "0.0.0",
-    "@vocably/model": "0.0.0",
-    "@vocably/srs": "0.0.0",
-    "@vocably/sulna": "0.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^27.0.3",
     "jest": "^27.4.3",

@@ -6,7 +6,7 @@
     [class.to-be-continued]="isLast && deck.cards.length > 3"
   >
     <div class="side-a">{{ card.data.sideA }}</div>
-    <div>{{ card.data.sideB }}</div>
+    <ul [sideB]="card.data.sideB"></ul>
   </li>
 </ul>
 

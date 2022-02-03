@@ -24,6 +24,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/extension-content-script/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/model/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/www-backend/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/sulna/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

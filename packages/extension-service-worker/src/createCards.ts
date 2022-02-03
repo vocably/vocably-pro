@@ -1,6 +1,7 @@
 import { Collection, makeCreate } from '@vocably/crud';
 import { Card, CardItem, Phrase, Translation } from '@vocably/model';
 import { createSrsItem } from '@vocably/srs';
+import { join } from '@vocably/sulna';
 
 export const addCardCandidates = (
   collection: Collection<Card>,
@@ -45,7 +46,7 @@ export const createCards = (
     translation.lexicala.map((lexicalaItem) => ({
       language: translation.language,
       sideA: lexicalaItem.headword.text,
-      sideB: lexicalaItem.senses.map((s) => s.definition).join('\n'),
+      sideB: join(lexicalaItem.senses.map((s) => s.definition)),
       partOfSpeech: lexicalaItem.headword.pos,
       ...srsItem,
     }))
