@@ -1,5 +1,6 @@
 locals {
   app_bucket = "vocably-${terraform.workspace}-app"
+  app_url    = "https://${local.app_domain}"
 }
 
 resource "aws_s3_bucket" "app" {
@@ -129,5 +130,5 @@ resource "null_resource" "app_upload" {
 }
 
 output "app_url" {
-  value = "https://${local.app_domain}"
+  value = local.app_url
 }
