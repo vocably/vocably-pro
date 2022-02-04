@@ -1,5 +1,5 @@
 .study-container {
-  height: var(--app-height);
+  height: calc(var(--app-height) - var(--container-padding) * 2);
   position: relative;
 }
 
@@ -10,7 +10,6 @@
 
 .nav {
   position: absolute;
-  padding: 1rem;
   left: 0;
   top: 0;
 }

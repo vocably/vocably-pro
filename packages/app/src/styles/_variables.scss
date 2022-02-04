@@ -66,9 +66,12 @@ $dark-theme: (
   ion-card-background: #1e1e1e,
 );
 
+$sm: 768px;
+
 $container-padding: 2rem;
+$container-padding-sm: 1rem;
 
 $header-items-height: 2rem;
-$header-bottom-padding: $container-padding;
+$header-bottom-padding: 2rem;
 
 $border-radius: 4px;

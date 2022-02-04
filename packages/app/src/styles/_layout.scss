@@ -1,10 +1,14 @@
 .container {
   margin: 0 auto;
-  padding: $container-padding;
+  padding: var(--container-padding);
 
-  @media (min-width: 768px) {
-    width: 768px;
+  @media (min-width: $sm) {
+    width: $sm;
   }
 
   min-height: 100%;
+
+  &.wide {
+    width: auto;
+  }
 }

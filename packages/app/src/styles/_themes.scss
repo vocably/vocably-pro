@@ -7,4 +7,9 @@
 :root {
   @include theme-variables($dark-theme);
   --app-height: 100vh;
+  --container-padding: #{$container-padding};
+
+  @media (max-width: $sm) {
+    --container-padding: #{$container-padding-sm};
+  }
 }
