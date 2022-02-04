@@ -32,10 +32,9 @@ resource "aws_s3_bucket_public_access_block" "terraform_state" {
 }
 
 resource "aws_dynamodb_table" "terraform_state_lock" {
-  name           = "vocably-${var.environment}-tf-state-lock"
-  hash_key       = "LockID"
-  read_capacity  = 20
-  write_capacity = 20
+  name         = "vocably-${var.environment}-tf-state-lock"
+  hash_key     = "LockID"
+  billing_mode = "PAY_PER_REQUEST"
 
   attribute {
     name = "LockID"
