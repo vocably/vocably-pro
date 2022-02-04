@@ -24,7 +24,8 @@ button.unstyled {
     width: 100%;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: var(--button-bg-hover);
     border-color: var(--button-border-color-hover);
   }
