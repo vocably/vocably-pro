@@ -12,6 +12,7 @@ import { DeckSelectorComponent } from './deck-selector/deck-selector.component';
 import { StudyPageComponent } from './pages/study-page/study-page.component';
 import { SrsModule } from '../srs/srs.module';
 import { ComponentsModule } from '../components/components.module';
+import { EditPageComponent } from './pages/edit-page/edit-page.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ComponentsModule } from '../components/components.module';
     SelectedDeckComponent,
     DeckSelectorComponent,
     StudyPageComponent,
+    EditPageComponent,
   ],
   imports: [
     CommonModule,

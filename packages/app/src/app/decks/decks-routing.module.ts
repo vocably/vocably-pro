@@ -5,6 +5,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { NoDecksPageComponent } from './pages/no-decks-page/no-decks-page.component';
 import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
 import { StudyPageComponent } from './pages/study-page/study-page.component';
+import { EditPageComponent } from './pages/edit-page/edit-page.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
             data: {
               clearScreen: true,
             },
+          },
+          {
+            path: 'edit',
+            component: EditPageComponent,
           },
         ],
       },

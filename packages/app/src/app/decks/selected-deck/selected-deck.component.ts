@@ -45,7 +45,6 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
         filter((event) => event instanceof NavigationEnd),
         startWith(null),
         withLatestFrom(this.route.params),
-        tap(() => console.log('params changed')),
         map(([_, params]) => params),
         tap(() => (this.isLoading = true)),
         tap((params) => {

@@ -12,6 +12,16 @@ $gray-1000: rgb(42, 42, 42);
 $gray-1100: rgb(28, 28, 28);
 $gray-1200: rgb(18, 18, 18);
 
+$red-50: rgb(254, 232, 231);
+$red-100: rgb(251, 186, 182);
+$red-200: rgb(249, 140, 134);
+$red-300: rgb(246, 94, 85);
+$red-400: rgb(244, 49, 37);
+$red-500: rgb(218, 23, 11);
+$red-600: rgb(170, 18, 9);
+$red-700: rgb(121, 13, 6);
+$red-800: rgb(73, 8, 4);
+
 $white: #ffffff;
 $white-rgb: 255, 255, 255;
 
@@ -32,6 +42,10 @@ $dark-theme: (
   button-border-color-hover: $gray-400,
   button-bg: $gray-900,
   button-bg-hover: $gray-800,
+  button-danger-bg: $red-800,
+  button-danger-bg-hover: $red-700,
+  button-danger-border-color: $red-500,
+  button-danger-border-color-hover: $red-500,
   // Ionic
   // Generated via the theme generator at https://ionicframework.com/docs/theming/themes
   ion-color-primary: $dark-primary,

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { DeckStoreService } from '../../deck-store.service';
 import { CardItem } from '@vocably/model';
+import { byDate } from '../../by-date';
 
 @Component({
   selector: 'vocably-dashboard-page',
@@ -17,7 +18,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.deckStore.deck$.pipe(takeUntil(this.destroy$)).subscribe((deck) => {
-      this.cards = deck.cards.sort((a, b) => b.created - a.created);
+      this.cards = deck.cards.sort(byDate);
     });
   }
 

@@ -20,6 +20,17 @@ button.unstyled {
   text-align: center;
   text-decoration: none;
 
+  &.danger {
+    background: var(--button-danger-bg);
+    border-color: var(--button-danger-border-color);
+
+    &:hover,
+    &:focus {
+      background: var(--button-danger-bg-hover);
+      border-color: var(--button-danger-border-color-hover);
+    }
+  }
+
   &.block {
     width: 100%;
   }

@@ -1,0 +1,11 @@
+@import '../../../../styles/variables';
+
+.card {
+  background-color: var(--contrast-bg);
+  padding: 1rem;
+  border-radius: $border-radius;
+}
+
+.side-a {
+  font-size: 1.5rem;
+}

@@ -1,12 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import languages from './languages';
+import { getFullLanguageName } from './getFullLanguageName';
 
 @Pipe({
   name: 'language',
 })
 export class LanguagePipe implements PipeTransform {
   transform(code: string): string {
-    // @ts-ignore
-    return languages[code] ?? code;
+    return getFullLanguageName(code);
   }
 }
