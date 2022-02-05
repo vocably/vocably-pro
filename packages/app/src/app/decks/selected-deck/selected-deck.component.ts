@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import {
   filter,
   from,
@@ -35,24 +35,23 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
     public deckStore: DeckStoreService,
     routerParams: RouterParamsService
   ) {
-    routerParams.data$.subscribe((data) => {
+    routerParams.data$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
       this.clearScreen = data['clearScreen'] ?? false;
     });
 
     this.router.events
       .pipe(
         takeUntil(this.destroy$),
-        filter((event) => event instanceof NavigationStart),
+        filter((event) => event instanceof NavigationEnd),
         startWith(null),
         withLatestFrom(this.route.params),
+        tap(() => console.log('params changed')),
         map(([_, params]) => params),
         tap(() => (this.isLoading = true)),
         tap((params) => {
           this.language = params['language'];
         }),
-        switchMap((params) => {
-          return from(loadLanguageDeck(params['language']));
-        })
+        switchMap((params) => from(loadLanguageDeck(params['language'])))
       )
       .subscribe((result) => {
         if (result.success === false) {

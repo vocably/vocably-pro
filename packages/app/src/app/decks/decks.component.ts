@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { from, Subject, takeUntil, tap } from 'rxjs';
+import { from, Subject, takeUntil } from 'rxjs';
 import { DeckListStoreService } from './deck-list-store.service';
 import { listLanguages } from '@vocably/api';
 
@@ -14,10 +14,7 @@ export class DecksComponent implements OnInit, OnDestroy {
 
   constructor(decksListStore: DeckListStoreService) {
     from(listLanguages())
-      .pipe(
-        takeUntil(this.destroy$),
-        tap(() => (this.isLoading = true))
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((result) => {
         if (result.success === false) {
           throw new Error(result.reason);

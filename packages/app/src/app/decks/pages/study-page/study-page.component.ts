@@ -12,15 +12,18 @@ import { DeckService } from '../../deck.service';
   styleUrls: ['./study-page.component.scss'],
 })
 export class StudyPageComponent implements OnInit, OnDestroy {
-  public cards: CardItem[];
+  public cards: CardItem[] = [];
 
   private destroy$ = new Subject();
 
-  constructor(deckStore: DeckStoreService, private deckService: DeckService) {
-    this.cards = slice(new Date(), 10, deckStore.deck$.value.cards);
-  }
+  constructor(
+    private deckStore: DeckStoreService,
+    private deckService: DeckService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cards = slice(new Date(), 10, this.deckStore.deck$.value.cards);
+  }
 
   onGrade(gradeResult: GradeResult) {
     this.deckService
