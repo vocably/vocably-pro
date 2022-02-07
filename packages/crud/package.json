@@ -7,7 +7,6 @@
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
-    "prebuild": "rimraf ./dist",
     "build": "tsc && tsc --project tsconfig.commonjs.json",
     "watch-esm": "tsc --watch",
     "watch-commonjs": "tsc --watch --project tsconfig.commonjs.json",

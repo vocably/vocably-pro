@@ -9,7 +9,6 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "serve": "webpack serve --env development --open",
-    "prebuild": "rimraf ./dist",
     "build-all": "webpack --env production",
     "prebuild-all": "yarn --cwd ../extension-content-ui build",
     "start": "npm-run-all --parallel watch serve",
