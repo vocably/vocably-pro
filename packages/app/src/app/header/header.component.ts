@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Auth } from '@aws-amplify/auth';
 
 @Component({
   selector: 'vocably-header',
@@ -11,4 +12,8 @@ export class HeaderComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  async logOut() {
+    await Auth.signOut();
+  }
 }
