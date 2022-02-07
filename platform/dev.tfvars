@@ -1,0 +1,4 @@
+root_domain             = "dev.env.vocably.pro"
+gcloud_project_id       = "vocably-dev"
+google_oauth2_client_id = "358366140631-qgk8e24k3ia92115kkl13arvj6vccdt8.apps.googleusercontent.com"
+extension_name          = "Vocably - dev"
