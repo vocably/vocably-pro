@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -7,6 +7,8 @@ import { BehaviorSubject } from 'rxjs';
 export class DeckListStoreService {
   // @ts-ignore
   private _decks$: BehaviorSubject<string[]>;
+
+  public reload$ = new Subject();
 
   public get decks$() {
     if (!this._decks$) {

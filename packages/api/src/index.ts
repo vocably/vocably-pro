@@ -4,4 +4,5 @@ export {
   loadLanguageDeck,
   saveLanguageDeck,
   listLanguages,
+  deleteLanguageDeck,
 } from './languageDecks';

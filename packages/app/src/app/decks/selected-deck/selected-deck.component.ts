@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import {
+  combineLatest,
   filter,
   from,
   map,
@@ -39,18 +40,33 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
       this.clearScreen = data['clearScreen'] ?? false;
     });
 
+    combineLatest([this.deckListStore.decks$, this.route.params])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(([decks, params]) => {
+        if (!decks.includes(params['language'])) {
+          this.router.navigate(['../'], {
+            relativeTo: this.route,
+          });
+        }
+      });
+
+    this.deckListStore.decks$.pipe(takeUntil(this.destroy$));
+
     this.router.events
       .pipe(
         takeUntil(this.destroy$),
         filter((event) => event instanceof NavigationEnd),
         startWith(null),
         withLatestFrom(this.route.params),
-        map(([_, params]) => params),
+        map(([_, params]) => params['language']),
+        filter((language) =>
+          this.deckListStore.decks$.value.includes(language)
+        ),
         tap(() => (this.isLoading = true)),
-        tap((params) => {
-          this.language = params['language'];
+        tap((language) => {
+          this.language = language;
         }),
-        switchMap((params) => from(loadLanguageDeck(params['language'])))
+        switchMap((language) => from(loadLanguageDeck(language)))
       )
       .subscribe((result) => {
         if (result.success === false) {

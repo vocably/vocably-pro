@@ -20,6 +20,6 @@ export type CardItem = {
 };
 
 export type LanguageDeck = {
-  language?: string;
+  language: string;
   cards: CardItem[];
 };

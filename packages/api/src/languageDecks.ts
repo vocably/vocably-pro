@@ -88,3 +88,20 @@ export const listLanguages = async (): Promise<Result<string[]>> => {
     };
   }
 };
+
+export const deleteLanguageDeck = async (
+  language: string
+): Promise<Result<null>> => {
+  try {
+    return await request(`/languages/${language}`, {
+      method: 'DELETE',
+    });
+  } catch (e) {
+    return {
+      success: false,
+      errorCode: 'LANGUAGE_DECK_DELETE_ERROR',
+      reason: 'An error during the deletion of a language deck has occurred.',
+      extra: e,
+    };
+  }
+};

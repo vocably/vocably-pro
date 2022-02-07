@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { from, Subject, takeUntil } from 'rxjs';
+import { from, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { DeckListStoreService } from './deck-list-store.service';
 import { listLanguages } from '@vocably/api';
 
@@ -13,10 +13,17 @@ export class DecksComponent implements OnInit, OnDestroy {
   isLoading = true;
 
   constructor(decksListStore: DeckListStoreService) {
-    from(listLanguages())
-      .pipe(takeUntil(this.destroy$))
+    decksListStore.reload$
+      .pipe(
+        takeUntil(this.destroy$),
+        startWith(null),
+        tap(() => {
+          this.isLoading = true;
+        }),
+        switchMap(() => from(listLanguages()))
+      )
       .subscribe((result) => {
-        if (result.success === false) {
+        if (!result.success) {
           throw new Error(result.reason);
         }
 
