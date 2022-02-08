@@ -1,0 +1,20 @@
+{
+  "name": "@vocably/app-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "scripts": {
+    "cypress": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sneas/vocably.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^9.4.1"
+  }
+}
