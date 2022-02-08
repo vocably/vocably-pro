@@ -1,6 +1,16 @@
 resource "aws_cognito_user_pool" "users" {
   name                     = "vocably-${terraform.workspace}-user-pool"
   auto_verified_attributes = ["email"]
+  account_recovery_setting {
+    recovery_mechanism {
+      name     = "verified_email"
+      priority = 1
+    }
+  }
+
+  admin_create_user_config {
+    allow_admin_create_user_only = true
+  }
 }
 
 resource "aws_cognito_identity_provider" "google" {
@@ -58,7 +68,7 @@ resource "aws_cognito_user_pool_client" "client" {
   allowed_oauth_flows                  = ["code", "implicit"]
   allowed_oauth_scopes                 = ["profile", "email", "openid", "aws.cognito.signin.user.admin"]
   allowed_oauth_flows_user_pool_client = true
-  supported_identity_providers         = ["Google"]
+  supported_identity_providers         = ["Google", "COGNITO"]
   depends_on                           = [aws_cognito_identity_provider.google]
 }
 
