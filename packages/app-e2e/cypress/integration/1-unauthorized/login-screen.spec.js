@@ -1,6 +1,6 @@
-describe('example to-do app', () => {
+describe('login screen', () => {
   it('redirects to login screen', () => {
-    cy.visit(Cypress.env('BASE_URL'));
+    cy.visit('/');
     cy.location('pathname').should('eq', '/login');
   });
 });
