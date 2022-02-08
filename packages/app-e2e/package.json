@@ -7,7 +7,8 @@
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "test": "echo '@vocably/app-e2e has no tests.'"
   },
   "repository": {
     "type": "git",
