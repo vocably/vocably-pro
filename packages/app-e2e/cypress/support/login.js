@@ -4,19 +4,8 @@ Auth.configure({
   region: 'eu-central-1',
   userPoolId: 'eu-central-1_xrJk5G4GN',
   userPoolWebClientId: '4nlgeafph8jl8thlll5tbbuvtv',
-  // oauth: {
-  //   redirectSignIn: 'https://app.dev.env.vocably.pro',
-  //   redirectSignOut: 'https://app.dev.env.vocably.pro',
-  //   domain: 'auth.dev.env.vocably.pro',
-  //   scope: ['email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
-  //   responseType: 'code',
-  //   options: {
-  //     AdvancedSecurityDataCollectionFlag: true,
-  //   },
-  // },
 });
 
-// Amazon Cognito
 Cypress.Commands.add(
   'login',
   (username = Cypress.env('USERNAME'), password = Cypress.env('PASSWORD')) => {
