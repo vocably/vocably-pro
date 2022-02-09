@@ -7,7 +7,7 @@ locals {
 locals {
   app_env_content = <<EOT
 export const environmentLocal = {
-  chromeExtensionId: 'cdjdmfegiddjmikilbjoaofmjmdgceib',
+  chromeExtensionId: '${var.extension_id}',
   auth: {
     region: '${data.aws_region.current.name}',
     userPoolId: '${aws_cognito_user_pool.users.id}',
@@ -38,8 +38,13 @@ resource "local_file" "app_environment" {
 }
 
 locals {
+  extension_key_json_param = "'\"key\": \"${var.extension_key}\",'"
+}
+
+locals {
   extension_env_content = <<EOT
 NAME="${var.extension_name}"
+KEY=${var.extension_key != "" ? local.extension_key_json_param : "\"\""}
 AUTH_REGION="${data.aws_region.current.name}"
 AUTH_USER_POOL_ID="${aws_cognito_user_pool.users.id}"
 AUTH_USER_POOL_WEB_CLIENT_ID="${aws_cognito_user_pool_client.client.id}"

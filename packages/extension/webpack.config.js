@@ -49,8 +49,8 @@ const prodConfig = {
       patterns: [
         { from: '.', to: '.', context: 'assets' },
         {
-          from: 'manifest.json',
-          to: '.',
+          from: 'manifest.json.txt',
+          to: 'manifest.json',
           context: 'src',
           transform(content) {
             return replaceDefinitions(

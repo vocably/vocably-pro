@@ -45,6 +45,8 @@
     "service_worker": "serviceWorker.js"
   },
 
+  {{ process.env.KEY }}
+
   "web_accessible_resources": [
     {
       "resources": ["manifest.json"],

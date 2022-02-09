@@ -25,3 +25,11 @@ variable "lexicala_password" {
 variable "extension_name" {
   type = string
 }
+
+variable "extension_key" {
+  type = string
+}
+
+variable "extension_id" {
+  type = string
+}
