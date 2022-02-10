@@ -1,2 +1,2 @@
-import './commands';
 import './login';
+import './snapshot';
