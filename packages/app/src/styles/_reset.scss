@@ -18,7 +18,8 @@ figure,
 blockquote,
 dl,
 dd,
-ul {
+ul,
+ol {
   margin: 0;
 }
 
@@ -26,6 +27,12 @@ ul {
 ul[role='list'],
 ol[role='list'] {
   list-style: none;
+}
+
+ul,
+ol {
+  list-style-position: inside;
+  padding: 0;
 }
 
 /* Set core root defaults */

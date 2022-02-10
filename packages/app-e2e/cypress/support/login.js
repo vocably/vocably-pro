@@ -55,7 +55,5 @@ Cypress.Commands.add(
       log.snapshot('after');
       log.end();
     });
-
-    cy.visit('/');
   }
 );
