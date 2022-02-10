@@ -1,8 +1,12 @@
 import 'zx/globals';
 import { packagesDir, rootDir } from './helpers/dirs.mjs';
-import { importJson } from './helpers/importJson.mjs';
 
-const version = (await importJson(`${rootDir}/package.json`)).version;
+const version = (
+  await $`git describe --tags \`git rev-list --tags --max-count=1\``
+)
+  .toString()
+  .slice(1)
+  .trim();
 
 process.env.VERSION = version;
 console.log(`Building extension version ${version}...`);

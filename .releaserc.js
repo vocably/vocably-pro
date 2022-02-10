@@ -12,12 +12,6 @@ module.exports = {
       },
     ],
     '@semantic-release/release-notes-generator',
-    [
-      '@semantic-release/npm',
-      {
-        npmPublish: false,
-      },
-    ],
     '@semantic-release/github',
     [
       '@semantic-release/git',
