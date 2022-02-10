@@ -1,5 +1,5 @@
 <a class="button block mb-1" [routerLink]="['study']">Practice</a>
-<ul class="unstyled mb-1">
+<ul class="unstyled mb-1" data-test="dashboard-cards">
   <li
     *ngFor="let card of cards.slice(0, 3); last as isLast"
     class="card mb-1"

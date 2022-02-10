@@ -1,7 +1,7 @@
-const { clearDecks } = require('./clear-decks');
-const {
-  addMatchImageSnapshotPlugin,
-} = require('cypress-image-snapshot/plugin');
+import { saveDeck } from './save-deck';
+import { clearDecks } from './clear-decks';
+import { addMatchImageSnapshotPlugin } from 'cypress-image-snapshot/plugin';
+
 require('dotenv-flow').config();
 
 const pluginConfig: Cypress.PluginConfig = (on, config) => {
@@ -9,6 +9,7 @@ const pluginConfig: Cypress.PluginConfig = (on, config) => {
 
   on('task', {
     clearDecks,
+    saveDeck,
   });
 
   on('before:browser:launch', (browser, launchOptions) => {
