@@ -3,6 +3,7 @@
   [value]="value"
   interface="popover"
   (ionChange)="onChange($event)"
+  data-test="deck-selector"
 >
   <ion-select-option *ngFor="let language of languages" [value]="language">{{
     language | language

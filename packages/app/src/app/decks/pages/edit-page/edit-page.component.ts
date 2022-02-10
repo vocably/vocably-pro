@@ -40,11 +40,13 @@ export class EditPageComponent implements OnInit, OnDestroy {
 
   async onDelete() {
     const alert = await this.alertController.create({
+      id: 'are-you-sure-delete',
       header: `Delete ${this.fullLanguage}`,
       message: 'Are you sure?',
       buttons: [
         {
           text: 'Yes',
+          id: 'yes-please',
           handler: async () => {
             const loading = await this.loadingController.create({
               message: 'Deleting the deck...',
