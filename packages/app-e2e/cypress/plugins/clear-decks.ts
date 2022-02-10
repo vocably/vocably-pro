@@ -1,6 +1,6 @@
 const { S3 } = require('aws-sdk');
 
-const clearDecks = async (userSub = process.env.SUB) => {
+export const clearDecks = async (userSub = process.env.SUB) => {
   const bucket = process.env.DECKS_BUCKET;
   const s3Client = new S3();
 
@@ -21,8 +21,4 @@ const clearDecks = async (userSub = process.env.SUB) => {
   }
 
   return null;
-};
-
-module.exports = {
-  clearDecks,
 };

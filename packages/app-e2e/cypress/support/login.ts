@@ -1,5 +1,17 @@
 import { Auth } from '@aws-amplify/auth';
 
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      /**
+       * Custom command to select DOM element by data-cy attribute.
+       * @example cy.dataCy('greeting')
+       */
+      login(username?: string, password?: string): void;
+    }
+  }
+}
+
 Auth.configure({
   region: 'eu-central-1',
   userPoolId: 'eu-central-1_xrJk5G4GN',
@@ -20,7 +32,7 @@ Cypress.Commands.add(
 
     const signIn = Auth.signIn({ username, password });
 
-    cy.wrap(signIn, { log: false }).then((cognitoResponse) => {
+    cy.wrap(signIn, { log: false }).then((cognitoResponse: any) => {
       const keyPrefixWithUsername = `${cognitoResponse.keyPrefix}.${cognitoResponse.username}`;
 
       window.localStorage.setItem(
