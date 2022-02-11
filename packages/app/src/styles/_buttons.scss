@@ -23,6 +23,7 @@ button.unstyled {
   &.danger {
     background: var(--button-danger-bg);
     border-color: var(--button-danger-border-color);
+    transition: background-color 200ms;
 
     &:hover,
     &:focus {

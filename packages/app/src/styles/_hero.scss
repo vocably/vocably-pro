@@ -1,3 +1,4 @@
+@use 'sass:math';
 $header-height: $header-items-height + $header-bottom-padding;
 
 .hero {
@@ -11,5 +12,5 @@ $header-height: $header-items-height + $header-bottom-padding;
 
 .hero-body {
   position: relative;
-  top: -($header-height / 2);
+  top: -1 * math.div($header-height, 2);
 }

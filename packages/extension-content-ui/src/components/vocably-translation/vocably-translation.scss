@@ -3,6 +3,7 @@
 :host {
   display: block;
   font-size: $base-font-size;
+  color: $gray-100;
 }
 
 .translation {
@@ -10,7 +11,7 @@
   align-items: stretch;
 
   .label {
-    color: $color-muted;
+    color: $gray-500;
     font-size: $base-font-size * 0.9;
     text-transform: uppercase;
   }
@@ -20,7 +21,7 @@
   }
 
   .header {
-    color: $color-muted;
+    color: $gray-700;
     text-transform: uppercase;
     margin-bottom: 8px;
     font-weight: bold;
@@ -45,5 +46,5 @@
 }
 
 .error {
-  color: $color-danger;
+  color: $red-500;
 }
