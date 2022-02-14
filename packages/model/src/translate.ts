@@ -1,17 +1,19 @@
-export interface LexicalaSearchResultItem {
+type Headword = { text?: string; pos?: string };
+
+export type LexicalaSearchResultItem = {
   id: string;
   language: string;
-  headword: { text?: string; pos?: string };
+  headword: Headword | Headword[];
   senses: { id?: string; definition?: string }[];
-}
+};
 
-export interface Translation {
+export type Translation = {
   language: string;
   text: string;
   lexicala?: LexicalaSearchResultItem[];
-}
+};
 
-export interface Phrase {
+export type Phrase = {
   phrase: string;
   language?: string;
-}
+};

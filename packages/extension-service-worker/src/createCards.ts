@@ -43,12 +43,17 @@ export const createCards = (
 
   return addCardCandidates(
     collection,
-    translation.lexicala.map((lexicalaItem) => ({
-      language: translation.language,
-      sideA: lexicalaItem.headword.text,
-      sideB: join(lexicalaItem.senses.map((s) => s.definition)),
-      partOfSpeech: lexicalaItem.headword.pos,
-      ...srsItem,
-    }))
+    translation.lexicala.map((lexicalaItem) => {
+      const headword = Array.isArray(lexicalaItem.headword)
+        ? lexicalaItem.headword[0]
+        : lexicalaItem.headword;
+      return {
+        language: translation.language,
+        sideA: headword.text,
+        sideB: join(lexicalaItem.senses.map((s) => s.definition)),
+        partOfSpeech: headword.pos,
+        ...srsItem,
+      };
+    })
   );
 };
