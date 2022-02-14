@@ -5,6 +5,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const DotenvFlow = require('dotenv-flow-webpack');
 const { WatchTimerPlugin, replaceDefinitions } = require('@vocably/webpack');
 const { basename } = require('path');
+const webpack = require('webpack');
 
 const dotEnvPlugin = new DotenvFlow({
   system_vars: true,
@@ -37,6 +38,9 @@ const prodConfig = {
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
+    }),
     new HtmlWebpackPlugin({
       template: './src/popup.html',
       filename: 'popup.html',

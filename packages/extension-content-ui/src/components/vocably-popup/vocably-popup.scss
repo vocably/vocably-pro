@@ -10,7 +10,8 @@
     font-size: $base-font-size;
     display: inline-block;
     background-color: White;
-    box-shadow: 0px 0px 5px 1px $gray-500;
+    box-shadow: 0px 0px 5px 1px $gray-300;
+    border-radius: 6px;
   }
 
   .caption {

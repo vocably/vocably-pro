@@ -8,10 +8,11 @@ export const config: Config = {
       type: 'dist',
       esmLoaderPath: '../loader',
     },
-    {
-      type: 'dist-custom-elements-bundle',
-      externalRuntime: false,
-    },
+    // {
+    //   type: 'dist-custom-elements',
+    //   externalRuntime: false,
+    //   autoDefineCustomElements: true,
+    // },
     {
       type: 'docs-readme',
     },

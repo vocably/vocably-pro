@@ -1,5 +1,5 @@
 import '@webcomponents/custom-elements';
-import { defineCustomElements } from '@vocably/extension-content-ui';
+import { defineCustomElements } from '@vocably/extension-content-ui/loader';
 import { createButton, destroyButton } from './button';
 import { destroyPopup } from './popup';
 import { api, ApiConfigOptions, configureApi } from './api';
