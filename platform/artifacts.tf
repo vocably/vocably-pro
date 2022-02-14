@@ -2,8 +2,27 @@ locals {
   artifacts_bucket = "vocably-${terraform.workspace}-artifacts"
 }
 resource "aws_s3_bucket" "artifacts" {
-  bucket = local.artifacts_bucket
-  acl    = "public-read"
+  bucket        = local.artifacts_bucket
+  force_destroy = true
+}
+
+resource "aws_s3_bucket_acl" "artifacts" {
+  bucket = aws_s3_bucket.artifacts.bucket
+
+  acl = "public-read"
+}
+
+resource "aws_s3_bucket_versioning" "artifacts" {
+  bucket = aws_s3_bucket.artifacts.bucket
+
+  versioning_configuration {
+    status = "Suspended"
+  }
+}
+
+resource "aws_s3_bucket_policy" "artifacts" {
+  bucket = aws_s3_bucket.artifacts.bucket
+
   policy = <<EOF
 {
   "Version":"2012-10-17",
@@ -17,17 +36,10 @@ resource "aws_s3_bucket" "artifacts" {
   ]
 }
 EOF
+}
 
-  force_destroy = true
-
-  versioning {
-    enabled = false
-  }
-
-  website {
-    index_document = "index.html"
-    error_document = "index.html"
-  }
+resource "aws_s3_bucket_cors_configuration" "artifacts" {
+  bucket = aws_s3_bucket.artifacts.bucket
 
   cors_rule {
     allowed_methods = ["GET"]
@@ -35,7 +47,18 @@ EOF
   }
 }
 
-resource "aws_s3_bucket_object" "artifacts" {
+resource "aws_s3_bucket_website_configuration" "artifacts" {
+  bucket = aws_s3_bucket.artifacts.bucket
+
+  index_document {
+    suffix = "index.html"
+  }
+  error_document {
+    key = "index.html"
+  }
+}
+
+resource "aws_s3_object" "artifacts" {
   for_each     = fileset(local.artifacts_root, "**/*.*")
   bucket       = aws_s3_bucket.artifacts.bucket
   key          = each.value
@@ -46,7 +69,7 @@ resource "aws_s3_bucket_object" "artifacts" {
 }
 
 output "artifacts_url" {
-  value = "http://${aws_s3_bucket.artifacts.website_endpoint}"
+  value = "http://${aws_s3_bucket_website_configuration.artifacts.website_endpoint}"
 }
 
 output "artifacts_bucket" {

@@ -5,7 +5,19 @@ locals {
 
 resource "aws_s3_bucket" "app" {
   bucket = local.app_bucket
-  acl    = "public-read"
+
+  force_destroy = true
+}
+
+resource "aws_s3_bucket_acl" "app" {
+  bucket = aws_s3_bucket.app.bucket
+
+  acl = "public-read"
+}
+
+resource "aws_s3_bucket_policy" "app" {
+  bucket = aws_s3_bucket.app.bucket
+
   policy = <<EOF
 {
   "Version":"2012-10-17",
@@ -19,16 +31,24 @@ resource "aws_s3_bucket" "app" {
   ]
 }
 EOF
+}
 
-  force_destroy = true
+resource "aws_s3_bucket_versioning" "app" {
+  bucket = aws_s3_bucket.app.bucket
 
-  versioning {
-    enabled = false
+  versioning_configuration {
+    status = "Suspended"
   }
+}
 
-  website {
-    index_document = "index.html"
-    error_document = "index.html"
+resource "aws_s3_bucket_website_configuration" "app" {
+  bucket = aws_s3_bucket.app.bucket
+
+  index_document {
+    suffix = "index.html"
+  }
+  error_document {
+    key = "index.html"
   }
 }
 

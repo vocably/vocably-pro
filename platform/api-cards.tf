@@ -4,19 +4,34 @@ locals {
 
 resource "aws_s3_bucket" "cards" {
   bucket = local.cards_bucket_name
-  acl    = "private"
+}
 
-  versioning {
-    enabled = false
-  }
+resource "aws_s3_bucket_acl" "cards" {
+  bucket = aws_s3_bucket.cards.bucket
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
+  acl = "private"
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "cards" {
+  bucket = aws_s3_bucket.cards.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
     }
   }
+}
+
+resource "aws_s3_bucket_versioning" "cards" {
+  bucket = aws_s3_bucket.cards.bucket
+
+  versioning_configuration {
+    status = "Suspended"
+  }
+}
+
+resource "aws_s3_bucket_cors_configuration" "cards" {
+  bucket = aws_s3_bucket.cards.bucket
 
   cors_rule {
     allowed_headers = ["*"]

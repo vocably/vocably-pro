@@ -3,8 +3,27 @@ locals {
 }
 
 resource "aws_s3_bucket" "www" {
-  bucket = local.www_bucket
-  acl    = "public-read"
+  bucket        = local.www_bucket
+  force_destroy = true
+}
+
+resource "aws_s3_bucket_acl" "www" {
+  bucket = aws_s3_bucket.www.bucket
+
+  acl = "public-read"
+}
+
+resource "aws_s3_bucket_versioning" "www" {
+  bucket = aws_s3_bucket.www.bucket
+
+  versioning_configuration {
+    status = "Suspended"
+  }
+}
+
+resource "aws_s3_bucket_policy" "www" {
+  bucket = aws_s3_bucket.www.bucket
+
   policy = <<EOF
 {
   "Version":"2012-10-17",
@@ -18,16 +37,25 @@ resource "aws_s3_bucket" "www" {
   ]
 }
 EOF
+}
 
-  force_destroy = true
+resource "aws_s3_bucket_cors_configuration" "www" {
+  bucket = aws_s3_bucket.www.bucket
 
-  versioning {
-    enabled = false
+  cors_rule {
+    allowed_methods = ["GET"]
+    allowed_origins = ["*"]
   }
+}
 
-  website {
-    index_document = "index.html"
-    error_document = "index.html"
+resource "aws_s3_bucket_website_configuration" "www" {
+  bucket = aws_s3_bucket.www.bucket
+
+  index_document {
+    suffix = "index.html"
+  }
+  error_document {
+    key = "index.html"
   }
 }
 
@@ -104,7 +132,7 @@ resource "aws_route53_record" "www" {
   }
 }
 
-resource "aws_s3_bucket_object" "www" {
+resource "aws_s3_object" "www" {
   for_each     = fileset(local.www_root, "**/*.*")
   bucket       = aws_s3_bucket.www.bucket
   key          = each.value
