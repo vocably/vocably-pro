@@ -14,12 +14,14 @@
 ### Depends on
 
 - [vocably-spinner](../vocably-spinner)
+- [vocably-side-b](../vocably-side-b)
 
 ### Graph
 
 ```mermaid
 graph TD;
   vocably-translation --> vocably-spinner
+  vocably-translation --> vocably-side-b
   style vocably-translation fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
