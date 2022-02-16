@@ -1,26 +1,77 @@
 @import '../../styles/variables';
 
 :host {
-  $padding: 16px;
+  --max-height: 48vh;
+  --background-rgb: 255, 255, 255;
+  --padding-x: 16px;
+  --padding-top: 24px;
+  --padding-bottom: 8px;
+  --shadow-size: 5px;
+  --scrollbar-gutter: 5px;
+  --scrollbar-track: 7px;
+  $border-radius: 6px;
 
-  display: block;
+  display: inline-block;
+  padding: var(--shadow-size);
 
   .popup {
     font-family: $font-family;
     font-size: $base-font-size;
-    display: inline-block;
-    background-color: White;
-    box-shadow: 0px 0px 5px 1px $gray-300;
+    background: rgb(var(--background-rgb));
+    box-shadow: 0 0 var(--shadow-size) 1px $gray-300;
     border-radius: 6px;
+    box-sizing: border-box;
+    position: relative;
+    padding: var(--padding-top) var(--scrollbar-gutter) var(--padding-bottom) 0;
   }
 
-  .caption {
+  .header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
     text-align: right;
-    height: $padding;
+    height: var(--padding-top);
+    border-radius: $border-radius $border-radius 0 0;
   }
 
   .body {
-    padding: 0 $padding $padding;
+    overflow: auto;
+    box-sizing: border-box;
+    max-height: calc(
+      var(--max-height) - var(--padding-top) - var(--padding-bottom) -
+        var(--shadow-size) * 2
+    );
+    scrollbar-gutter: stable;
+    padding-left: var(--padding-x);
+    padding-right: calc(
+      var(--padding-x) - var(--scrollbar-track) - var(--scrollbar-gutter)
+    );
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: var(--scrollbar-track);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, 0.5);
+      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .content-wrapper {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+  }
+
+  .content-unlimited {
+    width: 50vw;
+  }
+
+  .content {
+    display: inline-block;
   }
 
   .close {
