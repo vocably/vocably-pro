@@ -30,9 +30,30 @@
     left: 0;
     right: 0;
     top: 0;
-    text-align: right;
     height: var(--padding-top);
     border-radius: $border-radius $border-radius 0 0;
+    display: flex;
+    align-items: center;
+    padding-left: 6px;
+
+    .logo {
+      height: 50%;
+    }
+
+    .close {
+      $size: 18px;
+
+      border: none;
+      padding: 0;
+      background: none;
+      font-size: $size - 3px;
+      height: $size;
+      line-height: $size;
+      width: $size;
+      text-align: center;
+      cursor: pointer;
+      margin-left: auto;
+    }
   }
 
   .body {
@@ -72,19 +93,5 @@
 
   .content {
     display: inline-block;
-  }
-
-  .close {
-    $size: 18px;
-
-    border: none;
-    padding: 0;
-    background: none;
-    font-size: $size - 3px;
-    height: $size;
-    line-height: $size;
-    width: $size;
-    text-align: center;
-    cursor: pointer;
   }
 }

@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+
+:host {
+  display: inline-block;
+  line-height: 0;
+}
+
+.svg {
+  height: 100%;
+  width: auto;
+
+  path {
+    fill: $gray-150;
+  }
+}

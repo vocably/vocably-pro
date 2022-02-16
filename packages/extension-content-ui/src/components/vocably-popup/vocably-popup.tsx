@@ -42,6 +42,7 @@ export class VocablyPopup {
             </div>
           </div>
           <div class="header">
+            <vocably-logo class="logo"></vocably-logo>
             <button class="close" onClick={() => this.close.emit()}>
               &times;
             </button>

@@ -9,6 +9,8 @@ import { Result, TranslationCards } from "@vocably/model";
 export namespace Components {
     interface VocablyButton {
     }
+    interface VocablyLogo {
+    }
     interface VocablyPopup {
     }
     interface VocablySideB {
@@ -27,6 +29,12 @@ declare global {
     var HTMLVocablyButtonElement: {
         prototype: HTMLVocablyButtonElement;
         new (): HTMLVocablyButtonElement;
+    };
+    interface HTMLVocablyLogoElement extends Components.VocablyLogo, HTMLStencilElement {
+    }
+    var HTMLVocablyLogoElement: {
+        prototype: HTMLVocablyLogoElement;
+        new (): HTMLVocablyLogoElement;
     };
     interface HTMLVocablyPopupElement extends Components.VocablyPopup, HTMLStencilElement {
     }
@@ -54,6 +62,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "vocably-button": HTMLVocablyButtonElement;
+        "vocably-logo": HTMLVocablyLogoElement;
         "vocably-popup": HTMLVocablyPopupElement;
         "vocably-side-b": HTMLVocablySideBElement;
         "vocably-spinner": HTMLVocablySpinnerElement;
@@ -62,6 +71,8 @@ declare global {
 }
 declare namespace LocalJSX {
     interface VocablyButton {
+    }
+    interface VocablyLogo {
     }
     interface VocablyPopup {
         "onClose"?: (event: CustomEvent<void>) => void;
@@ -77,6 +88,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "vocably-button": VocablyButton;
+        "vocably-logo": VocablyLogo;
         "vocably-popup": VocablyPopup;
         "vocably-side-b": VocablySideB;
         "vocably-spinner": VocablySpinner;
@@ -88,6 +100,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "vocably-button": LocalJSX.VocablyButton & JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
+            "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;
             "vocably-side-b": LocalJSX.VocablySideB & JSXBase.HTMLAttributes<HTMLVocablySideBElement>;
             "vocably-spinner": LocalJSX.VocablySpinner & JSXBase.HTMLAttributes<HTMLVocablySpinnerElement>;
