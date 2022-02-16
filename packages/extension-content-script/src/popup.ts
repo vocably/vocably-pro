@@ -1,6 +1,13 @@
 import { api } from './api';
-import { applyPosition, applyTransform, Position } from './position';
-const popupId = 'translation-extension-popup';
+import {
+  applyPosition,
+  applyTransform,
+  Position,
+  setupTransform,
+} from './position';
+
+let popup: HTMLElement;
+let resizeObserver: ResizeObserver;
 
 const calculatePosition = (): Position => {
   const selection = window.document.getSelection();
@@ -22,10 +29,9 @@ const calculatePosition = (): Position => {
 };
 
 export const createPopup = (phrase: string) => {
-  const popup = document.createElement('vocably-popup');
+  popup = document.createElement('vocably-popup');
   const translation = document.createElement('vocably-translation');
 
-  popup.id = popupId;
   document.body.appendChild(popup);
 
   popup.addEventListener('mousedown', (event) => {
@@ -51,13 +57,21 @@ export const createPopup = (phrase: string) => {
 
   const position = calculatePosition();
   applyPosition(popup, position);
-  applyTransform(popup, position);
+  setupTransform(popup);
+
+  resizeObserver = new ResizeObserver(() => {
+    applyTransform(popup, position);
+  });
+  resizeObserver.observe(popup);
 };
 
 export const destroyPopup = () => {
-  const popup = document.getElementById(popupId);
-
   if (popup) {
     popup.remove();
+  }
+
+  if (resizeObserver) {
+    resizeObserver.disconnect();
+    resizeObserver = null;
   }
 };

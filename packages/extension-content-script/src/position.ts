@@ -1,3 +1,5 @@
+import elements = chrome.devtools.panels.elements;
+
 type PositionAbove = {
   left: number;
   bottom: number;
@@ -24,10 +26,44 @@ export const applyPosition = (element: HTMLElement, position: Position) => {
   }
 };
 
+export const setupTransform = (element: HTMLElement) => {
+  element.style.setProperty('--horizontal-displacement', '0px');
+  element.style.setProperty('--translate-y', '0');
+  element.style.transform = `translate(calc(-50% + var(--horizontal-displacement)), var(--translate-y))`;
+};
+
+const calculateDisplacement = (
+  element: HTMLElement,
+  position: Position
+): number => {
+  const rect = element.getBoundingClientRect();
+  if (position.left - rect.width / 2 < window.scrollX) {
+    return window.scrollX + (rect.width / 2 - position.left);
+  }
+
+  if (position.left + rect.width / 2 > window.innerWidth + window.scrollX) {
+    return (
+      window.innerWidth + window.scrollX - (position.left + rect.width / 2)
+    );
+  }
+
+  return 0;
+};
+
 export const applyTransform = (element: HTMLElement, position: Position) => {
+  const displacement = calculateDisplacement(element, position);
+  if (displacement !== 0) {
+    const animationDuration = 200;
+    element.style.transition = `transform ${animationDuration}ms`;
+    setTimeout(() => {
+      element.style.transition = ``;
+    }, animationDuration);
+  }
+  element.style.setProperty('--horizontal-displacement', `${displacement}px`);
+
   if (isTop(position)) {
-    element.style.transform = `translate(-50%)`;
+    element.style.setProperty('--translate-y', '0');
   } else {
-    element.style.transform = `translate(-50%, -100%)`;
+    element.style.setProperty('--translate-y', '-100%');
   }
 };
