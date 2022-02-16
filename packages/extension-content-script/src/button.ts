@@ -1,5 +1,6 @@
 import { applyPosition, Position } from './position';
 import { createPopup } from './popup';
+import { applyMaxZIndex } from './zIndex';
 
 const buttonId = 'translation-extension-button';
 
@@ -35,6 +36,7 @@ export const createButton = async (phrase: string) => {
   button.id = buttonId;
   hide(button);
   document.body.appendChild(button);
+  applyMaxZIndex(button);
 
   button.addEventListener('click', () => {
     createPopup(phrase);

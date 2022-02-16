@@ -5,6 +5,7 @@ import {
   Position,
   setupTransform,
 } from './position';
+import { applyMaxZIndex } from './zIndex';
 
 let popup: HTMLElement;
 let resizeObserver: ResizeObserver;
@@ -31,6 +32,8 @@ const calculatePosition = (): Position => {
 export const createPopup = (phrase: string) => {
   popup = document.createElement('vocably-popup');
   const translation = document.createElement('vocably-translation');
+
+  applyMaxZIndex(popup);
 
   document.body.appendChild(popup);
 
