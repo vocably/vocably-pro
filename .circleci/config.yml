@@ -15,7 +15,7 @@ jobs:
   bumpNewVersion:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:14
+      - image: cimg/node:14.19
     environment:
       ENV_NAME: DEV
     steps:
@@ -43,7 +43,7 @@ jobs:
   stage:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:14
+      - image: cimg/node:14.19
     environment:
       ENV_NAME: STAGE
     steps:
@@ -68,7 +68,7 @@ jobs:
   prod:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:14
+      - image: cimg/node:14.19
     environment:
       ENV_NAME: PROD
     steps:
