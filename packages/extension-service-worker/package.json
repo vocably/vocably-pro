@@ -9,7 +9,8 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc --watch",
-    "test": "jest"
+    "test": "jest",
+    "extension-service-worker": "yarn start"
   },
   "repository": {
     "type": "git",

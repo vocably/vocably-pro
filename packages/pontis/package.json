@@ -11,7 +11,8 @@
     "watch-esm": "tsc --watch",
     "watch-commonjs": "tsc --watch --project tsconfig.commonjs.json",
     "start": "run-p watch*",
-    "test": "echo '@vocably/pontis has no tests.'"
+    "test": "echo '@vocably/pontis has no tests.'",
+    "pontis": "yarn start"
   },
   "repository": {
     "type": "git",

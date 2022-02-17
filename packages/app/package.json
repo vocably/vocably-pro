@@ -8,7 +8,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "echo 'Use `yarn integration` to test @vocably/app.'",
-    "integration": "ng test"
+    "integration": "ng test",
+    "app": "yarn start"
   },
   "dependencies": {
     "@angular/animations": "~13.0.0",

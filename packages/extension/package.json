@@ -8,7 +8,8 @@
     "build-all": "webpack --env production",
     "prebuild-all": "yarn --cwd ../extension-content-script build-all",
     "start": "webpack --watch --env development",
-    "test": "echo '@vocably/extension has no tests.'"
+    "test": "echo '@vocably/extension has no tests.'",
+    "extension": "yarn start"
   },
   "repository": {
     "type": "git",
