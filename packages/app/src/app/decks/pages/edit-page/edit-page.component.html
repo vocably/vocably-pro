@@ -1,6 +1,13 @@
 <ul class="unstyled mb-1">
   <li *ngFor="let card of cards" class="card mb-1">
-    <div class="side-a">{{ card.data.sideA }}</div>
+    <div>
+      <span class="side-a">{{ card.data.sideA }}</span
+      ><span
+        *ngIf="card.data.partOfSpeech"
+        class="small muted inline-block ml-0_5"
+        >{{ card.data.partOfSpeech }}</span
+      >
+    </div>
     <ul [sideB]="card.data.sideB"></ul>
   </li>
 </ul>

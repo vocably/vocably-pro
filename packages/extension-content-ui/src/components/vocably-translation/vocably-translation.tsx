@@ -34,7 +34,12 @@ export class VocablyTranslation {
               {this.result.value.cards.map((card) => (
                 <div class="card">
                   <div class="label">Side A</div>
-                  <div class="value">{card.data.sideA}</div>
+                  <div class="value">
+                    {card.data.sideA}
+                    {card.data.partOfSpeech && (
+                      <span class="pos">{card.data.partOfSpeech}</span>
+                    )}
+                  </div>
 
                   <div class="label">Side B</div>
                   <div class="value">

@@ -18,6 +18,10 @@
   margin-right: 0.5rem;
 }
 
+.ml-0_5 {
+  margin-left: 0.5rem;
+}
+
 ul.unstyled {
   list-style: none;
   padding: 0;
@@ -49,4 +53,12 @@ ul.unstyled {
 
 .strike {
   text-decoration: line-through;
+}
+
+.small {
+  font-size: 80%;
+}
+
+.muted {
+  color: var(--text-muted);
 }

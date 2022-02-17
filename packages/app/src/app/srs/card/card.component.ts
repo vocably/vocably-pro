@@ -15,6 +15,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { Subject, takeUntil } from 'rxjs';
+import { CardItem } from '@vocably/model';
 
 type Point = {
   x: number;
@@ -83,8 +84,7 @@ export type Answer = 'strong' | 'weak' | 'somewhat';
   ],
 })
 export class CardComponent implements OnInit, OnDestroy {
-  @Input() sideA = '';
-  @Input() sideB = '';
+  @Input() item!: CardItem;
   @Input() flip$!: Subject<unknown>;
   @Input() answer$!: Subject<Answer>;
   @Output() answer = new EventEmitter<Answer>();

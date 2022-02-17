@@ -1,7 +1,6 @@
 <app-srs-card
   *ngFor="let card of cards.slice(0, 1)"
-  [sideA]="card.data.sideA"
-  [sideB]="card.data.sideB"
+  [item]="card"
   [flip$]="flip$"
   [answer$]="answer$"
   (answer)="onAnswer($event)"
