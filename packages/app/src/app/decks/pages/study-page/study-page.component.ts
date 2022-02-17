@@ -7,7 +7,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { DeckService } from '../../deck.service';
 
 @Component({
-  selector: 'vocably-study-page',
+  selector: 'app-study-page',
   templateUrl: './study-page.component.html',
   styleUrls: ['./study-page.component.scss'],
 })

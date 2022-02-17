@@ -2,9 +2,9 @@
   <div class="header-items">
     <div class="logo">
       <a [routerLink]="['/']" *ngIf="!mini"
-        ><vocably-logo class="logo-image"></vocably-logo
+        ><app-logo class="logo-image"></app-logo
       ></a>
-      <vocably-logo class="logo-image" *ngIf="mini"></vocably-logo>
+      <app-logo class="logo-image" *ngIf="mini"></app-logo>
     </div>
     <div class="content" *ngIf="!mini">
       <div class="inline-block">

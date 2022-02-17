@@ -5,7 +5,7 @@ import { CardItem } from '@vocably/model';
 import { byDate } from '../../by-date';
 
 @Component({
-  selector: 'vocably-dashboard-page',
+  selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss'],
 })

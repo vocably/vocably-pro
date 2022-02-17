@@ -9,7 +9,7 @@ import { deleteLanguageDeck } from '@vocably/api';
 import { DeckListStoreService } from '../../deck-list-store.service';
 
 @Component({
-  selector: 'vocably-edit-page',
+  selector: 'app-edit-page',
   templateUrl: './edit-page.component.html',
   styleUrls: ['./edit-page.component.scss'],
 })

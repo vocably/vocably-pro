@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'vocably-deck-selector',
+  selector: 'app-deck-selector',
   templateUrl: './deck-selector.component.html',
   styleUrls: ['./deck-selector.component.scss'],
 })

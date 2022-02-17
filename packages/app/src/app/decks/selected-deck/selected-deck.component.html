@@ -1,12 +1,12 @@
-<vocably-header *ngIf="!clearScreen">
+<app-header *ngIf="!clearScreen">
   <ng-container *ngIf="deckListStore.decks$ | async as deckList">
-    <vocably-deck-selector
+    <app-deck-selector
       [languages]="deckList"
       [value]="language"
       (change)="changeLanguage($event)"
-    ></vocably-deck-selector>
+    ></app-deck-selector>
   </ng-container>
-</vocably-header>
+</app-header>
 <div *ngIf="isLoading">
   <div class="hero">
     <div class="hero-body text-center">

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterParamsService } from './router-params.service';
 
 @Component({
-  selector: 'vocably-root',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

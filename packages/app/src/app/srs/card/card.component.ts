@@ -31,7 +31,7 @@ const fixedState = window.innerWidth / 4;
 export type Answer = 'strong' | 'weak' | 'somewhat';
 
 @Component({
-  selector: 'vocably-srs-card',
+  selector: 'app-srs-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
   animations: [

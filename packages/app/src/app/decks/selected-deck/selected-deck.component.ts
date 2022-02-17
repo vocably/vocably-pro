@@ -18,7 +18,7 @@ import { DeckStoreService } from '../deck-store.service';
 import { RouterParamsService } from '../../router-params.service';
 
 @Component({
-  selector: 'vocably-selected-deck',
+  selector: 'app-selected-deck',
   templateUrl: './selected-deck.component.html',
   styleUrls: ['./selected-deck.component.scss'],
 })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'vocably-srs-success',
+  selector: 'app-srs-success',
   templateUrl: './success.component.html',
   styleUrls: ['./success.component.scss'],
 })

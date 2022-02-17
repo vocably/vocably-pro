@@ -3,7 +3,7 @@ import { DeckListStoreService } from '../../deck-list-store.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'vocably-no-decks-page',
+  selector: 'app-no-decks-page',
   templateUrl: './no-decks-page.component.html',
   styleUrls: ['./no-decks-page.component.scss'],
 })

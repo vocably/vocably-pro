@@ -17,7 +17,7 @@ export type GradeResult = {
 };
 
 @Component({
-  selector: 'vocably-srs-list',
+  selector: 'app-srs-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   animations: [

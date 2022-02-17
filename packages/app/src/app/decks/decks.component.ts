@@ -4,7 +4,7 @@ import { DeckListStoreService } from './deck-list-store.service';
 import { listLanguages } from '@vocably/api';
 
 @Component({
-  selector: 'vocably-decks',
+  selector: 'app-decks',
   templateUrl: './decks.component.html',
 })
 export class DecksComponent implements OnInit, OnDestroy {

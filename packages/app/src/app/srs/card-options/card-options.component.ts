@@ -8,7 +8,7 @@ import {
 import { Answer } from '../card/card.component';
 
 @Component({
-  selector: 'vocably-srs-card-options',
+  selector: 'app-srs-card-options',
   templateUrl: './card-options.component.html',
   styleUrls: ['./card-options.component.scss'],
 })
