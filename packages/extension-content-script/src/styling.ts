@@ -1,5 +1,3 @@
-import elements = chrome.devtools.panels.elements;
-
 type PositionAbove = {
   left: number;
   bottom: number;
@@ -66,4 +64,8 @@ export const applyTransform = (element: HTMLElement, position: Position) => {
   } else {
     element.style.setProperty('--translate-y', '-100%');
   }
+};
+
+export const applyMaxZIndex = (element: HTMLElement) => {
+  element.style.zIndex = '2147483647';
 };

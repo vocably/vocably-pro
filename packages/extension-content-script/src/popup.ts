@@ -4,8 +4,8 @@ import {
   applyTransform,
   Position,
   setupTransform,
-} from './position';
-import { applyMaxZIndex } from './zIndex';
+  applyMaxZIndex,
+} from './styling';
 
 let popup: HTMLElement;
 let resizeObserver: ResizeObserver;

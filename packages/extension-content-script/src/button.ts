@@ -1,6 +1,5 @@
-import { applyPosition, Position } from './position';
+import { applyPosition, Position, applyMaxZIndex } from './styling';
 import { createPopup } from './popup';
-import { applyMaxZIndex } from './zIndex';
 
 const buttonId = 'translation-extension-button';
 
