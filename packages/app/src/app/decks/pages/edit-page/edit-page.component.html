@@ -1,22 +1,15 @@
-<ul class="unstyled mb-1">
-  <li *ngFor="let card of cards" class="card mb-1">
-    <div>
-      <div class="inline-block side-a">{{ card.data.sideA }}</div>
-      <div
-        *ngIf="card.data.partOfSpeech"
-        class="inline-block small muted inline-block ml-0_5"
-      >
-        <span class="inline-block invisible-space">&nbsp;</span>
-        {{ card.data.partOfSpeech }}
-      </div>
-    </div>
-    <ul [sideB]="card.data.sideB"></ul>
-  </li>
-</ul>
+<app-edit-card
+  *ngFor="let card of cards"
+  class="mb-1"
+  [item]="card"
+  [isDeleted]="deleted.includes(card)"
+  (delete)="deleteCard(card)"
+  (restore)="restoreCard(card)"
+></app-edit-card>
 
 <button
   class="button danger block"
-  (click)="onDelete()"
+  (click)="deleteDeck()"
   data-test="delete-button"
 >
   Delete Deck

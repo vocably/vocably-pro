@@ -1,0 +1,19 @@
+<div class="actions">
+  <button *ngIf="!isDeleted" class="unstyled" (click)="delete.emit()">
+    <ion-icon name="trash-outline"></ion-icon>
+  </button>
+  <button class="unstyled underline" *ngIf="isDeleted" (click)="restore.emit()">
+    restore
+  </button>
+</div>
+<div>
+  <div class="inline-block side-a">{{ item.data.sideA }}</div>
+  <div
+    *ngIf="item.data.partOfSpeech"
+    class="inline-block small muted inline-block ml-0_5"
+  >
+    <span class="inline-block invisible-space">&nbsp;</span>
+    {{ item.data.partOfSpeech }}
+  </div>
+</div>
+<ul [sideB]="item.data.sideB"></ul>

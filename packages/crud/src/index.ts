@@ -74,3 +74,22 @@ export const makeDelete =
       value: true,
     };
   };
+
+export const makeRestore =
+  <T>(collection: Collection<T>) =>
+  (item: Item<T>): Result<true> => {
+    const index = collection.findIndex(byId(item.id));
+    if (index !== -1) {
+      return {
+        success: false,
+        errorCode: 'CRUD_ITEM_EXISTS',
+        reason: `Item with ID ${item.id} already exists`,
+      };
+    }
+
+    collection.push(item);
+    return {
+      success: true,
+      value: true,
+    };
+  };
