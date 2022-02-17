@@ -32,4 +32,38 @@ describe('createCards', () => {
     expect(cardItems[0].data.sideA).toEqual('fight');
     expect(cardItems[1].id).toEqual(doId);
   });
+
+  it('considers parts of speech when adding card candidates', () => {
+    const collection: CardItem[] = [];
+    addCardCandidates(collection, [
+      {
+        language: 'nl',
+        sideA: 'naar',
+        sideB: 'onprettig, onaangenaam',
+        partOfSpeech: 'adjective',
+        ...createSrsItem(),
+      },
+      {
+        language: 'nl',
+        sideA: 'naar',
+        sideB: 'in de richting van',
+        partOfSpeech: 'preposition',
+        ...createSrsItem(),
+      },
+    ]);
+    addCardCandidates(collection, [
+      {
+        language: 'nl',
+        sideA: 'naar',
+        sideB: 'zoals',
+        partOfSpeech: 'conjunction',
+        ...createSrsItem(),
+      },
+    ]);
+
+    expect(collection.length).toEqual(3);
+    expect(collection[0].data.partOfSpeech).toEqual('adjective');
+    expect(collection[1].data.partOfSpeech).toEqual('preposition');
+    expect(collection[2].data.partOfSpeech).toEqual('conjunction');
+  });
 });
