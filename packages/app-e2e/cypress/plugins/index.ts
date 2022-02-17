@@ -1,8 +1,7 @@
+require('dotenv-flow').config();
 import { saveDeck } from './save-deck';
 import { clearDecks } from './clear-decks';
 import { addMatchImageSnapshotPlugin } from 'cypress-image-snapshot/plugin';
-
-require('dotenv-flow').config();
 
 const pluginConfig: Cypress.PluginConfig = (on, config) => {
   addMatchImageSnapshotPlugin(on, config);
