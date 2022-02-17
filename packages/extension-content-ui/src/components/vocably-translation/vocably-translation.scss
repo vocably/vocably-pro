@@ -27,6 +27,12 @@
     font-size: 60%;
   }
 
+  .invisible-space {
+    display: inline-block;
+    width: 0;
+    font-size: 0;
+  }
+
   .header {
     color: $gray-700;
     text-transform: uppercase;

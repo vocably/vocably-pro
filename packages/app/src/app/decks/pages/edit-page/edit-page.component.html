@@ -1,12 +1,14 @@
 <ul class="unstyled mb-1">
   <li *ngFor="let card of cards" class="card mb-1">
     <div>
-      <span class="side-a">{{ card.data.sideA }}</span
-      ><span
+      <div class="inline-block side-a">{{ card.data.sideA }}</div>
+      <div
         *ngIf="card.data.partOfSpeech"
-        class="small muted inline-block ml-0_5"
-        >{{ card.data.partOfSpeech }}</span
+        class="inline-block small muted inline-block ml-0_5"
       >
+        <span class="inline-block invisible-space">&nbsp;</span>
+        {{ card.data.partOfSpeech }}
+      </div>
     </div>
     <ul [sideB]="card.data.sideB"></ul>
   </li>

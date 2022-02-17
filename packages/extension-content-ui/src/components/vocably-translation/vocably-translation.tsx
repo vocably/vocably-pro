@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import { Component, Host, h, Prop, Fragment } from '@stencil/core';
 import { TranslationCards, Result } from '@vocably/model';
 
 @Component({
@@ -37,7 +37,10 @@ export class VocablyTranslation {
                   <div class="value">
                     {card.data.sideA}
                     {card.data.partOfSpeech && (
-                      <span class="pos">{card.data.partOfSpeech}</span>
+                      <Fragment>
+                        <span class="invisible-space">&nbsp;</span>
+                        <span class="pos">{card.data.partOfSpeech}</span>
+                      </Fragment>
                     )}
                   </div>
 
