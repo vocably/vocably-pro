@@ -22,6 +22,8 @@ export namespace Components {
         "phrase": string;
         "result": Result<TranslationCards> | null;
     }
+    interface VocablyUnauthorized {
+    }
 }
 declare global {
     interface HTMLVocablyButtonElement extends Components.VocablyButton, HTMLStencilElement {
@@ -60,6 +62,12 @@ declare global {
         prototype: HTMLVocablyTranslationElement;
         new (): HTMLVocablyTranslationElement;
     };
+    interface HTMLVocablyUnauthorizedElement extends Components.VocablyUnauthorized, HTMLStencilElement {
+    }
+    var HTMLVocablyUnauthorizedElement: {
+        prototype: HTMLVocablyUnauthorizedElement;
+        new (): HTMLVocablyUnauthorizedElement;
+    };
     interface HTMLElementTagNameMap {
         "vocably-button": HTMLVocablyButtonElement;
         "vocably-logo": HTMLVocablyLogoElement;
@@ -67,6 +75,7 @@ declare global {
         "vocably-side-b": HTMLVocablySideBElement;
         "vocably-spinner": HTMLVocablySpinnerElement;
         "vocably-translation": HTMLVocablyTranslationElement;
+        "vocably-unauthorized": HTMLVocablyUnauthorizedElement;
     }
 }
 declare namespace LocalJSX {
@@ -86,6 +95,9 @@ declare namespace LocalJSX {
         "phrase"?: string;
         "result"?: Result<TranslationCards> | null;
     }
+    interface VocablyUnauthorized {
+        "onSignIn"?: (event: CustomEvent<any>) => void;
+    }
     interface IntrinsicElements {
         "vocably-button": VocablyButton;
         "vocably-logo": VocablyLogo;
@@ -93,6 +105,7 @@ declare namespace LocalJSX {
         "vocably-side-b": VocablySideB;
         "vocably-spinner": VocablySpinner;
         "vocably-translation": VocablyTranslation;
+        "vocably-unauthorized": VocablyUnauthorized;
     }
 }
 export { LocalJSX as JSX };
@@ -105,6 +118,7 @@ declare module "@stencil/core" {
             "vocably-side-b": LocalJSX.VocablySideB & JSXBase.HTMLAttributes<HTMLVocablySideBElement>;
             "vocably-spinner": LocalJSX.VocablySpinner & JSXBase.HTMLAttributes<HTMLVocablySpinnerElement>;
             "vocably-translation": LocalJSX.VocablyTranslation & JSXBase.HTMLAttributes<HTMLVocablyTranslationElement>;
+            "vocably-unauthorized": LocalJSX.VocablyUnauthorized & JSXBase.HTMLAttributes<HTMLVocablyUnauthorizedElement>;
         }
     }
 }

@@ -4,6 +4,7 @@ import {
 } from '@vocably/extension-messages';
 
 export const api = {
+  appBaseUrl: 'https://app.vocably.pro',
   isLoggedIn: isLoggedInMessage,
   translate: translateMessage,
 };

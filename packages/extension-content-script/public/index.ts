@@ -1,8 +1,12 @@
-import { registerContentScript } from '../src/index';
+import { registerContentScript } from '../src';
 
 registerContentScript({
   api: {
-    isLoggedIn: () => Promise.resolve(true),
+    appBaseUrl: 'http://localhost:8030',
+    isLoggedIn: () =>
+      Promise.resolve(
+        (document.getElementById('isLoggedIn') as HTMLInputElement).checked
+      ),
     translate: (phrase) =>
       new Promise((resolve) => {
         setTimeout(() => {

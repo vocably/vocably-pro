@@ -29,9 +29,32 @@ const calculatePosition = (): Position => {
   }
 };
 
-export const createPopup = (phrase: string) => {
-  popup = document.createElement('vocably-popup');
+const createPopupContents = async (phrase: string): Promise<HTMLElement> => {
+  if (!(await api.isLoggedIn())) {
+    const unauthorizedContainer = document.createElement(
+      'vocably-unauthorized'
+    );
+
+    unauthorizedContainer.addEventListener('signIn', () => {
+      window.open(`${api.appBaseUrl}/login`, '_blank').focus();
+    });
+
+    return unauthorizedContainer;
+  }
+
   const translation = document.createElement('vocably-translation');
+  translation.phrase = window.getSelection().toString();
+
+  api.translate({ phrase }).then((translationResult) => {
+    console.info('The word has been translated.', translationResult);
+    translation.result = translationResult;
+  });
+
+  return translation;
+};
+
+export const createPopup = async (phrase: string) => {
+  popup = document.createElement('vocably-popup');
 
   applyMaxZIndex(popup);
 
@@ -49,14 +72,7 @@ export const createPopup = (phrase: string) => {
     destroyPopup();
   });
 
-  translation.phrase = window.getSelection().toString();
-
-  popup.appendChild(translation);
-
-  api.translate({ phrase }).then((translationResult) => {
-    console.info('The word has been translated.', translationResult);
-    translation.result = translationResult;
-  });
+  popup.appendChild(await createPopupContents(phrase));
 
   const position = calculatePosition();
   applyPosition(popup, position);

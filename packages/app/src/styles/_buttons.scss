@@ -19,11 +19,11 @@ button.unstyled {
   border-radius: $border-radius;
   text-align: center;
   text-decoration: none;
+  transition: background-color 200ms;
 
   &.danger {
     background: var(--button-danger-bg);
     border-color: var(--button-danger-border-color);
-    transition: background-color 200ms;
 
     &:hover,
     &:focus {
