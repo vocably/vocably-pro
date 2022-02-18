@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CognitoAuthGuard } from './auth/cognito-auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
+import { AutoLoginPageComponent } from './auth/pages/auto-login-page/auto-login-page.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginPageComponent,
+  },
+  {
+    path: 'hands-free',
+    component: AutoLoginPageComponent,
   },
 ];
 
