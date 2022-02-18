@@ -13,8 +13,6 @@ export const environmentLocal = {
     userPoolId: '${aws_cognito_user_pool.users.id}',
     userPoolWebClientId: '${aws_cognito_user_pool_client.client.id}',
     oauth: {
-      redirectSignIn: '${local.app_url}',
-      redirectSignOut: '${local.app_url}',
       domain: '${local.auth_domain}',
       scope: ['email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
       responseType: 'code',

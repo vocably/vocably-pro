@@ -7,12 +7,6 @@ import { environmentLocal } from './environmentLocal';
 
 export const environment = merge(environmentLocal, {
   production: false,
-  auth: {
-    oauth: {
-      redirectSignIn: 'http://localhost:8030',
-      redirectSignOut: 'http://localhost:8030',
-    },
-  },
 });
 
 /*

@@ -50,6 +50,7 @@ export const setContents = async ({
         setTranslation();
         clearInterval(intervalId);
         intervalId = null;
+        windowProxy.close();
       }
     }, 1000);
   });

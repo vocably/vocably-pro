@@ -17,13 +17,13 @@ export class AuthService {
       .subscribe((isLoggedIn) => this.isLoggedIn$.next(isLoggedIn));
   }
 
-  async login() {
+  async signIn() {
     return Auth.federatedSignIn({
       provider: CognitoHostedUIIdentityProvider.Google,
     });
   }
 
-  async logout() {
+  async signOut() {
     return Auth.signOut({
       global: true,
     });

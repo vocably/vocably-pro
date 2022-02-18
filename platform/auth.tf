@@ -57,7 +57,11 @@ resource "aws_route53_record" "auth-cognito-A" {
 }
 
 locals {
-  available_urls = concat(["https://${local.app_domain}"], local.dev_urls)
+  auto_sign_in_confirmation_url = "https://${local.app_domain}/${local.auto_sign_in_confirmation_path}"
+}
+
+locals {
+  available_urls = concat(["https://${local.app_domain}", local.auto_sign_in_confirmation_url], local.dev_urls)
 }
 
 resource "aws_cognito_user_pool_client" "client" {

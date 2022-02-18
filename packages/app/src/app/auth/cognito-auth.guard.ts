@@ -21,7 +21,7 @@ export class CognitoAuthGuard implements CanActivate {
     return this.auth.isLoggedIn$.pipe(
       tap(async (loggedIn) => {
         if (!loggedIn) {
-          await this.router.navigate(['login']);
+          await this.router.navigate(['sign-in']);
         }
       })
     );
