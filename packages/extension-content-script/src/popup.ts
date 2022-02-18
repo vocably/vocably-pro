@@ -53,11 +53,19 @@ const createPopupContents = async (phrase: string): Promise<HTMLElement> => {
   return translation;
 };
 
+const applyInitialStyles = (popup: HTMLElement) => {
+  applyMaxZIndex(popup);
+  popup.style.opacity = '0';
+  popup.style.transition = 'opacity 100ms';
+};
+
+const show = (popup: HTMLElement) => {
+  popup.style.opacity = '1';
+};
+
 export const createPopup = async (phrase: string) => {
   popup = document.createElement('vocably-popup');
-
-  applyMaxZIndex(popup);
-
+  applyInitialStyles(popup);
   document.body.appendChild(popup);
 
   popup.addEventListener('mousedown', (event) => {
@@ -77,6 +85,7 @@ export const createPopup = async (phrase: string) => {
   const position = calculatePosition();
   applyPosition(popup, position);
   setupTransform(popup);
+  show(popup);
 
   resizeObserver = new ResizeObserver(() => {
     applyTransform(popup, position);

@@ -52,9 +52,12 @@ export const applyTransform = (element: HTMLElement, position: Position) => {
   const displacement = calculateDisplacement(element, position);
   if (displacement !== 0) {
     const animationDuration = 200;
-    element.style.transition = `transform ${animationDuration}ms`;
+    const originalTransition = element.style.transition;
+    element.style.transition = `${
+      originalTransition ? `${originalTransition}, ` : ''
+    }transform ${animationDuration}ms`;
     setTimeout(() => {
-      element.style.transition = ``;
+      element.style.transition = originalTransition;
     }, animationDuration);
   }
   element.style.setProperty('--horizontal-displacement', `${displacement}px`);
