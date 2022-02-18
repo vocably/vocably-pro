@@ -6,9 +6,11 @@ import {
   setupTransform,
   applyMaxZIndex,
 } from './styling';
+import { setContents, TearDown } from './popup/contents';
 
 let popup: HTMLElement;
 let resizeObserver: ResizeObserver;
+let tearDownContents: TearDown;
 
 const calculatePosition = (): Position => {
   const selection = window.document.getSelection();
@@ -27,30 +29,6 @@ const calculatePosition = (): Position => {
       bottom: window.scrollY + rect.top,
     };
   }
-};
-
-const createPopupContents = async (phrase: string): Promise<HTMLElement> => {
-  if (!(await api.isLoggedIn())) {
-    const unauthorizedContainer = document.createElement(
-      'vocably-unauthorized'
-    );
-
-    unauthorizedContainer.addEventListener('signIn', () => {
-      window.open(`${api.appBaseUrl}/login`, '_blank').focus();
-    });
-
-    return unauthorizedContainer;
-  }
-
-  const translation = document.createElement('vocably-translation');
-  translation.phrase = window.getSelection().toString();
-
-  api.translate({ phrase }).then((translationResult) => {
-    console.info('The word has been translated.', translationResult);
-    translation.result = translationResult;
-  });
-
-  return translation;
 };
 
 const applyInitialStyles = (popup: HTMLElement) => {
@@ -80,7 +58,10 @@ export const createPopup = async (phrase: string) => {
     destroyPopup();
   });
 
-  popup.appendChild(await createPopupContents(phrase));
+  tearDownContents = await setContents({
+    popup,
+    phrase,
+  });
 
   const position = calculatePosition();
   applyPosition(popup, position);
@@ -101,5 +82,10 @@ export const destroyPopup = () => {
   if (resizeObserver) {
     resizeObserver.disconnect();
     resizeObserver = null;
+  }
+
+  if (tearDownContents) {
+    tearDownContents();
+    tearDownContents = null;
   }
 };
