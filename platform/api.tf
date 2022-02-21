@@ -80,7 +80,7 @@ resource "aws_api_gateway_deployment" "deployment" {
     ]))
   }
   depends_on = [
-    aws_api_gateway_integration.translate,
+    #    aws_api_gateway_integration.translate,
     aws_api_gateway_integration.put_language,
     aws_api_gateway_integration.get_language,
     aws_api_gateway_integration.delete_language,
