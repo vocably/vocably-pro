@@ -20,6 +20,20 @@ describe('integration check for translate lambda', () => {
     expect(result.statusCode).toEqual(200);
   });
 
+  it('verify normalized keywords lambda', async () => {
+    mockEvent.body = JSON.stringify({
+      phrase: 'gemaakt',
+    });
+    const result = await translate(mockEvent);
+    console.log(inspect({ result }));
+    expect(result.statusCode).toEqual(200);
+    const data = JSON.parse(result.body);
+    expect(data.normalized).toEqual([
+      { phrase: 'gemaakt', language: 'nl', translation: 'made' },
+      { phrase: 'maken', language: 'nl', translation: 'to make' },
+    ]);
+  });
+
   it('is not a big fan of unsupported languages', async () => {
     mockEvent.body = JSON.stringify({
       phrase: 'labas rytas',

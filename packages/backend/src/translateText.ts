@@ -4,18 +4,19 @@ import { Result } from '@vocably/model';
 const translationClient = new TranslationServiceClient();
 const location = 'global';
 
-type Translation = {
+export type Translation = {
+  source: string;
   text: string;
   detectedLanguage: string | null;
 };
 
 export const translateText = async (
-  text: string,
+  source: string,
   sourceLanguage: string | null = null
 ): Promise<Result<Translation>> => {
   const request = {
     parent: `projects/${process.env.GOOGLE_PROJECT_ID}/locations/${location}`,
-    contents: [text],
+    contents: [source],
     mimeType: 'text/plain',
     targetLanguageCode: 'en',
     sourceLanguageCode: sourceLanguage,
@@ -28,7 +29,7 @@ export const translateText = async (
       return {
         success: false,
         errorCode: 'AS_IS_TRANSLATION_UNABLE_TO_TRANSLATE',
-        reason: `Google Translation API can't find a translation for the text "${text}"`,
+        reason: `Google Translation API can't find a translation for the text "${source}"`,
       };
     }
 
@@ -37,6 +38,7 @@ export const translateText = async (
     return {
       success: true,
       value: {
+        source,
         detectedLanguage: translation.detectedLanguageCode || null,
         text: translation.translatedText,
       },

@@ -1,15 +1,18 @@
 import { VocablyErrorCode } from './errors';
 
-type Error = {
+export type Error = {
   success: false;
   errorCode: VocablyErrorCode;
   reason: string;
   extra?: any;
 };
 
-type Success<T> = {
+export type Success<T> = {
   success: true;
   value: T;
 };
 
 export type Result<T> = Success<T> | Error;
+
+export const isSuccess = <T>(result: Result<T>): result is Success<T> =>
+  result.success === true;

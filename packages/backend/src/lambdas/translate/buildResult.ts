@@ -7,6 +7,8 @@ import {
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { translateText } from '../../translateText';
 import { analyze } from '../../lexicala';
+import { extractUniqueHeadwords } from './extractUniqueHeadwords';
+import { translateNormalizedHeadwords } from './translateNormalizedHeadwords';
 
 export const buildResult = async (
   event: APIGatewayProxyEvent
@@ -51,12 +53,19 @@ export const buildResult = async (
     return lexicalaResult;
   }
 
+  const normalizedHeadwords = extractUniqueHeadwords(lexicalaResult.value);
+
   return {
     success: true,
     value: {
       text: translationResult.value.text,
       language,
       lexicala: lexicalaResult.value,
+      normalized: await translateNormalizedHeadwords(
+        normalizedHeadwords,
+        language,
+        translationResult.value
+      ),
     },
   };
 };
