@@ -20,6 +20,45 @@ resource "aws_cloudwatch_log_group" "analyze" {
   retention_in_days = 14
 }
 
+resource "aws_api_gateway_resource" "analyze" {
+  rest_api_id = aws_api_gateway_rest_api.rest_api.id
+  parent_id   = aws_api_gateway_rest_api.rest_api.root_resource_id
+  path_part   = "analyze"
+}
+
+resource "aws_api_gateway_method" "analyze" {
+  rest_api_id   = aws_api_gateway_rest_api.rest_api.id
+  resource_id   = aws_api_gateway_resource.analyze.id
+  http_method   = "POST"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.rest_api_cognito.id
+
+  request_parameters = {
+    "method.request.querystring.orgId" = true
+  }
+}
+
+module "analyze_cors" {
+  source  = "squidfunk/api-gateway-enable-cors/aws"
+  version = "0.3.3"
+
+  api_id          = aws_api_gateway_rest_api.rest_api.id
+  api_resource_id = aws_api_gateway_method.analyze.resource_id
+}
+
+resource "aws_api_gateway_integration" "analyze" {
+  rest_api_id = aws_api_gateway_rest_api.rest_api.id
+  resource_id = aws_api_gateway_method.analyze.resource_id
+  http_method = aws_api_gateway_method.analyze.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.analyze.invoke_arn
+  passthrough_behavior    = "WHEN_NO_MATCH"
+}
+
+// To be deleted:
+
 resource "aws_api_gateway_resource" "translate" {
   rest_api_id = aws_api_gateway_rest_api.rest_api.id
   parent_id   = aws_api_gateway_rest_api.rest_api.root_resource_id
@@ -56,4 +95,3 @@ resource "aws_api_gateway_integration" "translate" {
   uri                     = aws_lambda_function.analyze.invoke_arn
   passthrough_behavior    = "WHEN_NO_MATCH"
 }
-
