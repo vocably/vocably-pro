@@ -141,7 +141,9 @@ resource "null_resource" "app_upload" {
   ]
 
   triggers = {
-    always_run = timestamp()
+    dir_sha1 = sha1(
+      join("", [for f in fileset(data.external.app_build.result.dest, "**") : filesha1("${data.external.app_build.result.dest}/${f}")])
+    )
   }
 
   provisioner "local-exec" {
