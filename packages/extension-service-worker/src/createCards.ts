@@ -1,7 +1,26 @@
 import { Collection, makeCreate } from '@vocably/crud';
-import { Card, CardItem, AnalyzePayload, Analysis } from '@vocably/model';
+import {
+  Card,
+  CardItem,
+  AnalyzePayload,
+  Analysis,
+  Translation,
+} from '@vocably/model';
 import { createSrsItem } from '@vocably/srs';
 import { join } from '@vocably/sulna';
+import { merge } from 'lodash-es';
+
+const extractTranslation = (
+  source: string,
+  translations: Translation[]
+): string | undefined => {
+  const translation = translations.find(
+    (tr) => tr.source.toLowerCase() === source.toLowerCase()
+  );
+  if (translation) {
+    return translation.target;
+  }
+};
 
 const byCard =
   (card: Card) =>
@@ -25,7 +44,7 @@ export const addCardCandidates = (
       return addItem(card);
     }
 
-    return existingItem;
+    return merge({ data: card }, existingItem);
   });
 };
 
@@ -61,6 +80,7 @@ export const createCards = (
             .filter((s) => s.definition)
             .map((s) => s.definition)
         ),
+        translation: extractTranslation(headword.text, analysis.normalized),
         partOfSpeech: headword.pos,
         ...srsItem,
       };

@@ -9,6 +9,7 @@ export type Card = {
   language: string;
   sideA: string;
   sideB: string;
+  translation?: string;
   partOfSpeech?: string;
 } & SrsItem;
 
