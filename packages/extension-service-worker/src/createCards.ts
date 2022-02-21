@@ -56,7 +56,11 @@ export const createCards = (
       return {
         language: analysis.translation.sourceLanguage,
         sideA: headword.text,
-        sideB: join(lexicalaItem.senses.map((s) => s.definition)),
+        sideB: join(
+          lexicalaItem.senses
+            .filter((s) => s.definition)
+            .map((s) => s.definition)
+        ),
         partOfSpeech: headword.pos,
         ...srsItem,
       };
