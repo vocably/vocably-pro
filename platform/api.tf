@@ -75,7 +75,7 @@ resource "aws_api_gateway_deployment" "deployment" {
   triggers = {
     redeployment = sha1(jsonencode([
       md5(file("${path.module}/api.tf")),
-      md5(file("${path.module}/api-translate.tf")),
+      md5(file("${path.module}/api-analyze.tf")),
       md5(file("${path.module}/api-cards.tf")),
     ]))
   }

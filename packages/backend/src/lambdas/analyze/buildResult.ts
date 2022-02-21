@@ -1,21 +1,21 @@
 import {
   isLexicalaLanguage,
-  Phrase,
+  AnalyzePayload,
   Result,
-  Translation,
+  Analysis,
 } from '@vocably/model';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { translateText } from '../../translateText';
-import { analyze } from '../../lexicala';
+import { lexicala } from '../../lexicala';
 import { extractUniqueHeadwords } from './extractUniqueHeadwords';
 import { translateNormalizedHeadwords } from './translateNormalizedHeadwords';
 
 export const buildResult = async (
   event: APIGatewayProxyEvent
-): Promise<Result<Translation>> => {
-  const phrase: Phrase = JSON.parse(event.body);
+): Promise<Result<Analysis>> => {
+  const payload: AnalyzePayload = JSON.parse(event.body);
 
-  if (!phrase || !phrase.phrase) {
+  if (!payload || !payload.source) {
     return {
       success: false,
       errorCode: 'TRANSLATION_REQUEST_MISSING_PHRASE',
@@ -23,31 +23,35 @@ export const buildResult = async (
     };
   }
 
-  if (phrase.language && !isLexicalaLanguage(phrase.language)) {
+  if (payload.sourceLanguage && !isLexicalaLanguage(payload.sourceLanguage)) {
     return {
       success: false,
       errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_REQUESTED_LANGUAGE',
-      reason: `The REQUESTED source language (${phrase.language}) is not available.`,
+      reason: `The REQUESTED source language (${payload.sourceLanguage}) is not available.`,
     };
   }
 
-  const translationResult = await translateText(phrase.phrase, phrase.language);
+  const translationResult = await translateText(
+    payload.source,
+    payload.sourceLanguage
+  );
 
   if (translationResult.success === false) {
     return translationResult;
   }
 
-  const language = phrase.language ?? translationResult.value.detectedLanguage;
+  const sourceLanguage =
+    payload.sourceLanguage ?? translationResult.value.sourceLanguage;
 
-  if (!isLexicalaLanguage(language)) {
+  if (!isLexicalaLanguage(sourceLanguage)) {
     return {
       success: false,
       errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_DETECTED_LANGUAGE',
-      reason: `The DETECTED source language (${phrase.language}) is not available.`,
+      reason: `The DETECTED source language (${sourceLanguage}) is not available.`,
     };
   }
 
-  const lexicalaResult = await analyze(language, phrase.phrase);
+  const lexicalaResult = await lexicala(sourceLanguage, payload.source);
 
   if (lexicalaResult.success === false) {
     return lexicalaResult;
@@ -58,12 +62,12 @@ export const buildResult = async (
   return {
     success: true,
     value: {
-      text: translationResult.value.text,
-      language,
+      source: payload.source,
+      translation: translationResult.value,
       lexicala: lexicalaResult.value,
       normalized: await translateNormalizedHeadwords(
         normalizedHeadwords,
-        language,
+        sourceLanguage,
         translationResult.value
       ),
     },

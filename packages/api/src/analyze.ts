@@ -1,13 +1,13 @@
 import { request } from './restClient';
-import { Phrase, Translation, Result } from '@vocably/model';
+import { AnalyzePayload, Analysis, Result } from '@vocably/model';
 
-export const translate = async (
-  phrase: Phrase
-): Promise<Result<Translation>> => {
+export const analyze = async (
+  payload: AnalyzePayload
+): Promise<Result<Analysis>> => {
   try {
-    return await request('/translate', {
+    return await request('/analyze', {
       method: 'POST',
-      body: JSON.stringify(phrase),
+      body: JSON.stringify(payload),
     });
   } catch (e) {
     return {

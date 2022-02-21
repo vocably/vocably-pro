@@ -1,4 +1,4 @@
-import { analyze } from './lexicala';
+import { lexicala } from './lexicala';
 import { inspect } from './utils/inspect';
 
 describe('lexicala', () => {
@@ -8,7 +8,7 @@ describe('lexicala', () => {
   }
 
   it('should work properly', async () => {
-    const analyzeResult = await analyze('nl', 'dankjewel');
+    const analyzeResult = await lexicala('nl', 'dankjewel');
     console.log(inspect({ analyzeResult }));
     expect(analyzeResult.success).toBeTruthy();
   });

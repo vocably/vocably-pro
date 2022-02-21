@@ -1,12 +1,9 @@
-import {
-  isLoggedIn as isLoggedInMessage,
-  translate as translateMessage,
-} from '@vocably/extension-messages';
+import { isLoggedIn, analyze } from '@vocably/extension-messages';
 
 export const api = {
   appBaseUrl: 'https://app.vocably.pro',
-  isLoggedIn: isLoggedInMessage,
-  translate: translateMessage,
+  isLoggedIn,
+  analyze,
 };
 
 export type ApiConfigOptions = Partial<typeof api>;

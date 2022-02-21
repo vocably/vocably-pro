@@ -26,7 +26,7 @@ export class VocablyTranslation {
               <div class="phrase">{this.phrase}</div>
 
               <div class="label">English</div>
-              <div class="meaning">{this.result.value.direct}</div>
+              <div class="meaning">{this.result.value.translation.target}</div>
             </div>
             <div class="cards">
               <div class="header">Cards</div>

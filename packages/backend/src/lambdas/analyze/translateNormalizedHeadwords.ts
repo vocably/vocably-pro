@@ -1,5 +1,5 @@
-import { NormalizedTranslation, Result, isSuccess } from '@vocably/model';
-import { translateText, Translation } from '../../translateText';
+import { Translation, Result, isSuccess } from '@vocably/model';
+import { translateText } from '../../translateText';
 
 const isFulfilled = <T>(
   item: PromiseSettledResult<T>
@@ -7,18 +7,18 @@ const isFulfilled = <T>(
 
 export const translateNormalizedHeadwords = async (
   headwords: string[],
-  language: string,
+  sourceLanguage: string,
   originalTranslation: Translation
-): Promise<NormalizedTranslation[]> => {
+): Promise<Translation[]> => {
   const translationResults = await Promise.allSettled(
     headwords.map((headword) => {
-      if (headword.toLowerCase() === originalTranslation.text.toLowerCase()) {
+      if (headword.toLowerCase() === originalTranslation.source.toLowerCase()) {
         return Promise.resolve({
           success: true,
           value: originalTranslation,
         } as Result<Translation>);
       } else {
-        return translateText(headword, language);
+        return translateText(headword, sourceLanguage);
       }
     })
   );
@@ -27,9 +27,5 @@ export const translateNormalizedHeadwords = async (
     .filter(isFulfilled)
     .map((r) => r.value)
     .filter(isSuccess)
-    .map((r) => ({
-      phrase: r.value.source,
-      language,
-      translation: r.value.text,
-    }));
+    .map((r) => r.value);
 };

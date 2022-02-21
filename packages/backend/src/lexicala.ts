@@ -6,7 +6,7 @@ import {
 import { URLSearchParams } from 'url';
 import { request } from './utils/request';
 
-export const analyze = async (
+export const lexicala = async (
   language: LexicalaLanguage,
   text: string
 ): Promise<Result<LexicalaSearchResultItem[]>> => {

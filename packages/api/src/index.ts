@@ -1,4 +1,4 @@
-export { translate } from './translate';
+export { analyze } from './analyze';
 export { configureApi } from './config';
 export {
   loadLanguageDeck,

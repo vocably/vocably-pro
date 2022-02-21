@@ -1,14 +1,10 @@
 import { TranslationServiceClient } from '@google-cloud/translate';
-import { Result } from '@vocably/model';
+import { Result, Translation } from '@vocably/model';
 
 const translationClient = new TranslationServiceClient();
 const location = 'global';
 
-export type Translation = {
-  source: string;
-  text: string;
-  detectedLanguage: string | null;
-};
+const targetLanguage = 'en';
 
 export const translateText = async (
   source: string,
@@ -18,7 +14,7 @@ export const translateText = async (
     parent: `projects/${process.env.GOOGLE_PROJECT_ID}/locations/${location}`,
     contents: [source],
     mimeType: 'text/plain',
-    targetLanguageCode: 'en',
+    targetLanguageCode: targetLanguage,
     sourceLanguageCode: sourceLanguage,
   };
 
@@ -34,13 +30,23 @@ export const translateText = async (
     }
 
     const translation = response.translations[0];
+    const mayBeDetected = sourceLanguage ?? translation.detectedLanguageCode;
+
+    if (!mayBeDetected) {
+      return {
+        success: false,
+        errorCode: 'AS_IS_TRANSLATION_UNDETECTABLE_LANGUAGE',
+        reason: `Google Translation API can't detect language for the text "${source}"`,
+      };
+    }
 
     return {
       success: true,
       value: {
         source,
-        detectedLanguage: translation.detectedLanguageCode || null,
-        text: translation.translatedText,
+        sourceLanguage: mayBeDetected,
+        target: translation.translatedText,
+        targetLanguage,
       },
     };
   } catch (e) {

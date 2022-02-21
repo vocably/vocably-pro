@@ -2,14 +2,14 @@ import { api } from '../api';
 
 type Options = {
   popup: HTMLElement;
-  phrase: string;
+  source: string;
 };
 
 export type TearDown = () => void;
 
 export const setContents = async ({
   popup,
-  phrase,
+  source,
 }: Options): Promise<TearDown> => {
   let intervalId: ReturnType<typeof setInterval> | null = null;
 
@@ -22,9 +22,9 @@ export const setContents = async ({
 
   const setTranslation = () => {
     const translation = document.createElement('vocably-translation');
-    translation.phrase = phrase;
+    translation.phrase = source;
 
-    api.translate({ phrase }).then((translationResult) => {
+    api.analyze({ source: source }).then((translationResult) => {
       console.info('The word has been translated.', translationResult);
       translation.result = translationResult;
     });

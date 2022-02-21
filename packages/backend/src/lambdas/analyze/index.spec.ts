@@ -1,4 +1,4 @@
-import { translate } from './index';
+import { analyze } from './index';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { inspect } from '../../utils/inspect';
 
@@ -13,33 +13,43 @@ describe('integration check for translate lambda', () => {
 
   it('execute translate lambda', async () => {
     mockEvent.body = JSON.stringify({
-      phrase: 'dankjewel',
+      source: 'dankjewel',
     });
-    const result = await translate(mockEvent);
+    const result = await analyze(mockEvent);
     console.log(inspect({ result }));
     expect(result.statusCode).toEqual(200);
   });
 
   it('verify normalized keywords lambda', async () => {
     mockEvent.body = JSON.stringify({
-      phrase: 'gemaakt',
+      source: 'gemaakt',
     });
-    const result = await translate(mockEvent);
+    const result = await analyze(mockEvent);
     console.log(inspect({ result }));
     expect(result.statusCode).toEqual(200);
     const data = JSON.parse(result.body);
     expect(data.normalized).toEqual([
-      { phrase: 'gemaakt', language: 'nl', translation: 'made' },
-      { phrase: 'maken', language: 'nl', translation: 'to make' },
+      {
+        source: 'gemaakt',
+        sourceLanguage: 'nl',
+        target: 'made',
+        targetLanguage: 'en',
+      },
+      {
+        source: 'maken',
+        sourceLanguage: 'nl',
+        target: 'to make',
+        targetLanguage: 'en',
+      },
     ]);
   });
 
   it('is not a big fan of unsupported languages', async () => {
     mockEvent.body = JSON.stringify({
-      phrase: 'labas rytas',
-      language: 'lt',
+      source: 'labas rytas',
+      sourceLanguage: 'lt',
     });
-    const result = await translate(mockEvent);
+    const result = await analyze(mockEvent);
     console.log({ result });
     expect(result.statusCode).toEqual(500);
   });

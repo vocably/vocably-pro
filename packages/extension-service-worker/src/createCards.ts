@@ -1,5 +1,5 @@
 import { Collection, makeCreate } from '@vocably/crud';
-import { Card, CardItem, Phrase, Translation } from '@vocably/model';
+import { Card, CardItem, AnalyzePayload, Analysis } from '@vocably/model';
 import { createSrsItem } from '@vocably/srs';
 import { join } from '@vocably/sulna';
 
@@ -31,17 +31,17 @@ export const addCardCandidates = (
 
 export const createCards = (
   collection: Collection<Card>,
-  phrase: Phrase,
-  translation: Translation
+  payload: AnalyzePayload,
+  analysis: Analysis
 ): CardItem[] => {
   const srsItem = createSrsItem();
 
-  if (translation.lexicala === undefined || translation.lexicala.length === 0) {
+  if (analysis.lexicala === undefined || analysis.lexicala.length === 0) {
     return addCardCandidates(collection, [
       {
-        language: translation.language,
-        sideA: phrase.phrase,
-        sideB: translation.text,
+        language: analysis.translation.sourceLanguage,
+        sideA: payload.source,
+        sideB: analysis.translation.target,
         ...srsItem,
       },
     ]);
@@ -49,12 +49,12 @@ export const createCards = (
 
   return addCardCandidates(
     collection,
-    translation.lexicala.map((lexicalaItem) => {
+    analysis.lexicala.map((lexicalaItem) => {
       const headword = Array.isArray(lexicalaItem.headword)
         ? lexicalaItem.headword[0]
         : lexicalaItem.headword;
       return {
-        language: translation.language,
+        language: analysis.translation.sourceLanguage,
         sideA: headword.text,
         sideB: join(lexicalaItem.senses.map((s) => s.definition)),
         partOfSpeech: headword.pos,

@@ -5,7 +5,7 @@ import { buildResponse } from '../../utils/buildResponse';
 import { buildErrorResponse } from '../../utils/buildErrorResponse';
 import { buildResult } from './buildResult';
 
-export const translate = async (
+export const analyze = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> =>
   lastValueFrom(
@@ -29,4 +29,4 @@ export const translate = async (
     )
   );
 
-exports.translate = translate;
+exports.analyze = analyze;

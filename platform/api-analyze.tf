@@ -1,8 +1,8 @@
 resource "aws_lambda_function" "translate" {
   filename         = data.archive_file.backend_build.output_path
-  function_name    = "vocably-${terraform.workspace}-translate"
+  function_name    = "vocably-${terraform.workspace}-analyze"
   role             = aws_iam_role.lambda_execution.arn
-  handler          = "translate.translate"
+  handler          = "analyze.analyze"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
   runtime          = "nodejs14.x"
 }
@@ -15,7 +15,7 @@ resource "aws_cloudwatch_log_group" "translate" {
 resource "aws_api_gateway_resource" "translate" {
   rest_api_id = aws_api_gateway_rest_api.rest_api.id
   parent_id   = aws_api_gateway_rest_api.rest_api.root_resource_id
-  path_part   = "translate"
+  path_part   = "analyze"
 }
 
 resource "aws_api_gateway_method" "translate" {

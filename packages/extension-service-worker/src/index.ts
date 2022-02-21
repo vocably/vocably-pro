@@ -2,13 +2,13 @@ import './fixAuth';
 import { Auth } from '@aws-amplify/auth';
 import {
   configureApi,
-  translate,
+  analyze,
   loadLanguageDeck,
   saveLanguageDeck,
 } from '@vocably/api';
 import {
   onIsLoggedInRequest,
-  onTranslationRequest,
+  onAnalyzeRequest,
 } from '@vocably/extension-messages';
 import { createCards } from './createCards';
 
@@ -32,18 +32,18 @@ export const registerServiceWorker = (
     return sendResponse(isLoggedIn);
   });
 
-  onTranslationRequest(async (sendResponse, phrase) => {
+  onAnalyzeRequest(async (sendResponse, payload) => {
     console.info(`Translation has been requested.`);
     try {
-      const translationResult = await translate(phrase);
-      console.info(`Translation has been requested.`, translationResult);
+      const analysis = await analyze(payload);
+      console.info(`Translation has been requested.`, analysis);
 
-      if (translationResult.success === false) {
-        return sendResponse(translationResult);
+      if (analysis.success === false) {
+        return sendResponse(analysis);
       }
 
       const loadLanguageDeckResult = await loadLanguageDeck(
-        translationResult.value.language
+        analysis.value.translation.sourceLanguage
       );
       console.info(`Cards loading has been requested.`, loadLanguageDeckResult);
 
@@ -52,11 +52,7 @@ export const registerServiceWorker = (
       }
 
       const languageDeck = loadLanguageDeckResult.value;
-      const cards = createCards(
-        languageDeck.cards,
-        phrase,
-        translationResult.value
-      );
+      const cards = createCards(languageDeck.cards, payload, analysis.value);
 
       const saveCardsCollectionResult = await saveLanguageDeck(languageDeck);
       console.info(
@@ -70,8 +66,8 @@ export const registerServiceWorker = (
 
       const value = {
         cards,
-        direct: translationResult.value.text,
-        language: translationResult.value.language,
+        source: analysis.value.source,
+        translation: analysis.value.translation,
       };
 
       console.info('And translation result is', value);

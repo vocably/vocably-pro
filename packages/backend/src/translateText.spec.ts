@@ -14,8 +14,8 @@ describe('translateText', () => {
       return;
     }
 
-    expect(result.value.text).toContain('car');
-    expect(result.value.detectedLanguage).toEqual('ru');
+    expect(result.value.target).toContain('car');
+    expect(result.value.sourceLanguage).toEqual('ru');
   });
 
   it('considers input language', async () => {
@@ -27,7 +27,7 @@ describe('translateText', () => {
       return;
     }
 
-    expect(result.value.text).toEqual('ашина');
-    expect(result.value.detectedLanguage).toEqual(null);
+    expect(result.value.target).toEqual('ашина');
+    expect(result.value.sourceLanguage).toEqual('nl');
   });
 });

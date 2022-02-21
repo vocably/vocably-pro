@@ -60,7 +60,7 @@ export const createPopup = async (phrase: string) => {
 
   tearDownContents = await setContents({
     popup,
-    phrase,
+    source: phrase,
   });
 
   const position = calculatePosition();
