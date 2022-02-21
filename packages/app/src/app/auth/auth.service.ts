@@ -24,8 +24,6 @@ export class AuthService {
   }
 
   async signOut() {
-    return Auth.signOut({
-      global: true,
-    });
+    return Auth.signOut();
   }
 }
