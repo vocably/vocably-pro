@@ -23,7 +23,7 @@ resource "aws_cloudwatch_log_group" "analyze" {
 resource "aws_api_gateway_resource" "translate" {
   rest_api_id = aws_api_gateway_rest_api.rest_api.id
   parent_id   = aws_api_gateway_rest_api.rest_api.root_resource_id
-  path_part   = "analyze"
+  path_part   = "translate"
 }
 
 resource "aws_api_gateway_method" "translate" {
