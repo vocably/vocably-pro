@@ -11,6 +11,7 @@ export const fr: LanguageDeck = {
         source: 'région',
         definition: "partie d'un pays",
         partOfSpeech: 'noun',
+        translation: 'region',
         interval: 0,
         repetition: 0,
         eFactor: 2.5,
@@ -23,6 +24,7 @@ export const fr: LanguageDeck = {
       data: {
         language: 'fr',
         source: 'création',
+        translation: '',
         definition:
           "* action de faire une chose nouvelle,d'inventer\n* chose nouvelle",
         partOfSpeech: 'noun',
@@ -38,6 +40,7 @@ export const fr: LanguageDeck = {
       data: {
         language: 'fr',
         source: 'piscine',
+        translation: 'pool',
         definition: "grand bassin où l'on peut nager",
         partOfSpeech: 'noun',
         interval: 0,

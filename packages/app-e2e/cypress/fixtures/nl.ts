@@ -9,6 +9,7 @@ export const nl: LanguageDeck = {
       data: {
         language: 'nl',
         source: 'bondgenoot',
+        translation: 'ally',
         definition: 'iemand die je helpt',
         partOfSpeech: 'noun',
         interval: 1,
@@ -24,6 +25,7 @@ export const nl: LanguageDeck = {
       data: {
         language: 'nl',
         source: 'beschikken',
+        translation: '',
         definition: 'besluiten dat iets zal gebeuren',
         partOfSpeech: 'verb',
         interval: 0,
@@ -38,7 +40,8 @@ export const nl: LanguageDeck = {
       data: {
         language: 'nl',
         source: 'grondgebied',
-        definition: 'gebied onder een bepaald bestuur',
+        translation: 'border',
+        definition: '',
         partOfSpeech: 'noun',
         interval: 0,
         repetition: 0,
