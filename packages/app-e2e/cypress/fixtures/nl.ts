@@ -8,8 +8,8 @@ export const nl: LanguageDeck = {
       created: 1644490590972,
       data: {
         language: 'nl',
-        sideA: 'bondgenoot',
-        sideB: 'iemand die je helpt',
+        source: 'bondgenoot',
+        definition: 'iemand die je helpt',
         partOfSpeech: 'noun',
         interval: 1,
         repetition: 1,
@@ -23,8 +23,8 @@ export const nl: LanguageDeck = {
       created: 1644490910245,
       data: {
         language: 'nl',
-        sideA: 'beschikken',
-        sideB: 'besluiten dat iets zal gebeuren',
+        source: 'beschikken',
+        definition: 'besluiten dat iets zal gebeuren',
         partOfSpeech: 'verb',
         interval: 0,
         repetition: 0,
@@ -37,8 +37,8 @@ export const nl: LanguageDeck = {
       created: 1644492441093,
       data: {
         language: 'nl',
-        sideA: 'grondgebied',
-        sideB: 'gebied onder een bepaald bestuur',
+        source: 'grondgebied',
+        definition: 'gebied onder een bepaald bestuur',
         partOfSpeech: 'noun',
         interval: 0,
         repetition: 0,

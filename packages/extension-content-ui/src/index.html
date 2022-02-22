@@ -69,16 +69,21 @@
           document.getElementById('translationSuccess').result = {
             success: true,
             value: {
-              direct: 'created',
-              language: 'nl',
+              source: 'gemaakt',
+              translation: {
+                source: 'gemaakt',
+                sourceLanguage: 'nl',
+                target: 'created',
+                targetLanguage: 'en',
+              },
               cards: [
                 {
                   id: 'NYS4L',
                   created: 1639827779683,
                   data: {
                     language: 'nl',
-                    sideA: 'gemaakt',
-                    sideB: 'als iets niet natuurlijk is of gebeurt',
+                    source: 'gemaakt',
+                    definition: 'als iets niet natuurlijk is of gebeurt',
                     partOfSpeech: 'adjective',
                   },
                 },
@@ -87,8 +92,8 @@
                   created: 1639827779683,
                   data: {
                     language: 'nl',
-                    sideA: 'maken',
-                    sideB:
+                    source: 'maken',
+                    definition:
                       '* (iets dat nog niet bestond) laten ontstaan\n* (iets dat kapot is) zorgen dat het weer heel is',
                     partOfSpeech: 'verb',
                   },

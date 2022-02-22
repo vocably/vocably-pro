@@ -6,7 +6,7 @@ import { CardOptionsComponent } from './card-options/card-options.component';
 import { SuccessComponent } from './success/success.component';
 import { ListComponent } from './list/list.component';
 import { TextLengthDirective } from './text-length.directive';
-import { SideBComponent } from './side-b/side-b.component';
+import { DefinitionComponent } from './definition/definition.component';
 
 @NgModule({
   declarations: [
@@ -15,9 +15,9 @@ import { SideBComponent } from './side-b/side-b.component';
     SuccessComponent,
     ListComponent,
     TextLengthDirective,
-    SideBComponent,
+    DefinitionComponent,
   ],
   imports: [CommonModule, IonicModule],
-  exports: [ListComponent, SideBComponent],
+  exports: [ListComponent, DefinitionComponent],
 })
 export class SrsModule {}

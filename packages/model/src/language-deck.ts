@@ -7,10 +7,10 @@ export type SrsItem = {
 
 export type Card = {
   language: string;
-  sideA: string;
-  sideB: string;
-  translation?: string;
-  partOfSpeech?: string;
+  source: string;
+  definition: string;
+  translation: string;
+  partOfSpeech: string;
 } & SrsItem;
 
 export type CardItem = {

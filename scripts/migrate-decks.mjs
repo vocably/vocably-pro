@@ -29,16 +29,20 @@ for (let object of objects) {
   console.log(deck);
 
   for (let card of deck.cards) {
-    card.data = mapKeys(card.data, (value, key) => {
-      switch (key) {
-        case 'sideA':
-          return 'source';
-        case 'sideB':
-          return 'definition';
-        default:
-          return key;
-      }
-    });
+    card.data = {
+      translation: '',
+      partOfSpeech: '',
+      ...mapKeys(card.data, (value, key) => {
+        switch (key) {
+          case 'sideA':
+            return 'source';
+          case 'sideB':
+            return 'definition';
+          default:
+            return key;
+        }
+      }),
+    };
   }
 
   await s3Client

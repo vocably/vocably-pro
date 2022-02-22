@@ -8,8 +8,8 @@ export const fr: LanguageDeck = {
       created: 1644504018168,
       data: {
         language: 'fr',
-        sideA: 'région',
-        sideB: "partie d'un pays",
+        source: 'région',
+        definition: "partie d'un pays",
         partOfSpeech: 'noun',
         interval: 0,
         repetition: 0,
@@ -22,8 +22,8 @@ export const fr: LanguageDeck = {
       created: 1644504027197,
       data: {
         language: 'fr',
-        sideA: 'création',
-        sideB:
+        source: 'création',
+        definition:
           "* action de faire une chose nouvelle,d'inventer\n* chose nouvelle",
         partOfSpeech: 'noun',
         interval: 0,
@@ -37,8 +37,8 @@ export const fr: LanguageDeck = {
       created: 1644504038843,
       data: {
         language: 'fr',
-        sideA: 'piscine',
-        sideB: "grand bassin où l'on peut nager",
+        source: 'piscine',
+        definition: "grand bassin où l'on peut nager",
         partOfSpeech: 'noun',
         interval: 0,
         repetition: 0,

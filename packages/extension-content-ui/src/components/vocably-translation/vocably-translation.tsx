@@ -35,7 +35,7 @@ export class VocablyTranslation {
                 <div class="card">
                   <div class="label">Side A</div>
                   <div class="value">
-                    {card.data.sideA}
+                    {card.data.source}
                     {card.data.partOfSpeech && (
                       <Fragment>
                         <span class="invisible-space">&nbsp;</span>
@@ -46,7 +46,9 @@ export class VocablyTranslation {
 
                   <div class="label">Side B</div>
                   <div class="value">
-                    <vocably-side-b text={card.data.sideB}></vocably-side-b>
+                    <vocably-definition
+                      text={card.data.definition}
+                    ></vocably-definition>
                   </div>
                 </div>
               ))}

@@ -7,7 +7,7 @@
   </button>
 </div>
 <div>
-  <div class="inline-block side-a">{{ item.data.sideA }}</div>
+  <div class="inline-block side-a">{{ item.data.source }}</div>
   <div
     *ngIf="item.data.partOfSpeech"
     class="inline-block small muted inline-block ml-0_5"
@@ -16,4 +16,4 @@
     {{ item.data.partOfSpeech }}
   </div>
 </div>
-<ul [sideB]="item.data.sideB"></ul>
+<ul [definition]="item.data.definition"></ul>

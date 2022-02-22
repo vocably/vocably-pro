@@ -2,11 +2,11 @@ import { Component, Host, h, Prop } from '@stencil/core';
 import { explode } from '@vocably/sulna';
 
 @Component({
-  tag: 'vocably-side-b',
-  styleUrl: 'vocably-side-b.scss',
+  tag: 'vocably-definition',
+  styleUrl: 'vocably-definition.scss',
   shadow: true,
 })
-export class VocablySideB {
+export class VocablyDefinition {
   @Prop() text: string;
   render() {
     const items = explode(this.text);

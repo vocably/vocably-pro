@@ -6,7 +6,7 @@
     [class.to-be-continued]="isLast && cards.length > 3"
   >
     <div>
-      <div class="inline-block side-a">{{ card.data.sideA }}</div>
+      <div class="inline-block side-a">{{ card.data.source }}</div>
 
       <div
         *ngIf="card.data.partOfSpeech"
@@ -16,7 +16,7 @@
         {{ card.data.partOfSpeech }}
       </div>
     </div>
-    <ul [sideB]="card.data.sideB"></ul>
+    <ul [definition]="card.data.definition"></ul>
   </li>
 </ul>
 

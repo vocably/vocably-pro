@@ -14,8 +14,8 @@ describe('slice', () => {
         id: '3',
         created: 3,
         data: {
-          sideA: 'sA3',
-          sideB: 'sB3',
+          source: 'sA3',
+          definition: 'sB3',
           dueDate: dueDay2,
           eFactor: 2.5,
           interval: 0,
@@ -27,8 +27,8 @@ describe('slice', () => {
         id: '1',
         created: 1,
         data: {
-          sideA: 'sA1',
-          sideB: 'sB1',
+          source: 'sA1',
+          definition: 'sB1',
           dueDate: dueDay1,
           eFactor: 2.5,
           interval: 0,
@@ -40,8 +40,8 @@ describe('slice', () => {
         id: '2',
         created: 2,
         data: {
-          sideA: 'sA2',
-          sideB: 'sB2',
+          source: 'sA2',
+          definition: 'sB2',
           dueDate: dueDay1,
           eFactor: 2.5,
           interval: 0,
@@ -53,8 +53,8 @@ describe('slice', () => {
         id: '4',
         created: 4,
         data: {
-          sideA: 'sA3',
-          sideB: 'sB3',
+          source: 'sA3',
+          definition: 'sB3',
           dueDate: dueDay2,
           eFactor: 2.5,
           interval: 0,

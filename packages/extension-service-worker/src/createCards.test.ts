@@ -6,30 +6,60 @@ describe('createCards', () => {
   it('properly adds candidates when no such words exist in dictionary', () => {
     const collection = [];
     const cardItems = addCardCandidates(collection, [
-      { language: 'en', sideA: 'do', sideB: 'делать', ...createSrsItem() },
-      { language: 'en', sideA: 'fuck', sideB: 'пекаться', ...createSrsItem() },
+      {
+        language: 'en',
+        source: 'do',
+        definition: 'делать',
+        ...createSrsItem(),
+      },
+      {
+        language: 'en',
+        source: 'fuck',
+        definition: 'пекаться',
+        ...createSrsItem(),
+      },
     ]);
 
     expect(collection.length).toEqual(2);
-    expect(cardItems[0].data.sideA).toEqual('do');
-    expect(cardItems[1].data.sideA).toEqual('fuck');
+    expect(cardItems[0].data.source).toEqual('do');
+    expect(cardItems[1].data.source).toEqual('fuck');
   });
 
   it('properly returns an existing item if such a candidate already exists', () => {
     const collection: CardItem[] = [];
     addCardCandidates(collection, [
-      { language: 'en', sideA: 'do', sideB: 'делать', ...createSrsItem() },
-      { language: 'en', sideA: 'fuck', sideB: 'пекаться', ...createSrsItem() },
+      {
+        language: 'en',
+        source: 'do',
+        definition: 'делать',
+        ...createSrsItem(),
+      },
+      {
+        language: 'en',
+        source: 'fuck',
+        definition: 'пекаться',
+        ...createSrsItem(),
+      },
     ]);
 
     const doId = collection[0].id;
     const cardItems = addCardCandidates(collection, [
-      { language: 'en', sideA: 'fight', sideB: 'бороться', ...createSrsItem() },
-      { language: 'en', sideA: 'do', sideB: 'делать', ...createSrsItem() },
+      {
+        language: 'en',
+        source: 'fight',
+        definition: 'бороться',
+        ...createSrsItem(),
+      },
+      {
+        language: 'en',
+        source: 'do',
+        definition: 'делать',
+        ...createSrsItem(),
+      },
     ]);
 
     expect(collection.length).toEqual(3);
-    expect(cardItems[0].data.sideA).toEqual('fight');
+    expect(cardItems[0].data.source).toEqual('fight');
     expect(cardItems[1].id).toEqual(doId);
   });
 
@@ -38,15 +68,15 @@ describe('createCards', () => {
     addCardCandidates(collection, [
       {
         language: 'nl',
-        sideA: 'naar',
-        sideB: 'onprettig, onaangenaam',
+        source: 'naar',
+        definition: 'onprettig, onaangenaam',
         partOfSpeech: 'adjective',
         ...createSrsItem(),
       },
       {
         language: 'nl',
-        sideA: 'naar',
-        sideB: 'in de richting van',
+        source: 'naar',
+        definition: 'in de richting van',
         partOfSpeech: 'preposition',
         ...createSrsItem(),
       },
@@ -54,8 +84,8 @@ describe('createCards', () => {
     addCardCandidates(collection, [
       {
         language: 'nl',
-        sideA: 'naar',
-        sideB: 'zoals',
+        source: 'naar',
+        definition: 'zoals',
         partOfSpeech: 'conjunction',
         ...createSrsItem(),
       },

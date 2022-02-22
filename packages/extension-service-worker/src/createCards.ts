@@ -13,20 +13,22 @@ import { merge } from 'lodash-es';
 const extractTranslation = (
   source: string,
   translations: Translation[]
-): string | undefined => {
+): string => {
   const translation = translations.find(
     (tr) => tr.source.toLowerCase() === source.toLowerCase()
   );
   if (translation) {
     return translation.target;
   }
+
+  return '';
 };
 
 const byCard =
   (card: Card) =>
   (item: CardItem): boolean => {
     return (
-      item.data.sideA.toLowerCase() === card.sideA.toLowerCase() &&
+      item.data.source.toLowerCase() === card.source.toLowerCase() &&
       item.data.partOfSpeech === card.partOfSpeech
     );
   };
@@ -59,8 +61,10 @@ export const createCards = (
     return addCardCandidates(collection, [
       {
         language: analysis.translation.sourceLanguage,
-        sideA: payload.source,
-        sideB: analysis.translation.target,
+        source: payload.source,
+        definition: '',
+        translation: analysis.translation.target,
+        partOfSpeech: '',
         ...srsItem,
       },
     ]);
@@ -74,14 +78,14 @@ export const createCards = (
         : lexicalaItem.headword;
       return {
         language: analysis.translation.sourceLanguage,
-        sideA: headword.text,
-        sideB: join(
+        source: headword.text,
+        definition: join(
           lexicalaItem.senses
             .filter((s) => s.definition)
             .map((s) => s.definition)
         ),
         translation: extractTranslation(headword.text, analysis.normalized),
-        partOfSpeech: headword.pos,
+        partOfSpeech: headword.pos ?? '',
         ...srsItem,
       };
     })
