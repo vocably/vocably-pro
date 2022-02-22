@@ -46,9 +46,7 @@ export class VocablyTranslation {
 
                   <div class="label">Side B</div>
                   <div class="value">
-                    <vocably-definition
-                      text={card.data.definition}
-                    ></vocably-definition>
+                    <vocably-side-b item={card}></vocably-side-b>
                   </div>
                 </div>
               ))}
