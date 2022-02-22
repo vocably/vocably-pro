@@ -1,19 +1,34 @@
-<div class="actions">
-  <button *ngIf="!isDeleted" class="unstyled" (click)="delete.emit()">
-    <ion-icon name="trash-outline"></ion-icon>
-  </button>
-  <button class="unstyled underline" *ngIf="isDeleted" (click)="restore.emit()">
-    restore
-  </button>
-</div>
-<div>
-  <div class="inline-block side-a">{{ item.data.source }}</div>
-  <div
-    *ngIf="item.data.partOfSpeech"
-    class="inline-block small muted inline-block ml-0_5"
-  >
-    <span class="inline-block invisible-space">&nbsp;</span>
-    {{ item.data.partOfSpeech }}
+<ng-container *ngIf="!isEdit">
+  <div class="actions">
+    <button *ngIf="!isDeleted" class="unstyled mr-0_5" (click)="isEdit = true">
+      <ion-icon name="create-outline"></ion-icon>
+    </button>
+    <button *ngIf="!isDeleted" class="unstyled" (click)="delete.emit()">
+      <ion-icon name="trash-outline"></ion-icon>
+    </button>
+    <button
+      class="unstyled underline"
+      *ngIf="isDeleted"
+      (click)="restore.emit()"
+    >
+      restore
+    </button>
   </div>
-</div>
-<app-side-b [item]="item"></app-side-b>
+  <div>
+    <div class="inline-block side-a">{{ item.data.source }}</div>
+    <div
+      *ngIf="item.data.partOfSpeech"
+      class="inline-block small muted inline-block ml-0_5"
+    >
+      <span class="inline-block invisible-space">&nbsp;</span>
+      {{ item.data.partOfSpeech }}
+    </div>
+  </div>
+  <app-side-b [item]="item"></app-side-b>
+</ng-container>
+<app-card-form
+  *ngIf="isEdit"
+  [item]="item"
+  (save)="onSave($event)"
+  (cancel)="isEdit = false"
+></app-card-form>

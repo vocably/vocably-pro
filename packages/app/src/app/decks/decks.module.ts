@@ -14,6 +14,8 @@ import { SrsModule } from '../srs/srs.module';
 import { ComponentsModule } from '../components/components.module';
 import { EditPageComponent } from './pages/edit-page/edit-page.component';
 import { EditCardComponent } from './pages/edit-page/edit-card/edit-card.component';
+import { CardFormComponent } from './pages/edit-page/card-form/card-form.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,9 +27,11 @@ import { EditCardComponent } from './pages/edit-page/edit-card/edit-card.compone
     StudyPageComponent,
     EditPageComponent,
     EditCardComponent,
+    CardFormComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
     IonicModule,
     HeaderModule,
     DecksRoutingModule,

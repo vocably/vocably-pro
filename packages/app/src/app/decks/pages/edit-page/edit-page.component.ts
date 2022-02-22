@@ -41,6 +41,10 @@ export class EditPageComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  saveCard(card: CardItem) {
+    this.deckService.update(card.id, card.data);
+  }
+
   deleteCard(card: CardItem) {
     this.deleted = [...this.deleted, card];
     this.deckService.delete(card.id).pipe(takeUntil(this.destroy$)).subscribe();

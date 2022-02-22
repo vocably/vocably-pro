@@ -5,6 +5,7 @@
   [isDeleted]="deleted.includes(card)"
   (delete)="deleteCard(card)"
   (restore)="restoreCard(card)"
+  (save)="saveCard($event)"
 ></app-edit-card>
 
 <button

@@ -1,0 +1,46 @@
+<form>
+  <label [htmlFor]="'source_' + item.id">Source</label>
+  <input
+    type="text"
+    class="form-control mb-1"
+    [id]="'source_' + item.id"
+    name="source"
+    [(ngModel)]="model.source"
+  />
+
+  <label [htmlFor]="'partOfSpeech_' + item.id">Part of Speech</label>
+  <input
+    type="text"
+    class="form-control mb-1"
+    [id]="'partOfSpeech_' + item.id"
+    name="partOfSpeech"
+    [(ngModel)]="model.partOfSpeech"
+  />
+
+  <label [htmlFor]="'translation_' + item.id">Translation</label>
+  <input
+    type="text"
+    class="form-control mb-1"
+    [id]="'translation_' + item.id"
+    name="translation"
+    [(ngModel)]="model.translation"
+  />
+
+  <label [htmlFor]="'definition_' + item.id">Definition</label>
+  <textarea
+    type="text"
+    class="form-control mb-1"
+    [id]="'definition_' + item.id"
+    name="definition"
+    [(ngModel)]="model.definition"
+    style="height: 6rem"
+  ></textarea>
+  <div>
+    <button type="submit" class="button mr-0_5" (click)="save.emit(this.model)">
+      Save
+    </button>
+    <button type="button" class="unstyled underline" (click)="cancel.emit()">
+      Cancel
+    </button>
+  </div>
+</form>
