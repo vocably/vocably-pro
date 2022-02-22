@@ -16,6 +16,8 @@ describe('slice', () => {
         data: {
           source: 'sA3',
           definition: 'sB3',
+          translation: '',
+          partOfSpeech: '',
           dueDate: dueDay2,
           eFactor: 2.5,
           interval: 0,
@@ -29,6 +31,8 @@ describe('slice', () => {
         data: {
           source: 'sA1',
           definition: 'sB1',
+          translation: '',
+          partOfSpeech: '',
           dueDate: dueDay1,
           eFactor: 2.5,
           interval: 0,
@@ -42,6 +46,8 @@ describe('slice', () => {
         data: {
           source: 'sA2',
           definition: 'sB2',
+          translation: '',
+          partOfSpeech: '',
           dueDate: dueDay1,
           eFactor: 2.5,
           interval: 0,
@@ -55,6 +61,8 @@ describe('slice', () => {
         data: {
           source: 'sA3',
           definition: 'sB3',
+          translation: '',
+          partOfSpeech: '',
           dueDate: dueDay2,
           eFactor: 2.5,
           interval: 0,
