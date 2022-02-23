@@ -1,11 +1,59 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CardItem } from '@vocably/model';
 import { CardFormEntity } from '../card-form/card-form.component';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+
+const animationSpeed = '0.2s';
 
 @Component({
   selector: 'app-edit-card',
   templateUrl: './edit-card.component.html',
   styleUrls: ['./edit-card.component.scss'],
+  animations: [
+    trigger('card', [
+      state(
+        'hidden',
+        style({
+          height: '0',
+        })
+      ),
+      state(
+        'shown',
+        style({
+          height: '*',
+        })
+      ),
+      transition('* => *', [animate(animationSpeed)]),
+    ]),
+
+    trigger('form', [
+      transition(':enter', [
+        style({
+          height: '0',
+        }),
+        animate(
+          animationSpeed,
+          style({
+            height: '*',
+          })
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          animationSpeed,
+          style({
+            height: '0',
+          })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class EditCardComponent implements OnInit {
   @Input() item!: CardItem;

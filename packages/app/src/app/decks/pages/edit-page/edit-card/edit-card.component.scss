@@ -10,6 +10,15 @@ $padding: 1rem;
   position: relative;
 }
 
+.card {
+  overflow: hidden;
+}
+
+.form {
+  display: block;
+  overflow: hidden;
+}
+
 .side-a {
   font-size: 1.5rem;
 }

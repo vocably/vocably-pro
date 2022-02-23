@@ -15,7 +15,10 @@
       >
     </div>
     <div appTextLength class="side definition">
-      <app-side-b [item]="item"></app-side-b>
+      <app-side-b
+        [definition]="item.data.definition"
+        [translation]="item.data.translation"
+      ></app-side-b>
     </div>
   </div>
 </div>

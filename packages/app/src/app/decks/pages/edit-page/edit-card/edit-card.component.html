@@ -1,5 +1,13 @@
-<ng-container *ngIf="!isEdit">
-  <div class="actions">
+<app-card-form
+  class="form"
+  @form
+  *ngIf="isEdit"
+  [item]="item"
+  (save)="onSave($event)"
+  (cancel)="isEdit = false"
+></app-card-form>
+<div class="card" [@card]="isEdit ? 'hidden' : 'shown'">
+  <div class="actions" *ngIf="!isEdit">
     <button *ngIf="!isDeleted" class="unstyled mr-0_5" (click)="isEdit = true">
       <ion-icon name="create-outline"></ion-icon>
     </button>
@@ -24,11 +32,8 @@
       {{ item.data.partOfSpeech }}
     </div>
   </div>
-  <app-side-b [item]="item"></app-side-b>
-</ng-container>
-<app-card-form
-  *ngIf="isEdit"
-  [item]="item"
-  (save)="onSave($event)"
-  (cancel)="isEdit = false"
-></app-card-form>
+  <app-side-b
+    [definition]="item.data.definition"
+    [translation]="item.data.translation"
+  ></app-side-b>
+</div>

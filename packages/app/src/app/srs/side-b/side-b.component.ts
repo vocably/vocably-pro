@@ -13,22 +13,36 @@ type DefinitionItem = {
   styleUrls: ['./side-b.component.scss'],
 })
 export class SideBComponent implements OnInit {
-  @Input() item!: CardItem;
+  private _definition: string = '';
+  private _translation: string = '';
+
+  @Input() set definition(definition: string) {
+    this._definition = definition;
+    this.updateDefinitions();
+  }
+
+  @Input() set translation(translation: string) {
+    this._translation = translation;
+    this.updateDefinitions();
+  }
+
   public definitions: DefinitionItem[] = [];
 
-  constructor() {}
-
-  ngOnInit(): void {
-    this.definitions = explode(this.item.data.definition).map((text) => ({
+  private updateDefinitions() {
+    this.definitions = explode(this._definition).map((text) => ({
       text,
       class: '',
     }));
 
-    if (this.item.data.translation) {
+    if (this._translation) {
       this.definitions.push({
         class: 'muted italic',
-        text: this.item.data.translation,
+        text: this._translation,
       });
     }
   }
+
+  constructor() {}
+
+  ngOnInit(): void {}
 }

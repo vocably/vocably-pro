@@ -1,22 +1,25 @@
 <a class="button block mb-1" [routerLink]="['study']">Practice</a>
 <ul class="unstyled mb-1" data-test="dashboard-cards">
   <li
-    *ngFor="let card of cards.slice(0, 3); last as isLast"
+    *ngFor="let item of cardItems.slice(0, 3); last as isLast"
     class="card mb-1"
-    [class.to-be-continued]="isLast && cards.length > 3"
+    [class.to-be-continued]="isLast && cardItems.length > 3"
   >
     <div>
-      <div class="inline-block side-a">{{ card.data.source }}</div>
+      <div class="inline-block side-a">{{ item.data.source }}</div>
 
       <div
-        *ngIf="card.data.partOfSpeech"
+        *ngIf="item.data.partOfSpeech"
         class="small muted inline-block ml-0_5"
       >
         <span class="inline-block invisible-space">&nbsp;</span>
-        {{ card.data.partOfSpeech }}
+        {{ item.data.partOfSpeech }}
       </div>
     </div>
-    <app-side-b [item]="card"></app-side-b>
+    <app-side-b
+      [definition]="item.data.definition"
+      [translation]="item.data.translation"
+    ></app-side-b>
   </li>
 </ul>
 

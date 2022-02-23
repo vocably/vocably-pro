@@ -12,13 +12,13 @@ import { byDate } from '../../by-date';
 export class DashboardPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
-  public cards: CardItem[] = [];
+  public cardItems: CardItem[] = [];
 
   constructor(public deckStore: DeckStoreService) {}
 
   ngOnInit(): void {
     this.deckStore.deck$.pipe(takeUntil(this.destroy$)).subscribe((deck) => {
-      this.cards = deck.cards.sort(byDate);
+      this.cardItems = deck.cards.sort(byDate);
     });
   }
 

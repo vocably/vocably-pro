@@ -1,4 +1,4 @@
-<form>
+<form (submit)="save.emit(this.model)">
   <label [htmlFor]="'source_' + item.id">Source</label>
   <input
     type="text"
@@ -36,9 +36,7 @@
     style="height: 6rem"
   ></textarea>
   <div>
-    <button type="submit" class="button mr-0_5" (click)="save.emit(this.model)">
-      Save
-    </button>
+    <button type="submit" class="button mr-0_5">Save</button>
     <button type="button" class="unstyled underline" (click)="cancel.emit()">
       Cancel
     </button>
