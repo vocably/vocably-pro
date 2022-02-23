@@ -1,5 +1,6 @@
 {
   "name": "Vocably",
+  "start_url": "/",
   "icons": [
     {
       "src": "assets/manifest-icon-192.maskable.png",
