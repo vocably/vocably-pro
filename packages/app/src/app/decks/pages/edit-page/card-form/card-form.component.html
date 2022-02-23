@@ -36,8 +36,13 @@
     style="height: 6rem"
   ></textarea>
   <div>
-    <button type="submit" class="button mr-0_5">Save</button>
-    <button type="button" class="unstyled underline" (click)="cancel.emit()">
+    <button data-test="submit" type="submit" class="button mr-0_5">Save</button>
+    <button
+      data-test="cancel"
+      type="button"
+      class="unstyled underline"
+      (click)="cancel.emit()"
+    >
       Cancel
     </button>
   </div>

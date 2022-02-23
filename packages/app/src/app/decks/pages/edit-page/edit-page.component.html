@@ -1,6 +1,7 @@
 <app-edit-card
   *ngFor="let card of cards"
   class="mb-1"
+  [attr.data-test-card-id]="card.id"
   [item]="card"
   [isDeleted]="deleted.includes(card)"
   (delete)="deleteCard(card)"

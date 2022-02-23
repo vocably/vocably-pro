@@ -1,21 +1,33 @@
 <app-card-form
   class="form"
+  data-test="card-form"
   @form
   *ngIf="isEdit"
   [item]="item"
   (save)="onSave($event)"
   (cancel)="isEdit = false"
 ></app-card-form>
-<div class="card" [@card]="isEdit ? 'hidden' : 'shown'">
-  <div class="actions" *ngIf="!isEdit">
-    <button *ngIf="!isDeleted" class="unstyled mr-0_5" (click)="isEdit = true">
+<div data-test="card-item" class="card" [@card]="isEdit ? 'hidden' : 'shown'">
+  <div class="actions" data-test="card-actions" *ngIf="!isEdit">
+    <button
+      *ngIf="!isDeleted"
+      data-test="card-action-edit"
+      class="unstyled mr-0_5"
+      (click)="isEdit = true"
+    >
       <ion-icon name="create-outline"></ion-icon>
     </button>
-    <button *ngIf="!isDeleted" class="unstyled" (click)="delete.emit()">
+    <button
+      *ngIf="!isDeleted"
+      data-test="card-action-delete"
+      class="unstyled"
+      (click)="delete.emit()"
+    >
       <ion-icon name="trash-outline"></ion-icon>
     </button>
     <button
       class="unstyled underline"
+      data-test="card-action-restore"
       *ngIf="isDeleted"
       (click)="restore.emit()"
     >
