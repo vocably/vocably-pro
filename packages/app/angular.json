@@ -32,6 +32,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/manifest.json",
               {
                 "glob": "**/*.svg",
                 "input": "../../node_modules/ionicons/dist/ionicons/svg",

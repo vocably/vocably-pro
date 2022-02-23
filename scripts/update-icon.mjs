@@ -17,7 +17,6 @@ for (let size of ['16', '32', '48', '128']) {
 }
 
 await $`cp assets/${devFaviconFilename} packages/extension-content-script/public/favicon.ico`;
-await $`cp assets/${devFaviconFilename} packages/app/src/favicon.ico`;
 await $`cp assets/${icoFilename} packages/www/favicon.ico`;
 
 const svgImage = readFileSync(`assets/${svgFilename}`, 'utf8').toString();
@@ -30,3 +29,5 @@ writeFileSync(
   )
 );
 console.log('Button icon has been successfully updated.');
+
+await $`pwa-asset-generator assets/icon.svg -i packages/app/src/index.html -m packages/app/src/manifest.json packages/app/src/assets -f -p 0`;
