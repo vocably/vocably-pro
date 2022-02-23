@@ -7,7 +7,7 @@ registerContentScript({
       Promise.resolve(
         (document.getElementById('isLoggedIn') as HTMLInputElement).checked
       ),
-    translate: (phrase) =>
+    analyze: (payload) =>
       new Promise((resolve) => {
         setTimeout(() => {
           resolve(

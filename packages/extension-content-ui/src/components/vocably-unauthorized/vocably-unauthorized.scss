@@ -34,7 +34,7 @@
   width: calc(100% - #{$shadow-size} * 2);
   transition: background-color 200ms;
   text-transform: uppercase;
-  box-shadow: 0 0 $shadow-size 1px $gray-500;
+  box-shadow: 0 1px $shadow-size 1px $gray-500;
   margin: 0 $shadow-size;
 
   &:hover,
@@ -44,5 +44,6 @@
 
   &:active {
     background: $button-bg-active;
+    box-shadow: 0 0 $shadow-size 1px $gray-500;
   }
 }
