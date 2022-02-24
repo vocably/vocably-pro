@@ -28,6 +28,7 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
   public isLoading = true;
   public language = '';
   clearScreen = false;
+  title = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +39,7 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
   ) {
     routerParams.data$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
       this.clearScreen = data['clearScreen'] ?? false;
+      this.title = data['title'] ?? '';
     });
 
     combineLatest([this.deckListStore.decks$, this.route.params])

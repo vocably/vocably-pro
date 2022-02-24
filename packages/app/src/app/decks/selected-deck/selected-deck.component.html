@@ -1,4 +1,4 @@
-<app-header *ngIf="!clearScreen">
+<app-header *ngIf="!clearScreen" [title]="title">
   <ng-container *ngIf="deckListStore.decks$ | async as deckList">
     <app-deck-selector
       [languages]="deckList"

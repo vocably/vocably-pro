@@ -8,6 +8,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   @Input() mini = false;
+  @Input() title = '';
 
   constructor(private auth: AuthService) {}
 

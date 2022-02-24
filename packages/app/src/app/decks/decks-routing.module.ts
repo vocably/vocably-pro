@@ -34,6 +34,9 @@ const routes: Routes = [
           {
             path: 'edit',
             component: EditPageComponent,
+            data: {
+              title: 'Edit Deck',
+            },
           },
         ],
       },

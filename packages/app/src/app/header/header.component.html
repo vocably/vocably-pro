@@ -1,6 +1,10 @@
 <header class="header" [class.mini]="mini">
   <div class="header-items">
-    <div class="logo">
+    <div *ngIf="title">
+      <app-back-button class="back middle" [label]="false"></app-back-button>
+      <span class="middle title">{{ title }}</span>
+    </div>
+    <div class="logo" *ngIf="!title">
       <a [routerLink]="['/']" *ngIf="!mini"
         ><app-logo class="logo-image"></app-logo
       ></a>

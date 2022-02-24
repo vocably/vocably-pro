@@ -11,10 +11,12 @@
   align-items: center;
   justify-content: center;
 
-  .logo,
-  .content,
-  .menu {
+  * {
     flex: 1;
+  }
+
+  .title {
+    font-size: 1.2rem;
   }
 
   .content {
