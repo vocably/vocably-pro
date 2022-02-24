@@ -19,7 +19,7 @@ body {
 }
 
 .screen-center {
-  min-height: 100vh; /* height of the browser viewport */
+  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
