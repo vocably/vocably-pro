@@ -5,7 +5,7 @@
     & {
       position: absolute;
       left: 0;
-      bottom: 16px;
+      bottom: 0;
       width: 100%;
       align-items: center;
       justify-content: center;
@@ -15,6 +15,7 @@
 }
 
 .button {
+  display: inline-block;
   margin: 0 8px;
   font-weight: normal;
   border: none;
@@ -29,26 +30,5 @@
   .space-icon {
     vertical-align: bottom;
     --ionicon-stroke-width: 32px;
-  }
-}
-
-.tooltip {
-  background-color: #000;
-  color: #fff;
-  position: absolute;
-  padding: 6px;
-  pointer-events: none;
-  border-radius: 3px;
-  transform: translate(-50%, calc(-100% - 6px));
-  transition: opacity 500ms;
-  top: 0;
-  opacity: 0;
-
-  &.visible {
-    opacity: 0.85;
-  }
-
-  .icon {
-    vertical-align: middle;
   }
 }

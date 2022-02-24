@@ -39,17 +39,4 @@ export class CardOptionsComponent implements OnInit {
       this.answer.emit('somewhat');
     }
   }
-
-  showTooltip(tooltip: HTMLElement, button: HTMLElement) {
-    const buttonRect = button.getBoundingClientRect();
-    tooltip.style.left = `${
-      buttonRect.left + window.scrollX + buttonRect.width / 2
-    }px`;
-    tooltip.style.top = `${buttonRect.top}px`;
-    tooltip.classList.add('visible');
-  }
-
-  hideTooltip(tooltip: HTMLElement) {
-    tooltip.classList.remove('visible');
-  }
 }

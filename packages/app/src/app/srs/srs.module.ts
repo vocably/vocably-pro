@@ -7,6 +7,7 @@ import { SuccessComponent } from './success/success.component';
 import { ListComponent } from './list/list.component';
 import { TextLengthDirective } from './text-length.directive';
 import { SideBComponent } from './side-b/side-b.component';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { SideBComponent } from './side-b/side-b.component';
     TextLengthDirective,
     SideBComponent,
   ],
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonicModule, ComponentsModule],
   exports: [ListComponent, SideBComponent],
 })
 export class SrsModule {}
