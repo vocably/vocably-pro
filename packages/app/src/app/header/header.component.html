@@ -1,7 +1,10 @@
 <header class="header" [class.mini]="mini">
   <div class="header-items">
     <div *ngIf="title">
-      <app-back-button class="back middle" [label]="false"></app-back-button>
+      <app-back-button
+        class="back middle mr-1"
+        [label]="false"
+      ></app-back-button>
       <span class="middle title">{{ title }}</span>
     </div>
     <div class="logo" *ngIf="!title">
