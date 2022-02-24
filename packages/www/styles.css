@@ -28,10 +28,7 @@ body {
 }
 
 .title {
-  text-transform: uppercase;
-  font-size: 60px;
   margin-bottom: 18px;
-  text-shadow: 0px 0px 4px #000000;
 }
 
 .description {
@@ -80,11 +77,37 @@ body {
   font-weight: 300;
   padding: 12px;
   min-width: 250px;
+  background-color: rgb(224, 224, 224);
+  outline: none;
+  border: 1px solid rgb(109, 109, 109);
+  height: 48px;
+  box-sizing: border-box;
+}
+
+.email:focus {
+  background-color: White;
+  border-color: rgb(199, 199, 199);
 }
 
 .submit {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  padding: 12px;
+  display: inline-block;
+  background: rgb(58, 58, 58);
+  color: inherit;
+  border: 1px solid rgb(109, 109, 109);
+  padding: 13px;
+  font: inherit;
+  font-weight: bold;
   cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 200ms;
+  outline: none;
+  height: 48px;
+  box-sizing: border-box;
+}
+
+.submit:hover,
+.submit:focus {
+  border-color: rgb(160, 160, 160);
+  background: rgb(71, 71, 71);
 }
