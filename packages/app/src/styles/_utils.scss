@@ -18,8 +18,16 @@
   margin-right: 0.5rem;
 }
 
+.mr-0_25 {
+  margin-right: 0.25rem;
+}
+
 .ml-0_5 {
   margin-left: 0.5rem;
+}
+
+.pr-1 {
+  padding-right: 1rem;
 }
 
 ul.unstyled {
@@ -59,6 +67,10 @@ ul.unstyled {
   text-decoration: underline;
 }
 
+.text-decoration-none {
+  text-decoration: none;
+}
+
 .italic {
   font-style: italic;
 }
@@ -74,4 +86,8 @@ ul.unstyled {
 .invisible-space {
   width: 0;
   font-size: 0;
+}
+
+.middle {
+  vertical-align: middle;
 }
