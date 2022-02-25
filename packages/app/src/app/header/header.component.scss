@@ -11,8 +11,16 @@
   align-items: center;
   justify-content: center;
 
-  * {
+  .title,
+  .logo,
+  .content,
+  .menu {
     flex: 1;
+    white-space: nowrap;
+  }
+
+  .flex-0 {
+    flex: 0;
   }
 
   .title {
