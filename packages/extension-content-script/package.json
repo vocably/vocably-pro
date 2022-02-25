@@ -9,11 +9,9 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "serve": "webpack serve --env development --open",
-    "build-all": "webpack --env production",
-    "prebuild-all": "yarn --cwd ../extension-content-ui build",
     "start": "npm-run-all --parallel watch serve",
     "test": "echo '@vocably/extension-content-script has no tests.'",
-    "extension-content-script": "yarn start"
+    "extension-content-script": "npm start"
   },
   "repository": {
     "type": "git",

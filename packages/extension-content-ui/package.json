@@ -18,7 +18,7 @@
     "build": "stencil build",
     "build-watch": "stencil build --watch",
     "start": "stencil build --config stencil.serve.ts --dev --watch --serve",
-    "test": "echo 'Use `yarn integration` to test @vocably/extension-content-ui.'",
+    "test": "echo 'Use `npm run integration` to test @vocably/extension-content-ui.'",
     "integration": "stencil test --spec --e2e",
     "integration.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",

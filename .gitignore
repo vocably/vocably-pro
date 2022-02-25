@@ -90,3 +90,4 @@ node_modules
 .DS_Store
 .envrc
 yarn-error.log
+.npm

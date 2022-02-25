@@ -12,7 +12,7 @@
     "watch-commonjs": "tsc --watch --project tsconfig.commonjs.json",
     "start": "run-p watch*",
     "test": "jest",
-    "srs": "yarn start"
+    "srs": "npm start"
   },
   "repository": {
     "type": "git",

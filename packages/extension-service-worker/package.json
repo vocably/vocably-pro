@@ -10,7 +10,7 @@
     "build": "tsc",
     "start": "tsc --watch",
     "test": "jest",
-    "extension-service-worker": "yarn start"
+    "extension-service-worker": "npm start"
   },
   "repository": {
     "type": "git",

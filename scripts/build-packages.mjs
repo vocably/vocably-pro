@@ -1,5 +1,7 @@
 import 'zx/globals';
-import { packagesDir } from './helpers/dirs.mjs';
+import { rootDir } from './helpers/dirs.mjs';
+
+cd(rootDir);
 
 const packages = [
   'sulna',
@@ -18,5 +20,5 @@ const packages = [
 
 for (let packageName of packages) {
   console.log(`Building ${packageName}...`);
-  await $`yarn --cwd ${packagesDir}/${packageName} build`;
+  await $`npm --prefix ./packages/${packageName} run build`;
 }

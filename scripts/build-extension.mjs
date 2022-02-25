@@ -10,7 +10,7 @@ const version = (
 
 process.env.VERSION = version;
 console.log(`Building extension version ${version}...`);
-await $`yarn --cwd ${packagesDir}/extension build`;
+await $`npm --prefix ${packagesDir}/extension run build`;
 
 const envName = (process.env.ENV_NAME ?? 'DEV').toLowerCase();
 const zipFileName = `${envName}_${version.replace(/\./g, '_')}.zip`;

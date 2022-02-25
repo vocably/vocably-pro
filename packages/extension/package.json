@@ -5,11 +5,9 @@
   "private": true,
   "scripts": {
     "build": "webpack --env production",
-    "build-all": "webpack --env production",
-    "prebuild-all": "yarn --cwd ../extension-content-script build-all",
     "start": "webpack --watch --env development",
     "test": "echo '@vocably/extension has no tests.'",
-    "extension": "yarn start"
+    "extension": "npm start"
   },
   "repository": {
     "type": "git",

@@ -12,7 +12,7 @@
     "watch-commonjs": "tsc --watch --project tsconfig.commonjs.json",
     "start": "run-p watch*",
     "test": "echo '@vocably/api has no tests.'",
-    "api": "yarn start"
+    "api": "npm start"
   },
   "repository": {
     "type": "git",
