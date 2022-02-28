@@ -1,10 +1,17 @@
-import { applyPosition, Position, applyMaxZIndex } from './styling';
+import {
+  applyPosition,
+  Position,
+  applyMaxZIndex,
+  applyTransform,
+  setupTransform,
+  setHorizontalDisplacement,
+} from './styling';
 import { createPopup } from './popup';
 
 const buttonId = 'translation-extension-button';
 
-const getPosition = (): Promise<Position> => {
-  return new Promise<Position>((resolve) => {
+const considerGoogleTranslate = async (button: HTMLElement): Promise<void> => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       const gtxIcon = document.getElementById('gtx-trans');
       if (gtxIcon) {
@@ -12,10 +19,32 @@ const getPosition = (): Promise<Position> => {
           event.stopPropagation();
         });
         const rect = gtxIcon.getBoundingClientRect();
+        setHorizontalDisplacement(button, rect.width + 3);
+      }
+      resolve();
+    }, 100);
+  });
+};
 
+const getPosition = (
+  selection: Selection,
+  event: MouseEvent
+): Promise<Position> => {
+  return new Promise<Position>((resolve) => {
+    setTimeout(() => {
+      const selectionRect = selection.getRangeAt(0).getBoundingClientRect();
+
+      const left = window.scrollX + event.x;
+
+      if ((selectionRect.bottom + selectionRect.top) / 2 > event.y) {
         resolve({
-          left: rect.right + window.scrollX + 3,
-          top: rect.top + window.scrollY,
+          left,
+          bottom: selectionRect.top + window.scrollY,
+        });
+      } else {
+        resolve({
+          left,
+          top: selectionRect.bottom + window.scrollY,
         });
       }
     }, 100);
@@ -30,7 +59,7 @@ const show = (button: HTMLElement) => {
   button.style.display = 'block';
 };
 
-export const createButton = async (phrase: string) => {
+export const createButton = async (selection: Selection, event: MouseEvent) => {
   const button = document.createElement('vocably-button');
   button.id = buttonId;
   hide(button);
@@ -38,7 +67,7 @@ export const createButton = async (phrase: string) => {
   applyMaxZIndex(button);
 
   button.addEventListener('click', () => {
-    createPopup(phrase);
+    createPopup(selection.toString());
     destroyButton();
   });
 
@@ -52,8 +81,11 @@ export const createButton = async (phrase: string) => {
     event.stopPropagation();
   });
 
-  const position = await getPosition();
+  const position = await getPosition(selection, event);
   applyPosition(button, position);
+  setupTransform(button);
+  applyTransform(button, position);
+  await considerGoogleTranslate(button);
   show(button);
 };
 

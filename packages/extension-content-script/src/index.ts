@@ -21,7 +21,7 @@ export const registerContentScript = async (
       return;
     }
 
-    await createButton(selection.toString());
+    await createButton(selection, event);
   });
 
   document.addEventListener('mousedown', async (event) => {

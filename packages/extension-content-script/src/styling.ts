@@ -69,6 +69,13 @@ export const applyTransform = (element: HTMLElement, position: Position) => {
   }
 };
 
+export const setHorizontalDisplacement = (
+  element: HTMLElement,
+  displacement: number
+) => {
+  element.style.setProperty('--horizontal-displacement', `${displacement}px`);
+};
+
 export const applyMaxZIndex = (element: HTMLElement) => {
   element.style.zIndex = '2147483647';
 };
