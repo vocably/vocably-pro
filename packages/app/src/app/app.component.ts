@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterParamsService } from './router-params.service';
+import { UpdateService } from './update.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,11 @@ import { RouterParamsService } from './router-params.service';
 })
 export class AppComponent {
   clearScreen = false;
-  constructor(routerParams: RouterParamsService) {
+  constructor(routerParams: RouterParamsService, updateService: UpdateService) {
     routerParams.data$.subscribe((data) => {
       this.clearScreen = data['clearScreen'] ?? false;
     });
+
+    updateService.bootstrap();
   }
 }

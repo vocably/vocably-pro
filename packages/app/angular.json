@@ -30,7 +30,6 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
               "src/assets",
               "src/manifest.json",
               {
@@ -98,7 +97,9 @@
               "crypto-js/hmac-sha256",
               "crypto",
               "camelcase-keys"
-            ]
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -163,13 +164,13 @@
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
               "src/assets",
               {
                 "glob": "**/*.svg",
                 "input": "../../node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
-              }
+              },
+              "src/manifest.json"
             ],
             "styles": ["src/styles.scss"],
             "scripts": []
