@@ -5,9 +5,10 @@ import {
   AnalyzePayload,
   Analysis,
   Translation,
+  LexicalaSearchResultItem,
 } from '@vocably/model';
 import { createSrsItem } from '@vocably/srs';
-import { join } from '@vocably/sulna';
+import { explode, join } from '@vocably/sulna';
 import { merge } from 'lodash-es';
 
 const extractTranslation = (
@@ -24,14 +25,16 @@ const extractTranslation = (
   return '';
 };
 
+const equalCards =
+  (a: Card) =>
+  (b: Card): boolean =>
+    a.source.toLowerCase() === b.source.toLowerCase() &&
+    a.partOfSpeech === b.partOfSpeech;
+
 const byCard =
   (card: Card) =>
-  (item: CardItem): boolean => {
-    return (
-      item.data.source.toLowerCase() === card.source.toLowerCase() &&
-      item.data.partOfSpeech === card.partOfSpeech
-    );
-  };
+  (item: CardItem): boolean =>
+    equalCards(card)(item.data);
 
 export const addCardCandidates = (
   collection: Collection<Card>,
@@ -47,6 +50,27 @@ export const addCardCandidates = (
     }
 
     return merge({ data: card }, existingItem);
+  });
+};
+
+export const combineCards = (acc: Card[], card: Card): Card[] => {
+  const existingIndex = acc.findIndex(equalCards(card));
+  if (existingIndex === -1) {
+    return [...acc, card];
+  }
+
+  return acc.map((existingCard, index) => {
+    if (index !== existingIndex) {
+      return existingCard;
+    }
+
+    return {
+      ...existingCard,
+      definition: join([
+        ...explode(existingCard.definition),
+        ...explode(card.definition),
+      ]),
+    };
   });
 };
 
@@ -72,22 +96,24 @@ export const createCards = (
 
   return addCardCandidates(
     collection,
-    analysis.lexicala.map((lexicalaItem) => {
-      const headword = Array.isArray(lexicalaItem.headword)
-        ? lexicalaItem.headword[0]
-        : lexicalaItem.headword;
-      return {
-        language: analysis.translation.sourceLanguage,
-        source: headword.text,
-        definition: join(
-          lexicalaItem.senses
-            .filter((s) => s.definition)
-            .map((s) => s.definition)
-        ),
-        translation: extractTranslation(headword.text, analysis.normalized),
-        partOfSpeech: headword.pos ?? '',
-        ...srsItem,
-      };
-    })
+    analysis.lexicala
+      .map((lexicalaItem): Card => {
+        const headword = Array.isArray(lexicalaItem.headword)
+          ? lexicalaItem.headword[0]
+          : lexicalaItem.headword;
+        return {
+          language: analysis.translation.sourceLanguage,
+          source: headword.text,
+          definition: join(
+            lexicalaItem.senses
+              .filter((s) => s.definition)
+              .map((s) => s.definition)
+          ),
+          translation: extractTranslation(headword.text, analysis.normalized),
+          partOfSpeech: headword.pos ?? '',
+          ...srsItem,
+        };
+      })
+      .reduce(combineCards, [])
   );
 };
