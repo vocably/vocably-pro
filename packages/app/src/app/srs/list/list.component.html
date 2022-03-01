@@ -11,4 +11,8 @@
   (flip)="flip$.next(null)"
   (answer)="answer$.next($event)"
 ></app-srs-card-options>
-<app-srs-success *ngIf="cards.length === 0" @displayComponent></app-srs-success>
+<app-srs-success
+  *ngIf="cards.length === 0"
+  (oneMoreRound)="oneMoreRound.emit()"
+  @displayComponent
+></app-srs-success>

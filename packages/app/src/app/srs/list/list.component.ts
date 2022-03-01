@@ -32,6 +32,7 @@ export type GradeResult = {
 export class ListComponent {
   @Input() cards!: CardItem[];
   @Output() grade = new EventEmitter<GradeResult>();
+  @Output() oneMoreRound = new EventEmitter();
 
   flip$ = new Subject();
   answer$ = new Subject<Answer>();

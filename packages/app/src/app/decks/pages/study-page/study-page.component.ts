@@ -22,6 +22,10 @@ export class StudyPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.reloadCards();
+  }
+
+  reloadCards() {
     this.cards = slice(new Date(), 10, this.deckStore.deck$.value.cards);
   }
 

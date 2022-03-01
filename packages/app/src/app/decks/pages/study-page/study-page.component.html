@@ -3,6 +3,7 @@
     class="study-list"
     [cards]="this.cards"
     (grade)="onGrade($event)"
+    (oneMoreRound)="reloadCards()"
   ></app-srs-list>
   <div class="nav">
     <app-back-button></app-back-button>
