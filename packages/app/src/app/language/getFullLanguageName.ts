@@ -1,6 +1,6 @@
-import languages from './languages';
+import { languageList } from '@vocably/model';
 
 export const getFullLanguageName = (code: string): string => {
   // @ts-ignore
-  return languages[code] ?? code;
+  return languageList[code] ?? code;
 };

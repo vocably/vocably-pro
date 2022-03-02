@@ -1,4 +1,4 @@
-export default {
+export const languageList = {
   aa: 'Afar',
   ab: 'Abkhazian',
   ae: 'Avestan',
