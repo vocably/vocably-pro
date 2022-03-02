@@ -39,12 +39,12 @@ const getPosition = (
       if ((selectionRect.bottom + selectionRect.top) / 2 > event.y) {
         resolve({
           left,
-          bottom: selectionRect.top + window.scrollY,
+          bottom: selectionRect.top - 1 + window.scrollY,
         });
       } else {
         resolve({
           left,
-          top: selectionRect.bottom + window.scrollY,
+          top: selectionRect.bottom + window.scrollY + 1,
         });
       }
     }, 100);
