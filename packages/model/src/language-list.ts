@@ -181,3 +181,8 @@ export const languageList = {
   zh: 'Chinese',
   zu: 'Zulu',
 };
+
+export const getFullLanguageName = (code: string): string => {
+  // @ts-ignore
+  return languageList[code] ?? code;
+};

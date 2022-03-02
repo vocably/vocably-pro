@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { getFullLanguageName } from './getFullLanguageName';
+import { getFullLanguageName } from '@vocably/model';
 
 @Pipe({
   name: 'language',

@@ -4,7 +4,7 @@ import { CardItem } from '@vocably/model';
 import { Subject, takeUntil } from 'rxjs';
 import { byDate } from '../../by-date';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { getFullLanguageName } from '../../../language/getFullLanguageName';
+import { getFullLanguageName } from '@vocably/model';
 import { deleteLanguageDeck } from '@vocably/api';
 import { DeckListStoreService } from '../../deck-list-store.service';
 import { DeckService } from '../../deck.service';
