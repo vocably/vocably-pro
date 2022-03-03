@@ -19,6 +19,7 @@ export namespace Components {
     interface VocablySpinner {
     }
     interface VocablyTranslation {
+        "loading": boolean;
         "phrase": string;
         "result": Result<TranslationCards> | null;
     }
@@ -92,6 +93,8 @@ declare namespace LocalJSX {
     interface VocablySpinner {
     }
     interface VocablyTranslation {
+        "loading"?: boolean;
+        "onLanguage"?: (event: CustomEvent<string>) => void;
         "phrase"?: string;
         "result"?: Result<TranslationCards> | null;
     }

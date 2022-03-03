@@ -5,12 +5,15 @@ import {
   analyze,
   loadLanguageDeck,
   saveLanguageDeck,
+  deleteLanguageDeck,
 } from '@vocably/api';
 import {
   onIsLoggedInRequest,
   onAnalyzeRequest,
+  onCleanUpRequest,
 } from '@vocably/extension-messages';
 import { createCards } from './createCards';
+import { makeDelete } from '@vocably/crud';
 
 type RegisterServiceWorkerOptions = {
   auth: Parameters<typeof Auth.configure>[0];
@@ -81,6 +84,44 @@ export const registerServiceWorker = (
         success: false,
         errorCode: 'EXTENSION_SERVICE_WORKER_ERROR_CREATING_CARDS',
         reason: `An unexpected error has occurred during the cards creation in service worker.`,
+        extra: e,
+      });
+    }
+  });
+
+  onCleanUpRequest(async (sendResponse, payload) => {
+    console.info(`Clean up has been requested.`, payload);
+    try {
+      const loadLanguageDeckResult = await loadLanguageDeck(
+        payload.translation.targetLanguage
+      );
+
+      if (loadLanguageDeckResult.success === false) {
+        return sendResponse(loadLanguageDeckResult);
+      }
+
+      const deck = loadLanguageDeckResult.value;
+
+      const deleteCard = makeDelete(deck.cards);
+      payload.cards.forEach((item) => deleteCard(item.id));
+
+      if (deck.cards.length === 0) {
+        console.info(`The entire deck will be deleted.`, payload);
+        return sendResponse(
+          await deleteLanguageDeck(payload.translation.targetLanguage)
+        );
+      }
+
+      console.info(
+        `${payload.cards.length} cards will be deleted from the deck.`,
+        payload
+      );
+      return sendResponse(await saveLanguageDeck(deck));
+    } catch (e) {
+      return sendResponse({
+        success: false,
+        errorCode: 'EXTENSION_SERVICE_WORKER_ERROR_CLEANING_UP',
+        reason: `An unexpected error has occurred during the cards clean up in service worker.`,
         extra: e,
       });
     }

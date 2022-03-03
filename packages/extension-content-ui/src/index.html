@@ -55,6 +55,46 @@
         <vocably-translation phrase="geweldig"></vocably-translation>
       </div>
 
+      <script type="text/javascript">
+        const successfulTranslationResult = {
+          success: true,
+          value: {
+            source: 'gemaakt',
+            translation: {
+              source: 'gemaakt',
+              sourceLanguage: 'nl',
+              target: 'created',
+              targetLanguage: 'en',
+            },
+            cards: [
+              {
+                id: 'NYS4L',
+                created: 1639827779683,
+                data: {
+                  language: 'nl',
+                  source: 'gemaakt',
+                  definition: 'als iets niet natuurlijk is of gebeurt',
+                  translation: 'created',
+                  partOfSpeech: 'adjective',
+                },
+              },
+              {
+                id: 'S5FSK',
+                created: 1639827779683,
+                data: {
+                  language: 'nl',
+                  source: 'maken',
+                  definition:
+                    '* (iets dat nog niet bestond) laten ontstaan\n* (iets dat kapot is) zorgen dat het weer heel is',
+                  translation: 'to make',
+                  partOfSpeech: 'verb',
+                },
+              },
+            ],
+          },
+        };
+      </script>
+
       <p>This is a translation result. Success.</p>
 
       <div class="mb-3">
@@ -66,43 +106,25 @@
 
       <div class="mb-3">
         <script type="text/javascript">
-          document.getElementById('translationSuccess').result = {
-            success: true,
-            value: {
-              source: 'gemaakt',
-              translation: {
-                source: 'gemaakt',
-                sourceLanguage: 'nl',
-                target: 'created',
-                targetLanguage: 'en',
-              },
-              cards: [
-                {
-                  id: 'NYS4L',
-                  created: 1639827779683,
-                  data: {
-                    language: 'nl',
-                    source: 'gemaakt',
-                    definition: 'als iets niet natuurlijk is of gebeurt',
-                    translation: 'created',
-                    partOfSpeech: 'adjective',
-                  },
-                },
-                {
-                  id: 'S5FSK',
-                  created: 1639827779683,
-                  data: {
-                    language: 'nl',
-                    source: 'maken',
-                    definition:
-                      '* (iets dat nog niet bestond) laten ontstaan\n* (iets dat kapot is) zorgen dat het weer heel is',
-                    translation: 'to make',
-                    partOfSpeech: 'verb',
-                  },
-                },
-              ],
-            },
-          };
+          document.getElementById('translationSuccess').result =
+            successfulTranslationResult;
+        </script>
+      </div>
+
+      <p>This is a translation result. Success + Load once again.</p>
+
+      <div class="mb-3">
+        <vocably-translation
+          phrase="gemaakt"
+          id="translationReload"
+        ></vocably-translation>
+      </div>
+
+      <div class="mb-3">
+        <script type="text/javascript">
+          document.getElementById('translationReload').result =
+            successfulTranslationResult;
+          document.getElementById('translationReload').loading = true;
         </script>
       </div>
 

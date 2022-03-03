@@ -1,5 +1,7 @@
 @import '../../styles/variables';
 
+$select-padding: 6px;
+
 :host {
   display: block;
   font-size: $base-font-size;
@@ -9,6 +11,7 @@
 .translation {
   display: flex;
   align-items: stretch;
+  padding: 0 $select-padding;
 
   .label {
     color: $gray-500;
@@ -60,4 +63,44 @@
 
 .error {
   color: $red-500;
+}
+
+select {
+  color: $gray-300;
+  margin-left: -$select-padding;
+  width: calc(100% + #{$select-padding});
+  text-transform: uppercase;
+  font-size: $base-font-size * 0.9;
+  padding: $select-padding;
+  border: 1px solid $gray-900;
+  border-radius: 4px;
+  appearance: none;
+  background: transparent
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M112 184l144 144 144-144" fill="rgb(211, 211, 211)" /></svg>')
+    no-repeat;
+  background-size: contain;
+  background-position: right 0 top 50%;
+  outline: none;
+
+  &:focus,
+  &:hover {
+    border-color: $gray-500;
+  }
+}
+
+.loading-container {
+  position: relative;
+}
+
+.reload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  opacity: 0.5;
 }

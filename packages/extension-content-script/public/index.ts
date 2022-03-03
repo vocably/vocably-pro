@@ -17,5 +17,6 @@ registerContentScript({
           );
         }, parseInt((document.getElementById('delay') as HTMLInputElement).value));
       }),
+    cleanUp: () => Promise.resolve(),
   },
 }).then();

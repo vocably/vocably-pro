@@ -24,10 +24,30 @@ export const setContents = async ({
     const translation = document.createElement('vocably-translation');
     translation.phrase = source;
 
-    api.analyze({ source: source }).then((translationResult) => {
-      console.info('The word has been translated.', translationResult);
-      translation.result = translationResult;
-    });
+    const analyze = (sourceLanguage?: string) => {
+      translation.loading = true;
+      api
+        .analyze({ source: source, sourceLanguage })
+        .finally(() => {
+          translation.loading = false;
+        })
+        .then((translationResult) => {
+          console.info('The word has been translated.', translationResult);
+          translation.result = translationResult;
+        });
+    };
+
+    translation.addEventListener(
+      'language',
+      ({ detail: language }: CustomEvent) => {
+        if (translation.result && translation.result.success) {
+          api.cleanUp(translation.result.value);
+        }
+        analyze(language);
+      }
+    );
+
+    analyze();
 
     popup.innerHTML = '';
     popup.appendChild(translation);

@@ -17,3 +17,8 @@ export const [analyze, onAnalyzeRequest] = createScopedMessage<
   AnalyzePayload,
   Result<TranslationCards>
 >('analyze');
+
+export const [cleanUp, onCleanUpRequest] = createScopedMessage<
+  TranslationCards,
+  Result<null>
+>('cleanUp');

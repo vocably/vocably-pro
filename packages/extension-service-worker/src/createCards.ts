@@ -5,7 +5,6 @@ import {
   AnalyzePayload,
   Analysis,
   Translation,
-  LexicalaSearchResultItem,
 } from '@vocably/model';
 import { createSrsItem } from '@vocably/srs';
 import { explode, join } from '@vocably/sulna';
