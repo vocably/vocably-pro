@@ -29,9 +29,14 @@ const considerGoogleTranslate = async (button: HTMLElement): Promise<void> => {
 const getPosition = (
   selection: Selection,
   event: MouseEvent
-): Promise<Position> => {
+): Promise<Position | null> => {
   return new Promise<Position>((resolve) => {
     setTimeout(() => {
+      if (selection.rangeCount === 0) {
+        resolve(null);
+        return;
+      }
+
       const selectionRect = selection.getRangeAt(0).getBoundingClientRect();
 
       const left = window.scrollX + event.x;
@@ -82,6 +87,12 @@ export const createButton = async (selection: Selection, event: MouseEvent) => {
   });
 
   const position = await getPosition(selection, event);
+
+  if (position === null) {
+    destroyButton();
+    return;
+  }
+
   applyPosition(button, position);
   setupTransform(button);
   applyTransform(button, position);
