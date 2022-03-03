@@ -67,7 +67,7 @@ export const createButton = async (selection: Selection, event: MouseEvent) => {
   applyMaxZIndex(button);
 
   button.addEventListener('click', () => {
-    createPopup(selection.toString());
+    createPopup(selection);
     destroyButton();
   });
 

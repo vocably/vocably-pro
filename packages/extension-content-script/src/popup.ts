@@ -11,8 +11,7 @@ let popup: HTMLElement;
 let resizeObserver: ResizeObserver;
 let tearDownContents: TearDown;
 
-const calculatePosition = (): Position => {
-  const selection = window.document.getSelection();
+const calculatePosition = (selection: Selection): Position => {
   const rect = selection.getRangeAt(0).getBoundingClientRect();
 
   const left = window.scrollX + rect.left + rect.width / 2;
@@ -40,7 +39,7 @@ const show = (popup: HTMLElement) => {
   popup.style.opacity = '1';
 };
 
-export const createPopup = async (phrase: string) => {
+export const createPopup = async (selection: Selection) => {
   popup = document.createElement('vocably-popup');
   applyInitialStyles(popup);
   document.body.appendChild(popup);
@@ -59,10 +58,10 @@ export const createPopup = async (phrase: string) => {
 
   tearDownContents = await setContents({
     popup,
-    source: phrase,
+    source: selection.toString(),
   });
 
-  const position = calculatePosition();
+  const position = calculatePosition(selection);
   applyPosition(popup, position);
   setupTransform(popup);
   show(popup);
