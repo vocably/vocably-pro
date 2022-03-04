@@ -12,6 +12,8 @@ import { switchMap, take, tap } from 'rxjs';
 })
 export class AppComponent {
   clearScreen = false;
+  disabledRefresher = false;
+
   constructor(
     routerParams: RouterParamsService,
     private updateService: UpdateService,
@@ -20,6 +22,7 @@ export class AppComponent {
   ) {
     routerParams.data$.subscribe((data) => {
       this.clearScreen = data['clearScreen'] ?? false;
+      this.disabledRefresher = data['disabledRefresher'] ?? false;
     });
 
     this.updateService.bootstrap();

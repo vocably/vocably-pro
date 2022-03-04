@@ -2,7 +2,7 @@
   <ion-refresher
     slot="fixed"
     (ionRefresh)="doRefresh($event)"
-    [disabled]="!platform.is('pwa')"
+    [disabled]="!platform.is('pwa') || disabledRefresher"
   >
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
