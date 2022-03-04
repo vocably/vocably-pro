@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterParamsService } from './router-params.service';
 import { UpdateService } from './update.service';
+import { Platform, RefresherEventDetail } from '@ionic/angular';
+import { RefreshService } from './refresh.service';
+import { switchMap, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +12,30 @@ import { UpdateService } from './update.service';
 })
 export class AppComponent {
   clearScreen = false;
-  constructor(routerParams: RouterParamsService, updateService: UpdateService) {
+  constructor(
+    routerParams: RouterParamsService,
+    private updateService: UpdateService,
+    private refreshService: RefreshService,
+    public platform: Platform
+  ) {
     routerParams.data$.subscribe((data) => {
       this.clearScreen = data['clearScreen'] ?? false;
     });
 
-    updateService.bootstrap();
+    this.updateService.bootstrap();
+
+    refreshService.refresh$
+      .pipe(
+        tap(() => refreshService.register('update')),
+        switchMap(() => this.updateService.checkForUpdate())
+      )
+      .subscribe(() => refreshService.unregister('update'));
+  }
+
+  doRefresh(event: any) {
+    this.refreshService.refresh$.next(null);
+    this.refreshService.isRefreshed$.pipe(take(1)).subscribe(() => {
+      event.detail.complete();
+    });
   }
 }

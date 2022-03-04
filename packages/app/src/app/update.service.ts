@@ -13,6 +13,14 @@ export class UpdateService {
     private toastController: ToastController
   ) {}
 
+  public checkForUpdate(): Promise<boolean> {
+    if (!this.swUpdate.isEnabled) {
+      return Promise.resolve(false);
+    }
+
+    return this.swUpdate.checkForUpdate();
+  }
+
   async bootstrap() {
     if (!this.swUpdate.isEnabled) {
       console.info('Service worker is not enabled.');

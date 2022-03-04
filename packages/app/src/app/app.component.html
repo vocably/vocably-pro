@@ -1,4 +1,11 @@
 <ion-content>
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    [disabled]="!platform.is('pwa')"
+  >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="container" [class.wide]="clearScreen">
     <router-outlet></router-outlet>
   </div>
