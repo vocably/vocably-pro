@@ -18,6 +18,7 @@ import { environment } from '../environments/environment';
     AuthModule,
     IonicModule.forRoot({
       mode: 'md',
+      statusTap: true,
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
