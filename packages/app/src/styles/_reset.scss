@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;700&display=swap');
+@import 'mixins/underline';
 
 /* Box sizing rules */
 *,
@@ -56,6 +57,7 @@ body {
 
 a {
   color: var(--primary-color);
+  @include underline();
 }
 
 /* A elements that don't have a class get default styles */

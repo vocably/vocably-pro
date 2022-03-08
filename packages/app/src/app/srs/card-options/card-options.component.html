@@ -19,28 +19,28 @@
 <div class="card-options">
   <span
     [appTooltipTriggerFor]="flipCardTooltip"
-    class="button"
+    class="option-button underline"
     (click)="flip.emit()"
   >
     Flip card<ion-icon class="icon space-icon" name="remove-outline"></ion-icon>
   </span>
   <span
     [appTooltipTriggerFor]="weakTooltip"
-    class="button"
+    class="option-button underline"
     (click)="answer.emit('weak')"
   >
     Learn again<ion-icon class="icon" name="arrow-back-outline"></ion-icon>
   </span>
   <span
     [appTooltipTriggerFor]="somewhatTooltip"
-    class="button"
+    class="option-button underline"
     (click)="answer.emit('somewhat')"
   >
     Repeat soon<ion-icon class="icon" name="arrow-down-outline"></ion-icon>
   </span>
   <span
     [appTooltipTriggerFor]="strongTooltip"
-    class="button"
+    class="option-button underline"
     (click)="answer.emit('strong')"
   >
     That was easy<ion-icon class="icon" name="arrow-forward-outline"></ion-icon>

@@ -1,3 +1,5 @@
+@import 'mixins/underline';
+
 .block {
   display: block;
 }
@@ -64,7 +66,7 @@ ul.unstyled {
 }
 
 .underline {
-  text-decoration: underline;
+  @include underline();
 }
 
 .text-decoration-none {
