@@ -36,7 +36,6 @@ describe('edit card', () => {
     getForm().find('[name="source"]').clear().type('new value');
     cy.matchImageSnapshot('edit card - type new value');
     getForm().find('[data-test="cancel"]').click();
-    getForm().should('not.be.visible');
     getCardItem().should('be.visible');
     cy.matchImageSnapshot('edit card - cancelled item');
     getCard().find('[data-test="card-action-edit"]').click();
@@ -48,7 +47,6 @@ describe('edit card', () => {
 * groep mensen die bij een belangrijk persoon hoort`);
     getForm().find('[data-test="submit"]').click();
     getCardItem().should('be.visible');
-    getForm().should('not.be.visible');
     cy.matchImageSnapshot('updated card item');
 
     cy.visit('/deck/nl/edit');
