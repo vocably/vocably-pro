@@ -8,6 +8,11 @@ locals {
   app_env_content = <<EOT
 export const environmentLocal = {
   chromeExtensionId: '${var.extension_id}',
+  paddle: {
+    sandbox: ${var.paddle_sandbox ? "true" : "false"},
+    vendorId: ${var.paddle_vendor_id},
+    productId: ${var.paddle_product_id},
+  },
   auth: {
     region: '${data.aws_region.current.name}',
     userPoolId: '${aws_cognito_user_pool.users.id}',

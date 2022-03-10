@@ -1,5 +1,10 @@
 export const environmentLocal = {
   chromeExtensionId: 'mbpgmaflnlocikfiffhkjehhmnapkjgp',
+  paddle: {
+    sandbox: true,
+    vendorId: 5064,
+    productId: 25141,
+  },
   auth: {
     region: 'eu-central-1',
     userPoolId: 'eu-central-1_e2NoKqwUm',

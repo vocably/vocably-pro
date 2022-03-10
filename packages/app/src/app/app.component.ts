@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterParamsService } from './router-params.service';
 import { UpdateService } from './update.service';
-import { Platform, RefresherEventDetail } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { RefreshService } from './refresh.service';
 import { switchMap, take, tap } from 'rxjs';
+import { PaddleService } from './subscription/paddle.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent {
     routerParams: RouterParamsService,
     private updateService: UpdateService,
     private refreshService: RefreshService,
-    public platform: Platform
+    public platform: Platform,
+    private paddleService: PaddleService
   ) {
     routerParams.data$.subscribe((data) => {
       this.clearScreen = data['clearScreen'] ?? false;
@@ -33,6 +35,8 @@ export class AppComponent {
         switchMap(() => this.updateService.checkForUpdate())
       )
       .subscribe(() => refreshService.unregister('update'));
+
+    this.paddleService.bootstrap();
   }
 
   doRefresh(event: any) {

@@ -33,3 +33,18 @@ variable "extension_key" {
 variable "extension_id" {
   type = string
 }
+
+variable "paddle_sandbox" {
+  type    = bool
+  default = true
+}
+
+variable "paddle_vendor_id" {
+  type    = number
+  default = 5064
+}
+
+variable "paddle_product_id" {
+  type    = number
+  default = 25141
+}
