@@ -34,6 +34,20 @@ variable "extension_id" {
   type = string
 }
 
+variable "test_user_username" {
+  type    = string
+  default = "test_dev"
+}
+
+variable "test_user_email" {
+  type    = string
+  default = "test_dev@vocably.pro"
+}
+
+variable "test_user_password" {
+  type = string
+}
+
 variable "paddle_sandbox" {
   type    = bool
   default = true

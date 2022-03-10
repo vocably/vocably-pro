@@ -76,6 +76,22 @@ resource "aws_cognito_user_pool_client" "client" {
   depends_on                           = [aws_cognito_identity_provider.google]
 }
 
+resource "null_resource" "test_user" {
+
+  triggers = {
+    user_pool_id = aws_cognito_user_pool.users.id
+  }
+
+  provisioner "local-exec" {
+    command = "aws cognito-idp admin-create-user --user-pool-id ${aws_cognito_user_pool.users.id} --username ${var.test_user_username} --user-attributes Name=email,Value=${var.test_user_email} --region ${data.aws_region.current.name}"
+  }
+
+  provisioner "local-exec" {
+    command = "aws cognito-idp admin-set-user-password --user-pool-id ${aws_cognito_user_pool.users.id} --username ${var.test_user_username} --password ${var.test_user_password} --permanent --region ${data.aws_region.current.name}"
+  }
+}
+
+
 output "auth_user_pool_id" {
   value = aws_cognito_user_pool.users.id
 }

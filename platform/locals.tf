@@ -11,6 +11,7 @@ locals {
   www_root                       = abspath("../packages/www")
   www_backed_root                = abspath("../packages/www-backend")
   artifacts_root                 = abspath("../packages/artifacts")
+  e2e_root                       = abspath("../packages/app-e2e")
   api_config                     = abspath("${local.model_root}/api.yml")
   auto_sign_in_confirmation_path = "signed-in"
   dev_urls = [

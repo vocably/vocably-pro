@@ -11,11 +11,10 @@ declare global {
     }
   }
 }
-
 Auth.configure({
-  region: 'eu-central-1',
-  userPoolId: 'eu-central-1_xrJk5G4GN',
-  userPoolWebClientId: '4nlgeafph8jl8thlll5tbbuvtv',
+  region: Cypress.env('AWS_REGION'),
+  userPoolId: Cypress.env('USER_POOL_ID'),
+  userPoolWebClientId: Cypress.env('USER_POOL_WEB_CLIENT_ID'),
 });
 
 Cypress.Commands.add(
