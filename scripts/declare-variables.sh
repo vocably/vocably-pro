@@ -7,6 +7,7 @@ declare -a variables=(
   "TF_VAR_lexicala_username"
   "TF_VAR_lexicala_password"
   "TF_VAR_google_oauth2_client_secret"
+  "TF_VAR_test_user_password"
 )
 
 for variable in "${variables[@]}"
