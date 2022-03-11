@@ -62,3 +62,23 @@ variable "paddle_product_id" {
   type    = number
   default = 25141
 }
+
+variable "paddle_public_key" {
+  type    = string
+  default = <<PUBLIC_KEY
+-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAysQlrMGkV+sSpRpMDi0T
+V0salCD2SRwDjjq3gwNflu6jR/yJMOjRPqujNyZ/blsvntYrynsyJEAV28RaROZt
+8z7jaYCG5/1Vw4pqs79nbI+QB2PHJb8LLshH+IjNj5wrt25Zj47sKR+JxP0YG+W7
+OIcLOlkzwmqgJH7bMJDHGO2U3nEza5sHWSvtiSuc73G5ZzJ8jsBLLnwbP5KlddH4
+sXb8hYpTXnRQNGLd0jLvVMs/f0Ytj3uBM4Z1wIb9HstEgbC/tgd+1bupokW0ovNs
+EXoADrMQQK1ZQEZjZCpYNPfJKR/bZiumDSVzbr7RdPEfjkXueJMOlK9HTHOlHY+j
+Kl3YZSfng8HjWJySaTHhEGfC3voJJ1xIJEKbB0FdihLGes9DBrTTtWif9jkhNJut
+nvjWkwWlLO6LUtHvUrXH2tajOaY6vl4Zr9XcmPBw8rRp+lm7tMwLky8r4bqe1a/i
+g8yWgNZJqprZpy8phiPsHrdiPYWuNb65XxOuL7c9Vis9JJINJPIRx+1XMMBLPTVh
+P7Ni25J7enekPD4fjj9quMFlSwAyByvWwQ3ARkzzl+qm7aW6qwNl7VUGprvAPerc
+ss0prnN5T3x4uQeTPjdeQhtI5SMLkOxi0SDtz9M81q74dEcPvAJmHBO67OisKLms
+7IHnRcfOfFCzbPIgrakVnSECAwEAAQ==
+-----END PUBLIC KEY-----
+PUBLIC_KEY
+}

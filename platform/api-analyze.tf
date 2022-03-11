@@ -32,10 +32,6 @@ resource "aws_api_gateway_method" "analyze" {
   http_method   = "POST"
   authorization = "COGNITO_USER_POOLS"
   authorizer_id = aws_api_gateway_authorizer.rest_api_cognito.id
-
-  request_parameters = {
-    "method.request.querystring.orgId" = true
-  }
 }
 
 module "analyze_cors" {
