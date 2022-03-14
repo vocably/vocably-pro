@@ -11,6 +11,39 @@ resource "aws_cognito_user_pool" "users" {
   admin_create_user_config {
     allow_admin_create_user_only = true
   }
+
+  lifecycle {
+    ignore_changes = [
+      schema
+    ]
+  }
+
+  schema {
+    attribute_data_type = "String"
+    name                = "status"
+    mutable             = true
+    required            = false
+  }
+
+  schema {
+    attribute_data_type = "String"
+    name                = "update_url"
+    mutable             = true
+    required            = false
+  }
+
+  schema {
+    attribute_data_type = "String"
+    name                = "cancel_url"
+    mutable             = true
+    required            = false
+  }
+}
+
+resource "aws_cognito_user_group" "paid" {
+  name         = "paid"
+  user_pool_id = aws_cognito_user_pool.users.id
+  description  = "Paid customers"
 }
 
 resource "aws_cognito_identity_provider" "google" {

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { checkout } from '../../paddle';
 import { Auth } from '@aws-amplify/auth';
-import { from, Subject, switchMap, takeUntil } from 'rxjs';
+import { from, Subject, switchMap, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-subscribe-page',
@@ -22,6 +22,7 @@ export class SubscribePageComponent
   ngAfterViewInit(): void {
     from(Auth.currentUserInfo())
       .pipe(
+        tap(console.log),
         switchMap(({ attributes: { email } }) => {
           return checkout({
             email,

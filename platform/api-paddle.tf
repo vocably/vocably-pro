@@ -1,7 +1,62 @@
+resource "aws_iam_role" "paddle_lambda_execution" {
+  name               = "vocably-${terraform.workspace}-paddle-lambda-execution"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_policy" "paddle_lambda_execution" {
+  name = "vocably-${terraform.workspace}-paddle-lambda-execution-policy"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "DefaultLogging",
+        "Effect" : "Allow",
+        "Action" : [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource" : "*"
+      },
+      {
+        "Sid" : "Cognito",
+        "Effect" : "Allow",
+        "Action" : [
+          "cognito-idp:AdminUpdateUserAttributes",
+          "cognito-idp:AdminAddUserToGroup",
+          "cognito-idp:AdminRemoveUserFromGroup",
+          "cognito-idp:AdminListGroupsForUser",
+          "logs:PutLogEvents"
+        ],
+        "Resource" : "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "paddle_lambda_execution" {
+  role       = aws_iam_role.paddle_lambda_execution.name
+  policy_arn = aws_iam_policy.paddle_lambda_execution.arn
+}
+
 resource "aws_lambda_function" "paddle" {
   filename         = data.archive_file.backend_build.output_path
   function_name    = "vocably-${terraform.workspace}-paddle"
-  role             = aws_iam_role.lambda_execution.arn
+  role             = aws_iam_role.paddle_lambda_execution.arn
   handler          = "paddle.paddle"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
   runtime          = "nodejs14.x"

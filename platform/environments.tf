@@ -79,6 +79,7 @@ GOOGLE_PROJECT_ID="${var.gcloud_project_id}"
 LEXICALA_USERNAME="${var.lexicala_username}"
 LEXICALA_PASSWORD="${var.lexicala_password}"
 PADDLE_PUBLIC_KEY="${replace(var.paddle_public_key, "\n", "\\n")}"
+CONGINOT_USER_POOL_ID="${aws_cognito_user_pool.users.id}"
   EOT
 }
 

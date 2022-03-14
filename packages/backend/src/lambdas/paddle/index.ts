@@ -1,4 +1,4 @@
-import { lastValueFrom, of, tap } from 'rxjs';
+import { lastValueFrom, of, switchMap, tap } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { buildResponse } from '../../utils/buildResponse';
@@ -6,6 +6,7 @@ import { buildErrorResponse } from '../../utils/buildErrorResponse';
 import { extractBody } from './extractBody';
 import { verifyCaller } from './verifyCaller';
 import { extractPaddleEvent } from './extractPaddleEvent';
+import { handleEvent } from './handleEvent';
 
 export const paddle = async (
   event: APIGatewayProxyEvent
@@ -16,8 +17,9 @@ export const paddle = async (
       tap((body) => console.info('Event body', body)),
       tap(verifyCaller),
       map(extractPaddleEvent),
-      map((paddleEvent) => {
-        return buildResponse({ body: JSON.stringify(paddleEvent) });
+      switchMap(handleEvent),
+      map(() => {
+        return buildResponse({});
       }),
       catchError(buildErrorResponse)
     )
