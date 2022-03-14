@@ -23,10 +23,13 @@ export class SubscribePageComponent
     from(Auth.currentUserInfo())
       .pipe(
         tap(console.log),
-        switchMap(({ attributes: { email } }) => {
+        switchMap(({ username, attributes: { email } }) => {
           return checkout({
             email,
             targetClass: 'checkout-container',
+            passthrough: {
+              username,
+            },
           });
         }),
         takeUntil(this.destroy$)

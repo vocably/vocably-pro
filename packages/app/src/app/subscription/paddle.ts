@@ -1,10 +1,12 @@
 import { environment } from '../../environments/environment';
+import { PassThrough } from '@vocably/model';
 
 declare const Paddle: any;
 
 export type CheckoutOptions = {
   targetClass: string;
   email: string;
+  passthrough: PassThrough;
 };
 
 export const checkout = (options: CheckoutOptions): Promise<void> => {
@@ -16,6 +18,7 @@ export const checkout = (options: CheckoutOptions): Promise<void> => {
       disableLogout: true,
       email: options.email,
       frameTarget: options.targetClass,
+      passthrough: options.passthrough,
       frameInitialHeight: 0,
       displayModeTheme: 'dark',
       loadCallback: () => {
