@@ -82,3 +82,8 @@ ss0prnN5T3x4uQeTPjdeQhtI5SMLkOxi0SDtz9M81q74dEcPvAJmHBO67OisKLms
 -----END PUBLIC KEY-----
 PUBLIC_KEY
 }
+
+variable "paddle_test_env" {
+  type    = string
+  default = "dev"
+}

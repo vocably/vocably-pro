@@ -92,6 +92,7 @@ locals {
   backend_test_env_content = <<EOT
 ${local.backend_env_content}
 TEST_SKIP_SPEC="false"
+TEST_PADDLE_ENV="${var.paddle_test_env}"
   EOT
 }
 

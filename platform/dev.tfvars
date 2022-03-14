@@ -4,3 +4,4 @@ google_oauth2_client_id = "358366140631-qgk8e24k3ia92115kkl13arvj6vccdt8.apps.go
 extension_name          = "Vocably - dev"
 extension_key           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 extension_id            = "mbpgmaflnlocikfiffhkjehhmnapkjgp"
+paddle_test_env         = "dev"
