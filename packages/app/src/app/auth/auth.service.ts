@@ -1,20 +1,70 @@
 import { Injectable } from '@angular/core';
-import { Auth, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
-import { catchError, from, map, of, ReplaySubject } from 'rxjs';
+import {
+  Auth,
+  CognitoHostedUIIdentityProvider,
+  CognitoUser,
+} from '@aws-amplify/auth';
+import { catchError, from, of, ReplaySubject, switchMap } from 'rxjs';
+import { SubscriptionStatus } from '@vocably/model';
+
+export type UserData = {
+  username: string;
+  email: string;
+  sub: string;
+  status?: SubscriptionStatus;
+  updateUrl?: string;
+  cancelUrl?: string;
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   isLoggedIn$ = new ReplaySubject<boolean>(1);
+  currentUser$ = new ReplaySubject<CognitoUser>(1);
+  userData$ = new ReplaySubject<UserData>(1);
 
   constructor() {
     from(Auth.currentAuthenticatedUser())
+      .pipe(catchError(() => of(false)))
+      .subscribe((userOrFalse) => {
+        this.isLoggedIn$.next(userOrFalse !== false);
+        if (userOrFalse !== false) {
+          this.currentUser$.next(userOrFalse);
+        }
+      });
+
+    this.currentUser$
       .pipe(
-        map(() => true),
-        catchError(() => of(false))
+        switchMap(async (user) => {
+          return {
+            user,
+            attributes: await Auth.userAttributes(user),
+          };
+        })
       )
-      .subscribe((isLoggedIn) => this.isLoggedIn$.next(isLoggedIn));
+      .subscribe(({ user, attributes }) => {
+        const email = attributes.find((a) => a.getName() === 'email');
+        const sub = attributes.find((a) => a.getName() === 'sub');
+        const status = attributes.find((a) => a.getName() === 'custom:status');
+        const updateUrl = attributes.find(
+          (a) => a.getName() === 'custom:update_url'
+        );
+        const cancelUrl = attributes.find(
+          (a) => a.getName() === 'custom:cancel_url'
+        );
+
+        if (email && sub) {
+          this.userData$.next({
+            username: user.getUsername(),
+            email: email.getValue(),
+            sub: sub.getValue(),
+            status: status && (status.getValue() as SubscriptionStatus),
+            updateUrl: updateUrl && updateUrl.getValue(),
+            cancelUrl: cancelUrl && cancelUrl.getValue(),
+          });
+        }
+      });
   }
 
   async signIn() {

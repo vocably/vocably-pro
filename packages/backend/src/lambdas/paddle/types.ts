@@ -1,13 +1,6 @@
-import { PassThrough } from '@vocably/model';
+import { PassThrough, SubscriptionStatus } from '@vocably/model';
 
 export type PaddleRawBody = Record<string, string>;
-
-export type SubscriptionStatus =
-  | 'active'
-  | 'trialing'
-  | 'past_due'
-  | 'paused'
-  | 'deleted';
 
 export const alertSubscriptionCreated = 'subscription_created';
 export const alertSubscriptionUpdated = 'subscription_updated';

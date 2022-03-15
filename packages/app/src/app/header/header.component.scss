@@ -54,3 +54,12 @@
     flex: 0;
   }
 }
+
+.light {
+  --color: #{$white} !important;
+}
+
+.button-item {
+  --background: #{$gray-200};
+  --background-hover: #{$white};
+}

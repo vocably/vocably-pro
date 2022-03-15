@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { checkout } from '../../paddle';
 import { Auth } from '@aws-amplify/auth';
-import { from, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { from, Subject, switchMap, takeUntil } from 'rxjs';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-subscribe-page',
@@ -15,15 +16,14 @@ export class SubscribePageComponent
 
   public isLoading = true;
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    from(Auth.currentUserInfo())
+    from(this.authService.userData$)
       .pipe(
-        tap(console.log),
-        switchMap(({ username, attributes: { email } }) => {
+        switchMap(({ username, email }) => {
           return checkout({
             email,
             targetClass: 'checkout-container',

@@ -26,7 +26,15 @@
         <ng-template>
           <ion-content>
             <ion-list lines="none">
-              <ion-item [button]="true" (click)="signOut()">
+              <ng-container *ngIf="auth.userData$ | async as userData">
+                <ion-item [button]="false"
+                  ><ion-label class="light medium"
+                    >Subscription status:
+                    {{ userData | subscriptionStatus }}</ion-label
+                  ></ion-item
+                >
+              </ng-container>
+              <ion-item class="button-item" [button]="true" (click)="signOut()">
                 <ion-label>Sign Out</ion-label>
               </ion-item>
             </ion-list>

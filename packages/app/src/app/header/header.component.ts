@@ -10,7 +10,7 @@ export class HeaderComponent implements OnInit {
   @Input() mini = false;
   @Input() title = '';
 
-  constructor(private auth: AuthService) {}
+  constructor(public auth: AuthService) {}
 
   ngOnInit(): void {}
 
