@@ -5,10 +5,17 @@ import { LogoComponent } from './logo/logo.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../components/components.module';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [HeaderComponent, LogoComponent],
-  imports: [CommonModule, IonicModule, RouterModule, ComponentsModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    RouterModule,
+    ComponentsModule,
+    MatMenuModule,
+  ],
   exports: [HeaderComponent],
 })
 export class HeaderModule {}

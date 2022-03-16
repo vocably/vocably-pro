@@ -19,28 +19,17 @@
       </div>
     </div>
     <div class="menu" [class.flex-0]="title" *ngIf="!mini">
-      <button class="unstyled" id="menu-button">
+      <button class="unstyled" [matMenuTriggerFor]="menu">
         <ion-icon class="icon" name="menu-outline" size="large"></ion-icon>
       </button>
-      <ion-popover trigger="menu-button" show-backdrop="false">
-        <ng-template>
-          <ion-content>
-            <ion-list lines="none">
-              <ng-container *ngIf="auth.userData$ | async as userData">
-                <ion-item [button]="false"
-                  ><ion-label class="light medium"
-                    >Subscription status:
-                    {{ userData | subscriptionStatus }}</ion-label
-                  ></ion-item
-                >
-              </ng-container>
-              <ion-item class="button-item" [button]="true" (click)="signOut()">
-                <ion-label>Sign Out</ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-content>
-        </ng-template>
-      </ion-popover>
+      <mat-menu #menu="matMenu">
+        <ng-container *ngIf="auth.userData$ | async as userData">
+          <span mat-menu-item [disabled]="true"
+            >Subscription status: {{ userData | subscriptionStatus }}</span
+          >
+        </ng-container>
+        <button mat-menu-item (click)="signOut()">Sign Out</button>
+      </mat-menu>
     </div>
   </div>
 </header>
