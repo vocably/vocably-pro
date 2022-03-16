@@ -1,7 +1,7 @@
 import { ApplicationRef, Injectable } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
-import { ToastController } from '@ionic/angular';
 import { concat, first, interval } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ export class UpdateService {
   constructor(
     private appRef: ApplicationRef,
     private swUpdate: SwUpdate,
-    private toastController: ToastController
+    private snackBar: MatSnackBar
   ) {}
 
   public checkForUpdate(): Promise<boolean> {
@@ -30,21 +30,16 @@ export class UpdateService {
     this.swUpdate.versionUpdates
       .pipe(first((event) => event.type === 'VERSION_READY'))
       .subscribe(async () => {
-        const toast = await this.toastController.create({
-          message: 'Update is available. Would you like to reload the app?',
-          position: 'bottom',
-          buttons: [
-            {
-              text: 'Reload',
-              handler: () => {
-                this.swUpdate.activateUpdate().then(() => {
-                  window.location.reload();
-                });
-              },
-            },
-          ],
+        const snackBarRef = this.snackBar.open(
+          'Update is available. Would you like to reload the app?',
+          'Reload'
+        );
+
+        snackBarRef.onAction().subscribe(() => {
+          this.swUpdate.activateUpdate().then(() => {
+            window.location.reload();
+          });
         });
-        await toast.present();
       });
 
     this.swUpdate.unrecoverable.subscribe(() => {
