@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
 @import 'mixins/underline';
 
 /* Box sizing rules */
@@ -44,16 +43,6 @@ html:focus-within {
 html,
 body {
   height: 100%;
-}
-
-/* Set core body defaults */
-body {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 100;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
-  background-color: var(--body-bg);
-  color: var(--text-color);
 }
 
 a {
@@ -112,4 +101,25 @@ ion-spinner {
 
 .ion-focusable {
   cursor: pointer;
+}
+
+.ptr--ptr {
+  box-shadow: none !important;
+}
+
+.ptr--text {
+  display: none;
+}
+
+.ptr--icon {
+  color: inherit !important;
+  font-weight: 100 !important;
+}
+
+.ptr--refresh {
+  min-height: 16px !important;
+
+  .ptr--box {
+    padding: 0;
+  }
 }

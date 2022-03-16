@@ -1,14 +1,3 @@
-<ion-app>
-  <ion-content [fullscreen]="true" [forceOverscroll]="false">
-    <ion-refresher
-      slot="fixed"
-      (ionRefresh)="doRefresh($event)"
-      [disabled]="!platform.is('pwa') || disabledRefresher"
-    >
-      <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
-    <div class="container" [class.wide]="clearScreen">
-      <router-outlet></router-outlet>
-    </div>
-  </ion-content>
-</ion-app>
+<div class="container" [class.wide]="clearScreen">
+  <router-outlet></router-outlet>
+</div>

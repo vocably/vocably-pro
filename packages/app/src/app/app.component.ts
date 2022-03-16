@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterParamsService } from './router-params.service';
 import { UpdateService } from './update.service';
 import { Platform } from '@ionic/angular';
 import { RefreshService } from './refresh.service';
-import { switchMap, take, tap } from 'rxjs';
+import { firstValueFrom, switchMap, tap } from 'rxjs';
 import { PaddleService } from './subscription/paddle.service';
+import * as PullToRefresh from 'pulltorefreshjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   clearScreen = false;
   disabledRefresher = false;
 
@@ -39,10 +40,15 @@ export class AppComponent {
     this.paddleService.bootstrap();
   }
 
-  doRefresh(event: any) {
-    this.refreshService.refresh$.next(null);
-    this.refreshService.isRefreshed$.pipe(take(1)).subscribe(() => {
-      event.detail.complete();
+  ngOnInit() {
+    PullToRefresh.init({
+      mainElement: 'body',
+      onRefresh: () => {
+        this.refreshService.refresh$.next(null);
+        return firstValueFrom(this.refreshService.isRefreshed$);
+      },
+      shouldPullToRefresh: () =>
+        this.platform.is('pwa') && !this.disabledRefresher,
     });
   }
 }

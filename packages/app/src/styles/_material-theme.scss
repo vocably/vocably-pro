@@ -1,0 +1,71 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$vocably-primary: mat.define-palette(mat.$grey-palette);
+$vocably-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$vocably-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$vocably-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $vocably-primary,
+      accent: $vocably-accent,
+      warn: $vocably-warn,
+    ),
+  )
+);
+
+$background-color: var(--body-bg);
+
+$palette-color: map-get($vocably-theme, color);
+$background: map-get($palette-color, background);
+$background: map_merge(
+  $background,
+  (
+    background: $background-color,
+  )
+);
+$palette-color: map_merge(
+  $palette-color,
+  (
+    background: $background,
+  )
+);
+$vocably-theme: map_merge(
+  $vocably-theme,
+  (
+    color: $palette-color,
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($vocably-theme);
+
+$vocably-body-font: mat.define-typography-level(
+  $font-family: Roboto,
+  $font-weight: 100,
+  $font-size: 1rem,
+  $line-height: 1.5,
+  $letter-spacing: normal,
+);
+
+$vocably-typography-config: mat.define-typography-config(
+  $body-1: $vocably-body-font,
+  $body-2: $vocably-body-font,
+);
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core($vocably-typography-config);

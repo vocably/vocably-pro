@@ -140,6 +140,12 @@ resource "null_resource" "app_upload" {
     aws_s3_bucket.app,
   ]
 
+  triggers = {
+    dir_sha1 = sha1(
+      join("", [for f in fileset(data.external.app_build.result.dest, "**") : filesha1("${data.external.app_build.result.dest}/${f}")])
+    )
+  }
+
   provisioner "local-exec" {
     command = "aws s3 sync ${data.external.app_build.result.dest}  s3://${aws_s3_bucket.app.id} --delete"
   }
