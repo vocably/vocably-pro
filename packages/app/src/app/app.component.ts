@@ -48,7 +48,9 @@ export class AppComponent implements OnInit {
         return firstValueFrom(this.refreshService.isRefreshed$);
       },
       shouldPullToRefresh: () =>
-        this.platform.is('pwa') && !this.disabledRefresher,
+        this.platform.is('pwa') &&
+        !this.disabledRefresher &&
+        window.scrollY === 0,
     });
   }
 }
