@@ -3,11 +3,13 @@ import { DeckStoreService } from '../../deck-store.service';
 import { CardItem } from '@vocably/model';
 import { Subject, takeUntil } from 'rxjs';
 import { byDate } from '../../by-date';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { getFullLanguageName } from '@vocably/model';
 import { deleteLanguageDeck } from '@vocably/api';
 import { DeckListStoreService } from '../../deck-list-store.service';
 import { DeckService } from '../../deck.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @Component({
   selector: 'app-edit-page',
@@ -23,10 +25,10 @@ export class EditPageComponent implements OnInit, OnDestroy {
 
   constructor(
     public deckStore: DeckStoreService,
-    public alertController: AlertController,
     public loadingController: LoadingController,
     public deckListStore: DeckListStoreService,
-    public deckService: DeckService
+    public deckService: DeckService,
+    public dialog: MatDialog
   ) {
     this.deckStore.deck$.pipe(takeUntil(this.destroy$)).subscribe((deck) => {
       this.fullLanguage = getFullLanguageName(deck.language ?? '');
@@ -58,32 +60,23 @@ export class EditPageComponent implements OnInit, OnDestroy {
     this.deckService.restore(card).pipe(takeUntil(this.destroy$)).subscribe();
   }
 
-  async deleteDeck() {
-    const alert = await this.alertController.create({
-      id: 'are-you-sure-delete',
-      header: `Delete ${this.fullLanguage}`,
-      message: 'Are you sure?',
-      buttons: [
-        {
-          text: 'Yes',
-          id: 'yes-please',
-          handler: async () => {
-            const loading = await this.loadingController.create({
-              message: 'Deleting the deck...',
-            });
-            loading.present().then();
-            await deleteLanguageDeck(this.deckStore.deck$.value.language);
-            this.deckListStore.reload$.next(null);
-            loading.dismiss().then();
-          },
-        },
-        {
-          text: 'No',
-          role: 'cancel',
-        },
-      ],
+  deleteDeck() {
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
+      data: { fullLanguage: this.fullLanguage },
     });
 
-    await alert.present();
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result !== true) {
+        return;
+      }
+
+      const loading = await this.loadingController.create({
+        message: 'Deleting the deck...',
+      });
+      loading.present().then();
+      await deleteLanguageDeck(this.deckStore.deck$.value.language);
+      this.deckListStore.reload$.next(null);
+      loading.dismiss().then();
+    });
   }
 }

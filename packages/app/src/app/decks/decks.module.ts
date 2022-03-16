@@ -16,6 +16,9 @@ import { EditPageComponent } from './pages/edit-page/edit-page.component';
 import { EditCardComponent } from './pages/edit-page/edit-card/edit-card.component';
 import { CardFormComponent } from './pages/edit-page/card-form/card-form.component';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteConfirmationDialogComponent } from './pages/edit-page/delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,7 @@ import { FormsModule } from '@angular/forms';
     EditPageComponent,
     EditCardComponent,
     CardFormComponent,
+    DeleteConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +42,8 @@ import { FormsModule } from '@angular/forms';
     LanguageModule,
     SrsModule,
     ComponentsModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   exports: [],
 })
