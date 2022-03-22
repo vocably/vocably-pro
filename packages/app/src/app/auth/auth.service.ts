@@ -14,6 +14,8 @@ export type UserData = {
   status?: SubscriptionStatus;
   updateUrl?: string;
   cancelUrl?: string;
+  nextBillDate?: string;
+  unitPrice?: number;
 };
 
 @Injectable({
@@ -47,6 +49,12 @@ export class AuthService {
         const email = attributes.find((a) => a.getName() === 'email');
         const sub = attributes.find((a) => a.getName() === 'sub');
         const status = attributes.find((a) => a.getName() === 'custom:status');
+        const nextBillDate = attributes.find(
+          (a) => a.getName() === 'custom:next_bill_date'
+        );
+        const unitPrice = attributes.find(
+          (a) => a.getName() === 'custom:unit_price'
+        );
         const updateUrl = attributes.find(
           (a) => a.getName() === 'custom:update_url'
         );
@@ -62,6 +70,8 @@ export class AuthService {
             status: status && (status.getValue() as SubscriptionStatus),
             updateUrl: updateUrl && updateUrl.getValue(),
             cancelUrl: cancelUrl && cancelUrl.getValue(),
+            nextBillDate: nextBillDate && nextBillDate.getValue(),
+            unitPrice: unitPrice && parseFloat(unitPrice.getValue()),
           });
         }
       });

@@ -13,7 +13,12 @@ export type PaddleSubscriptionCreated = {
   passthrough: PassThrough;
   next_bill_date: string;
   status: SubscriptionStatus;
+  unit_price: string;
 };
+
+export const isPaddleSubscriptionCreated = (
+  obj: any
+): obj is PaddleSubscriptionCreated => !!obj.unit_price;
 
 export type PaddleSubscriptionUpdated = {
   alert_name: typeof alertSubscriptionUpdated;
@@ -22,6 +27,7 @@ export type PaddleSubscriptionUpdated = {
   passthrough: PassThrough;
   next_bill_date: string;
   status: SubscriptionStatus;
+  new_unit_price: string;
 };
 
 export type PaddleSubscriptionCancelled = {

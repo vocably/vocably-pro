@@ -38,6 +38,20 @@ resource "aws_cognito_user_pool" "users" {
     mutable             = true
     required            = false
   }
+
+  schema {
+    attribute_data_type = "String"
+    name                = "next_bill_date"
+    mutable             = true
+    required            = false
+  }
+
+  schema {
+    attribute_data_type = "Number"
+    name                = "unit_price"
+    mutable             = true
+    required            = false
+  }
 }
 
 resource "aws_cognito_user_group" "paid" {
