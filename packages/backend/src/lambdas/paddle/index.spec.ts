@@ -19,4 +19,12 @@ describe('integration check for paddle lambda', () => {
     console.log(inspect({ result }));
     expect(result.statusCode).toEqual(200);
   });
+
+  it('executes subscription cancel event', async () => {
+    mockEvent.body = events.cancelSubscription;
+
+    const result = await paddle(mockEvent);
+    console.log(inspect({ result }));
+    expect(result.statusCode).toEqual(200);
+  });
 });

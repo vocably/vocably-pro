@@ -47,6 +47,13 @@ resource "aws_cognito_user_pool" "users" {
   }
 
   schema {
+    attribute_data_type = "String"
+    name                = "cancellation_date"
+    mutable             = true
+    required            = false
+  }
+
+  schema {
     attribute_data_type = "Number"
     name                = "unit_price"
     mutable             = true
