@@ -1,11 +1,11 @@
-<app-header>Subscribe</app-header>
-
-<div *ngIf="isLoading">
-  <div class="hero">
-    <div class="hero-body text-center">
-      <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading checkout
-      data...
-    </div>
+<app-header>
+  <ng-container *ngIf="userData">
+    {{ isUpdate(userData) ? 'Update Subscription' : 'Subscribe' }}
+  </ng-container>
+</app-header>
+<div class="hero" *ngIf="isLoading">
+  <div class="hero-body text-center">
+    <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading checkout data...
   </div>
 </div>
 <div class="checkout-container" [class.hidden]="isLoading"></div>

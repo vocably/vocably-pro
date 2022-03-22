@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { checkout } from '../../paddle';
-import { from, Subject, switchMap, take, takeUntil } from 'rxjs';
-import { AuthService } from '../../../auth/auth.service';
+import { from, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
+import { AuthService, UserData } from '../../../auth/auth.service';
 import { canUpdateSubscription } from '../../canUpdateSubscription';
 
 @Component({
@@ -16,6 +16,8 @@ export class SubscriptionPageComponent
 
   public isLoading = true;
 
+  public userData: UserData | null = null;
+
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
@@ -24,6 +26,9 @@ export class SubscriptionPageComponent
     from(this.authService.userData$)
       .pipe(
         take(1),
+        tap((userData) => {
+          this.userData = userData;
+        }),
         switchMap((userData) => {
           return checkout({
             email: userData.email,
@@ -46,5 +51,9 @@ export class SubscriptionPageComponent
   ngOnDestroy(): void {
     this.destroy$.next(null);
     this.destroy$.complete();
+  }
+
+  isUpdate(userData: UserData): boolean {
+    return canUpdateSubscription(userData);
   }
 }
