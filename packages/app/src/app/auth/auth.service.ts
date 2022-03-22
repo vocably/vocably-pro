@@ -4,7 +4,15 @@ import {
   CognitoHostedUIIdentityProvider,
   CognitoUser,
 } from '@aws-amplify/auth';
-import { catchError, from, of, ReplaySubject, switchMap } from 'rxjs';
+import {
+  catchError,
+  from,
+  of,
+  ReplaySubject,
+  Subject,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { SubscriptionStatus } from '@vocably/model';
 
 export type UserData = {
@@ -16,6 +24,7 @@ export type UserData = {
   cancelUrl?: string;
   nextBillDate?: string;
   unitPrice?: number;
+  cancellationDate?: string;
 };
 
 @Injectable({
@@ -25,6 +34,7 @@ export class AuthService {
   isLoggedIn$ = new ReplaySubject<boolean>(1);
   currentUser$ = new ReplaySubject<CognitoUser>(1);
   userData$ = new ReplaySubject<UserData>(1);
+  private refreshUserData$ = new Subject();
 
   constructor() {
     from(Auth.currentAuthenticatedUser())
@@ -36,16 +46,14 @@ export class AuthService {
         }
       });
 
-    this.currentUser$
-      .pipe(
-        switchMap(async (user) => {
-          return {
-            user,
-            attributes: await Auth.userAttributes(user),
-          };
-        })
-      )
-      .subscribe(({ user, attributes }) => {
+    const refreshUserData$ = this.currentUser$.pipe(
+      switchMap(async (user) => {
+        return {
+          user,
+          attributes: await Auth.userAttributes(user),
+        };
+      }),
+      tap(({ user, attributes }) => {
         const email = attributes.find((a) => a.getName() === 'email');
         const sub = attributes.find((a) => a.getName() === 'sub');
         const status = attributes.find((a) => a.getName() === 'custom:status');
@@ -74,7 +82,11 @@ export class AuthService {
             unitPrice: unitPrice && parseFloat(unitPrice.getValue()),
           });
         }
-      });
+      })
+    );
+
+    this.refreshUserData$.pipe(switchMap(() => refreshUserData$)).subscribe();
+    refreshUserData$.subscribe();
   }
 
   async signIn() {
@@ -85,5 +97,9 @@ export class AuthService {
 
   async signOut() {
     return Auth.signOut();
+  }
+
+  refreshUserData() {
+    this.refreshUserData$.next(null);
   }
 }
