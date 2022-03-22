@@ -20,7 +20,9 @@ export class PaddleService {
 
     Paddle.Setup({
       vendor: environment.paddle.vendorId,
-      eventCallback: (event: PaddleEvent) => this.event$.next(event),
+      eventCallback: (event: PaddleEvent) => {
+        this.event$.next(event);
+      },
     });
   }
 }

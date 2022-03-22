@@ -29,3 +29,25 @@ export const subscribe = (options: SubscribeOptions): Promise<void> => {
     });
   });
 };
+
+export type UpdateOptions = {
+  override: string;
+  email: string;
+  passthrough: PassThrough;
+};
+
+export const update = (options: UpdateOptions): Promise<void> => {
+  return new Promise<void>((resolve) => {
+    Paddle.Checkout.open({
+      product: environment.paddle.productId,
+      allowQuantity: false,
+      disableLogout: true,
+      email: options.email,
+      override: options.override,
+      passthrough: options.passthrough,
+      loadCallback: () => {
+        resolve();
+      },
+    });
+  });
+};

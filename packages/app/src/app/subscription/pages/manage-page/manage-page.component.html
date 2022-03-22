@@ -1,0 +1,16 @@
+<app-header>Manage Subscription</app-header>
+<div class="hero" *ngIf="!userData">
+  <div class="hero-body text-center">
+    <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading data...
+  </div>
+</div>
+<div class="hero" *ngIf="userData">
+  <div class="hero-body text-center">
+    <button class="button block mb-1" (click)="updatePaymentMethod(userData)">
+      Update Payment Method
+    </button>
+    <button class="button danger block" (click)="cancelSubscription(userData)">
+      Cancel Subscription
+    </button>
+  </div>
+</div>

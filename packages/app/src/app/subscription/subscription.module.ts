@@ -5,9 +5,10 @@ import { ComponentsModule } from '../components/components.module';
 import { SubscribePageComponent } from './pages/subscribe-page/subscribe-page.component';
 import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { HeaderModule } from '../header/header.module';
+import { ManagePageComponent } from './pages/manage-page/manage-page.component';
 
 @NgModule({
-  declarations: [SubscribePageComponent],
+  declarations: [SubscribePageComponent, ManagePageComponent],
   imports: [
     CommonModule,
     IonicModule,
