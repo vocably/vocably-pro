@@ -14,6 +14,10 @@ export class SubscriptionStatusPipe implements PipeTransform {
       return 'awaiting payment';
     }
 
+    if (userData.status === 'deleted') {
+      return 'cancelled';
+    }
+
     return userData.status;
   }
 }

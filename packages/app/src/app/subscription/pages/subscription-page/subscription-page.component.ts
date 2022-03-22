@@ -1,15 +1,15 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { checkout } from '../../paddle';
-import { Auth } from '@aws-amplify/auth';
-import { from, Subject, switchMap, takeUntil } from 'rxjs';
+import { from, Subject, switchMap, take, takeUntil } from 'rxjs';
 import { AuthService } from '../../../auth/auth.service';
+import { canUpdateSubscription } from '../../canUpdateSubscription';
 
 @Component({
-  selector: 'app-subscribe-page',
-  templateUrl: './subscribe-page.component.html',
-  styleUrls: ['./subscribe-page.component.scss'],
+  selector: 'app-subscription-page',
+  templateUrl: './subscription-page.component.html',
+  styleUrls: ['./subscription-page.component.scss'],
 })
-export class SubscribePageComponent
+export class SubscriptionPageComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   private destroy$ = new Subject();
@@ -23,12 +23,16 @@ export class SubscribePageComponent
   ngAfterViewInit(): void {
     from(this.authService.userData$)
       .pipe(
-        switchMap(({ username, email }) => {
+        take(1),
+        switchMap((userData) => {
           return checkout({
-            email,
+            email: userData.email,
             targetClass: 'checkout-container',
+            override: canUpdateSubscription(userData)
+              ? userData.updateUrl
+              : undefined,
             passthrough: {
-              username,
+              username: userData.username,
             },
           });
         }),

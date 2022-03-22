@@ -7,12 +7,14 @@ export type CheckoutOptions = {
   targetClass: string;
   email: string;
   passthrough: PassThrough;
+  override?: string;
 };
 
 export const checkout = (options: CheckoutOptions): Promise<void> => {
   return new Promise<void>((resolve) => {
     Paddle.Checkout.open({
       method: 'inline',
+      override: options.override,
       product: environment.paddle.productId,
       allowQuantity: false,
       disableLogout: true,

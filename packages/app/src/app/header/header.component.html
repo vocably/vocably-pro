@@ -27,6 +27,12 @@
           <span mat-menu-item [disabled]="true"
             >Subscription status: {{ userData | subscriptionStatus }}</span
           >
+          <a
+            mat-menu-item
+            *ngIf="canUpdateSubscription(userData)"
+            [routerLink]="['/subscription']"
+            >Update Subscription</a
+          >
         </ng-container>
         <button mat-menu-item (click)="signOut()">Sign Out</button>
       </mat-menu>
