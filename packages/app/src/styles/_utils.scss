@@ -49,8 +49,12 @@ ul.unstyled {
   display: inline-block;
 }
 
-.hidden {
+.display-none {
   display: none;
+}
+
+.visibility-hidden {
+  visibility: hidden;
 }
 
 .strong {
@@ -100,4 +104,12 @@ ul.unstyled {
 
 .middle {
   vertical-align: middle;
+}
+
+.text-success {
+  color: $green-500;
+}
+
+.text-danger {
+  color: $red-500;
 }

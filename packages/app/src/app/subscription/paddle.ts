@@ -7,6 +7,7 @@ export type SubscribeOptions = {
   targetClass: string;
   email: string;
   passthrough: PassThrough;
+  onSuccess: () => void;
 };
 
 export const subscribe = (options: SubscribeOptions): Promise<void> => {
@@ -21,6 +22,7 @@ export const subscribe = (options: SubscribeOptions): Promise<void> => {
       passthrough: options.passthrough,
       frameInitialHeight: 0,
       displayModeTheme: 'dark',
+      successCallback: options.onSuccess,
       loadCallback: () => {
         resolve();
       },

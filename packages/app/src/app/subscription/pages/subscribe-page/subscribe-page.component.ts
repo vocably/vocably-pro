@@ -14,8 +14,10 @@ export class SubscribePageComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   private destroy$ = new Subject();
-
   public isLoading = true;
+  public hasPaid = false;
+  public authStateUpdatedStatus: 'waiting' | 'success' | 'error' = 'waiting';
+  public isWaitingForSubscription = false;
 
   constructor(
     private authService: AuthService,
@@ -39,6 +41,7 @@ export class SubscribePageComponent
           return subscribe({
             email: userData.email,
             targetClass: 'checkout-container',
+            onSuccess: () => this.onSuccess(),
             passthrough: {
               username: userData.username,
             },
@@ -54,5 +57,26 @@ export class SubscribePageComponent
   ngOnDestroy(): void {
     this.destroy$.next(null);
     this.destroy$.complete();
+  }
+
+  onSuccess() {
+    this.hasPaid = true;
+    this.waitForSubscription();
+  }
+
+  waitForSubscription() {
+    this.isWaitingForSubscription = true;
+    this.authService.waitForSubscriptionHook$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.isWaitingForSubscription = false;
+          this.authStateUpdatedStatus = 'success';
+        },
+        error: () => {
+          this.isWaitingForSubscription = false;
+          this.authStateUpdatedStatus = 'error';
+        },
+      });
   }
 }
