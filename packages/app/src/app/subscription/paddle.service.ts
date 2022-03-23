@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { PaddleEvent } from './paddle/event';
 
 declare const Paddle: any;
 
@@ -9,8 +7,6 @@ declare const Paddle: any;
   providedIn: 'root',
 })
 export class PaddleService {
-  event$ = new Subject<PaddleEvent>();
-
   constructor() {}
 
   public bootstrap() {
@@ -20,9 +16,6 @@ export class PaddleService {
 
     Paddle.Setup({
       vendor: environment.paddle.vendorId,
-      eventCallback: (event: PaddleEvent) => {
-        this.event$.next(event);
-      },
     });
   }
 }

@@ -95,6 +95,21 @@ export class AuthService {
     })
   );
 
+  public waitForCancelHook$ = this.fetchUserData$.pipe(
+    tap((userData) => {
+      if (canUpdateSubscription(userData)) {
+        throw Error('The user attributes have not been updated yet.');
+      }
+
+      this.userData$.next(userData);
+    }),
+    take(1),
+    retry({
+      delay: 1000,
+      count: 5,
+    })
+  );
+
   private refreshUserData$ = new Subject();
 
   constructor() {

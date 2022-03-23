@@ -36,6 +36,7 @@ export type UpdateOptions = {
   override: string;
   email: string;
   passthrough: PassThrough;
+  onSuccess?: () => void;
 };
 
 export const update = (options: UpdateOptions): Promise<void> => {
@@ -47,6 +48,7 @@ export const update = (options: UpdateOptions): Promise<void> => {
       email: options.email,
       override: options.override,
       passthrough: options.passthrough,
+      successCallback: options.onSuccess,
       loadCallback: () => {
         resolve();
       },

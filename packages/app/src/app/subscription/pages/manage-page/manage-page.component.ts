@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { from, take } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { from, Subject, take, takeUntil } from 'rxjs';
 import { AuthService, UserData } from 'src/app/auth/auth.service';
 import { update } from '../../paddle';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,10 +10,12 @@ import { canUpdateSubscription } from '../../canUpdateSubscription';
   templateUrl: './manage-page.component.html',
   styleUrls: ['./manage-page.component.scss'],
 })
-export class ManagePageComponent implements OnInit {
-  public isLoading = true;
+export class ManagePageComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject();
 
+  public isLoading = true;
   public userData: UserData | false = false;
+  public hasBeenSuccessfullyCancelled = false;
 
   constructor(
     private authService: AuthService,
@@ -33,6 +35,11 @@ export class ManagePageComponent implements OnInit {
       .subscribe((userData) => {
         this.userData = userData;
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(null);
+    this.destroy$.complete();
   }
 
   async updatePaymentMethod(userData: UserData) {
@@ -60,6 +67,12 @@ export class ManagePageComponent implements OnInit {
         username: userData.username,
       },
       override: userData.cancelUrl,
+      onSuccess: () => {
+        this.hasBeenSuccessfullyCancelled = true;
+        this.authService.waitForCancelHook$
+          .pipe(takeUntil(this.destroy$))
+          .subscribe();
+      },
     });
   }
 }
