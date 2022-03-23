@@ -3,7 +3,7 @@ import { from, Subject, take, takeUntil } from 'rxjs';
 import { AuthService, UserData } from 'src/app/auth/auth.service';
 import { update } from '../../paddle';
 import { ActivatedRoute, Router } from '@angular/router';
-import { canUpdateSubscription } from '../../canUpdateSubscription';
+import { isActive, isCancelled } from '../../subscriptionStatus';
 
 @Component({
   selector: 'app-manage-page',
@@ -17,13 +17,16 @@ export class ManagePageComponent implements OnInit, OnDestroy {
   public userData: UserData | false = false;
   public hasBeenSuccessfullyCancelled = false;
 
+  isActive = isActive;
+  isCancelled = isCancelled;
+
   constructor(
     private authService: AuthService,
     router: Router,
     route: ActivatedRoute
   ) {
     this.authService.userData$.pipe(take(1)).subscribe((userData) => {
-      if (!canUpdateSubscription(userData)) {
+      if (!isActive(userData)) {
         router.navigate(['../'], { relativeTo: route });
       }
     });

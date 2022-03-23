@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { canUpdateSubscription } from '../subscription/canUpdateSubscription';
+import {
+  isActive,
+  isCancelled,
+  isUnsubscribed,
+} from '../subscription/subscriptionStatus';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +15,9 @@ export class HeaderComponent implements OnInit {
   @Input() mini = false;
   @Input() title = '';
 
-  canUpdateSubscription = canUpdateSubscription;
+  isActive = isActive;
+  isCancelled = isCancelled;
+  isUnsubscribed = isUnsubscribed;
 
   constructor(public auth: AuthService) {}
 

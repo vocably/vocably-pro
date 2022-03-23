@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { subscribe } from '../../paddle';
 import { from, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
 import { AuthService } from '../../../auth/auth.service';
-import { canUpdateSubscription } from '../../canUpdateSubscription';
+import { isActive } from '../../subscriptionStatus';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -25,7 +25,7 @@ export class SubscribePageComponent
     route: ActivatedRoute
   ) {
     this.authService.userData$.pipe(take(1)).subscribe((userData) => {
-      if (canUpdateSubscription(userData)) {
+      if (isActive(userData)) {
         router.navigate(['manage'], { relativeTo: route });
       }
     });

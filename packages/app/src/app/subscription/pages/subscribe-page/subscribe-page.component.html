@@ -1,4 +1,4 @@
-<app-header>Subscribe</app-header>
+<app-header><strong>Subscribe</strong></app-header>
 <ng-container *ngIf="!hasPaid">
   <div class="hero" *ngIf="isLoading">
     <div class="hero-body text-center">
@@ -26,7 +26,7 @@
         <div class="mb-1">
           The subscription process has been successfully completed.
         </div>
-        <a [routerLink]="['/']">Return to the Dashboard.</a>
+        <a [routerLink]="['/']">Return to dashboard</a>
       </ng-container>
       <ng-container *ngIf="authStateUpdatedStatus === 'error'">
         <div class="mb-1">

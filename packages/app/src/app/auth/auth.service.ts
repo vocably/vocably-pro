@@ -17,7 +17,7 @@ import {
   tap,
 } from 'rxjs';
 import { SubscriptionStatus } from '@vocably/model';
-import { canUpdateSubscription } from '../subscription/canUpdateSubscription';
+import { isActive, isCancelled } from '../subscription/subscriptionStatus';
 
 export type UserData = {
   username: string;
@@ -26,9 +26,9 @@ export type UserData = {
   status?: SubscriptionStatus;
   updateUrl?: string;
   cancelUrl?: string;
-  nextBillDate?: string;
+  nextBillDate?: Date;
   unitPrice?: number;
-  cancellationDate?: string;
+  cancellationDate?: Date;
 };
 
 @Injectable({
@@ -50,6 +50,9 @@ export class AuthService {
       const email = attributes.find((a) => a.getName() === 'email');
       const sub = attributes.find((a) => a.getName() === 'sub');
       const status = attributes.find((a) => a.getName() === 'custom:status');
+      const cancellationDate = attributes.find(
+        (a) => a.getName() === 'custom:cancellation_date'
+      );
       const nextBillDate = attributes.find(
         (a) => a.getName() === 'custom:next_bill_date'
       );
@@ -74,15 +77,17 @@ export class AuthService {
         status: status && (status.getValue() as SubscriptionStatus),
         updateUrl: updateUrl && updateUrl.getValue(),
         cancelUrl: cancelUrl && cancelUrl.getValue(),
-        nextBillDate: nextBillDate && nextBillDate.getValue(),
+        nextBillDate: nextBillDate && new Date(nextBillDate.getValue()),
         unitPrice: unitPrice && parseFloat(unitPrice.getValue()),
+        cancellationDate:
+          cancellationDate && new Date(cancellationDate.getValue()),
       };
     })
   );
 
   public waitForSubscriptionHook$ = this.fetchUserData$.pipe(
     tap((userData) => {
-      if (!canUpdateSubscription(userData)) {
+      if (!isActive(userData)) {
         throw Error('The user attributes have not been updated yet.');
       }
 
@@ -97,7 +102,7 @@ export class AuthService {
 
   public waitForCancelHook$ = this.fetchUserData$.pipe(
     tap((userData) => {
-      if (canUpdateSubscription(userData)) {
+      if (!isCancelled(userData)) {
         throw Error('The user attributes have not been updated yet.');
       }
 
