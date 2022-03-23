@@ -93,6 +93,9 @@ export class AuthService {
 
       this.userData$.next(userData);
     }),
+    switchMap(() => {
+      return this.refreshToken();
+    }),
     take(1),
     retry({
       delay: 1000,
@@ -147,7 +150,20 @@ export class AuthService {
     return Auth.signOut();
   }
 
-  refreshUserData() {
-    this.refreshUserData$.next(null);
+  async refreshToken(): Promise<void> {
+    const cognitoUser = await Auth.currentAuthenticatedUser();
+    const currentSession = await Auth.currentSession();
+    return new Promise((resolve, reject) => {
+      cognitoUser.refreshSession(
+        currentSession.getRefreshToken(),
+        (error: any) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve();
+          }
+        }
+      );
+    });
   }
 }
