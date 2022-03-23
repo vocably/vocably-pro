@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { from, take } from 'rxjs';
 import { AuthService, UserData } from 'src/app/auth/auth.service';
 import { update } from '../../paddle';
+import { ActivatedRoute, Router } from '@angular/router';
+import { canUpdateSubscription } from '../../canUpdateSubscription';
 
 @Component({
   selector: 'app-manage-page',
@@ -13,7 +15,17 @@ export class ManagePageComponent implements OnInit {
 
   public userData: UserData | false = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    router: Router,
+    route: ActivatedRoute
+  ) {
+    this.authService.userData$.pipe(take(1)).subscribe((userData) => {
+      if (!canUpdateSubscription(userData)) {
+        router.navigate(['../'], { relativeTo: route });
+      }
+    });
+  }
 
   ngOnInit(): void {
     from(this.authService.userData$)
