@@ -50,7 +50,8 @@ resource "aws_iam_policy" "paddle_lambda_execution" {
         "Action" : [
           "dynamodb:Get*",
           "dynamodb:UpdateItem",
-          "dynamodb:PutItem"
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem"
         ],
         "Resource" : aws_dynamodb_table.cancelled_subscriptions.arn
       }
