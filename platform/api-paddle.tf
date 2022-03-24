@@ -43,6 +43,16 @@ resource "aws_iam_policy" "paddle_lambda_execution" {
           "logs:PutLogEvents"
         ],
         "Resource" : "*"
+      },
+      {
+        "Sid" : "SubscriptionCanceller",
+        "Effect" : "Allow",
+        "Action" : [
+          "dynamodb:Get*",
+          "dynamodb:UpdateItem",
+          "dynamodb:PutItem"
+        ],
+        "Resource" : aws_dynamodb_table.cancelled_subscriptions.arn
       }
     ]
   })
