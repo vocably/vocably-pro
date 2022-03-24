@@ -1,6 +1,6 @@
 import { PaddleSubscriptionCancelled } from '../types';
 import { setupCancellationAttributes } from './setupCancellationAttributes';
-import { setUpSubscriptionCanceller } from '../subscriptionCancellerDb';
+import { setUpSubscriptionCanceller } from '../../../subscriptionCancellerDb';
 
 export const handleSubscriptionCancelled = async (
   event: PaddleSubscriptionCancelled

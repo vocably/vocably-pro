@@ -35,3 +35,19 @@ export const setUpSubscriptionCanceller = async (
     })
     .promise();
 };
+
+export const getUsernames = (
+  cancellationTimestamp: number
+): Promise<string[]> => {
+  return ddb
+    .query({
+      TableName: process.env.CANCELLED_SUBCRIPTIONS_TABLE,
+      IndexName: 'CancellationTimestampIndex',
+      KeyConditionExpression: 'CancellationTimestamp = :timestamp',
+      ExpressionAttributeValues: {
+        ':timestamp': cancellationTimestamp,
+      },
+    })
+    .promise()
+    .then((result) => result.Items.map((item) => item.Username));
+};
