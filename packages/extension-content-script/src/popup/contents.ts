@@ -58,9 +58,11 @@ export const setContents = async ({
     return tearDown;
   }
 
-  const unauthorized = document.createElement('vocably-unauthorized');
+  const unauthorized = document.createElement('vocably-alert');
+  unauthorized.message = 'Please sign in to proceed with translation.';
+  unauthorized.cta = 'Sign In';
 
-  unauthorized.addEventListener('signIn', () => {
+  unauthorized.addEventListener('confirm', () => {
     const windowProxy = window.open(`${api.appBaseUrl}/hands-free`, '_blank');
 
     windowProxy.focus();

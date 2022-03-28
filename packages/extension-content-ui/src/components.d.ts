@@ -7,6 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { CardItem, Result, TranslationCards } from "@vocably/model";
 export namespace Components {
+    interface VocablyAlert {
+        "cta": string;
+        "message": string;
+    }
     interface VocablyButton {
     }
     interface VocablyLogo {
@@ -23,10 +27,14 @@ export namespace Components {
         "phrase": string;
         "result": Result<TranslationCards> | null;
     }
-    interface VocablyUnauthorized {
-    }
 }
 declare global {
+    interface HTMLVocablyAlertElement extends Components.VocablyAlert, HTMLStencilElement {
+    }
+    var HTMLVocablyAlertElement: {
+        prototype: HTMLVocablyAlertElement;
+        new (): HTMLVocablyAlertElement;
+    };
     interface HTMLVocablyButtonElement extends Components.VocablyButton, HTMLStencilElement {
     }
     var HTMLVocablyButtonElement: {
@@ -63,23 +71,22 @@ declare global {
         prototype: HTMLVocablyTranslationElement;
         new (): HTMLVocablyTranslationElement;
     };
-    interface HTMLVocablyUnauthorizedElement extends Components.VocablyUnauthorized, HTMLStencilElement {
-    }
-    var HTMLVocablyUnauthorizedElement: {
-        prototype: HTMLVocablyUnauthorizedElement;
-        new (): HTMLVocablyUnauthorizedElement;
-    };
     interface HTMLElementTagNameMap {
+        "vocably-alert": HTMLVocablyAlertElement;
         "vocably-button": HTMLVocablyButtonElement;
         "vocably-logo": HTMLVocablyLogoElement;
         "vocably-popup": HTMLVocablyPopupElement;
         "vocably-side-b": HTMLVocablySideBElement;
         "vocably-spinner": HTMLVocablySpinnerElement;
         "vocably-translation": HTMLVocablyTranslationElement;
-        "vocably-unauthorized": HTMLVocablyUnauthorizedElement;
     }
 }
 declare namespace LocalJSX {
+    interface VocablyAlert {
+        "cta"?: string;
+        "message"?: string;
+        "onConfirm"?: (event: CustomEvent<any>) => void;
+    }
     interface VocablyButton {
     }
     interface VocablyLogo {
@@ -98,30 +105,27 @@ declare namespace LocalJSX {
         "phrase"?: string;
         "result"?: Result<TranslationCards> | null;
     }
-    interface VocablyUnauthorized {
-        "onSignIn"?: (event: CustomEvent<any>) => void;
-    }
     interface IntrinsicElements {
+        "vocably-alert": VocablyAlert;
         "vocably-button": VocablyButton;
         "vocably-logo": VocablyLogo;
         "vocably-popup": VocablyPopup;
         "vocably-side-b": VocablySideB;
         "vocably-spinner": VocablySpinner;
         "vocably-translation": VocablyTranslation;
-        "vocably-unauthorized": VocablyUnauthorized;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "vocably-alert": LocalJSX.VocablyAlert & JSXBase.HTMLAttributes<HTMLVocablyAlertElement>;
             "vocably-button": LocalJSX.VocablyButton & JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
             "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;
             "vocably-side-b": LocalJSX.VocablySideB & JSXBase.HTMLAttributes<HTMLVocablySideBElement>;
             "vocably-spinner": LocalJSX.VocablySpinner & JSXBase.HTMLAttributes<HTMLVocablySpinnerElement>;
             "vocably-translation": LocalJSX.VocablyTranslation & JSXBase.HTMLAttributes<HTMLVocablyTranslationElement>;
-            "vocably-unauthorized": LocalJSX.VocablyUnauthorized & JSXBase.HTMLAttributes<HTMLVocablyUnauthorizedElement>;
         }
     }
 }
