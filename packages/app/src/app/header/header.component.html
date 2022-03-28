@@ -30,7 +30,9 @@
           >
           <span
             mat-menu-item
-            *ngIf="isCancelled(userData) && userData.cancellationDate"
+            *ngIf="
+              isCancelled(userData) && !isExpired(userData.cancellationDate)
+            "
             [disabled]="true"
             >Available due:
             {{ userData.cancellationDate | date: 'mediumDate' }}</span

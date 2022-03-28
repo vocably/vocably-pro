@@ -26,4 +26,15 @@ export class HeaderComponent implements OnInit {
   async signOut() {
     await this.auth.signOut();
   }
+
+  isExpired(date: Date | undefined): boolean {
+    if (date === undefined) {
+      return true;
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return today.getTime() > date.getTime();
+  }
 }
