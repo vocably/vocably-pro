@@ -78,14 +78,27 @@
     <div class="container">
       <h1>Extension Content Script Test Page</h1>
       <form>
-        <div class="form-check form-switch mb-3">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="isLoggedIn"
-            checked
-          />
-          <label class="form-check-label" for="isLoggedIn">Is logged in</label>
+        <div class="mb-3">
+          <div class="form-check form-check-inline form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="isLoggedIn"
+              checked
+            />
+            <label class="form-check-label" for="isLoggedIn"
+              >Is logged in</label
+            >
+          </div>
+          <div class="form-check form-check-inline form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="isActive"
+              checked
+            />
+            <label class="form-check-label" for="isActive">Is active</label>
+          </div>
         </div>
         <div class="form-group mb-3">
           <label for="delay">Delay</label>

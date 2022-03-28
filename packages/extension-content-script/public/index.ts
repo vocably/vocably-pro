@@ -7,6 +7,10 @@ registerContentScript({
       Promise.resolve(
         (document.getElementById('isLoggedIn') as HTMLInputElement).checked
       ),
+    isActive: () =>
+      Promise.resolve(
+        (document.getElementById('isActive') as HTMLInputElement).checked
+      ),
     analyze: (payload) =>
       new Promise((resolve) => {
         setTimeout(() => {

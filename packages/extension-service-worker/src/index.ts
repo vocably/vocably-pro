@@ -11,9 +11,11 @@ import {
   onIsLoggedInRequest,
   onAnalyzeRequest,
   onCleanUpRequest,
+  onIsActiveRequest,
 } from '@vocably/extension-messages';
 import { createCards } from './createCards';
 import { makeDelete } from '@vocably/crud';
+import { get } from 'lodash-es';
 
 type RegisterServiceWorkerOptions = {
   auth: Parameters<typeof Auth.configure>[0];
@@ -33,6 +35,22 @@ export const registerServiceWorker = (
 
     console.info(`The user is ${isLoggedIn ? 'logged in' : 'not logged in'}.`);
     return sendResponse(isLoggedIn);
+  });
+
+  onIsActiveRequest(async (sendResponse) => {
+    const user = await Auth.currentAuthenticatedUser().catch(() => false);
+
+    if (!user) {
+      return sendResponse(false);
+    }
+
+    return sendResponse(
+      get(
+        user,
+        'signInUserSession.accessToken.payload.cognito:groups',
+        []
+      ).includes('paid')
+    );
   });
 
   onAnalyzeRequest(async (sendResponse, payload) => {

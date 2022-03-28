@@ -53,32 +53,54 @@ export const setContents = async ({
     popup.appendChild(translation);
   };
 
-  if (await api.isLoggedIn()) {
+  const isAlright = (): Promise<[boolean, boolean]> => {
+    return Promise.all([api.isLoggedIn(), api.isActive()]);
+  };
+
+  const [isLoggedIn, isActive] = await isAlright();
+
+  if (isLoggedIn && isActive) {
     setTranslation();
     return tearDown;
   }
 
-  const unauthorized = document.createElement('vocably-alert');
-  unauthorized.message = 'Please sign in to proceed with translation.';
-  unauthorized.cta = 'Sign In';
+  const alert = document.createElement('vocably-alert');
 
-  unauthorized.addEventListener('confirm', () => {
+  const updateAlertMessage = (isLoggedIn: boolean, isActive: boolean) => {
+    if (!isLoggedIn) {
+      alert.message = 'Please sign in to proceed with translation.';
+      alert.cta = 'Sign In';
+      return;
+    }
+
+    if (!isActive) {
+      alert.message = 'Please subscribe to proceed with translation.';
+      alert.cta = 'Subscribe';
+    }
+  };
+
+  updateAlertMessage(isLoggedIn, isActive);
+
+  alert.addEventListener('confirm', () => {
     const windowProxy = window.open(`${api.appBaseUrl}/hands-free`, '_blank');
 
     windowProxy.focus();
 
     intervalId = setInterval(async () => {
-      if (await api.isLoggedIn()) {
+      const [isLoggedIn, isActive] = await isAlright();
+      if (isLoggedIn && isActive) {
         setTranslation();
         clearInterval(intervalId);
         intervalId = null;
         windowProxy.close();
+      } else {
+        updateAlertMessage(isLoggedIn, isActive);
       }
     }, 1000);
   });
 
   popup.innerHTML = '';
-  popup.appendChild(unauthorized);
+  popup.appendChild(alert);
 
   return tearDown;
 };

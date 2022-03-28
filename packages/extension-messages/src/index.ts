@@ -13,6 +13,10 @@ export const [isLoggedIn, onIsLoggedInRequest] = createScopedMessage<
   boolean
 >('isLoggedIn');
 
+export const [isActive, onIsActiveRequest] = createScopedMessage<void, boolean>(
+  'isActive'
+);
+
 export const [analyze, onAnalyzeRequest] = createScopedMessage<
   AnalyzePayload,
   Result<TranslationCards>

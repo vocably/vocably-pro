@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth.service';
-import { Auth } from '@aws-amplify/auth';
-import { authConfig } from '../../../../auth-config';
-import { merge } from 'lodash-es';
 
 @Component({
   selector: 'app-auto-login-page',
