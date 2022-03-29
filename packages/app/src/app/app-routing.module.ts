@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { CognitoAuthGuard } from './auth/cognito-auth.guard';
 import { AuthModule } from './auth/auth.module';
 import { SignInPageComponent } from './auth/pages/sign-in-page/sign-in-page.component';
-import { AutoSignInPageComponent } from './auth/pages/auto-sign-in-page/auto-sign-in-page.component';
-import { SignInSuccessPageComponent } from './auth/pages/sign-in-success-page/sign-in-success-page.component';
+import { HandsFreePageComponent } from './pages/hands-free-page/hands-free-page.component';
+import { SignInSuccessPageComponent } from './pages/sign-in-success-page/sign-in-success-page.component';
 
 export const autoSignInPath = 'hands-free';
 
@@ -34,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: autoSignInPath,
-    component: AutoSignInPageComponent,
+    component: HandsFreePageComponent,
   },
   {
     path: 'signed-in',

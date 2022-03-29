@@ -89,9 +89,9 @@ export const setContents = async ({
     intervalId = setInterval(async () => {
       const [isLoggedIn, isActive] = await isAlright();
       if (isLoggedIn && isActive) {
-        setTranslation();
         clearInterval(intervalId);
         intervalId = null;
+        setTranslation();
         windowProxy.close();
       } else {
         updateAlertMessage(isLoggedIn, isActive);

@@ -1,0 +1,16 @@
+<app-header [mini]="true"></app-header>
+<div class="hero">
+  <div class="hero-body text-center">
+    <ng-container *ngIf="isLoading">
+      <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading profile
+      data...
+    </ng-container>
+    <ng-container *ngIf="!isLoading && !redirectingToSubscription">
+      You have been successfully signed in. This tab can be closed now.
+    </ng-container>
+    <ng-container *ngIf="!isLoading && redirectingToSubscription">
+      <ion-spinner name="dots" class="mr-1"></ion-spinner>Redirecting to
+      subscription page...
+    </ng-container>
+  </div>
+</div>

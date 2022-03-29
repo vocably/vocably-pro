@@ -18,6 +18,7 @@ import {
 } from 'rxjs';
 import { SubscriptionStatus } from '@vocably/model';
 import { isActive, isCancelled } from '../subscription/subscriptionStatus';
+import { get } from 'lodash-es';
 
 export type UserData = {
   username: string;
@@ -165,5 +166,19 @@ export class AuthService {
         }
       );
     });
+  }
+
+  async isActive(): Promise<boolean> {
+    const user = await Auth.currentAuthenticatedUser().catch(() => false);
+
+    if (!user) {
+      return false;
+    }
+
+    return get(
+      user,
+      'signInUserSession.accessToken.payload.cognito:groups',
+      []
+    ).includes('paid');
   }
 }
