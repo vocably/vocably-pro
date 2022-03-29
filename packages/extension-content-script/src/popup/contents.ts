@@ -94,7 +94,7 @@ export const setContents = async ({
         setTranslation();
         setTimeout(() => {
           windowProxy.close();
-        }, 2000);
+        }, 3000);
       } else {
         updateAlertMessage(isLoggedIn, isActive);
       }
