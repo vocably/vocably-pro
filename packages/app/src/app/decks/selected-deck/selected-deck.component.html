@@ -1,4 +1,4 @@
-<app-header *ngIf="!clearScreen" [title]="title">
+<app-header *ngIf="!cleanScreen" [title]="title">
   <ng-container *ngIf="deckListStore.decks$ | async as deckList">
     <app-deck-selector
       [languages]="deckList"
@@ -8,7 +8,7 @@
   </ng-container>
 </app-header>
 <div *ngIf="isLoading">
-  <div class="hero">
+  <div class="hero" [class.max]="cleanScreen">
     <div class="hero-body text-center">
       <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading cards...
     </div>

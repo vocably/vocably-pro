@@ -28,7 +28,7 @@ const routes: Routes = [
             path: 'study',
             component: StudyPageComponent,
             data: {
-              clearScreen: true,
+              cleanScreen: true,
               disabledRefresher: true,
             },
           },

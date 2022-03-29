@@ -13,7 +13,7 @@ import * as PullToRefresh from 'pulltorefreshjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  clearScreen = false;
+  cleanScreen = false;
   disabledRefresher = false;
 
   constructor(
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     private paddleService: PaddleService
   ) {
     routerParams.data$.subscribe((data) => {
-      this.clearScreen = data['clearScreen'] ?? false;
+      this.cleanScreen = data['cleanScreen'] ?? false;
       this.disabledRefresher = data['disabledRefresher'] ?? false;
     });
 

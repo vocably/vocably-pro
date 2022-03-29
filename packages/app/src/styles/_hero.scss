@@ -8,9 +8,17 @@ $header-height: $header-items-height + $header-bottom-padding;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  &.max {
+    height: calc(var(--app-height) - var(--container-padding) * 2);
+  }
 }
 
 .hero-body {
   position: relative;
   top: -1 * math.div($header-height, 2);
+
+  .max & {
+    top: 0;
+  }
 }

@@ -27,7 +27,7 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
 
   public isLoading = true;
   public language = '';
-  clearScreen = false;
+  cleanScreen = false;
   title = '';
 
   constructor(
@@ -38,7 +38,7 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
     routerParams: RouterParamsService
   ) {
     routerParams.data$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
-      this.clearScreen = data['clearScreen'] ?? false;
+      this.cleanScreen = data['cleanScreen'] ?? false;
       this.title = data['title'] ?? '';
     });
 
