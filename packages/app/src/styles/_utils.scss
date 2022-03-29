@@ -113,3 +113,7 @@ ul.unstyled {
 .text-danger {
   color: $red-500;
 }
+
+.status-icon {
+  font-size: clamp(8rem, 15vw, 12rem);
+}

@@ -92,7 +92,9 @@ export const setContents = async ({
         clearInterval(intervalId);
         intervalId = null;
         setTranslation();
-        windowProxy.close();
+        setTimeout(() => {
+          windowProxy.close();
+        }, 2000);
       } else {
         updateAlertMessage(isLoggedIn, isActive);
       }
