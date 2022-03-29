@@ -6,9 +6,16 @@ import { SubscribePageComponent } from './pages/subscribe-page/subscribe-page.co
 import { SubscriptionRoutingModule } from './subscription-routing.module';
 import { HeaderModule } from '../header/header.module';
 import { ManagePageComponent } from './pages/manage-page/manage-page.component';
+import { SubscriptionFormComponent } from './subscription-form/subscription-form.component';
+import { AutoSubscribePageComponent } from './pages/auto-subscribe-page/auto-subscribe-page.component';
 
 @NgModule({
-  declarations: [SubscribePageComponent, ManagePageComponent],
+  declarations: [
+    SubscribePageComponent,
+    ManagePageComponent,
+    SubscriptionFormComponent,
+    AutoSubscribePageComponent,
+  ],
   imports: [
     CommonModule,
     IonicModule,

@@ -25,11 +25,11 @@ export class SignInSuccessPageComponent implements OnInit, OnDestroy {
         }),
         filter((isActive) => !isActive),
         tap(() => (this.redirectingToSubscription = true)),
-        switchMap(() => timer(2000)),
+        switchMap(() => timer(1000)),
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        this.router.navigate(['/subscription']);
+        this.router.navigate(['/subscription/auto']);
       });
   }
 
