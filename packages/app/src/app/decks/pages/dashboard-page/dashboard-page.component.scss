@@ -1,25 +1,41 @@
 @import '../../../../styles/variables';
 
+$deck-options-height: 1rem;
+
+.gradient {
+  --gradient-height: calc(
+    var(--app-height) - #{$header-height} - #{$deck-options-height} -
+      var(--container-padding) * 2
+  );
+
+  position: relative;
+  max-height: var(--gradient-height);
+  overflow: hidden;
+
+  &::after {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+      transparent,
+      var(--body-bg) var(--gradient-height)
+    );
+    pointer-events: none;
+  }
+}
+
+.deck-options {
+  line-height: $deck-options-height;
+  height: $deck-options-height;
+}
+
 .card {
   background-color: var(--contrast-bg);
   padding: 1rem;
   border-radius: $border-radius;
-
-  &.to-be-continued {
-    position: relative;
-    overflow: hidden;
-
-    &::after {
-      position: absolute;
-      content: '';
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 100%;
-      background: linear-gradient(transparent, var(--body-bg));
-      pointer-events: none;
-    }
-  }
 }
 
 .side-a {
