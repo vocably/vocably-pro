@@ -3,6 +3,7 @@ import {
   analyze,
   cleanUp,
   isActive,
+  ping,
 } from '@vocably/extension-messages';
 
 export const api = {
@@ -11,6 +12,7 @@ export const api = {
   analyze,
   cleanUp,
   isActive,
+  ping,
 };
 
 export type ApiConfigOptions = Partial<typeof api>;

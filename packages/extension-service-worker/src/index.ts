@@ -12,6 +12,7 @@ import {
   onAnalyzeRequest,
   onCleanUpRequest,
   onIsActiveRequest,
+  onPing,
 } from '@vocably/extension-messages';
 import { createCards } from './createCards';
 import { makeDelete } from '@vocably/crud';
@@ -143,6 +144,10 @@ export const registerServiceWorker = (
         extra: e,
       });
     }
+  });
+
+  onPing((sendResponse) => {
+    return sendResponse('pong');
   });
 
   console.info('The service worker has been registered.');

@@ -22,5 +22,6 @@ registerContentScript({
         }, parseInt((document.getElementById('delay') as HTMLInputElement).value));
       }),
     cleanUp: () => Promise.resolve({ success: true, value: null }),
+    ping: () => Promise.resolve('pong'),
   },
 }).then();
