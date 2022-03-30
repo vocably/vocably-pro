@@ -9,20 +9,18 @@ $deck-options-height: 1rem;
   );
 
   position: relative;
-  max-height: var(--gradient-height);
+  max-height: max(3rem, var(--gradient-height));
   overflow: hidden;
 
   &::after {
+    --height: 3rem;
     position: absolute;
     content: '';
     left: 0;
-    top: 0;
-    height: 100%;
+    top: max(3rem, calc(var(--gradient-height) - var(--height)));
+    height: var(--height);
     width: 100%;
-    background: linear-gradient(
-      transparent,
-      var(--body-bg) var(--gradient-height)
-    );
+    background: linear-gradient(transparent, var(--body-bg));
     pointer-events: none;
   }
 }
