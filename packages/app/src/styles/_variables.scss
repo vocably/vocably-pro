@@ -6,7 +6,8 @@ $white-rgb: 255, 255, 255;
 $dark-primary: $white;
 $dark-primary-rgb: $white-rgb;
 $dark-body-bg: $gray-100;
-$dark-body-bg-rgb: 28, 28, 28;
+$dark-body-bg-rgb: 33, 33, 33;
+$dark-body-bg-transparent: 'rgba(' + #{$dark-body-bg-rgb} + ', 0)';
 $dark-text-color: $white;
 $dark-text-color-rgb: $white-rgb;
 $dark-border-color: $gray-400;
@@ -14,6 +15,7 @@ $dark-border-color: $gray-400;
 $dark-theme: (
   primary-color: $dark-primary,
   body-bg: $dark-body-bg,
+  body-bg-transparent: $dark-body-bg-transparent,
   text-color: $dark-text-color,
   text-muted: $gray-600,
   contrast-bg: $gray-150,

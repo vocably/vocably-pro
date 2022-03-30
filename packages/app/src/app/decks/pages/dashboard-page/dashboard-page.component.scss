@@ -20,7 +20,7 @@ $deck-options-height: 1rem;
     top: max(3rem, calc(var(--gradient-height) - var(--height)));
     height: var(--height);
     width: 100%;
-    background: linear-gradient(transparent, var(--body-bg));
+    background: linear-gradient(var(--body-bg-transparent), var(--body-bg));
     pointer-events: none;
   }
 }
