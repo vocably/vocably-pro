@@ -18,6 +18,7 @@ for (let size of ['16', '32', '48', '128']) {
 
 await $`cp assets/${devFaviconFilename} packages/extension-content-script/public/favicon.ico`;
 await $`cp assets/${icoFilename} packages/www/favicon.ico`;
+await $`cp assets/${icoFilename} packages/extension-popup/src/favicon.ico`;
 
 const svgImage = readFileSync(`assets/${svgFilename}`, 'utf8').toString();
 const scssTemplate = readFileSync(`assets/_icon.scss.tpl`, 'utf8').toString();
