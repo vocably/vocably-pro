@@ -5,8 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --output-hashing none --single-bundle",
-    "watch": "ng build --watch --configuration development",
-    "test": "echo 'Use `@vocably/extension-popup has no tests.'"
+    "watch": "ng build --watch --configuration development --output-hashing none --single-bundle",
+    "test": "echo 'Use `@vocably/extension-popup has no tests.'",
+    "extension-popup": "npm-run-all --parallel start watch"
   },
   "private": true,
   "dependencies": {

@@ -42,15 +42,15 @@ const prodConfig = {
       maxChunks: 1,
     }),
     new HtmlWebpackPlugin({
-      template: './src/popup.html',
-      filename: 'popup.html',
-    }),
-    new HtmlWebpackPlugin({
       template: './src/options.html',
       filename: 'options.html',
     }),
     new CopyPlugin({
       patterns: [
+        {
+          from: '../extension-popup/dist',
+          to: 'popup',
+        },
         { from: '.', to: '.', context: 'assets' },
         {
           from: 'manifest.json.txt',

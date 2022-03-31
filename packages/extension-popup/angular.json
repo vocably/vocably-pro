@@ -23,7 +23,7 @@
         "build": {
           "builder": "ngx-build-plus:browser",
           "options": {
-            "outputPath": "dist/extension-popup",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,6 +67,9 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+            "port": 8040
+          },
           "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
