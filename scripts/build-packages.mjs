@@ -16,6 +16,7 @@ const packages = [
   'extension-service-worker',
   'extension-content-ui',
   'extension-content-script',
+  'extension-popup',
 ];
 
 for (let packageName of packages) {
