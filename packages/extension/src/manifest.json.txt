@@ -29,7 +29,7 @@
     {
       "matches": ["<all_urls>"],
       "js": ["contentScript.js"],
-      "exclude_matches": ["http://localhost:8010/", "http://localhost:8020/"]
+      "exclude_matches": ["http://localhost:8010/", "http://localhost:8020/", "http://localhost:8040/"]
     }
   ],
 

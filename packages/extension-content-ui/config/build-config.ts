@@ -1,5 +1,6 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
+import { angularOutputTarget } from '@stencil/angular-output-target';
 
 type ConfigOptions = {
   buildDir: string;
@@ -17,6 +18,13 @@ export const buildConfig = ({ buildDir }: ConfigOptions): Config => ({
       type: 'www',
       serviceWorker: null, // disable service workers
     },
+    angularOutputTarget({
+      componentCorePackage: '@vocably/extension-content-ui',
+      directivesProxyFile:
+        '../extension-angular-components/projects/library/src/lib/stencil-generated/components.ts',
+      directivesArrayFile:
+        '../extension-angular-components/projects/library/src/lib/stencil-generated/index.ts',
+    }),
   ],
   plugins: [sass()],
   devServer: {
