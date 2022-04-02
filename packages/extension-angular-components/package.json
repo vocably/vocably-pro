@@ -12,7 +12,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "echo '@vocably/extension-angular-components has no tests.'"
   },
   "private": true,
   "dependencies": {
