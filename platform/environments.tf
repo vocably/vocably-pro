@@ -127,3 +127,16 @@ resource "local_file" "e2e_environment" {
   content  = local.e2e_environment_content
   filename = "${local.e2e_root}/.env.local"
 }
+
+locals {
+  extension_popup_env_content = <<EOT
+export const environmentLocal = {
+  appBaseUrl: '${local.app_url}',
+};
+  EOT
+}
+
+resource "local_file" "extension_popup_environment" {
+  content  = local.extension_popup_env_content
+  filename = "${local.extension_popup_root}/src/environments/environmentLocal.ts"
+}

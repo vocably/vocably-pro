@@ -1,0 +1,14 @@
+@import '~@vocably/styles/colors';
+@import '~@vocably/styles/mixins/underline';
+
+$body-color: $gray-100;
+
+body {
+  color: $body-color;
+  font-size: 100%;
+}
+
+a {
+  color: $body-color;
+  @include underline();
+}

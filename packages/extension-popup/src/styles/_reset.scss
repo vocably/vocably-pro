@@ -1,5 +1,3 @@
-@import '@vocably/styles/mixins/underline';
-
 /* Box sizing rules */
 *,
 *::before,
@@ -42,12 +40,8 @@ html:focus-within {
 
 html,
 body {
+  font-family: 'Roboto', sans-serif;
   height: 100%;
-}
-
-a {
-  color: var(--primary-color);
-  @include underline();
 }
 
 /* A elements that don't have a class get default styles */
@@ -86,10 +80,6 @@ select {
   }
 }
 
-ion-item {
-  font-weight: 100;
-}
-
 ion-icon {
   vertical-align: middle;
   --ionicon-stroke-width: 8px;
@@ -97,29 +87,4 @@ ion-icon {
 
 ion-spinner {
   vertical-align: middle;
-}
-
-.ion-focusable {
-  cursor: pointer;
-}
-
-.ptr--ptr {
-  box-shadow: none !important;
-}
-
-.ptr--text {
-  display: none;
-}
-
-.ptr--icon {
-  color: inherit !important;
-  font-weight: 100 !important;
-}
-
-.ptr--refresh {
-  min-height: 16px !important;
-
-  .ptr--box {
-    padding: 0;
-  }
 }
