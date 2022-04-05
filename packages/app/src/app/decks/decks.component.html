@@ -1,4 +1,6 @@
-<div *ngIf="isLoading">
-  <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading decks...
+<div class="hero max" *ngIf="isLoading">
+  <div class="hero-body text-center">
+    <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading decks...
+  </div>
 </div>
 <router-outlet *ngIf="!isLoading"></router-outlet>
