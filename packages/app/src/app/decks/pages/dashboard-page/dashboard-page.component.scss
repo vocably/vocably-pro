@@ -1,13 +1,15 @@
 @import '../../../../styles/variables';
 
-$deck-options-height: 1rem;
+$deck-options-height: 3rem;
+$gradient-bottom-margin: 1rem;
 
 .gradient {
   --gradient-height: calc(
-    var(--app-height) - #{$header-height} - #{$deck-options-height} -
+    var(--app-height) - #{$header-height} - #{$deck-options-height} - #{$gradient-bottom-margin} -
       var(--container-padding) * 2
   );
 
+  margin-bottom: $gradient-bottom-margin;
   position: relative;
   max-height: max(3rem, var(--gradient-height));
   overflow: hidden;
