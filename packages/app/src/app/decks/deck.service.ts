@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { DeckStoreService } from './deck-store.service';
 import { Card, CardItem, Result } from '@vocably/model';
 import { makeDelete, makeRestore, makeUpdate } from '@vocably/crud';
-import { from, map, Observable, of, tap } from 'rxjs';
-import { saveLanguageDeck } from '@vocably/api';
+import { from, map, Observable, of, switchMap, take, tap } from 'rxjs';
+import { loadLanguageDeck, saveLanguageDeck } from '@vocably/api';
 
 @Injectable({
   providedIn: 'root',
@@ -32,21 +32,33 @@ export class DeckService {
   }
 
   public update(id: string, data: Partial<Card>): Observable<Result<CardItem>> {
-    const deck = this.deckStore.deck$.value;
-    const collectionUpdateResult = makeUpdate(deck.cards)(id, data);
-    if (!collectionUpdateResult.success) {
-      return of(collectionUpdateResult);
-    }
-
-    return from(saveLanguageDeck(deck)).pipe(
-      map((saveResult) => {
-        if (!saveResult.success) {
-          return saveResult;
-        } else {
-          return collectionUpdateResult;
+    return this.deckStore.deck$.pipe(
+      take(1),
+      map((deck) => deck.language),
+      switchMap((language) => loadLanguageDeck(language)),
+      tap((loadDeckResult) => {
+        if (loadDeckResult.success) {
+          this.deckStore.store(loadDeckResult.value);
         }
       }),
-      tap((result) => result.success && this.deckStore.store(deck))
+      switchMap(async (loadDeckResult) => {
+        if (loadDeckResult.success === false) {
+          return loadDeckResult;
+        }
+
+        const updateResult = makeUpdate(loadDeckResult.value.cards)(id, data);
+        if (updateResult.success === false) {
+          return updateResult;
+        }
+
+        const saveResult = await saveLanguageDeck(loadDeckResult.value);
+
+        if (saveResult.success === false) {
+          return saveResult;
+        }
+
+        return updateResult;
+      })
     );
   }
 
