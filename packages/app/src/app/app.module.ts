@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicModule } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HeaderModule } from './header/header.module';
 import { HandsFreePageComponent } from './pages/hands-free-page/hands-free-page.component';
 import { SignInSuccessPageComponent } from './pages/sign-in-success-page/sign-in-success-page.component';
+import * as Sentry from '@sentry/angular';
+import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,24 @@ import { SignInSuccessPageComponent } from './pages/sign-in-success-page/sign-in
     }),
     MatSnackBarModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: false,
+      }),
+    },
+    {
+      provide: Sentry.TraceService,
+      deps: [Router],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Sentry.TraceService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

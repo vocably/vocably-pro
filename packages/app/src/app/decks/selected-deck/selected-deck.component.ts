@@ -71,10 +71,10 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
         switchMap((language) => from(loadLanguageDeck(language)))
       )
       .subscribe((result) => {
+        this.isLoading = false;
         if (result.success === false) {
           throw new Error(result.reason);
         }
-        this.isLoading = false;
         this.deckStore.store(result.value);
       });
   }

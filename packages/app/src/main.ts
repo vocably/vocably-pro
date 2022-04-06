@@ -7,6 +7,23 @@ import { Auth } from '@aws-amplify/auth';
 import { configureApi } from '@vocably/api';
 import { maintainAppHeight } from './app-height';
 import { authConfig } from './auth-config';
+import * as Sentry from '@sentry/angular';
+import { BrowserTracing } from '@sentry/tracing';
+
+Sentry.init({
+  dsn: 'https://3e78a7263b224f07a7316c655d40a415@o1191770.ingest.sentry.io/6313273',
+  integrations: [
+    new BrowserTracing({
+      tracingOrigins: ['localhost', 'https://yourserver.io/api'],
+      routingInstrumentation: Sentry.routingInstrumentation,
+    }),
+  ],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
 
 if (environment.production) {
   enableProdMode();

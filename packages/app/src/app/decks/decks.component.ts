@@ -35,14 +35,15 @@ export class DecksComponent implements OnInit, OnDestroy {
         }),
         switchMap(() => from(listLanguages()))
       )
-      .subscribe((result) => {
-        refreshService.unregister('decks-list');
-        if (!result.success) {
-          throw new Error(result.reason);
-        }
-
-        this.isLoading = false;
-        decksListStore.store(result.value);
+      .subscribe({
+        next: (result) => {
+          refreshService.unregister('decks-list');
+          this.isLoading = false;
+          if (!result.success) {
+            throw new Error(result.reason);
+          }
+          decksListStore.store(result.value);
+        },
       });
   }
 

@@ -24,6 +24,8 @@
     "@angular/router": "~13.2.5",
     "@angular/service-worker": "~13.2.5",
     "@ionic/angular": "^6.0.10",
+    "@sentry/angular": "^6.19.4",
+    "@sentry/tracing": "^6.19.4",
     "bowser": "^2.11.0",
     "pulltorefreshjs": "^0.1.22",
     "rxjs": "~7.5.4",
