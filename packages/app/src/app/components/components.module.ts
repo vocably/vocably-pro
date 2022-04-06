@@ -7,6 +7,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipTriggerForDirective } from './tooltip/tooltip-trigger-for.directive';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { SubscriptionStatusPipe } from './subscription-status.pipe';
+import { OfflineComponent } from './offline/offline.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SubscriptionStatusPipe } from './subscription-status.pipe';
     TooltipTriggerForDirective,
     BackButtonComponent,
     SubscriptionStatusPipe,
+    OfflineComponent,
   ],
   imports: [CommonModule, IonicModule, RouterModule, OverlayModule],
   exports: [
@@ -22,6 +24,7 @@ import { SubscriptionStatusPipe } from './subscription-status.pipe';
     TooltipTriggerForDirective,
     BackButtonComponent,
     SubscriptionStatusPipe,
+    OfflineComponent,
   ],
 })
 export class ComponentsModule {}

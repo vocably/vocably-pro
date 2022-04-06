@@ -13,6 +13,7 @@ import { HandsFreePageComponent } from './pages/hands-free-page/hands-free-page.
 import { SignInSuccessPageComponent } from './pages/sign-in-success-page/sign-in-success-page.component';
 import * as Sentry from '@sentry/angular';
 import { Router } from '@angular/router';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { Router } from '@angular/router';
     AppRoutingModule,
     AuthModule,
     HeaderModule,
+    ComponentsModule,
     IonicModule.forRoot({
       mode: 'md',
       statusTap: true,

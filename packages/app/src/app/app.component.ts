@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterParamsService } from './router-params.service';
 import { UpdateService } from './update.service';
 import { Platform } from '@ionic/angular';
@@ -15,6 +15,7 @@ import * as PullToRefresh from 'pulltorefreshjs';
 export class AppComponent implements OnInit {
   cleanScreen = false;
   disabledRefresher = false;
+  isOffline = false;
 
   constructor(
     routerParams: RouterParamsService,
@@ -52,5 +53,15 @@ export class AppComponent implements OnInit {
         !this.disabledRefresher &&
         window.scrollY === 0,
     });
+  }
+
+  @HostListener('window:online')
+  onOnline() {
+    this.isOffline = false;
+  }
+
+  @HostListener('window:offline')
+  onOffline() {
+    this.isOffline = true;
   }
 }
