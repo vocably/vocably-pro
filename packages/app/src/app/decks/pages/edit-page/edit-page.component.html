@@ -2,7 +2,7 @@
   *ngFor="let card of cards"
   class="mb-1"
   [attr.data-test-card-id]="card.id"
-  [item]="card"
+  [item]="updating[card.id] || card"
   [isDeleted]="deleted.includes(card)"
   (delete)="deleteCard(card)"
   (restore)="restoreCard(card)"

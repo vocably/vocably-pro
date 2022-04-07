@@ -10,6 +10,7 @@ import { DeckListStoreService } from '../../deck-list-store.service';
 import { DeckService } from '../../deck.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { omit } from 'lodash-es';
 
 @Component({
   selector: 'app-edit-page',
@@ -22,6 +23,8 @@ export class EditPageComponent implements OnInit, OnDestroy {
   public cards: CardItem[] = [];
   public deleted: CardItem[] = [];
   public fullLanguage: string = '';
+
+  public updating: Record<string, CardItem> = {};
 
   constructor(
     public deckStore: DeckStoreService,
@@ -44,7 +47,18 @@ export class EditPageComponent implements OnInit, OnDestroy {
   }
 
   saveCard(card: CardItem) {
-    this.deckService.update(card.id, card.data);
+    this.updating = {
+      ...this.updating,
+      [card.id]: card,
+    };
+
+    // Monkey-patch the update operation.
+    // The card collapse animation freezes without this.
+    setTimeout(() => {
+      this.deckService.update(card.id, card.data).subscribe(() => {
+        this.updating = omit(this.updating, [card.id]);
+      });
+    }, 500);
   }
 
   deleteCard(card: CardItem) {
