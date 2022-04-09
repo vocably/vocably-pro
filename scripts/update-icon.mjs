@@ -33,6 +33,6 @@ console.log('Button icon has been successfully updated.');
 
 await $`pwa-asset-generator assets/icon.svg packages/app/src/assets -i packages/app/src/index.html -m packages/app/src/manifest.json --favicon --padding 0`;
 
-await $`pwa-asset-generator assets/logo-dark.svg packages/app/src/assets --padding "0 30% 100%" --background \\#212121 --splash-only --portrait-only`;
+await $`pwa-asset-generator assets/logo-light.svg packages/app/src/assets --padding "0 30% 100%" --background white --splash-only --portrait-only`;
 
-await $`pwa-asset-generator assets/logo-dark.svg packages/app/src/assets --padding "0 30% 20%" --background \\#212121 --splash-only --landscape-only`;
+await $`pwa-asset-generator assets/logo-light.svg packages/app/src/assets --padding "0 30% 20%" --background white --splash-only --landscape-only`;

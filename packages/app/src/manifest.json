@@ -1,6 +1,7 @@
 {
-  "name": "Vocably",
+  "name": "vocably",
   "start_url": "/",
+  "background_color": "#ffffff",
   "icons": [
     {
       "src": "assets/manifest-icon-192.maskable.png",
