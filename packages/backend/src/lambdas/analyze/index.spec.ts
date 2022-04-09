@@ -55,7 +55,7 @@ describe('integration check for translate lambda', () => {
       {
         source: 'gemaakt',
         sourceLanguage: 'nl',
-        target: 'made',
+        target: 'created',
         targetLanguage: 'en',
       },
       {
