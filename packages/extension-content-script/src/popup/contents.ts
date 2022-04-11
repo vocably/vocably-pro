@@ -68,13 +68,13 @@ export const setContents = async ({
 
   const updateAlertMessage = (isLoggedIn: boolean, isActive: boolean) => {
     if (!isLoggedIn) {
-      alert.message = 'Please sign in to proceed with translation.';
+      alert.message = 'Please sign in to proceed.';
       alert.cta = 'Sign In';
       return;
     }
 
     if (!isActive) {
-      alert.message = 'Please subscribe to proceed with translation.';
+      alert.message = 'Please subscribe to proceed.';
       alert.cta = 'Subscribe';
     }
   };
