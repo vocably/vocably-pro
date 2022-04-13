@@ -55,10 +55,10 @@ export const registerServiceWorker = (
   });
 
   onAnalyzeRequest(async (sendResponse, payload) => {
-    console.info(`Translation has been requested.`);
+    console.info(`Analyze has been requested.`);
     try {
       const analysis = await analyze(payload);
-      console.info(`Translation has been requested.`, analysis);
+      console.info(`Analyze has returned data.`, analysis);
 
       if (analysis.success === false) {
         return sendResponse(analysis);
@@ -112,7 +112,7 @@ export const registerServiceWorker = (
     console.info(`Clean up has been requested.`, payload);
     try {
       const loadLanguageDeckResult = await loadLanguageDeck(
-        payload.translation.targetLanguage
+        payload.translation.sourceLanguage
       );
 
       if (loadLanguageDeckResult.success === false) {
@@ -126,9 +126,7 @@ export const registerServiceWorker = (
 
       if (deck.cards.length === 0) {
         console.info(`The entire deck will be deleted.`, payload);
-        return sendResponse(
-          await deleteLanguageDeck(payload.translation.targetLanguage)
-        );
+        return sendResponse(await deleteLanguageDeck(deck.language));
       }
 
       console.info(
