@@ -141,9 +141,7 @@ resource "null_resource" "app_upload" {
   ]
 
   triggers = {
-    dir_sha1 = sha1(
-      join("", [for f in fileset(data.external.app_build.result.dest, "**") : filesha1("${data.external.app_build.result.dest}/${f}")])
-    )
+    ngsw = sha256(jsonencode(merge(jsondecode(file("${data.external.app_build.result.dest}/ngsw.json")), { timestamp : 1 })))
   }
 
   provisioner "local-exec" {
