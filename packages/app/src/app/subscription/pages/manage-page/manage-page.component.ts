@@ -46,11 +46,12 @@ export class ManagePageComponent implements OnInit, OnDestroy {
   }
 
   async updatePaymentMethod(userData: UserData) {
-    if (!userData.updateUrl) {
+    if (!userData.updateUrl || !userData.productId) {
       return;
     }
 
     await update({
+      productId: userData.productId,
       email: userData.email,
       passthrough: {
         username: userData.username,
@@ -60,11 +61,12 @@ export class ManagePageComponent implements OnInit, OnDestroy {
   }
 
   async cancelSubscription(userData: UserData) {
-    if (!userData.cancelUrl) {
+    if (!userData.cancelUrl || !userData.productId) {
       return;
     }
 
     await update({
+      productId: userData.productId,
       email: userData.email,
       passthrough: {
         username: userData.username,

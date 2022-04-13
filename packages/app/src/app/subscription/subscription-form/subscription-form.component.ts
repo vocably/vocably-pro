@@ -1,9 +1,15 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { subscribe } from '../paddle';
-import { from, Subject, switchMap, take, takeUntil } from 'rxjs';
-import { AuthService } from '../../auth/auth.service';
-import { isActive } from '../subscriptionStatus';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { subscribe, SubscriptionProduct } from '../paddle';
+import { startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { UserData } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-subscription-form',
@@ -13,70 +19,49 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SubscriptionFormComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  private destroy$ = new Subject();
-  public isLoading = true;
-  public hasPaid = false;
-  public authStateUpdatedStatus: 'waiting' | 'success' | 'error' = 'waiting';
-  public isWaitingForSubscription = false;
+  @Input() product!: SubscriptionProduct;
+  @Input() userData!: UserData;
 
-  constructor(
-    private authService: AuthService,
-    router: Router,
-    route: ActivatedRoute
-  ) {
-    this.authService.userData$.pipe(take(1)).subscribe((userData) => {
-      if (isActive(userData)) {
-        router.navigate(['manage'], { relativeTo: route });
-      }
-    });
-  }
+  @Output() success = new EventEmitter();
+  @Output() back = new EventEmitter();
+
+  public isClosed = false;
+  public openCheckout$ = new Subject();
+
+  private destroy$ = new Subject();
+
+  constructor() {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    from(this.authService.userData$)
+    this.openCheckout$
       .pipe(
-        take(1),
-        switchMap((userData) => {
+        startWith(null),
+        tap(() => {
+          this.isClosed = false;
+        }),
+        switchMap(() => {
           return subscribe({
-            email: userData.email,
+            productId: this.product.id,
+            email: this.userData.email,
             targetClass: 'checkout-container',
-            onSuccess: () => this.onSuccess(),
+            onSuccess: () => this.success.emit(),
+            onClose: () => {
+              this.isClosed = true;
+            },
             passthrough: {
-              username: userData.username,
+              username: this.userData.username,
             },
           });
         }),
         takeUntil(this.destroy$)
       )
-      .subscribe((event) => {
-        this.isLoading = false;
-      });
+      .subscribe();
   }
 
   ngOnDestroy(): void {
     this.destroy$.next(null);
     this.destroy$.complete();
-  }
-
-  onSuccess() {
-    this.hasPaid = true;
-    this.waitForSubscription();
-  }
-
-  waitForSubscription() {
-    this.isWaitingForSubscription = true;
-    this.authService.waitForSubscriptionHook$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: () => {
-          this.isWaitingForSubscription = false;
-          this.authStateUpdatedStatus = 'success';
-        },
-        error: () => {
-          this.isWaitingForSubscription = false;
-          this.authStateUpdatedStatus = 'error';
-        },
-      });
   }
 }

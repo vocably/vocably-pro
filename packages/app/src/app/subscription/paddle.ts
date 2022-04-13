@@ -1,38 +1,36 @@
-import { environment } from '../../environments/environment';
 import { PassThrough } from '@vocably/model';
+import { environment } from '../../environments/environment';
 
 declare const Paddle: any;
 
 export type SubscribeOptions = {
+  productId: number;
   targetClass: string;
   email: string;
   passthrough: PassThrough;
   onSuccess: () => void;
+  onClose: () => void;
 };
 
 export const subscribe = (options: SubscribeOptions): Promise<void> => {
   return new Promise<void>((resolve) => {
     Paddle.Checkout.open({
-      method: 'inline',
-      product: environment.paddle.productId,
+      product: options.productId,
       allowQuantity: false,
       disableLogout: true,
       email: options.email,
-      frameTarget: options.targetClass,
       passthrough: options.passthrough,
-      frameInitialHeight: 0,
-      displayModeTheme: 'dark',
       successCallback: options.onSuccess,
+      closeCallback: options.onClose,
       loadCallback: () => {
         resolve();
       },
-      frameStyle:
-        'width:100%; min-width:312px; background-color: transparent; border: none;',
     });
   });
 };
 
 export type UpdateOptions = {
+  productId: number;
   override: string;
   email: string;
   passthrough: PassThrough;
@@ -42,7 +40,7 @@ export type UpdateOptions = {
 export const update = (options: UpdateOptions): Promise<void> => {
   return new Promise<void>((resolve) => {
     Paddle.Checkout.open({
-      product: environment.paddle.productId,
+      product: options.productId,
       allowQuantity: false,
       disableLogout: true,
       email: options.email,
@@ -54,4 +52,49 @@ export const update = (options: UpdateOptions): Promise<void> => {
       },
     });
   });
+};
+
+export type SubscriptionProduct = {
+  id: number;
+  title: string;
+  price: number;
+  currency: 'EUR';
+  trialDays: number;
+  save?: number;
+};
+
+const yearlySave =
+  1 - environment.paddle.yearlyPrice / (environment.paddle.monthlyPrice * 12);
+
+export const products: Record<number, SubscriptionProduct> = {
+  [environment.paddle.monthlyTrialId]: {
+    id: environment.paddle.monthlyTrialId,
+    title: 'Monthly',
+    price: environment.paddle.monthlyPrice,
+    currency: 'EUR',
+    trialDays: 7,
+  },
+  [environment.paddle.yearlyTrialId]: {
+    id: environment.paddle.yearlyTrialId,
+    title: 'Yearly',
+    price: environment.paddle.yearlyPrice,
+    currency: 'EUR',
+    trialDays: 7,
+    save: yearlySave,
+  },
+  [environment.paddle.monthlyId]: {
+    id: environment.paddle.monthlyId,
+    title: 'Monthly',
+    price: environment.paddle.monthlyPrice,
+    trialDays: 0,
+    currency: 'EUR',
+  },
+  [environment.paddle.yearlyId]: {
+    id: environment.paddle.yearlyId,
+    title: 'Yearly',
+    price: environment.paddle.yearlyPrice,
+    currency: 'EUR',
+    trialDays: 0,
+    save: yearlySave,
+  },
 };

@@ -11,7 +11,12 @@ export const environmentLocal = {
   paddle: {
     sandbox: ${var.paddle_sandbox ? "true" : "false"},
     vendorId: ${var.paddle_vendor_id},
-    productId: ${var.paddle_product_id},
+    monthlyTrialId: ${var.paddle_monthly_trial_id},
+    monthlyId: ${var.paddle_monthly_id},
+    yearlyTrialId: ${var.paddle_yearly_trial_id},
+    yearlyId: ${var.paddle_yearly_id},
+    monthlyPrice: ${var.paddle_monthly_price},
+    yearlyPrice: ${var.paddle_yearly_price},
   },
   auth: {
     region: '${data.aws_region.current.name}',

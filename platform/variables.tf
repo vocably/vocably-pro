@@ -58,9 +58,34 @@ variable "paddle_vendor_id" {
   default = 5064
 }
 
-variable "paddle_product_id" {
+variable "paddle_monthly_trial_id" {
   type    = number
-  default = 25141
+  default = 26950
+}
+
+variable "paddle_monthly_id" {
+  type    = number
+  default = 26951
+}
+
+variable "paddle_yearly_trial_id" {
+  type    = number
+  default = 26952
+}
+
+variable "paddle_yearly_id" {
+  type    = number
+  default = 26953
+}
+
+variable "paddle_monthly_price" {
+  type    = number
+  default = 4.99
+}
+
+variable "paddle_yearly_price" {
+  type    = number
+  default = 49.99
 }
 
 variable "paddle_public_key" {

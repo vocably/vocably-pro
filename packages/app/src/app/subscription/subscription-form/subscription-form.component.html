@@ -1,61 +1,34 @@
-<ng-container *ngIf="!hasPaid">
-  <div class="hero" *ngIf="isLoading">
-    <div class="hero-body text-center">
-      <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading subscription
-      form...
-    </div>
+<div class="hero">
+  <div class="hero-body">
+    <ng-container *ngIf="isClosed">
+      <div class="text-center mb-1">
+        The selected subscription plan is
+        <strong
+          >{{ product.price | currency: product.currency }}
+          {{ product.title }}</strong
+        ><span *ngIf="product.trialDays > 0">
+          with <strong>{{ product.trialDays }} days</strong> of trial
+          period</span
+        >.
+      </div>
+      <div
+        class="display-flex flex-gap-1 align-items-center justify-content-center"
+      >
+        <div class="text-right">
+          <button class="unstyled" (click)="back.emit()">
+            <ion-icon
+              class="middle mr-0_5"
+              name="chevron-back-outline"
+            ></ion-icon>
+            <span class="middle underline">Change subscription plan</span>
+          </button>
+        </div>
+        <div>
+          <button class="button block" (click)="openCheckout$.next(null)">
+            Proceed with checkout
+          </button>
+        </div>
+      </div>
+    </ng-container>
   </div>
-  <div class="checkout-container" [class.display-none]="isLoading"></div>
-</ng-container>
-<ng-container *ngIf="hasPaid">
-  <div class="hero">
-    <div class="hero-body text-center">
-      <ng-container *ngIf="authStateUpdatedStatus === 'waiting'">
-        <div class="mb-1"><ion-spinner name="dots"></ion-spinner></div>
-        You have successfully paid for the subscription. The system is updating
-        it's status so you can proceed with the app usage.
-      </ng-container>
-      <ng-container *ngIf="authStateUpdatedStatus === 'success'">
-        <div class="mb-1">
-          <ion-icon
-            class="text-success status-icon"
-            name="checkmark-circle"
-          ></ion-icon>
-        </div>
-        <ng-content select=".success-message"></ng-content>
-      </ng-container>
-      <ng-container *ngIf="authStateUpdatedStatus === 'error'">
-        <div class="mb-1">
-          <ion-icon
-            class="text-danger status-icon"
-            name="bug-outline"
-          ></ion-icon>
-        </div>
-        <div class="mb-1">
-          This is a bug in the application. I did my best to prevent this from
-          happening, but this did happen. Seeing this message during the
-          subscription process is the unpleasant experience.
-        </div>
-        <ul>
-          <li>
-            You can wait a little more for the payment provider to properly
-            process the subscription by clicking this link:
-            <button class="unstyled underline" (click)="waitForSubscription()">
-              give it another shot</button
-            ><ion-spinner
-              [class.visibility-hidden]="!isWaitingForSubscription"
-              name="dots"
-              class="ml-0_5"
-            ></ion-spinner>
-          </li>
-          <li>
-            Even though I have already been informed about the problem and most
-            likely working on resolving it, you can still send me an email to
-            get the latest status update about the issue:
-            <a href="mailto:d@vocably.pro">d@vocably.pro</a>
-          </li>
-        </ul>
-      </ng-container>
-    </div>
-  </div>
-</ng-container>
+</div>

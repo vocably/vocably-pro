@@ -24,6 +24,10 @@ export const setupUserAttributes = async (
             ? event.unit_price
             : event.new_unit_price,
         },
+        {
+          Name: 'custom:product_id',
+          Value: event.subscription_plan_id,
+        },
       ],
     })
     .promise();

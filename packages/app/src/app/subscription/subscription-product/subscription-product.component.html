@@ -1,0 +1,44 @@
+<div class="hero">
+  <div class="hero-body">
+    <div class="lead-2 mb-1">Inspiring to read in a foreign language</div>
+
+    <div class="mb-1">
+      Browse your favourite websites, instantly translate unknown words, and
+      automatically create flashcards. Study flashcards on the go and improve
+      your vocabulary.
+    </div>
+
+    <div class="mb-2">
+      <div class="display-flex flex-gap-1 mb-1">
+        <button
+          class="button flex-1"
+          *ngFor="let product of subscriptionProducts"
+          [class.active]="selectedProduct === product"
+          (click)="selectedProduct = product"
+        >
+          <div>{{ product.title }}</div>
+          <div class="lead-2">
+            {{ product.price | currency: product.currency }}
+          </div>
+          <div class="small" *ngIf="product.save">
+            Save {{ product.save | percent }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <button
+      class="button block mb-1"
+      [class.disabled]="selectedProduct === null"
+      (click)="onSubmit()"
+    >
+      {{ this.isEligibleForTrial ? 'Start 7 days free trial' : 'Subscribe' }}
+    </button>
+    <div
+      class="text-danger text-center"
+      [class.visibility-hidden]="selectedProduct !== null || !isSubmitted"
+    >
+      Please select subscription plan.
+    </div>
+  </div>
+</div>

@@ -14,6 +14,7 @@ export type PaddleSubscriptionCreated = {
   next_bill_date: string;
   status: SubscriptionStatus;
   unit_price: string;
+  subscription_plan_id: string;
 };
 
 export const isPaddleSubscriptionCreated = (
@@ -28,6 +29,7 @@ export type PaddleSubscriptionUpdated = {
   next_bill_date: string;
   status: SubscriptionStatus;
   new_unit_price: string;
+  subscription_plan_id: string;
 };
 
 export type PaddleSubscriptionCancelled = {

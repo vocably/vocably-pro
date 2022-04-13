@@ -8,6 +8,8 @@ import { HeaderModule } from '../header/header.module';
 import { ManagePageComponent } from './pages/manage-page/manage-page.component';
 import { SubscriptionFormComponent } from './subscription-form/subscription-form.component';
 import { AutoSubscribePageComponent } from './pages/auto-subscribe-page/auto-subscribe-page.component';
+import { SubscriptionProductComponent } from './subscription-product/subscription-product.component';
+import { SubscriptionFlowComponent } from './subscription-flow/subscription-flow.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { AutoSubscribePageComponent } from './pages/auto-subscribe-page/auto-sub
     ManagePageComponent,
     SubscriptionFormComponent,
     AutoSubscribePageComponent,
+    SubscriptionProductComponent,
+    SubscriptionFlowComponent,
   ],
   imports: [
     CommonModule,

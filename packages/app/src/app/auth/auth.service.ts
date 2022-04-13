@@ -30,6 +30,7 @@ export type UserData = {
   nextBillDate?: Date;
   unitPrice?: number;
   cancellationDate?: Date;
+  productId?: number;
 };
 
 @Injectable({
@@ -66,6 +67,9 @@ export class AuthService {
       const cancelUrl = attributes.find(
         (a) => a.getName() === 'custom:cancel_url'
       );
+      const productId = attributes.find(
+        (a) => a.getName() === 'custom:product_id'
+      );
 
       if (!email || !sub) {
         throw Error('Can find email and sub in user data.');
@@ -82,6 +86,7 @@ export class AuthService {
         unitPrice: unitPrice && parseFloat(unitPrice.getValue()),
         cancellationDate:
           cancellationDate && new Date(cancellationDate.getValue()),
+        productId: productId && parseInt(productId.getValue()),
       };
     })
   );

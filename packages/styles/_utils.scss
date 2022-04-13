@@ -54,6 +54,26 @@ ul.unstyled {
   display: none;
 }
 
+.display-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.flex-gap-1 {
+  gap: 1rem;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
 .visibility-hidden {
   visibility: hidden;
 }

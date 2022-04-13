@@ -59,6 +59,13 @@ resource "aws_cognito_user_pool" "users" {
     mutable             = true
     required            = false
   }
+
+  schema {
+    attribute_data_type = "Number"
+    name                = "product_id"
+    mutable             = true
+    required            = false
+  }
 }
 
 resource "aws_cognito_user_group" "paid" {
