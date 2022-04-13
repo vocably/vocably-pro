@@ -15,7 +15,7 @@ import * as PullToRefresh from 'pulltorefreshjs';
 export class AppComponent implements OnInit {
   cleanScreen = false;
   disabledRefresher = false;
-  isOffline = false;
+  isOffline = !window.navigator.onLine;
 
   constructor(
     routerParams: RouterParamsService,
