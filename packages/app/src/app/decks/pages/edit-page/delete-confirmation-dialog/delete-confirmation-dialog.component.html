@@ -6,6 +6,8 @@
   </p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="true">Yes</button>
+  <button mat-button [mat-dialog-close]="true" data-test="yes-please">
+    Yes
+  </button>
   <button mat-button (click)="onNoClick()">No Thanks</button>
 </div>

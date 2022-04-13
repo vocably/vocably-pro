@@ -31,6 +31,7 @@ describe('dashboard screen', () => {
     cy.matchImageSnapshot('multiple decks screen - french');
     cy.get('[data-test="deck-selector"]').click();
     cy.get('ion-select-popover').should('be.visible');
+    cy.wait(200);
     cy.matchImageSnapshot('deck selector clicked');
     cy.get('ion-select-popover ion-item:nth-child(2)').click();
     cy.location('pathname').should('eq', '/deck/nl');
@@ -43,7 +44,7 @@ describe('dashboard screen', () => {
     cy.get('[data-test="delete-button"]').should('be.visible');
     cy.matchImageSnapshot('edit dutch');
     cy.get('[data-test="delete-button"]').click();
-    cy.get('#yes-please').click();
+    cy.get('[data-test="yes-please"]').click();
 
     cy.location('pathname').should('eq', '/deck/fr');
 
@@ -51,7 +52,7 @@ describe('dashboard screen', () => {
     cy.get('[data-test="edit-button"]').click();
     cy.location('pathname').should('eq', '/deck/fr/edit');
     cy.get('[data-test="delete-button"]').click();
-    cy.get('#yes-please').click();
+    cy.get('[data-test="yes-please"]').click();
 
     cy.location('pathname').should('eq', '/deck');
   });

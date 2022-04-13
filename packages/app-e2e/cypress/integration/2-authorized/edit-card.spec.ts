@@ -34,9 +34,9 @@ describe('edit card', () => {
     getCardItem().should('not.be.visible');
     cy.matchImageSnapshot('edit card - form');
     getForm().find('[name="source"]').clear().type('new value');
-    cy.matchImageSnapshot('edit card - type new value');
     getForm().find('[data-test="cancel"]').click();
     getCardItem().should('be.visible');
+    cy.wait(200);
     cy.matchImageSnapshot('edit card - cancelled item');
     getCard().find('[data-test="card-action-edit"]').click();
     getForm().find('[name="source"]').clear().type('gevolg');
@@ -48,6 +48,8 @@ describe('edit card', () => {
     getForm().find('[data-test="submit"]').click();
     getCardItem().should('be.visible');
     cy.matchImageSnapshot('updated card item');
+
+    cy.wait(500);
 
     cy.visit('/deck/nl/edit');
     getCard().should('be.visible');
