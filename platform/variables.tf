@@ -14,11 +14,11 @@ variable "google_oauth2_client_secret" {
   type = string
 }
 
-variable "lexicala_username" {
+variable "lexicala_host" {
   type = string
 }
 
-variable "lexicala_password" {
+variable "lexicala_key" {
   type = string
 }
 

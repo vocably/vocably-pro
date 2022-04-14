@@ -76,8 +76,8 @@ locals {
   backend_env_content = <<EOT
 GOOGLE_APPLICATION_CREDENTIALS="${local.google_key_filename}"
 GOOGLE_PROJECT_ID="${var.gcloud_project_id}"
-LEXICALA_USERNAME="${var.lexicala_username}"
-LEXICALA_PASSWORD="${var.lexicala_password}"
+LEXICALA_HOST="${var.lexicala_host}"
+LEXICALA_KEY="${var.lexicala_key}"
 PADDLE_PUBLIC_KEY="${replace(var.paddle_public_key, "\n", "\\n")}"
 CONGINOT_USER_POOL_ID="${aws_cognito_user_pool.users.id}"
 CANCELLED_SUBCRIPTIONS_TABLE="${aws_dynamodb_table.cancelled_subscriptions.name}"

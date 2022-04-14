@@ -12,7 +12,7 @@ export const lexicala = async (
 ): Promise<Result<LexicalaSearchResultItem[]>> => {
   try {
     const requestOptions = {
-      host: 'dictapi.lexicala.com',
+      host: process.env.LEXICALA_HOST,
       path: `/search?${new URLSearchParams({
         language,
         text,
@@ -20,11 +20,8 @@ export const lexicala = async (
         morph: 'true',
       }).toString()}`,
       headers: {
-        Authorization:
-          'Basic ' +
-          Buffer.from(
-            process.env.LEXICALA_USERNAME + ':' + process.env.LEXICALA_PASSWORD
-          ).toString('base64'),
+        'X-RapidAPI-Host': process.env.LEXICALA_HOST,
+        'X-RapidAPI-Key': process.env.LEXICALA_KEY,
       },
     };
 
