@@ -21,54 +21,62 @@
   <ng-container *ngIf="stage === 'paid'">
     <div class="hero">
       <div class="hero-body text-center">
-        <ng-container *ngIf="authStateUpdatedStatus === 'waiting'">
-          <div class="mb-1"><ion-spinner name="dots"></ion-spinner></div>
-          You have successfully paid for the subscription. The system is
-          updating it's status so you can proceed with the app usage.
-        </ng-container>
-        <ng-container *ngIf="authStateUpdatedStatus === 'success'">
+        <ng-container>
           <div class="mb-1">
             <ion-icon
+              *ngIf="authStateUpdatedStatus !== 'error'"
               class="text-success status-icon"
               name="checkmark-circle"
             ></ion-icon>
-          </div>
-          <ng-content select=".success-message"></ng-content>
-        </ng-container>
-        <ng-container *ngIf="authStateUpdatedStatus === 'error'">
-          <div class="mb-1">
             <ion-icon
+              *ngIf="authStateUpdatedStatus === 'error'"
               class="text-danger status-icon"
               name="bug-outline"
             ></ion-icon>
           </div>
-          <div class="mb-1">
-            This is a bug in the application. I did my best to prevent this from
-            happening, but this did happen. Seeing this message during the
-            subscription process is the unpleasant experience.
+          <div *ngIf="authStateUpdatedStatus !== 'error'">
+            <div class="mb-1">
+              The subscription process has been successfully completed.
+            </div>
+            <div class="message">
+              <ng-container *ngIf="authStateUpdatedStatus === 'waiting'">
+                The system is updating it's status so you can proceed with the
+                app<ion-spinner class="ml-0_5" name="dots"></ion-spinner>
+              </ng-container>
+              <ng-container *ngIf="authStateUpdatedStatus === 'success'">
+                <ng-content select=".success-message"></ng-content>
+              </ng-container>
+            </div>
           </div>
-          <ul>
-            <li>
-              You can wait a little more for the payment provider to properly
-              process the subscription by clicking this link:
-              <button
-                class="unstyled underline"
-                (click)="waitForSubscription()"
-              >
-                give it another shot</button
-              ><ion-spinner
-                [class.visibility-hidden]="!isWaitingForSubscription"
-                name="dots"
-                class="ml-0_5"
-              ></ion-spinner>
-            </li>
-            <li>
-              Even though I have already been informed about the problem and
-              most likely working on resolving it, you can still send me an
-              email to get the latest status update about the issue:
-              <a href="mailto:d@vocably.pro">d@vocably.pro</a>
-            </li>
-          </ul>
+          <ng-container *ngIf="authStateUpdatedStatus === 'error'">
+            <div class="mb-1">
+              This is a bug in the application. I did my best to prevent this
+              from happening, but this did happen. Seeing this message during
+              the subscription process is the unpleasant experience.
+            </div>
+            <ul>
+              <li>
+                You can wait a little more for the payment provider to properly
+                process the subscription by clicking this link:
+                <button
+                  class="unstyled underline"
+                  (click)="waitForSubscription()"
+                >
+                  give it another shot</button
+                ><ion-spinner
+                  [class.visibility-hidden]="!isWaitingForSubscription"
+                  name="dots"
+                  class="ml-0_5"
+                ></ion-spinner>
+              </li>
+              <li>
+                Even though I have already been informed about the problem and
+                most likely working on resolving it, you can still send me an
+                email to get the latest status update about the issue:
+                <a href="mailto:d@vocably.pro">d@vocably.pro</a>
+              </li>
+            </ul>
+          </ng-container>
         </ng-container>
       </div>
     </div>
