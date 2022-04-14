@@ -3,12 +3,9 @@
     <ng-container *ngIf="isClosed">
       <div class="text-center mb-1">
         The selected subscription plan is
-        <strong
-          >{{ product.price | currency: product.currency }}
-          {{ product.title }}</strong
-        ><span *ngIf="product.trialDays > 0">
-          with <strong>{{ product.trialDays }} days</strong> of trial
-          period</span
+        <strong>{{ product.duration }} {{ product.duration | months }}</strong
+        ><span *ngIf="product.trial > 0">
+          with <strong>{{ product.trial }} days</strong> of trial period</span
         >.
       </div>
       <div
@@ -24,7 +21,10 @@
           </button>
         </div>
         <div>
-          <button class="button block" (click)="openCheckout$.next(null)">
+          <button
+            class="button block amplified"
+            (click)="openCheckout$.next(null)"
+          >
             Proceed with checkout
           </button>
         </div>

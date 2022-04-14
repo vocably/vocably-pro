@@ -55,46 +55,9 @@ export const update = (options: UpdateOptions): Promise<void> => {
 };
 
 export type SubscriptionProduct = {
+  duration: number;
   id: number;
-  title: string;
   price: number;
-  currency: 'EUR';
-  trialDays: number;
-  save?: number;
-};
-
-const yearlySave =
-  1 - environment.paddle.yearlyPrice / (environment.paddle.monthlyPrice * 12);
-
-export const products: Record<number, SubscriptionProduct> = {
-  [environment.paddle.monthlyTrialId]: {
-    id: environment.paddle.monthlyTrialId,
-    title: 'Monthly',
-    price: environment.paddle.monthlyPrice,
-    currency: 'EUR',
-    trialDays: 7,
-  },
-  [environment.paddle.yearlyTrialId]: {
-    id: environment.paddle.yearlyTrialId,
-    title: 'Yearly',
-    price: environment.paddle.yearlyPrice,
-    currency: 'EUR',
-    trialDays: 7,
-    save: yearlySave,
-  },
-  [environment.paddle.monthlyId]: {
-    id: environment.paddle.monthlyId,
-    title: 'Monthly',
-    price: environment.paddle.monthlyPrice,
-    trialDays: 0,
-    currency: 'EUR',
-  },
-  [environment.paddle.yearlyId]: {
-    id: environment.paddle.yearlyId,
-    title: 'Yearly',
-    price: environment.paddle.yearlyPrice,
-    currency: 'EUR',
-    trialDays: 0,
-    save: yearlySave,
-  },
+  currency: string;
+  trial: number;
 };

@@ -1,44 +1,56 @@
-<div class="hero">
-  <div class="hero-body">
-    <div class="lead-2 mb-1">Inspiring to read in a foreign language</div>
+<div class="lead-2 mb-1">Inspiring to read in a foreign language</div>
 
-    <div class="mb-1">
-      Browse your favourite websites, instantly translate unknown words, and
-      automatically create flashcards. Study flashcards on the go and improve
-      your vocabulary.
-    </div>
+<div class="mb-1">
+  Browse your favourite websites, instantly translate unknown words, and
+  automatically create flashcards. Study flashcards on the go and improve your
+  vocabulary.
+</div>
 
-    <div class="mb-2">
-      <div class="display-flex flex-gap-1 mb-1">
-        <button
-          class="button flex-1"
-          *ngFor="let product of subscriptionProducts"
-          [class.active]="selectedProduct === product"
-          (click)="selectedProduct = product"
-        >
-          <div>{{ product.title }}</div>
-          <div class="lead-2">
-            {{ product.price | currency: product.currency }}
-          </div>
-          <div class="small" *ngIf="product.save">
-            Save {{ product.save | percent }}
-          </div>
-        </button>
-      </div>
-    </div>
-
+<div class="mb-2">
+  <div class="cards display-flex flex-gap-0_5 mb-1">
     <button
-      class="button block mb-1"
-      [class.disabled]="selectedProduct === null"
-      (click)="onSubmit()"
+      class="card flex-1"
+      *ngFor="let product of subscriptionProducts"
+      [class.active]="selectedProduct === product"
+      (click)="selectedProduct = product"
     >
-      {{ this.isEligibleForTrial ? 'Start 7 days free trial' : 'Subscribe' }}
+      <div class="title">
+        {{ product.duration }}<br class="hide-when-needed" />
+        {{ product.duration | months }}
+      </div>
+      <div class="price">
+        {{ product.price / product.duration | currency: product.currency }}
+      </div>
+      <div class="duration">per month</div>
+      <div class="select">
+        <div
+          class="select-button"
+          [class.selected]="selectedProduct === product"
+        >
+          {{ selectedProduct === product ? 'Selected' : 'Select' }}
+        </div>
+      </div>
+      <div class="total">
+        <del *ngIf="product.duration > 1" class="saving">{{
+          subscriptionProducts[0].price * product.duration
+            | currency: product.currency
+        }}</del>
+        {{ product.price | currency: product.currency }}
+      </div>
     </button>
-    <div
-      class="text-danger text-center"
-      [class.visibility-hidden]="selectedProduct !== null || !isSubmitted"
-    >
-      Please select subscription plan.
-    </div>
   </div>
+</div>
+
+<button
+  class="button block mb-1 amplified x2"
+  [class.disabled]="selectedProduct === null"
+  (click)="onSubmit()"
+>
+  {{ this.isEligibleForTrial ? 'Start 7 days free trial' : 'Subscribe' }}
+</button>
+<div
+  class="text-danger text-center"
+  [class.visibility-hidden]="selectedProduct !== null || !isSubmitted"
+>
+  Please select subscription plan.
 </div>

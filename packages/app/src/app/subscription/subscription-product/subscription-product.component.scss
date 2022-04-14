@@ -1,0 +1,85 @@
+@import '../../../styles/variables';
+
+$excamation-color: $orange-550;
+
+.cards {
+  transform: scale(120%);
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+
+  @media (max-width: $md + 150px) {
+    transform: scale(100%);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.card {
+  background: $white;
+  color: $gray-100;
+  border: none;
+  border-radius: $border-radius;
+  padding: 1rem;
+  font: inherit;
+  cursor: pointer;
+  box-shadow: 0px 7px 5px 0px #000000;
+  transition: background 0.2s;
+
+  &.active {
+    background: $green-950;
+  }
+
+  .title {
+    font-family: 'Noto Serif', serif;
+    font-size: 200%;
+    font-weight: 700;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  .price {
+    font-size: 150%;
+  }
+
+  .duration {
+    font-size: 80%;
+    color: $gray-500;
+  }
+
+  .select {
+    margin: 1rem 0;
+    padding-top: 1rem;
+    border-top: 1px solid $gray-800;
+
+    .select-button {
+      padding: 0.3rem;
+      background: $green-350;
+      border-radius: $border-radius;
+      color: $white;
+      transition: box-shadow 0.2s, background-color 0.2s;
+      font-size: 80%;
+      box-shadow: 0px 2px 3px 0px $gray-250;
+
+      &.selected {
+        background: $excamation-color;
+        box-shadow: 0px 1px 3px 0px $gray-250;
+      }
+    }
+  }
+
+  .total {
+    font-size: 90%;
+    color: $gray-450;
+
+    .saving {
+      color: $excamation-color;
+    }
+  }
+
+  .hide-when-needed {
+    @media (min-width: $sm + 100px) {
+      display: none;
+    }
+  }
+}

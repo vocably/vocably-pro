@@ -1,5 +1,5 @@
 import { UserData } from '../auth/auth.service';
-import { products, SubscriptionProduct } from './paddle';
+import { SubscriptionProduct } from './paddle';
 import { isEligibleForTrial } from './isEligibleForTrial';
 import { environment } from '../../environments/environment';
 
@@ -7,14 +7,8 @@ export const getAvailableProducts = (
   userData: UserData
 ): SubscriptionProduct[] => {
   if (isEligibleForTrial(userData)) {
-    return [
-      products[environment.paddle.monthlyTrialId],
-      products[environment.paddle.yearlyTrialId],
-    ];
+    return environment.paddle.subscriptionProducts.filter((p) => p.trial > 0);
   } else {
-    return [
-      products[environment.paddle.monthlyId],
-      products[environment.paddle.yearlyId],
-    ];
+    return environment.paddle.subscriptionProducts.filter((p) => p.trial === 0);
   }
 };

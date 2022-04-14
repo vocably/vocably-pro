@@ -10,6 +10,8 @@ import { SubscriptionFormComponent } from './subscription-form/subscription-form
 import { AutoSubscribePageComponent } from './pages/auto-subscribe-page/auto-subscribe-page.component';
 import { SubscriptionProductComponent } from './subscription-product/subscription-product.component';
 import { SubscriptionFlowComponent } from './subscription-flow/subscription-flow.component';
+import { MonthsPipe } from './months.pipe';
+import { SavingPipe } from './saving.pipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { SubscriptionFlowComponent } from './subscription-flow/subscription-flow
     AutoSubscribePageComponent,
     SubscriptionProductComponent,
     SubscriptionFlowComponent,
+    MonthsPipe,
+    SavingPipe,
   ],
   imports: [
     CommonModule,

@@ -58,34 +58,58 @@ variable "paddle_vendor_id" {
   default = 5064
 }
 
-variable "paddle_monthly_trial_id" {
-  type    = number
-  default = 26950
-}
-
-variable "paddle_monthly_id" {
-  type    = number
-  default = 26951
-}
-
-variable "paddle_yearly_trial_id" {
-  type    = number
-  default = 26952
-}
-
-variable "paddle_yearly_id" {
-  type    = number
-  default = 26953
-}
-
-variable "paddle_monthly_price" {
-  type    = number
-  default = 4.99
-}
-
-variable "paddle_yearly_price" {
-  type    = number
-  default = 49.99
+variable "paddle_subscription_products" {
+  type = list(object({
+    duration = number,
+    id       = number,
+    price    = number,
+    currency = string,
+    trial    = number,
+  }))
+  default = [
+    {
+      duration = 1,
+      id       = 26950,
+      price    = 9.95,
+      currency = "EUR",
+      trial    = 7,
+    },
+    {
+      duration = 3,
+      id       = 27076,
+      price    = 19.95,
+      currency = "EUR",
+      trial    = 7,
+    },
+    {
+      duration = 12,
+      id       = 26952,
+      price    = 59.40,
+      currency = "EUR",
+      trial    = 7,
+    },
+    {
+      duration = 1,
+      id       = 26951,
+      price    = 9.95,
+      currency = "EUR",
+      trial    = 0,
+    },
+    {
+      duration = 3,
+      id       = 27077,
+      price    = 19.95,
+      currency = "EUR",
+      trial    = 0,
+    },
+    {
+      duration = 12,
+      id       = 26953,
+      price    = 59.40,
+      currency = "EUR",
+      trial    = 0,
+    }
+  ]
 }
 
 variable "paddle_public_key" {

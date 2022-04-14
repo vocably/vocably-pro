@@ -9,7 +9,7 @@
   --app-height: 100vh;
   --container-padding: #{$container-padding};
 
-  @media (max-width: $sm) {
+  @media (max-width: $md) {
     --container-padding: #{$container-padding-sm};
   }
 }

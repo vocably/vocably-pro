@@ -2,8 +2,8 @@
   margin: 0 auto;
   padding: var(--container-padding);
 
-  @media (min-width: $sm) {
-    width: $sm;
+  @media (min-width: $md) {
+    width: $md;
   }
 
   min-height: 100%;

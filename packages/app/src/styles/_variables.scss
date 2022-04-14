@@ -29,6 +29,10 @@ $dark-theme: (
   button-danger-bg-hover: $red-200,
   button-danger-border-color: $red-500,
   button-danger-border-color-hover: $red-550,
+  button-amplified-bg: $orange-350,
+  button-amplified-bg-hover: $orange-400,
+  button-amplified-border-color: $orange-500,
+  button-amplified-border-color-hover: $orange-550,
   form-border-color: $gray-400,
   form-border-color-focus: $gray-750,
   form-background-color: $gray-850,
@@ -68,7 +72,8 @@ $dark-theme: (
   ion-card-background: #1e1e1e,
 );
 
-$sm: 768px;
+$sm: 576px;
+$md: 768px;
 
 $container-padding: 2rem;
 $container-padding-sm: 1rem;
