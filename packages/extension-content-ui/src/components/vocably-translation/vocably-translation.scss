@@ -1,10 +1,11 @@
-@import '../../styles/variables';
+@import '../../styles/component';
 
 $select-padding: 6px;
 
 :host {
+  @include base-font();
+
   display: block;
-  font-size: $base-font-size;
 }
 
 .translation {
@@ -25,7 +26,7 @@ $select-padding: 6px;
   .pos {
     color: $gray-700;
     display: inline-block;
-    margin-left: 0.25rem;
+    margin-left: $base-font-size / 4;
     font-size: 60%;
   }
 

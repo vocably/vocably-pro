@@ -1,6 +1,8 @@
-@import '../../styles/variables';
+@import '../../styles/component';
 
 :host {
+  @include base-font();
+
   --max-height: 48vh;
   --background-rgb: 255, 255, 255;
   --padding-x: 16px;
@@ -11,13 +13,10 @@
   --scrollbar-track: 7px;
   $border-radius: 6px;
 
-  color: $gray-100;
   display: inline-block;
   padding: var(--shadow-size);
 
   .popup {
-    font-family: $font-family;
-    font-size: $base-font-size;
     background: rgb(var(--background-rgb));
     box-shadow: 0 0 var(--shadow-size) 1px $gray-300;
     border-radius: 6px;

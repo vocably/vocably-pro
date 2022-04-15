@@ -1,8 +1,9 @@
-@import '../../styles/variables';
+@import '../../styles/component';
 
 :host {
+  @include base-font();
   display: block;
-  margin: 1rem 0;
+  margin: $base-font-size 0;
 }
 
 .container {
@@ -10,22 +11,23 @@
 }
 
 .message {
-  margin-bottom: 0.5rem;
+  margin-bottom: $base-font-size / 2;
 }
 
 .button-container {
 }
 
 .button {
+  @include base-font();
+
   $shadow-size: 4px;
 
   display: inline-block;
   background: $button-bg;
   color: $button-color;
   border: none;
-  padding: 0.5rem;
+  padding: $base-font-size / 2;
   font: inherit;
-  font-size: 80%;
   font-weight: bold;
   cursor: pointer;
   border-radius: $border-radius;
