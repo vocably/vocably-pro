@@ -5,7 +5,10 @@
 
     <ol class="lead-2">
       <li class="mb-1">
-        <a [routerLink]="['/subscription']" [class.strike]="isSubscribed"
+        <a
+          [routerLink]="['/subscription']"
+          [class.strike]="isSubscribed"
+          data-test="todo-subscribe"
           >Get 7 days free trial</a
         >
       </li>

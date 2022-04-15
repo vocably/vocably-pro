@@ -13,6 +13,7 @@
       *ngFor="let product of subscriptionProducts"
       [class.active]="selectedProduct === product"
       (click)="selectedProduct = product"
+      [attr.data-test]="'subscribe-' + product.duration"
     >
       <div class="title">
         {{ product.duration }}<br class="hide-when-needed" />
@@ -45,6 +46,7 @@
   class="button block mb-1 amplified x2"
   [class.disabled]="selectedProduct === null"
   (click)="onSubmit()"
+  data-test="subscribe-button"
 >
   {{ this.isEligibleForTrial ? 'Start 7 days free trial' : 'Subscribe' }}
 </button>

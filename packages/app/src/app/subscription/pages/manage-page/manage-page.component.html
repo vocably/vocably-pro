@@ -27,19 +27,28 @@
           >.</ng-container
         >
       </div>
-      <button class="button block mb-1" (click)="updatePaymentMethod(userData)">
+      <button
+        class="button block mb-1"
+        (click)="updatePaymentMethod(userData)"
+        data-test="update-payment-method"
+      >
         Update Payment Method
       </button>
       <button
         class="button danger block"
         (click)="cancelSubscription(userData)"
+        data-test="cancel-subscription"
       >
         Cancel Subscription
       </button>
     </div>
   </div>
 </ng-container>
-<div class="hero" *ngIf="hasBeenSuccessfullyCancelled">
+<div
+  class="hero"
+  *ngIf="hasBeenSuccessfullyCancelled"
+  data-test="cancellation-success"
+>
   <div class="hero-body text-center">
     <div class="mb-1">
       <ion-icon
@@ -48,6 +57,8 @@
       ></ion-icon>
     </div>
     <div class="mb-1">The subscription has been successfully cancelled.</div>
-    <a [routerLink]="['/']">Return to dashboard</a>
+    <a [routerLink]="['/']" data-test="return-to-dashboard"
+      >Return to dashboard</a
+    >
   </div>
 </div>

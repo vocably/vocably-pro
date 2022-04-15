@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="menu" [class.flex-0]="title" *ngIf="!mini">
-      <button class="unstyled" [matMenuTriggerFor]="menu">
+      <button class="unstyled" [matMenuTriggerFor]="menu" data-test="main-menu">
         <ion-icon class="icon" name="menu-outline" size="large"></ion-icon>
       </button>
       <mat-menu #menu="matMenu">
@@ -63,6 +63,7 @@
             mat-menu-item
             *ngIf="isActive(userData)"
             [routerLink]="['/subscription/manage']"
+            data-test="main-menu-manage-subscription"
             >Manage Subscription</a
           >
         </ng-container>

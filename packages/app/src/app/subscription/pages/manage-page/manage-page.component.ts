@@ -13,7 +13,6 @@ import { isActive, isCancelled } from '../../subscriptionStatus';
 export class ManagePageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
-  public isLoading = true;
   public userData: UserData | false = false;
   public hasBeenSuccessfullyCancelled = false;
 

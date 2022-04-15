@@ -19,7 +19,10 @@
   ></app-subscription-form>
 
   <ng-container *ngIf="stage === 'paid'">
-    <div class="hero">
+    <div
+      class="hero"
+      [attr.data-test]="'post-payment-' + authStateUpdatedStatus"
+    >
       <div class="hero-body text-center">
         <ng-container>
           <div class="mb-1">
