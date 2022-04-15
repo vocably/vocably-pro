@@ -3,6 +3,7 @@ import { fr } from '../../fixtures/fr';
 
 describe('dashboard screen', () => {
   beforeEach(() => {
+    cy.task('resetUserCustomAttributes');
     cy.task('clearDecks');
     cy.login();
   });

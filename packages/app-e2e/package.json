@@ -17,8 +17,7 @@
   "dependencies": {},
   "devDependencies": {
     "@types/cypress-image-snapshot": "^3.1.6",
-    "@vocably/model": "0.0.0",
-    "cypress": "^9.4.1",
+    "cypress": "^9.5.4",
     "cypress-image-snapshot": "^4.0.1"
   }
 }

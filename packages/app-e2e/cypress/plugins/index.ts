@@ -1,6 +1,7 @@
 require('dotenv-flow').config();
 import { saveDeck } from './save-deck';
 import { clearDecks } from './clear-decks';
+import { resetUserCustomAttributes } from './reset-user-custom-attributes';
 import { addMatchImageSnapshotPlugin } from 'cypress-image-snapshot/plugin';
 
 const pluginConfig: Cypress.PluginConfig = (on, config) => {
@@ -9,6 +10,7 @@ const pluginConfig: Cypress.PluginConfig = (on, config) => {
   on('task', {
     clearDecks,
     saveDeck,
+    resetUserCustomAttributes,
   });
 
   on('before:browser:launch', (browser, launchOptions) => {
