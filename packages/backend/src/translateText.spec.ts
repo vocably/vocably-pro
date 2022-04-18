@@ -14,7 +14,7 @@ describe('translateText', () => {
       return;
     }
 
-    expect(result.value.target).toContain('car');
+    expect(result.value.target).toContain('machine');
     expect(result.value.sourceLanguage).toEqual('ru');
   });
 
