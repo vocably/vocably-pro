@@ -6,6 +6,8 @@ import { RefreshService } from './refresh.service';
 import { firstValueFrom, switchMap, tap } from 'rxjs';
 import { PaddleService } from './subscription/paddle.service';
 import * as PullToRefresh from 'pulltorefreshjs';
+import { AuthService } from './auth/auth.service';
+import { setUserId } from '../piwik';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +24,8 @@ export class AppComponent implements OnInit {
     private updateService: UpdateService,
     private refreshService: RefreshService,
     public platform: Platform,
-    private paddleService: PaddleService
+    private paddleService: PaddleService,
+    private auth: AuthService
   ) {
     routerParams.data$.subscribe((data) => {
       this.cleanScreen = data['cleanScreen'] ?? false;
@@ -39,6 +42,10 @@ export class AppComponent implements OnInit {
       .subscribe(() => refreshService.unregister('update'));
 
     this.paddleService.bootstrap();
+
+    this.auth.userData$.subscribe((userData) => {
+      setUserId(userData.email);
+    });
   }
 
   ngOnInit() {

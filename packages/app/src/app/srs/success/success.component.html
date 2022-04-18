@@ -1,6 +1,10 @@
 <ion-icon class="text-success icon" name="checkmark-circle"></ion-icon>
 <div class="text-center">
-  <button class="unstyled underline" (click)="oneMoreRound.emit()">
+  <button
+    class="unstyled underline track-click"
+    (click)="oneMoreRound.emit()"
+    id="practice-again-button"
+  >
     Take one more round
   </button>
 </div>

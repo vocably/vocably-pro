@@ -1,5 +1,10 @@
 <div class="gradient">
-  <a class="button block mb-1" [routerLink]="['study']">Practice</a>
+  <a
+    class="button block mb-1 track-click"
+    [routerLink]="['study']"
+    id="practice-button"
+    >Practice</a
+  >
   <ul class="unstyled mb-1" data-test="dashboard-cards">
     <li
       *ngFor="let item of cardItems.slice(0, 7); last as isLast"
@@ -26,5 +31,11 @@
 </div>
 
 <div class="text-right deck-options">
-  <a [routerLink]="['edit']" data-test="edit-button">Edit deck</a>
+  <a
+    [routerLink]="['edit']"
+    data-test="edit-button"
+    id="edit-deck"
+    class="track-click"
+    >Edit deck</a
+  >
 </div>
