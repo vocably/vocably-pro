@@ -15,7 +15,7 @@ describe('translateText', () => {
     }
 
     expect(result.value.target).toContain('machine');
-    expect(result.value.sourceLanguage).toEqual('ru');
+    expect(result.value.sourceLanguage).toEqual('bg');
   });
 
   it('considers input language', async () => {
