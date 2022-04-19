@@ -3,11 +3,12 @@ import { RouterParamsService } from './router-params.service';
 import { UpdateService } from './update.service';
 import { Platform } from '@ionic/angular';
 import { RefreshService } from './refresh.service';
-import { firstValueFrom, switchMap, tap } from 'rxjs';
+import { firstValueFrom, map, switchMap, tap, distinct } from 'rxjs';
 import { PaddleService } from './subscription/paddle.service';
 import * as PullToRefresh from 'pulltorefreshjs';
 import { AuthService } from './auth/auth.service';
-import { setUserId } from '../piwik';
+import { setUp, setUserId } from '../piwik';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -43,9 +44,22 @@ export class AppComponent implements OnInit {
 
     this.paddleService.bootstrap();
 
-    this.auth.userData$.subscribe((userData) => {
-      setUserId(userData.email);
-    });
+    let isPiwikSet = false;
+    this.auth.userData$
+      .pipe(
+        map((data) => data.email),
+        distinct()
+      )
+      .subscribe((email) => {
+        if (!isPiwikSet) {
+          setUp(environment.piwikId);
+          isPiwikSet = true;
+        }
+
+        setTimeout(() => {
+          setUserId(email);
+        }, 2000);
+      });
   }
 
   ngOnInit() {

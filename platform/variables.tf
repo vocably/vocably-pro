@@ -34,6 +34,11 @@ variable "extension_id" {
   type = string
 }
 
+variable "piwik_id" {
+  type    = string
+  default = "25473e53-4fde-4fe1-a2ce-273ec6a4d0e3"
+}
+
 variable "test_user_username" {
   type    = string
   default = "test_dev"
