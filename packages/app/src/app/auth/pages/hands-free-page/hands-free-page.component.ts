@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-hands-free-page',

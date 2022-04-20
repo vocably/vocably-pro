@@ -9,18 +9,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HeaderModule } from './header/header.module';
-import { HandsFreePageComponent } from './pages/hands-free-page/hands-free-page.component';
-import { SignInSuccessPageComponent } from './pages/sign-in-success-page/sign-in-success-page.component';
 import * as Sentry from '@sentry/angular';
 import { Router } from '@angular/router';
 import { ComponentsModule } from './components/components.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HandsFreePageComponent,
-    SignInSuccessPageComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { from, Subject, switchMap, takeUntil, tap, timer } from 'rxjs';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth.service';
 import { filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
