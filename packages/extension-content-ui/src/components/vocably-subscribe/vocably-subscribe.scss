@@ -1,0 +1,19 @@
+@import '../../styles/component';
+
+:host {
+  @include base-font();
+  display: block;
+  margin: $base-font-size 0;
+}
+
+.container {
+  display: inline-block;
+}
+
+.message {
+  margin-bottom: $base-font-size / 2;
+}
+
+.button {
+  @include button();
+}

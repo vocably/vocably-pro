@@ -1,0 +1,11 @@
+@import '../../styles/component';
+
+:host {
+  $size: $base-line-height;
+
+  display: inline-block;
+  width: $size;
+  height: $size;
+  line-height: $size;
+  vertical-align: middle;
+}

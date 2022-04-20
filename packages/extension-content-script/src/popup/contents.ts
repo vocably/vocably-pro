@@ -64,41 +64,55 @@ export const setContents = async ({
     return tearDown;
   }
 
-  const alert = document.createElement('vocably-alert');
+  const alert = document.createElement('div');
 
   const updateAlertMessage = (isLoggedIn: boolean, isActive: boolean) => {
     if (!isLoggedIn) {
-      alert.message = 'Please sign in to proceed.';
-      alert.cta = 'Sign In';
+      if (alert.dataset.message !== 'sign-in') {
+        alert.dataset.message = 'sign-in';
+        alert.innerHTML = '';
+        alert.appendChild(document.createElement('vocably-sign-in'));
+      }
       return;
     }
 
     if (!isActive) {
-      alert.message = 'Please subscribe to proceed.';
-      alert.cta = 'Subscribe';
+      if (alert.dataset.message !== 'subscribe') {
+        alert.dataset.message = 'subscribe';
+        alert.innerHTML = '';
+        alert.appendChild(document.createElement('vocably-subscribe'));
+      }
+      return;
     }
   };
 
   updateAlertMessage(isLoggedIn, isActive);
 
+  let windowProxy: WindowProxy | null = null;
+
+  const closeWindow = () => {
+    if (windowProxy !== null) {
+      windowProxy.close();
+      windowProxy = null;
+    }
+  };
+
+  intervalId = setInterval(async () => {
+    const [isLoggedIn, isActive] = await isAlright();
+    if (isLoggedIn && isActive) {
+      clearInterval(intervalId);
+      intervalId = null;
+      setTranslation();
+      setTimeout(closeWindow, 3000);
+    } else {
+      updateAlertMessage(isLoggedIn, isActive);
+    }
+  }, 1000);
+
   alert.addEventListener('confirm', () => {
-    const windowProxy = window.open(`${api.appBaseUrl}/hands-free`, '_blank');
-
+    closeWindow();
+    windowProxy = window.open(`${api.appBaseUrl}/hands-free`, '_blank');
     windowProxy.focus();
-
-    intervalId = setInterval(async () => {
-      const [isLoggedIn, isActive] = await isAlright();
-      if (isLoggedIn && isActive) {
-        clearInterval(intervalId);
-        intervalId = null;
-        setTranslation();
-        setTimeout(() => {
-          windowProxy.close();
-        }, 3000);
-      } else {
-        updateAlertMessage(isLoggedIn, isActive);
-      }
-    }, 1000);
   });
 
   popup.innerHTML = '';

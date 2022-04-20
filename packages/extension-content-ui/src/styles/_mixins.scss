@@ -4,3 +4,35 @@
   line-height: $base-line-height;
   color: $text-color;
 }
+
+@mixin button() {
+  @include base-font();
+
+  $shadow-size: 4px;
+
+  display: inline-block;
+  background: $button-bg;
+  color: $button-color;
+  border: none;
+  padding: $base-font-size / 2;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: $border-radius;
+  text-align: center;
+  text-decoration: none;
+  width: calc(100% - #{$shadow-size} * 2);
+  transition: background-color 200ms;
+  box-shadow: 0 1px $shadow-size 1px $gray-500;
+  margin: 0 $shadow-size;
+
+  &:hover,
+  &:focus {
+    background: $button-bg-hover;
+  }
+
+  &:active {
+    background: $button-bg-active;
+    box-shadow: 0 0 $shadow-size 1px $gray-500;
+  }
+}

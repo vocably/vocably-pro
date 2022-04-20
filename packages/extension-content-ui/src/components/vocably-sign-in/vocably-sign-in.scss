@@ -1,0 +1,31 @@
+@import '../../styles/component';
+
+:host {
+  @include base-font();
+  display: block;
+  margin: $base-font-size 0;
+}
+
+.container {
+  display: inline-block;
+}
+
+.p {
+  margin-bottom: $base-font-size / 2;
+
+  a {
+    color: inherit;
+  }
+}
+
+.muted {
+  color: $muted;
+}
+
+.button {
+  @include button();
+}
+
+.google-icon {
+  margin-right: 12px;
+}

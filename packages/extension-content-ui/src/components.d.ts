@@ -13,6 +13,8 @@ export namespace Components {
     }
     interface VocablyButton {
     }
+    interface VocablyGoogleIcon {
+    }
     interface VocablyLogo {
     }
     interface VocablyPopup {
@@ -20,7 +22,11 @@ export namespace Components {
     interface VocablySideB {
         "item": CardItem;
     }
+    interface VocablySignIn {
+    }
     interface VocablySpinner {
+    }
+    interface VocablySubscribe {
     }
     interface VocablyTranslation {
         "loading": boolean;
@@ -41,6 +47,12 @@ declare global {
         prototype: HTMLVocablyButtonElement;
         new (): HTMLVocablyButtonElement;
     };
+    interface HTMLVocablyGoogleIconElement extends Components.VocablyGoogleIcon, HTMLStencilElement {
+    }
+    var HTMLVocablyGoogleIconElement: {
+        prototype: HTMLVocablyGoogleIconElement;
+        new (): HTMLVocablyGoogleIconElement;
+    };
     interface HTMLVocablyLogoElement extends Components.VocablyLogo, HTMLStencilElement {
     }
     var HTMLVocablyLogoElement: {
@@ -59,11 +71,23 @@ declare global {
         prototype: HTMLVocablySideBElement;
         new (): HTMLVocablySideBElement;
     };
+    interface HTMLVocablySignInElement extends Components.VocablySignIn, HTMLStencilElement {
+    }
+    var HTMLVocablySignInElement: {
+        prototype: HTMLVocablySignInElement;
+        new (): HTMLVocablySignInElement;
+    };
     interface HTMLVocablySpinnerElement extends Components.VocablySpinner, HTMLStencilElement {
     }
     var HTMLVocablySpinnerElement: {
         prototype: HTMLVocablySpinnerElement;
         new (): HTMLVocablySpinnerElement;
+    };
+    interface HTMLVocablySubscribeElement extends Components.VocablySubscribe, HTMLStencilElement {
+    }
+    var HTMLVocablySubscribeElement: {
+        prototype: HTMLVocablySubscribeElement;
+        new (): HTMLVocablySubscribeElement;
     };
     interface HTMLVocablyTranslationElement extends Components.VocablyTranslation, HTMLStencilElement {
     }
@@ -74,10 +98,13 @@ declare global {
     interface HTMLElementTagNameMap {
         "vocably-alert": HTMLVocablyAlertElement;
         "vocably-button": HTMLVocablyButtonElement;
+        "vocably-google-icon": HTMLVocablyGoogleIconElement;
         "vocably-logo": HTMLVocablyLogoElement;
         "vocably-popup": HTMLVocablyPopupElement;
         "vocably-side-b": HTMLVocablySideBElement;
+        "vocably-sign-in": HTMLVocablySignInElement;
         "vocably-spinner": HTMLVocablySpinnerElement;
+        "vocably-subscribe": HTMLVocablySubscribeElement;
         "vocably-translation": HTMLVocablyTranslationElement;
     }
 }
@@ -89,6 +116,8 @@ declare namespace LocalJSX {
     }
     interface VocablyButton {
     }
+    interface VocablyGoogleIcon {
+    }
     interface VocablyLogo {
     }
     interface VocablyPopup {
@@ -97,7 +126,13 @@ declare namespace LocalJSX {
     interface VocablySideB {
         "item"?: CardItem;
     }
+    interface VocablySignIn {
+        "onConfirm"?: (event: CustomEvent<any>) => void;
+    }
     interface VocablySpinner {
+    }
+    interface VocablySubscribe {
+        "onConfirm"?: (event: CustomEvent<any>) => void;
     }
     interface VocablyTranslation {
         "loading"?: boolean;
@@ -108,10 +143,13 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "vocably-alert": VocablyAlert;
         "vocably-button": VocablyButton;
+        "vocably-google-icon": VocablyGoogleIcon;
         "vocably-logo": VocablyLogo;
         "vocably-popup": VocablyPopup;
         "vocably-side-b": VocablySideB;
+        "vocably-sign-in": VocablySignIn;
         "vocably-spinner": VocablySpinner;
+        "vocably-subscribe": VocablySubscribe;
         "vocably-translation": VocablyTranslation;
     }
 }
@@ -121,10 +159,13 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "vocably-alert": LocalJSX.VocablyAlert & JSXBase.HTMLAttributes<HTMLVocablyAlertElement>;
             "vocably-button": LocalJSX.VocablyButton & JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
+            "vocably-google-icon": LocalJSX.VocablyGoogleIcon & JSXBase.HTMLAttributes<HTMLVocablyGoogleIconElement>;
             "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;
             "vocably-side-b": LocalJSX.VocablySideB & JSXBase.HTMLAttributes<HTMLVocablySideBElement>;
+            "vocably-sign-in": LocalJSX.VocablySignIn & JSXBase.HTMLAttributes<HTMLVocablySignInElement>;
             "vocably-spinner": LocalJSX.VocablySpinner & JSXBase.HTMLAttributes<HTMLVocablySpinnerElement>;
+            "vocably-subscribe": LocalJSX.VocablySubscribe & JSXBase.HTMLAttributes<HTMLVocablySubscribeElement>;
             "vocably-translation": LocalJSX.VocablyTranslation & JSXBase.HTMLAttributes<HTMLVocablyTranslationElement>;
         }
     }
