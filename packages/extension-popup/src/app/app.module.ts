@@ -13,5 +13,6 @@ import { HeaderComponent } from './header/header.component';
   imports: [BrowserModule, ExtensionUiLibraryModule],
   providers: [],
   bootstrap: [AppComponent],
+  exports: [HeaderComponent],
 })
 export class AppModule {}

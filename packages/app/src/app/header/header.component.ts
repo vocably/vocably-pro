@@ -1,17 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import {
   isActive,
   isCancelled,
   isUnsubscribed,
 } from '../subscription/subscriptionStatus';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject();
+
   @Input() mini = false;
   @Input() title = '';
 
@@ -19,9 +22,22 @@ export class HeaderComponent implements OnInit {
   isCancelled = isCancelled;
   isUnsubscribed = isUnsubscribed;
 
+  isLoggedIn = false;
+
   constructor(public auth: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.auth.isLoggedIn$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isLoggedIn) => {
+        this.isLoggedIn = isLoggedIn;
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(null);
+    this.destroy$.complete();
+  }
 
   async signOut() {
     await this.auth.signOut();

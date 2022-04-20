@@ -18,7 +18,7 @@
         <ng-content></ng-content>
       </div>
     </div>
-    <div class="menu" [class.flex-0]="title" *ngIf="!mini">
+    <div class="menu" [class.flex-0]="title" *ngIf="isLoggedIn && !mini">
       <button class="unstyled" [matMenuTriggerFor]="menu" data-test="main-menu">
         <ion-icon class="icon" name="menu-outline" size="large"></ion-icon>
       </button>

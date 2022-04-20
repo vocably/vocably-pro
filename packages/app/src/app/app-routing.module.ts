@@ -29,6 +29,13 @@ const routes: Routes = [
     canActivate: [CognitoAuthGuard],
   },
   {
+    path: 'page',
+    loadChildren: () =>
+      import('./static-pages/static-pages.module').then(
+        (m) => m.StaticPagesModule
+      ),
+  },
+  {
     path: 'sign-in',
     component: SignInPageComponent,
   },
