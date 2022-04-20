@@ -8,6 +8,9 @@ import { TooltipTriggerForDirective } from './tooltip/tooltip-trigger-for.direct
 import { BackButtonComponent } from './back-button/back-button.component';
 import { SubscriptionStatusPipe } from './subscription-status.pipe';
 import { OfflineComponent } from './offline/offline.component';
+import { GoogleIconComponent } from './google-icon/google-icon.component';
+import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,8 +19,16 @@ import { OfflineComponent } from './offline/offline.component';
     BackButtonComponent,
     SubscriptionStatusPipe,
     OfflineComponent,
+    GoogleIconComponent,
   ],
-  imports: [CommonModule, IonicModule, RouterModule, OverlayModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    RouterModule,
+    OverlayModule,
+    MatIconModule,
+    HttpClientModule,
+  ],
   exports: [
     TooltipComponent,
     TooltipComponent,
@@ -25,6 +36,7 @@ import { OfflineComponent } from './offline/offline.component';
     BackButtonComponent,
     SubscriptionStatusPipe,
     OfflineComponent,
+    GoogleIconComponent,
   ],
 })
 export class ComponentsModule {}
