@@ -1,5 +1,5 @@
 {
-  "name": "@vocably/app-e2e",
+  "name": "@vocably/e2e",
   "version": "0.0.0",
   "private": true,
   "description": "",
@@ -9,7 +9,7 @@
   "scripts": {
     "e2e-no-extension": "cypress open --config-file cypress.no-extension.json",
     "e2e-extension": "cypress open --config-file cypress.extension.json",
-    "test": "echo '@vocably/app-e2e has no tests.'"
+    "test": "echo '@vocably/e2e has no tests.'"
   },
   "repository": {
     "type": "git",
