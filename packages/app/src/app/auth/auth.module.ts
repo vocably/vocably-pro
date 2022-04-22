@@ -6,12 +6,14 @@ import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../components/components.module';
 import { HandsFreePageComponent } from './pages/hands-free-page/hands-free-page.component';
 import { SignInSuccessPageComponent } from './pages/sign-in-success-page/sign-in-success-page.component';
+import { SignOutPageComponent } from './pages/sign-out-page/sign-out-page.component';
 
 @NgModule({
   declarations: [
     SignInPageComponent,
     HandsFreePageComponent,
     SignInSuccessPageComponent,
+    SignOutPageComponent,
   ],
   imports: [CommonModule, HeaderModule, IonicModule, ComponentsModule],
   exports: [HandsFreePageComponent, SignInSuccessPageComponent],

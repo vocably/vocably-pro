@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { SignInPageComponent } from './auth/pages/sign-in-page/sign-in-page.component';
 import { HandsFreePageComponent } from './auth/pages/hands-free-page/hands-free-page.component';
 import { SignInSuccessPageComponent } from './auth/pages/sign-in-success-page/sign-in-success-page.component';
+import { SignOutPageComponent } from './auth/pages/sign-out-page/sign-out-page.component';
 
 export const autoSignInPath = 'hands-free';
 
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'signed-in',
     component: SignInSuccessPageComponent,
+  },
+  {
+    path: 'sign-out',
+    component: SignOutPageComponent,
   },
 ];
 
