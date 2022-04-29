@@ -1,14 +1,11 @@
-import {
-  isLexicalaLanguage,
-  AnalyzePayload,
-  Result,
-  Analysis,
-} from '@vocably/model';
+import { AnalyzePayload, Result, Analysis, isLanguage } from '@vocably/model';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { translateText } from '../../translateText';
 import { lexicala } from '../../lexicala';
 import { extractUniqueHeadwords } from './extractUniqueHeadwords';
 import { translateNormalizedHeadwords } from './translateNormalizedHeadwords';
+import { languageToLexicalaLanguage } from '../../lexicala/lexicalaLanguageMapper';
+import { lexicalaSearchResultToAnalysisItem } from '../../lexicala/lexicalaSearchResultToAnalysisItem';
 
 export const buildResult = async (
   event: APIGatewayProxyEvent
@@ -23,7 +20,7 @@ export const buildResult = async (
     };
   }
 
-  if (payload.sourceLanguage && !isLexicalaLanguage(payload.sourceLanguage)) {
+  if (payload.sourceLanguage && !isLanguage(payload.sourceLanguage)) {
     return {
       success: false,
       errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_REQUESTED_LANGUAGE',
@@ -43,18 +40,30 @@ export const buildResult = async (
   const sourceLanguage =
     payload.sourceLanguage ?? translationResult.value.sourceLanguage;
 
-  if (!isLexicalaLanguage(sourceLanguage)) {
+  const lexicalaLanguage = languageToLexicalaLanguage(sourceLanguage);
+
+  if (lexicalaLanguage === null) {
     return {
-      success: false,
-      errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_DETECTED_LANGUAGE',
-      reason: `The DETECTED source language (${sourceLanguage}) is not available.`,
+      success: true,
+      value: {
+        source: payload.source,
+        translation: translationResult.value,
+      },
     };
   }
 
-  const lexicalaResult = await lexicala(sourceLanguage, payload.source);
+  const lexicalaResult = await lexicala(lexicalaLanguage, payload.source);
 
   if (lexicalaResult.success === false) {
-    return lexicalaResult;
+    console.error('Lexicala error', lexicalaResult);
+
+    return {
+      success: true,
+      value: {
+        source: payload.source,
+        translation: translationResult.value,
+      },
+    };
   }
 
   const normalizedHeadwords = extractUniqueHeadwords(lexicalaResult.value);
@@ -64,7 +73,7 @@ export const buildResult = async (
     value: {
       source: payload.source,
       translation: translationResult.value,
-      lexicala: lexicalaResult.value,
+      items: lexicalaResult.value.map(lexicalaSearchResultToAnalysisItem),
       normalized: await translateNormalizedHeadwords(
         normalizedHeadwords,
         sourceLanguage,

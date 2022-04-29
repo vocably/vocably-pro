@@ -1,5 +1,5 @@
-import { Headword, LexicalaSearchResultItem } from '@vocably/model';
 import { uniq } from 'lodash-es';
+import { Headword, LexicalaSearchResultItem } from '../../lexicala';
 
 export const extractUniqueHeadwords = (
   items: Pick<LexicalaSearchResultItem, 'headword'>[]

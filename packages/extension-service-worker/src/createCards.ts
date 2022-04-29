@@ -80,7 +80,7 @@ export const createCards = (
 ): CardItem[] => {
   const srsItem = createSrsItem();
 
-  if (analysis.lexicala === undefined || analysis.lexicala.length === 0) {
+  if (analysis.items === undefined || analysis.items.length === 0) {
     return addCardCandidates(collection, [
       {
         language: analysis.translation.sourceLanguage,
@@ -95,21 +95,17 @@ export const createCards = (
 
   return addCardCandidates(
     collection,
-    analysis.lexicala
-      .map((lexicalaItem): Card => {
-        const headword = Array.isArray(lexicalaItem.headword)
-          ? lexicalaItem.headword[0]
-          : lexicalaItem.headword;
+    analysis.items
+      .map((analysisItem): Card => {
         return {
           language: analysis.translation.sourceLanguage,
-          source: headword.text,
-          definition: join(
-            lexicalaItem.senses
-              .filter((s) => s.definition)
-              .map((s) => s.definition)
+          source: analysisItem.source,
+          definition: join(analysisItem.definitions),
+          translation: extractTranslation(
+            analysisItem.source,
+            analysis.normalized
           ),
-          translation: extractTranslation(headword.text, analysis.normalized),
-          partOfSpeech: headword.pos ?? '',
+          partOfSpeech: analysisItem.partOfSpeech ?? '',
           ...srsItem,
         };
       })

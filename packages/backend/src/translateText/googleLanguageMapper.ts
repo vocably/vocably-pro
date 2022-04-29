@@ -1,4 +1,6 @@
-export const Languages = [
+import { Language } from '@vocably/model';
+
+const GoogleTranslateLanguages = [
   'af',
   'sq',
   'am',
@@ -12,9 +14,11 @@ export const Languages = [
   'bg',
   'ca',
   'zh',
+  'zh-CN',
   'co',
   'haw',
   'hr',
+  'hmn',
   'cs',
   'da',
   'nl',
@@ -32,9 +36,9 @@ export const Languages = [
   'ht',
   'ha',
   'he',
+  'iw',
   'hi',
   'hu',
-  'hmn',
   'is',
   'ig',
   'id',
@@ -108,7 +112,21 @@ export const Languages = [
   'zu',
 ] as const;
 
-export type Language = typeof Languages[number];
+export type GoogleTranslateLanguage = typeof GoogleTranslateLanguages[number];
 
-export const isLanguage = (language: string): language is Language =>
-  Languages.indexOf(language as Language) !== -1;
+export const languageToGoogleTranslateLanguage = (
+  language: Language
+): GoogleTranslateLanguage => language;
+
+export const googleTranslateLanguageToLanguage = (
+  googleTranslateLanguage: GoogleTranslateLanguage
+): Language => {
+  switch (googleTranslateLanguage) {
+    case 'zh-CN':
+      return 'zh';
+    case 'iw':
+      return 'he';
+    default:
+      return googleTranslateLanguage;
+  }
+};

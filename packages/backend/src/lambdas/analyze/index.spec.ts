@@ -67,7 +67,7 @@ describe('integration check for translate lambda', () => {
     ]);
   });
 
-  it('is not a big fan of unsupported languages', async () => {
+  it('translates texts as is when language does not supported by lexicala', async () => {
     mockEvent.body = JSON.stringify({
       source: 'labas rytas',
       sourceLanguage: 'lt',
@@ -75,7 +75,10 @@ describe('integration check for translate lambda', () => {
     mockEvent.requestContext = paidRequestContext;
     const result = await analyze(mockEvent);
     console.log({ result });
-    expect(result.statusCode).toEqual(500);
+    expect(result.statusCode).toEqual(200);
+    const resultBody = JSON.parse(result.body);
+    expect(resultBody.source).toEqual('labas rytas');
+    expect(resultBody.translation).toBeDefined();
   });
 
   it('stops unpaid requests', async () => {

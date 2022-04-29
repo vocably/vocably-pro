@@ -1,5 +1,10 @@
 import { TranslationServiceClient } from '@google-cloud/translate';
-import { Result, Translation } from '@vocably/model';
+import { Result, Translation, Language } from '@vocably/model';
+import {
+  GoogleTranslateLanguage,
+  googleTranslateLanguageToLanguage,
+  languageToGoogleTranslateLanguage,
+} from './translateText/googleLanguageMapper';
 
 const translationClient = new TranslationServiceClient();
 const location = 'global';
@@ -8,14 +13,17 @@ const targetLanguage = 'en';
 
 export const translateText = async (
   source: string,
-  sourceLanguage: string | null = null
+  sourceLanguage: Language | null = null
 ): Promise<Result<Translation>> => {
   const request = {
     parent: `projects/${process.env.GOOGLE_PROJECT_ID}/locations/${location}`,
     contents: [source],
     mimeType: 'text/plain',
     targetLanguageCode: targetLanguage,
-    sourceLanguageCode: sourceLanguage,
+    sourceLanguageCode:
+      sourceLanguage === null
+        ? null
+        : languageToGoogleTranslateLanguage(sourceLanguage),
   };
 
   try {
@@ -30,7 +38,11 @@ export const translateText = async (
     }
 
     const translation = response.translations[0];
-    const mayBeDetected = sourceLanguage ?? translation.detectedLanguageCode;
+    const mayBeDetected =
+      sourceLanguage ??
+      googleTranslateLanguageToLanguage(
+        translation.detectedLanguageCode as GoogleTranslateLanguage
+      );
 
     if (!mayBeDetected) {
       return {

@@ -1,4 +1,4 @@
-import { Translation, Result, isSuccess } from '@vocably/model';
+import { Translation, Result, isSuccess, Language } from '@vocably/model';
 import { translateText } from '../../translateText';
 
 const isFulfilled = <T>(
@@ -7,7 +7,7 @@ const isFulfilled = <T>(
 
 export const translateNormalizedHeadwords = async (
   headwords: string[],
-  sourceLanguage: string,
+  sourceLanguage: Language,
   originalTranslation: Translation
 ): Promise<Translation[]> => {
   const translationResults = await Promise.allSettled(

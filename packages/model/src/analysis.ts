@@ -1,27 +1,26 @@
-export type Headword = { text?: string; pos?: string };
-
-export type LexicalaSearchResultItem = {
-  id: string;
-  language: string;
-  headword: Headword | Headword[];
-  senses: { id?: string; definition?: string }[];
-};
+import { Language } from './language';
 
 export type Translation = {
   source: string;
-  sourceLanguage: string;
+  sourceLanguage: Language;
   target: string;
-  targetLanguage: string;
+  targetLanguage: Language;
 };
 
 export type AnalyzePayload = {
   source: string;
-  sourceLanguage?: string;
+  sourceLanguage?: Language;
+};
+
+export type AnalysisItem = {
+  source: string;
+  definitions: string[];
+  partOfSpeech?: string;
 };
 
 export type Analysis = {
   source: string;
   translation: Translation;
-  lexicala?: LexicalaSearchResultItem[];
+  items?: AnalysisItem[];
   normalized?: Translation[];
 };

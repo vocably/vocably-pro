@@ -1,10 +1,16 @@
-import {
-  LexicalaLanguage,
-  LexicalaSearchResultItem,
-  Result,
-} from '@vocably/model';
+import { Result } from '@vocably/model';
 import { URLSearchParams } from 'url';
 import { request } from './utils/request';
+import { LexicalaLanguage } from './lexicala/lexicalaLanguageMapper';
+
+export type Headword = { text?: string; pos?: string };
+
+export type LexicalaSearchResultItem = {
+  id: string;
+  language: LexicalaLanguage;
+  headword: Headword | Headword[];
+  senses: { id?: string; definition?: string }[];
+};
 
 export const lexicala = async (
   language: LexicalaLanguage,
