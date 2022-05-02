@@ -27,6 +27,9 @@ export const [cleanUp, onCleanUpRequest] = createScopedMessage<
   Result<null>
 >('cleanUp');
 
-export const [ping, onPing] = createExternalMessage<void, string>(
-  'vocably.ping'
-);
+export const [ping, onPing] = createScopedMessage<void, string>('ping');
+
+export const [pingExternal, onPingExternal] = createExternalMessage<
+  void,
+  string
+>('vocably.ping-external');

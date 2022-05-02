@@ -13,6 +13,7 @@ import {
   onCleanUpRequest,
   onIsActiveRequest,
   onPing,
+  onPingExternal,
 } from '@vocably/extension-messages';
 import { createCards } from './createCards';
 import { makeDelete } from '@vocably/crud';
@@ -145,6 +146,10 @@ export const registerServiceWorker = (
   });
 
   onPing((sendResponse) => {
+    return sendResponse('pong');
+  });
+
+  onPingExternal((sendResponse) => {
     return sendResponse('pong');
   });
 

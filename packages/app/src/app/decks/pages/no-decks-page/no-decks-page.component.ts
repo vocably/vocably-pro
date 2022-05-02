@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DeckListStoreService } from '../../deck-list-store.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
-import { catchError, from, map, of, Subject, takeUntil } from 'rxjs';
+import { defer, map, retry, Subject, takeUntil } from 'rxjs';
 import { isSubscribed } from '../../../subscription/isSubscribed';
-import { ping } from '@vocably/extension-messages';
+import { pingExternal } from '@vocably/extension-messages';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -34,14 +34,16 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
       });
     }
 
-    from(ping(environment.chromeExtensionId))
+    defer(() => pingExternal(environment.chromeExtensionId))
       .pipe(
         map(() => true),
-        catchError(() => of(false)),
+        retry({
+          delay: 2000,
+        }),
         takeUntil(this.destroy$)
       )
-      .subscribe((isInstalled) => {
-        this.isInstalled = isInstalled;
+      .subscribe(() => {
+        this.isInstalled = true;
       });
   }
 
