@@ -16,6 +16,7 @@
 
 .hero-body {
   position: relative;
+  top: -1 * math.div($header-height, 2);
 
   .max & {
     top: 0;
