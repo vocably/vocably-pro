@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sneas/vocably.git"
+    "url": "https://github.com/vocably-pro/vocably.git"
   },
   "dependencies": {
     "@vocably/api": "0.0.0",
