@@ -2,8 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DeckListStoreService } from '../../deck-list-store.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
-import { Subject, takeUntil } from 'rxjs';
+import { catchError, from, map, of, Subject, takeUntil } from 'rxjs';
 import { isSubscribed } from '../../../subscription/isSubscribed';
+import { ping } from '@vocably/extension-messages';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-no-decks-page',
@@ -12,8 +14,9 @@ import { isSubscribed } from '../../../subscription/isSubscribed';
 })
 export class NoDecksPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
-
   public isSubscribed = false;
+
+  public isInstalled = false;
 
   constructor(
     deckListStore: DeckListStoreService,
@@ -30,6 +33,16 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
         relativeTo: route,
       });
     }
+
+    from(ping(environment.chromeExtensionId))
+      .pipe(
+        map(() => true),
+        catchError(() => of(false)),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((isInstalled) => {
+        this.isInstalled = isInstalled;
+      });
   }
 
   ngOnInit(): void {}

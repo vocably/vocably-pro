@@ -1,4 +1,4 @@
-import { createMessage } from '@vocably/hermes';
+import { createExternalMessage, createMessage } from '@vocably/hermes';
 import { TranslationCards, AnalyzePayload, Result } from '@vocably/model';
 
 const createScope =
@@ -27,4 +27,6 @@ export const [cleanUp, onCleanUpRequest] = createScopedMessage<
   Result<null>
 >('cleanUp');
 
-export const [ping, onPing] = createScopedMessage<void, string>('ping');
+export const [ping, onPing] = createExternalMessage<void, string>(
+  'vocably.ping'
+);
