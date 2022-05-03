@@ -6,6 +6,7 @@ import { SignInPageComponent } from './auth/pages/sign-in-page/sign-in-page.comp
 import { HandsFreePageComponent } from './auth/pages/hands-free-page/hands-free-page.component';
 import { SignInSuccessPageComponent } from './auth/pages/sign-in-success-page/sign-in-success-page.component';
 import { SignOutPageComponent } from './auth/pages/sign-out-page/sign-out-page.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 export const autoSignInPath = 'hands-free';
 
@@ -52,6 +53,7 @@ const routes: Routes = [
     path: 'sign-out',
     component: SignOutPageComponent,
   },
+  { path: '**', pathMatch: 'full', component: NotFoundPageComponent },
 ];
 
 @NgModule({

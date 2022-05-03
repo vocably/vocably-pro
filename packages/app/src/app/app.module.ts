@@ -12,9 +12,10 @@ import { HeaderModule } from './header/header.module';
 import * as Sentry from '@sentry/angular';
 import { Router } from '@angular/router';
 import { ComponentsModule } from './components/components.module';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, NotFoundPageComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
