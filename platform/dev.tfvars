@@ -4,6 +4,7 @@ google_oauth2_client_id = "358366140631-qgk8e24k3ia92115kkl13arvj6vccdt8.apps.go
 extension_name          = "Vocably - dev"
 extension_key           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 extension_id            = "mbpgmaflnlocikfiffhkjehhmnapkjgp"
+piwik_id                = "25473e53-4fde-4fe1-a2ce-273ec6a4d0e3"
 paddle_vendor_id        = 5064
 paddle_sandbox          = true
 paddle_test_env         = "dev"
