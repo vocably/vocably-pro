@@ -9,6 +9,7 @@ locals {
 export const environmentLocal = {
   chromeExtensionId: '${var.extension_id}',
   piwikId: '${var.piwik_id}',
+  sentryEnvironment: '${var.sentry_environment}',
   paddle: {
     sandbox: ${var.paddle_sandbox ? "true" : "false"},
     vendorId: ${var.paddle_vendor_id},

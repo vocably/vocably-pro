@@ -4,6 +4,7 @@ google_oauth2_client_id = "241345060015-qjvuir7gr48ed8u3v92dmobt8u9mrbng.apps.go
 extension_name          = "Vocably - stage"
 extension_key           = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 extension_id            = "nomaniapkcfgfdgdadfojehechmghpgl"
+sentry_environment      = "stage"
 piwik_id                = "25473e53-4fde-4fe1-a2ce-273ec6a4d0e3"
 paddle_vendor_id        = 6005
 paddle_sandbox          = true

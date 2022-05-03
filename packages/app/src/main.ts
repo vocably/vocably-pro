@@ -11,10 +11,10 @@ import * as Sentry from '@sentry/angular';
 import { BrowserTracing } from '@sentry/tracing';
 
 Sentry.init({
+  environment: environment.sentryEnvironment,
   dsn: 'https://3e78a7263b224f07a7316c655d40a415@o1191770.ingest.sentry.io/6313273',
   integrations: [
     new BrowserTracing({
-      tracingOrigins: ['localhost', 'https://yourserver.io/api'],
       routingInstrumentation: Sentry.routingInstrumentation,
     }),
   ],

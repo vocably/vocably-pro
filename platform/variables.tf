@@ -34,6 +34,10 @@ variable "extension_id" {
   type = string
 }
 
+variable "sentry_environment" {
+  type = string
+}
+
 variable "piwik_id" {
   type = string
 }
