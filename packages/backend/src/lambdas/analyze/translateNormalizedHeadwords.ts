@@ -18,7 +18,11 @@ export const translateNormalizedHeadwords = async (
           value: originalTranslation,
         } as Result<Translation>);
       } else {
-        return translateText(headword, sourceLanguage);
+        return translateText(
+          headword,
+          sourceLanguage,
+          originalTranslation.targetLanguage
+        );
       }
     })
   );

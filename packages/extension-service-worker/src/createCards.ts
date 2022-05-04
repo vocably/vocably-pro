@@ -103,7 +103,7 @@ export const createCards = (
           definition: join(analysisItem.definitions),
           translation: extractTranslation(
             analysisItem.source,
-            analysis.normalized
+            analysis.normalized ?? []
           ),
           partOfSpeech: analysisItem.partOfSpeech ?? '',
           ...srsItem,

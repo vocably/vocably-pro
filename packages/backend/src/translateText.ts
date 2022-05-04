@@ -9,12 +9,23 @@ import {
 const translationClient = new TranslationServiceClient();
 const location = 'global';
 
-const targetLanguage = 'en';
-
 export const translateText = async (
   source: string,
-  sourceLanguage: Language | null = null
+  sourceLanguage: Language | null = null,
+  targetLanguage: Language
 ): Promise<Result<Translation>> => {
+  if (sourceLanguage === targetLanguage) {
+    return {
+      success: true,
+      value: {
+        source,
+        sourceLanguage,
+        targetLanguage,
+        target: source,
+      },
+    };
+  }
+
   const request = {
     parent: `projects/${process.env.GOOGLE_PROJECT_ID}/locations/${location}`,
     contents: [source],

@@ -4,6 +4,7 @@ import {
   APIGatewayProxyEvent,
 } from 'aws-lambda';
 import { inspect } from '../../utils/inspect';
+import { Analysis } from '@vocably/model';
 
 // @ts-ignore
 let mockEvent: APIGatewayProxyEvent = {};
@@ -88,5 +89,20 @@ describe('integration check for translate lambda', () => {
     console.log({ result });
     expect(result.statusCode).toEqual(401);
     expect(JSON.parse(result.body)).toEqual({ error: 'UNPAID_REQUEST' });
+  });
+
+  it('skips normalization translation when source language equals to target language', async () => {
+    mockEvent.body = JSON.stringify({
+      source: 'asylum',
+    });
+    mockEvent.requestContext = paidRequestContext;
+    const result = await analyze(mockEvent);
+    console.log({ result });
+    expect(result.statusCode).toEqual(200);
+    const resultBody: Analysis = JSON.parse(result.body);
+    expect(resultBody.source).toEqual('asylum');
+    expect(resultBody.translation).toBeDefined();
+    expect(resultBody.items.length).toBeGreaterThan(0);
+    expect(resultBody.normalized).not.toBeDefined();
   });
 });

@@ -1,4 +1,11 @@
-import { AnalyzePayload, Result, Analysis, isLanguage } from '@vocably/model';
+import {
+  AnalyzePayload,
+  Result,
+  Analysis,
+  isLanguage,
+  Translation,
+  Language,
+} from '@vocably/model';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { translateText } from '../../translateText';
 import { lexicala } from '../../lexicala';
@@ -6,6 +13,8 @@ import { extractUniqueHeadwords } from './extractUniqueHeadwords';
 import { translateNormalizedHeadwords } from './translateNormalizedHeadwords';
 import { languageToLexicalaLanguage } from '../../lexicala/lexicalaLanguageMapper';
 import { lexicalaSearchResultToAnalysisItem } from '../../lexicala/lexicalaSearchResultToAnalysisItem';
+
+const targetLanguage: Language = 'en';
 
 export const buildResult = async (
   event: APIGatewayProxyEvent
@@ -30,7 +39,8 @@ export const buildResult = async (
 
   const translationResult = await translateText(
     payload.source,
-    payload.sourceLanguage
+    payload.sourceLanguage,
+    targetLanguage
   );
 
   if (translationResult.success === false) {
@@ -66,7 +76,15 @@ export const buildResult = async (
     };
   }
 
-  const normalizedHeadwords = extractUniqueHeadwords(lexicalaResult.value);
+  let normalized: Translation[];
+
+  if (sourceLanguage !== targetLanguage) {
+    normalized = await translateNormalizedHeadwords(
+      extractUniqueHeadwords(lexicalaResult.value),
+      sourceLanguage,
+      translationResult.value
+    );
+  }
 
   return {
     success: true,
@@ -74,11 +92,7 @@ export const buildResult = async (
       source: payload.source,
       translation: translationResult.value,
       items: lexicalaResult.value.map(lexicalaSearchResultToAnalysisItem),
-      normalized: await translateNormalizedHeadwords(
-        normalizedHeadwords,
-        sourceLanguage,
-        translationResult.value
-      ),
+      normalized,
     },
   };
 };
