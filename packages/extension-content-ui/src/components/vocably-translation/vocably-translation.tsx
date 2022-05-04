@@ -25,6 +25,27 @@ export class VocablyTranslation {
   @Event() language: EventEmitter<string>;
 
   render() {
+    const languageSelector = this.result && this.result.success && (
+      <select
+        disabled={this.loading}
+        onChange={(event) =>
+          this.language.emit((event.target as HTMLSelectElement).value)
+        }
+      >
+        {Object.entries(languageList).map(([code, name]) => (
+          <option
+            selected={
+              // @ts-ignore
+              this.result.value.translation.sourceLanguage === code
+            }
+            value={code}
+          >
+            {name}
+          </option>
+        ))}
+      </select>
+    );
+
     return (
       <div class="loading-container">
         {this.result === null && <vocably-spinner></vocably-spinner>}
@@ -34,44 +55,33 @@ export class VocablyTranslation {
         {this.result && this.result.success === true && (
           <Fragment>
             <div class="translation">
-              <div class="direct">
-                <div class="header">Direct</div>
+              {this.result.value.translation.sourceLanguage !==
+                this.result.value.translation.targetLanguage && (
+                <div class="direct">
+                  <div class="header">Direct</div>
 
-                <div class="label">
-                  <select
-                    disabled={this.loading}
-                    onChange={(event) =>
-                      this.language.emit(
-                        (event.target as HTMLSelectElement).value
-                      )
-                    }
-                  >
-                    {Object.entries(languageList).map(([code, name]) => (
-                      <option
-                        selected={
-                          // @ts-ignore
-                          this.result.value.translation.sourceLanguage === code
-                        }
-                        value={code}
-                      >
-                        {name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div class="phrase">{this.phrase}</div>
+                  <div class="label">{languageSelector}</div>
+                  <div class="phrase">{this.phrase}</div>
 
-                <div class="label">
-                  {getFullLanguageName(
-                    this.result.value.translation.targetLanguage
-                  )}
+                  <Fragment>
+                    <div class="label">
+                      {getFullLanguageName(
+                        this.result.value.translation.targetLanguage
+                      )}
+                    </div>
+                    <div class="meaning">
+                      {this.result.value.translation.target}
+                    </div>
+                  </Fragment>
                 </div>
-                <div class="meaning">
-                  {this.result.value.translation.target}
-                </div>
-              </div>
+              )}
               <div class="cards">
                 <div class="header">Cards</div>
+
+                {this.result.value.translation.sourceLanguage ===
+                  this.result.value.translation.targetLanguage && (
+                  <div class="language">{languageSelector}</div>
+                )}
 
                 {this.result.value.cards.map((card) => (
                   <div class="card">

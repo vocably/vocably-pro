@@ -98,6 +98,37 @@
             ],
           },
         };
+
+        const englishTranslationResult = {
+          success: true,
+          value: {
+            cards: [
+              {
+                data: {
+                  language: 'en',
+                  source: 'bring',
+                  definition:
+                    '* to have sth or sb with you when you come\n* to make sth come to a place\n* to result in a new total of',
+                  translation: '',
+                  partOfSpeech: 'verb',
+                  interval: 0,
+                  repetition: 0,
+                  eFactor: 2.5,
+                  dueDate: 1651622400000,
+                },
+                id: 'ifu0J',
+                created: 1651656677053,
+              },
+            ],
+            source: 'bringing',
+            translation: {
+              source: 'bringing',
+              sourceLanguage: 'en',
+              target: 'bringing',
+              targetLanguage: 'en',
+            },
+          },
+        };
       </script>
 
       <p>This is a translation result. Success.</p>
@@ -113,6 +144,22 @@
         <script type="text/javascript">
           document.getElementById('translationSuccess').result =
             successfulTranslationResult;
+        </script>
+      </div>
+
+      <p>This is a translation result for English.</p>
+
+      <div class="mb-3">
+        <vocably-translation
+          phrase="bringing"
+          id="translationEnglishSuccess"
+        ></vocably-translation>
+      </div>
+
+      <div class="mb-3">
+        <script type="text/javascript">
+          document.getElementById('translationEnglishSuccess').result =
+            englishTranslationResult;
         </script>
       </div>
 
