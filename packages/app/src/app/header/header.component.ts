@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isCancelled = isCancelled;
   isUnsubscribed = isUnsubscribed;
 
-  isLoggedIn = false;
+  isLoggedIn: boolean | null = null;
 
   constructor(public auth: AuthService) {}
 

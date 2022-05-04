@@ -1,74 +1,76 @@
 <header class="header" [class.mini]="mini">
   <div class="header-items">
-    <div *ngIf="title" class="title">
-      <app-back-button
-        class="back middle mr-1"
-        [label]="false"
-      ></app-back-button>
-      <span class="middle">{{ title }}</span>
-    </div>
-    <div class="logo" *ngIf="!title">
-      <a [routerLink]="['/']" *ngIf="!mini"
-        ><app-logo class="logo-image"></app-logo
-      ></a>
-      <app-logo class="logo-image" *ngIf="mini"></app-logo>
-    </div>
-    <div class="content" *ngIf="!mini">
-      <div class="inline-block">
-        <ng-content></ng-content>
+    <ng-container *ngIf="isLoggedIn !== null">
+      <div *ngIf="title" class="title">
+        <app-back-button
+          class="back middle mr-1"
+          [label]="false"
+        ></app-back-button>
+        <span class="middle">{{ title }}</span>
       </div>
-    </div>
-    <div class="menu" [class.flex-0]="title" *ngIf="isLoggedIn && !mini">
-      <button class="unstyled" [matMenuTriggerFor]="menu" data-test="main-menu">
-        <ion-icon class="icon" name="menu-outline" size="large"></ion-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <ng-container *ngIf="auth.userData$ | async as userData">
-          <span mat-menu-item [disabled]="true"
-            >Subscription status:
-            <strong>{{ userData | subscriptionStatus }}</strong></span
-          >
-          <span
-            mat-menu-item
-            *ngIf="
-              isCancelled(userData) && !isExpired(userData.cancellationDate)
-            "
-            [disabled]="true"
-            >Available until:
-            {{ userData.cancellationDate | date: 'mediumDate' }}</span
-          >
-          <span
-            mat-menu-item
-            *ngIf="isActive(userData) && userData.nextBillDate"
-            [disabled]="true"
-            >Next payment:
-            <strong>{{
-              userData.nextBillDate | date: 'mediumDate'
-            }}</strong></span
-          >
-          <span
-            mat-menu-item
-            *ngIf="isActive(userData) && userData.unitPrice"
-            [disabled]="true"
-            >Amount:
-            <strong>{{ userData.unitPrice | currency: 'EUR' }}</strong></span
-          >
-          <a
-            mat-menu-item
-            *ngIf="isCancelled(userData) || isUnsubscribed(userData)"
-            [routerLink]="['/subscription']"
-            >Subscribe</a
-          >
-          <a
-            mat-menu-item
-            *ngIf="isActive(userData)"
-            [routerLink]="['/subscription/manage']"
-            data-test="main-menu-manage-subscription"
-            >Manage Subscription</a
-          >
-        </ng-container>
-        <button mat-menu-item (click)="signOut()">Sign Out</button>
-      </mat-menu>
-    </div>
+      <div class="logo" *ngIf="!title">
+        <a [routerLink]="['/']" *ngIf="!mini"
+          ><app-logo class="logo-image"></app-logo
+        ></a>
+        <app-logo class="logo-image" *ngIf="mini"></app-logo>
+      </div>
+      <ng-content></ng-content>
+      <div class="menu" [class.flex-0]="title" *ngIf="isLoggedIn && !mini">
+        <button
+          class="unstyled"
+          [matMenuTriggerFor]="menu"
+          data-test="main-menu"
+        >
+          <ion-icon class="icon" name="menu-outline" size="large"></ion-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <ng-container *ngIf="auth.userData$ | async as userData">
+            <span mat-menu-item [disabled]="true"
+              >Subscription status:
+              <strong>{{ userData | subscriptionStatus }}</strong></span
+            >
+            <span
+              mat-menu-item
+              *ngIf="
+                isCancelled(userData) && !isExpired(userData.cancellationDate)
+              "
+              [disabled]="true"
+              >Available until:
+              {{ userData.cancellationDate | date: 'mediumDate' }}</span
+            >
+            <span
+              mat-menu-item
+              *ngIf="isActive(userData) && userData.nextBillDate"
+              [disabled]="true"
+              >Next payment:
+              <strong>{{
+                userData.nextBillDate | date: 'mediumDate'
+              }}</strong></span
+            >
+            <span
+              mat-menu-item
+              *ngIf="isActive(userData) && userData.unitPrice"
+              [disabled]="true"
+              >Amount:
+              <strong>{{ userData.unitPrice | currency: 'EUR' }}</strong></span
+            >
+            <a
+              mat-menu-item
+              *ngIf="isCancelled(userData) || isUnsubscribed(userData)"
+              [routerLink]="['/subscription']"
+              >Subscribe</a
+            >
+            <a
+              mat-menu-item
+              *ngIf="isActive(userData)"
+              [routerLink]="['/subscription/manage']"
+              data-test="main-menu-manage-subscription"
+              >Manage Subscription</a
+            >
+          </ng-container>
+          <button mat-menu-item (click)="signOut()">Sign Out</button>
+        </mat-menu>
+      </div>
+    </ng-container>
   </div>
 </header>

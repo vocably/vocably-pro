@@ -11,12 +11,24 @@
   align-items: center;
   justify-content: center;
 
-  .title,
-  .logo,
-  .content,
-  .menu {
-    flex: 1;
-    white-space: nowrap;
+  ::ng-deep {
+    & > * {
+      flex: 1;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    :first-child {
+      text-align: left;
+    }
+
+    :last-child {
+      text-align: right;
+    }
+  }
+
+  .logo:only-child {
+    flex: 0;
   }
 
   .flex-0 {
@@ -25,14 +37,6 @@
 
   .title {
     font-size: 1.2rem;
-  }
-
-  .content {
-    text-align: center;
-  }
-
-  .menu {
-    text-align: right;
   }
 
   .icon {
@@ -46,12 +50,6 @@
   .logo-image {
     height: $header-items-height;
     user-select: none;
-  }
-}
-
-.mini {
-  .logo {
-    flex: 0;
   }
 }
 
