@@ -1,8 +1,8 @@
 @mixin base-font() {
-  font-family: $font-family;
-  font-size: $base-font-size;
-  line-height: $base-line-height;
-  color: $text-color;
+  font-family: $font-family !important;
+  font-size: $base-font-size !important;
+  line-height: $base-line-height !important;
+  color: $text-color !important;
 }
 
 @mixin button() {
