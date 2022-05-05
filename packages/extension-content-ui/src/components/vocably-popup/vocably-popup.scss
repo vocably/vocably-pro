@@ -6,7 +6,7 @@
   --max-height: 48vh;
   --background-rgb: 255, 255, 255;
   --padding-x: 16px;
-  --padding-top: 24px;
+  --padding-top: 36px;
   --padding-bottom: 8px;
   --shadow-size: 5px;
   --scrollbar-gutter: 5px;
@@ -39,7 +39,7 @@
     .logo {
       --logo-color: #{$gray-650};
 
-      height: 50%;
+      height: 40%;
     }
 
     .close {
