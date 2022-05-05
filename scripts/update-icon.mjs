@@ -20,17 +20,6 @@ await $`cp assets/${devFaviconFilename} packages/extension-content-script/public
 await $`cp assets/${icoFilename} packages/www/favicon.ico`;
 await $`cp assets/${icoFilename} packages/extension-popup/src/favicon.ico`;
 
-const svgImage = readFileSync(`assets/${svgFilename}`, 'utf8').toString();
-const scssTemplate = readFileSync(`assets/_icon.scss.tpl`, 'utf8').toString();
-writeFileSync(
-  'assets/_icon.scss',
-  scssTemplate.replace(
-    '%DATA_IMAGE%',
-    `data:image/svg+xml;base64,${Buffer.from(svgImage).toString('base64')}`
-  )
-);
-console.log('Button icon has been successfully updated.');
-
 await $`pwa-asset-generator assets/icon.svg packages/app/src/assets -i packages/app/src/index.html -m packages/app/src/manifest.json --favicon --padding 0`;
 
 await $`pwa-asset-generator assets/logo-light.svg packages/app/src/assets --padding "0 30% 100%" --background white --splash-only --portrait-only`;

@@ -1,5 +1,3 @@
-@import '../../../../../assets/icon';
-//@import 'icon';
 @import '../../styles/component';
 
 :host {
@@ -7,19 +5,26 @@
 }
 
 .button {
-  @extend %icon;
+  $size: 19px;
 
   border-radius: 5px;
-  width: 19px;
-  height: 19px;
+  width: $size;
+  height: $size;
+  line-height: $size;
   background-color: #fff;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
   padding: 3px;
   border: 1px solid $gray-300;
   cursor: pointer;
   box-sizing: content-box;
+
+  .svg {
+    height: $size;
+    width: $size;
+
+    .path {
+      fill: $gray-150;
+    }
+  }
 
   &:hover {
     border-color: $gray-500;
