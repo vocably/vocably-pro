@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     width="196" height="196"
-	 viewBox="0 0 2736.23 2736.23" style="enable-background:new 0 0 2736.23 2736.23;" xml:space="preserve">
-<rect width="2736.23" height="2736.23" fill="#ffffff"/>
-<path d="M1904.86,1427.77l-58.16,120.79l-487.58,1033.01h-22.36L231.87,257.31h715.72l711.25,1507.85l111.83-241.59
-	c250.5-520.66,384.7-945.53,398.12-1266.26h331.01C2325.35,557.21,2137.48,944.59,1904.86,1427.77z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="196" height="196" viewBox="0 0 3267.9 3267.9" xmlns="http://www.w3.org/2000/svg">
+  <rect width="3267.9" height="3267.9" fill="#ffffff"/>
+<path d="m2173 1670.5-58.16 120.79-487.58 1033h-22.36l-1104.9-2324.3h715.72l711.25 1507.8 111.83-241.59c250.5-520.66 384.7-945.53 398.12-1266.3h331.01c-174.45 299.9-362.32 687.28-594.94 1170.5z"/>
 </svg>

@@ -37,6 +37,8 @@
     padding-left: 6px;
 
     .logo {
+      --logo-color: #{$gray-650};
+
       height: 50%;
     }
 

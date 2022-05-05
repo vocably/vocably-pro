@@ -1,6 +1,8 @@
 @import '../../styles/variables';
 
 :host {
+  --logo-color: #{$gray-150};
+
   display: inline-block;
   line-height: 0;
 }
@@ -10,6 +12,6 @@
   width: auto;
 
   g {
-    fill: $gray-150;
+    fill: var(--logo-color);
   }
 }
