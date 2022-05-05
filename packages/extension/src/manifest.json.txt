@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "{{ process.env.NAME }}",
-  "description": "Vocably Extension",
+  "description": "Extend your vocabulary while surfing the internet.",
   "version": "{{ process.env.VERSION }}",
 
   "icons": {
