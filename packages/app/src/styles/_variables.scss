@@ -14,7 +14,7 @@ $dark-border-color: $gray-400;
 
 $dark-theme: (
   primary-color: $dark-primary,
-  logo-color: $gray-400,
+  logo-color: $gray-800,
   body-bg: $dark-body-bg,
   body-bg-transparent: $dark-body-bg-transparent,
   text-color: $dark-text-color,
@@ -80,6 +80,7 @@ $container-padding: 2rem;
 $container-padding-sm: 1rem;
 
 $header-items-height: 2rem;
+$logo-height: 1.4rem;
 $header-bottom-padding: 2rem;
 $header-height: $header-items-height + $header-bottom-padding;
 
