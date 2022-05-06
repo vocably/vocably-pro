@@ -4,6 +4,7 @@ google_oauth2_client_id = "356478205648-le03fnat0mcc5ro8u9d7bphr5gsvgveb.apps.go
 extension_name          = "Vocably"
 extension_key           = ""
 extension_id            = "nomaniapkcfgfdgdadfojehechmghpgl"
+alarm_email             = "prod@vocably.pro"
 sentry_environment      = "prod"
 piwik_id                = "0546e67b-2206-4213-8455-5254afd7b683"
 paddle_vendor_id        = 142693

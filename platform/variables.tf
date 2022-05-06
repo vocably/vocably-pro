@@ -81,3 +81,7 @@ variable "paddle_subscription_products" {
 variable "paddle_public_key" {
   type = string
 }
+
+variable "alarm_email" {
+  type = string
+}

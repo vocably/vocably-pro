@@ -5,6 +5,7 @@ extension_name          = "Vocably - stage"
 extension_key           = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
 extension_id            = "nomaniapkcfgfdgdadfojehechmghpgl"
 sentry_environment      = "stage"
+alarm_email             = "stage@vocably.pro"
 piwik_id                = "25473e53-4fde-4fe1-a2ce-273ec6a4d0e3"
 paddle_vendor_id        = 6005
 paddle_sandbox          = true

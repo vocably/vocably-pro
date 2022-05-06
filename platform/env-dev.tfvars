@@ -6,6 +6,7 @@ extension_key           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 extension_id            = "mbpgmaflnlocikfiffhkjehhmnapkjgp"
 piwik_id                = "25473e53-4fde-4fe1-a2ce-273ec6a4d0e3"
 sentry_environment      = "dev"
+alarm_email             = "dev@vocably.pro"
 paddle_vendor_id        = 5064
 paddle_sandbox          = true
 paddle_test_env         = "dev"
