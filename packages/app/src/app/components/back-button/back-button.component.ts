@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-back-button',
@@ -8,7 +9,17 @@ import { Component, Input, OnInit } from '@angular/core';
 export class BackButtonComponent implements OnInit {
   @Input() label = true;
 
-  constructor() {}
+  constructor(public route: ActivatedRoute) {}
 
   ngOnInit(): void {}
+
+  get relativeTo(): ActivatedRoute {
+    let route: ActivatedRoute = this.route;
+
+    while (route.firstChild !== null) {
+      route = route.firstChild;
+    }
+
+    return route;
+  }
 }

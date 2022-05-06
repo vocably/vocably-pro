@@ -1,4 +1,7 @@
-<a [routerLink]="['../']" class="link text-decoration-none"
+<a
+  [routerLink]="['../']"
+  [relativeTo]="relativeTo"
+  class="link text-decoration-none"
   ><ion-icon class="middle" name="chevron-back-outline"></ion-icon
   ><span class="inline-block ml_0_25 middle" *ngIf="label">Back</span></a
 >
