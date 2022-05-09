@@ -14,8 +14,8 @@ const dotEnvPlugin = new DotenvFlow({
 const prodConfig = {
   mode: 'production',
   entry: {
-    contentScript: './src/contentScript.ts',
-    serviceWorker: './src/serviceWorker.ts',
+    'content-script': './src/content-script.ts',
+    'service-worker': './src/service-worker.ts',
   },
   module: {
     rules: [

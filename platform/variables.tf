@@ -30,6 +30,26 @@ variable "extension_key" {
   type = string
 }
 
+variable "extension_content_script_excluded_matches" {
+  type = string
+}
+
+variable "extension_externally_connectable_matches" {
+  type = string
+}
+
+variable "extension_extra_permissions" {
+  type = string
+}
+
+variable "extension_host_permissions" {
+  type = string
+}
+
+variable "extension_auto_reload" {
+  type = string
+}
+
 variable "extension_id" {
   type = string
 }

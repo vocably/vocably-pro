@@ -57,6 +57,11 @@ APP_BASE_URL="${local.app_url}"
 API_BASE_URL="${local.api_base_url}"
 API_REGION="${data.aws_region.current.name}"
 API_CARDS_BUCKET="${aws_s3_bucket.cards.bucket}"
+CONTENT_SCRIPT_EXCLUDED_MATCHES='${var.extension_content_script_excluded_matches}'
+EXTERNALLY_CONNECTABLE_MATCHES='${var.extension_externally_connectable_matches}'
+EXTRA_PERMISSIONS='${var.extension_extra_permissions}'
+HOST_PERMISSIONS='${var.extension_host_permissions}'
+AUTO_RELOAD="${var.extension_auto_reload}"
   EOT
 }
 
