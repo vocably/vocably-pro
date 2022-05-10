@@ -43,7 +43,7 @@ jobs:
       - install_npm_dependencies
       - run: npx zx ./scripts/build-packages.mjs
       - run: npm run test -ws
-      - run: bash ./scripts/install-build-depdendencies.sh
+      - run: bash ./scripts/install-build-dependencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
       - run: npm run test -ws
@@ -60,9 +60,10 @@ jobs:
       - install_npm_dependencies
       - run: npx zx ./scripts/build-packages.mjs
       - run: npm run test -ws
-      - run: bash ./scripts/install-build-depdendencies.sh
+      - run: bash ./scripts/install-build-dependencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
+      - run: npx zx ./scripts/build-extension.mjs
   prod:
     working_directory: ~/repo
     docker:
@@ -74,9 +75,10 @@ jobs:
       - install_npm_dependencies
       - run: npx zx ./scripts/build-packages.mjs
       - run: npm run test -ws
-      - run: bash ./scripts/install-build-depdendencies.sh
+      - run: bash ./scripts/install-build-dependencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
+      - run: npx zx ./scripts/build-extension.mjs
 workflows:
   version: 2
   bumpNewVersion:
