@@ -18,6 +18,12 @@ body {
   color: #fff;
 }
 
+a {
+  color: White;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 2px;
+}
+
 .screen-center {
   min-height: 100%;
   display: flex;
@@ -29,6 +35,10 @@ body {
 
 .title {
   margin-bottom: 18px;
+}
+
+.logo {
+  height: 3rem;
 }
 
 .description {
