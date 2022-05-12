@@ -1,26 +1,19 @@
 import 'zx/globals';
 import { rootDir } from './helpers/dirs.mjs';
-import { readFileSync, writeFileSync } from 'fs';
-
-const svgFilename = 'icon.svg';
-const icoFilename = 'favicon.ico';
-const devFaviconFilename = 'dev-favicon.ico';
 
 cd(rootDir);
-await $`convert assets/${svgFilename} -set colorspace Gray -separate -average assets/${devFaviconFilename}`;
-await $`convert assets/${svgFilename} assets/${icoFilename}`;
-await $`convert -density 1200 assets/${svgFilename} assets/icon.png`;
+await $`svgexport assets/web-dev-favicon.svg packages/extension-content-script/public/favicon.ico 196:196`;
+
+await $`svgexport assets/web-favicon.svg packages/app/src/assets/favicon-196.png 196:196`;
+await $`svgexport assets/web-favicon.svg packages/extension-popup/src/favicon.ico 196:196`;
+await $`svgexport assets/web-favicon.svg packages/www/favicon.ico 196:196`;
 
 for (let size of ['16', '32', '48', '128']) {
   const iconFileName = `icon-${size}x${size}.png`;
-  await $`svgexport assets/${svgFilename} packages/extension/assets/images/${iconFileName} ${size}:${size}`;
+  await $`svgexport assets/extension-icon.svg packages/extension/assets/images/${iconFileName} ${size}:${size}`;
 }
 
-await $`cp assets/${devFaviconFilename} packages/extension-content-script/public/favicon.ico`;
-await $`cp assets/${icoFilename} packages/www/favicon.ico`;
-await $`cp assets/${icoFilename} packages/extension-popup/src/favicon.ico`;
-
-await $`pwa-asset-generator assets/icon.svg packages/app/src/assets -i packages/app/src/index.html -m packages/app/src/manifest.json --favicon --padding 0`;
+await $`pwa-asset-generator assets/pwa-icon.svg packages/app/src/assets -i packages/app/src/index.html -m packages/app/src/manifest.json --padding 0`;
 
 await $`pwa-asset-generator assets/logo-light.svg packages/app/src/assets --padding "0 30% 100%" --background white --splash-only --portrait-only`;
 
