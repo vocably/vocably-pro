@@ -71,6 +71,9 @@ const prodConfig = {
   performance: {
     hints: false,
   },
+  optimization: {
+    minimize: false,
+  },
 };
 
 const devConfig = {
