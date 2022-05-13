@@ -15,6 +15,9 @@ for (let size of ['16', '32', '48', '128']) {
 
 await $`pwa-asset-generator assets/pwa-icon.svg packages/app/src/assets -i packages/app/src/index.html -m packages/app/src/manifest.json --padding 0`;
 
+await $`svgexport assets/square-big.svg packages/app/src/assets/apple-icon-180.png 180:180`;
+await $`svgexport assets/square-big.svg assets/square-big.png`;
+
 await $`pwa-asset-generator assets/logo-light.svg packages/app/src/assets --padding "0 30% 100%" --background white --splash-only --portrait-only`;
 
 await $`pwa-asset-generator assets/logo-light.svg packages/app/src/assets --padding "0 30% 20%" --background white --splash-only --landscape-only`;
