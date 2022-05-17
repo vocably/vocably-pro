@@ -17,11 +17,6 @@
     "type": "git",
     "url": "https://github.com/vocably-pro/vocably.git"
   },
-  "dependencies": {
-    "@vocably/extension-content-ui": "^0.0.1",
-    "@vocably/extension-messages": "0.0.0"
-  },
-  "devDependencies": {
-    "@vocably/webpack": "0.0.0"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }

@@ -16,14 +16,7 @@
     "type": "git",
     "url": "https://github.com/vocably-pro/vocably.git"
   },
-  "dependencies": {
-    "@vocably/api": "0.0.0",
-    "@vocably/crud": "0.0.0",
-    "@vocably/extension-messages": "0.0.0",
-    "@vocably/model": "0.0.0",
-    "@vocably/srs": "0.0.0",
-    "@vocably/sulna": "0.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "jest": "^27.5.1",

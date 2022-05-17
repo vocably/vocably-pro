@@ -6,11 +6,8 @@
     "test": "jest",
     "build": "webpack --config webpack.config.js"
   },
-  "dependencies": {
-    "@vocably/model": "0.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@vocably/webpack": "0.0.0",
     "@types/jest": "^27.4.1",
     "jest": "^27.5.1",
     "jest-cli": "^27.5.1",
