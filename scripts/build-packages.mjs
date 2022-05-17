@@ -17,7 +17,6 @@ const packages = [
   'extension-content-ui',
   'extension-content-script',
   'extension-angular-components',
-  'extension-popup',
 ];
 
 for (let packageName of packages) {
