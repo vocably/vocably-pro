@@ -1,7 +1,7 @@
 @import '../../styles/variables';
 
 :host {
-  --logo-color: #{$gray-150};
+  --logo-color: #{$v-gray-150};
 
   display: inline-block;
   line-height: 0;

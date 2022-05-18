@@ -14,7 +14,7 @@
   line-height: $size;
   background-color: #fff;
   padding: 3px;
-  border: 1px solid $gray-800;
+  border: 1px solid $v-gray-800;
   cursor: pointer;
   box-sizing: content-box;
   text-align: center;
@@ -23,12 +23,12 @@
     height: $size;
 
     .path {
-      fill: $gray-150;
+      fill: $v-gray-150;
     }
   }
 
   &:hover {
-    border-color: $gray-500;
+    border-color: $v-gray-500;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
   }
 }

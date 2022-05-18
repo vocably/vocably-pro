@@ -14,7 +14,7 @@ $select-padding: 6px;
   padding: 0 $select-padding;
 
   .label {
-    color: $gray-500;
+    color: $v-gray-500;
     font-size: $base-font-size * 0.9;
     text-transform: uppercase;
   }
@@ -24,7 +24,7 @@ $select-padding: 6px;
   }
 
   .pos {
-    color: $gray-700;
+    color: $v-gray-700;
     display: inline-block;
     margin-left: $base-font-size / 4;
     font-size: 60%;
@@ -37,7 +37,7 @@ $select-padding: 6px;
   }
 
   .header {
-    color: $gray-700;
+    color: $v-gray-700;
     text-transform: uppercase;
     margin-bottom: 8px;
     font-weight: bold;
@@ -47,7 +47,7 @@ $select-padding: 6px;
     $padding: 18px;
     padding-right: $padding;
     margin-right: $padding;
-    border-right: 1px solid $gray-700;
+    border-right: 1px solid $v-gray-700;
 
     .phrase {
       margin-bottom: 8px;
@@ -66,17 +66,17 @@ $select-padding: 6px;
 }
 
 .error {
-  color: $red-500;
+  color: $v-red-500;
 }
 
 select {
-  color: $gray-300;
+  color: $v-gray-300;
   margin-left: -$select-padding;
   width: calc(100% + #{$select-padding});
   text-transform: uppercase;
   font-size: $base-font-size * 0.9;
   padding: $select-padding;
-  border: 1px solid $gray-900;
+  border: 1px solid $v-gray-900;
   border-radius: 4px;
   appearance: none;
   background: transparent
@@ -88,7 +88,7 @@ select {
 
   &:focus,
   &:hover {
-    border-color: $gray-500;
+    border-color: $v-gray-500;
   }
 }
 

@@ -18,7 +18,7 @@
 
   .popup {
     background: rgb(var(--background-rgb));
-    box-shadow: 0 0 var(--shadow-size) 1px $gray-300;
+    box-shadow: 0 0 var(--shadow-size) 1px $v-gray-300;
     border-radius: 6px;
     box-sizing: border-box;
     position: relative;
@@ -37,7 +37,7 @@
     padding-left: 6px;
 
     .logo {
-      --logo-color: #{$gray-450};
+      --logo-color: #{$v-gray-450};
 
       height: 40%;
     }
