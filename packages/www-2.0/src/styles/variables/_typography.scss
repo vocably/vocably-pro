@@ -4,12 +4,12 @@
 
 // Override Bootstrap typography variables
 
-$font-family-base: 'Mulish', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-  Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
-  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+$font-family-base: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, 'Helvetica Neue', Arial, sans, 'Apple Color Emoji', 'Segoe UI Emoji',
+  'Segoe UI Symbol', 'Noto Color Emoji';
 
-$headings-font-family: 'Newsreader', -apple-system, BlinkMacSystemFont,
-  'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+$headings-font-family: 'Lora', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
   'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
 // Custom font family
@@ -20,5 +20,5 @@ $alt-font-family: 'Kanit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto
 
 // Override default Bootstrap font weights
 
-$font-weight-normal: 500;
-$headings-font-weight: 600;
+$font-weight-normal: 300;
+$headings-font-weight: 500;
