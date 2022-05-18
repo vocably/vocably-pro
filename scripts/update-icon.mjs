@@ -7,6 +7,8 @@ await $`svgexport assets/web-dev-favicon.svg packages/extension-content-script/p
 await $`svgexport assets/web-favicon.svg packages/app/src/assets/favicon-196.png 196:196`;
 await $`svgexport assets/web-favicon.svg packages/extension-popup/src/favicon.ico 196:196`;
 await $`svgexport assets/web-favicon.svg packages/www/favicon.ico 196:196`;
+await $`svgexport assets/web-favicon.svg packages/www-2.0/src/favicon.ico 196:196`;
+await $`cp assets/www-logo.svg packages/www-2.0/src/assets/logo.svg`;
 
 for (let size of ['16', '32', '48', '128']) {
   const iconFileName = `icon-${size}x${size}.png`;
