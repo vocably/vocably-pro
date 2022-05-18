@@ -7,15 +7,6 @@
   padding-bottom: 1rem;
   background-color: $white;
 
-  .navbar-brand {
-    font-family: $alt-font-family;
-
-    &:hover,
-    &:active {
-      color: $primary;
-    }
-  }
-
   .navbar-toggler {
     font-size: $font-size-sm;
     padding: 0.75rem 1rem;
