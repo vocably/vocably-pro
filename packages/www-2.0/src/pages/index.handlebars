@@ -8,7 +8,7 @@
     <link rel='preconnect' href='https://fonts.googleapis.com' />
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
     <link
-      href='https://fonts.googleapis.com/css2?family=Kanit&family=Roboto:wght@300&family=Rokkitt:wght@500&display=swap'
+      href='https://fonts.googleapis.com/css2?family=Kanit&family=Roboto:wght@300;500&family=Rokkitt:wght@500&display=swap'
       rel='stylesheet'
     />
     <title>Vocably</title>
@@ -69,6 +69,10 @@
               <p class='lead fw-normal text-muted mb-5'>Look up new words while
                 surfing the web and automatically create flash cards for
                 studying them.</p>
+              <a
+                class='btn btn-outline-primary py-3 px-4 rounded-pill fw-bold'
+                href='https://app.vocably.pro'
+              >Go to the app and get 7 days free trial.</a>
             </div>
           </div>
           <div class='col-lg-6'>
@@ -143,23 +147,6 @@
       </div>
     </header>
 
-    <aside class='text-center bg-gradient-primary-to-secondary'>
-      <div class='container px-5'>
-        <div class='row gx-5 justify-content-center'>
-          <div class='col-xl-8'>
-            <div class='h2 fs-1 text-white mb-4'>Automatically create flashcards
-              while surfing the web and study them on your mobile!</div>
-
-            <div>
-              <a
-                class='btn btn-outline-light py-3 px-4 rounded-pill'
-                href='https://app.vocably.pro'
-              >Try is for free</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </aside>
     <!-- How it works-->
     <section id='how-it-works'>
       <div class='container px-5'>
@@ -175,11 +162,23 @@
         </p>
       </div>
     </section>
+    <!-- Supported languages -->
+    <section id='supported-languages' class='bg-light'>
+      <div class='container px-5'>
+        <div class='h2 fs-1 mb-4'>Supported Languages</div>
+        <p class='lead'>The application works very well with Arabic, Portuguese, Czech, German, Danish, Greek, English, Spanish, French, Hebrew, Hindi, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Russian, Swedish, Thai, Turkish, Traditional Chinese, Simplified Chinese. By "very well" I mean: the application converts words to the normal form (ie. infinitive for the verb or singular for noun), finds
+          definitions, provides translations, and creates flash cards.</p>
+
+        <p class="lead">Also, application works kind of well with all the languages supported by <a href="https://cloud.google.com/translate/docs/languages" target="_blank">Google Translate API</a>. By "kind of well", I mean it only looks up translations and creates flash cards.</p>
+
+        <p class="lead text-muted">Necessary disclaimer: at the current iteration, application translates all the languages only into English. This will be fixed very soon, but I believe this should be said so people who'd like to learn English will not be pissed off.</p>
+      </div>
+    </section>
     <!-- Pricing -->
-    <section id='pricing' class='bg-light'>
+    <section id='pricing'>
       <div class='container px-5'>
         <div class='h2 fs-1 mb-4'>Pricing</div>
-        <div class="d-flex gap-3">
+        <div class="d-flex gap-3  mb-4">
           {{#each htmlWebpackPlugin.options.environment.products as |product|}}
             <div class="card flex-grow-1 text-center">
               <div class="card-body">
@@ -191,7 +190,7 @@
                     (math product.price '/' product.duration)
                     product.currency
                   }}</span>
-                  <span class='text-muted'>per month</span>
+                  <span class='text-muted small'>/ month</span>
                 </div>
               </div>
               <div class="card-footer">
@@ -207,26 +206,10 @@
             </div>
           {{/each}}
         </div>
-      </div>
-    </section>
-    <!-- App badge section-->
-    <section class='bg-gradient-primary-to-secondary' id='download'>
-      <div class='container px-5'>
-        <h2 class='text-center text-white font-alt mb-4'>Get the app now!</h2>
-        <div
-          class='d-flex flex-column flex-lg-row align-items-center justify-content-center'
-        >
-          <a class='me-lg-3 mb-4 mb-lg-0' href='#!'><img
-              class='app-badge'
-              src='assets/img/google-play-badge.svg'
-              alt='...'
-            /></a>
-          <a href='#!'><img
-              class='app-badge'
-              src='assets/img/app-store-badge.svg'
-              alt='...'
-            /></a>
-        </div>
+        <a
+          class='btn btn-primary py-3 px-4 rounded-pill d-block fw-bold'
+          href='https://app.vocably.pro'
+        >Go to the app and get 7 days free trial.</a>
       </div>
     </section>
     <!-- Footer-->
