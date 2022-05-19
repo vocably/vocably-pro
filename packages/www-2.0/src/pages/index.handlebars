@@ -42,12 +42,8 @@
           <ul class='navbar-nav ms-auto me-4 my-3 my-lg-0'>
             <li class='nav-item'><a
                 class='nav-link me-lg-3'
-                href='#features'
-              >Features</a></li>
-            <li class='nav-item'><a
-                class='nav-link me-lg-3'
-                href='#download'
-              >Download</a></li>
+                href='#pricing'
+              >Pricing</a></li>
           </ul>
           <a
             class='btn btn-primary rounded-pill px-3 mb-2 mb-lg-0'
@@ -168,50 +164,48 @@
     <section id='how-it-works'>
       <div class='container px-5'>
         <div class='h2 fs-1 mb-4'>How it works</div>
-        <p class='lead'>Highlight any unfamiliar word while you read any
-          website.</p>
+        <p class='lead'>Highlight any unfamiliar word when you read any website.</p>
         <p class='lead'>The system will automatically convert the word to the
-          normal form (ie. infinitive for the verb or )</p>
+          normal form (ie. infinitive for the verb or singular for noun), find
+          it's definitions, translations, and create flashcards.</p>
+        <p class='lead'>
+          The created flashcards are available to be studied with Short
+          Repetition System (SRS) method across all your mobile and desktop
+          devices.
+        </p>
       </div>
     </section>
-    <!-- Basic features section-->
-    <section class='bg-light'>
+    <!-- Pricing -->
+    <section id='pricing' class='bg-light'>
       <div class='container px-5'>
-        <div
-          class='row gx-5 align-items-center justify-content-center justify-content-lg-between'
-        >
-          <div class='col-12 col-lg-5'>
-            <h2 class='display-4 lh-1 mb-4'>Enter a new age of web design</h2>
-            <p class='lead fw-normal text-muted mb-5 mb-lg-0'>This section is
-              perfect for featuring some information about your application, why
-              it was built, the problem it solves, or anything else! There's
-              plenty of space for text here, so don't worry about writing too
-              much.</p>
-          </div>
-          <div class='col-sm-8 col-md-6'>
-            <div class='px-5 px-sm-0'><img
-                class='img-fluid rounded-circle'
-                src='https://source.unsplash.com/u8Jn2rzYIps/900x900'
-                alt='...'
-              /></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Call to action section-->
-    <section class='cta'>
-      <div class='cta-content'>
-        <div class='container px-5'>
-          <h2 class='text-white display-1 lh-1 mb-4'>
-            Stop waiting.
-            <br />
-            Start building.
-          </h2>
-          <a
-            class='btn btn-outline-light py-3 px-4 rounded-pill'
-            href='https://startbootstrap.com/theme/new-age'
-            target='_blank'
-          >Download for free</a>
+        <div class='h2 fs-1 mb-4'>Pricing</div>
+        <div class="d-flex gap-3">
+          {{#each htmlWebpackPlugin.options.environment.products as |product|}}
+            <div class="card flex-grow-1 text-center">
+              <div class="card-body">
+                <div class="h2">
+                  {{product.duration}} month{{#if (math product.duration '>' 1)}}s{{/if}}
+                </div>
+                <div>
+                  <span class="lead">{{currency
+                    (math product.price '/' product.duration)
+                    product.currency
+                  }}</span>
+                  <span class='text-muted'>per month</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div>
+                  {{#unless @first}}<del class='text-warning'>{{currency
+                    (math ../htmlWebpackPlugin.options.environment.products.0.price "*" product.duration)
+                    'EUR'
+                  }}</del>{{/unless}}
+                  {{currency product.price product.currency}}
+                  to be paid
+                </div>
+              </div>
+            </div>
+          {{/each}}
         </div>
       </div>
     </section>

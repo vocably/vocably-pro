@@ -1,6 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const WebpackWatchPlugin = require('webpack-watch-files-plugin').default;
+const { environment } = require('./environment');
 
 module.exports = {
   mode: 'development',
@@ -21,7 +23,17 @@ module.exports = {
           'sass-loader',
         ],
       },
-      { test: /\.handlebars$/, use: ['handlebars-loader'] },
+      {
+        test: /\.handlebars$/,
+        use: [
+          {
+            loader: 'handlebars-loader',
+            options: {
+              helperDirs: `${__dirname}/handlebars-helpers`,
+            },
+          },
+        ],
+      },
       { test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/, type: 'asset/resource' },
     ],
   },
@@ -39,12 +51,16 @@ module.exports = {
       template: './src/pages/index.handlebars',
       inject: true,
       favicon: './src/favicon.ico',
+      environment,
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
     }),
     new CopyPlugin({
       patterns: [{ from: 'src/assets', to: 'assets' }],
+    }),
+    new WebpackWatchPlugin({
+      files: ['./environment.js'],
     }),
   ],
   devServer: {
