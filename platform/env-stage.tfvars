@@ -15,7 +15,7 @@ piwik_id                                  = "25473e53-4fde-4fe1-a2ce-273ec6a4d0e
 paddle_vendor_id                          = 6005
 paddle_sandbox                            = true
 paddle_test_env                           = "stage"
-paddle_subscription_products = [
+paddle_subscription_trial_products = [
   {
     duration = 1,
     id       = 28146,
@@ -37,6 +37,9 @@ paddle_subscription_products = [
     currency = "EUR",
     trial    = 7,
   },
+]
+
+paddle_subscription_non_trial_products = [
   {
     duration = 1,
     id       = 28147,
@@ -57,8 +60,9 @@ paddle_subscription_products = [
     price    = 59.40,
     currency = "EUR",
     trial    = 0,
-  }
+  },
 ]
+
 paddle_public_key = <<PUBLIC_KEY
 -----BEGIN PUBLIC KEY-----
 MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAyNQww1mDraskrCya3Kw7

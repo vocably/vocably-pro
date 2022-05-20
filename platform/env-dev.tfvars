@@ -15,7 +15,7 @@ alarm_email                               = "dev@vocably.pro"
 paddle_vendor_id                          = 5064
 paddle_sandbox                            = true
 paddle_test_env                           = "dev"
-paddle_subscription_products = [
+paddle_subscription_trial_products = [
   {
     duration = 1,
     id       = 26950,
@@ -37,6 +37,9 @@ paddle_subscription_products = [
     currency = "EUR",
     trial    = 7,
   },
+]
+
+paddle_subscription_non_trial_products = [
   {
     duration = 1,
     id       = 26951,
@@ -57,8 +60,9 @@ paddle_subscription_products = [
     price    = 59.40,
     currency = "EUR",
     trial    = 0,
-  }
+  },
 ]
+
 paddle_public_key = <<PUBLIC_KEY
 -----BEGIN PUBLIC KEY-----
 MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAysQlrMGkV+sSpRpMDi0T

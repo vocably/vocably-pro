@@ -13,7 +13,7 @@ export const environmentLocal = {
   paddle: {
     sandbox: ${var.paddle_sandbox ? "true" : "false"},
     vendorId: ${var.paddle_vendor_id},
-    subscriptionProducts: ${jsonencode(var.paddle_subscription_products)},
+    subscriptionProducts: ${jsonencode(concat(var.paddle_subscription_trial_products, var.paddle_subscription_non_trial_products))},
   },
   auth: {
     region: '${data.aws_region.current.name}',

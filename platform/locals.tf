@@ -35,5 +35,7 @@ locals {
     ico  = "image/x-icon"
     txt  = "text/plain"
     svg  = "image/svg+xml"
+    mp4  = "video/mp4"
+    png  = "image/png"
   }
 }

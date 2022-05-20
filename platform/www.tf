@@ -1,5 +1,29 @@
 locals {
+  www_env_content = <<EOT
+module.exports = {
+  environment: {
+    products: ${jsonencode(var.paddle_subscription_trial_products)},
+  },
+};
+  EOT
+}
+
+resource "local_file" "www_environment" {
+  content  = local.www_env_content
+  filename = "${local.www_root}/environment.js"
+}
+
+locals {
   www_bucket = "vocably-${terraform.workspace}-www"
+}
+
+data "external" "www_build" {
+  depends_on = [local_file.www_environment]
+  program = ["bash", "-c", <<EOT
+(npm run build) >&2 && echo "{\"dest\": \"$(pwd)/dist\"}"
+EOT
+  ]
+  working_dir = local.www_root
 }
 
 resource "aws_s3_bucket" "www" {
@@ -132,12 +156,17 @@ resource "aws_route53_record" "www" {
   }
 }
 
+locals {
+  www_dist = "${local.www_root}/dist"
+}
+
 resource "aws_s3_object" "www" {
-  for_each     = fileset(local.www_root, "**/*.*")
+  depends_on   = [data.external.www_build]
+  for_each     = fileset(local.www_dist, "**/*.*")
   bucket       = aws_s3_bucket.www.bucket
   key          = each.value
-  source       = "${local.www_root}/${each.value}"
+  source       = "${local.www_dist}/${each.value}"
   acl          = "public-read"
-  etag         = filemd5("${local.www_root}/${each.value}")
+  etag         = filemd5("${local.www_dist}/${each.value}")
   content_type = lookup(local.mime_types, split(".", each.value)[length(split(".", each.value)) - 1])
 }
