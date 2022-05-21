@@ -3,13 +3,11 @@
 //
 
 #mainNav {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
   background-color: $white;
 
   .navbar-toggler {
     font-size: $font-size-sm;
-    padding: 0.75rem 1rem;
+    padding: 0.7rem 1rem;
     color: $gray-900;
   }
 
@@ -28,6 +26,13 @@
   }
 
   .logo {
-    height: 2.2rem;
+    height: $navbar-brand-height;
   }
+}
+
+body.fixed-navbar-top {
+  padding-top: calc(
+    #{$navbar-brand-height} + #{$navbar-brand-padding-y} * 2 + #{$navbar-padding-y} *
+      2
+  );
 }

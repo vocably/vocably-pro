@@ -1,233 +1,157 @@
-<html lang='en'>
-  <head>
-    <meta charset='utf-8' />
-    <link
-      href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css'
-      rel='stylesheet'
-    />
-    <link rel='preconnect' href='https://fonts.googleapis.com' />
-    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
-    <link
-      href='https://fonts.googleapis.com/css2?family=Kanit&family=Roboto:wght@300;500&family=Rokkitt:wght@500&display=swap'
-      rel='stylesheet'
-    />
-    <title>Vocably</title>
-    <base href='/' />
-  </head>
-  <body id='page-top'>
-    <!-- Navigation-->
-    <nav
-      class='navbar navbar-expand-lg navbar-light fixed-top shadow-sm'
-      id='mainNav'
-    >
-      <div class='container px-5'>
-        <a class='navbar-brand fw-bold' href='#page-top'><img
-            src='assets/logo.svg'
-            alt='Vocably'
-            class='logo'
-          /></a>
-        <button
-          class='navbar-toggler'
-          type='button'
-          data-bs-toggle='collapse'
-          data-bs-target='#navbarResponsive'
-          aria-controls='navbarResponsive'
-          aria-expanded='false'
-          aria-label='Toggle navigation'
-        >
-          Menu
-          <i class='bi-list'></i>
-        </button>
-        <div class='collapse navbar-collapse' id='navbarResponsive'>
-          <ul class='navbar-nav ms-auto me-4 my-3 my-lg-0'>
-            <li class='nav-item'><a
-              class='nav-link me-lg-3'
-              href='#supported-languages'
-            >Supported Languages</a></li>
-            <li class='nav-item'><a
-                class='nav-link me-lg-3'
-                href='#pricing'
-              >Pricing</a></li>
-          </ul>
-          <a
-            class='btn btn-primary rounded-pill px-3 mb-2 mb-lg-0'
-            href='https://app.vocably.pro'
-          >
-            <span class='d-flex align-items-center'>
-              <i class='bi-box-arrow-in-right me-2'></i>
-              <span class='small'>To the app</span>
-            </span>
-          </a>
-        </div>
-      </div>
-    </nav>
-    <!-- Mashead header-->
-    <header class='masthead'>
-      <div class='container px-5'>
-        <div class='row gx-5 align-items-center'>
-          <div class='col-lg-6'>
-            <!-- Mashead text and app badges-->
-            <div class='mb-5 mb-lg-0 text-center text-lg-start'>
-              <h1 class='display-1 lh-1 mb-3'>Start reading in a foreign language.</h1>
-              <p class='lead fw-normal text-muted mb-5'>Look up unfamiliar words while
-                surfing the web and automatically create flash cards for
-                studying them.</p>
-              <a
-                class='btn btn-outline-primary py-3 px-4 rounded-pill fw-bold'
-                href='https://app.vocably.pro'
-              >Go to the app and get 7 days free trial.</a>
-            </div>
+{{#> layout }}
+  <!-- Mashead header-->
+  <header class='masthead'>
+    <div class='container px-5'>
+      <div class='row gx-5 align-items-center'>
+        <div class='col-lg-6'>
+          <!-- Mashead text and app badges-->
+          <div class='mb-5 mb-lg-0 text-center text-lg-start'>
+            <h1 class='display-1 lh-1 mb-3'>Start reading in a foreign language.</h1>
+            <p class='lead fw-normal text-muted mb-5'>Look up unfamiliar words while
+              surfing the web and automatically create flash cards for
+              studying them.</p>
+            <a
+              class='btn btn-outline-primary py-3 px-4 rounded-pill fw-bold'
+              href='https://app.vocably.pro'
+            >Go to the app and get 7 days free trial.</a>
           </div>
-          <div class='col-lg-6'>
-            <!-- Masthead device mockup feature-->
-            <div class='masthead-device-mockup'>
-              <svg
-                class='circle'
-                viewBox='0 0 100 100'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <defs>
-                  <linearGradient
-                    id='circleGradient'
-                    gradientTransform='rotate(45)'
-                  >
-                    <stop class='gradient-start-color' offset='0%'></stop>
-                    <stop class='gradient-end-color' offset='100%'></stop>
-                  </linearGradient>
-                </defs>
-                <circle cx='50' cy='50' r='50'></circle></svg><svg
-                class='shape-1 d-none d-sm-block'
-                viewBox='0 0 240.83 240.83'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <rect
-                  x='-32.54'
-                  y='78.39'
-                  width='305.92'
-                  height='84.05'
-                  rx='42.03'
-                  transform='translate(120.42 -49.88) rotate(45)'
-                ></rect>
-                <rect
-                  x='-32.54'
-                  y='78.39'
-                  width='305.92'
-                  height='84.05'
-                  rx='42.03'
-                  transform='translate(-49.88 120.42) rotate(-45)'
-                ></rect></svg><svg
-                class='shape-2 d-none d-sm-block'
-                viewBox='0 0 100 100'
-                xmlns='http://www.w3.org/2000/svg'
-              ><circle cx='50' cy='50' r='50'></circle></svg>
-              <div class='device-wrapper'>
-                <div
-                  class='device'
-                  data-device='iPhoneX'
-                  data-orientation='portrait'
-                  data-color='black'
+        </div>
+        <div class='col-lg-6'>
+          <!-- Masthead device mockup feature-->
+          <div class='masthead-device-mockup'>
+            <svg
+              class='circle'
+              viewBox='0 0 100 100'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <defs>
+                <linearGradient
+                  id='circleGradient'
+                  gradientTransform='rotate(45)'
                 >
-                  <div class='screen bg-black'>
-                    <!-- PUT CONTENTS HERE:-->
-                    <!-- * * This can be a video, image, or just about anything else.-->
-                    <!-- * * Set the max width of your media to 100% and the height to-->
-                    <!-- * * 100% like the demo example below.-->
-                    <video
-                      muted='muted'
-                      autoplay=''
-                      loop=''
-                      style='max-width: 100%; height: 100%'
-                    ><source
-                        src='assets/img/demo-screen.mp4'
-                        type='video/mp4'
-                      /></video>
-                  </div>
+                  <stop class='gradient-start-color' offset='0%'></stop>
+                  <stop class='gradient-end-color' offset='100%'></stop>
+                </linearGradient>
+              </defs>
+              <circle cx='50' cy='50' r='50'></circle></svg><svg
+            class='shape-1 d-none d-sm-block'
+            viewBox='0 0 240.83 240.83'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <rect
+              x='-32.54'
+              y='78.39'
+              width='305.92'
+              height='84.05'
+              rx='42.03'
+              transform='translate(120.42 -49.88) rotate(45)'
+            ></rect>
+            <rect
+              x='-32.54'
+              y='78.39'
+              width='305.92'
+              height='84.05'
+              rx='42.03'
+              transform='translate(-49.88 120.42) rotate(-45)'
+            ></rect></svg><svg
+            class='shape-2 d-none d-sm-block'
+            viewBox='0 0 100 100'
+            xmlns='http://www.w3.org/2000/svg'
+          ><circle cx='50' cy='50' r='50'></circle></svg>
+            <div class='device-wrapper'>
+              <div
+                class='device'
+                data-device='iPhoneX'
+                data-orientation='portrait'
+                data-color='black'
+              >
+                <div class='screen bg-black'>
+                  <!-- PUT CONTENTS HERE:-->
+                  <!-- * * This can be a video, image, or just about anything else.-->
+                  <!-- * * Set the max width of your media to 100% and the height to-->
+                  <!-- * * 100% like the demo example below.-->
+                  <video
+                    muted='muted'
+                    autoplay=''
+                    loop=''
+                    style='max-width: 100%; height: 100%'
+                  ><source
+                    src='assets/img/demo-screen.mp4'
+                    type='video/mp4'
+                  /></video>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- How it works-->
-    <section id='how-it-works'>
-      <div class='container px-5'>
-        <div class='h2 fs-1 mb-4'>How it works</div>
-        <p class='lead'>Highlight any unfamiliar word when you read any website.</p>
-        <p class='lead'>The system will automatically convert the word to the
-          normal form (ie. infinitive for the verb or singular for noun), find
-          it's definitions, translations, and create flashcards.</p>
-        <p class='lead'>
-          The created flashcards are available to be studied with Short
-          Repetition System (SRS) method across all your mobile and desktop
-          devices.
-        </p>
-      </div>
-    </section>
-    <!-- Supported languages -->
-    <section id='supported-languages' class='bg-light'>
-      <div class='container px-5'>
-        <div class='h2 fs-1 mb-4'>Supported Languages</div>
-        <p class='lead'>The application works very well with Arabic, Portuguese, Czech, German, Danish, Greek, English, Spanish, French, Hebrew, Hindi, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Russian, Swedish, Thai, Turkish, Traditional Chinese, Simplified Chinese. By "very well" I mean: the application converts words to the normal form (ie. infinitive for the verb or singular for noun), finds
-          definitions, provides translations, and creates flash cards.</p>
+  <!-- How it works-->
+  <section id='how-it-works'>
+    <div class='container px-5'>
+      <div class='h2 fs-1 mb-4'>How it works</div>
+      <p class='lead'>Highlight any unfamiliar word when you read any website.</p>
+      <p class='lead'>The system will automatically convert the word to the
+        normal form (ie. infinitive for the verb or singular for noun), find
+        it's definitions, translations, and create flashcards.</p>
+      <p class='lead'>
+        The created flashcards are available to be studied with Short
+        Repetition System (SRS) method across all your mobile and desktop
+        devices.
+      </p>
+    </div>
+  </section>
+  <!-- Supported languages -->
+  <section id='supported-languages' class='bg-light'>
+    <div class='container px-5'>
+      <div class='h2 fs-1 mb-4'>Supported Languages</div>
+      <p class='lead'>The application works very well with Arabic, Portuguese, Czech, German, Danish, Greek, English, Spanish, French, Hebrew, Hindi, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Russian, Swedish, Thai, Turkish, Traditional Chinese, Simplified Chinese. By "very well" I mean: the application converts words to the normal form (ie. infinitive for the verb or singular for noun), finds
+        definitions, provides translations, and creates flash cards.</p>
 
-        <p class="lead">Also, application works kind of well with all the languages supported by <a href="https://cloud.google.com/translate/docs/languages" target="_blank">Google Translate API</a>. By "kind of well", I mean it only looks up translations and creates flash cards.</p>
+      <p class="lead">Also, application works kind of well with all the languages supported by <a href="https://cloud.google.com/translate/docs/languages" target="_blank">Google Translate API</a>. By "kind of well", I mean it only looks up translations and creates flash cards.</p>
 
-        <p class="lead text-muted">Necessary disclaimer: at the current iteration, application translates all the languages only into English. This will be fixed very soon, but I believe this should be said so people who'd like to learn English will not be pissed off.</p>
-      </div>
-    </section>
-    <!-- Pricing -->
-    <section id='pricing'>
-      <div class='container px-5'>
-        <div class='h2 fs-1 mb-4'>Pricing</div>
-        <div class="d-flex gap-3  mb-4">
-          {{#each htmlWebpackPlugin.options.environment.products as |product|}}
-            <div class="card flex-grow-1 text-center">
-              <div class="card-body">
-                <div class="h2">
-                  {{product.duration}} month{{#if (math product.duration '>' 1)}}s{{/if}}
-                </div>
-                <div>
+      <p class="lead text-muted">Necessary disclaimer: at the current iteration, application translates all the languages only into English. This will be fixed very soon, but I believe this should be said so people who'd like to learn English will not be pissed off.</p>
+    </div>
+  </section>
+  <!-- Pricing -->
+  <section id='pricing'>
+    <div class='container px-5'>
+      <div class='h2 fs-1 mb-4'>Pricing</div>
+      <div class="d-flex gap-3  mb-4">
+        {{#each htmlWebpackPlugin.options.environment.products as |product|}}
+          <div class="card flex-grow-1 text-center">
+            <div class="card-body">
+              <div class="h2">
+                {{product.duration}} month{{#if (math product.duration '>' 1)}}s{{/if}}
+              </div>
+              <div>
                   <span class="lead">{{currency
                     (math product.price '/' product.duration)
                     product.currency
                   }}</span>
-                  <span class='text-muted small'>/ month</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div>
-                  {{#unless @first}}<del class='text-warning'>{{currency
-                    (math ../htmlWebpackPlugin.options.environment.products.0.price "*" product.duration)
-                    'EUR'
-                  }}</del>{{/unless}}
-                  {{currency product.price product.currency}}
-                  to be paid
-                </div>
+                <span class='text-muted small'>/ month</span>
               </div>
             </div>
-          {{/each}}
-        </div>
-        <a
-          class='btn btn-primary py-3 px-4 rounded-pill d-block fw-bold'
-          href='https://app.vocably.pro'
-        >Go to the app and get 7 days free trial.</a>
+            <div class="card-footer">
+              <div>
+                {{#unless @first}}<del class='text-warning'>{{currency
+                  (math ../htmlWebpackPlugin.options.environment.products.0.price "*" product.duration)
+                  'EUR'
+                }}</del>{{/unless}}
+                {{currency product.price product.currency}}
+                to be paid
+              </div>
+            </div>
+          </div>
+        {{/each}}
       </div>
-    </section>
-    <!-- Footer-->
-    <footer class='bg-black text-center py-5'>
-      <div class='container px-5'>
-        <div class='text-white-50 small'>
-          <div class='mb-2'>&copy; Vocably B.V. 2022. All Rights Reserved.</div>
-          <a href='/privacy-policy'>Privacy Policy</a>
-          <span class='mx-1'>&middot;</span>
-          <a href='/terms-and-conditions'>Terms and Conditions</a>
-        </div>
-      </div>
-    </footer>
-    <script
-      src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js'
-    ></script>
-  </body>
-</html>
+      <a
+        class='btn btn-primary py-3 px-4 rounded-pill d-block fw-bold'
+        href='https://app.vocably.pro'
+      >Go to the app and get 7 days free trial.</a>
+    </div>
+  </section>
+{{/layout}}
+
