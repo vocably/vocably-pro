@@ -49,9 +49,11 @@ module.exports = (env) => {
     },
     devtool: 'source-map',
     output: {
-      chunkFilename: '[name].[contenthash].js',
-      filename: '[name].[contenthash].js',
-      assetModuleFilename: '[name].[contenthash][ext][query]',
+      chunkFilename: env.production ? '[name].[contenthash].js' : '[name].js',
+      filename: env.production ? '[name].[contenthash].js' : '[name].js',
+      assetModuleFilename: env.production
+        ? '[name].[contenthash][ext][query]'
+        : '[name].[ext][query]',
     },
     plugins: [
       ...glob.sync(pagesPattern, { cwd: pagesDir }).map(
@@ -65,7 +67,7 @@ module.exports = (env) => {
           })
       ),
       new MiniCssExtractPlugin({
-        filename: '[name].[contenthash].css',
+        filename: env.production ? '[name].[contenthash].css' : '[name].css',
       }),
       new CopyPlugin({
         patterns: [{ from: 'src/assets', to: 'assets' }],
