@@ -6,14 +6,13 @@
         <div class='col-lg-6'>
           <!-- Mashead text and app badges-->
           <div class='mb-5 mb-lg-0 text-center text-lg-start'>
-            <h1 class='display-1 lh-1 mb-3'>Start reading in a foreign language.</h1>
+            <h1 class='display-1 lh-1 mb-3'>Vocabulary flashcards. Instantly.</h1>
             <p class='lead fw-normal text-muted mb-5'>Look up unfamiliar words while
-              surfing the web and automatically create flash cards for
-              studying them.</p>
+              surfing the web, get flashcards created automatically, and study them on the go.</p>
             <a
               class='btn btn-outline-primary py-3 px-4 rounded-pill fw-bold'
               href='https://app.vocably.pro'
-            >Go to the app and get 7 days free trial.</a>
+            >Sign in and get 7 days free trial</a>
           </div>
         </div>
         <div class='col-lg-6'>
@@ -92,27 +91,24 @@
   <section id='how-it-works'>
     <div class='container px-5'>
       <div class='h2 fs-1 mb-4'>How it works</div>
-      <p class='lead'>Highlight any unfamiliar word when you read any website.</p>
-      <p class='lead'>The system will automatically convert the word to the
-        normal form (ie. infinitive for the verb or singular for noun), find
-        it's definitions, translations, and create flashcards.</p>
+      <p class='lead'>Highlight an unfamiliar word while browsing any website.</p>
+      <p class='lead'>Vocably will automatically convert the word to the
+        normal form (i.e. infinitive for a verb or singular for a noun), get
+        its definitions, translations<sup><a href="#disclaimer" class="text-decoration-none">*</a></sup>, and get high quality flashcards created.</p>
       <p class='lead'>
-        The created flashcards are available to be studied with Short
+        The created flashcards are available to be studied with Spaced
         Repetition System (SRS) method across all your mobile and desktop
         devices.
       </p>
+
+      <p class="lead text-muted" id="disclaimer"><sup>*</sup> Current version of Vocably translates all the languages only into English. This will be fixed soon.</p>
     </div>
   </section>
   <!-- Supported languages -->
   <section id='supported-languages' class='bg-light'>
     <div class='container px-5'>
       <div class='h2 fs-1 mb-4'>Supported Languages</div>
-      <p class='lead'>The application works very well with Arabic, Portuguese, Czech, German, Danish, Greek, English, Spanish, French, Hebrew, Hindi, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Russian, Swedish, Thai, Turkish, Traditional Chinese, Simplified Chinese. By "very well" I mean: the application converts words to the normal form (ie. infinitive for the verb or singular for noun), finds
-        definitions, provides translations, and creates flash cards.</p>
-
-      <p class="lead">Also, application works kind of well with all the languages supported by <a href="https://cloud.google.com/translate/docs/languages" target="_blank">Google Translate API</a>. By "kind of well", I mean it only looks up translations and creates flash cards.</p>
-
-      <p class="lead text-muted">Necessary disclaimer: at the current iteration, application translates all the languages only into English. This will be fixed very soon, but I believe this should be said so people who'd like to learn English will not be pissed off.</p>
+      <p class='lead'>Vocably supports Arabic, Portuguese, Czech, German, Danish, Greek, Spanish, French, Hebrew, Hindi, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Russian, Swedish, Thai, Turkish, Traditional Chinese, Simplified Chinese.</p>
     </div>
   </section>
   <!-- Pricing -->
@@ -136,12 +132,11 @@
             </div>
             <div class="card-footer">
               <div>
-                {{#unless @first}}<del class='text-warning'>{{currency
+                Total {{#unless @first}}<del class='text-warning'>{{currency
                   (math ../htmlWebpackPlugin.options.environment.products.0.price "*" product.duration)
                   'EUR'
                 }}</del>{{/unless}}
                 {{currency product.price product.currency}}
-                to be paid
               </div>
             </div>
           </div>
@@ -150,7 +145,7 @@
       <a
         class='btn btn-primary py-3 px-4 rounded-pill d-block fw-bold'
         href='https://app.vocably.pro'
-      >Go to the app and get 7 days free trial.</a>
+      >Sign in and get 7 days free trial</a>
     </div>
   </section>
 {{/layout}}
