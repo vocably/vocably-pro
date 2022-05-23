@@ -167,7 +167,7 @@ resource "null_resource" "www_upload" {
   ]
 
   triggers = {
-    sha1 = sha1(join("", [for f in fileset(local.www_dist, "**/*.*") : filesha1(f)]))
+    sha1 = sha1(join("", [for f in fileset(local.www_dist, "**/*.*") : filesha1("${local.www_dist}${f}")]))
   }
 
   provisioner "local-exec" {
