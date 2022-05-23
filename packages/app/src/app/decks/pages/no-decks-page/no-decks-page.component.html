@@ -13,9 +13,16 @@
         >
       </li>
       <li class="mb-1">
-        <a [class.strike]="isInstalled" href="http://extension-link"
+        <a
+          [class.strike]="isInstalled"
+          href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
+          target="_blank"
           >Install the extension</a
         >
+        <div *ngIf="!canInstallTheExtension" class="mt-1 tiny text-danger">
+          Currently, the Vocably browser extension exists only for Google
+          Chrome. The extension is an essential part of the Vocably experience.
+        </div>
       </li>
       <li>Go to any website and translate unfamiliar word</li>
     </ol>

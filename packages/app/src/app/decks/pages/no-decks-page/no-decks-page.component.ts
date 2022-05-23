@@ -7,6 +7,16 @@ import { isSubscribed } from '../../../subscription/isSubscribed';
 import { pingExternal } from '@vocably/extension-messages';
 import { environment } from '../../../../environments/environment';
 
+import * as Bowser from 'bowser';
+
+const browser = Bowser.getParser(window.navigator.userAgent);
+
+const canInstallTheExtension = browser.satisfies({
+  desktop: {
+    chrome: '>1',
+  },
+});
+
 @Component({
   selector: 'app-no-decks-page',
   templateUrl: './no-decks-page.component.html',
@@ -17,6 +27,8 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
   public isSubscribed = false;
 
   public isInstalled = false;
+
+  public canInstallTheExtension = canInstallTheExtension;
 
   constructor(
     deckListStore: DeckListStoreService,
