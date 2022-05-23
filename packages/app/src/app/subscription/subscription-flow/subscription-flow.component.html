@@ -43,8 +43,8 @@
             </div>
             <div class="message">
               <ng-container *ngIf="authStateUpdatedStatus === 'waiting'">
-                The system is updating it's status so you can proceed with the
-                app<ion-spinner class="ml-0_5" name="dots"></ion-spinner>
+                The system is updating its status so you can proceed with the
+                app usage<ion-spinner class="ml-0_5" name="dots"></ion-spinner>
               </ng-container>
               <ng-container *ngIf="authStateUpdatedStatus === 'success'">
                 <ng-content select=".success-message"></ng-content>
@@ -55,7 +55,7 @@
             <div class="mb-1">
               This is a bug in the application. I did my best to prevent this
               from happening, but this did happen. Seeing this message during
-              the subscription process is the unpleasant experience.
+              the subscription process is an unpleasant experience.
             </div>
             <ul>
               <li>
