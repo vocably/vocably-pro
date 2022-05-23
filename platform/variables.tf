@@ -58,7 +58,11 @@ variable "sentry_environment" {
   type = string
 }
 
-variable "piwik_id" {
+variable "piwik_app_id" {
+  type = string
+}
+
+variable "piwik_www_id" {
   type = string
 }
 

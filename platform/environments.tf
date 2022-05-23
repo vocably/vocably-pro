@@ -8,7 +8,7 @@ locals {
   app_env_content = <<EOT
 export const environmentLocal = {
   chromeExtensionId: '${var.extension_id}',
-  piwikId: '${var.piwik_id}',
+  piwikId: '${var.piwik_app_id}',
   sentryEnvironment: '${var.sentry_environment}',
   paddle: {
     sandbox: ${var.paddle_sandbox ? "true" : "false"},

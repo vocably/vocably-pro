@@ -3,6 +3,7 @@ locals {
 module.exports = {
   environment: {
     products: ${jsonencode(var.paddle_subscription_trial_products)},
+    piwikId: '${var.piwik_www_id}',
   },
 };
   EOT
