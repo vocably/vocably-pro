@@ -157,16 +157,20 @@ resource "aws_route53_record" "www" {
 }
 
 locals {
-  www_dist = "${local.www_root}/dist"
+  www_dist = data.external.www_build.result.dest
 }
 
-resource "aws_s3_object" "www" {
-  depends_on   = [data.external.www_build]
-  for_each     = fileset(local.www_dist, "**/*.*")
-  bucket       = aws_s3_bucket.www.bucket
-  key          = each.value
-  source       = "${local.www_dist}/${each.value}"
-  acl          = "public-read"
-  etag         = filemd5("${local.www_dist}/${each.value}")
-  content_type = lookup(local.mime_types, split(".", each.value)[length(split(".", each.value)) - 1])
+resource "null_resource" "www_upload" {
+  depends_on = [
+    data.external.www_build,
+    aws_s3_bucket.www,
+  ]
+
+  triggers = {
+    sha1 = sha1(join("", [for f in fileset(local.www_dist, "**/*.*") : filesha1(f)]))
+  }
+
+  provisioner "local-exec" {
+    command = "aws s3 sync ${local.www_dist}  s3://${aws_s3_bucket.www.id} --delete"
+  }
 }
