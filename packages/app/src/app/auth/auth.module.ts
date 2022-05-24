@@ -7,6 +7,7 @@ import { ComponentsModule } from '../components/components.module';
 import { HandsFreePageComponent } from './pages/hands-free-page/hands-free-page.component';
 import { SignInSuccessPageComponent } from './pages/sign-in-success-page/sign-in-success-page.component';
 import { SignOutPageComponent } from './pages/sign-out-page/sign-out-page.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
@@ -14,8 +15,13 @@ import { SignOutPageComponent } from './pages/sign-out-page/sign-out-page.compon
     HandsFreePageComponent,
     SignInSuccessPageComponent,
     SignOutPageComponent,
+    SignInComponent,
   ],
   imports: [CommonModule, HeaderModule, IonicModule, ComponentsModule],
-  exports: [HandsFreePageComponent, SignInSuccessPageComponent],
+  exports: [
+    HandsFreePageComponent,
+    SignInSuccessPageComponent,
+    SignInComponent,
+  ],
 })
 export class AuthModule {}
