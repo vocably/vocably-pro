@@ -29,7 +29,7 @@ export class SignInSuccessPageComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
-        this.router.navigate(['/subscription/auto']);
+        this.router.navigate(['/subscription/auto'], { replaceUrl: true });
       });
   }
 

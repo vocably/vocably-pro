@@ -26,7 +26,7 @@ export class SubscriptionFlowComponent implements OnInit, OnDestroy {
   ) {
     this.authService.userData$.pipe(take(1)).subscribe((userData) => {
       if (isActive(userData)) {
-        router.navigate(['manage'], { relativeTo: route });
+        router.navigate(['manage'], { relativeTo: route, replaceUrl: true });
       }
 
       this.userData = userData;

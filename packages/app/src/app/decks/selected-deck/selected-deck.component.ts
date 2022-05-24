@@ -48,6 +48,7 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
         if (!decks.includes(params['language'])) {
           this.router.navigate(['../'], {
             relativeTo: this.route,
+            replaceUrl: true,
           });
         }
       });

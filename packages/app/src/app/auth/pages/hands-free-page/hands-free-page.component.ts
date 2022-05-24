@@ -19,7 +19,7 @@ export class HandsFreePageComponent implements OnInit, OnDestroy {
       .subscribe(async (isLoggedIn) => {
         if (isLoggedIn) {
           await this.auth.refreshToken();
-          this.router.navigate(['/signed-in']);
+          this.router.navigate(['/signed-in'], { replaceUrl: true });
         } else {
           this.auth.signIn();
         }

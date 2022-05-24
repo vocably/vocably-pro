@@ -43,6 +43,7 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
     if (deckListStore.decks$.value.length > 0) {
       router.navigate([deckListStore.decks$.value[0]], {
         relativeTo: route,
+        replaceUrl: true,
       });
     }
 

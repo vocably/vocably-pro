@@ -26,7 +26,7 @@ export class ManagePageComponent implements OnInit, OnDestroy {
   ) {
     this.authService.userData$.pipe(take(1)).subscribe((userData) => {
       if (!isActive(userData)) {
-        router.navigate(['../'], { relativeTo: route });
+        router.navigate(['../'], { relativeTo: route, replaceUrl: true });
       }
     });
   }
