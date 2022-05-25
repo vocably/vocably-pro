@@ -4,6 +4,7 @@ import {
   cleanUp,
   isActive,
   ping,
+  listLanguages,
 } from '@vocably/extension-messages';
 
 export const api = {
@@ -13,6 +14,7 @@ export const api = {
   cleanUp,
   isActive,
   ping,
+  listLanguages,
 };
 
 export type ApiConfigOptions = Partial<typeof api>;

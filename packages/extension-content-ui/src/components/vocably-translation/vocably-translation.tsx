@@ -11,7 +11,9 @@ import {
   Result,
   getFullLanguageName,
   languageList,
+  Language,
 } from '@vocably/model';
+import { sortLanguages } from './sortLanguages';
 
 @Component({
   tag: 'vocably-translation',
@@ -22,6 +24,7 @@ export class VocablyTranslation {
   @Prop() phrase: string;
   @Prop() result: Result<TranslationCards> | null = null;
   @Prop() loading: boolean = false;
+  @Prop() existingLanguages: Language[] = [];
   @Event() language: EventEmitter<string>;
 
   render() {
@@ -32,17 +35,19 @@ export class VocablyTranslation {
           this.language.emit((event.target as HTMLSelectElement).value)
         }
       >
-        {Object.entries(languageList).map(([code, name]) => (
-          <option
-            selected={
-              // @ts-ignore
-              this.result.value.translation.sourceLanguage === code
-            }
-            value={code}
-          >
-            {name}
-          </option>
-        ))}
+        {Object.entries(languageList)
+          .sort(sortLanguages(this.existingLanguages))
+          .map(([code, name]) => (
+            <option
+              selected={
+                // @ts-ignore
+                this.result.value.translation.sourceLanguage === code
+              }
+              value={code}
+            >
+              {name}
+            </option>
+          ))}
       </select>
     );
 

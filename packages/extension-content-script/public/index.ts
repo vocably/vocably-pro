@@ -23,5 +23,7 @@ registerContentScript({
       }),
     cleanUp: () => Promise.resolve({ success: true, value: null }),
     ping: () => Promise.resolve('pong'),
+    listLanguages: () =>
+      Promise.resolve({ success: true, value: ['en', 'nl'] }),
   },
 }).then();

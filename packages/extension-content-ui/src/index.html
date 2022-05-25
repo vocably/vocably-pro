@@ -142,8 +142,10 @@
 
       <div class="mb-3">
         <script type="text/javascript">
-          document.getElementById('translationSuccess').result =
-            successfulTranslationResult;
+          const translationSuccess =
+            document.getElementById('translationSuccess');
+          translationSuccess.existingLanguages = ['en', 'nl'];
+          translationSuccess.result = successfulTranslationResult;
         </script>
       </div>
 

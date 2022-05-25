@@ -32,9 +32,13 @@ export const setContents = async ({
         .finally(() => {
           translation.loading = false;
         })
-        .then((translationResult) => {
-          console.info('The word has been translated.', translationResult);
+        .then(async (translationResult) => {
           translation.result = translationResult;
+
+          const existingLanguagesResult = await api.listLanguages();
+          translation.existingLanguages = existingLanguagesResult.success
+            ? existingLanguagesResult.value
+            : [];
         });
     };
 

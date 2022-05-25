@@ -14,10 +14,13 @@ import {
   onIsActiveRequest,
   onPing,
   onPingExternal,
+  onListLanguagesRequest,
 } from '@vocably/extension-messages';
 import { createCards } from './createCards';
 import { makeDelete } from '@vocably/crud';
 import { get } from 'lodash-es';
+import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
+import { Language } from '@vocably/model';
 
 type RegisterServiceWorkerOptions = {
   auth: Parameters<typeof Auth.configure>[0];
@@ -95,6 +98,7 @@ export const registerServiceWorker = (
 
       console.info('And translation result is', value);
 
+      addLanguage(value.translation.sourceLanguage);
       return sendResponse({
         success: true,
         value,
@@ -127,6 +131,7 @@ export const registerServiceWorker = (
 
       if (deck.cards.length === 0) {
         console.info(`The entire deck will be deleted.`, payload);
+        removeLanguage(deck.language as Language);
         return sendResponse(await deleteLanguageDeck(deck.language));
       }
 
@@ -144,6 +149,10 @@ export const registerServiceWorker = (
       });
     }
   });
+
+  onListLanguagesRequest(async (sendResponse) =>
+    sendResponse(await getUserLanguages())
+  );
 
   onPing((sendResponse) => {
     return sendResponse('pong');

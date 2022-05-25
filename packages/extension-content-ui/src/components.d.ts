@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { CardItem, Result, TranslationCards } from "@vocably/model";
+import { CardItem, Language, Result, TranslationCards } from "@vocably/model";
 export namespace Components {
     interface VocablyAlert {
         "cta": string;
@@ -29,6 +29,7 @@ export namespace Components {
     interface VocablySubscribe {
     }
     interface VocablyTranslation {
+        "existingLanguages": Language[];
         "loading": boolean;
         "phrase": string;
         "result": Result<TranslationCards> | null;
@@ -135,6 +136,7 @@ declare namespace LocalJSX {
         "onConfirm"?: (event: CustomEvent<any>) => void;
     }
     interface VocablyTranslation {
+        "existingLanguages"?: Language[];
         "loading"?: boolean;
         "onLanguage"?: (event: CustomEvent<string>) => void;
         "phrase"?: string;

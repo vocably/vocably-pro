@@ -1,5 +1,10 @@
 import { createExternalMessage, createMessage } from '@vocably/hermes';
-import { TranslationCards, AnalyzePayload, Result } from '@vocably/model';
+import {
+  TranslationCards,
+  AnalyzePayload,
+  Result,
+  Language,
+} from '@vocably/model';
 
 const createScope =
   (scope: string): typeof createMessage =>
@@ -21,6 +26,11 @@ export const [analyze, onAnalyzeRequest] = createScopedMessage<
   AnalyzePayload,
   Result<TranslationCards>
 >('analyze');
+
+export const [listLanguages, onListLanguagesRequest] = createScopedMessage<
+  void,
+  Result<Language[]>
+>('listLanguages');
 
 export const [cleanUp, onCleanUpRequest] = createScopedMessage<
   TranslationCards,
