@@ -65,6 +65,9 @@ export const registerServiceWorker = (
       console.info(`Analyze has returned data.`, analysis);
 
       if (analysis.success === false) {
+        analysis.extra &&
+          analysis.extra.body &&
+          console.info('Backend error body', analysis.extra.body.toString());
         return sendResponse(analysis);
       }
 
