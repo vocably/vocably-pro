@@ -1,8 +1,10 @@
 @import '~@vocably/styles/colors';
 @import './styles/variables.scss';
 
-// Import Bootstrap
-@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/utilities';
 
 // Global CSS
 @import './styles/global.scss';
