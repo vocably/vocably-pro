@@ -8,6 +8,8 @@ import { HandsFreePageComponent } from './pages/hands-free-page/hands-free-page.
 import { SignInSuccessPageComponent } from './pages/sign-in-success-page/sign-in-success-page.component';
 import { SignOutPageComponent } from './pages/sign-out-page/sign-out-page.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { SignInButtonComponent } from './sign-in/sign-in-button/sign-in-button.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -16,8 +18,15 @@ import { SignInComponent } from './sign-in/sign-in.component';
     SignInSuccessPageComponent,
     SignOutPageComponent,
     SignInComponent,
+    SignInButtonComponent,
   ],
-  imports: [CommonModule, HeaderModule, IonicModule, ComponentsModule],
+  imports: [
+    CommonModule,
+    HeaderModule,
+    IonicModule,
+    ComponentsModule,
+    MatIconModule,
+  ],
   exports: [
     HandsFreePageComponent,
     SignInSuccessPageComponent,
