@@ -13,5 +13,5 @@ const canInstallTheExtension = browser.satisfies({
 if (canInstallTheExtension !== true) {
   document
     .querySelectorAll('.browser-warning')
-    .forEach((element) => element.classList.remove('invisible'));
+    .forEach((element) => element.classList.remove('d-none'));
 }

@@ -1,8 +1,8 @@
 {{#> layout }}
   <!-- Mashead header-->
-  <header class='masthead'>
-    <div class='container'>
-      <div class='row gx-5 align-items-center'>
+  <header class="bg-light py-5">
+    <div class='container-xxl py-5'>
+      <div class='row align-items-center'>
         <div class='col-lg-6'>
           <!-- Mashead text and app badges-->
           <div class='mb-5 mb-lg-0 text-center text-lg-start'>
@@ -14,7 +14,7 @@
               href='https://app.vocably.pro'
             >Sign in and get 7 day free trial</a>
 
-            <div class="browser-warning text-danger mt-2 invisible">Currently, the Vocably browser extension exists only for Google Chrome. The extension is an essential part of the Vocably experience.</div>
+            <div class="browser-warning text-danger mt-2 d-none">Currently, the Vocably browser extension exists only for Google Chrome. The extension is an essential part of the Vocably experience.</div>
           </div>
         </div>
         <div class='col-lg-6'>
@@ -26,7 +26,7 @@
 
   <!-- How it works-->
   <section id='how-it-works'>
-    <div class='container'>
+    <div class='container-xxl'>
       <div class='h2 fs-1 mb-4'>How it works</div>
       <div class="row">
         <div class="col-md-4 pb-4 pb-md-0">
@@ -52,14 +52,14 @@
   </section>
   <!-- Supported languages -->
   <section id='supported-languages' class='bg-light'>
-    <div class='container'>
+    <div class='container-xxl'>
       <div class='h2 fs-1 mb-4'>Supported Languages</div>
       <p class='lead'>Vocably supports Arabic, Portuguese, Czech, German, Danish, Greek, Spanish, French, Hebrew, Hindi, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Russian, Swedish, Thai, Turkish, Traditional Chinese, and Simplified Chinese.</p>
     </div>
   </section>
   <!-- Pricing -->
   <section id='pricing'>
-    <div class='container'>
+    <div class='container-xxl'>
       <div class='h2 fs-1 mb-4'>Pricing</div>
       <div class="row  mb-4">
         {{#each htmlWebpackPlugin.options.environment.products as |product|}}
@@ -95,7 +95,7 @@
         href='https://app.vocably.pro'
       >Sign in and get 7 day free trial</a>
 
-      <div class="browser-warning text-danger mt-2 text-center invisible">Currently, the Vocably browser extension exists only for Google Chrome. The extension is an essential part of the Vocably experience.</div>
+      <div class="browser-warning text-danger mt-2 text-center d-none">Currently, the Vocably browser extension exists only for Google Chrome. The extension is an essential part of the Vocably experience.</div>
     </div>
   </section>
 {{/layout}}
