@@ -1,17 +1,9 @@
 <app-header></app-header>
 <div class="hero" data-test="no-decks-screen">
   <div class="hero-body">
-    <p class="lead-3 mb-2">You don't have any cards yet.</p>
+    <p class="lead-3 mb-2">You're almost set.</p>
 
-    <ol class="lead-2">
-      <li class="mb-1">
-        <a
-          [routerLink]="['/subscription']"
-          [class.strike]="isSubscribed"
-          data-test="todo-subscribe"
-          >Get 7 day free trial</a
-        >
-      </li>
+    <ol class="lead-2 outside">
       <li class="mb-1">
         <a
           [class.strike]="isInstalled"
@@ -24,7 +16,17 @@
           Chrome. The extension is an essential part of the Vocably experience.
         </div>
       </li>
-      <li>Go to any website and translate unfamiliar word</li>
+      <li class="mb-1">
+        <a
+          [routerLink]="['/subscription']"
+          [class.strike]="isSubscribed"
+          data-test="todo-subscribe"
+          >Get a 7 day free trial</a
+        >
+      </li>
+      <li>
+        Go to any website and translate an unfamiliar word by selecting it
+      </li>
     </ol>
   </div>
 </div>

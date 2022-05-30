@@ -150,3 +150,8 @@ ul.unstyled {
 .status-icon {
   font-size: clamp(8rem, 15vw, 12rem);
 }
+
+.outside {
+  list-style-position: outside;
+  margin-left: 1.2em;
+}
