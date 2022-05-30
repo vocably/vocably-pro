@@ -1,13 +1,13 @@
 {{#> layout }}
   <!-- Mashead header-->
   <header class="bg-light py-5">
-    <div class='container-xxl py-4'>
+    <div class='container-xxl py-5'>
       <div class='row align-items-center'>
-        <div class='col-lg-6'>
+        <div class='col-lg-7'>
           <!-- Mashead text and app badges-->
           <div class='mb-5 mb-lg-0 text-center text-lg-start'>
-            <h1 class='display-1 lh-1 mb-3'>Vocabulary flashcards. Instantly.</h1>
-            <p class='lead fw-normal text-muted mb-5'>Look up unfamiliar words while
+            <h1 class='display-3 lh-1 mb-3'><span class="text-md-nowrap">Vocabulary flashcards.</span> Instantly.</h1>
+            <p class='lead fw-normal text-muted mb-5 me-lg-4'>Look up unfamiliar words while
               surfing the web, get flashcards created automatically, and study them on the go.</p>
             <a
               class='btn btn-primary py-3 px-4 rounded-pill fw-bold'
@@ -17,7 +17,7 @@
             <div class="browser-warning text-danger mt-5 d-none">Currently, the Vocably browser extension exists only for Google Chrome. The extension is an essential part of the Vocably experience.</div>
           </div>
         </div>
-        <div class='col-lg-6'>
+        <div class='col-lg-5'>
           <img src="assets/img/how-it-works-02.svg" class="img-fluid w-100" alt="Select a word to see it's definition and translation">
         </div>
       </div>
@@ -28,19 +28,19 @@
   <section id='how-it-works'>
     <div class='container-xxl'>
       <div class='h2 fs-1 mb-4'>How it works</div>
-      <div class="row">
-        <div class="col-md-4 pb-4 pb-md-0">
+      <div class="row gy-4">
+        <div class="col-md-4">
           <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-01.svg" alt="Text selection">
           <div class="text-center lead my-2 d-none d-md-block">1</div>
           <p>Highlight an unfamiliar word while browsing any website on your desktop device.</p>
         </div>
-        <div class="col-md-4 pb-4 pb-md-0">
+        <div class="col-md-4">
           <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-02.svg" alt="Created flashcard">
           <div class="text-center lead my-2 d-none d-md-block">2</div>
           <p>Vocably will automatically convert the word to the normal form (i.e. infinitive for a verb or singular for a noun), get its definitions, translations<sup><a href="#disclaimer" class="text-decoration-none">*</a></sup>, and create high quality flashcards.</p>
           <p class="text-muted small" id="disclaimer"><sup>*</sup> Current version of Vocably translates all the languages only into English. This will be fixed soon.</p>
         </div>
-        <div class="col-md-4 pb-4 pb-md-0">
+        <div class="col-md-4">
           <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-03.svg" alt="Study cards on mobile device">
           <div class="text-center lead my-2 d-none d-md-block">3</div>
           <p>The created flashcards are available to be studied with Spaced
@@ -63,7 +63,7 @@
       <div class='h2 fs-1 mb-4'>Pricing</div>
       <div class="row  mb-4">
         {{#each htmlWebpackPlugin.options.environment.products as |product|}}
-          <div class="col-4 d-flex align-items-stretch">
+          <div class="col-sm-4 gy-4 d-flex align-items-stretch">
             <div class="card text-center w-100">
               <div class="card-body">
                 <div class="h2">
