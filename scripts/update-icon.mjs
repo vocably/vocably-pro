@@ -8,6 +8,7 @@ await $`svgexport assets/web-favicon.svg packages/app/src/assets/favicon-196.png
 await $`svgexport assets/web-favicon.svg packages/extension-popup/src/favicon.ico 196:196`;
 await $`svgexport assets/web-favicon.svg packages/www/favicon.ico 196:196`;
 await $`svgexport assets/web-favicon.svg packages/www/src/favicon.ico 196:196`;
+await $`svgexport assets/3d-icon.svg assets/social-icon.png 810:810`;
 await $`cp assets/www-logo.svg packages/www/src/assets/logo.svg`;
 
 for (let size of ['16', '32', '48', '128']) {
