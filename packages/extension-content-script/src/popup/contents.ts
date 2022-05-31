@@ -71,7 +71,7 @@ export const setContents = async ({
 
   const alert = document.createElement('div');
 
-  const updateAlertMessage = (isLoggedIn: boolean, isActive: boolean) => {
+  const updateAlertMessage = async (isLoggedIn: boolean, isActive: boolean) => {
     if (!isLoggedIn) {
       if (alert.dataset.message !== 'sign-in') {
         alert.dataset.message = 'sign-in';
@@ -83,15 +83,18 @@ export const setContents = async ({
 
     if (!isActive) {
       if (alert.dataset.message !== 'subscribe') {
+        const isEligibleForTrial = await api.isEligibleForTrial();
         alert.dataset.message = 'subscribe';
         alert.innerHTML = '';
-        alert.appendChild(document.createElement('vocably-subscribe'));
+        const subscribeElement = document.createElement('vocably-subscribe');
+        subscribeElement.trial = isEligibleForTrial;
+        alert.appendChild(subscribeElement);
       }
       return;
     }
   };
 
-  updateAlertMessage(isLoggedIn, isActive);
+  await updateAlertMessage(isLoggedIn, isActive);
 
   let windowProxy: WindowProxy | null = null;
 
@@ -110,7 +113,7 @@ export const setContents = async ({
       setTranslation();
       setTimeout(closeWindow, 3000);
     } else {
-      updateAlertMessage(isLoggedIn, isActive);
+      await updateAlertMessage(isLoggedIn, isActive);
     }
   }, 1000);
 

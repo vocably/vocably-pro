@@ -27,6 +27,7 @@ export namespace Components {
     interface VocablySpinner {
     }
     interface VocablySubscribe {
+        "trial": boolean;
     }
     interface VocablyTranslation {
         "existingLanguages": Language[];
@@ -134,6 +135,7 @@ declare namespace LocalJSX {
     }
     interface VocablySubscribe {
         "onConfirm"?: (event: CustomEvent<any>) => void;
+        "trial"?: boolean;
     }
     interface VocablyTranslation {
         "existingLanguages"?: Language[];

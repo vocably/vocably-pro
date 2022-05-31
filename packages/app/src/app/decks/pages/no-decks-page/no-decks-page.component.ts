@@ -6,9 +6,8 @@ import { defer, map, retry, Subject, takeUntil } from 'rxjs';
 import { isSubscribed } from '../../../subscription/isSubscribed';
 import { pingExternal } from '@vocably/extension-messages';
 import { environment } from '../../../../environments/environment';
-
 import * as Bowser from 'bowser';
-import { isEligibleForTrial } from '../../../subscription/isEligibleForTrial';
+import { isEligibleForTrial } from '@vocably/model';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
 

@@ -1,4 +1,4 @@
-import { Component, Host, h, EventEmitter, Event } from '@stencil/core';
+import { Component, Host, h, EventEmitter, Event, Prop } from '@stencil/core';
 
 @Component({
   tag: 'vocably-subscribe',
@@ -6,16 +6,21 @@ import { Component, Host, h, EventEmitter, Event } from '@stencil/core';
   shadow: true,
 })
 export class VocablySubscribe {
+  @Prop() trial: boolean = false;
   @Event() confirm: EventEmitter;
 
   render() {
     return (
       <Host>
         <div class="container">
-          <div class="message">Please subscribe to proceed.</div>
+          <div class="message">
+            {this.trial
+              ? 'Request a 7 day free trial to proceed.'
+              : 'Please subscribe to proceed.'}
+          </div>
           <div class="button-container">
             <button class="button" onClick={() => this.confirm.emit()}>
-              Subscribe
+              {this.trial ? 'Request a 7 day free trial' : 'Subscribe'}
             </button>
           </div>
         </div>

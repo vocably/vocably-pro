@@ -22,6 +22,9 @@ export const [isActive, onIsActiveRequest] = createScopedMessage<void, boolean>(
   'isActive'
 );
 
+export const [isEligibleForTrial, onIsEligibleForTrialRequest] =
+  createScopedMessage<void, boolean>('isEligibleForTrial');
+
 export const [analyze, onAnalyzeRequest] = createScopedMessage<
   AnalyzePayload,
   Result<TranslationCards>

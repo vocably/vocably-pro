@@ -15,12 +15,17 @@ import {
   onPing,
   onPingExternal,
   onListLanguagesRequest,
+  onIsEligibleForTrialRequest,
 } from '@vocably/extension-messages';
 import { createCards } from './createCards';
 import { makeDelete } from '@vocably/crud';
 import { get } from 'lodash-es';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
-import { Language } from '@vocably/model';
+import {
+  isEligibleForTrial,
+  Language,
+  mapUserAttributes,
+} from '@vocably/model';
 
 type RegisterServiceWorkerOptions = {
   auth: Parameters<typeof Auth.configure>[0];
@@ -56,6 +61,19 @@ export const registerServiceWorker = (
         []
       ).includes('paid')
     );
+  });
+
+  onIsEligibleForTrialRequest(async (sendResponse) => {
+    const user = await Auth.currentAuthenticatedUser().catch(() => false);
+
+    if (user === false) {
+      return sendResponse(false);
+    }
+
+    const attributes = await Auth.userAttributes(user);
+
+    const userData = mapUserAttributes({ user, attributes });
+    return sendResponse(isEligibleForTrial(userData));
   });
 
   onAnalyzeRequest(async (sendResponse, payload) => {

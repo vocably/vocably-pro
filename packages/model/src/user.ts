@@ -54,3 +54,7 @@ export const mapUserAttributes = ({
     productId: productId && parseInt(productId.getValue()),
   };
 };
+
+export const isEligibleForTrial = (userData: UserData): boolean => {
+  return userData.status !== 'deleted';
+};

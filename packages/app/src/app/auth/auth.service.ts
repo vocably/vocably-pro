@@ -16,11 +16,7 @@ import {
   take,
   tap,
 } from 'rxjs';
-import {
-  SubscriptionStatus,
-  mapUserAttributes,
-  UserData,
-} from '@vocably/model';
+import { mapUserAttributes, UserData } from '@vocably/model';
 import { isActive, isCancelled } from '../subscription/subscriptionStatus';
 import { get } from 'lodash-es';
 

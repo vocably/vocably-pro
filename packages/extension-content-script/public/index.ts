@@ -11,6 +11,11 @@ registerContentScript({
       Promise.resolve(
         (document.getElementById('isActive') as HTMLInputElement).checked
       ),
+    isEligibleForTrial: () =>
+      Promise.resolve(
+        (document.getElementById('isEligibleForTrial') as HTMLInputElement)
+          .checked
+      ),
     analyze: (payload) =>
       new Promise((resolve) => {
         setTimeout(() => {

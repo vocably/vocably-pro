@@ -5,6 +5,7 @@ import {
   isActive,
   ping,
   listLanguages,
+  isEligibleForTrial,
 } from '@vocably/extension-messages';
 
 export const api = {
@@ -15,6 +16,7 @@ export const api = {
   isActive,
   ping,
   listLanguages,
+  isEligibleForTrial,
 };
 
 export type ApiConfigOptions = Partial<typeof api>;
