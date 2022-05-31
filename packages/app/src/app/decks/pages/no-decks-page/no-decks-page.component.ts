@@ -8,6 +8,7 @@ import { pingExternal } from '@vocably/extension-messages';
 import { environment } from '../../../../environments/environment';
 
 import * as Bowser from 'bowser';
+import { isEligibleForTrial } from '../../../subscription/isEligibleForTrial';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
 
@@ -25,6 +26,8 @@ const canInstallTheExtension = browser.satisfies({
 export class NoDecksPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   public isSubscribed = false;
+  public isEligibleForTrial = false;
+  public isTrialing = false;
 
   public isInstalled = false;
 
@@ -37,6 +40,8 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
     auth: AuthService
   ) {
     auth.userData$.pipe(takeUntil(this.destroy$)).subscribe((userData) => {
+      this.isEligibleForTrial = isEligibleForTrial(userData);
+      this.isTrialing = userData.status === 'trialing';
       this.isSubscribed = isSubscribed(userData);
     });
 

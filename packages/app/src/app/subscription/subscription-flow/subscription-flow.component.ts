@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService, UserData } from '../../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, take, takeUntil } from 'rxjs';
 import { isActive } from '../subscriptionStatus';
 import { SubscriptionProduct } from '../paddle';
+import { UserData } from '@vocably/model';
 
 @Component({
   selector: 'app-subscription-flow',

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SubscriptionProduct } from '../paddle';
-import { UserData } from '../../auth/auth.service';
 import { getAvailableProducts } from '../getAvailableProducts';
 import { isEligibleForTrial } from '../isEligibleForTrial';
+import { UserData } from '@vocably/model';
 
 @Component({
   selector: 'app-subscription-product',

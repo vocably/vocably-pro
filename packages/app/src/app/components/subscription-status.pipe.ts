@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { UserData } from '../auth/auth.service';
+import { UserData } from '@vocably/model';
 
 @Pipe({
   name: 'subscriptionStatus',

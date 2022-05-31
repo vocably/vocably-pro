@@ -1,5 +1,4 @@
-import { SubscriptionStatus } from '@vocably/model';
-import { UserData } from '../auth/auth.service';
+import { SubscriptionStatus, UserData } from '@vocably/model';
 
 const eligibleForUpdate: SubscriptionStatus[] = [
   'active',

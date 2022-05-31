@@ -21,7 +21,11 @@
           [routerLink]="['/subscription']"
           [class.strike]="isSubscribed"
           data-test="todo-subscribe"
-          >Get a 7 day free trial</a
+          >{{
+            this.isEligibleForTrial || this.isTrialing
+              ? 'Get a 7 day free trial'
+              : 'Subscribe'
+          }}</a
         >
       </li>
       <li>

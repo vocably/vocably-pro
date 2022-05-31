@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { subscribe, SubscriptionProduct } from '../paddle';
 import { startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
-import { UserData } from '../../auth/auth.service';
+import { UserData } from '@vocably/model';
 
 @Component({
   selector: 'app-subscription-form',

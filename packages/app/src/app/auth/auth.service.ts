@@ -16,22 +16,13 @@ import {
   take,
   tap,
 } from 'rxjs';
-import { SubscriptionStatus } from '@vocably/model';
+import {
+  SubscriptionStatus,
+  mapUserAttributes,
+  UserData,
+} from '@vocably/model';
 import { isActive, isCancelled } from '../subscription/subscriptionStatus';
 import { get } from 'lodash-es';
-
-export type UserData = {
-  username: string;
-  email: string;
-  sub: string;
-  status?: SubscriptionStatus;
-  updateUrl?: string;
-  cancelUrl?: string;
-  nextBillDate?: Date;
-  unitPrice?: number;
-  cancellationDate?: Date;
-  productId?: number;
-};
 
 @Injectable({
   providedIn: 'root',
@@ -48,47 +39,7 @@ export class AuthService {
         attributes: await Auth.userAttributes(user),
       };
     }),
-    map(({ user, attributes }): UserData => {
-      const email = attributes.find((a) => a.getName() === 'email');
-      const sub = attributes.find((a) => a.getName() === 'sub');
-      const status = attributes.find((a) => a.getName() === 'custom:status');
-      const cancellationDate = attributes.find(
-        (a) => a.getName() === 'custom:cancellation_date'
-      );
-      const nextBillDate = attributes.find(
-        (a) => a.getName() === 'custom:next_bill_date'
-      );
-      const unitPrice = attributes.find(
-        (a) => a.getName() === 'custom:unit_price'
-      );
-      const updateUrl = attributes.find(
-        (a) => a.getName() === 'custom:update_url'
-      );
-      const cancelUrl = attributes.find(
-        (a) => a.getName() === 'custom:cancel_url'
-      );
-      const productId = attributes.find(
-        (a) => a.getName() === 'custom:product_id'
-      );
-
-      if (!email || !sub) {
-        throw Error('Can find email and sub in user data.');
-      }
-
-      return {
-        username: user.getUsername(),
-        email: email.getValue(),
-        sub: sub.getValue(),
-        status: status && (status.getValue() as SubscriptionStatus),
-        updateUrl: updateUrl && updateUrl.getValue(),
-        cancelUrl: cancelUrl && cancelUrl.getValue(),
-        nextBillDate: nextBillDate && new Date(nextBillDate.getValue()),
-        unitPrice: unitPrice && parseFloat(unitPrice.getValue()),
-        cancellationDate:
-          cancellationDate && new Date(cancellationDate.getValue()),
-        productId: productId && parseInt(productId.getValue()),
-      };
-    })
+    map(mapUserAttributes)
   );
 
   public waitForSubscriptionHook$ = this.fetchUserData$.pipe(
