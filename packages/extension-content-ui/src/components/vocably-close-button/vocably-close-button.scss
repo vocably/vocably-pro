@@ -1,0 +1,33 @@
+@import '../../styles/component';
+
+$size: 11px;
+
+:host {
+  display: inline-block;
+  width: $size;
+  height: $size;
+  line-height: $size;
+  vertical-align: middle;
+}
+
+.button {
+  display: block;
+  width: $size;
+  height: $size;
+  line-height: $size !important;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0;
+  cursor: pointer;
+}
+
+.svg {
+  width: $size;
+  height: $size;
+}
+
+.path {
+  stroke-width: 0.5px;
+  stroke: $text-color;
+}

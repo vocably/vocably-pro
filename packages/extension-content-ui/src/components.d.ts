@@ -13,6 +13,8 @@ export namespace Components {
     }
     interface VocablyButton {
     }
+    interface VocablyCloseButton {
+    }
     interface VocablyGoogleIcon {
     }
     interface VocablyLogo {
@@ -48,6 +50,12 @@ declare global {
     var HTMLVocablyButtonElement: {
         prototype: HTMLVocablyButtonElement;
         new (): HTMLVocablyButtonElement;
+    };
+    interface HTMLVocablyCloseButtonElement extends Components.VocablyCloseButton, HTMLStencilElement {
+    }
+    var HTMLVocablyCloseButtonElement: {
+        prototype: HTMLVocablyCloseButtonElement;
+        new (): HTMLVocablyCloseButtonElement;
     };
     interface HTMLVocablyGoogleIconElement extends Components.VocablyGoogleIcon, HTMLStencilElement {
     }
@@ -100,6 +108,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "vocably-alert": HTMLVocablyAlertElement;
         "vocably-button": HTMLVocablyButtonElement;
+        "vocably-close-button": HTMLVocablyCloseButtonElement;
         "vocably-google-icon": HTMLVocablyGoogleIconElement;
         "vocably-logo": HTMLVocablyLogoElement;
         "vocably-popup": HTMLVocablyPopupElement;
@@ -117,6 +126,9 @@ declare namespace LocalJSX {
         "onConfirm"?: (event: CustomEvent<any>) => void;
     }
     interface VocablyButton {
+    }
+    interface VocablyCloseButton {
+        "onClose"?: (event: CustomEvent<void>) => void;
     }
     interface VocablyGoogleIcon {
     }
@@ -147,6 +159,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "vocably-alert": VocablyAlert;
         "vocably-button": VocablyButton;
+        "vocably-close-button": VocablyCloseButton;
         "vocably-google-icon": VocablyGoogleIcon;
         "vocably-logo": VocablyLogo;
         "vocably-popup": VocablyPopup;
@@ -163,6 +176,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "vocably-alert": LocalJSX.VocablyAlert & JSXBase.HTMLAttributes<HTMLVocablyAlertElement>;
             "vocably-button": LocalJSX.VocablyButton & JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
+            "vocably-close-button": LocalJSX.VocablyCloseButton & JSXBase.HTMLAttributes<HTMLVocablyCloseButtonElement>;
             "vocably-google-icon": LocalJSX.VocablyGoogleIcon & JSXBase.HTMLAttributes<HTMLVocablyGoogleIconElement>;
             "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;

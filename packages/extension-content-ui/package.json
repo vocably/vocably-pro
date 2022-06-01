@@ -24,10 +24,7 @@
     "generate": "stencil generate",
     "extension-content-ui": "npm-run-all --parallel start build-watch"
   },
-  "dependencies": {
-    "@vocably/model": "0.0.0",
-    "@vocably/sulna": "0.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@stencil/angular-output-target": "^0.4.0",
