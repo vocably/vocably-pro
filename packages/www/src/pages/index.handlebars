@@ -6,9 +6,9 @@
         <div class='col-lg-7'>
           <!-- Mashead text and app badges-->
           <div class='mb-5 mb-lg-0 text-center text-lg-start'>
-            <h1 class='display-3 lh-1 mb-3'><span class="text-md-nowrap">Vocabulary flashcards.</span> Instantly.</h1>
+            <h1 class='display-3 mb-5'><span class="text-md-nowrap">Vocabulary flashcards.</span> Instantly.</h1>
             <p class='lead fw-normal text-muted mb-5 me-lg-4'>Look up unfamiliar words while
-              surfing the web, get flashcards created automatically, and study them on the go.</p>
+              surfing the web, get flashcards created automatically, <span class="text-nowrap">and study them on the go.</span></p>
             <a
               class='btn btn-primary py-3 px-4 rounded-pill fw-bold'
               href='https://app.vocably.pro'
@@ -17,7 +17,7 @@
             <div class="browser-warning text-danger mt-5 d-none">Currently, the Vocably browser extension exists only for Google Chrome. The extension is an essential part of the Vocably experience.</div>
           </div>
         </div>
-        <div class='col-lg-5'>
+        <div class='col-lg-5 d-none d-md-block'>
           <img src="assets/img/how-it-works-02.svg" class="img-fluid w-100" alt="Select a word to see it's definition and translation">
         </div>
       </div>
@@ -27,7 +27,7 @@
   <!-- How it works-->
   <section id='how-it-works'>
     <div class='container-xxl'>
-      <div class='h2 fs-1 mb-4'>How it works</div>
+      <div class='h2 text-center text-lg-start mb-section'>How it works</div>
       <div class="row gy-4">
         <div class="col-md-4">
           <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-01.svg" alt="Text selection">
@@ -53,20 +53,20 @@
   <!-- Supported languages -->
   <section id='supported-languages' class='bg-light'>
     <div class='container-xxl'>
-      <div class='h2 fs-1 mb-4'>Supported Languages</div>
+      <div class='h2 text-center text-lg-start mb-section'>Supported Languages</div>
       <p class='lead'>Vocably supports Arabic, Portuguese, Czech, German, Danish, Greek, Spanish, French, Hebrew, Hindi, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Russian, Swedish, Thai, Turkish, Traditional Chinese, and Simplified Chinese.</p>
     </div>
   </section>
   <!-- Pricing -->
   <section id='pricing'>
     <div class='container-xxl'>
-      <div class='h2 fs-1 mb-4'>Pricing</div>
+      <div class='h2 text-center text-lg-start mb-section'>Pricing</div>
       <div class="row  mb-4">
         {{#each htmlWebpackPlugin.options.environment.products as |product|}}
           <div class="col-sm-4 gy-4 d-flex align-items-stretch">
             <div class="card text-center w-100">
               <div class="card-body">
-                <div class="h2">
+                <div class="h5 mb-2">
                   {{product.duration}} month{{#if (math product.duration '>' 1)}}s{{/if}}
                 </div>
                 <div>
@@ -79,7 +79,7 @@
               </div>
               <div class="card-footer">
                 <div>
-                  Total {{#unless @first}}<del class='text-warning'>{{currency
+                  Total {{#unless @first}}<del class='text-primary'>{{currency
                   (math ../htmlWebpackPlugin.options.environment.products.0.price "*" product.duration)
                   'EUR'
                 }}</del>{{/unless}}
