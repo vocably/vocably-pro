@@ -1,5 +1,16 @@
-@import './variables/colors.scss';
-@import './variables/typography.scss';
+$font-family-base: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, 'Helvetica Neue', Arial, sans, 'Apple Color Emoji', 'Segoe UI Emoji',
+  'Segoe UI Symbol', 'Noto Color Emoji';
+
+$headings-font-family: 'Ruda', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+$primary: $v-primary-500;
+$secondary: $v-secondary-500;
+
+$font-weight-normal: 300;
+$headings-font-weight: 500;
 
 $navbar-brand-height: 2.2rem;
 $navbar-padding-y: 1rem;

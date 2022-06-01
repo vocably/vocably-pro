@@ -11,29 +11,6 @@ html {
   scroll-padding-top: 4.5rem;
 }
 
-// Custom utilities
-
-.bg-black {
-  background-color: $black !important;
-}
-
-.bg-gradient-primary-to-secondary {
-  background: linear-gradient(45deg, #{$primary}, #{$secondary}) !important;
-}
-
-.font-alt {
-  font-family: $alt-font-family !important;
-}
-
-.text-gradient {
-  background: -webkit-linear-gradient(#{$primary}, #{$secondary});
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-// Padding for sections
-
 aside,
 section {
   padding-top: 5rem;
@@ -42,10 +19,4 @@ section {
 
 .mb-section {
   margin-bottom: 4rem !important;
-}
-
-// Set fixed height for app badges
-
-.app-badge {
-  height: 3rem;
 }
