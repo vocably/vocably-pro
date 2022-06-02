@@ -10,18 +10,20 @@
   --header-padding-bottom: 11px;
   --padding-x: 20px;
   --padding-bottom: 8px;
-  --shadow-size: 15px;
+  --shadow-spread: 10px;
+  --shadow-v-offset: 4px;
   --scrollbar-track: 6px;
   --scrollbar-gutter: calc((var(--padding-x) - var(--scrollbar-track)) / 2);
   $border-radius: 8px;
   $border-color: #bababa;
 
   display: inline-block;
-  padding: var(--shadow-size);
+  padding: calc(var(--shadow-spread) - var(--shadow-v-offset))
+    var(--shadow-spread) calc(var(--shadow-spread) + var(--shadow-v-offset));
 
   .popup {
     background: rgb(var(--background-rgb));
-    box-shadow: 0 0 var(--shadow-size) 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 var(--shadow-v-offset) var(--shadow-spread) rgba(0, 0, 0, 0.2);
     border: 1px solid $border-color;
     border-radius: $border-radius;
     box-sizing: border-box;
@@ -67,7 +69,7 @@
     max-height: calc(
       var(--max-height) - var(--header-padding-top) - var(--header-padding-top) -
         var(--header-padding-bottom) - var(--padding-bottom) -
-        var(--shadow-size) * 2
+        var(--shadow-spread) * 2
     );
     scrollbar-gutter: stable;
     padding-left: var(--padding-x);
