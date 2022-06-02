@@ -14,7 +14,7 @@
   line-height: $size;
   background-color: #fff;
   padding: 3px;
-  border: 1px solid $v-gray-800;
+  border: 1px solid $barrier-color;
   cursor: pointer;
   box-sizing: content-box;
   text-align: center;
@@ -29,7 +29,6 @@
   }
 
   &:hover {
-    border-color: $v-gray-500;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
   }
 }

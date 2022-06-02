@@ -53,7 +53,9 @@ export class VocablyTranslation {
 
     return (
       <div class="loading-container">
-        {this.result === null && <vocably-spinner></vocably-spinner>}
+        {this.result === null && (
+          <vocably-spinner class="margin-bottom-1"></vocably-spinner>
+        )}
         {this.result && this.result.success === false && (
           <div class="error">An error has occurred.</div>
         )}
