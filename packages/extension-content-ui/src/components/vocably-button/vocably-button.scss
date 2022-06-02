@@ -1,3 +1,4 @@
+//@use 'sass:math';
 @import '../../styles/component';
 
 :host {
@@ -6,6 +7,7 @@
 
 .button {
   $size: 19px;
+  $icon-size: $size * 0.9;
 
   display: flex;
   border-radius: 5px;
@@ -17,15 +19,11 @@
   border: 1px solid $barrier-color;
   cursor: pointer;
   box-sizing: content-box;
-  text-align: center;
   align-items: center;
+  justify-content: center;
 
   .svg {
-    height: $size;
-
-    .path {
-      fill: $v-gray-150;
-    }
+    height: $icon-size;
   }
 
   &:hover {
