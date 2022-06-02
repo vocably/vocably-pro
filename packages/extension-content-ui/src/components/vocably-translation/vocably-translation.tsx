@@ -85,7 +85,9 @@ export class VocablyTranslation {
                 </div>
               )}
               <div class="section">
-                <div class="header small text-primary">Cards</div>
+                <div class="header small text-primary">
+                  Card{this.result.value.cards.length > 1 ? 's' : ''}
+                </div>
 
                 {this.result.value.translation.sourceLanguage ===
                   this.result.value.translation.targetLanguage && (
