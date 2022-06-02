@@ -81,10 +81,9 @@ select {
   border-radius: $input-border-radius;
   appearance: none;
   background: $input-bg-color
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M112 184l144 144 144-144" fill="rgb(211, 211, 211)" /></svg>')
+    url('data:image/svg+xml;utf8,<svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 5 6 1 1" stroke="rgb(109, 109, 109)" stroke-width=".5" stroke-miterlimit="10" stroke-linecap="round"/></svg>')
     no-repeat;
-  background-size: contain;
-  background-position: right 0 top 50%;
+  background-position: right $input-padding-x top 50%;
   outline: none;
 
   &:focus,
