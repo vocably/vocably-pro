@@ -93,9 +93,15 @@ export class VocablyTranslation {
                 )}
 
                 <div class="cards">
-                  {this.result.value.cards.map((card, index) => (
-                    <div class="card">
-                      <div class="number">{index + 1}</div>
+                  {this.result.value.cards.map((card, index, collection) => (
+                    <div
+                      class={
+                        'card' + (collection.length > 1 ? ' has-number' : '')
+                      }
+                    >
+                      {collection.length > 1 && (
+                        <div class="number">{index + 1}</div>
+                      )}
                       <div>
                         <span class="small">Side</span>{' '}
                         <span class="text-primary">A</span>

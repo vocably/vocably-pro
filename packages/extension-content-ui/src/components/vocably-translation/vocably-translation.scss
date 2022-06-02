@@ -127,6 +127,10 @@ select {
       border-top: none;
     }
 
+    &.has-number {
+      padding-right: 48px !important;
+    }
+
     .number {
       $size: 24px;
       position: absolute;
