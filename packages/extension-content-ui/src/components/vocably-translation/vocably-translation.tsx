@@ -63,50 +63,61 @@ export class VocablyTranslation {
               {this.result.value.translation.sourceLanguage !==
                 this.result.value.translation.targetLanguage && (
                 <div class="direct">
-                  <div class="header">Direct</div>
+                  <div class="header text-primary">Direct</div>
 
-                  <div class="label">{languageSelector}</div>
-                  <div class="phrase">{this.phrase}</div>
+                  <div class="margin-bottom-1">{languageSelector}</div>
+                  <div class="margin-left emphasized margin-bottom-1">
+                    {this.phrase}
+                  </div>
 
                   <Fragment>
-                    <div class="label">
+                    <div class="margin-bottom-1">
                       {getFullLanguageName(
                         this.result.value.translation.targetLanguage
                       )}
                     </div>
-                    <div class="meaning">
+                    <div class="margin-left emphasized margin-bottom-1">
                       {this.result.value.translation.target}
                     </div>
                   </Fragment>
                 </div>
               )}
-              <div class="cards">
-                <div class="header">Cards</div>
+              <div>
+                <div class="header text-primary">Cards</div>
 
                 {this.result.value.translation.sourceLanguage ===
                   this.result.value.translation.targetLanguage && (
-                  <div class="language">{languageSelector}</div>
+                  <div class="margin-bottom-1">{languageSelector}</div>
                 )}
 
-                {this.result.value.cards.map((card) => (
-                  <div class="card">
-                    <div class="label">Side A</div>
-                    <div class="value">
-                      {card.data.source}
-                      {card.data.partOfSpeech && (
-                        <Fragment>
-                          <span class="invisible-space">&nbsp;</span>
-                          <span class="pos">{card.data.partOfSpeech}</span>
-                        </Fragment>
-                      )}
-                    </div>
+                <div class="cards">
+                  {this.result.value.cards.map((card, index) => (
+                    <div class="card">
+                      <div class="number">{index + 1}</div>
+                      <div>
+                        <span class="small">Side</span>{' '}
+                        <span class="text-primary">A</span>
+                      </div>
+                      <div class="margin-left">
+                        <span class="emphasized">{card.data.source}</span>
+                        {card.data.partOfSpeech && (
+                          <Fragment>
+                            <span class="invisible-space ">&nbsp;</span>
+                            <span class="pos">{card.data.partOfSpeech}</span>
+                          </Fragment>
+                        )}
+                      </div>
 
-                    <div class="label">Side B</div>
-                    <div class="value">
-                      <vocably-side-b item={card}></vocably-side-b>
+                      <div>
+                        <span class="small">Side</span>{' '}
+                        <span class="text-primary">B</span>
+                      </div>
+                      <div class="margin-left">
+                        <vocably-side-b item={card}></vocably-side-b>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
             {this.loading && (

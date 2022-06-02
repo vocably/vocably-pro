@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../styles/component';
 
 $select-padding: 6px;
@@ -8,16 +9,31 @@ $select-padding: 6px;
   display: block;
 }
 
+.margin-left {
+  margin-left: 16px;
+}
+
+.margin-bottom-1 {
+  margin-bottom: 8px;
+}
+
+.emphasized {
+  color: $v-gray-50;
+  font-weight: bold;
+}
+
+.small {
+  font-size: $base-font-size * 0.8;
+}
+
+.text-primary {
+  color: $primary-color;
+}
+
 .translation {
   display: flex;
   align-items: stretch;
   padding: 0 $select-padding;
-
-  .label {
-    color: $v-gray-500;
-    font-size: $base-font-size * 0.9;
-    text-transform: uppercase;
-  }
 
   .value {
     margin-bottom: 8px;
@@ -26,7 +42,7 @@ $select-padding: 6px;
   .pos {
     color: $v-gray-700;
     display: inline-block;
-    margin-left: $base-font-size / 4;
+    margin-left: math.div($base-font-size, 4);
     font-size: 60%;
   }
 
@@ -37,29 +53,14 @@ $select-padding: 6px;
   }
 
   .header {
-    color: $v-gray-700;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    font-weight: bold;
+    font-size: $base-font-size * 0.9;
+    margin-bottom: 12px;
   }
 
   .direct {
-    $padding: 18px;
-    padding-right: $padding;
-    margin-right: $padding;
-    border-right: 1px solid $v-gray-700;
+    margin-right: 8px;
 
     .phrase {
-      margin-bottom: 8px;
-    }
-  }
-
-  .cards {
-    .card + .card {
-      margin-top: 20px;
-    }
-
-    .language {
       margin-bottom: 8px;
     }
   }
@@ -107,4 +108,35 @@ select {
   justify-content: center;
   background: white;
   opacity: 0.5;
+}
+
+.cards {
+  border: 1px solid #bababa;
+  border-radius: 8px;
+  background-color: #fbfbfb;
+  margin-bottom: 1px;
+
+  .card {
+    $padding: 14px;
+    position: relative;
+    padding: $padding;
+    border-top: 1px solid #bababa;
+
+    &:first-child {
+      border-top: none;
+    }
+
+    .number {
+      $size: 24px;
+      position: absolute;
+      right: $padding;
+      top: $padding;
+      border: 1px solid #e6e6e6;
+      border-radius: 50%;
+      min-width: $size;
+      height: $size;
+      line-height: $size;
+      text-align: center;
+    }
+  }
 }
