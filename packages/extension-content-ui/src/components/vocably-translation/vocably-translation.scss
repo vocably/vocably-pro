@@ -11,11 +11,15 @@ $input-padding-y: 10px;
 }
 
 .margin-left {
-  margin-left: 16px;
+  margin-left: 12px;
 }
 
 .margin-bottom-1 {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+}
+
+.margin-bottom-2 {
+  margin-bottom: 12px;
 }
 
 .emphasized {
@@ -24,7 +28,7 @@ $input-padding-y: 10px;
 }
 
 .small {
-  font-size: $base-font-size * 0.8;
+  font-size: $base-font-size * 0.9;
 }
 
 .text-primary {
@@ -42,8 +46,7 @@ $input-padding-y: 10px;
   .pos {
     color: $v-gray-700;
     display: inline-block;
-    margin-left: math.div($base-font-size, 4);
-    font-size: 60%;
+    font-size: 80%;
   }
 
   .invisible-space {
@@ -53,7 +56,6 @@ $input-padding-y: 10px;
   }
 
   .header {
-    font-size: $base-font-size * 0.9;
     margin-bottom: 12px;
   }
 

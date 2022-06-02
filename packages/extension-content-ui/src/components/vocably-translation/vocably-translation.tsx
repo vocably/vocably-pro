@@ -54,7 +54,7 @@ export class VocablyTranslation {
     return (
       <div class="loading-container">
         {this.result === null && (
-          <vocably-spinner class="margin-bottom-1"></vocably-spinner>
+          <vocably-spinner class="margin-bottom-2"></vocably-spinner>
         )}
         {this.result && this.result.success === false && (
           <div class="error">An error has occurred.</div>
@@ -65,10 +65,10 @@ export class VocablyTranslation {
               {this.result.value.translation.sourceLanguage !==
                 this.result.value.translation.targetLanguage && (
                 <div class="section">
-                  <div class="header text-primary">Direct</div>
+                  <div class="header small text-primary">Direct</div>
 
                   <div class="margin-bottom-1">{languageSelector}</div>
-                  <div class="margin-left emphasized margin-bottom-1">
+                  <div class="margin-left emphasized margin-bottom-2">
                     {this.phrase}
                   </div>
 
@@ -85,11 +85,11 @@ export class VocablyTranslation {
                 </div>
               )}
               <div class="section">
-                <div class="header text-primary">Cards</div>
+                <div class="header small text-primary">Cards</div>
 
                 {this.result.value.translation.sourceLanguage ===
                   this.result.value.translation.targetLanguage && (
-                  <div class="margin-bottom-1">{languageSelector}</div>
+                  <div class="margin-bottom-2">{languageSelector}</div>
                 )}
 
                 <div class="cards">
@@ -105,7 +105,9 @@ export class VocablyTranslation {
                         {card.data.partOfSpeech && (
                           <Fragment>
                             <span class="invisible-space ">&nbsp;</span>
-                            <span class="pos">{card.data.partOfSpeech}</span>
+                            <span class="pos margin-left">
+                              {card.data.partOfSpeech}
+                            </span>
                           </Fragment>
                         )}
                       </div>
