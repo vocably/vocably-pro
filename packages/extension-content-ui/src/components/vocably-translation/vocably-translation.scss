@@ -4,6 +4,8 @@
 $input-padding-x: 14px;
 $input-padding-y: 10px;
 
+$internal-border: 0.5px solid $input-border-color;
+
 :host {
   @include base-font();
 
@@ -79,7 +81,7 @@ select {
   width: calc(100% + #{$input-padding-x});
   font-size: $base-font-size * 0.9;
   padding: $input-padding-y $input-padding-x;
-  border: 1px solid $input-border-color;
+  border: $internal-border;
   border-radius: $input-border-radius;
   appearance: none;
   background: $input-bg-color
@@ -112,7 +114,7 @@ select {
 }
 
 .cards {
-  border: 1px solid $input-border-color;
+  border: $internal-border;
   border-radius: $input-border-radius;
   background-color: $input-bg-color;
   margin-left: -$input-padding-x;
@@ -121,7 +123,7 @@ select {
   .card {
     position: relative;
     padding: $input-padding-y $input-padding-x;
-    border-top: 1px solid #bababa;
+    border-top: $internal-border;
 
     &:first-child {
       border-top: none;
