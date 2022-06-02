@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @mixin base-font() {
   font-family: $font-family !important;
   font-size: $base-font-size !important;
@@ -8,23 +10,23 @@
 @mixin button() {
   @include base-font();
 
-  $shadow-size: 4px;
+  $shadow-spread: 6px;
 
   display: inline-block;
   background: $button-bg;
-  color: $button-color;
+  color: $button-color !important;
   border: none;
-  padding: $base-font-size / 2;
+  padding: math.div($base-font-size, 2);
   font: inherit;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
-  border-radius: $border-radius;
+  border-radius: $base-line-height;
   text-align: center;
   text-decoration: none;
-  width: calc(100% - #{$shadow-size} * 2);
+  width: calc(100% - #{$shadow-spread} * 2);
   transition: background-color 200ms;
-  box-shadow: 0 1px $shadow-size 1px $v-gray-500;
-  margin: 0 $shadow-size;
+  margin: 0 $shadow-spread;
+  box-shadow: 0 3px $shadow-spread rgba(0, 80, 255, 0.25);
 
   &:hover,
   &:focus {
@@ -33,6 +35,5 @@
 
   &:active {
     background: $button-bg-active;
-    box-shadow: 0 0 $shadow-size 1px $v-gray-500;
   }
 }
