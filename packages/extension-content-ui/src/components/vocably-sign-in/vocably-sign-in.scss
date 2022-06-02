@@ -12,20 +12,9 @@
 
 .p {
   margin-bottom: $p-margin;
+  text-align: center;
 
   a {
-    color: inherit;
+    color: $v-primary-500;
   }
-}
-
-.muted {
-  color: $muted;
-}
-
-.button {
-  @include button();
-}
-
-.google-icon {
-  margin-right: 12px;
 }

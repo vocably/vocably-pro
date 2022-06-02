@@ -11,31 +11,25 @@ export class VocablySignIn {
   render() {
     return (
       <Host>
-        <div class="container">
-          <div class="p">Please sign in to proceed.</div>
-          <div class="p">
-            <button class="button" onClick={() => this.confirm.emit()}>
-              <vocably-google-icon class="google-icon"></vocably-google-icon>
-              Sign in with Google
-            </button>
-          </div>
-          <div class="p muted">
-            By signing in, you agree to our{' '}
-            <a
-              href="https://app.vocably.pro/page/terms-of-service"
-              target="_blank"
-            >
-              Terms of Service
-            </a>{' '}
-            and{' '}
-            <a
-              href="https://app.vocably.pro/page/privacy-policy"
-              target="_blank"
-            >
-              Privacy Policy
-            </a>
-            .
-          </div>
+        <div class="p">Please sign in to proceed.</div>
+        <div class="p">
+          <vocably-google-button onClick={() => this.confirm.emit()}>
+            Sign in with Google
+          </vocably-google-button>
+        </div>
+        <div class="p">
+          By signing in, you agree to our{' '}
+          <a
+            href="https://app.vocably.pro/page/terms-of-service"
+            target="_blank"
+          >
+            Terms of Service
+          </a>{' '}
+          and{' '}
+          <a href="https://app.vocably.pro/page/privacy-policy" target="_blank">
+            Privacy Policy
+          </a>
+          .
         </div>
       </Host>
     );
