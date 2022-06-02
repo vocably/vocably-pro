@@ -62,7 +62,7 @@ export class VocablyTranslation {
             <div class="translation">
               {this.result.value.translation.sourceLanguage !==
                 this.result.value.translation.targetLanguage && (
-                <div class="direct">
+                <div class="section">
                   <div class="header text-primary">Direct</div>
 
                   <div class="margin-bottom-1">{languageSelector}</div>
@@ -82,7 +82,7 @@ export class VocablyTranslation {
                   </Fragment>
                 </div>
               )}
-              <div>
+              <div class="section">
                 <div class="header text-primary">Cards</div>
 
                 {this.result.value.translation.sourceLanguage ===

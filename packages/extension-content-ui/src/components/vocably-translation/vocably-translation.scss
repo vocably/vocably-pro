@@ -1,7 +1,8 @@
 @use 'sass:math';
 @import '../../styles/component';
 
-$select-padding: 6px;
+$input-padding-x: 14px;
+$input-padding-y: 10px;
 
 :host {
   @include base-font();
@@ -33,7 +34,6 @@ $select-padding: 6px;
 .translation {
   display: flex;
   align-items: stretch;
-  padding: 0 $select-padding;
 
   .value {
     margin-bottom: 8px;
@@ -57,11 +57,12 @@ $select-padding: 6px;
     margin-bottom: 12px;
   }
 
-  .direct {
-    margin-right: 8px;
+  .section {
+    padding-left: $input-padding-x;
+    margin-left: 8px;
 
-    .phrase {
-      margin-bottom: 8px;
+    &:first-child {
+      margin-left: 0;
     }
   }
 }
@@ -72,15 +73,14 @@ $select-padding: 6px;
 
 select {
   color: $v-gray-300;
-  margin-left: -$select-padding;
-  width: calc(100% + #{$select-padding});
-  text-transform: uppercase;
+  margin-left: -$input-padding-x;
+  width: calc(100% + #{$input-padding-x});
   font-size: $base-font-size * 0.9;
-  padding: $select-padding;
-  border: 1px solid $v-gray-900;
-  border-radius: 4px;
+  padding: $input-padding-y $input-padding-x;
+  border: 1px solid $input-border-color;
+  border-radius: $input-border-radius;
   appearance: none;
-  background: transparent
+  background: $input-bg-color
     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M112 184l144 144 144-144" fill="rgb(211, 211, 211)" /></svg>')
     no-repeat;
   background-size: contain;
@@ -111,15 +111,15 @@ select {
 }
 
 .cards {
-  border: 1px solid #bababa;
-  border-radius: 8px;
-  background-color: #fbfbfb;
+  border: 1px solid $input-border-color;
+  border-radius: $input-border-radius;
+  background-color: $input-bg-color;
+  margin-left: -$input-padding-x;
   margin-bottom: 1px;
 
   .card {
-    $padding: 14px;
     position: relative;
-    padding: $padding;
+    padding: $input-padding-y $input-padding-x;
     border-top: 1px solid #bababa;
 
     &:first-child {
@@ -129,8 +129,8 @@ select {
     .number {
       $size: 24px;
       position: absolute;
-      right: $padding;
-      top: $padding;
+      right: $input-padding-x;
+      top: $input-padding-y;
       border: 1px solid #e6e6e6;
       border-radius: 50%;
       min-width: $size;

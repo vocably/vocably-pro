@@ -11,8 +11,8 @@
   --padding-x: 20px;
   --padding-bottom: 8px;
   --shadow-size: 15px;
-  --scrollbar-gutter: 5px;
   --scrollbar-track: 6px;
+  --scrollbar-gutter: calc((var(--padding-x) - var(--scrollbar-track)) / 2);
   $border-radius: 8px;
   $border-color: #bababa;
 
