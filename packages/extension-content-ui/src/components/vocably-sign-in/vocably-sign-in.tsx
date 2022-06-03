@@ -17,7 +17,7 @@ export class VocablySignIn {
             Sign in with Google
           </vocably-google-button>
         </div>
-        <div class="p">
+        <div>
           By signing in, you agree to our{' '}
           <a
             href="https://app.vocably.pro/page/terms-of-service"
