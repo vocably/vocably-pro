@@ -27,24 +27,29 @@
     border-radius: $border-radius;
     box-sizing: border-box;
     position: relative;
-    padding: calc(
-        var(--header-height) + var(--header-padding-top) +
-          var(--header-padding-bottom)
-      )
-      var(--scrollbar-gutter) var(--padding-bottom) 0;
+    padding-top: calc(var(--header-height) + var(--header-padding-top));
+    padding-right: var(--scrollbar-gutter);
+    padding-bottom: 1px;
+    padding-left: 0;
   }
 
   .header {
     position: absolute;
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1) var(--header-padding-bottom)
+    );
     left: 0;
     right: 0;
     top: 0;
     height: var(--header-height);
-    border-radius: $border-radius $border-radius 0 0;
+    border-radius: $border-radius 0 0 0;
     display: flex;
     align-items: center;
-    padding: var(--header-padding-top) var(--padding-x)
-      var(--header-padding-bottom);
+    padding: var(--header-padding-top) 0 var(--header-padding-bottom)
+      var(--padding-x);
+    margin-right: var(--padding-x);
 
     .logo {
       --logo-color: #{$v-gray-450};
@@ -62,6 +67,21 @@
     }
   }
 
+  .footer {
+    position: absolute;
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--padding-bottom);
+    margin-right: var(--padding-x);
+    border-radius: 0 0 0 $border-radius;
+  }
+
   .body {
     min-width: 140px;
     overflow: auto;
@@ -72,10 +92,12 @@
         var(--shadow-spread) * 2
     );
     scrollbar-gutter: stable;
+    padding-top: var(--header-padding-bottom);
     padding-left: var(--padding-x);
     padding-right: calc(
       var(--padding-x) - var(--scrollbar-track) - var(--scrollbar-gutter)
     );
+    padding-bottom: var(--padding-bottom);
 
     &::-webkit-scrollbar {
       -webkit-appearance: none;

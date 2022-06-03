@@ -45,6 +45,7 @@ export class VocablyPopup {
             <vocably-logo class="logo"></vocably-logo>
             <vocably-close-button class="close"></vocably-close-button>
           </div>
+          <div class="footer"></div>
         </div>
       </Host>
     );
