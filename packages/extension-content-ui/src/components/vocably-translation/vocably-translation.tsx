@@ -14,6 +14,7 @@ import {
   Language,
 } from '@vocably/model';
 import { sortLanguages } from './sortLanguages';
+import { isDirectNecessary } from './isDirectNecessary';
 
 @Component({
   tag: 'vocably-translation',
@@ -51,6 +52,11 @@ export class VocablyTranslation {
       </select>
     );
 
+    const showDirect =
+      this.result &&
+      this.result.success &&
+      isDirectNecessary(this.result.value);
+
     return (
       <div class="loading-container">
         {this.result === null && (
@@ -62,8 +68,7 @@ export class VocablyTranslation {
         {this.result && this.result.success === true && (
           <Fragment>
             <div class="translation">
-              {this.result.value.translation.sourceLanguage !==
-                this.result.value.translation.targetLanguage && (
+              {showDirect && (
                 <div class="section">
                   <div class="header small text-primary">Direct</div>
 
@@ -89,8 +94,7 @@ export class VocablyTranslation {
                   Card{this.result.value.cards.length > 1 ? 's' : ''}
                 </div>
 
-                {this.result.value.translation.sourceLanguage ===
-                  this.result.value.translation.targetLanguage && (
+                {!showDirect && (
                   <div class="margin-bottom-2">{languageSelector}</div>
                 )}
 

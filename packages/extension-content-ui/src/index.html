@@ -50,6 +50,32 @@
       </script>
 
       <script type="text/javascript">
+        const simpletonTranslationResult = {
+          success: true,
+          value: {
+            source: 'gemaakt',
+            translation: {
+              source: 'gemaakt',
+              sourceLanguage: 'nl',
+              target: 'created',
+              targetLanguage: 'en',
+            },
+            cards: [
+              {
+                id: 'NYS4L',
+                created: 1639827779683,
+                data: {
+                  language: 'nl',
+                  source: 'gemaakt',
+                  translation: 'created',
+                  definition: '',
+                  partOfSpeech: '',
+                },
+              },
+            ],
+          },
+        };
+
         const successfulTranslationResult = {
           success: true,
           value: {
@@ -137,6 +163,27 @@
             document.getElementById('translationSuccess');
           translationSuccess.existingLanguages = ['en', 'nl'];
           translationSuccess.result = successfulTranslationResult;
+        </script>
+      </div>
+
+      <h2>Success. Simple</h2>
+
+      <div class="mb-3">
+        <vocably-popup
+          ><vocably-translation
+            phrase="gemaakt"
+            id="simpletonTranslation"
+          ></vocably-translation
+        ></vocably-popup>
+      </div>
+
+      <div class="mb-3">
+        <script type="text/javascript">
+          const simpletonTranslation = document.getElementById(
+            'simpletonTranslation'
+          );
+          simpletonTranslation.existingLanguages = ['en', 'nl'];
+          simpletonTranslation.result = simpletonTranslationResult;
         </script>
       </div>
 
