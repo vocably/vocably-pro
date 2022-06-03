@@ -11,6 +11,7 @@
   @include base-font();
 
   $shadow-spread: 6px;
+  $shadow-v-offset: 3px;
 
   display: inline-block;
   background: $button-bg;
@@ -25,8 +26,8 @@
   text-decoration: none;
   width: calc(100% - #{$shadow-spread} * 2);
   transition: background-color 200ms;
-  margin: 0 $shadow-spread;
-  box-shadow: 0 3px $shadow-spread rgba(0, 80, 255, 0.25);
+  margin: 0 $shadow-spread ($shadow-spread + $shadow-v-offset);
+  box-shadow: 0 $shadow-v-offset $shadow-spread rgba(0, 80, 255, 0.25);
 
   &:hover,
   &:focus {

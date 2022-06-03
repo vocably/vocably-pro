@@ -59,9 +59,7 @@ export class VocablyTranslation {
 
     return (
       <div class="loading-container">
-        {this.result === null && (
-          <vocably-spinner class="margin-bottom-2"></vocably-spinner>
-        )}
+        {this.result === null && <vocably-spinner></vocably-spinner>}
         {this.result && this.result.success === false && (
           <div class="error">An error has occurred.</div>
         )}
@@ -70,8 +68,6 @@ export class VocablyTranslation {
             <div class="translation">
               {showDirect && (
                 <div class="section">
-                  <div class="header small text-primary">Direct</div>
-
                   <div class="margin-bottom-1">{languageSelector}</div>
                   <div class="margin-left emphasized margin-bottom-2">
                     {this.phrase}
@@ -90,10 +86,6 @@ export class VocablyTranslation {
                 </div>
               )}
               <div class="section">
-                <div class="header small text-primary">
-                  Card{this.result.value.cards.length > 1 ? 's' : ''}
-                </div>
-
                 {!showDirect && (
                   <div class="margin-bottom-2">{languageSelector}</div>
                 )}
