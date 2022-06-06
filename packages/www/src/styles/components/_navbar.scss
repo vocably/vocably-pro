@@ -6,17 +6,16 @@
   background-color: $white;
 
   .navbar-toggler {
-    font-size: $font-size-sm;
-    padding: 0.7rem 1rem;
-    color: $gray-900;
+    color: $v-color-emphasize;
+    border: none;
   }
 
   .navbar-nav {
     .nav-item {
       .nav-link {
-        color: $gray-900;
+        color: $v-color-emphasize;
         &:hover {
-          color: $gray-600;
+          color: $v-color-body;
         }
         &.active {
           color: $primary;
