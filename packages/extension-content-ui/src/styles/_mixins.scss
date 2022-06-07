@@ -1,21 +1,12 @@
 @use 'sass:math';
 @import '~@vocably/styles/variables';
+@import '~@vocably/styles/mixins/link';
 
 @mixin base-font() {
   font-family: $font-family !important;
   font-size: $base-font-size !important;
   line-height: $base-line-height !important;
   color: $v-color-body !important;
-}
-
-@mixin link() {
-  color: $v-color-primary !important;
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: $v-color-active !important;
-  }
 }
 
 @mixin button() {

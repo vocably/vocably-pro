@@ -1,5 +1,6 @@
 @import '~@vocably/styles/colors';
 @import '~@vocably/styles/mixins/underline';
+@import '~@vocably/styles/mixins/link';
 
 $body-color: $v-gray-100;
 
@@ -9,6 +10,5 @@ body {
 }
 
 a {
-  color: $body-color;
-  @include underline();
+  @include link();
 }

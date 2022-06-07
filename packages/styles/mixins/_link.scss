@@ -1,0 +1,13 @@
+@import '../variables';
+@import 'underline';
+
+@mixin link() {
+  @include underline();
+  color: $v-color-primary !important;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $v-color-active !important;
+  }
+}
