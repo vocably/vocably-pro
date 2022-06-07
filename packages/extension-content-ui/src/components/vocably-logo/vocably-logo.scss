@@ -1,7 +1,7 @@
 @import '../../styles/variables';
 
 :host {
-  --logo-color: #{$v-gray-150};
+  --logo-color: #{$v-color-emphasize};
 
   display: inline-block;
   line-height: 0;
@@ -12,6 +12,6 @@
   width: auto;
 
   .primary {
-    fill: $primary-color;
+    fill: $v-color-primary;
   }
 }

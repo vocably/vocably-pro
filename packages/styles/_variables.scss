@@ -1,4 +1,5 @@
 $v-color-primary: #0050ff;
+$v-color-active: #0047e3;
 $v-color-danger: #ff5e5e;
 $v-color-body: #6a6a6a;
 $v-color-emphasize: #000000;
@@ -6,8 +7,13 @@ $v-color-contrast: #fbfbfb;
 $v-color-border: #bababa;
 $v-color-border-muted: #e6e6e6;
 
+$v-btn-color: #ffffff;
 $v-btn-shadow-spread: 6px;
 $v-btn-shadow-v-offset: 3px;
+$v-btn-bg: $v-color-primary;
+$v-btn-hover-bg: $v-color-active;
+$v-btn-active-bg: $v-color-active;
+$v-btn-active-shadow: inset 0px 0px 15px rgba(3, 36, 108, 0.4);
 $v-btn-box-shadow: 0 $v-btn-shadow-v-offset $v-btn-shadow-spread
   rgba(0, 80, 255, 0.25);
 

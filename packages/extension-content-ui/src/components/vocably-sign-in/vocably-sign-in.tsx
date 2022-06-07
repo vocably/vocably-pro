@@ -20,13 +20,18 @@ export class VocablySignIn {
         <div>
           By signing in, you agree to our{' '}
           <a
+            class="link"
             href="https://app.vocably.pro/page/terms-of-service"
             target="_blank"
           >
             Terms of Service
           </a>{' '}
           and{' '}
-          <a href="https://app.vocably.pro/page/privacy-policy" target="_blank">
+          <a
+            class="link"
+            href="https://app.vocably.pro/page/privacy-policy"
+            target="_blank"
+          >
             Privacy Policy
           </a>
           .

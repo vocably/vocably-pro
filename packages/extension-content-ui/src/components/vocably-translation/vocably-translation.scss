@@ -4,7 +4,9 @@
 $input-padding-x: 14px;
 $input-padding-y: 10px;
 
-$internal-border: 0.5px solid $input-border-color;
+$internal-border: 0.5px solid $v-color-border;
+
+$section-margin: 8px;
 
 :host {
   @include base-font();
@@ -25,7 +27,7 @@ $internal-border: 0.5px solid $input-border-color;
 }
 
 .emphasized {
-  color: $v-gray-50;
+  color: $v-color-emphasize;
   font-weight: bold;
 }
 
@@ -34,7 +36,7 @@ $internal-border: 0.5px solid $input-border-color;
 }
 
 .text-primary {
-  color: $primary-color;
+  color: $v-color-primary;
 }
 
 .translation {
@@ -46,7 +48,6 @@ $internal-border: 0.5px solid $input-border-color;
   }
 
   .pos {
-    color: $v-gray-700;
     display: inline-block;
     font-size: 80%;
   }
@@ -63,7 +64,7 @@ $internal-border: 0.5px solid $input-border-color;
 
   .section {
     padding-left: $input-padding-x;
-    margin-left: 8px;
+    margin-left: $section-margin;
 
     &:first-child {
       margin-left: 0;
@@ -72,28 +73,23 @@ $internal-border: 0.5px solid $input-border-color;
 }
 
 .error {
-  color: $v-red-500;
+  color: $v-color-danger;
 }
 
 select {
-  color: $v-gray-300;
+  color: $v-color-body;
   margin-left: -$input-padding-x;
   width: calc(100% + #{$input-padding-x});
   font-size: $base-font-size * 0.9;
   padding: $input-padding-y $input-padding-x;
   border: $internal-border;
-  border-radius: $input-border-radius;
+  border-radius: $v-border-radius;
   appearance: none;
-  background: $input-bg-color
+  background: $v-color-contrast
     url('data:image/svg+xml;utf8,<svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 5 6 1 1" stroke="rgb(109, 109, 109)" stroke-width=".5" stroke-miterlimit="10" stroke-linecap="round"/></svg>')
     no-repeat;
   background-position: right $input-padding-x top 50%;
   outline: none;
-
-  &:focus,
-  &:hover {
-    border-color: $v-gray-500;
-  }
 }
 
 .loading-container {
@@ -115,8 +111,8 @@ select {
 
 .cards {
   border: $internal-border;
-  border-radius: $input-border-radius;
-  background-color: $input-bg-color;
+  border-radius: $v-border-radius;
+  background-color: $v-color-contrast;
   margin-left: -$input-padding-x;
   margin-bottom: 1px;
 
@@ -138,7 +134,7 @@ select {
       position: absolute;
       right: $input-padding-x;
       top: $input-padding-y;
-      border: 1px solid #e6e6e6;
+      border: 1px solid $v-color-border-muted;
       border-radius: 50%;
       min-width: $size;
       height: $size;

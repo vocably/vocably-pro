@@ -1,17 +1,7 @@
-@import '~@vocably/styles/colors';
+@import '~@vocably/styles/variables';
 
 $font-family: arial, sans-serif;
 $base-font-size: 16px;
 $base-line-height: 20px;
-$text-color: #6a6a6a;
 $scroll-color: #a4a4a4;
-$primary-color: $v-primary-500;
-$button-color: #fff;
-$button-bg: $v-primary-500;
-$button-bg-hover: $v-primary-450;
-$button-bg-active: $v-primary-400;
-$input-bg-color: #fbfbfb;
-$input-border-color: #bababa;
-$input-border-radius: 8px;
 $p-margin: 16px;
-$barrier-color: #bababa;

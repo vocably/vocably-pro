@@ -1,21 +1,29 @@
 @use 'sass:math';
+@import '~@vocably/styles/variables';
 
 @mixin base-font() {
   font-family: $font-family !important;
   font-size: $base-font-size !important;
   line-height: $base-line-height !important;
-  color: $text-color !important;
+  color: $v-color-body !important;
+}
+
+@mixin link() {
+  color: $v-color-primary !important;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $v-color-active !important;
+  }
 }
 
 @mixin button() {
   @include base-font();
 
-  $shadow-spread: 6px;
-  $shadow-v-offset: 3px;
-
   display: inline-block;
-  background: $button-bg;
-  color: $button-color !important;
+  background: $v-btn-bg;
+  color: $v-btn-color !important;
   border: none;
   padding: math.div($base-font-size, 2);
   font: inherit;
@@ -24,17 +32,19 @@
   border-radius: $base-line-height;
   text-align: center;
   text-decoration: none;
-  width: calc(100% - #{$shadow-spread} * 2);
+  width: calc(100% - #{$v-btn-shadow-spread} * 2);
   transition: background-color 200ms;
-  margin: 0 $shadow-spread ($shadow-spread + $shadow-v-offset);
-  box-shadow: 0 $shadow-v-offset $shadow-spread rgba(0, 80, 255, 0.25);
+  margin: 0 $v-btn-shadow-spread ($v-btn-shadow-spread + $v-btn-shadow-v-offset);
+  box-shadow: 0 $v-btn-shadow-v-offset $v-btn-shadow-spread
+    rgba(0, 80, 255, 0.25);
 
   &:hover,
   &:focus {
-    background: $button-bg-hover;
+    background: $v-btn-hover-bg;
   }
 
   &:active {
-    background: $button-bg-active;
+    background: $v-btn-active-bg;
+    box-shadow: $v-btn-active-shadow;
   }
 }

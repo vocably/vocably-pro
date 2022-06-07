@@ -14,7 +14,6 @@
   --shadow-v-offset: 4px;
   --scrollbar-track: 6px;
   --scrollbar-gutter: calc((var(--padding-x) - var(--scrollbar-track)) / 2);
-  $border-radius: 8px;
 
   display: inline-block;
   padding: calc(var(--shadow-spread) - var(--shadow-v-offset))
@@ -23,8 +22,8 @@
   .popup {
     background: rgb(var(--background-rgb));
     box-shadow: 0 var(--shadow-v-offset) var(--shadow-spread) rgba(0, 0, 0, 0.2);
-    border: 1px solid $barrier-color;
-    border-radius: $border-radius;
+    border: 1px solid $v-color-border;
+    border-radius: $v-border-radius;
     box-sizing: border-box;
     position: relative;
     padding-top: calc(var(--header-height) + var(--header-padding-top));
@@ -44,7 +43,7 @@
     right: 0;
     top: 0;
     height: var(--header-height);
-    border-radius: $border-radius 0 0 0;
+    border-radius: $v-border-radius 0 0 0;
     display: flex;
     align-items: center;
     padding: var(--header-padding-top) 0 var(--header-padding-bottom)
@@ -52,8 +51,6 @@
     margin-right: var(--padding-x);
 
     .logo {
-      --logo-color: #{$v-gray-450};
-
       height: var(--header-height);
     }
 
@@ -79,7 +76,7 @@
     bottom: 0;
     height: var(--padding-bottom);
     margin-right: var(--padding-x);
-    border-radius: 0 0 0 $border-radius;
+    border-radius: 0 0 0 $v-border-radius;
   }
 
   .body {
