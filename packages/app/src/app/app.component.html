@@ -1,4 +1,2 @@
-<div class="container" [class.wide]="cleanScreen">
-  <app-offline *ngIf="isOffline"></app-offline>
-  <router-outlet *ngIf="!isOffline"></router-outlet>
-</div>
+<app-offline *ngIf="isOffline"></app-offline>
+<router-outlet *ngIf="!isOffline"></router-outlet>

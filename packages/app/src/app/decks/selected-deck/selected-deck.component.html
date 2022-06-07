@@ -1,15 +1,19 @@
-<app-header *ngIf="!cleanScreen" [title]="title">
-  <ng-container *ngIf="deckListStore.decks$ | async as deckList">
-    <app-deck-selector
-      [languages]="deckList"
-      [value]="language"
-      (change)="changeLanguage($event)"
-    ></app-deck-selector>
-  </ng-container>
-</app-header>
-<div class="hero" [class.max]="cleanScreen" *ngIf="isLoading">
-  <div class="hero-body text-center">
-    <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading cards...
-  </div>
+<div *ngIf="!cleanScreen" class="container-xl top">
+  <app-header [title]="title">
+    <ng-container *ngIf="deckListStore.decks$ | async as deckList">
+      <app-deck-selector
+        [languages]="deckList"
+        [value]="language"
+        (change)="changeLanguage($event)"
+      ></app-deck-selector>
+    </ng-container>
+  </app-header>
 </div>
-<router-outlet *ngIf="!isLoading"></router-outlet>
+<div [class.container]="!cleanScreen" [class.bottom]="!cleanScreen">
+  <div class="hero" [class.max]="cleanScreen" *ngIf="isLoading">
+    <div class="hero-body text-center">
+      <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading cards...
+    </div>
+  </div>
+  <router-outlet *ngIf="!isLoading"></router-outlet>
+</div>

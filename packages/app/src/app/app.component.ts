@@ -16,7 +16,6 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  cleanScreen = false;
   disabledRefresher = false;
   isOffline = !window.navigator.onLine;
 
@@ -29,7 +28,6 @@ export class AppComponent implements OnInit {
     private auth: AuthService
   ) {
     routerParams.data$.subscribe((data) => {
-      this.cleanScreen = data['cleanScreen'] ?? false;
       this.disabledRefresher = data['disabledRefresher'] ?? false;
     });
 

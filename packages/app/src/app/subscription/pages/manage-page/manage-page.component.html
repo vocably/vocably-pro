@@ -1,64 +1,70 @@
-<app-header title=""><strong>Subscription</strong></app-header>
-<ng-container *ngIf="!hasBeenSuccessfullyCancelled">
-  <div class="hero" *ngIf="!userData">
-    <div class="hero-body text-center">
-      <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading data...
-    </div>
-  </div>
-  <div class="hero" *ngIf="userData">
-    <div class="hero-body text-center">
-      <div class="mb-2">
-        Your subscription status is
-        <strong>{{ userData | subscriptionStatus }}</strong
-        >.
-        <ng-container *ngIf="isCancelled(userData) && userData.cancellationDate"
-          >The subscription is active due
-          <strong>{{
-            userData.cancellationDate | date: 'mediumDate'
-          }}</strong></ng-container
-        >
-        <ng-container
-          *ngIf="
-            isActive(userData) && userData.unitPrice && userData.nextBillDate
-          "
-          ><br />Your next payment is due on
-          <strong>{{ userData.nextBillDate | date: 'mediumDate' }}</strong
-          >. Amount: <strong>{{ userData.unitPrice | currency: 'EUR' }}</strong
-          >.</ng-container
-        >
+<div class="container-xl top">
+  <app-header title=""><strong>Subscription</strong></app-header>
+</div>
+<div class="container bottom">
+  <ng-container *ngIf="!hasBeenSuccessfullyCancelled">
+    <div class="hero" *ngIf="!userData">
+      <div class="hero-body text-center">
+        <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading data...
       </div>
-      <button
-        class="button block mb-1"
-        (click)="updatePaymentMethod(userData)"
-        data-test="update-payment-method"
-      >
-        Update Payment Method
-      </button>
-      <button
-        class="button danger block"
-        (click)="cancelSubscription(userData)"
-        data-test="cancel-subscription"
-      >
-        Cancel Subscription
-      </button>
     </div>
-  </div>
-</ng-container>
-<div
-  class="hero"
-  *ngIf="hasBeenSuccessfullyCancelled"
-  data-test="cancellation-success"
->
-  <div class="hero-body text-center">
-    <div class="mb-1">
-      <ion-icon
-        class="text-success status-icon"
-        name="checkmark-circle"
-      ></ion-icon>
+    <div class="hero" *ngIf="userData">
+      <div class="hero-body text-center">
+        <div class="mb-2">
+          Your subscription status is
+          <strong>{{ userData | subscriptionStatus }}</strong
+          >.
+          <ng-container
+            *ngIf="isCancelled(userData) && userData.cancellationDate"
+            >The subscription is active due
+            <strong>{{
+              userData.cancellationDate | date: 'mediumDate'
+            }}</strong></ng-container
+          >
+          <ng-container
+            *ngIf="
+              isActive(userData) && userData.unitPrice && userData.nextBillDate
+            "
+            ><br />Your next payment is due on
+            <strong>{{ userData.nextBillDate | date: 'mediumDate' }}</strong
+            >. Amount:
+            <strong>{{ userData.unitPrice | currency: 'EUR' }}</strong
+            >.</ng-container
+          >
+        </div>
+        <button
+          class="button block mb-1"
+          (click)="updatePaymentMethod(userData)"
+          data-test="update-payment-method"
+        >
+          Update Payment Method
+        </button>
+        <button
+          class="button danger block"
+          (click)="cancelSubscription(userData)"
+          data-test="cancel-subscription"
+        >
+          Cancel Subscription
+        </button>
+      </div>
     </div>
-    <div class="mb-1">The subscription has been successfully cancelled.</div>
-    <a [routerLink]="['/']" data-test="return-to-dashboard"
-      >Return to dashboard</a
-    >
+  </ng-container>
+  <div
+    class="hero"
+    *ngIf="hasBeenSuccessfullyCancelled"
+    data-test="cancellation-success"
+  >
+    <div class="hero-body text-center">
+      <div class="mb-1">
+        <ion-icon
+          class="text-success status-icon"
+          name="checkmark-circle"
+        ></ion-icon>
+      </div>
+      <div class="mb-1">The subscription has been successfully cancelled.</div>
+      <a [routerLink]="['/']" data-test="return-to-dashboard"
+        >Return to dashboard</a
+      >
+    </div>
   </div>
 </div>

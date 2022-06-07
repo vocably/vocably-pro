@@ -1,36 +1,39 @@
-<app-header></app-header>
-<div class="hero" data-test="no-decks-screen">
-  <div class="hero-body">
-    <p class="lead-3 mb-2">You're almost set.</p>
+<div class="container-xl top"><app-header></app-header></div>
+<div class="container bottom">
+  <div class="hero" data-test="no-decks-screen">
+    <div class="hero-body">
+      <p class="lead-3 mb-2">You're almost set.</p>
 
-    <ol class="lead-2 outside">
-      <li class="mb-1">
-        <a
-          [class.strike]="isInstalled"
-          href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
-          target="_blank"
-          >Install the extension</a
-        >
-        <div *ngIf="!canInstallTheExtension" class="mt-1 tiny text-danger">
-          Currently, the Vocably browser extension exists only for Google
-          Chrome. The extension is an essential part of the Vocably experience.
-        </div>
-      </li>
-      <li class="mb-1">
-        <a
-          [routerLink]="['/subscription']"
-          [class.strike]="isSubscribed"
-          data-test="todo-subscribe"
-          >{{
-            this.isEligibleForTrial || this.isTrialing
-              ? 'Get a 7 day free trial'
-              : 'Subscribe'
-          }}</a
-        >
-      </li>
-      <li>
-        Go to any website and translate an unfamiliar word by selecting it
-      </li>
-    </ol>
+      <ol class="lead-2 outside">
+        <li class="mb-1">
+          <a
+            [class.strike]="isInstalled"
+            href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
+            target="_blank"
+            >Install the extension</a
+          >
+          <div *ngIf="!canInstallTheExtension" class="mt-1 tiny text-danger">
+            Currently, the Vocably browser extension exists only for Google
+            Chrome. The extension is an essential part of the Vocably
+            experience.
+          </div>
+        </li>
+        <li class="mb-1">
+          <a
+            [routerLink]="['/subscription']"
+            [class.strike]="isSubscribed"
+            data-test="todo-subscribe"
+            >{{
+              this.isEligibleForTrial || this.isTrialing
+                ? 'Get a 7 day free trial'
+                : 'Subscribe'
+            }}</a
+          >
+        </li>
+        <li>
+          Go to any website and translate an unfamiliar word by selecting it
+        </li>
+      </ol>
+    </div>
   </div>
 </div>

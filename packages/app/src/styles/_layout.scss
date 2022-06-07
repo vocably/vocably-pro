@@ -1,14 +1,26 @@
-.container {
+.container,
+.container-xl {
   margin: 0 auto;
-  padding: var(--container-padding);
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
 
+.top {
+  padding-top: var(--container-padding);
+}
+
+.bottom {
+  padding-bottom: var(--container-padding);
+}
+
+.container {
   @media (min-width: $md) {
     width: $md;
   }
+}
 
-  min-height: 100%;
-
-  &.wide {
-    width: auto;
+.container-xl {
+  @media (min-width: $xl) {
+    width: $xl;
   }
 }

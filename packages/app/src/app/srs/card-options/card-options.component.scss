@@ -5,7 +5,7 @@
     & {
       position: absolute;
       left: 0;
-      bottom: 0;
+      bottom: var(--container-padding);
       width: 100%;
       align-items: center;
       justify-content: center;
