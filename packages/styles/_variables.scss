@@ -2,10 +2,16 @@ $v-btn-shadow-spread: 6px;
 $v-btn-shadow-v-offset: 3px;
 $v-border-radius: 8px;
 
+// Light
+$v-light-color-body-bg: rgb(255, 255, 255);
+$v-light-color-body-bg-rgb: 255, 255, 255;
+$v-light-color-body-bg-transparent: rgba(255, 255, 255, 0);
 $v-light-color-primary: #0050ff;
+$v-light-color-primary-rgb: 0, 80, 255;
 $v-light-color-active: #0047e3;
 $v-light-color-danger: #ff5e5e;
 $v-light-color-body: #6a6a6a;
+$v-light-color-body-rgb: 106, 106, 106;
 $v-light-color-emphasize: #000000;
 $v-light-color-contrast: #fbfbfb;
 $v-light-color-border: #bababa;
@@ -18,3 +24,26 @@ $v-light-btn-active-bg: $v-light-color-active;
 $v-light-btn-active-shadow: inset 0px 0px 15px rgba(3, 36, 108, 0.4);
 $v-light-btn-box-shadow: 0 $v-btn-shadow-v-offset $v-btn-shadow-spread
   rgba(0, 80, 255, 0.25);
+
+// Dark
+$v-dark-color-body-bg: rgb(37, 37, 37);
+$v-dark-color-body-bg-rgb: 37, 37, 37;
+$v-dark-color-body-bg-transparent: rgba(37, 37, 37, 0);
+$v-dark-color-primary: #28a5ff;
+$v-dark-color-primary-rgb: 40, 165, 255;
+$v-dark-color-active: #0094ff;
+$v-dark-color-danger: #ff5e5e;
+$v-dark-color-body: #bababa;
+$v-dark-color-body-rgb: 186, 186, 186;
+$v-dark-color-emphasize: #ffffff;
+$v-dark-color-contrast: #3b3b3b;
+$v-dark-color-border: #6b6a6a;
+$v-dark-color-border-muted: #e6e6e6;
+
+$v-dark-btn-color: #ffffff;
+$v-dark-btn-bg: $v-dark-color-primary;
+$v-dark-btn-hover-bg: $v-dark-color-active;
+$v-dark-btn-active-bg: $v-dark-color-active;
+$v-dark-btn-active-shadow: inset 0px 0px 15px rgba(3, 36, 108, 0.4);
+$v-dark-btn-box-shadow: 0 $v-btn-shadow-v-offset $v-btn-shadow-spread
+  rgba(40, 165, 255, 0.4);

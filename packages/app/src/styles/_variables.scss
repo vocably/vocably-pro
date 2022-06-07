@@ -1,52 +1,34 @@
 @import '~@vocably/styles/colors';
+@import '@vocably/styles/variables';
 
 $white: #ffffff;
 $white-rgb: 255, 255, 255;
 
-$dark-primary: $white;
-$dark-primary-rgb: $white-rgb;
-$dark-body-bg: $v-gray-100;
-$dark-body-bg-rgb: 33, 33, 33;
-$dark-body-bg-transparent: 'rgba(' + #{$dark-body-bg-rgb} + ', 0)';
-$dark-text-color: $white;
-$dark-text-color-rgb: $white-rgb;
-$dark-border-color: $v-gray-400;
-
 $dark-theme: (
-  primary-color: $dark-primary,
-  body-bg: $dark-body-bg,
-  body-bg-transparent: $dark-body-bg-transparent,
-  text-color: $dark-text-color,
+  primary-color: $v-dark-color-primary,
+  emphasize-color: $v-dark-color-emphasize,
+  body-bg: $v-dark-color-body-bg,
+  body-bg-transparent: $v-dark-color-body-bg-transparent,
+  text-color: $v-dark-color-body,
   text-muted: $v-gray-600,
-  contrast-bg: $v-gray-150,
-  button-border-color: $dark-border-color,
-  button-border-color-hover: $v-gray-600,
-  button-bg: $v-gray-200,
-  button-bg-hover: $v-gray-250,
-  button-active-bg: $v-gray-550,
-  button-active-border-color: $v-gray-950,
-  button-danger-bg: $v-red-150,
-  button-danger-bg-hover: $v-red-200,
-  button-danger-border-color: $v-red-500,
-  button-danger-border-color-hover: $v-red-550,
-  button-amplified-bg: $v-orange-350,
-  button-amplified-bg-hover: $v-orange-400,
-  button-amplified-border-color: $v-orange-500,
-  button-amplified-border-color-hover: $v-orange-550,
-  form-border-color: $v-gray-400,
-  form-border-color-focus: $v-gray-750,
-  form-background-color: $v-gray-850,
-  form-background-color-focus: $white,
+  contrast-bg: $v-dark-color-contrast,
+  button-bg: $v-dark-color-primary,
+  button-bg-hover: $v-dark-color-active,
+  button-active-bg: $v-dark-color-active,
+  form-border-color: $v-dark-color-border,
+  form-border-color-focus: $v-dark-color-border,
+  form-background-color: $v-dark-color-contrast,
+  form-background-color-focus: $v-dark-color-contrast,
   toast-background: $v-gray-850,
   toast-button-color: $v-gray-100,
   toast-color: $v-gray-200,
-  ion-color-primary: $dark-primary,
-  ion-color-primary-rgb: $dark-primary-rgb,
-  ion-background-color: $dark-body-bg,
-  ion-background-color-rgb: $dark-body-bg-rgb,
-  ion-text-color: $dark-text-color,
-  ion-text-color-rgb: $dark-text-color-rgb,
-  ion-border-color: $dark-border-color,
+  ion-color-primary: $v-dark-color-primary,
+  ion-color-primary-rgb: $v-dark-color-primary-rgb,
+  ion-background-color: $v-dark-color-body-bg,
+  ion-background-color-rgb: $v-dark-color-body-bg-rgb,
+  ion-text-color: $v-dark-color-body,
+  ion-text-color-rgb: $v-dark-color-body-rgb,
+  ion-border-color: $v-dark-color-border,
   ion-color-step-50: $v-gray-50,
   ion-color-step-100: $v-gray-100,
   ion-color-step-150: $v-gray-150,
