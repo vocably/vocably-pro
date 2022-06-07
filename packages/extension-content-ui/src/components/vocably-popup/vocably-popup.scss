@@ -22,7 +22,7 @@
   .popup {
     background: rgb(var(--background-rgb));
     box-shadow: 0 var(--shadow-v-offset) var(--shadow-spread) rgba(0, 0, 0, 0.2);
-    border: 1px solid $v-color-border;
+    border: 1px solid $v-light-color-border;
     border-radius: $v-border-radius;
     box-sizing: border-box;
     position: relative;

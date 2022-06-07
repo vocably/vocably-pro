@@ -6,7 +6,11 @@
   height: 100%;
   width: auto;
 
-  path {
+  .text {
     fill: var(--text-color);
+  }
+
+  .icon {
+    fill: var(--primary-color);
   }
 }

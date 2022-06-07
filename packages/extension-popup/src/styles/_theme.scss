@@ -1,8 +1,8 @@
-@import '~@vocably/styles/colors';
+@import '~@vocably/styles/variables';
 @import '~@vocably/styles/mixins/underline';
 @import '~@vocably/styles/mixins/link';
 
-$body-color: $v-gray-100;
+$body-color: $v-light-color-body;
 
 body {
   color: $body-color;

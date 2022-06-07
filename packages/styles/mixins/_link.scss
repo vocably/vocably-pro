@@ -3,11 +3,11 @@
 
 @mixin link() {
   @include underline();
-  color: $v-color-primary !important;
+  color: $v-light-color-primary !important;
 
   &:hover,
   &:focus,
   &:active {
-    color: $v-color-active !important;
+    color: $v-light-color-active !important;
   }
 }

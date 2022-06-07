@@ -6,15 +6,15 @@
   font-family: $font-family !important;
   font-size: $base-font-size !important;
   line-height: $base-line-height !important;
-  color: $v-color-body !important;
+  color: $v-light-color-body !important;
 }
 
 @mixin button() {
   @include base-font();
 
   display: inline-block;
-  background: $v-btn-bg;
-  color: $v-btn-color !important;
+  background: $v-light-btn-bg;
+  color: $v-light-btn-color !important;
   border: none;
   padding: math.div($base-font-size, 2);
   font: inherit;
@@ -31,11 +31,11 @@
 
   &:hover,
   &:focus {
-    background: $v-btn-hover-bg;
+    background: $v-light-btn-hover-bg;
   }
 
   &:active {
-    background: $v-btn-active-bg;
-    box-shadow: $v-btn-active-shadow;
+    background: $v-light-btn-active-bg;
+    box-shadow: $v-light-btn-active-shadow;
   }
 }
