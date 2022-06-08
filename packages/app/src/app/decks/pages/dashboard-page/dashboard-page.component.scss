@@ -5,7 +5,7 @@ $gradient-bottom-margin: 1rem;
 
 .gradient {
   --gradient-height: calc(
-    var(--app-height) - #{$header-height} - #{$deck-options-height} - #{$gradient-bottom-margin} -
+    var(--app-height) - var(--header-height) - #{$deck-options-height} - #{$gradient-bottom-margin} -
       var(--container-padding) * 2
   );
 

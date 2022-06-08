@@ -61,9 +61,10 @@ $xl: 1200px;
 $container-padding: 2rem;
 $container-padding-sm: 1rem;
 
-$header-items-height: 2rem;
 $logo-height: 1.4rem;
-$header-bottom-padding: 2rem;
-$header-height: $header-items-height + $header-bottom-padding;
+$header-items-height: 2rem;
+$header-padding-bottom: 2rem;
+$header-back-padding-bottom: 1.5rem;
+$header-back-height: 2.2rem;
 
 $border-radius: 4px;

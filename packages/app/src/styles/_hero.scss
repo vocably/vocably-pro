@@ -2,7 +2,7 @@
 
 .hero {
   height: calc(
-    var(--app-height) - #{$header-height} - var(--container-padding) * 2
+    var(--app-height) - var(--header-height) - var(--container-padding) * 2
   );
   display: flex;
   flex-direction: column;
@@ -16,7 +16,7 @@
 
 .hero-body {
   position: relative;
-  top: -1 * math.div($header-height, 2);
+  top: calc(var(--header-height) / -2);
 
   .max & {
     top: 0;

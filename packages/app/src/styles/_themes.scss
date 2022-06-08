@@ -8,6 +8,19 @@
   @include theme-variables($dark-theme);
   --app-height: 100vh;
   --container-padding: #{$container-padding};
+  --header-items-height: #{$header-items-height};
+  --header-padding-bottom: calc(
+    #{$header-padding-bottom} * (1 - var(--has-back)) + #{$header-back-padding-bottom} *
+      (var(--has-back))
+  );
+  --back-height: #{$header-back-height};
+  --back-padding-bottom: #{$header-back-padding-bottom};
+  --has-back: 0;
+  --header-height: calc(
+    var(--header-items-height) + var(--header-padding-bottom) +
+      var(--back-height) * var(--has-back) + var(--back-padding-bottom) *
+      var(--has-back)
+  );
 
   @media (max-width: $md) {
     --container-padding: #{$container-padding-sm};

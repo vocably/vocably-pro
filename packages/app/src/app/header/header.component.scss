@@ -1,14 +1,20 @@
 @import '../../styles/variables';
 
 .header {
-  padding-bottom: $header-bottom-padding;
+  padding-bottom: var(--header-padding-bottom);
 
   .header-items {
-    height: $header-items-height;
+    height: var(--header-items-height);
   }
 
   .logo-image {
     height: $logo-height;
     user-select: none;
   }
+}
+
+.back {
+  height: var(--back-height);
+  padding-bottom: var(--back-padding-bottom);
+  box-sizing: content-box;
 }
