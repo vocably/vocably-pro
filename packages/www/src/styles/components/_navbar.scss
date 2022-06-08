@@ -6,16 +6,16 @@
   background-color: $white;
 
   .navbar-toggler {
-    color: $v-color-emphasize;
+    color: $v-light-color-emphasize;
     border: none;
   }
 
   .navbar-nav {
     .nav-item {
       .nav-link {
-        color: $v-color-emphasize;
+        color: $v-light-color-emphasize;
         &:hover {
-          color: $v-color-body;
+          color: $v-light-color-body;
         }
         &.active {
           color: $primary;
