@@ -12,9 +12,14 @@ $dark-theme: (
   text-color: $v-dark-color-body,
   text-muted: $v-gray-600,
   contrast-bg: $v-dark-color-contrast,
+
   button-bg: $v-dark-color-primary,
   button-bg-hover: $v-dark-color-active,
-  button-active-bg: $v-dark-color-active,
+  button-active-bg: $v-dark-btn-active-bg,
+  button-shadow: $v-dark-btn-box-shadow,
+  button-active-shadow: $v-dark-btn-active-shadow,
+  button-padding: 0.5rem 2rem,
+
   form-border-color: $v-dark-color-border,
   form-border-color-focus: $v-dark-color-border,
   form-background-color: $v-dark-color-contrast,
