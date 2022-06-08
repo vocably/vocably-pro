@@ -1,5 +1,9 @@
 @import '~@vocably/styles/variables';
 
+:host {
+  display: flex;
+}
+
 .pl-0 {
   padding-left: 0;
 }

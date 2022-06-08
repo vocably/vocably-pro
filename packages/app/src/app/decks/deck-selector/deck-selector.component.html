@@ -1,6 +1,7 @@
-<div class="inline-block display-inline-flex align-items-center">
+<div class="display-inline-flex align-items-center">
   <ion-icon class="mr-0_5 text-primary icon" name="globe-outline"></ion-icon>
   <mat-select
+    *ngIf="languages.length > 1"
     class="select"
     [value]="value"
     (valueChange)="onChange($event)"
