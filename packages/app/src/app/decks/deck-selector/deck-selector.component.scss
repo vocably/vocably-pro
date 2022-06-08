@@ -1,0 +1,13 @@
+@import '~@vocably/styles/variables';
+
+.pl-0 {
+  padding-left: 0;
+}
+
+.select {
+  ::ng-deep {
+    .mat-select-min-line {
+      font-size: $v-small-font;
+    }
+  }
+}

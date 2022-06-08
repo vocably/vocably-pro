@@ -15,8 +15,8 @@ import { Subject, takeUntil } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
-  @Input() mini = false;
   @Input() title = '';
+  @Input() dense = false;
 
   isActive = isActive;
   isCancelled = isCancelled;

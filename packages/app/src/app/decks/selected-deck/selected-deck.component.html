@@ -1,5 +1,5 @@
 <div *ngIf="!cleanScreen" class="container-xl top">
-  <app-header [title]="title">
+  <app-header [title]="title" [dense]="true">
     <ng-container *ngIf="deckListStore.decks$ | async as deckList">
       <app-deck-selector
         [languages]="deckList"

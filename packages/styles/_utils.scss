@@ -1,8 +1,13 @@
 @import 'mixins/underline';
 @import 'colors';
+@import 'variables';
 
 .block {
   display: block;
+}
+
+.m-0 {
+  margin: 0 !important;
 }
 
 .mb-1 {
@@ -27,6 +32,10 @@
 
 .ml-0_5 {
   margin-left: 0.5rem;
+}
+
+.ml-1 {
+  margin-left: 1rem;
 }
 
 .pr-1 {
@@ -58,6 +67,10 @@ ul.unstyled {
   display: flex;
 }
 
+.display-inline-flex {
+  display: inline-flex;
+}
+
 .flex-direction-column {
   flex-direction: column;
 }
@@ -68,6 +81,10 @@ ul.unstyled {
 
 .justify-content-center {
   justify-content: center;
+}
+
+.justify-content-end {
+  justify-content: end;
 }
 
 .flex-gap-1 {
@@ -119,11 +136,11 @@ ul.unstyled {
 }
 
 .small {
-  font-size: 80%;
+  font-size: $v-small-font;
 }
 
 .tiny {
-  font-size: 60%;
+  font-size: 80%;
 }
 
 .muted {

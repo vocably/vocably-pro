@@ -1,27 +1,32 @@
-<header class="header" [class.mini]="mini">
-  <div class="header-items">
+<header class="header">
+  <div class="header-items display-flex align-items-center">
     <ng-container *ngIf="isLoggedIn !== null">
-      <div *ngIf="title" class="title">
-        <app-back-button
-          class="back middle mr-1"
-          [label]="false"
-        ></app-back-button>
-        <span class="middle">{{ title }}</span>
+      <div class="flex-1 display-md-block" [class.display-none]="dense">
+        <a [routerLink]="['/']"><app-logo class="logo-image"></app-logo></a>
       </div>
-      <div class="logo" *ngIf="!title">
-        <a [routerLink]="['/']" *ngIf="!mini"
-          ><app-logo class="logo-image"></app-logo
-        ></a>
-        <app-logo class="logo-image" *ngIf="mini"></app-logo>
+      <div
+        class="flex-1 mat-title m-0 text-md-center"
+        [class.text-center]="!dense"
+        *ngIf="title"
+      >
+        {{ title }}
       </div>
-      <ng-content></ng-content>
-      <div class="menu" [class.flex-0]="title" *ngIf="isLoggedIn && !mini">
+      <div
+        class="flex-1 display-inline-flex justify-content-end align-items-center"
+        *ngIf="isLoggedIn"
+      >
+        <ng-content></ng-content>
         <button
-          class="unstyled"
+          class="unstyled ml-1 text-emphasize"
           [matMenuTriggerFor]="menu"
           data-test="main-menu"
         >
-          <ion-icon class="icon" name="menu-outline" size="large"></ion-icon>
+          <ion-icon
+            class="icon"
+            name="menu-outline"
+            size="large"
+            class="text-emphasize"
+          ></ion-icon>
         </button>
         <mat-menu #menu="matMenu">
           <ng-container *ngIf="auth.userData$ | async as userData">

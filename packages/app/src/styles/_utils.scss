@@ -1,0 +1,19 @@
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-emphasize {
+  color: var(--emphasize-color);
+}
+
+.display-md-block {
+  @media (min-width: $md) {
+    display: block;
+  }
+}
+
+.text-md-center {
+  @media (min-width: $md) {
+    text-align: center;
+  }
+}

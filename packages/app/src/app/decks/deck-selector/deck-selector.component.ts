@@ -14,7 +14,7 @@ export class DeckSelectorComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onChange(event: any) {
-    this.change.emit(event.detail.value);
+  onChange(language: string) {
+    this.change.emit(language);
   }
 }

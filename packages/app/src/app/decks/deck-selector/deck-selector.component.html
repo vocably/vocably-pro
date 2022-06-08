@@ -1,16 +1,16 @@
-<div class="inline-block">
-  <ion-select
-    *ngIf="languages.length > 1"
+<div class="inline-block display-inline-flex align-items-center">
+  <ion-icon class="mr-0_5 text-primary" name="globe-outline"></ion-icon>
+  <mat-select
+    class="select"
     [value]="value"
-    interface="popover"
-    (ionChange)="onChange($event)"
+    (valueChange)="onChange($event)"
     data-test="deck-selector"
   >
-    <ion-select-option *ngFor="let language of languages" [value]="language">{{
+    <mat-option *ngFor="let language of languages" [value]="language">{{
       language | language
-    }}</ion-select-option>
-  </ion-select>
-  <span *ngIf="languages.length === 1" class="strong">{{
+    }}</mat-option>
+  </mat-select>
+  <span *ngIf="languages.length === 1" class="small text-emphasize">{{
     languages[0] | language
   }}</span>
 </div>

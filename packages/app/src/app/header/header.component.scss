@@ -2,62 +2,13 @@
 
 .header {
   padding-bottom: $header-bottom-padding;
-}
 
-.header-items {
-  display: flex;
-  flex-direction: row;
-  height: $header-items-height;
-  align-items: center;
-  justify-content: center;
-
-  ::ng-deep {
-    & > * {
-      flex: 1;
-      white-space: nowrap;
-      text-align: center;
-    }
-
-    :first-child {
-      text-align: left;
-    }
-
-    :last-child {
-      text-align: right;
-    }
-  }
-
-  .logo:only-child {
-    flex: 0;
-  }
-
-  .flex-0 {
-    flex: 0;
-  }
-
-  .title {
-    font-size: 1.2rem;
-  }
-
-  .icon {
-    vertical-align: middle;
-  }
-
-  .logo-link {
-    display: inline-block;
+  .header-items {
+    height: $header-items-height;
   }
 
   .logo-image {
     height: $logo-height;
     user-select: none;
   }
-}
-
-.light {
-  --color: #{$white} !important;
-}
-
-.button-item {
-  --background: #{$v-gray-200};
-  --background-hover: #{$white};
 }
