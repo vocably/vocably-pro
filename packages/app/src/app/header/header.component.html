@@ -1,7 +1,10 @@
 <header class="header">
   <div class="header-items display-flex align-items-center">
     <ng-container *ngIf="isLoggedIn !== null">
-      <div class="flex-1 display-md-block" [class.display-none]="dense">
+      <div
+        class="flex-1 display-md-block"
+        [class.display-none]="dense && title"
+      >
         <a [routerLink]="['/']"><app-logo class="logo-image"></app-logo></a>
       </div>
       <div
