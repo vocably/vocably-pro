@@ -8,7 +8,7 @@ type DefinitionItem = {
 };
 
 @Component({
-  selector: 'app-side-b',
+  selector: '[app-side-b]',
   templateUrl: './side-b.component.html',
   styleUrls: ['./side-b.component.scss'],
 })

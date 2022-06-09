@@ -22,11 +22,13 @@
           {{ item.data.partOfSpeech }}
         </div>
       </div>
-      <div class="ml-1">
-        <app-side-b
+      <div class="pl-1_5">
+        <ul
+          class="outside"
+          app-side-b
           [definition]="item.data.definition"
           [translation]="item.data.translation"
-        ></app-side-b>
+        ></ul>
       </div>
     </li>
   </ul>

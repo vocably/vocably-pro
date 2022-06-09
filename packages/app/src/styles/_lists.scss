@@ -1,29 +1,46 @@
 ul {
-  list-style: none;
-
-  > li > span {
-    position: relative;
-    padding-left: 0.9em;
-    display: inline-block;
+  > li {
+    &::marker {
+      font-size: 0.8em;
+      content: '•';
+    }
 
     &::before {
-      left: 0;
-      top: 0;
-      position: absolute;
-      content: '•';
-      line-height: 2.6em;
-      font-size: 0.6em;
+      margin-left: 0.2em;
+      content: ' ';
     }
   }
 }
 
 ul.unstyled {
-  > li > span {
-    padding-left: 0;
+  list-style: none;
+  > li {
     &::before {
       display: none;
     }
+    &::marker {
+      content: '';
+    }
   }
+}
+
+ul.outside {
+  list-style-position: outside;
+
+  > li {
+    &::before {
+      display: none;
+    }
+
+    &::marker {
+      content: '•  ';
+    }
+  }
+}
+
+ol.outside {
+  list-style-position: outside;
+  margin-left: 1.2em;
 }
 
 ul.separated {

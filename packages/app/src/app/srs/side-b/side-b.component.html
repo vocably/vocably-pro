@@ -1,5 +1,3 @@
-<ul [class]="{ unstyled: definitions.length <= 1 }">
-  <li *ngFor="let definition of definitions" [class]="definition.class">
-    <span>{{ definition.text }}</span>
-  </li>
-</ul>
+<li *ngFor="let definition of definitions">
+  <span [class]="definition.class">{{ definition.text }}</span>
+</li>
