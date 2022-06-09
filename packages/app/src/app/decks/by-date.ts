@@ -13,5 +13,5 @@ export const byDate = (a: CardItem, b: CardItem): number => {
     return k;
   }
 
-  return b.data.partOfSpeech.localeCompare(b.data.partOfSpeech);
+  return a.data.partOfSpeech.localeCompare(b.data.partOfSpeech);
 };
