@@ -1,39 +1,23 @@
 ul {
-  > li {
-    &::marker {
-      font-size: 0.8em;
-      content: '•';
-    }
+  list-style-type: disc;
 
-    &::before {
-      margin-left: 0.2em;
-      content: ' ';
+  > li {
+    > .fix-list-item {
+      margin-left: -1.5rem;
     }
   }
 }
 
 ul.unstyled {
   list-style: none;
-  > li {
-    &::before {
-      display: none;
-    }
-    &::marker {
-      content: '';
-    }
-  }
 }
 
 ul.outside {
   list-style-position: outside;
 
   > li {
-    &::before {
-      display: none;
-    }
-
-    &::marker {
-      content: '•  ';
+    > .fix-list-item {
+      margin-left: 0;
     }
   }
 }
