@@ -36,7 +36,7 @@ export class SideBComponent implements OnInit {
 
     if (this._translation) {
       this.definitions.push({
-        class: 'muted italic',
+        class: 'text-emphasize',
         text: this._translation,
       });
     }

@@ -9,9 +9,11 @@
 >
   <div class="card-inner">
     <div appTextLength class="side side-a">
-      {{ item.data.source }}
-      <span *ngIf="item.data.partOfSpeech" class="pos muted inline-block ml-0_5"
-        >({{ item.data.partOfSpeech }})</span
+      <span class="text-emphasize">{{ item.data.source }}</span>
+      <span
+        *ngIf="item.data.partOfSpeech"
+        class="pos muted inline-block ml-0_5"
+        >{{ item.data.partOfSpeech }}</span
       >
     </div>
     <div appTextLength class="side definition">

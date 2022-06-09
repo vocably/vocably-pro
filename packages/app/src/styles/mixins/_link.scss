@@ -1,0 +1,10 @@
+@mixin link($important: '') {
+  @include underline();
+  color: var(--primary-color) #{$important};
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: var(--active-color) #{$important};
+  }
+}

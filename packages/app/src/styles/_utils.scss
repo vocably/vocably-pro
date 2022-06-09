@@ -1,9 +1,11 @@
+@import './mixins/link';
+
 .text-primary {
   color: var(--primary-color);
 }
 
 .text-emphasize {
-  color: var(--emphasize-color);
+  color: var(--emphasize-color) !important;
 }
 
 .display-md-block {
@@ -18,17 +20,10 @@
   }
 }
 
-ul.separated {
-  & > li {
-    $distance: 0.75rem;
-    margin-top: $distance;
-    padding-top: $distance;
-    border-top: 0.5px solid var(--text-color);
+.text-danger {
+  color: var(--danger-color);
+}
 
-    &:first-child {
-      margin-top: 0;
-      padding-top: 0;
-      border-top: none;
-    }
-  }
+.link {
+  @include link(!important);
 }

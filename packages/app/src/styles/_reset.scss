@@ -1,4 +1,4 @@
-@import '@vocably/styles/mixins/underline';
+@import './mixins/link';
 
 /* Box sizing rules */
 *,
@@ -46,8 +46,7 @@ body {
 }
 
 a {
-  color: var(--primary-color);
-  @include underline();
+  @include link();
 }
 
 /* A elements that don't have a class get default styles */

@@ -14,6 +14,7 @@
 
 .side {
   --inner-text-length: 30;
+  padding: 1.5rem;
   font-size: clamp(
     1vw + 2vh,
     (1200vh + 500vw) / var(--inner-text-length),
@@ -39,11 +40,11 @@
 
   .strong-icon,
   .somewhat-icon {
-    color: #4bb543;
+    color: var(--primary-color);
   }
 
   .weak-icon {
-    color: #ff0033;
+    color: var(--danger-color);
   }
 
   &.strong {
@@ -96,4 +97,8 @@
 
 .pos {
   font-size: 40%;
+}
+
+.p-1 {
+  padding: 1rem;
 }

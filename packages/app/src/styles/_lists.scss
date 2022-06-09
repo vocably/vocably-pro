@@ -1,25 +1,42 @@
 ul {
   list-style: none;
 
-  > li {
+  > li > span {
     position: relative;
-    padding-left: 0.8rem;
+    padding-left: 0.9em;
+    display: inline-block;
+
     &::before {
       left: 0;
       top: 0;
       position: absolute;
       content: '•';
-      line-height: 1.5rem;
-      font-size: 0.8rem;
+      line-height: 2.6em;
+      font-size: 0.6em;
     }
   }
 }
 
 ul.unstyled {
-  > li {
+  > li > span {
     padding-left: 0;
     &::before {
       display: none;
+    }
+  }
+}
+
+ul.separated {
+  & > li {
+    $distance: 0.75rem;
+    margin-top: $distance;
+    padding-top: $distance;
+    border-top: 0.5px solid var(--text-color);
+
+    &:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
     }
   }
 }
