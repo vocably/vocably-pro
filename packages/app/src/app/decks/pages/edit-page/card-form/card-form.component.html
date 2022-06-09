@@ -1,4 +1,4 @@
-<form (submit)="save.emit(this.model)">
+<form (submit)="save.emit(this.model)" class="form">
   <label [htmlFor]="'source_' + item.id">Source</label>
   <input
     type="text"
@@ -40,7 +40,7 @@
     <button
       data-test="cancel"
       type="button"
-      class="unstyled underline"
+      class="unstyled link"
       (click)="cancel.emit()"
     >
       Cancel

@@ -25,8 +25,8 @@ $dark-theme: (
 
   form-border-color: $v-dark-color-border,
   form-border-color-focus: $v-dark-color-border,
-  form-background-color: $v-dark-color-contrast,
-  form-background-color-focus: $v-dark-color-contrast,
+  form-background-color: $v-dark-color-contrast-2,
+  form-background-color-focus: lighten($v-dark-color-contrast-2, 5%),
   toast-background: $v-gray-850,
   toast-button-color: $v-gray-100,
   toast-color: $v-gray-200,
