@@ -52,6 +52,11 @@ button.unstyled {
   }
 }
 
+.fix-button {
+  padding-left: $v-btn-shadow-spread;
+  padding-right: $v-btn-shadow-spread;
+}
+
 .button-x {
   display: inline-block;
   background: var(--button-bg);

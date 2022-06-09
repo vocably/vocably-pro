@@ -7,7 +7,7 @@
       >Practice</a
     >
   </div>
-  <ul class="unstyled separated mb-1" data-test="dashboard-cards">
+  <ul class="unstyled separated mb-1 fix-button" data-test="dashboard-cards">
     <li
       *ngFor="let item of cardItems.slice(0, 7); last as isLast"
       [class.to-be-continued]="isLast && cardItems.length > 3"
