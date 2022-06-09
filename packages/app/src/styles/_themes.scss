@@ -26,3 +26,8 @@
     --container-padding: #{$container-padding-sm};
   }
 }
+
+body {
+  color: var(--text-color);
+  background: var(--body-bg);
+}

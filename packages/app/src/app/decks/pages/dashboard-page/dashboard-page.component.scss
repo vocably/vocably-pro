@@ -31,13 +31,3 @@ $gradient-bottom-margin: 1rem;
   line-height: $deck-options-height;
   height: $deck-options-height;
 }
-
-.card {
-  background-color: var(--contrast-bg);
-  padding: 1rem;
-  border-radius: $border-radius;
-}
-
-.side-a {
-  font-size: 2rem;
-}

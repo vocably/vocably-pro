@@ -1,0 +1,87 @@
+@use 'sass:math';
+@use 'sass:map';
+
+$values: (
+  50,
+  100,
+  200,
+  300,
+  400,
+  500,
+  600,
+  700,
+  800,
+  900,
+  A100,
+  A200,
+  A400,
+  A700
+);
+
+@function generatePalette($color) {
+  $white: #fff;
+  $black: #000;
+  $baseDark: multiply($color, $color);
+
+  $palette: (
+    50: mix($color, $white, 12%),
+    100: mix($color, $white, 30%),
+    200: mix($color, $white, 50%),
+    300: mix($color, $white, 70%),
+    400: mix($color, $white, 85%),
+    500: mix($color, $white, 100%),
+    600: mix($color, $baseDark, 87%),
+    700: mix($color, $baseDark, 70%),
+    800: mix($color, $baseDark, 54%),
+    900: mix($color, $baseDark, 25%),
+    A100: lighten(saturate(mix($black, $baseDark, 15%), 80%), 65%),
+    A200: lighten(saturate(mix($black, $baseDark, 15%), 80%), 55%),
+    A400: lighten(saturate(mix($black, $baseDark, 15%), 100%), 45%),
+    A700: lighten(saturate(mix($black, $baseDark, 15%), 100%), 40%),
+  );
+
+  $contrast: ();
+  @each $v in $values {
+    $contrast: map.merge(
+      $contrast,
+      (
+        $v: getContrast(map_get($palette, $v)),
+      )
+    );
+  }
+
+  $palette: map.merge(
+    $palette,
+    (
+      contrast: $contrast,
+    )
+  );
+
+  @return $palette;
+}
+
+@function multiply($rgb1, $rgb2) {
+  $r: math.floor(math.div(red($rgb1) * red($rgb2), 255));
+  $g: math.floor(math.div(green($rgb1) * green($rgb2), 255));
+  $b: math.floor(math.div(blue($rgb1) * blue($rgb2), 255));
+  @return rgb($r, $g, $b);
+}
+
+@function getBrightness($color) {
+  @return math.div(
+    (red($color) * 299 + green($color) * 587 + blue($color) * 114),
+    1000
+  );
+}
+
+@function isLight($color) {
+  @return getBrightness($color) >= 128;
+}
+
+@function getContrast($color) {
+  @if isLight($color) {
+    @return #000;
+  } @else {
+    @return #fff;
+  }
+}

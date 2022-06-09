@@ -22,6 +22,7 @@ button.unstyled {
   box-shadow: var(--button-shadow);
   padding: var(--button-padding);
   margin: 0 $v-btn-shadow-spread ($v-btn-shadow-spread + $v-btn-shadow-v-offset);
+  outline: none;
 
   &.block {
     width: calc(100% - #{$v-btn-shadow-spread} * 2);

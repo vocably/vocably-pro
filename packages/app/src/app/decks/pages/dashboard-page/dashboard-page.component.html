@@ -7,27 +7,27 @@
       >Practice</a
     >
   </div>
-  <ul class="unstyled mb-1" data-test="dashboard-cards">
+  <ul class="unstyled separated mb-1" data-test="dashboard-cards">
     <li
       *ngFor="let item of cardItems.slice(0, 7); last as isLast"
-      class="card mb-1"
       [class.to-be-continued]="isLast && cardItems.length > 3"
     >
       <div>
-        <div class="inline-block side-a">{{ item.data.source }}</div>
+        <div class="inline-block lead-1 text-emphasize">
+          {{ item.data.source }}
+        </div>
 
-        <div
-          *ngIf="item.data.partOfSpeech"
-          class="small muted inline-block ml-0_5"
-        >
+        <div *ngIf="item.data.partOfSpeech" class="small inline-block ml-0_5">
           <span class="inline-block invisible-space">&nbsp;</span>
           {{ item.data.partOfSpeech }}
         </div>
       </div>
-      <app-side-b
-        [definition]="item.data.definition"
-        [translation]="item.data.translation"
-      ></app-side-b>
+      <div class="ml-1">
+        <app-side-b
+          [definition]="item.data.definition"
+          [translation]="item.data.translation"
+        ></app-side-b>
+      </div>
     </li>
   </ul>
 </div>

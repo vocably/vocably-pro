@@ -17,3 +17,18 @@
     text-align: center;
   }
 }
+
+ul.separated {
+  & > li {
+    $distance: 0.75rem;
+    margin-top: $distance;
+    padding-top: $distance;
+    border-top: 0.5px solid var(--text-color);
+
+    &:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+  }
+}

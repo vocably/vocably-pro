@@ -42,11 +42,6 @@
   padding-right: 1rem;
 }
 
-ul.unstyled {
-  list-style: none;
-  padding: 0;
-}
-
 .text-right {
   text-align: right;
 }
@@ -109,6 +104,10 @@ ul.unstyled {
 
 .medium {
   font-weight: 400;
+}
+
+.lead-1 {
+  font-size: 1.5rem;
 }
 
 .lead-2 {
