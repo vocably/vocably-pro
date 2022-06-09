@@ -3,7 +3,12 @@ ul {
 
   > li {
     > .fix-list-item {
-      margin-left: -1.5rem;
+      margin-left: -1rem;
+
+      // Fix for iOS Safari
+      @supports (-webkit-touch-callout: none) {
+        margin-left: -0.3rem;
+      }
     }
   }
 }
