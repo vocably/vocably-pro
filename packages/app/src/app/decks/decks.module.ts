@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteConfirmationDialogComponent } from './pages/edit-page/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MatSelectModule } from '@angular/material/select';
     EditCardComponent,
     CardFormComponent,
     DeleteConfirmationDialogComponent,
+    CardComponent,
   ],
   imports: [
     CommonModule,

@@ -1,13 +1,15 @@
-<app-edit-card
-  *ngFor="let card of cards"
-  class="mb-1"
-  [attr.data-test-card-id]="card.id"
-  [item]="updating[card.id] || card"
-  [isDeleted]="deleted.includes(card)"
-  (delete)="deleteCard(card)"
-  (restore)="restoreCard(card)"
-  (save)="saveCard($event)"
-></app-edit-card>
+<ul class="fix-button separated unstyled mb-2">
+  <li *ngFor="let card of cards">
+    <app-edit-card
+      [attr.data-test-card-id]="card.id"
+      [item]="updating[card.id] || card"
+      [isDeleted]="deleted.includes(card)"
+      (delete)="deleteCard(card)"
+      (restore)="restoreCard(card)"
+      (save)="saveCard($event)"
+    ></app-edit-card>
+  </li>
+</ul>
 
 <button
   class="button outline block"

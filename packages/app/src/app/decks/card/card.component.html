@@ -1,0 +1,18 @@
+<div>
+  <div class="inline-block lead-1 text-emphasize">
+    {{ item.data.source }}
+  </div>
+
+  <div *ngIf="item.data.partOfSpeech" class="small inline-block ml-0_5">
+    <span class="inline-block invisible-space">&nbsp;</span>
+    {{ item.data.partOfSpeech }}
+  </div>
+</div>
+<div class="pl-1_5">
+  <ul
+    class="outside"
+    app-side-b
+    [definition]="item.data.definition"
+    [translation]="item.data.translation"
+  ></ul>
+</div>

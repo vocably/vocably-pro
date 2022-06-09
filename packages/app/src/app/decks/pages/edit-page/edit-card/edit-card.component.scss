@@ -1,12 +1,9 @@
 @import '../../../../../styles/variables';
-
-$padding: 1rem;
+@import '../../../../../styles/mixins/unstyled';
+@import '../../../../../styles/mixins/link';
 
 :host {
   display: block;
-  background-color: var(--contrast-bg);
-  padding: $padding;
-  border-radius: $border-radius;
   position: relative;
 }
 
@@ -19,13 +16,33 @@ $padding: 1rem;
   overflow: hidden;
 }
 
-.side-a {
-  font-size: 1.5rem;
-}
-
 .actions {
   position: absolute;
-  padding: $padding;
   right: 0;
   top: 0;
+}
+
+.action {
+  $size: 2rem;
+  @include unstyled();
+  @include link();
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: $size;
+  height: $size;
+  line-height: $size;
+  border: 0.5px solid var(--primary-color);
+  border-radius: 2px;
+
+  &:hover {
+    border-color: var(--active-color);
+  }
+}
+
+.delete {
+  ion-icon {
+    transform: scale(1.1);
+  }
 }

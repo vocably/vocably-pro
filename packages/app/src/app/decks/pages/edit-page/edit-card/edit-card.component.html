@@ -12,18 +12,18 @@
     <button
       *ngIf="!isDeleted"
       data-test="card-action-edit"
-      class="unstyled mr-0_5"
+      class="action mr-0_5"
       (click)="isEdit = true"
     >
-      <ion-icon name="create-outline" size="large"></ion-icon>
+      <ion-icon name="pencil"></ion-icon>
     </button>
     <button
       *ngIf="!isDeleted"
       data-test="card-action-delete"
-      class="unstyled"
+      class="action delete"
       (click)="delete.emit()"
     >
-      <ion-icon name="trash-outline" size="large"></ion-icon>
+      <ion-icon name="trash-outline"></ion-icon>
     </button>
     <button
       class="unstyled underline"
@@ -34,19 +34,5 @@
       restore
     </button>
   </div>
-  <div>
-    <div class="inline-block side-a">{{ item.data.source }}</div>
-    <div
-      *ngIf="item.data.partOfSpeech"
-      class="inline-block small muted inline-block ml-0_5"
-    >
-      <span class="inline-block invisible-space">&nbsp;</span>
-      {{ item.data.partOfSpeech }}
-    </div>
-  </div>
-  <ul
-    app-side-b
-    [definition]="item.data.definition"
-    [translation]="item.data.translation"
-  ></ul>
+  <app-card [item]="item"></app-card>
 </div>

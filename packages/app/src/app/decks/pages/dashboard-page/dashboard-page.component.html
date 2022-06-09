@@ -8,28 +8,8 @@
     >
   </div>
   <ul class="unstyled separated mb-1 fix-button" data-test="dashboard-cards">
-    <li
-      *ngFor="let item of cardItems.slice(0, 7); last as isLast"
-      [class.to-be-continued]="isLast && cardItems.length > 3"
-    >
-      <div>
-        <div class="inline-block lead-1 text-emphasize">
-          {{ item.data.source }}
-        </div>
-
-        <div *ngIf="item.data.partOfSpeech" class="small inline-block ml-0_5">
-          <span class="inline-block invisible-space">&nbsp;</span>
-          {{ item.data.partOfSpeech }}
-        </div>
-      </div>
-      <div class="pl-1_5">
-        <ul
-          class="outside"
-          app-side-b
-          [definition]="item.data.definition"
-          [translation]="item.data.translation"
-        ></ul>
-      </div>
+    <li *ngFor="let item of cardItems.slice(0, 7)">
+      <app-card [item]="item"></app-card>
     </li>
   </ul>
 </div>
