@@ -15,6 +15,7 @@ locals {
   extension_popup_root           = abspath("../packages/extension-popup")
   api_config                     = abspath("${local.model_root}/api.yml")
   auto_sign_in_confirmation_path = "signed-in"
+  www_base_url                   = "https://${var.root_domain}"
   dev_urls = [
     "http://localhost:8030",
     "http://localhost:8030/${local.auto_sign_in_confirmation_path}",

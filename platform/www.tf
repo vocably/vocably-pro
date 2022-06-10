@@ -2,6 +2,7 @@ locals {
   www_env_content = <<EOT
 module.exports = {
   environment: {
+    baseUrl: '${local.www_base_url}',
     products: ${jsonencode(var.paddle_subscription_trial_products)},
     piwikId: '${var.piwik_www_id}',
   },

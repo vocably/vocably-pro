@@ -10,7 +10,7 @@ export const environmentLocal = {
   chromeExtensionId: '${var.extension_id}',
   piwikId: '${var.piwik_app_id}',
   sentryEnvironment: '${var.sentry_environment}',
-  wwwBaseUrl: 'https://${var.root_domain}',
+  wwwBaseUrl: '${local.www_base_url}',
   paddle: {
     sandbox: ${var.paddle_sandbox ? "true" : "false"},
     vendorId: ${var.paddle_vendor_id},
