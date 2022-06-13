@@ -18,18 +18,18 @@ button.unstyled {
     color: var(--button-bg);
   }
 
-  &:hover,
-  &:focus {
+  &:hover:not(disabled, .disabled),
+  &:focus:not(disabled, .disabled) {
     @include button-hover();
   }
 
-  &:active {
+  &:active:not(disabled, .disabled) {
     @include button-active();
   }
 
   &[disabled],
   &.disabled {
-    opacity: 0.3;
+    filter: grayscale(80%);
     cursor: auto;
   }
 }
