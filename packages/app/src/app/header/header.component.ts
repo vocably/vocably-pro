@@ -15,10 +15,9 @@ import { Subject, takeUntil } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
-  private _title: string = '';
   private _hasBack = false;
 
-  public set hasBack(hasBack: boolean) {
+  @Input() public set hasBack(hasBack: boolean) {
     this._hasBack = hasBack;
     document.documentElement.style.setProperty(
       '--has-back',
@@ -30,15 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this._hasBack;
   }
 
-  @Input() set title(value: string) {
-    this._title = value;
-    this.hasBack = !!this.title;
-  }
-
-  get title() {
-    return this._title;
-  }
-
+  @Input() title: string = '';
   @Input() dense = false;
 
   isActive = isActive;

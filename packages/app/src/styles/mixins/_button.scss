@@ -1,5 +1,7 @@
 @import '~@vocably/styles/variables';
 
+$button-bottom-margin: ($v-btn-shadow-spread + $v-btn-shadow-v-offset);
+
 @mixin button-pristine {
   display: inline-block;
   background: var(--button-bg);
@@ -14,7 +16,7 @@
   transition: background-color 200ms, color 200ms;
   box-shadow: var(--button-shadow);
   padding: var(--button-padding);
-  margin: 0 $v-btn-shadow-spread ($v-btn-shadow-spread + $v-btn-shadow-v-offset);
+  margin: 0 $v-btn-shadow-spread $button-bottom-margin;
   outline: none;
 }
 

@@ -1,5 +1,5 @@
 <div class="container-xl top">
-  <app-header title=""><strong>Subscription</strong></app-header>
+  <app-header title="Subscription"></app-header>
 </div>
 <div class="container bottom">
   <ng-container *ngIf="!hasBeenSuccessfullyCancelled">
@@ -12,12 +12,14 @@
       <div class="hero-body text-center">
         <div class="mb-2">
           Your subscription status is
-          <strong>{{ userData | subscriptionStatus }}</strong
+          <strong class="text-emphasize">{{
+            userData | subscriptionStatus
+          }}</strong
           >.
           <ng-container
             *ngIf="isCancelled(userData) && userData.cancellationDate"
             >The subscription is active due
-            <strong>{{
+            <strong class="text-emphasize">{{
               userData.cancellationDate | date: 'mediumDate'
             }}</strong></ng-container
           >
@@ -26,21 +28,25 @@
               isActive(userData) && userData.unitPrice && userData.nextBillDate
             "
             ><br />Your next payment is due on
-            <strong>{{ userData.nextBillDate | date: 'mediumDate' }}</strong
+            <strong class="text-emphasize">{{
+              userData.nextBillDate | date: 'mediumDate'
+            }}</strong
             >. Amount:
-            <strong>{{ userData.unitPrice | currency: 'EUR' }}</strong
+            <strong class="text-emphasize">{{
+              userData.unitPrice | currency: 'EUR'
+            }}</strong
             >.</ng-container
           >
         </div>
         <button
-          class="button block mb-1"
+          class="button block mb-2"
           (click)="updatePaymentMethod(userData)"
           data-test="update-payment-method"
         >
           Update Payment Method
         </button>
         <button
-          class="button danger block"
+          class="button outline block"
           (click)="cancelSubscription(userData)"
           data-test="cancel-subscription"
         >
