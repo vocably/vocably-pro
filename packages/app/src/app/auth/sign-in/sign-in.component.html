@@ -1,20 +1,17 @@
 <div class="text-center">
-  <div class="card">
-    <div class="mb-2 lead-2">Sign in and enjoy the Vocably experience.</div>
-    <div class="mb-2">
-      <button app-sign-in-button (click)="auth.signIn()">
-        Sign in with Google
-      </button>
-    </div>
-    <div class="small">
-      By signing in, you agree to our
-      <a [href]="wwwBaseUrl + '/terms-and-conditions.html'" target="_blank"
-        >Terms and Conditions</a
-      >
-      and
-      <a [href]="wwwBaseUrl + '/privacy-policy.html'" target="_blank"
-        >Privacy Policy</a
-      >.
-    </div>
+  <div class="mb-2">
+    <button app-sign-in-button (click)="auth.signIn()">
+      Sign in with Google
+    </button>
+  </div>
+  <div class="small">
+    By signing in, you agree to our
+    <a [href]="wwwBaseUrl + '/terms-and-conditions.html'" target="_blank"
+      >Terms and Conditions</a
+    >
+    and
+    <a [href]="wwwBaseUrl + '/privacy-policy.html'" target="_blank"
+      >Privacy Policy</a
+    >.
   </div>
 </div>
