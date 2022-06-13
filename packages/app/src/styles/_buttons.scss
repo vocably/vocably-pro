@@ -1,28 +1,15 @@
 @import './mixins/unstyled';
+@import './mixins/button';
 
 button.unstyled {
   @include unstyled();
 }
 
 .button {
-  display: inline-block;
-  background: var(--button-bg);
-  color: var(--emphasize-color);
-  border: none;
-  font: inherit;
-  font-weight: 500;
-  cursor: pointer;
-  border-radius: 2rem;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 200ms, color 200ms;
-  box-shadow: var(--button-shadow);
-  padding: var(--button-padding);
-  margin: 0 $v-btn-shadow-spread ($v-btn-shadow-spread + $v-btn-shadow-v-offset);
-  outline: none;
+  @include button-pristine();
 
   &.block {
-    width: calc(100% - #{$v-btn-shadow-spread} * 2);
+    @include button-block();
   }
 
   &.outline {
@@ -38,8 +25,7 @@ button.unstyled {
   }
 
   &:active {
-    background: var(--button-active-bg);
-    box-shadow: var(--button-active-shadow);
+    @include button-active();
   }
 
   &[disabled],

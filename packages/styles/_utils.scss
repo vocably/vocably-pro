@@ -11,39 +11,43 @@
 }
 
 .mb-1 {
-  margin-bottom: 1rem;
+  margin-bottom: 1rem !important;
 }
 
 .mb-2 {
-  margin-bottom: 2rem;
+  margin-bottom: 2rem !important;
 }
 
 .mr-1 {
-  margin-right: 1rem;
+  margin-right: 1rem !important;
 }
 
 .mr-0_5 {
-  margin-right: 0.5rem;
+  margin-right: 0.5rem !important;
 }
 
 .ml_0_25 {
-  margin-left: 0.25rem;
+  margin-left: 0.25rem !important;
 }
 
 .ml-0_5 {
-  margin-left: 0.5rem;
+  margin-left: 0.5rem !important;
 }
 
 .ml-1 {
-  margin-left: 1rem;
+  margin-left: 1rem !important;
 }
 
 .pr-1 {
-  padding-right: 1rem;
+  padding-right: 1rem !important;
+}
+
+.pb-1 {
+  padding-bottom: 1rem !important;
 }
 
 .pl-1_5 {
-  padding-left: 1.5rem;
+  padding-left: 1.5rem !important;
 }
 
 .text-right {
@@ -165,4 +169,8 @@
 
 .status-icon {
   font-size: clamp(8rem, 15vw, 12rem);
+}
+
+.nowrap {
+  white-space: nowrap;
 }

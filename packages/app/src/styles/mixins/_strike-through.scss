@@ -1,0 +1,5 @@
+@mixin strike-through() {
+  text-decoration: line-through;
+  text-decoration-color: var(--primary-color);
+  text-decoration-thickness: 1px;
+}

@@ -49,6 +49,12 @@ $vocably-typography-config: mat.define-typography-config(
       $font-weight: 500,
       $font-size: 2rem,
     ),
+  $display-1:
+    mat.define-typography-level(
+      $font-family: Ruda,
+      $font-weight: 500,
+      $font-size: 2.5rem,
+    ),
 );
 
 @include mat.core($vocably-typography-config);

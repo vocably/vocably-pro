@@ -1,4 +1,5 @@
 @import './mixins/link';
+@import './mixins/strike-through';
 
 /* Box sizing rules */
 *,
@@ -85,8 +86,8 @@ select {
   }
 }
 
-ion-item {
-  font-weight: 100;
+del {
+  @include strike-through();
 }
 
 ion-icon {
@@ -96,10 +97,6 @@ ion-icon {
 
 ion-spinner {
   vertical-align: middle;
-}
-
-.ion-focusable {
-  cursor: pointer;
 }
 
 .ptr--ptr {

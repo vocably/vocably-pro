@@ -1,4 +1,5 @@
 .container,
+.container-l,
 .container-xl {
   margin: 0 auto;
   padding-left: var(--container-padding);
@@ -16,6 +17,12 @@
 .container {
   @media (min-width: $md) {
     width: $md;
+  }
+}
+
+.container-l {
+  @media (min-width: $lg) {
+    width: $lg;
   }
 }
 
