@@ -1,14 +1,16 @@
-<div class="mat-display-1 mb-2 text-center text-emphasize">
-  Vocably inspires to read in a foreign language
+<div class="container-l mb-2">
+  <div class="mat-display-1 text-center text-emphasize mb-2">
+    Vocably inspires to read in a foreign language
+  </div>
 </div>
 
-<div class="mb-2 text-center">
+<div class="container mb-2 text-center">
   Browse your favourite websites, instantly translate unknown words, and
   automatically create flashcards. Study flashcards on the go and improve your
   vocabulary.
 </div>
 
-<div class="mb-2">
+<div class="container-l mb-2">
   <div class="cards mb-1">
     <button
       class="card flex-1"
@@ -56,17 +58,19 @@
   </div>
 </div>
 
-<button
-  class="button outline block mb-1 x2"
-  [class.disabled]="selectedProduct === null"
-  (click)="onSubmit()"
-  data-test="subscribe-button"
->
-  {{ this.isEligibleForTrial ? 'Start 7 day free trial' : 'Subscribe' }}
-</button>
-<div
-  class="text-danger text-center"
-  [class.visibility-hidden]="selectedProduct !== null || !isSubmitted"
->
-  Please select subscription plan.
+<div class="container">
+  <button
+    class="button outline block mb-1 x2"
+    [class.disabled]="selectedProduct === null"
+    (click)="onSubmit()"
+    data-test="subscribe-button"
+  >
+    {{ this.isEligibleForTrial ? 'Start 7 day free trial' : 'Subscribe' }}
+  </button>
+  <div
+    class="text-danger text-center"
+    [class.visibility-hidden]="selectedProduct !== null || !isSubmitted"
+  >
+    Please select subscription plan.
+  </div>
 </div>

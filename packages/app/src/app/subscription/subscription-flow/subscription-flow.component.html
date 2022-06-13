@@ -18,7 +18,7 @@
     (back)="stage = 'product'"
   ></app-subscription-form>
 
-  <ng-container *ngIf="stage === 'paid'">
+  <div class="container" *ngIf="stage === 'paid'">
     <div
       class="hero"
       [attr.data-test]="'post-payment-' + authStateUpdatedStatus"
@@ -83,5 +83,5 @@
         </ng-container>
       </div>
     </div>
-  </ng-container>
+  </div>
 </ng-container>

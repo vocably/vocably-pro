@@ -1,36 +1,41 @@
-<div class="hero">
-  <div class="hero-body">
-    <ng-container *ngIf="isClosed">
-      <div class="text-center mb-1">
-        The selected subscription plan is
-        <strong class="text-emphasize"
-          >{{ product.duration }} {{ product.duration | months }}</strong
-        ><span *ngIf="product.trial > 0" class="text-emphasize">
-          with
-          <strong>{{ product.trial }} days</strong> of trial period</span
-        >.
-      </div>
-      <div
-        class="display-flex flex-gap-1 align-items-center justify-content-center"
-      >
-        <div class="text-right">
-          <button class="unstyled link align-with-button" (click)="back.emit()">
-            <ion-icon
-              class="middle mr-0_5"
-              name="arrow-back-outline"
-            ></ion-icon>
-            <span class="middle underline">Change subscription plan</span>
-          </button>
+<div class="container">
+  <div class="hero">
+    <div class="hero-body">
+      <ng-container *ngIf="isClosed">
+        <div class="text-center mb-1">
+          The selected subscription plan is
+          <strong class="text-emphasize"
+            >{{ product.duration }} {{ product.duration | months }}</strong
+          ><span *ngIf="product.trial > 0" class="text-emphasize">
+            with
+            <strong>{{ product.trial }} days</strong> of trial period</span
+          >.
         </div>
-        <div>
-          <button
-            class="button block amplified"
-            (click)="openCheckout$.next(null)"
-          >
-            Proceed with checkout
-          </button>
+        <div
+          class="display-flex flex-gap-1 align-items-center justify-content-center"
+        >
+          <div class="text-right">
+            <button
+              class="unstyled link align-with-button"
+              (click)="back.emit()"
+            >
+              <ion-icon
+                class="middle mr-0_5"
+                name="arrow-back-outline"
+              ></ion-icon>
+              <span class="middle underline">Change subscription plan</span>
+            </button>
+          </div>
+          <div>
+            <button
+              class="button block amplified"
+              (click)="openCheckout$.next(null)"
+            >
+              Proceed with checkout
+            </button>
+          </div>
         </div>
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
 </div>
