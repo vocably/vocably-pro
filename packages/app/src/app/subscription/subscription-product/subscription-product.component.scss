@@ -62,6 +62,12 @@
     }
   }
 
+  &:hover {
+    .select-button {
+      @include button-hover();
+    }
+  }
+
   .hide-when-needed {
     @media (min-width: $sm + 100px) {
       display: none;

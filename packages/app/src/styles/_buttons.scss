@@ -20,8 +20,7 @@ button.unstyled {
 
   &:hover,
   &:focus {
-    background: var(--button-active-bg);
-    color: var(--emphasize-color);
+    @include button-hover();
   }
 
   &:active {
@@ -38,80 +37,4 @@ button.unstyled {
 .fix-button {
   padding-left: $v-btn-shadow-spread;
   padding-right: $v-btn-shadow-spread;
-}
-
-.button-x {
-  display: inline-block;
-  background: var(--button-bg);
-  color: inherit;
-  border: 1px solid var(--button-border-color);
-  padding: 0.5rem;
-  font: inherit;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: $border-radius;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 200ms, opacity 200ms;
-
-  &.x2 {
-    font-size: 200%;
-  }
-
-  &.active {
-    background-color: var(--button-active-bg);
-    border-color: var(--button-active-border-color);
-
-    &:hover,
-    &:focus {
-      background-color: var(--button-active-bg);
-      border-color: var(--button-active-border-color);
-    }
-  }
-
-  &.danger {
-    background: var(--button-danger-bg);
-    border-color: var(--button-danger-border-color);
-
-    &:hover,
-    &:focus {
-      background: var(--button-danger-bg-hover);
-      border-color: var(--button-danger-border-color-hover);
-    }
-  }
-
-  &.block {
-    width: 100%;
-  }
-
-  &.amplified {
-    background: var(--button-amplified-bg);
-    border-color: var(--button-amplified-border-color);
-
-    &:hover,
-    &:focus {
-      background: var(--button-amplified-bg-hover);
-      border-color: var(--button-amplified-border-color-hover);
-    }
-  }
-
-  &:hover,
-  &:focus {
-    background: var(--button-bg-hover);
-    border-color: var(--button-border-color-hover);
-  }
-
-  &[disabled],
-  &.disabled {
-    opacity: 0.3;
-    background: var(--button-bg);
-    border: 1px solid var(--button-border-color);
-    cursor: auto;
-
-    &:hover,
-    &:focus {
-      background: var(--button-bg);
-      border: 1px solid var(--button-border-color);
-    }
-  }
 }
