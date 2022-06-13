@@ -26,26 +26,21 @@ export class VocablyTranslation {
   @Prop() result: Result<TranslationCards> | null = null;
   @Prop() loading: boolean = false;
   @Prop() existingLanguages: Language[] = [];
-  @Event() language: EventEmitter<string>;
+  @Prop() language: string = '';
+  @Event() changeLanguage: EventEmitter<string>;
 
   render() {
     const languageSelector = this.result && this.result.success && (
       <select
         disabled={this.loading}
         onChange={(event) =>
-          this.language.emit((event.target as HTMLSelectElement).value)
+          this.changeLanguage.emit((event.target as HTMLSelectElement).value)
         }
       >
         {Object.entries(languageList)
           .sort(sortLanguages(this.existingLanguages))
           .map(([code, name]) => (
-            <option
-              selected={
-                // @ts-ignore
-                this.result.value.translation.sourceLanguage === code
-              }
-              value={code}
-            >
+            <option selected={this.language === code} value={code}>
               {name}
             </option>
           ))}

@@ -31,6 +31,7 @@ export namespace Components {
     }
     interface VocablyTranslation {
         "existingLanguages": Language[];
+        "language": string;
         "loading": boolean;
         "phrase": string;
         "result": Result<TranslationCards> | null;
@@ -146,8 +147,9 @@ declare namespace LocalJSX {
     }
     interface VocablyTranslation {
         "existingLanguages"?: Language[];
+        "language"?: string;
         "loading"?: boolean;
-        "onLanguage"?: (event: CustomEvent<string>) => void;
+        "onChangeLanguage"?: (event: CustomEvent<string>) => void;
         "phrase"?: string;
         "result"?: Result<TranslationCards> | null;
     }

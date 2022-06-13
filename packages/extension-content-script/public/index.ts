@@ -19,16 +19,20 @@ registerContentScript({
     analyze: (payload) =>
       new Promise((resolve) => {
         setTimeout(() => {
-          resolve(
-            JSON.parse(
-              (document.getElementById('response') as HTMLTextAreaElement).value
-            )
+          const result = JSON.parse(
+            (document.getElementById('response') as HTMLTextAreaElement).value
           );
+
+          if (payload.sourceLanguage) {
+            result.value.translation.sourceLanguage = payload.sourceLanguage;
+          }
+
+          resolve(result);
         }, parseInt((document.getElementById('delay') as HTMLInputElement).value));
       }),
     cleanUp: () => Promise.resolve({ success: true, value: null }),
     ping: () => Promise.resolve('pong'),
     listLanguages: () =>
-      Promise.resolve({ success: true, value: ['en', 'nl'] }),
+      Promise.resolve({ success: true, value: ['ar', 'nl'] }),
   },
 }).then();

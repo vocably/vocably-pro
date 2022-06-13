@@ -34,6 +34,10 @@ export const setContents = async ({
         })
         .then(async (translationResult) => {
           translation.result = translationResult;
+          if (translationResult.success === true) {
+            translation.language =
+              translationResult.value.translation.sourceLanguage;
+          }
 
           const existingLanguagesResult = await api.listLanguages();
           translation.existingLanguages = existingLanguagesResult.success
@@ -43,11 +47,12 @@ export const setContents = async ({
     };
 
     translation.addEventListener(
-      'language',
+      'changeLanguage',
       ({ detail: language }: CustomEvent) => {
         if (translation.result && translation.result.success) {
           api.cleanUp(translation.result.value);
         }
+        translation.language = language;
         analyze(language);
       }
     );
