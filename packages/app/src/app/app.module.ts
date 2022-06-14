@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { ComponentsModule } from './components/components.module';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AppComponent, NotFoundPageComponent],
@@ -36,6 +37,7 @@ import { MatIconModule } from '@angular/material/icon';
     }),
     MatSnackBarModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [
     {

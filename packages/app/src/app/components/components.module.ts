@@ -11,6 +11,8 @@ import { OfflineComponent } from './offline/offline.component';
 import { GoogleIconComponent } from './google-icon/google-icon.component';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
+import { LoaderComponent } from './loader/loader.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     SubscriptionStatusPipe,
     OfflineComponent,
     GoogleIconComponent,
+    LoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     OverlayModule,
     MatIconModule,
     HttpClientModule,
+    MatDialogModule,
   ],
   exports: [
     TooltipComponent,

@@ -3,7 +3,6 @@ import { DeckStoreService } from '../../deck-store.service';
 import { CardItem } from '@vocably/model';
 import { Subject, takeUntil } from 'rxjs';
 import { byDate } from '../../by-date';
-import { LoadingController } from '@ionic/angular';
 import { getFullLanguageName } from '@vocably/model';
 import { deleteLanguageDeck } from '@vocably/api';
 import { DeckListStoreService } from '../../deck-list-store.service';
@@ -11,6 +10,7 @@ import { DeckService } from '../../deck.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { omit } from 'lodash-es';
+import { LoaderService } from '../../../components/loader.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -28,7 +28,7 @@ export class EditPageComponent implements OnInit, OnDestroy {
 
   constructor(
     public deckStore: DeckStoreService,
-    public loadingController: LoadingController,
+    public loader: LoaderService,
     public deckListStore: DeckListStoreService,
     public deckService: DeckService,
     public dialog: MatDialog
@@ -84,13 +84,12 @@ export class EditPageComponent implements OnInit, OnDestroy {
         return;
       }
 
-      const loading = await this.loadingController.create({
+      const loaderRef = this.loader.show({
         message: 'Deleting the deck...',
       });
-      loading.present().then();
       await deleteLanguageDeck(this.deckStore.deck$.value.language);
       this.deckListStore.reload$.next(null);
-      loading.dismiss().then();
+      loaderRef.close();
     });
   }
 }
