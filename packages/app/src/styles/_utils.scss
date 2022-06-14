@@ -1,4 +1,5 @@
 @import './mixins/link';
+@import './mixins/strike-through';
 
 .text-primary {
   color: var(--primary-color);
@@ -31,4 +32,8 @@
 .big-icon {
   font-size: 8rem;
   line-height: 6.7rem;
+}
+
+.strike {
+  @include strike-through();
 }

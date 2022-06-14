@@ -134,10 +134,6 @@
   font-size: 3rem;
 }
 
-.strike {
-  text-decoration: line-through;
-}
-
 .underline {
   @include underline();
 }
