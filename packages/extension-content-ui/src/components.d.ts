@@ -37,6 +37,26 @@ export namespace Components {
         "result": Result<TranslationCards> | null;
     }
 }
+export interface VocablyCloseButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLVocablyCloseButtonElement;
+}
+export interface VocablyPopupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLVocablyPopupElement;
+}
+export interface VocablySignInCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLVocablySignInElement;
+}
+export interface VocablySubscribeCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLVocablySubscribeElement;
+}
+export interface VocablyTranslationCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLVocablyTranslationElement;
+}
 declare global {
     interface HTMLVocablyButtonElement extends Components.VocablyButton, HTMLStencilElement {
     }
@@ -122,7 +142,7 @@ declare namespace LocalJSX {
     interface VocablyButton {
     }
     interface VocablyCloseButton {
-        "onClose"?: (event: CustomEvent<void>) => void;
+        "onClose"?: (event: VocablyCloseButtonCustomEvent<void>) => void;
     }
     interface VocablyGoogleButton {
     }
@@ -131,25 +151,25 @@ declare namespace LocalJSX {
     interface VocablyLogo {
     }
     interface VocablyPopup {
-        "onClose"?: (event: CustomEvent<void>) => void;
+        "onClose"?: (event: VocablyPopupCustomEvent<void>) => void;
     }
     interface VocablySideB {
         "item"?: CardItem;
     }
     interface VocablySignIn {
-        "onConfirm"?: (event: CustomEvent<any>) => void;
+        "onConfirm"?: (event: VocablySignInCustomEvent<any>) => void;
     }
     interface VocablySpinner {
     }
     interface VocablySubscribe {
-        "onConfirm"?: (event: CustomEvent<any>) => void;
+        "onConfirm"?: (event: VocablySubscribeCustomEvent<any>) => void;
         "trial"?: boolean;
     }
     interface VocablyTranslation {
         "existingLanguages"?: Language[];
         "language"?: string;
         "loading"?: boolean;
-        "onChangeLanguage"?: (event: CustomEvent<string>) => void;
+        "onChangeLanguage"?: (event: VocablyTranslationCustomEvent<string>) => void;
         "phrase"?: string;
         "result"?: Result<TranslationCards> | null;
     }

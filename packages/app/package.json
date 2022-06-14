@@ -15,9 +15,7 @@
     "pwa": "npm-run-all --parallel watch-prod serve"
   },
   "dependencies": {
-    "@ionic/angular": "^6.0.10",
-    "@sentry/angular": "^6.19.4",
-    "@sentry/tracing": "^6.19.4",
+    "@ionic/angular": "^6.1.9",
     "pulltorefreshjs": "^0.1.22"
   },
   "devDependencies": {

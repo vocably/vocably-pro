@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ExtensionUiLibraryModule } from '@vocably/extension-angular-components';
 import { defineCustomElements } from '@vocably/extension-content-ui/loader';
 
 defineCustomElements();
@@ -10,9 +9,10 @@ import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
-  imports: [BrowserModule, ExtensionUiLibraryModule],
+  imports: [BrowserModule],
   providers: [],
   bootstrap: [AppComponent],
   exports: [HeaderComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

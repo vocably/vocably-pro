@@ -16,7 +16,6 @@ const packages = [
   'extension-service-worker',
   'extension-content-ui',
   'extension-content-script',
-  'extension-angular-components',
 ];
 
 for (let packageName of packages) {
