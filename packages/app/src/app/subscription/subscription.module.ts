@@ -12,6 +12,7 @@ import { SubscriptionProductComponent } from './subscription-product/subscriptio
 import { SubscriptionFlowComponent } from './subscription-flow/subscription-flow.component';
 import { MonthsPipe } from './months.pipe';
 import { SavingPipe } from './saving.pipe';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { SavingPipe } from './saving.pipe';
     ComponentsModule,
     SubscriptionRoutingModule,
     HeaderModule,
+    MatIconModule,
   ],
   exports: [],
 })

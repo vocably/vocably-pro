@@ -13,6 +13,7 @@ import * as Sentry from '@sentry/angular';
 import { Router } from '@angular/router';
 import { ComponentsModule } from './components/components.module';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [AppComponent, NotFoundPageComponent],
@@ -34,6 +35,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
       registrationStrategy: 'registerWhenStable:30000',
     }),
     MatSnackBarModule,
+    MatIconModule,
   ],
   providers: [
     {

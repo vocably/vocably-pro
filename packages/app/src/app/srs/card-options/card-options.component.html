@@ -3,18 +3,24 @@
 </app-tooltip>
 <app-tooltip #weakTooltip>
   Alternatively, use
-  <ion-icon class="icon" name="arrow-back-outline"></ion-icon> button on the
-  keyboard
+  <mat-icon aria-hidden="false" aria-label="Left" inline="true" class="middle"
+    >arrow_back</mat-icon
+  >
+  button on the keyboard
 </app-tooltip>
 <app-tooltip #somewhatTooltip>
   Alternatively, use
-  <ion-icon class="icon" name="arrow-down-outline"></ion-icon> button on the
-  keyboard
+  <mat-icon aria-hidden="false" aria-label="Down" inline="true" class="middle"
+    >arrow_downward</mat-icon
+  >
+  button on the keyboard
 </app-tooltip>
 <app-tooltip #strongTooltip>
   Alternatively, use
-  <ion-icon class="icon" name="arrow-forward-outline"></ion-icon> button on the
-  keyboard
+  <mat-icon aria-hidden="false" aria-label="Right" inline="true" class="middle"
+    >arrow_forward</mat-icon
+  >
+  button on the keyboard
 </app-tooltip>
 <div class="card-options">
   <span
@@ -22,27 +28,51 @@
     class="option-button underline"
     (click)="flip.emit()"
   >
-    Flip card<ion-icon class="icon space-icon" name="remove-outline"></ion-icon>
+    Flip card<mat-icon
+      aria-hidden="false"
+      aria-label="Sapacebar"
+      inline="true"
+      class="icon middle small"
+      >space_bar</mat-icon
+    >
   </span>
   <span
     [appTooltipTriggerFor]="weakTooltip"
     class="option-button underline"
     (click)="answer.emit('weak')"
   >
-    Learn again<ion-icon class="icon" name="arrow-back-outline"></ion-icon>
+    Learn again<mat-icon
+      aria-hidden="false"
+      aria-label="Left"
+      inline="true"
+      class="icon middle small"
+      >arrow_back</mat-icon
+    >
   </span>
   <span
     [appTooltipTriggerFor]="somewhatTooltip"
     class="option-button underline"
     (click)="answer.emit('somewhat')"
   >
-    Repeat soon<ion-icon class="icon" name="arrow-down-outline"></ion-icon>
+    Repeat soon<mat-icon
+      aria-hidden="false"
+      aria-label="Down"
+      inline="true"
+      class="icon middle small"
+      >arrow_downward</mat-icon
+    >
   </span>
   <span
     [appTooltipTriggerFor]="strongTooltip"
     class="option-button underline"
     (click)="answer.emit('strong')"
   >
-    That was easy<ion-icon class="icon" name="arrow-forward-outline"></ion-icon>
+    That was easy<mat-icon
+      aria-hidden="false"
+      aria-label="Right"
+      inline="true"
+      class="icon middle small"
+      >arrow_forward</mat-icon
+    >
   </span>
 </div>

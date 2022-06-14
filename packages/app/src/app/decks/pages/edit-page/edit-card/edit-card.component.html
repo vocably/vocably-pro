@@ -15,15 +15,27 @@
       class="action mr-0_5"
       (click)="isEdit = true"
     >
-      <ion-icon name="pencil"></ion-icon>
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Edit"
+        class="middle"
+        inline="true"
+        >edit</mat-icon
+      >
     </button>
     <button
       *ngIf="!isDeleted"
       data-test="card-action-delete"
-      class="action delete"
+      class="action"
       (click)="delete.emit()"
     >
-      <ion-icon name="trash-outline"></ion-icon>
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Delete"
+        class="middle"
+        inline="true"
+        >delete</mat-icon
+      >
     </button>
     <button
       class="unstyled link"

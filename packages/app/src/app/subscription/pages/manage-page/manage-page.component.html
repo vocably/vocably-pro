@@ -62,10 +62,15 @@
   >
     <div class="hero-body text-center">
       <div class="mb-1">
-        <ion-icon
-          class="text-primary status-icon"
-          name="checkmark-circle"
-        ></ion-icon>
+        <span class="big-icon"
+          ><mat-icon
+            aria-hidden="false"
+            aria-label="Done"
+            class="text-primary"
+            inline="true"
+            >check_circle</mat-icon
+          ></span
+        >
       </div>
       <div class="mb-1">The subscription has been successfully cancelled.</div>
       <a [routerLink]="['/']" data-test="return-to-dashboard"

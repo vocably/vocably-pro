@@ -41,13 +41,25 @@
   [@operation]="userAnswer === 'unknown' ? 'unknown' : 'known'"
   (@operation.done)="onSelectionAnimationCompleted()"
 >
-  <ion-icon
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Strong"
+    inline="true"
     class="operation-icon strong-icon"
-    name="checkmark-done-outline"
-  ></ion-icon>
-  <ion-icon
+    >done_all</mat-icon
+  >
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Somewhat"
+    inline="true"
     class="operation-icon somewhat-icon"
-    name="checkmark-outline"
-  ></ion-icon>
-  <ion-icon class="operation-icon weak-icon" name="close-outline"></ion-icon>
+    >done</mat-icon
+  >
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Weak"
+    inline="true"
+    class="operation-icon weak-icon"
+    >close</mat-icon
+  >
 </div>

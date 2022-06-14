@@ -8,6 +8,7 @@ import { ListComponent } from './list/list.component';
 import { TextLengthDirective } from './text-length.directive';
 import { SideBComponent } from './side-b/side-b.component';
 import { ComponentsModule } from '../components/components.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { ComponentsModule } from '../components/components.module';
     TextLengthDirective,
     SideBComponent,
   ],
-  imports: [CommonModule, IonicModule, ComponentsModule],
+  imports: [CommonModule, IonicModule, ComponentsModule, MatIconModule],
   exports: [ListComponent, SideBComponent],
 })
 export class SrsModule {}

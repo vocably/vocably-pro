@@ -27,3 +27,8 @@
 .link {
   @include link(!important);
 }
+
+.big-icon {
+  font-size: 8rem;
+  line-height: 6.7rem;
+}

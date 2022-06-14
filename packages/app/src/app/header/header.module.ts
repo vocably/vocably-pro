@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from '../components/components.module';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [HeaderComponent, LogoComponent],
@@ -15,6 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
     RouterModule,
     ComponentsModule,
     MatMenuModule,
+    MatIconModule,
   ],
   exports: [HeaderComponent],
 })

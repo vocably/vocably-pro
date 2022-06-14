@@ -26,16 +26,24 @@
       <div class="hero-body text-center">
         <ng-container>
           <div class="mb-1">
-            <ion-icon
-              *ngIf="authStateUpdatedStatus !== 'error'"
-              class="text-primary status-icon"
-              name="checkmark-circle"
-            ></ion-icon>
-            <ion-icon
-              *ngIf="authStateUpdatedStatus === 'error'"
-              class="text-danger status-icon"
-              name="bug-outline"
-            ></ion-icon>
+            <span class="big-icon">
+              <mat-icon
+                aria-hidden="false"
+                aria-label="Success"
+                class="text-primary"
+                inline="true"
+                *ngIf="authStateUpdatedStatus !== 'error'"
+                >check_circle</mat-icon
+              >
+              <mat-icon
+                aria-hidden="false"
+                aria-label="Success"
+                class="text-danger"
+                inline="true"
+                *ngIf="authStateUpdatedStatus === 'error'"
+                >bug_report</mat-icon
+              >
+            </span>
           </div>
           <div *ngIf="authStateUpdatedStatus !== 'error'">
             <div class="mb-1">

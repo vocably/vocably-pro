@@ -29,15 +29,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/assets",
-              "src/manifest.json",
-              {
-                "glob": "**/*.svg",
-                "input": "../../node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg"
-              }
-            ],
+            "assets": ["src/assets", "src/manifest.json"],
             "styles": ["src/styles.scss"],
             "scripts": [],
             "allowedCommonJsDependencies": [
@@ -163,15 +155,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/assets",
-              {
-                "glob": "**/*.svg",
-                "input": "../../node_modules/ionicons/dist/ionicons/svg",
-                "output": "./svg"
-              },
-              "src/manifest.json"
-            ],
+            "assets": ["src/assets", "src/manifest.json"],
             "styles": ["src/styles.scss"],
             "scripts": []
           }

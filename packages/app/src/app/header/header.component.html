@@ -24,12 +24,9 @@
           [matMenuTriggerFor]="menu"
           data-test="main-menu"
         >
-          <ion-icon
-            class="icon"
-            name="menu-outline"
-            size="large"
-            class="text-emphasize"
-          ></ion-icon>
+          <mat-icon aria-hidden="false" aria-label="Menu" class="middle"
+            >menu</mat-icon
+          >
         </button>
         <mat-menu #menu="matMenu">
           <ng-container *ngIf="auth.userData$ | async as userData">
