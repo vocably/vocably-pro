@@ -14,6 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        title: 'Set Up',
         component: NoDecksPageComponent,
       },
       {
@@ -22,10 +23,12 @@ const routes: Routes = [
         children: [
           {
             path: '',
+            title: 'Dashboard',
             component: DashboardPageComponent,
           },
           {
             path: 'study',
+            title: 'Practice',
             component: StudyPageComponent,
             data: {
               cleanScreen: true,
@@ -34,6 +37,7 @@ const routes: Routes = [
           },
           {
             path: 'edit',
+            title: 'Edit',
             component: EditPageComponent,
             data: {
               title: 'Edit Deck',

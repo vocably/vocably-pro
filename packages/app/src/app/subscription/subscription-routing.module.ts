@@ -8,13 +8,16 @@ const routes: Routes = [
   {
     path: '',
     component: SubscribePageComponent,
+    title: 'Subscribe',
   },
   {
     path: 'auto',
+    title: 'Subscribe',
     component: AutoSubscribePageComponent,
   },
   {
     path: 'manage',
+    title: 'Manage Subscription',
     component: ManagePageComponent,
   },
 ];

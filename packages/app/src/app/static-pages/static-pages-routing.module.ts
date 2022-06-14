@@ -15,6 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'welcome',
+    title: 'Welcome',
     component: WelcomeComponent,
   },
 ];
