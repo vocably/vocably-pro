@@ -1,8 +1,8 @@
 import { PaddleSubscriptionUpdated } from '../types';
-import { setupUserAttributes } from './setupUserAttributes';
+import { setupUserSubscriptionAttributes } from './setupUserSubscriptionAttributes';
 
 export const handleSubscriptionUpdated = async (
   event: PaddleSubscriptionUpdated
 ) => {
-  await setupUserAttributes(event);
+  await setupUserSubscriptionAttributes(event);
 };

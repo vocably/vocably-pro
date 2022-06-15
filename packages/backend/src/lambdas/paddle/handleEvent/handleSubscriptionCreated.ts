@@ -1,6 +1,6 @@
 import { PaddleSubscriptionCreated } from '../types';
 import { addToGroup } from './addToGroup';
-import { setupUserAttributes } from './setupUserAttributes';
+import { setupUserSubscriptionAttributes } from './setupUserSubscriptionAttributes';
 import { deleteSubscriptionCanceller } from '../../../subscriptionCancellerDb';
 
 export const handleSubscriptionCreated = async (
@@ -8,7 +8,7 @@ export const handleSubscriptionCreated = async (
 ) => {
   await Promise.all([
     addToGroup(event.passthrough.username, 'paid'),
-    setupUserAttributes(event),
+    setupUserSubscriptionAttributes(event),
     deleteSubscriptionCanceller(event.passthrough.username),
   ]);
 };

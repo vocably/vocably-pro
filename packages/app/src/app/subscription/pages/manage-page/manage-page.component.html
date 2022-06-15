@@ -11,7 +11,9 @@
     <div class="hero" *ngIf="userData">
       <div class="hero-body text-center">
         <div class="mb-2">
-          Your subscription status is
+          Your
+          <strong class="text-emphasize">{{ userData.planName }}</strong> status
+          is
           <strong class="text-emphasize">{{
             userData | subscriptionStatus
           }}</strong
@@ -27,7 +29,7 @@
             *ngIf="
               isActive(userData) && userData.unitPrice && userData.nextBillDate
             "
-            ><br />Your next payment is due on
+            ><br />The next payment is due on
             <strong class="text-emphasize">{{
               userData.nextBillDate | date: 'mediumDate'
             }}</strong
@@ -39,7 +41,7 @@
           >
         </div>
         <button
-          class="button block mb-2"
+          class="button block mb-1"
           (click)="updatePaymentMethod(userData)"
           data-test="update-payment-method"
         >

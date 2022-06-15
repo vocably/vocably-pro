@@ -14,6 +14,7 @@ export type UserData = {
   unitPrice?: number;
   cancellationDate?: Date;
   productId?: number;
+  planName?: string;
 };
 
 export const mapUserAttributes = ({
@@ -36,6 +37,7 @@ export const mapUserAttributes = ({
   const updateUrl = attributes.find((a) => a.getName() === 'custom:update_url');
   const cancelUrl = attributes.find((a) => a.getName() === 'custom:cancel_url');
   const productId = attributes.find((a) => a.getName() === 'custom:product_id');
+  const planName = attributes.find((a) => a.getName() === 'custom:plan_name');
 
   if (!email || !sub) {
     throw Error('Can find email and sub in user data.');
@@ -52,6 +54,7 @@ export const mapUserAttributes = ({
     unitPrice: unitPrice && parseFloat(unitPrice.getValue()),
     cancellationDate: cancellationDate && new Date(cancellationDate.getValue()),
     productId: productId && parseInt(productId.getValue()),
+    planName: planName && planName.getValue(),
   };
 };
 

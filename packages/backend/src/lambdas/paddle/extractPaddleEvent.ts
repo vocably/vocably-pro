@@ -1,6 +1,7 @@
 import {
   alertSubscriptionCancelled,
   alertSubscriptionCreated,
+  alertSubscriptionPaymentSucceeded,
   alertSubscriptionUpdated,
   PaddleEvent,
   PaddleRawBody,
@@ -11,6 +12,7 @@ const availableEvents = [
   alertSubscriptionCreated,
   alertSubscriptionUpdated,
   alertSubscriptionCancelled,
+  alertSubscriptionPaymentSucceeded,
 ];
 
 export const extractPaddleEvent = (body: PaddleRawBody): PaddleEvent => {

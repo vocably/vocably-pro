@@ -32,7 +32,9 @@
           <ng-container *ngIf="auth.userData$ | async as userData">
             <span mat-menu-item [disabled]="true"
               >Subscription status:
-              <strong>{{ userData | subscriptionStatus }}</strong></span
+              <strong class="text-emphasize">{{
+                userData | subscriptionStatus
+              }}</strong></span
             >
             <span
               mat-menu-item
@@ -48,7 +50,7 @@
               *ngIf="isActive(userData) && userData.nextBillDate"
               [disabled]="true"
               >Next payment:
-              <strong>{{
+              <strong class="text-emphasize">{{
                 userData.nextBillDate | date: 'mediumDate'
               }}</strong></span
             >
@@ -57,7 +59,9 @@
               *ngIf="isActive(userData) && userData.unitPrice"
               [disabled]="true"
               >Amount:
-              <strong>{{ userData.unitPrice | currency: 'EUR' }}</strong></span
+              <strong class="text-emphasize">{{
+                userData.unitPrice | currency: 'EUR'
+              }}</strong></span
             >
             <a
               mat-menu-item

@@ -67,3 +67,13 @@ resource "null_resource" "auth_users_product_id" {
     command = "aws cognito-idp add-custom-attributes --user-pool-id ${aws_cognito_user_pool.users.id} --region ${data.aws_region.current.name} --custom-attributes Name=product_id,AttributeDataType=Number,Mutable=true,Required=false,NumberAttributeConstraints=\"{MinValue=0,MaxValue=2147483647}\" || exit 0"
   }
 }
+
+resource "null_resource" "auth_users_plan_name" {
+  depends_on = [
+    aws_cognito_user_pool.users,
+  ]
+
+  provisioner "local-exec" {
+    command = "aws cognito-idp add-custom-attributes --user-pool-id ${aws_cognito_user_pool.users.id} --region ${data.aws_region.current.name} --custom-attributes Name=plan_name,AttributeDataType=String,Mutable=true,Required=false || exit 0"
+  }
+}

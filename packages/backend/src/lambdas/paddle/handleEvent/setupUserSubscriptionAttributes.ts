@@ -4,26 +4,30 @@ import {
   PaddleSubscriptionCreated,
   PaddleSubscriptionUpdated,
 } from '../types';
+import { AttributeType } from 'aws-sdk/clients/cognitoidentityserviceprovider';
 
-export const setupUserAttributes = async (
+export const setupUserSubscriptionAttributes = async (
   event: PaddleSubscriptionCreated | PaddleSubscriptionUpdated
 ) => {
   const cognitoIdp = new CognitoIdentityServiceProvider();
+
+  const attributes: AttributeType[] = [];
+
+  if (!isPaddleSubscriptionCreated(event)) {
+    attributes.push(
+      { Name: 'custom:status', Value: event.status },
+      { Name: 'custom:next_bill_date', Value: event.next_bill_date }
+    );
+  }
+
   return cognitoIdp
     .adminUpdateUserAttributes({
       Username: event.passthrough.username,
       UserPoolId: process.env.CONGINOT_USER_POOL_ID,
       UserAttributes: [
-        { Name: 'custom:status', Value: event.status },
+        ...attributes,
         { Name: 'custom:update_url', Value: event.update_url },
         { Name: 'custom:cancel_url', Value: event.cancel_url },
-        { Name: 'custom:next_bill_date', Value: event.next_bill_date },
-        {
-          Name: 'custom:unit_price',
-          Value: isPaddleSubscriptionCreated(event)
-            ? event.unit_price
-            : event.new_unit_price,
-        },
         {
           Name: 'custom:product_id',
           Value: event.subscription_plan_id,

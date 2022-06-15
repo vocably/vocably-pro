@@ -5,6 +5,8 @@ export type PaddleRawBody = Record<string, string>;
 export const alertSubscriptionCreated = 'subscription_created';
 export const alertSubscriptionUpdated = 'subscription_updated';
 export const alertSubscriptionCancelled = 'subscription_cancelled';
+export const alertSubscriptionPaymentSucceeded =
+  'subscription_payment_succeeded';
 
 export type PaddleSubscriptionCreated = {
   alert_name: typeof alertSubscriptionCreated;
@@ -19,7 +21,8 @@ export type PaddleSubscriptionCreated = {
 
 export const isPaddleSubscriptionCreated = (
   obj: any
-): obj is PaddleSubscriptionCreated => !!obj.unit_price;
+): obj is PaddleSubscriptionCreated =>
+  obj.alert_name && obj.alert_name === alertSubscriptionCreated;
 
 export type PaddleSubscriptionUpdated = {
   alert_name: typeof alertSubscriptionUpdated;
@@ -39,7 +42,18 @@ export type PaddleSubscriptionCancelled = {
   status: SubscriptionStatus;
 };
 
+export type PaddleSubscriptionPaymentSucceeded = {
+  alert_name: typeof alertSubscriptionPaymentSucceeded;
+  status: SubscriptionStatus;
+  passthrough: PassThrough;
+  subscription_plan_id: string;
+  next_payment_amount: string;
+  next_bill_date: string;
+  plan_name: string;
+};
+
 export type PaddleEvent =
   | PaddleSubscriptionCreated
   | PaddleSubscriptionUpdated
-  | PaddleSubscriptionCancelled;
+  | PaddleSubscriptionCancelled
+  | PaddleSubscriptionPaymentSucceeded;
