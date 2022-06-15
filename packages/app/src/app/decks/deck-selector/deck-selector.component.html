@@ -1,5 +1,5 @@
 <div class="display-inline-flex align-items-center">
-  <span class="mr-0_5" [class.fix-position]="languages.length === 1"
+  <span class="mr-0_5"
     ><mat-icon
       aria-hidden="false"
       aria-label="Language"
@@ -19,7 +19,10 @@
       language | language
     }}</mat-option>
   </mat-select>
-  <span *ngIf="languages.length === 1" class="small text-emphasize">{{
-    languages[0] | language
-  }}</span>
+  <span
+    *ngIf="languages.length === 1"
+    style="margin-top: 2px"
+    class="small text-emphasize"
+    >{{ languages[0] | language }}</span
+  >
 </div>
