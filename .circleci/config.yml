@@ -87,13 +87,9 @@ workflows:
           <<: *main_only
   deploy:
     jobs:
-      - stage:
-          <<: *new_version_only
       - manual-testing:
           <<: *new_version_only
           type: approval
-          requires:
-            - stage
       - prod:
           <<: *new_version_only
           requires:
