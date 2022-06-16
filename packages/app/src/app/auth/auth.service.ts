@@ -52,7 +52,7 @@ export class AuthService {
     take(1),
     retry({
       delay: 1000,
-      count: 5,
+      count: 20,
     })
   );
 
