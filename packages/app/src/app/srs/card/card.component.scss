@@ -14,11 +14,14 @@
 
 .side {
   --inner-text-length: 30;
+  --screen-width-px: 1024;
+  --screen-height-px: 768;
+  --aspect-ratio: calc(var(--screen-height-px) / var(--screen-width-px));
   padding: 1.5rem;
   font-size: clamp(
     1vw + 2vh,
     (1200vh + 500vw) / var(--inner-text-length),
-    4vw + 3vh
+    5vw * var(--aspect-ratio)
   );
 }
 
