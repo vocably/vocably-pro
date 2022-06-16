@@ -6,6 +6,11 @@
 
 :root {
   @include theme-variables($dark-theme);
+
+  // Both screen width and screen height will be overridden in
+  --screen-width-px: 1024;
+  --screen-height-px: 768;
+
   --app-height: 100vh;
   --container-padding: #{$container-padding};
   --header-items-height: #{$header-items-height};

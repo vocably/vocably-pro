@@ -5,7 +5,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { Auth } from '@aws-amplify/auth';
 import { configureApi } from '@vocably/api';
-import { maintainAppHeight } from './app-height';
+import { maintainAppSize } from './app-size';
 import { authConfig } from './auth-config';
 import * as Sentry from '@sentry/angular';
 import { BrowserTracing } from '@sentry/tracing';
@@ -33,7 +33,7 @@ Auth.configure(authConfig);
 
 configureApi(environment.api);
 
-maintainAppHeight();
+maintainAppSize();
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)

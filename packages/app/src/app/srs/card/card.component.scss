@@ -1,4 +1,6 @@
 :host {
+  --aspect-ratio: calc(var(--screen-height-px) / var(--screen-width-px));
+
   display: block;
   height: 100%;
   overflow: hidden;
@@ -14,9 +16,6 @@
 
 .side {
   --inner-text-length: 30;
-  --screen-width-px: 1024;
-  --screen-height-px: 768;
-  --aspect-ratio: calc(var(--screen-height-px) / var(--screen-width-px));
   padding: 1.5rem;
   font-size: clamp(
     1vw + 2vh,
@@ -38,7 +37,7 @@
 
   .operation-icon {
     display: none;
-    font-size: 15vw;
+    font-size: calc(15vw * var(--aspect-ratio));
   }
 
   .strong-icon,
