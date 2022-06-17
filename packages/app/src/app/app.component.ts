@@ -9,6 +9,7 @@ import * as PullToRefresh from 'pulltorefreshjs';
 import { AuthService } from './auth/auth.service';
 import { setUp, setUserId } from '../piwik';
 import { environment } from '../environments/environment';
+import * as Sentry from '@sentry/browser';
 
 @Component({
   selector: 'app-root',
@@ -49,6 +50,8 @@ export class AppComponent implements OnInit {
         distinct()
       )
       .subscribe((email) => {
+        Sentry.setUser({ email });
+
         if (!isPiwikSet) {
           setUp(environment.piwikId);
           isPiwikSet = true;
