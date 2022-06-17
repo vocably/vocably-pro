@@ -1,6 +1,11 @@
 import { ExtensionAuthStorage } from './extension-auth-storage';
-import { getAll, StorageType } from './extension-storage-operations';
-import { Message } from './types';
+import { StorageType } from './extension-storage-operations';
+import {
+  onClearRequest,
+  onGetAllRequest,
+  onRemoveItemRequest,
+  onSetItemRequest,
+} from './extension-operations';
 
 export const registerExtensionStorage = (
   storageType: StorageType
@@ -8,31 +13,24 @@ export const registerExtensionStorage = (
   const extensionStorage = chrome.storage[storageType];
   const authStorage = new ExtensionAuthStorage(extensionStorage);
 
-  chrome.runtime.onMessageExternal.addListener(
-    async (request, sender, sendResponse) => {
-      const message = request?.message;
-      const data = request?.data;
+  onSetItemRequest(async (sendResponse, { key, value }) => {
+    await authStorage.setItem(key, value);
+    return sendResponse();
+  });
 
-      switch (message) {
-        case Message.setItem:
-          authStorage.setItem(data?.key, data?.value);
-          sendResponse();
-          return;
-        case Message.removeItem:
-          authStorage.removeItem(data?.key);
-          sendResponse();
-          return;
-        case Message.clear:
-          authStorage.clear();
-          sendResponse();
-          return;
-        case Message.getAll:
-          const all = await getAll(extensionStorage);
-          sendResponse(all);
-          return;
-      }
-    }
-  );
+  onRemoveItemRequest(async (sendResponse, key) => {
+    await authStorage.removeItem(key);
+    return sendResponse();
+  });
+
+  onClearRequest(async (sendResponse) => {
+    await authStorage.clear();
+    sendResponse();
+  });
+
+  onGetAllRequest(async (sendResponse) => {
+    return sendResponse(await authStorage.getAll());
+  });
 
   return authStorage;
 };

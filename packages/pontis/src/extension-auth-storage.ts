@@ -16,8 +16,8 @@ export class ExtensionAuthStorage {
     this.storage = storage;
   }
 
-  setItem(key: string, value: string) {
-    setItems(this.storage, { [key]: value });
+  async setItem(key: string, value: string) {
+    await setItems(this.storage, { [key]: value });
     dataMemory[key] = value;
     return dataMemory[key];
   }
@@ -28,15 +28,19 @@ export class ExtensionAuthStorage {
       : undefined;
   }
 
-  removeItem(key: string) {
-    removeItems(this.storage, [key]);
+  async removeItem(key: string) {
+    await removeItems(this.storage, [key]);
     return delete dataMemory[key];
   }
 
-  clear() {
-    clearAll(this.storage);
+  async clear() {
+    await clearAll(this.storage);
     dataMemory = {};
     return dataMemory;
+  }
+
+  async getAll(): Promise<Record<string, string>> {
+    return getAll(this.storage);
   }
 
   sync(): Promise<void> {
