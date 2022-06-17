@@ -1,5 +1,11 @@
 import { StorageHelper } from '@aws-amplify/core';
 import { removeItem, setItem, clear, getAll } from './extension-operations';
+import {
+  setItem as cacheStorageSetItem,
+  getAll as cacheStorageGetAll,
+  removeItem as cacheStorageRemoveItem,
+  clearAll as cacheStorageClearAll,
+} from './cache-storage';
 import { message } from './message';
 import { Message } from './types';
 
@@ -16,6 +22,7 @@ export class AppAuthStorage {
     this.localStorage.setItem(key, value);
     setItem(this.extensionId, { key, value }).catch(() => {});
     this.sendMessage(Message.setItem, { key, value }).catch(() => {});
+    cacheStorageSetItem(key, value).catch(() => {});
   }
 
   getItem(key: string) {
@@ -26,12 +33,14 @@ export class AppAuthStorage {
     this.localStorage.removeItem(key);
     removeItem(this.extensionId, key).catch(() => {});
     this.sendMessage(Message.removeItem, { key }).catch(() => {});
+    cacheStorageRemoveItem(key).catch(() => {});
   }
 
   clear() {
     this.localStorage.clear();
     clear(this.extensionId).catch(() => {});
     this.sendMessage(Message.clear).catch(() => {});
+    cacheStorageClearAll().catch(() => {});
   }
 
   sync() {
@@ -43,6 +52,9 @@ export class AppAuthStorage {
       let isResolved = false;
 
       getAll(this.extensionId)
+        .catch(() => {
+          return cacheStorageGetAll();
+        })
         .then((data) => {
           Object.entries(data).forEach(([key, value]) => {
             this.localStorage.setItem(key, value);
