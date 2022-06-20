@@ -40,6 +40,7 @@
     "@types/jasmine": "~3.10.3",
     "@types/lodash-es": "^4.17.6",
     "@types/node": "^16.11.26",
+    "@vocably/hermes": "^1.0.0",
     "@webcomponents/custom-elements": "^1.5.0",
     "aws-sdk": "^2.1087.0",
     "bootstrap": "^5.1.3",
