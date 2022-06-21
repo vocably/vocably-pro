@@ -7,7 +7,6 @@ const packages = [
   'sulna',
   'model',
   'srs',
-  'pontis',
   'webpack',
   'crud',
   'api',
