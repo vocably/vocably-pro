@@ -9,6 +9,7 @@ locals {
   backend_root                   = abspath("../packages/backend")
   model_root                     = abspath("../packages/model")
   www_root                       = abspath("../packages/www")
+  e2e_www_root                   = abspath("../packages/e2e-www")
   www_backed_root                = abspath("../packages/www-backend")
   artifacts_root                 = abspath("../packages/artifacts")
   e2e_root                       = abspath("../packages/e2e")
