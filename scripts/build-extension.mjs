@@ -15,9 +15,11 @@ await $`npm --prefix ${packagesDir}/extension run build`;
 const envName = (process.env.ENV_NAME ?? 'DEV').toLowerCase();
 const zipFileName = `${envName}_${version.replace(/\./g, '_')}.zip`;
 const zipPath = `${rootDir}/extensions/${zipFileName}`;
+const latestPath = `${rootDir}/extensions/latest.zip`;
 
 cd(`${packagesDir}/extension/dist`);
 await $`zip -r "${zipPath}" .`;
+await $`cp ${zipPath} ${latestPath}`;
 
 cd(`${rootDir}/platform`);
 const tfOutput = JSON.parse((await $`terraform output -json`).stdout);
@@ -25,5 +27,6 @@ const artifactsBucketName = tfOutput.artifacts_bucket.value;
 const artifactsBucketUrl = tfOutput.artifacts_url.value;
 
 await $`aws s3 cp ${zipPath} s3://${artifactsBucketName}`;
+await $`aws s3 cp ${latestPath} s3://${artifactsBucketName}`;
 
 console.log(`${artifactsBucketUrl}/${zipFileName}`);
