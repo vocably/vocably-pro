@@ -8,12 +8,14 @@ import { PrivacyPolicyPageComponent } from './privacy-policy-page/privacy-policy
 import { StaticPagesRoutingModule } from './static-pages-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AuthModule } from '../auth/auth.module';
+import { UserInfoPageComponent } from './user-info-page/user-info-page.component';
 
 @NgModule({
   declarations: [
     TermsAndConditionsPageComponent,
     PrivacyPolicyPageComponent,
     WelcomeComponent,
+    UserInfoPageComponent,
   ],
   imports: [
     CommonModule,

@@ -119,3 +119,16 @@ variable "paddle_public_key" {
 variable "alarm_email" {
   type = string
 }
+
+variable "endtest_app_id" {
+  type    = string
+  default = "51386087"
+}
+
+variable "endtest_app_code" {
+  type = string
+}
+
+variable "endtest_latest_env_suite" {
+  type = string
+}

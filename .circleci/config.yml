@@ -47,6 +47,7 @@ jobs:
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
       - run: npm run test -ws
+      - run: npx zx ./scripts/run-e2e-tests.mjs
       - run: npx semantic-release
       - run: npx zx ./scripts/build-extension.mjs
   stage:

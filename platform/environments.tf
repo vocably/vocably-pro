@@ -148,3 +148,20 @@ resource "local_file" "extension_popup_environment" {
   content  = local.extension_popup_env_content
   filename = "${local.extension_popup_root}/src/environments/environmentLocal.ts"
 }
+
+locals {
+  scripts_environment_content = <<EOT
+USERNAME="${var.test_user_username}"
+AWS_REGION="${data.aws_region.current.name}"
+USER_POOL_ID="${aws_cognito_user_pool.users.id}"
+DECKS_BUCKET="${aws_s3_bucket.cards.bucket}"
+ENDTEST_APP_ID="${var.endtest_app_id}"
+ENDTEST_APP_CODE="${var.endtest_app_code}"
+ENDTEST_LATEST_ENV_SUITE="${var.endtest_latest_env_suite}"
+  EOT
+}
+
+resource "local_file" "e2e_environment" {
+  content  = local.scripts_environment_content
+  filename = "${local.scripts_root}/.env.local"
+}

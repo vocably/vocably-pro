@@ -14,6 +14,7 @@ locals {
   artifacts_root                 = abspath("../packages/artifacts")
   e2e_root                       = abspath("../packages/e2e")
   extension_popup_root           = abspath("../packages/extension-popup")
+  scripts_root                   = abspath("../scripts")
   api_config                     = abspath("${local.model_root}/api.yml")
   auto_sign_in_confirmation_path = "signed-in"
   www_base_url                   = "https://${var.root_domain}"
