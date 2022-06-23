@@ -1,4 +1,0 @@
-{
-  "chromeWebSecurity": false,
-  "integrationFolder": "cypress/integration/no-extension"
-}

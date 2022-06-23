@@ -122,21 +122,6 @@ resource "local_file" "www_backend_environment" {
 }
 
 locals {
-  e2e_environment_content = <<EOT
-USERNAME="${var.test_user_username}"
-PASSWORD="${var.test_user_password}"
-AWS_REGION="${data.aws_region.current.name}"
-USER_POOL_ID="${aws_cognito_user_pool.users.id}"
-USER_POOL_WEB_CLIENT_ID="${aws_cognito_user_pool_client.client.id}"
-  EOT
-}
-
-resource "local_file" "e2e_environment" {
-  content  = local.e2e_environment_content
-  filename = "${local.e2e_root}/.env.local"
-}
-
-locals {
   extension_popup_env_content = <<EOT
 export const environmentLocal = {
   appBaseUrl: '${local.app_url}',

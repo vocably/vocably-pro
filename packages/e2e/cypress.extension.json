@@ -1,7 +1,0 @@
-{
-  "chromeWebSecurity": false,
-  "integrationFolder": "cypress/integration/extension",
-  "env": {
-    "EXTENSION": true
-  }
-}
