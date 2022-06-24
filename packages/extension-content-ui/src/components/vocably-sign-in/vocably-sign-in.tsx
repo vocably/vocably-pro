@@ -10,10 +10,13 @@ export class VocablySignIn {
 
   render() {
     return (
-      <Host>
+      <Host data-test="sign-in">
         <div class="p">Please sign in to proceed.</div>
         <div class="p">
-          <vocably-google-button onClick={() => this.confirm.emit()}>
+          <vocably-google-button
+            data-test="sign-in-button"
+            onClick={() => this.confirm.emit()}
+          >
             Sign in with Google
           </vocably-google-button>
         </div>

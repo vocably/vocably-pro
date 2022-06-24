@@ -11,7 +11,7 @@ export class VocablySubscribe {
 
   render() {
     return (
-      <Host>
+      <Host data-test="subscribe">
         <div class="container">
           <div class="message">
             {this.trial
@@ -19,7 +19,11 @@ export class VocablySubscribe {
               : 'Please subscribe to proceed.'}
           </div>
           <div class="button-container">
-            <button class="button" onClick={() => this.confirm.emit()}>
+            <button
+              class="button"
+              onClick={() => this.confirm.emit()}
+              data-test="subscribe-button"
+            >
               {this.trial ? 'Request a 7 day free trial' : 'Subscribe'}
             </button>
           </div>
