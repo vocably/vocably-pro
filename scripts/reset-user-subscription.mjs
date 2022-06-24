@@ -11,6 +11,7 @@ const customAttributes = [
   'cancellation_date',
   'unit_price',
   'product_id',
+  'plan_name',
 ]
   .map((attribute) => `"custom:${attribute}"`)
   .join(' ');

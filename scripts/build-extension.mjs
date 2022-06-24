@@ -18,7 +18,7 @@ const zipPath = `${rootDir}/extensions/${zipFileName}`;
 const latestPath = `${rootDir}/extensions/latest.zip`;
 
 cd(`${packagesDir}/extension/dist`);
-await $`zip -r "${zipPath}" .`;
+await $`zip -9 -y -r -q "${zipPath}" .`;
 await $`cp ${zipPath} ${latestPath}`;
 
 cd(`${rootDir}/platform`);
