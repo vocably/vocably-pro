@@ -1,0 +1,45 @@
+{{#> layout
+  title='Alternatives to Vocably'
+  url='/alternatives.html'
+}}
+  {{#> text-container }}
+    <h1 class="py-5">Alternatives to Vocably</h1>
+
+    <p>While working on Vocably, I wanted it to achieve 4 features:</p>
+
+    <ol>
+      <li>Instant translations</li>
+      <li>Review and study on mobile</li>
+      <li>Normal forms</li>
+      <li>Instant definitions</li>
+    </ol>
+
+    <p>And I wanted all of these features to be in a free version. I failed. But there are some alternatives which have achieved most of those features and even are able to provide a free version.</p>
+
+    <table class="table mb-5">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Translations</th>
+          <th scope="col">Study on mobile</th>
+          <th scope="col">Definitions</th>
+          <th scope="col">Normal forms</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#each htmlWebpackPlugin.options.alternatives as |alternative|}}
+        <tr>
+          <td><a href="{{alternative.url}}">{{alternative.name}}</a></td>
+          <td class="text-center">{{#if alternative.translations}} <i class="bi-check text-primary"></i>️ {{^}} <i class="bi bi-x text-danger"></i> {{/if}}</td>
+          <td class="text-center">{{#if alternative.mobile}} <i class="bi-check text-primary"></i> {{^}} <i class="bi bi-x text-danger"></i> {{/if}}</td>
+          <td class="text-center">{{#if alternative.definitions}} <i class="bi-check text-primary"></i> {{^}} <i class="bi bi-x text-danger"></i> {{/if}}</td>
+          <td class="text-center">{{#if alternative.normalForms}} <i class="bi-check text-primary"></i> {{^}} <i class="bi bi-x text-danger"></i> {{/if}}</td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+
+    <p>Also, there are plenty of extensions without mobile version, and those that let users to learn language by reading content in their native language but I decided not to post them here.</p>
+
+  {{/text-container}}
+{{/layout}}

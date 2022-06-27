@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const WebpackWatchPlugin = require('webpack-watch-files-plugin').default;
 const { environment } = require('./environment');
+const { alternatives } = require('./alternatives');
 const glob = require('glob');
 
 const pagesDir = `./src/pages`;
@@ -64,6 +65,7 @@ module.exports = (env) => {
             inject: true,
             favicon: './src/favicon.ico',
             environment,
+            alternatives,
           })
       ),
       new MiniCssExtractPlugin({
@@ -73,7 +75,11 @@ module.exports = (env) => {
         patterns: [{ from: 'src/assets', to: 'assets' }],
       }),
       new WebpackWatchPlugin({
-        files: [`${pagesDir}/${pagesPattern}`, './environment.js'],
+        files: [
+          `${pagesDir}/${pagesPattern}`,
+          './environment.js',
+          './alternatives.js',
+        ],
       }),
     ],
     devServer: {

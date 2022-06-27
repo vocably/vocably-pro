@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang='en'>
+<html lang='en' class="h-100">
   <head>
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,7 +19,7 @@
     <meta property="og:image" content="{{htmlWebpackPlugin.options.environment.baseUrl}}/assets/og-image.png" />
     <base href='/' />
   </head>
-  <body id='page-top' class="fixed-navbar-top">
+  <body id='page-top' class="fixed-navbar-top d-flex flex-column h-100">
     <script type="text/javascript">
       (function(window, document, dataLayerName, id) {
         window[dataLayerName]=window[dataLayerName]||[],window[dataLayerName].push({start:(new Date).getTime(),event:"stg.start"});var scripts=document.getElementsByTagName('script')[0],tags=document.createElement('script');
@@ -30,56 +30,56 @@
         !function(a,n,i){a[n]=a[n]||{};for(var c=0;c<i.length;c++)!function(i){a[n][i]=a[n][i]||{},a[n][i].api=a[n][i].api||function(){var a=[].slice.call(arguments,0);"string"==typeof a[0]&&window[dataLayerName].push({event:n+"."+i+":"+a[0],parameters:[].slice.call(arguments,1)})}}(i[c])}(window,"ppms",["tm","cm"]);
       })(window, document, 'dataLayer', '{{ htmlWebpackPlugin.options.environment.piwikId }}');
     </script>
-    <!-- Navigation-->
-    <nav
-      class='navbar navbar-expand-lg navbar-light fixed-top shadow-sm'
-      id='mainNav'
-    >
-      <div class='container-xxl'>
-        <a class='navbar-brand fw-bold' href='/#page-top'><img
+    <main class="flex-shrink-0">
+      <nav
+        class='navbar navbar-expand-lg navbar-light fixed-top shadow-sm'
+        id='mainNav'
+      >
+        <div class='container-xxl'>
+          <a class='navbar-brand fw-bold' href='/#page-top'><img
             src='assets/logo.svg'
             alt='Vocably'
             class='logo'
           /></a>
-        <button
-          class='navbar-toggler'
-          type='button'
-          data-bs-toggle='collapse'
-          data-bs-target='#navbarResponsive'
-          aria-controls='navbarResponsive'
-          aria-expanded='false'
-          aria-label='Toggle navigation'
-        >
-          <i class='bi-list'></i>
-        </button>
-        <div class='collapse navbar-collapse' id='navbarResponsive'>
-          <ul class='navbar-nav ms-auto me-4 my-3 my-lg-0'>
-            <li class='nav-item'><a
+          <button
+            class='navbar-toggler'
+            type='button'
+            data-bs-toggle='collapse'
+            data-bs-target='#navbarResponsive'
+            aria-controls='navbarResponsive'
+            aria-expanded='false'
+            aria-label='Toggle navigation'
+          >
+            <i class='bi-list'></i>
+          </button>
+          <div class='collapse navbar-collapse' id='navbarResponsive'>
+            <ul class='navbar-nav ms-auto me-4 my-3 my-lg-0'>
+              <li class='nav-item'><a
                 class='nav-link me-lg-3'
                 href='/#supported-languages'
               >Supported Languages</a></li>
-            <li class='nav-item'><a
+              <li class='nav-item'><a
                 class='nav-link me-lg-3'
                 href='/#pricing'
               >Pricing</a></li>
-          </ul>
-          <a
-            class='btn btn-primary rounded-pill px-3 mb-2 mb-lg-0'
-            href='https://app.vocably.pro'
-          >
+            </ul>
+            <a
+              class='btn btn-primary rounded-pill px-3 mb-2 mb-lg-0'
+              href='https://app.vocably.pro'
+            >
             <span class='d-flex align-items-center'>
               <i class='bi-box-arrow-in-right me-2'></i>
               <span class='small'>Sign in</span>
             </span>
-          </a>
+            </a>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
 
-    {{> @partial-block }}
-
+      {{> @partial-block }}
+    </main>
     <!-- Footer-->
-    <footer class='bg-black text-center py-5'>
+    <footer class='bg-black text-center py-5 mt-auto'>
       <div class='container-xxl'>
         <div class='text-white-50 small'>
           <div class='mb-2'>&copy; Vocably B.V. 2022. All Rights Reserved.</div>

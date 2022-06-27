@@ -1,12 +1,3 @@
-//
-// Global
-//
-
-// Scroll padding for all scroll targets on page used with
-// native CSS smooth scrolling
-//
-// https://caniuse.com/?search=scroll-padding
-
 html {
   scroll-padding-top: 4.5rem;
 }
@@ -34,4 +25,9 @@ h6,
 .h5,
 .h6 {
   color: $v-light-color-emphasize;
+}
+
+a {
+  text-decoration-thickness: 0.5px !important;
+  text-underline-offset: 2px !important;
 }
