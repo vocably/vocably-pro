@@ -79,14 +79,42 @@
       {{> @partial-block }}
     </main>
     <!-- Footer-->
-    <footer class='bg-black text-center py-5 mt-auto'>
+    <footer class='bg-dark mt-auto text-white-50'>
       <div class='container-xxl'>
-        <div class='text-white-50 small'>
-          <div class='mb-2'>&copy; Vocably B.V. 2022. All Rights Reserved.</div>
-          <a href='/privacy-policy.html'>Privacy Policy</a>
-          <span class='mx-1'>&middot;</span>
-          <a href='/terms-and-conditions.html'>Terms and Conditions</a>
+        <div class="p-5 text-center text-lg-start">
+          <div class="row g-3">
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+              <div class="text-uppercase fw-bold mb-2"><a href="/"><img src="/assets/logo-dark.svg" alt="Vocably" style="height: 1.3em;opacity: 0.5"/></a></div>
+              <ul class="list-unstyled mb-0">
+                <li><a href='/about.html'>About</a></li>
+                <li><a href='/alternatives.html'>Alternatives</a></li>
+                <li><a href='/tbd.html'>To Be Done</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+              <div class="text-uppercase fw-bold mb-2">Experiences</div>
+              <ul class="list-unstyled mb-0">
+                <li><a href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb">Chrome Extension</a></li>
+                <li><a href='/ios.html'>iOS App</a></li>
+                <li><a href='/android.html'>Android App</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+              <div class="text-uppercase fw-bold mb-2">Legal</div>
+              <ul class="list-unstyled mb-0">
+                <li><a href='/privacy-policy.html'>Privacy Policy</a></li>
+                <li><a href='/terms-and-conditions.html'>Terms and Conditions</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+              <div class="text-uppercase fw-bold mb-2">Contact</div>
+              <i class="bi bi-envelope align-middle"></i> <a href="mailto:support@vocably.pro">support@vocably.pro</a>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="text-center bg-black small p-3">
+        &copy; Vocably B.V. 2022. All Rights Reserved.
       </div>
     </footer>
     <script
