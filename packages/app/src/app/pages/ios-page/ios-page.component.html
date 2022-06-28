@@ -1,0 +1,31 @@
+<div class="container-xl top"><app-header></app-header></div>
+<div class="container-l bottom">
+  <div class="hero">
+    <div class="hero-body text-center">
+      <div class="mat-display-1 text-emphasize mb-2">
+        iOS App Installation Instructions
+      </div>
+      <p class="text-danger mb-2" *ngIf="!isMobileIos">
+        Please open this page in iOS Safari browser to proceed with the
+        installation.
+      </p>
+      <ol>
+        <li class="mb-1">
+          Click Share icon
+          <mat-icon
+            svgIcon="ios-share"
+            style="margin-bottom: -0.2em"
+          ></mat-icon>
+          in the browser toolbar
+        </li>
+        <li>
+          Then scroll and select
+          <span class="lead-1 nowrap"
+            >Add to Home Screen
+            <mat-icon svgIcon="ios-add" style="margin-bottom: -0.1em"></mat-icon
+          ></span>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>

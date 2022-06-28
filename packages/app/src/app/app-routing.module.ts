@@ -13,6 +13,8 @@ import { SignInSuccessPageComponent } from './auth/pages/sign-in-success-page/si
 import { SignOutPageComponent } from './auth/pages/sign-out-page/sign-out-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { Title } from '@angular/platform-browser';
+import { IosPageComponent } from './pages/ios-page/ios-page.component';
+import { AndroidPageComponent } from './pages/android-page/android-page.component';
 
 export const autoSignInPath = 'hands-free';
 
@@ -76,6 +78,14 @@ const routes: Routes = [
   {
     path: 'sign-out',
     component: SignOutPageComponent,
+  },
+  {
+    path: 'ios',
+    component: IosPageComponent,
+  },
+  {
+    path: 'android',
+    component: AndroidPageComponent,
   },
   { path: '**', pathMatch: 'full', component: NotFoundPageComponent },
 ];

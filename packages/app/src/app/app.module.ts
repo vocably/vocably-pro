@@ -15,9 +15,16 @@ import { ComponentsModule } from './components/components.module';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { IosPageComponent } from './pages/ios-page/ios-page.component';
+import { AndroidPageComponent } from './pages/android-page/android-page.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundPageComponent],
+  declarations: [
+    AppComponent,
+    NotFoundPageComponent,
+    IosPageComponent,
+    AndroidPageComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
