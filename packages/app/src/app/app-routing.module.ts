@@ -81,10 +81,12 @@ const routes: Routes = [
   },
   {
     path: 'ios',
+    title: 'iOS',
     component: IosPageComponent,
   },
   {
     path: 'android',
+    title: 'Android',
     component: AndroidPageComponent,
   },
   { path: '**', pathMatch: 'full', component: NotFoundPageComponent },
