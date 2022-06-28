@@ -9,8 +9,11 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./ios-page.component.scss'],
 })
 export class IosPageComponent implements OnInit {
-  public isMobileIos = Bowser.getParser(window.navigator.userAgent).satisfies({
-    ios: {
+  public isIosSafari = Bowser.getParser(window.navigator.userAgent).satisfies({
+    mobile: {
+      safari: '>1',
+    },
+    tablet: {
       safari: '>1',
     },
   });
