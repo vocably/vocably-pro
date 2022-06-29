@@ -15,6 +15,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { Title } from '@angular/platform-browser';
 import { IosPageComponent } from './pages/ios-page/ios-page.component';
 import { AndroidPageComponent } from './pages/android-page/android-page.component';
+import { isIosSafari } from './isIosSafari';
 
 export const autoSignInPath = 'hands-free';
 
@@ -81,7 +82,7 @@ const routes: Routes = [
   },
   {
     path: 'ios',
-    title: 'iOS',
+    title: isIosSafari ? undefined : 'iOS',
     component: IosPageComponent,
   },
   {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as Bowser from 'bowser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { isIosSafari } from '../../isIosSafari';
 
 @Component({
   selector: 'app-ios-page',
@@ -9,14 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./ios-page.component.scss'],
 })
 export class IosPageComponent implements OnInit {
-  public isIosSafari = Bowser.getParser(window.navigator.userAgent).satisfies({
-    mobile: {
-      safari: '>1',
-    },
-    tablet: {
-      safari: '>1',
-    },
-  });
+  public isIosSafari = isIosSafari;
 
   constructor(
     private matIconRegistry: MatIconRegistry,
