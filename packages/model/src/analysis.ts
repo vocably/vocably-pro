@@ -15,6 +15,7 @@ export type AnalyzePayload = {
 export type AnalysisItem = {
   source: string;
   definitions: string[];
+  translation: string;
   partOfSpeech?: string;
 };
 
@@ -22,5 +23,4 @@ export type Analysis = {
   source: string;
   translation: Translation;
   items?: AnalysisItem[];
-  normalized?: Translation[];
 };

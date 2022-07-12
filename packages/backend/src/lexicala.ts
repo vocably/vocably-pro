@@ -3,13 +3,25 @@ import { URLSearchParams } from 'url';
 import { request } from './utils/request';
 import { LexicalaLanguage } from './lexicala/lexicalaLanguageMapper';
 
-export type Headword = { text?: string; pos?: string };
+export type Headword = { text?: string; pos?: string; gender?: string };
+
+export type LexicalaTranslation = {
+  text: string;
+  gender?: string;
+  pronunciation?: { value: string };
+};
 
 export type LexicalaSearchResultItem = {
   id: string;
   language: LexicalaLanguage;
   headword: Headword | Headword[];
-  senses: { id?: string; definition?: string }[];
+  senses: {
+    id?: string;
+    definition?: string;
+    translations?: Partial<
+      Record<LexicalaLanguage, LexicalaTranslation | LexicalaTranslation[]>
+    >;
+  }[];
 };
 
 export const lexicala = async (
@@ -19,7 +31,7 @@ export const lexicala = async (
   try {
     const requestOptions = {
       host: process.env.LEXICALA_HOST,
-      path: `/search?${new URLSearchParams({
+      path: `/search-entries?${new URLSearchParams({
         language,
         text,
         source: 'global',

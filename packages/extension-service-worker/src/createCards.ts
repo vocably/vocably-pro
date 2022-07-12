@@ -10,20 +10,6 @@ import { createSrsItem } from '@vocably/srs';
 import { explode, join } from '@vocably/sulna';
 import { merge } from 'lodash-es';
 
-const extractTranslation = (
-  source: string,
-  translations: Translation[]
-): string => {
-  const translation = translations.find(
-    (tr) => tr.source.toLowerCase() === source.toLowerCase()
-  );
-  if (translation) {
-    return translation.target;
-  }
-
-  return '';
-};
-
 const equalCards =
   (a: Card) =>
   (b: Card): boolean =>
@@ -101,10 +87,7 @@ export const createCards = (
           language: analysis.translation.sourceLanguage,
           source: analysisItem.source,
           definition: join(analysisItem.definitions),
-          translation: extractTranslation(
-            analysisItem.source,
-            analysis.normalized ?? []
-          ),
+          translation: analysisItem.translation,
           partOfSpeech: analysisItem.partOfSpeech ?? '',
           ...srsItem,
         };

@@ -91,7 +91,7 @@ describe('integration check for translate lambda', () => {
     expect(JSON.parse(result.body)).toEqual({ error: 'UNPAID_REQUEST' });
   });
 
-  it('skips normalization translation when source language equals to target language', async () => {
+  it('skips translation when source language equals to target language', async () => {
     mockEvent.body = JSON.stringify({
       source: 'asylum',
     });
@@ -103,6 +103,27 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.source).toEqual('asylum');
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.items.length).toBeGreaterThan(0);
-    expect(resultBody.normalized).not.toBeDefined();
+    expect(resultBody.items[0].translation).toEqual('');
+  });
+
+  it('adds articles and sets translations', async () => {
+    mockEvent.body = JSON.stringify({
+      source: 'veer',
+      sourceLanguage: 'nl',
+    });
+    mockEvent.requestContext = paidRequestContext;
+    const result = await analyze(mockEvent);
+    console.log({ result });
+    expect(result.statusCode).toEqual(200);
+    const resultBody: Analysis = JSON.parse(result.body);
+    expect(resultBody.source).toEqual('veer');
+    expect(resultBody.translation).toBeDefined();
+    expect(resultBody.items.length).toEqual(2);
+    expect(resultBody.items[0].source).toEqual('de veer');
+    expect(resultBody.items[0].translation).toEqual(
+      'feather, spiral, (main)spring'
+    );
+    expect(resultBody.items[1].source).toEqual('het veer');
+    expect(resultBody.items[1].translation).toEqual('ferry, boat');
   });
 });

@@ -7,10 +7,9 @@ import {
 } from '@vocably/model';
 import { translateText } from '../../translateText';
 import { lexicala } from '../../lexicala';
-import { extractUniqueHeadwords } from './extractUniqueHeadwords';
-import { translateNormalizedHeadwords } from './translateNormalizedHeadwords';
 import { languageToLexicalaLanguage } from '../../lexicala/lexicalaLanguageMapper';
 import { lexicalaSearchResultToAnalysisItem } from '../../lexicala/lexicalaSearchResultToAnalysisItem';
+import { trimArticle } from './trimArticle';
 
 const targetLanguage: Language = 'en';
 
@@ -27,10 +26,15 @@ export const buildResult = async (
     return translationResult;
   }
 
-  const sourceLanguage =
-    payload.sourceLanguage ?? translationResult.value.sourceLanguage;
+  const translation: Translation = {
+    ...translationResult.value,
+    sourceLanguage:
+      payload.sourceLanguage ?? translationResult.value.sourceLanguage,
+  };
 
-  const lexicalaLanguage = languageToLexicalaLanguage(sourceLanguage);
+  const lexicalaLanguage = languageToLexicalaLanguage(
+    translation.sourceLanguage
+  );
 
   if (lexicalaLanguage === null) {
     return {
@@ -42,7 +46,11 @@ export const buildResult = async (
     };
   }
 
-  const lexicalaResult = await lexicala(lexicalaLanguage, payload.source);
+  const trimmedArticle = trimArticle(lexicalaLanguage, payload.source);
+  const lexicalaResult = await lexicala(
+    lexicalaLanguage,
+    trimmedArticle.source
+  );
 
   if (lexicalaResult.success === false) {
     console.error('Lexicala error', lexicalaResult);
@@ -56,23 +64,16 @@ export const buildResult = async (
     };
   }
 
-  let normalized: Translation[];
-
-  if (sourceLanguage !== targetLanguage) {
-    normalized = await translateNormalizedHeadwords(
-      extractUniqueHeadwords(lexicalaResult.value),
-      sourceLanguage,
-      translationResult.value
-    );
-  }
-
   return {
     success: true,
     value: {
       source: payload.source,
       translation: translationResult.value,
-      items: lexicalaResult.value.map(lexicalaSearchResultToAnalysisItem),
-      normalized,
+      items: await Promise.all(
+        lexicalaResult.value.map(
+          lexicalaSearchResultToAnalysisItem(translation)
+        )
+      ),
     },
   };
 };
