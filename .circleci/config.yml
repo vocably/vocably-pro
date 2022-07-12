@@ -23,7 +23,7 @@ commands:
             - v1-npm-deps-{{ checksum "package-lock.json" }}
       - run:
           name: Install Dependencies
-          command: npm ci
+          command: npm ci --force
       - save_cache:
           name: Save NPM Cache
           key: v1-npm-deps-{{ checksum "package-lock.json" }}
