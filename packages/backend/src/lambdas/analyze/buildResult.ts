@@ -2,11 +2,9 @@ import {
   AnalyzePayload,
   Result,
   Analysis,
-  isLanguage,
   Translation,
   Language,
 } from '@vocably/model';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { translateText } from '../../translateText';
 import { lexicala } from '../../lexicala';
 import { extractUniqueHeadwords } from './extractUniqueHeadwords';
@@ -17,26 +15,8 @@ import { lexicalaSearchResultToAnalysisItem } from '../../lexicala/lexicalaSearc
 const targetLanguage: Language = 'en';
 
 export const buildResult = async (
-  event: APIGatewayProxyEvent
+  payload: AnalyzePayload
 ): Promise<Result<Analysis>> => {
-  const payload: AnalyzePayload = JSON.parse(event.body);
-
-  if (!payload || !payload.source) {
-    return {
-      success: false,
-      errorCode: 'TRANSLATION_REQUEST_MISSING_PHRASE',
-      reason: 'The translation phrase is missing.',
-    };
-  }
-
-  if (payload.sourceLanguage && !isLanguage(payload.sourceLanguage)) {
-    return {
-      success: false,
-      errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_REQUESTED_LANGUAGE',
-      reason: `The REQUESTED source language (${payload.sourceLanguage}) is not available.`,
-    };
-  }
-
   const translationResult = await translateText(
     payload.source,
     payload.sourceLanguage,

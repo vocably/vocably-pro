@@ -5,6 +5,8 @@ import { buildResponse } from '../../utils/buildResponse';
 import { buildErrorResponse } from '../../utils/buildErrorResponse';
 import { buildResult } from './buildResult';
 import { validatePermissions } from './validatePermissions';
+import { extractPayload } from './extractPayload';
+import { sanitizePayload } from './sanitizePayload';
 
 export const analyze = async (
   event: APIGatewayProxyEvent
@@ -12,15 +14,12 @@ export const analyze = async (
   lastValueFrom(
     of(event).pipe(
       tap(validatePermissions),
+      map(extractPayload),
+      map(sanitizePayload),
       mergeMap(buildResult),
       map((result) => {
         if (result.success === false) {
-          return buildResponse({
-            statusCode: 500,
-            body: JSON.stringify({
-              error: result.errorCode,
-            }),
-          });
+          throw result;
         }
 
         return buildResponse({
