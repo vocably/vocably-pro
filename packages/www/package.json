@@ -10,7 +10,8 @@
     "serve": "webpack serve --env development --open",
     "watch": "webpack --watch --env development",
     "start": "npm-run-all --parallel watch serve",
-    "www": "npm start"
+    "www": "npm start",
+    "test": "echo '@vocably/www has no tests.'"
   },
   "repository": {
     "type": "git",

@@ -35,7 +35,7 @@ jobs:
   bumpNewVersion:
     working_directory: ~/repo
     docker:
-      - image: cimg/node:16.14
+      - image: cimg/node:16.16
     environment:
       ENV_NAME: DEV
     steps:
@@ -53,7 +53,7 @@ jobs:
   stage:
     working_directory: ~/repo
     docker:
-      - image: cimg/node:16.14
+      - image: cimg/node:16.16
     environment:
       ENV_NAME: STAGE
     steps:
@@ -68,7 +68,7 @@ jobs:
   prod:
     working_directory: ~/repo
     docker:
-      - image: cimg/node:16.14
+      - image: cimg/node:16.16
     environment:
       ENV_NAME: PROD
     steps:
