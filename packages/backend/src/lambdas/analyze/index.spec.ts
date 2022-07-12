@@ -43,31 +43,6 @@ describe('integration check for translate lambda', () => {
     expect(result.statusCode).toEqual(200);
   });
 
-  it('verify normalized keywords lambda', async () => {
-    mockEvent.body = JSON.stringify({
-      source: 'gemaakt',
-    });
-    mockEvent.requestContext = paidRequestContext;
-    const result = await analyze(mockEvent);
-    console.log(inspect({ result }));
-    expect(result.statusCode).toEqual(200);
-    const data = JSON.parse(result.body);
-    expect(data.normalized).toEqual([
-      {
-        source: 'gemaakt',
-        sourceLanguage: 'nl',
-        target: 'created',
-        targetLanguage: 'en',
-      },
-      {
-        source: 'maken',
-        sourceLanguage: 'nl',
-        target: 'to make',
-        targetLanguage: 'en',
-      },
-    ]);
-  });
-
   it('translates texts as is when language does not supported by lexicala', async () => {
     mockEvent.body = JSON.stringify({
       source: 'labas rytas',
