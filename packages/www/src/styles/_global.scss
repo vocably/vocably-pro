@@ -31,3 +31,8 @@ a {
   text-decoration-thickness: 0.5px !important;
   text-underline-offset: 2px !important;
 }
+
+.video-js,
+.vjs-poster {
+  background-color: transparent !important;
+}

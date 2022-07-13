@@ -21,6 +21,7 @@ commands:
           name: Restore NPM cache
           keys:
             - v1-npm-deps-{{ checksum "package-lock.json" }}
+            - v1-npm-deps-
       - run:
           name: Install Dependencies
           command: npm ci --force
