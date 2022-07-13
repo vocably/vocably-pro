@@ -2,11 +2,40 @@
   title='Instantenious Language Flashcards'
   url='/'
 }}
+  <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" />
+  <style type="text/css">
+    .video-js, .vjs-poster {
+      background-color: transparent;
+    }
+  </style>
   <!-- Mashead header-->
   <header class="bg-light py-5">
     <div class='container-xxl py-5'>
       <div class='row align-items-center'>
-        <div class='col-lg-7'>
+        <div class='col-lg-5 order-md-last mb-5 mb-md-0'>
+          <video
+            id="promo-video"
+            class="video-js vjs-fluid"
+            controls
+            autoplay
+            muted
+            width="640"
+            height="264"
+            poster="/assets/video-poster.png"
+            data-setup="{}"
+          >
+            <source src="/assets/video.mp4" type="video/mp4" />
+            <track label="English" kind="subtitles" srclang="en" src="/assets/video-subtitles.vtt" default />
+            <p class="vjs-no-js">
+              To view this video please enable JavaScript, and consider upgrading to a
+              web browser that
+              <a href="https://videojs.com/html5-video-support/" target="_blank"
+              >supports HTML5 video</a
+              >
+            </p>
+          </video>
+        </div>
+        <div class='col-lg-7 order-md-first'>
           <!-- Mashead text and app badges-->
           <div class='mb-5 mb-lg-0 text-center text-lg-start'>
             <h1 class='display-3 mb-5'><span class="text-md-nowrap">Vocabulary flashcards.</span> Instantly.</h1>
@@ -19,9 +48,6 @@
 
             <div class="browser-warning text-danger mt-5 d-none">Currently, the Vocably browser extension exists only for Google Chrome. The extension is an essential part of the Vocably experience.</div>
           </div>
-        </div>
-        <div class='col-lg-5 d-none d-md-block'>
-          <img src="assets/img/how-it-works-02.svg" class="img-fluid w-100" alt="Select a word to see it's definition and translation">
         </div>
       </div>
     </div>
@@ -101,5 +127,37 @@
       <div class="browser-warning text-danger mt-5 text-center d-none">Currently, the Vocably browser extension exists only for Google Chrome. The extension is an essential part of the Vocably experience.</div>
     </div>
   </section>
+  <script src="https://vjs.zencdn.net/7.19.2/video.min.js"></script>
+  <script type="text/javascript">
+    videojs("promo-video", {
+      controlBar: {
+        children: [
+          'playToggle', 'volumePanel', 'currentTimeDisplay', 'timeDivider', 'durationDisplay', 'progressControl'
+          , 'liveDisplay', 'remainingTimeDisplay', 'customControlSpacer', 'playbackRateMenuButton', 'chaptersButton'
+          ,  'captionsButton', 'subCapsButton', 'audioTrackButton'
+        ]
+      }
+    }).ready(function() {
+      const player = this;
+      let theFirstTime = true;
+
+      const trackSettings = player.textTrackSettings;
+      trackSettings.setValues({
+        backgroundOpacity: "0.5",
+        fontPercent: 1.5,
+      });
+      trackSettings.updateDisplay();
+      player.on('play', () => {
+        if (theFirstTime) {
+          player.controlBar.hide();
+          theFirstTime = false;
+        }
+      });
+
+      player.on("mouseenter", () => {
+        player.controlBar.show()
+      });
+    });
+  </script>
 {{/layout}}
 
