@@ -36,3 +36,16 @@ a {
 .vjs-poster {
   background-color: transparent !important;
 }
+
+.video-js.vjs-ended {
+  .vjs-poster {
+    display: block;
+  }
+  .vjs-text-track-display {
+    display: none;
+  }
+
+  .vjs-big-play-button {
+    display: block;
+  }
+}
