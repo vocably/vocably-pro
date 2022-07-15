@@ -2,7 +2,7 @@ import { CardItem } from '@vocably/model';
 import { byDueDate } from './byDueDate';
 
 export const slice = (
-  date: Date,
+  today: Date,
   maxCards: number,
   list: CardItem[]
 ): CardItem[] => {
@@ -10,23 +10,23 @@ export const slice = (
     return [];
   }
 
-  const dueTs = Date.UTC(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    date.getUTCDate()
+  const todayTS = Date.UTC(
+    today.getUTCFullYear(),
+    today.getUTCMonth(),
+    today.getUTCDate()
   );
 
   const batch: CardItem[] = [];
-  const sortedList = list.sort(byDueDate);
+  const sortedList = list.sort(byDueDate(todayTS));
 
-  const isGreedy = sortedList[0].data.dueDate > dueTs;
+  const isGreedy = sortedList[0].data.dueDate > todayTS;
 
   for (let i = 0; i < sortedList.length; i++) {
     if (i === maxCards) {
       return batch;
     }
 
-    if (!isGreedy && sortedList[i].data.dueDate > dueTs) {
+    if (!isGreedy && sortedList[i].data.dueDate > todayTS) {
       return batch;
     }
 
