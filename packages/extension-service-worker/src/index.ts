@@ -16,6 +16,8 @@ import {
   onPingExternal,
   onListLanguagesRequest,
   onIsEligibleForTrialRequest,
+  onSetProxyLanguage,
+  onGetProxyLanguage,
 } from '@vocably/extension-messages';
 import { createCards } from './createCards';
 import { makeDelete } from '@vocably/crud';
@@ -181,6 +183,18 @@ export const registerServiceWorker = (
 
   onPingExternal((sendResponse) => {
     return sendResponse('pong');
+  });
+
+  onSetProxyLanguage(async (sendResponse, language) => {
+    await chrome.storage.sync.set({
+      proxyLanguage: language,
+    });
+    return sendResponse();
+  });
+
+  onGetProxyLanguage(async (sendResponse) => {
+    const { proxyLanguage } = await chrome.storage.sync.get(['proxyLanguage']);
+    return sendResponse((proxyLanguage ?? 'en') as Language);
   });
 
   console.info('The service worker has been registered.');

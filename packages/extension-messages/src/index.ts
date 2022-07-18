@@ -46,3 +46,13 @@ export const [pingExternal, onPingExternal] = createExternalMessage<
   void,
   string
 >('vocably.ping-external');
+
+export const [setProxyLanguage, onSetProxyLanguage] = createExternalMessage<
+  Language,
+  void
+>('vocably.setProxyLanguage');
+
+export const [getProxyLanguage, onGetProxyLanguage] = createExternalMessage<
+  void,
+  Language
+>('vocably.getProxyLanguage');

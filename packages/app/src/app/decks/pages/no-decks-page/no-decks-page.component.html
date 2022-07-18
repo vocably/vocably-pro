@@ -26,6 +26,7 @@
             value="en"
             [class.opacity-50]="!isInstalled"
             [disabled]="!isInstalled"
+            [value]="proxyLanguage"
             (onSelect)="onLanguageSelect($event)"
           ></app-language-input>
           <div *ngIf="!isInstalled">

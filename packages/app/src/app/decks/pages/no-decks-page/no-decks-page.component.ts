@@ -4,7 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
 import { defer, map, retry, Subject, takeUntil } from 'rxjs';
 import { isSubscribed } from '../../../subscription/isSubscribed';
-import { pingExternal } from '@vocably/extension-messages';
+import {
+  getProxyLanguage,
+  pingExternal,
+  setProxyLanguage,
+} from '@vocably/extension-messages';
 import { environment } from '../../../../environments/environment';
 import * as Bowser from 'bowser';
 import { isEligibleForTrial, Language } from '@vocably/model';
@@ -29,6 +33,7 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
   public isTrialing = false;
 
   public isInstalled = false;
+  public proxyLanguage: Language = 'en';
 
   public canInstallTheExtension = canInstallTheExtension;
 
@@ -59,8 +64,11 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
         }),
         takeUntil(this.destroy$)
       )
-      .subscribe(() => {
+      .subscribe(async () => {
         this.isInstalled = true;
+        this.proxyLanguage = await getProxyLanguage(
+          environment.chromeExtensionId
+        );
       });
   }
 
@@ -71,7 +79,7 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  onLanguageSelect(language: Language) {
-    console.log(language);
+  async onLanguageSelect(language: Language) {
+    await setProxyLanguage(environment.chromeExtensionId, language);
   }
 }

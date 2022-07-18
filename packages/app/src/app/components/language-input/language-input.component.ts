@@ -9,7 +9,12 @@ import { map, Observable, startWith } from 'rxjs';
   styleUrls: ['./language-input.component.scss'],
 })
 export class LanguageInputComponent implements OnInit {
-  @Input() value: Language = 'en';
+  private _value: Language = 'en';
+  @Input() set value(value: Language) {
+    this._value = value;
+    this.languageInput.setValue(value);
+  }
+
   private _disabled = false;
   @Input() set disabled(disabled: boolean) {
     this._disabled = disabled;
@@ -22,7 +27,7 @@ export class LanguageInputComponent implements OnInit {
   @Output() onSelect = new EventEmitter<Language>();
 
   languageInput = new FormControl<Language>({
-    value: 'en',
+    value: this._value,
     disabled: this._disabled,
   });
 
@@ -36,9 +41,7 @@ export class LanguageInputComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.languageInput.setValue(this.value);
-  }
+  ngOnInit(): void {}
 
   private _filterLanguages(value: string): Language[] {
     const loweredValue = value.toLowerCase();
