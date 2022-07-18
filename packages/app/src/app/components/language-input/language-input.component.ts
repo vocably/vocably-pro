@@ -29,7 +29,9 @@ export class LanguageInputComponent implements OnInit {
   public languages$: Observable<Language[]> =
     this.languageInput.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filterLanguages(value || ''))
+      map((value) =>
+        this._filterLanguages(this.languageInput.pristine ? '' : value ?? '')
+      )
     );
 
   constructor() {}
