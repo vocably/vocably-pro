@@ -1,0 +1,20 @@
+<mat-form-field style="width: 100%">
+  <input
+    type="text"
+    matInput
+    [formControl]="languageInput"
+    [matAutocomplete]="auto"
+    (focus)="onLanguageInputFocus($event)"
+  />
+  <mat-autocomplete
+    [displayWith]="displayLanguage"
+    autoActiveFirstOption
+    autoSelectActiveOption
+    (optionSelected)="onSelect.emit($event.option.value)"
+    #auto="matAutocomplete"
+  >
+    <mat-option *ngFor="let language of languages$ | async" [value]="language">
+      {{ displayLanguage(language) }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

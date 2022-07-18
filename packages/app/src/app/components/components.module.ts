@@ -13,6 +13,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { LoaderComponent } from './loader/loader.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LanguageInputComponent } from './language-input/language-input.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -23,15 +28,20 @@ import { MatDialogModule } from '@angular/material/dialog';
     OfflineComponent,
     GoogleIconComponent,
     LoaderComponent,
+    LanguageInputComponent,
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     IonicModule,
     RouterModule,
     OverlayModule,
     MatIconModule,
     HttpClientModule,
     MatDialogModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   exports: [
     TooltipComponent,
@@ -41,6 +51,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     SubscriptionStatusPipe,
     OfflineComponent,
     GoogleIconComponent,
+    LanguageInputComponent,
   ],
 })
 export class ComponentsModule {}

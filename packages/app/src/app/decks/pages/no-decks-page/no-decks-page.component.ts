@@ -7,7 +7,7 @@ import { isSubscribed } from '../../../subscription/isSubscribed';
 import { pingExternal } from '@vocably/extension-messages';
 import { environment } from '../../../../environments/environment';
 import * as Bowser from 'bowser';
-import { isEligibleForTrial } from '@vocably/model';
+import { isEligibleForTrial, Language } from '@vocably/model';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
 
@@ -69,5 +69,9 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next(null);
     this.destroy$.complete();
+  }
+
+  onLanguageSelect(language: Language) {
+    console.log(language);
   }
 }
