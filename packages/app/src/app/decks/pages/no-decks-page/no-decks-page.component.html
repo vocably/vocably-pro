@@ -24,8 +24,13 @@
         <div class="tiny">
           <app-language-input
             value="en"
+            [class.opacity-50]="!isInstalled"
+            [disabled]="!isInstalled"
             (onSelect)="onLanguageSelect($event)"
           ></app-language-input>
+          <div *ngIf="!isInstalled">
+            Please install the extension before selecting your main language.
+          </div>
         </div>
       </li>
       <li class="mb-1">
