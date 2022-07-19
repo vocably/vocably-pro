@@ -36,6 +36,7 @@ describe('integration check for translate lambda', () => {
   it('execute translate lambda', async () => {
     mockEvent.body = JSON.stringify({
       source: 'dankjewel',
+      targetLanguage: 'en',
     });
     mockEvent.requestContext = paidRequestContext;
     const result = await analyze(mockEvent);
@@ -47,6 +48,7 @@ describe('integration check for translate lambda', () => {
     mockEvent.body = JSON.stringify({
       source: 'labas rytas',
       sourceLanguage: 'lt',
+      targetLanguage: 'en',
     });
     mockEvent.requestContext = paidRequestContext;
     const result = await analyze(mockEvent);
@@ -69,6 +71,7 @@ describe('integration check for translate lambda', () => {
   it('skips translation when source language equals to target language', async () => {
     mockEvent.body = JSON.stringify({
       source: 'asylum',
+      targetLanguage: 'en',
     });
     mockEvent.requestContext = paidRequestContext;
     const result = await analyze(mockEvent);
@@ -81,10 +84,11 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.items[0].translation).toEqual('');
   });
 
-  it('adds articles and sets translations', async () => {
+  it('adds articles and takes translations from lexicala', async () => {
     mockEvent.body = JSON.stringify({
       source: 'veer',
       sourceLanguage: 'nl',
+      targetLanguage: 'en',
     });
     mockEvent.requestContext = paidRequestContext;
     const result = await analyze(mockEvent);
@@ -100,5 +104,25 @@ describe('integration check for translate lambda', () => {
     );
     expect(resultBody.items[1].source).toEqual('het veer');
     expect(resultBody.items[1].translation).toEqual('ferry, boat');
+  });
+
+  it('adds articles and takes translations from google', async () => {
+    mockEvent.body = JSON.stringify({
+      source: 'veer',
+      sourceLanguage: 'nl',
+      targetLanguage: 'ru',
+    });
+    mockEvent.requestContext = paidRequestContext;
+    const result = await analyze(mockEvent);
+    console.log({ result });
+    expect(result.statusCode).toEqual(200);
+    const resultBody: Analysis = JSON.parse(result.body);
+    expect(resultBody.source).toEqual('veer');
+    expect(resultBody.translation).toBeDefined();
+    expect(resultBody.items.length).toEqual(2);
+    expect(resultBody.items[0].source).toEqual('de veer');
+    expect(resultBody.items[0].translation).toEqual('пух Перо');
+    expect(resultBody.items[1].source).toEqual('het veer');
+    expect(resultBody.items[1].translation).toEqual('пух Перо');
   });
 });
