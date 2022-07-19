@@ -28,6 +28,7 @@ import {
   Language,
   mapUserAttributes,
 } from '@vocably/model';
+import { getProxyLanguage } from './proxyLanguage';
 
 type RegisterServiceWorkerOptions = {
   auth: Parameters<typeof Auth.configure>[0];
@@ -80,8 +81,12 @@ export const registerServiceWorker = (
 
   onAnalyzeRequest(async (sendResponse, payload) => {
     console.info(`Analyze has been requested.`);
+    const analyzePayload = {
+      ...payload,
+      targetLanguage: await getProxyLanguage(),
+    };
     try {
-      const analysis = await analyze(payload);
+      const analysis = await analyze(analyzePayload);
       console.info(`Analyze has returned data.`, analysis);
 
       if (analysis.success === false) {
@@ -101,7 +106,11 @@ export const registerServiceWorker = (
       }
 
       const languageDeck = loadLanguageDeckResult.value;
-      const cards = createCards(languageDeck.cards, payload, analysis.value);
+      const cards = createCards(
+        languageDeck.cards,
+        analyzePayload,
+        analysis.value
+      );
 
       const saveCardsCollectionResult = await saveLanguageDeck(languageDeck);
       console.info(
@@ -193,8 +202,7 @@ export const registerServiceWorker = (
   });
 
   onGetProxyLanguage(async (sendResponse) => {
-    const { proxyLanguage } = await chrome.storage.sync.get(['proxyLanguage']);
-    return sendResponse((proxyLanguage ?? 'en') as Language);
+    return sendResponse(await getProxyLanguage());
   });
 
   console.info('The service worker has been registered.');

@@ -26,7 +26,7 @@ export const [isEligibleForTrial, onIsEligibleForTrialRequest] =
   createScopedMessage<void, boolean>('isEligibleForTrial');
 
 export const [analyze, onAnalyzeRequest] = createScopedMessage<
-  AnalyzePayload,
+  Omit<AnalyzePayload, 'targetLanguage'>,
   Result<TranslationCards>
 >('analyze');
 

@@ -10,6 +10,7 @@ export type Translation = {
 export type AnalyzePayload = {
   source: string;
   sourceLanguage?: Language;
+  targetLanguage: Language;
 };
 
 export type AnalysisItem = {

@@ -1,17 +1,9 @@
-import {
-  AnalyzePayload,
-  Result,
-  Analysis,
-  Translation,
-  Language,
-} from '@vocably/model';
+import { AnalyzePayload, Result, Analysis, Translation } from '@vocably/model';
 import { translateText } from '../../translateText';
 import { lexicala } from '../../lexicala';
 import { languageToLexicalaLanguage } from '../../lexicala/lexicalaLanguageMapper';
 import { lexicalaSearchResultToAnalysisItem } from '../../lexicala/lexicalaSearchResultToAnalysisItem';
 import { trimArticle } from './trimArticle';
-
-const targetLanguage: Language = 'en';
 
 export const buildResult = async (
   payload: AnalyzePayload
@@ -19,7 +11,7 @@ export const buildResult = async (
   const translationResult = await translateText(
     payload.source,
     payload.sourceLanguage,
-    targetLanguage
+    payload.targetLanguage
   );
 
   if (translationResult.success === false) {
