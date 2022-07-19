@@ -1,4 +1,4 @@
-<mat-form-field style="width: 100%">
+<mat-form-field style="width: 100%" [class.opacity-50]="!isInstalled">
   <input
     type="text"
     matInput
@@ -10,7 +10,7 @@
     [displayWith]="displayLanguage"
     autoActiveFirstOption
     autoSelectActiveOption
-    (optionSelected)="onSelect.emit($event.option.value)"
+    (optionSelected)="saveLanguage($event.option.value)"
     #auto="matAutocomplete"
   >
     <mat-option *ngFor="let language of languages$ | async" [value]="language">
@@ -18,3 +18,6 @@
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
+<div *ngIf="!isInstalled">
+  Please install the extension before selecting your main language.
+</div>

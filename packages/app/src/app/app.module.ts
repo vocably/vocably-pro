@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { IosPageComponent } from './pages/ios-page/ios-page.component';
 import { AndroidPageComponent } from './pages/android-page/android-page.component';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AndroidPageComponent } from './pages/android-page/android-page.componen
     NotFoundPageComponent,
     IosPageComponent,
     AndroidPageComponent,
+    SettingsPageComponent,
   ],
   imports: [
     BrowserModule,

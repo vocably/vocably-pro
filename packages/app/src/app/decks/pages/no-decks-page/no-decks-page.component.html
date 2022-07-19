@@ -22,16 +22,7 @@
           Vocably will provide translations in that language.
         </div>
         <div class="tiny">
-          <app-language-input
-            value="en"
-            [class.opacity-50]="!isInstalled"
-            [disabled]="!isInstalled"
-            [value]="proxyLanguage"
-            (onSelect)="onLanguageSelect($event)"
-          ></app-language-input>
-          <div *ngIf="!isInstalled">
-            Please install the extension before selecting your main language.
-          </div>
+          <app-language-input></app-language-input>
         </div>
       </li>
       <li class="mb-1">

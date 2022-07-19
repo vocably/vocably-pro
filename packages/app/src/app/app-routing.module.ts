@@ -16,6 +16,7 @@ import { Title } from '@angular/platform-browser';
 import { IosPageComponent } from './pages/ios-page/ios-page.component';
 import { AndroidPageComponent } from './pages/android-page/android-page.component';
 import { isIosSafari } from './isIosSafari';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 
 export const autoSignInPath = 'hands-free';
 
@@ -89,6 +90,11 @@ const routes: Routes = [
     path: 'android',
     title: 'Android',
     component: AndroidPageComponent,
+  },
+  {
+    path: 'settings',
+    title: 'Settings',
+    component: SettingsPageComponent,
   },
   { path: '**', pathMatch: 'full', component: NotFoundPageComponent },
 ];

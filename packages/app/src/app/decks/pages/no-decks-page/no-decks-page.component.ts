@@ -2,16 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DeckListStoreService } from '../../deck-list-store.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
-import { defer, map, retry, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { isSubscribed } from '../../../subscription/isSubscribed';
-import {
-  getProxyLanguage,
-  pingExternal,
-  setProxyLanguage,
-} from '@vocably/extension-messages';
-import { environment } from '../../../../environments/environment';
 import * as Bowser from 'bowser';
 import { isEligibleForTrial, Language } from '@vocably/model';
+import { isExtensionInstalled } from '../../../isExtensionInstalled';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
 
@@ -56,20 +51,9 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
       });
     }
 
-    defer(() => pingExternal(environment.chromeExtensionId))
-      .pipe(
-        map(() => true),
-        retry({
-          delay: 2000,
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(async () => {
-        this.isInstalled = true;
-        this.proxyLanguage = await getProxyLanguage(
-          environment.chromeExtensionId
-        );
-      });
+    isExtensionInstalled.pipe(takeUntil(this.destroy$)).subscribe(async () => {
+      this.isInstalled = true;
+    });
   }
 
   ngOnInit(): void {}
@@ -77,9 +61,5 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next(null);
     this.destroy$.complete();
-  }
-
-  async onLanguageSelect(language: Language) {
-    await setProxyLanguage(environment.chromeExtensionId, language);
   }
 }

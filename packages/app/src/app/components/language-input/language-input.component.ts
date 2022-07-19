@@ -1,35 +1,36 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Language, languageList } from '@vocably/model';
 import { FormControl } from '@angular/forms';
-import { map, Observable, startWith } from 'rxjs';
+import { map, Observable, startWith, Subject, takeUntil } from 'rxjs';
+import { isExtensionInstalled } from '../../isExtensionInstalled';
+import {
+  getProxyLanguage,
+  setProxyLanguage,
+} from '@vocably/extension-messages';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-language-input',
   templateUrl: './language-input.component.html',
   styleUrls: ['./language-input.component.scss'],
 })
-export class LanguageInputComponent implements OnInit {
-  private _value: Language = 'en';
-  @Input() set value(value: Language) {
-    this._value = value;
-    this.languageInput.setValue(value);
-  }
+export class LanguageInputComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject();
 
-  private _disabled = false;
-  @Input() set disabled(disabled: boolean) {
-    this._disabled = disabled;
-    if (this._disabled) {
-      this.languageInput.disable();
-    } else {
-      this.languageInput.enable();
-    }
-  }
-  @Output() onSelect = new EventEmitter<Language>();
+  @Output() onSave = new EventEmitter<Language>();
 
   languageInput = new FormControl<Language>({
-    value: this._value,
-    disabled: this._disabled,
+    value: 'en',
+    disabled: true,
   });
+
+  isInstalled = false;
 
   public languages$: Observable<Language[]> =
     this.languageInput.valueChanges.pipe(
@@ -39,9 +40,22 @@ export class LanguageInputComponent implements OnInit {
       )
     );
 
-  constructor() {}
+  constructor() {
+    isExtensionInstalled.pipe(takeUntil(this.destroy$)).subscribe(async () => {
+      this.isInstalled = true;
+      this.languageInput.setValue(
+        await getProxyLanguage(environment.chromeExtensionId)
+      );
+      this.languageInput.enable();
+    });
+  }
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.destroy$.next(null);
+    this.destroy$.complete();
+  }
 
   private _filterLanguages(value: string): Language[] {
     const loweredValue = value.toLowerCase();
@@ -62,5 +76,10 @@ export class LanguageInputComponent implements OnInit {
     if (this.languageInput.pristine) {
       event.target.select();
     }
+  }
+
+  async saveLanguage(language: Language) {
+    await setProxyLanguage(environment.chromeExtensionId, language);
+    this.onSave.emit(language);
   }
 }

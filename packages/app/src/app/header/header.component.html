@@ -77,6 +77,8 @@
               >Manage Subscription</a
             >
           </ng-container>
+          <a mat-menu-item [routerLink]="['/settings']">Settings</a>
+          <mat-divider></mat-divider>
           <button mat-menu-item (click)="signOut()">Sign Out</button>
         </mat-menu>
       </div>
