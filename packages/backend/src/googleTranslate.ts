@@ -1,5 +1,5 @@
 import { TranslationServiceClient } from '@google-cloud/translate';
-import { Result, Translation, Language } from '@vocably/model';
+import { Result, Translation, GoogleLanguage } from '@vocably/model';
 import {
   GoogleTranslateLanguage,
   googleTranslateLanguageToLanguage,
@@ -9,10 +9,10 @@ import {
 const translationClient = new TranslationServiceClient();
 const location = 'global';
 
-export const translateText = async (
+export const googleTranslate = async (
   source: string,
-  sourceLanguage: Language | null = null,
-  targetLanguage: Language
+  sourceLanguage: GoogleLanguage | null = null,
+  targetLanguage: GoogleLanguage
 ): Promise<Result<Translation>> => {
   if (sourceLanguage === targetLanguage) {
     return {

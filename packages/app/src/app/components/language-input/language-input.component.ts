@@ -5,7 +5,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Language, languageList } from '@vocably/model';
+import { GoogleLanguage, languageList } from '@vocably/model';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith, Subject, takeUntil } from 'rxjs';
 import { isExtensionInstalled } from '../../isExtensionInstalled';
@@ -23,16 +23,16 @@ import { environment } from '../../../environments/environment';
 export class LanguageInputComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
-  @Output() onSave = new EventEmitter<Language>();
+  @Output() onSave = new EventEmitter<GoogleLanguage>();
 
-  languageInput = new FormControl<Language>({
+  languageInput = new FormControl<GoogleLanguage>({
     value: 'en',
     disabled: true,
   });
 
   isInstalled = false;
 
-  public languages$: Observable<Language[]> =
+  public languages$: Observable<GoogleLanguage[]> =
     this.languageInput.valueChanges.pipe(
       startWith(''),
       map((value) =>
@@ -57,7 +57,7 @@ export class LanguageInputComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private _filterLanguages(value: string): Language[] {
+  private _filterLanguages(value: string): GoogleLanguage[] {
     const loweredValue = value.toLowerCase();
     return Object.entries(languageList)
       .filter(
@@ -65,10 +65,10 @@ export class LanguageInputComponent implements OnInit, OnDestroy {
           languageCode.toLowerCase().includes(loweredValue) ||
           languageName.toLowerCase().includes(loweredValue)
       )
-      .map(([code]) => code as Language);
+      .map(([code]) => code as GoogleLanguage);
   }
 
-  displayLanguage(languageCode: Language): string {
+  displayLanguage(languageCode: GoogleLanguage): string {
     return languageCode ? languageList[languageCode] : '';
   }
 
@@ -78,7 +78,7 @@ export class LanguageInputComponent implements OnInit, OnDestroy {
     }
   }
 
-  async saveLanguage(language: Language) {
+  async saveLanguage(language: GoogleLanguage) {
     await setProxyLanguage(environment.chromeExtensionId, language);
     this.onSave.emit(language);
   }

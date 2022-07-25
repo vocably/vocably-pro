@@ -1,7 +1,12 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { AnalyzePayload, isLanguage } from '@vocably/model';
+import { AnalyzePayload, isGoogleLanguage } from '@vocably/model';
+import { get } from 'lodash-es';
 
-export const extractPayload = (event: APIGatewayProxyEvent): AnalyzePayload => {
+export type BackendPayload = AnalyzePayload & {
+  isPaid: boolean;
+};
+
+export const extractPayload = (event: APIGatewayProxyEvent): BackendPayload => {
   const payload = JSON.parse(event.body);
 
   if (!payload || !payload.source) {
@@ -12,13 +17,21 @@ export const extractPayload = (event: APIGatewayProxyEvent): AnalyzePayload => {
     };
   }
 
-  if (payload.sourceLanguage && !isLanguage(payload.sourceLanguage)) {
+  if (payload.sourceLanguage && !isGoogleLanguage(payload.sourceLanguage)) {
     throw {
       success: false,
       errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_REQUESTED_LANGUAGE',
       reason: `The REQUESTED source language (${payload.sourceLanguage}) is not available.`,
     };
   }
+
+  payload.isPaid = get(
+    event,
+    'requestContext.authorizer.claims.cognito:groups',
+    ''
+  )
+    .split(',')
+    .includes('paid');
 
   return payload;
 };

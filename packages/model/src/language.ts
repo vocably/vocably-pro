@@ -1,4 +1,4 @@
-export const Languages = [
+export const GoogleLanguages = [
   'af',
   'sq',
   'am',
@@ -108,7 +108,133 @@ export const Languages = [
   'zu',
 ] as const;
 
-export type Language = typeof Languages[number];
+export type GoogleLanguage = typeof GoogleLanguages[number];
 
-export const isLanguage = (language: string): language is Language =>
-  Languages.indexOf(language as Language) !== -1;
+const NLPLanguages = [
+  'af',
+  'sq',
+  'am',
+  'ar',
+  'hy',
+  'az',
+  'eu',
+  'be',
+  'bn',
+  'bs',
+  'bg',
+  'my',
+  'ca',
+  'ny',
+  'zh-CN',
+  'zh-TW',
+  'co',
+  'hr',
+  'cs',
+  'da',
+  'nl',
+  'en',
+  'eo',
+  'et',
+  'fi',
+  'fr',
+  'fy',
+  'gl',
+  'ka',
+  'de',
+  'el',
+  'gu',
+  'ht',
+  'ha',
+  'haw',
+  'iw',
+  'hi',
+  'hmn',
+  'hu',
+  'is',
+  'ig',
+  'id',
+  'ga',
+  'it',
+  'ja',
+  'kn',
+  'kk',
+  'km',
+  'ko',
+  'ku',
+  'ky',
+  'lo',
+  'lv',
+  'lt',
+  'lb',
+  'mk',
+  'mg',
+  'ms',
+  'ml',
+  'mt',
+  'mi',
+  'mr',
+  'mn',
+  'ne',
+  'no',
+  'ps',
+  'fa',
+  'pl',
+  'pt',
+  'pa',
+  'ro',
+  'ru',
+  'sm',
+  'gd',
+  'sr',
+  'st',
+  'sn',
+  'sd',
+  'si',
+  'sk',
+  'sl',
+  'so',
+  'es',
+  'su',
+  'sw',
+  'sv',
+  'tl',
+  'tg',
+  'ta',
+  'tt',
+  'te',
+  'th',
+  'tr',
+  'uk',
+  'ur',
+  'uz',
+  'vi',
+  'cy',
+  'xh',
+  'yi',
+  'yo',
+  'zu',
+] as const;
+
+export type NLPLanguage = typeof NLPLanguages[number];
+
+const GoogleNLPLanguageMap: Partial<Record<GoogleLanguage, NLPLanguage>> = {
+  he: 'iw',
+  zh: 'zh-CN',
+};
+
+export const googleToNlp = (
+  googleLanguage: GoogleLanguage
+): NLPLanguage | null => {
+  if (GoogleNLPLanguageMap[googleLanguage] !== undefined) {
+    return GoogleNLPLanguageMap[googleLanguage];
+  }
+
+  return (
+    NLPLanguages.find((nlpLanguage) => nlpLanguage === googleLanguage) ?? null
+  );
+};
+
+export const isGoogleLanguage = (
+  language: string
+): language is GoogleLanguage =>
+  GoogleLanguages.indexOf(language as GoogleLanguage) !== -1;

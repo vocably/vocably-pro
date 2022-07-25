@@ -5,7 +5,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { isSubscribed } from '../../../subscription/isSubscribed';
 import * as Bowser from 'bowser';
-import { isEligibleForTrial, Language } from '@vocably/model';
+import { isEligibleForTrial, GoogleLanguage } from '@vocably/model';
 import { isExtensionInstalled } from '../../../isExtensionInstalled';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
@@ -28,7 +28,7 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
   public isTrialing = false;
 
   public isInstalled = false;
-  public proxyLanguage: Language = 'en';
+  public proxyLanguage: GoogleLanguage = 'en';
 
   public canInstallTheExtension = canInstallTheExtension;
 

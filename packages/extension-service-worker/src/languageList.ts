@@ -1,15 +1,15 @@
-import { Language, Result } from '@vocably/model';
+import { GoogleLanguage, Result } from '@vocably/model';
 import { listLanguages } from '@vocably/api';
 
 let cache: {
   readonly timestamp: number;
-  readonly list: Language[];
+  readonly list: GoogleLanguage[];
 } = {
   timestamp: 0,
   list: [],
 };
 
-export const getUserLanguages = async (): Promise<Result<Language[]>> => {
+export const getUserLanguages = async (): Promise<Result<GoogleLanguage[]>> => {
   const currentTimestamp = new Date().getTime();
   if (cache.timestamp > currentTimestamp) {
     return {
@@ -30,7 +30,7 @@ export const getUserLanguages = async (): Promise<Result<Language[]>> => {
   const hour = 60 * 60 * 1000;
   cache = {
     timestamp: currentTimestamp + hour,
-    list: result.value as Language[],
+    list: result.value as GoogleLanguage[],
   };
 
   return {
@@ -39,14 +39,14 @@ export const getUserLanguages = async (): Promise<Result<Language[]>> => {
   };
 };
 
-export const removeLanguage = (toBeRemoved: Language) => {
+export const removeLanguage = (toBeRemoved: GoogleLanguage) => {
   cache = {
     ...cache,
     list: cache.list.filter((language) => language !== toBeRemoved),
   };
 };
 
-export const addLanguage = (toBeAdded: Language) => {
+export const addLanguage = (toBeAdded: GoogleLanguage) => {
   cache = {
     ...cache,
     list: [

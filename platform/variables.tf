@@ -22,6 +22,14 @@ variable "lexicala_key" {
   type = string
 }
 
+variable "nlp_translation_host" {
+  type = string
+}
+
+variable "nlp_translation_key" {
+  type = string
+}
+
 variable "extension_name" {
   type = string
 }

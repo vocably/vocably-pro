@@ -1,16 +1,16 @@
-import { Language } from './language';
+import { GoogleLanguage } from './language';
 
 export type Translation = {
   source: string;
-  sourceLanguage: Language;
+  sourceLanguage: GoogleLanguage;
   target: string;
-  targetLanguage: Language;
+  targetLanguage: GoogleLanguage;
 };
 
 export type AnalyzePayload = {
   source: string;
-  sourceLanguage?: Language;
-  targetLanguage: Language;
+  sourceLanguage?: GoogleLanguage;
+  targetLanguage: GoogleLanguage;
 };
 
 export type AnalysisItem = {

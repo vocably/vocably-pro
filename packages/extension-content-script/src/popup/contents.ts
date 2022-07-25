@@ -1,5 +1,5 @@
 import { api } from '../api';
-import { Language } from '@vocably/model';
+import { GoogleLanguage } from '@vocably/model';
 
 type Options = {
   popup: HTMLElement;
@@ -25,7 +25,7 @@ export const setContents = async ({
     const translation = document.createElement('vocably-translation');
     translation.phrase = source;
 
-    const analyze = (sourceLanguage?: Language) => {
+    const analyze = (sourceLanguage?: GoogleLanguage) => {
       translation.loading = true;
       api
         .analyze({ source: source, sourceLanguage })

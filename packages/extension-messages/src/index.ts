@@ -3,7 +3,7 @@ import {
   TranslationCards,
   AnalyzePayload,
   Result,
-  Language,
+  GoogleLanguage,
 } from '@vocably/model';
 
 const createScope =
@@ -32,7 +32,7 @@ export const [analyze, onAnalyzeRequest] = createScopedMessage<
 
 export const [listLanguages, onListLanguagesRequest] = createScopedMessage<
   void,
-  Result<Language[]>
+  Result<GoogleLanguage[]>
 >('listLanguages');
 
 export const [cleanUp, onCleanUpRequest] = createScopedMessage<
@@ -48,11 +48,11 @@ export const [pingExternal, onPingExternal] = createExternalMessage<
 >('vocably.ping-external');
 
 export const [setProxyLanguage, onSetProxyLanguage] = createExternalMessage<
-  Language,
+  GoogleLanguage,
   void
 >('vocably.setProxyLanguage');
 
 export const [getProxyLanguage, onGetProxyLanguage] = createExternalMessage<
   void,
-  Language
+  GoogleLanguage
 >('vocably.getProxyLanguage');

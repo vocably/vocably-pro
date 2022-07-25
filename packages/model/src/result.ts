@@ -23,7 +23,7 @@ export const isError = (object: any): object is Error => {
   }
 
   return (
-    (object.success = false) &&
+    object.success === false &&
     Errors.includes(object.errorCode) &&
     object.reason
   );

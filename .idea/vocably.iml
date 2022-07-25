@@ -27,6 +27,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/srs/dist" />
       <excludeFolder url="file://$MODULE_DIR$/extensions" />
       <excludeFolder url="file://$MODULE_DIR$/packages/www/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/extension-content-ui/www-dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

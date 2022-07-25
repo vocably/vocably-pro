@@ -1,4 +1,4 @@
-import { Language } from '@vocably/model';
+import { GoogleLanguage } from '@vocably/model';
 
 const GoogleTranslateLanguages = [
   'af',
@@ -115,12 +115,12 @@ const GoogleTranslateLanguages = [
 export type GoogleTranslateLanguage = typeof GoogleTranslateLanguages[number];
 
 export const languageToGoogleTranslateLanguage = (
-  language: Language
+  language: GoogleLanguage
 ): GoogleTranslateLanguage => language;
 
 export const googleTranslateLanguageToLanguage = (
   googleTranslateLanguage: GoogleTranslateLanguage
-): Language => {
+): GoogleLanguage => {
   switch (googleTranslateLanguage) {
     case 'zh-CN':
       return 'zh';

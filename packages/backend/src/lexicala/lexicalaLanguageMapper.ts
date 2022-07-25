@@ -1,4 +1,4 @@
-import { Language } from '@vocably/model';
+import { GoogleLanguage } from '@vocably/model';
 
 export const LexicalaLanguages = [
   'ar',
@@ -31,7 +31,7 @@ export const LexicalaLanguages = [
 export type LexicalaLanguage = typeof LexicalaLanguages[number];
 
 export const languageToLexicalaLanguage = (
-  language: Language
+  language: GoogleLanguage
 ): LexicalaLanguage | null => {
   if (language === 'zh-TW') {
     return 'tw';

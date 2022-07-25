@@ -25,7 +25,7 @@ import { get } from 'lodash-es';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
 import {
   isEligibleForTrial,
-  Language,
+  GoogleLanguage,
   mapUserAttributes,
 } from '@vocably/model';
 import { getProxyLanguage } from './proxyLanguage';
@@ -163,7 +163,7 @@ export const registerServiceWorker = (
 
       if (deck.cards.length === 0) {
         console.info(`The entire deck will be deleted.`, payload);
-        removeLanguage(deck.language as Language);
+        removeLanguage(deck.language as GoogleLanguage);
         return sendResponse(await deleteLanguageDeck(deck.language));
       }
 

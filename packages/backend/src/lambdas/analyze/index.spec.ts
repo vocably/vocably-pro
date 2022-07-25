@@ -59,13 +59,25 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
   });
 
-  it('stops unpaid requests', async () => {
-    mockEvent.body = JSON.stringify({});
+  it('performs cheap translation on unpaid items', async () => {
+    mockEvent.body = JSON.stringify({
+      source: 'gedaan',
+      sourceLanguage: 'nl',
+      targetLanguage: 'en',
+    });
     mockEvent.requestContext = unpaidRequestContext;
     const result = await analyze(mockEvent);
     console.log({ result });
-    expect(result.statusCode).toEqual(401);
-    expect(JSON.parse(result.body)).toEqual({ error: 'UNPAID_REQUEST' });
+    expect(result.statusCode).toEqual(200);
+    const analysis: Analysis = JSON.parse(result.body);
+    expect(analysis.source).toEqual('gedaan');
+    expect(analysis.translation).toEqual({
+      source: 'gedaan',
+      sourceLanguage: 'nl',
+      target: 'done',
+      targetLanguage: 'en',
+    });
+    expect(analysis.items).toBeUndefined();
   });
 
   it('skips translation when source language equals to target language', async () => {

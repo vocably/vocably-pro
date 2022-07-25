@@ -1,6 +1,6 @@
-import { Language } from './language';
+import { GoogleLanguage } from './language';
 
-export const languageList: Record<Language, string> = {
+export const languageList: Record<GoogleLanguage, string> = {
   af: 'Afrikaans',
   sq: 'Albanian',
   am: 'Amharic',

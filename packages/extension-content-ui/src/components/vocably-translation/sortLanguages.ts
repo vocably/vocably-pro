@@ -1,10 +1,10 @@
-import { Language } from '@vocably/model';
+import { GoogleLanguage } from '@vocably/model';
 
 export const sortLanguages =
-  (existingLanguages: Language[]) =>
+  (existingLanguages: GoogleLanguage[]) =>
   (
-    entryA: [code: Language, name: string],
-    entryB: [code: Language, name: string]
+    entryA: [code: GoogleLanguage, name: string],
+    entryB: [code: GoogleLanguage, name: string]
   ): number => {
     const isEntryAExists = existingLanguages.includes(entryA[0]);
     const isEntryBExists = existingLanguages.includes(entryB[0]);

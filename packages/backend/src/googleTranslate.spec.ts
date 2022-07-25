@@ -1,13 +1,13 @@
-import { translateText } from './translateText';
+import { googleTranslate } from './googleTranslate';
 
-describe('translateText', () => {
+describe('googleTranslate', () => {
   if (process.env.TEST_SKIP_SPEC === 'true') {
     it('skip spec testing', () => {});
     return;
   }
 
   it('returns successful result', async () => {
-    const result = await translateText('машина', null, 'en');
+    const result = await googleTranslate('машина', null, 'en');
 
     if (result.success === false) {
       expect(result.success).toBeTruthy();
@@ -19,7 +19,7 @@ describe('translateText', () => {
   });
 
   it('considers input language', async () => {
-    const result = await translateText('машина', 'nl', 'en');
+    const result = await googleTranslate('машина', 'nl', 'en');
 
     if (result.success === false) {
       console.log({ inappropriateResult: result });
@@ -32,7 +32,7 @@ describe('translateText', () => {
   });
 
   it('works properly when source and target languages are the same', async () => {
-    const result = await translateText('asylum', 'en', 'en');
+    const result = await googleTranslate('asylum', 'en', 'en');
 
     if (result.success === false) {
       console.log({ inappropriateResult: result });

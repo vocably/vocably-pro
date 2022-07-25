@@ -12,7 +12,7 @@ import {
   Result,
   getFullLanguageName,
   languageList,
-  Language,
+  GoogleLanguage,
 } from '@vocably/model';
 import { sortLanguages } from './sortLanguages';
 import { isDirectNecessary } from './isDirectNecessary';
@@ -26,7 +26,7 @@ export class VocablyTranslation {
   @Prop() phrase: string;
   @Prop() result: Result<TranslationCards> | null = null;
   @Prop() loading: boolean = false;
-  @Prop() existingLanguages: Language[] = [];
+  @Prop() existingLanguages: GoogleLanguage[] = [];
   @Prop() language: string = '';
   @Event() changeLanguage: EventEmitter<string>;
 

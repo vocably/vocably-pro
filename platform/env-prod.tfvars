@@ -14,6 +14,7 @@ sentry_environment                        = "prod"
 endtest_latest_env_suite                  = "non-existing"
 piwik_app_id                              = "0546e67b-2206-4213-8455-5254afd7b683"
 piwik_www_id                              = "92a6897c-8ca1-4fcb-b3d8-75dd35ad9fcd"
+nlp_translation_host                      = "nlp-translation.p.rapidapi.com"
 paddle_vendor_id                          = 142693
 paddle_sandbox                            = false
 paddle_test_env                           = "prod"
