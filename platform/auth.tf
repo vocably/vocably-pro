@@ -1,3 +1,101 @@
+// Lambdas
+
+data "external" "auth_lambdas_build" {
+  program = ["bash", "-c", <<EOT
+(npm run build) >&2 && echo "{\"dest\": \"dist\"}"
+EOT
+  ]
+  working_dir = local.auth_lambdas_root
+}
+
+data "archive_file" "auth_lambdas_build" {
+  depends_on = [
+    data.external.auth_lambdas_build
+  ]
+  type        = "zip"
+  source_dir  = "${data.external.auth_lambdas_build.working_dir}/${data.external.auth_lambdas_build.result.dest}"
+  output_path = "auth_lambdas_build.zip"
+}
+
+resource "aws_iam_role" "add_to_paid_lambda_execution" {
+  name               = "vocably-${terraform.workspace}-add_to_paid-lambda-execution"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_policy" "add_to_paid_lambda_execution" {
+  name = "vocably-${terraform.workspace}-add_to_paid-lambda-execution-policy"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "DefaultLogging",
+        "Effect" : "Allow",
+        "Action" : [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource" : "*"
+      },
+      {
+        "Sid" : "Cognito",
+        "Effect" : "Allow",
+        "Action" : [
+          "cognito-idp:AdminUpdateUserAttributes",
+          "cognito-idp:AdminAddUserToGroup",
+          "cognito-idp:AdminRemoveUserFromGroup",
+          "cognito-idp:AdminListGroupsForUser",
+          "logs:PutLogEvents"
+        ],
+        "Resource" : "*"
+      },
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "add_to_paid_lambda_execution" {
+  role       = aws_iam_role.add_to_paid_lambda_execution.name
+  policy_arn = aws_iam_policy.add_to_paid_lambda_execution.arn
+}
+
+resource "aws_lambda_function" "add_to_paid" {
+  filename         = data.archive_file.auth_lambdas_build.output_path
+  function_name    = "vocably-${terraform.workspace}-add_to_paid"
+  role             = aws_iam_role.add_to_paid_lambda_execution.arn
+  handler          = "add-to-paid.addToPaid"
+  source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
+  runtime          = "nodejs14.x"
+}
+
+resource "aws_lambda_permission" "add_to_paid" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.add_to_paid.function_name
+  principal     = "cognito-idp.amazonaws.com"
+
+  source_arn = aws_cognito_user_pool.users.arn
+}
+
+resource "aws_cloudwatch_log_group" "add_to_paid" {
+  name              = "/aws/lambda/${aws_lambda_function.add_to_paid.function_name}"
+  retention_in_days = 14
+}
+
+// The rest of the auth
+
 resource "aws_cognito_user_pool" "users" {
   name                     = "vocably-${terraform.workspace}-user-pool"
   auto_verified_attributes = ["email"]
@@ -16,6 +114,10 @@ resource "aws_cognito_user_pool" "users" {
     ignore_changes = [
       schema
     ]
+  }
+
+  lambda_config {
+    post_confirmation = aws_lambda_function.add_to_paid.arn
   }
 
   schema {

@@ -49,7 +49,6 @@ jobs:
       - run: npm run test -ws
       - run: npx semantic-release
       - run: npx zx ./scripts/build-extension.mjs
-      - run: npx zx ./scripts/run-e2e-tests.mjs
   stage:
     working_directory: ~/repo
     docker:

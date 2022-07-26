@@ -7,6 +7,7 @@ locals {
   app_root                       = abspath("../packages/app")
   extension_root                 = abspath("../packages/extension")
   backend_root                   = abspath("../packages/backend")
+  auth_lambdas_root              = abspath("../packages/auth-lambdas")
   model_root                     = abspath("../packages/model")
   www_root                       = abspath("../packages/www")
   e2e_www_root                   = abspath("../packages/e2e-www")

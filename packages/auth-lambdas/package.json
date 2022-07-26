@@ -1,0 +1,27 @@
+{
+  "name": "@vocably/auth-lambdas",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "echo '@vocably/auth-lambdas has no tests.'",
+    "start": "npm run watch",
+    "auth-lambdas": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vocably-pro/vocably.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1",
+    "jest-cli": "^27.5.1",
+    "ts-jest": "^27.1.3"
+  }
+}
