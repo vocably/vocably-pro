@@ -35,7 +35,7 @@
             <a
               class='btn btn-primary py-3 px-4 rounded-pill fw-bold'
               href='https://app.vocably.pro'
-            >Sign in and get a 7 day free trial</a>
+            >Try it out. It's free</a>
 
             <div class="browser-warning text-danger mt-5 d-none">Currently, the Vocably browser extension exists only for Google Chrome. The extension is an essential part of the Vocably experience.</div>
           </div>
@@ -74,47 +74,6 @@
     <div class='container-xxl'>
       <div class='h2 text-center text-lg-start mb-section'>Supported Languages</div>
       <p class='lead'>Vocably supports Arabic, Czech, English, German, Danish, Greek, Spanish, French, Hebrew, Hindi, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Portuguese, Russian, Swedish, Thai, Turkish, Traditional Chinese, and Simplified Chinese.</p>
-    </div>
-  </section>
-  <!-- Pricing -->
-  <section id='pricing'>
-    <div class='container-xxl'>
-      <div class='h2 text-center text-lg-start mb-section'>Pricing</div>
-      <div class="row  mb-4">
-        {{#each htmlWebpackPlugin.options.environment.products as |product|}}
-          <div class="col-sm-4 gy-4 d-flex align-items-stretch">
-            <div class="card text-center w-100">
-              <div class="card-body">
-                <div class="h5 mb-2">
-                  {{product.duration}} month{{#if (math product.duration '>' 1)}}s{{/if}}
-                </div>
-                <div>
-                  <span class="lead">{{currency
-                    (math product.price '/' product.duration)
-                    product.currency
-                  }}</span>
-                  <span class='text-muted small'>/ month</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div>
-                  Total {{#unless @first}}<del class='text-primary'>{{currency
-                  (math ../htmlWebpackPlugin.options.environment.products.0.price "*" product.duration)
-                  'EUR'
-                }}</del>{{/unless}}
-                  {{currency product.price product.currency}}
-                </div>
-              </div>
-            </div>
-          </div>
-        {{/each}}
-      </div>
-      <a
-        class='btn btn-primary py-3 px-4 rounded-pill fw-bold d-block'
-        href='https://app.vocably.pro'
-      >Sign in and get a 7 day free trial</a>
-
-      <div class="browser-warning text-danger mt-5 text-center d-none">Currently, the Vocably browser extension exists only for Google Chrome. The extension is an essential part of the Vocably experience.</div>
     </div>
   </section>
 {{/layout}}
