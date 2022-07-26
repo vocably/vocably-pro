@@ -5,7 +5,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { isSubscribed } from '../../../subscription/isSubscribed';
 import * as Bowser from 'bowser';
-import { isEligibleForTrial, GoogleLanguage } from '@vocably/model';
+import { GoogleLanguage } from '@vocably/model';
 import { isExtensionInstalled } from '../../../isExtensionInstalled';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
@@ -24,8 +24,6 @@ const canInstallTheExtension = browser.satisfies({
 export class NoDecksPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   public isSubscribed = false;
-  public isEligibleForTrial = false;
-  public isTrialing = false;
 
   public isInstalled = false;
   public proxyLanguage: GoogleLanguage = 'en';
@@ -39,8 +37,6 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
     auth: AuthService
   ) {
     auth.userData$.pipe(takeUntil(this.destroy$)).subscribe((userData) => {
-      this.isEligibleForTrial = isEligibleForTrial(userData);
-      this.isTrialing = userData.status === 'trialing';
       this.isSubscribed = isSubscribed(userData);
     });
 

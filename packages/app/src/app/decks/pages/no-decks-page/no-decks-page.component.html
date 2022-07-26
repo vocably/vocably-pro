@@ -25,18 +25,6 @@
           <app-language-input></app-language-input>
         </div>
       </li>
-      <li class="mb-1">
-        <a
-          [routerLink]="['/subscription']"
-          [class.strike]="isSubscribed"
-          data-test="todo-subscribe"
-          >{{
-            this.isEligibleForTrial || this.isTrialing
-              ? 'Get a 7 day free trial'
-              : 'Subscribe'
-          }}</a
-        >
-      </li>
       <li>
         Go to any website and translate an unfamiliar word by selecting it
       </li>

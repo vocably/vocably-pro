@@ -29,54 +29,6 @@
           >
         </button>
         <mat-menu #menu="matMenu">
-          <ng-container *ngIf="auth.userData$ | async as userData">
-            <span mat-menu-item [disabled]="true"
-              >Subscription status:
-              <strong class="text-emphasize">{{
-                userData | subscriptionStatus
-              }}</strong></span
-            >
-            <span
-              mat-menu-item
-              *ngIf="
-                isCancelled(userData) && !isExpired(userData.cancellationDate)
-              "
-              [disabled]="true"
-              >Available until:
-              {{ userData.cancellationDate | date: 'mediumDate' }}</span
-            >
-            <span
-              mat-menu-item
-              *ngIf="isActive(userData) && userData.nextBillDate"
-              [disabled]="true"
-              >Next payment:
-              <strong class="text-emphasize">{{
-                userData.nextBillDate | date: 'mediumDate'
-              }}</strong></span
-            >
-            <span
-              mat-menu-item
-              *ngIf="isActive(userData) && userData.unitPrice"
-              [disabled]="true"
-              >Amount:
-              <strong class="text-emphasize">{{
-                userData.unitPrice | currency: 'EUR'
-              }}</strong></span
-            >
-            <a
-              mat-menu-item
-              *ngIf="isCancelled(userData) || isUnsubscribed(userData)"
-              [routerLink]="['/subscription']"
-              >Subscribe</a
-            >
-            <a
-              mat-menu-item
-              *ngIf="isActive(userData)"
-              [routerLink]="['/subscription/manage']"
-              data-test="main-menu-manage-subscription"
-              >Manage Subscription</a
-            >
-          </ng-container>
           <a mat-menu-item [routerLink]="['/settings']">Settings</a>
           <mat-divider></mat-divider>
           <button mat-menu-item (click)="signOut()">Sign Out</button>
