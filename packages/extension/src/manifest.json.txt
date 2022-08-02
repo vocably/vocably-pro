@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "{{ process.env.NAME }}",
+  "name": "{{ process.env.NAME }} - ",
   "description": "Extend your vocabulary while surfing the internet.",
   "version": "{{ process.env.VERSION }}",
 
