@@ -10,6 +10,6 @@ const userPool = JSON.parse(
 );
 
 console.log(
-  'Estimated Number Of Users',
-  userPool.UserPool.EstimatedNumberOfUsers
+  'Users after the Reddit post',
+  userPool.UserPool.EstimatedNumberOfUsers - 18
 );
