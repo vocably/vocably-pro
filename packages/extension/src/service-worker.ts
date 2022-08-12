@@ -37,3 +37,7 @@ if (process.env.AUTO_RELOAD === 'true') {
     }
   });
 }
+
+chrome.runtime.setUninstallURL(
+  'https://docs.google.com/forms/d/e/1FAIpQLSdMurLCVSOO6hfA9dOKvvqm260ZPDe9JKp8iNe8xwf0gbNyvQ/viewform?usp=sf_link'
+);
