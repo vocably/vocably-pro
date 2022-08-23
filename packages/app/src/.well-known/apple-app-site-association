@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appID": "789D8NRAM6.pro.vocably.app",
+        "paths": ["*"]
+      }
+    ]
+  }
+}
