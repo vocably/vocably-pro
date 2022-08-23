@@ -29,7 +29,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/assets", "src/manifest.json"],
+            "assets": ["src/assets", "src/manifest.json", "src/.well-known"],
             "styles": ["src/styles.scss"],
             "scripts": [],
             "allowedCommonJsDependencies": [
