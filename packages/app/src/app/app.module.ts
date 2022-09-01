@@ -18,6 +18,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { IosPageComponent } from './pages/ios-page/ios-page.component';
 import { AndroidPageComponent } from './pages/android-page/android-page.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import { DeleteAccountConfirmationComponent } from './pages/settings-page/delete-account-confirmation/delete-account-confirmation.component';
+import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
     IosPageComponent,
     AndroidPageComponent,
     SettingsPageComponent,
+    DeleteAccountConfirmationComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,8 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
     MatSnackBarModule,
     MatIconModule,
     MatDialogModule,
+    MatButtonModule,
+    MatDividerModule,
   ],
   providers: [
     {

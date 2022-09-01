@@ -1,0 +1,6 @@
+.green-zone {
+  height: calc(
+    var(--app-height) - var(--header-height) - 4rem - var(--container-padding) *
+      2
+  );
+}

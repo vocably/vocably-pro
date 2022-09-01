@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Delete My Account</h1>
+<div mat-dialog-content>
+  <p>
+    Are you sure you want to delete your account? This operation can not be
+    reversed.
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true" data-test="yes-please">
+    Yes
+  </button>
+  <button mat-button (click)="onNoClick()">No, thanks</button>
+</div>

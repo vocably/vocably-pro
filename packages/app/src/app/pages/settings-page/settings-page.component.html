@@ -1,8 +1,14 @@
 <div class="container-xl top"><app-header title="Settings"></app-header></div>
 <div class="container bottom">
-  <p>What language do you speak fluently?</p>
-  <div class="mt-1 tiny">
-    Vocably will provide translations in that language.
+  <div class="green-zone">
+    <p>What language do you speak fluently?</p>
+    <div class="mt-1 tiny">
+      Vocably will provide translations in that language.
+    </div>
+    <app-language-input (onSave)="notifyOnSave()"></app-language-input>
   </div>
-  <app-language-input (onSave)="notifyOnSave()"></app-language-input>
+  <mat-divider style="margin-bottom: 1rem"></mat-divider>
+  <button class="link unstyled" (click)="deleteAccount()">
+    <mat-icon class="middle">delete-outline</mat-icon>Delete my account
+  </button>
 </div>
