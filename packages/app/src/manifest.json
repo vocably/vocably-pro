@@ -1,5 +1,6 @@
 {
   "name": "Vocably",
+  "short_name": "Vocably",
   "start_url": "/",
   "background_color": "#ffffff",
   "icons": [
