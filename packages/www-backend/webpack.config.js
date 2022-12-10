@@ -1,6 +1,7 @@
 const path = require('path');
 const getModules = require('./webpack/getModules.js');
-const DotenvFlow = require('dotenv-flow-webpack');
+const { getEnvironmentVariables } = require('@vocably/webpack');
+const { DefinePlugin } = require('webpack');
 
 module.exports = {
   mode: 'production',
@@ -18,7 +19,7 @@ module.exports = {
   module: {
     rules: [{ test: /\.tsx?$/, loader: 'ts-loader' }],
   },
-  plugins: [new DotenvFlow()],
+  plugins: [new DefinePlugin(getEnvironmentVariables())],
   output: {
     path: path.join(__dirname, 'dist'),
     libraryTarget: 'commonjs',

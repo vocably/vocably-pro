@@ -2,14 +2,15 @@ const { merge } = require('webpack-merge');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const DotenvFlow = require('dotenv-flow-webpack');
-const { WatchTimerPlugin, replaceDefinitions } = require('@vocably/webpack');
+const {
+  WatchTimerPlugin,
+  replaceDefinitions,
+  getEnvironmentVariables,
+} = require('@vocably/webpack');
 const { basename } = require('path');
 const webpack = require('webpack');
 
-const dotEnvPlugin = new DotenvFlow({
-  system_vars: true,
-});
+const environmentVariables = getEnvironmentVariables();
 
 const prodConfig = {
   mode: 'production',
@@ -59,14 +60,14 @@ const prodConfig = {
           transform(content) {
             return replaceDefinitions(
               content.toString(),
-              dotEnvPlugin.definitions
+              environmentVariables.definitions
             );
           },
         },
       ],
       options: {},
     }),
-    dotEnvPlugin,
+    new webpack.DefinePlugin(environmentVariables.stringified),
   ],
   performance: {
     hints: false,

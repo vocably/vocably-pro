@@ -1,7 +1,8 @@
 const path = require('path');
 const getModules = require('./webpack/getModules.js');
-const DotenvFlow = require('dotenv-flow-webpack');
 const CopyPlugin = require('copy-webpack-plugin');
+const { DefinePlugin } = require('webpack');
+const { getEnvironmentVariables } = require('@vocably/webpack');
 
 module.exports = {
   mode: 'production',
@@ -20,7 +21,7 @@ module.exports = {
     rules: [{ test: /\.tsx?$/, loader: 'ts-loader' }],
   },
   plugins: [
-    new DotenvFlow(),
+    new DefinePlugin(getEnvironmentVariables().stringified),
     new CopyPlugin({
       patterns: [{ from: 'google-key.json', to: 'google-key.json' }],
     }),

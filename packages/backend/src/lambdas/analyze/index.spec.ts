@@ -98,7 +98,7 @@ describe('integration check for translate lambda', () => {
 
   it('adds articles and takes translations from lexicala', async () => {
     mockEvent.body = JSON.stringify({
-      source: 'veer',
+      source: 'regeling',
       sourceLanguage: 'nl',
       targetLanguage: 'en',
     });
@@ -107,20 +107,15 @@ describe('integration check for translate lambda', () => {
     console.log({ result });
     expect(result.statusCode).toEqual(200);
     const resultBody: Analysis = JSON.parse(result.body);
-    expect(resultBody.source).toEqual('veer');
+    expect(resultBody.source).toEqual('regeling');
     expect(resultBody.translation).toBeDefined();
-    expect(resultBody.items.length).toEqual(2);
-    expect(resultBody.items[0].source).toEqual('de veer');
-    expect(resultBody.items[0].translation).toEqual(
-      'feather, spiral, (main)spring'
-    );
-    expect(resultBody.items[1].source).toEqual('het veer');
-    expect(resultBody.items[1].translation).toEqual('ferry, boat');
+    expect(resultBody.items[0].source).toEqual('de regeling');
+    expect(resultBody.items[0].translation).toEqual('regulation, settlement');
   });
 
   it('adds articles and takes translations from google', async () => {
     mockEvent.body = JSON.stringify({
-      source: 'veer',
+      source: 'regeling',
       sourceLanguage: 'nl',
       targetLanguage: 'ru',
     });
@@ -129,12 +124,10 @@ describe('integration check for translate lambda', () => {
     console.log({ result });
     expect(result.statusCode).toEqual(200);
     const resultBody: Analysis = JSON.parse(result.body);
-    expect(resultBody.source).toEqual('veer');
+    expect(resultBody.source).toEqual('regeling');
     expect(resultBody.translation).toBeDefined();
-    expect(resultBody.items.length).toEqual(2);
-    expect(resultBody.items[0].source).toEqual('de veer');
-    expect(resultBody.items[0].translation).toEqual('пух Перо');
-    expect(resultBody.items[1].source).toEqual('het veer');
-    expect(resultBody.items[1].translation).toEqual('пух Перо');
+    expect(resultBody.items.length).toEqual(1);
+    expect(resultBody.items[0].source).toEqual('de regeling');
+    expect(resultBody.items[0].translation).toEqual('регулирование');
   });
 });

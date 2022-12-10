@@ -19,7 +19,7 @@ describe('googleTranslate', () => {
   });
 
   it('considers input language', async () => {
-    const result = await googleTranslate('машина', 'nl', 'en');
+    const result = await googleTranslate('ывываыва', 'nl', 'en');
 
     if (result.success === false) {
       console.log({ inappropriateResult: result });
@@ -27,7 +27,7 @@ describe('googleTranslate', () => {
       return;
     }
 
-    expect(result.value.target).toEqual('ашина');
+    expect(result.value.target).toEqual('ывываыва');
     expect(result.value.sourceLanguage).toEqual('nl');
   });
 
