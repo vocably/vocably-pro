@@ -1,7 +1,9 @@
 import React, { FC, ReactNode, useContext } from 'react';
 import { AuthContext } from './AuthContext';
-import { Text, View, Button } from 'react-native';
+import { Linking, View } from 'react-native';
 import { Auth, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
+import { Text, Button, useTheme } from 'react-native-paper';
+import { Loader } from '../Loader';
 
 const signIn = () =>
   Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google });
@@ -11,9 +13,15 @@ export const Login: FC<{
 }> = ({ children }) => {
   const authStatus = useContext(AuthContext);
 
+  if (authStatus.status === 'undefined') {
+    return <Loader></Loader>;
+  }
+
   if (authStatus.status === 'logged-in') {
     return <>{children}</>;
   }
+
+  const theme = useTheme();
 
   return (
     <View
@@ -23,8 +31,38 @@ export const Login: FC<{
         alignItems: 'center',
       }}
     >
-      <Text>Please sign in</Text>
-      <Button title="Login with Google" onPress={signIn} />
+      <Text variant="bodyLarge" style={{ marginBottom: 15 }}>
+        Sign in and enjoy the Vocably experience.
+      </Text>
+      <Button
+        icon="google"
+        mode="contained"
+        onPress={signIn}
+        style={{ marginBottom: 20 }}
+      >
+        Sign in with Google
+      </Button>
+      <Text style={{ marginHorizontal: 20, textAlign: 'center' }}>
+        By signing in, you agree to our{' '}
+        <Text
+          style={{ color: theme.colors.primary }}
+          onPress={() =>
+            Linking.openURL('https://vocably.pro/terms-and-conditions.html')
+          }
+        >
+          Terms and Conditions
+        </Text>{' '}
+        and{' '}
+        <Text
+          style={{ color: theme.colors.primary }}
+          onPress={() =>
+            Linking.openURL('https://vocably.pro/privacy-policy.html')
+          }
+        >
+          Privacy Policy
+        </Text>
+        .
+      </Text>
     </View>
   );
 };
