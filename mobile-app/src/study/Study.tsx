@@ -6,7 +6,7 @@ import { loadLanguageDeck } from '@vocably/api';
 import { slice } from '@vocably/srs';
 import { Loader } from '../Loader';
 import { Card } from './Card';
-import { SwipeResponse } from './SwipeResponse';
+import { SwipeScore } from './SwipeScore';
 
 export const Study: FC = () => {
   const [cards, setCards] = useState<undefined | CardItem[]>();
@@ -24,6 +24,8 @@ export const Study: FC = () => {
     return <Loader></Loader>;
   }
 
+  console.log(cards.length);
+
   return (
     <View
       style={{
@@ -31,11 +33,12 @@ export const Study: FC = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}
-      onPointerEnter={() => console.log('piu')}
     >
-      <SwipeResponse>
-        <Card card={cards[0]}></Card>
-      </SwipeResponse>
+      {cards.slice(0, 1).map((card) => (
+        <SwipeScore onScore={() => setCards(cards.slice(1))} key={card.id}>
+          <Card card={card} />
+        </SwipeScore>
+      ))}
     </View>
   );
 };

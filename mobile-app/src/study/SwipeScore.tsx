@@ -7,12 +7,15 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useTheme } from 'react-native-paper';
+import { SrsScore } from '@vocably/srs';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
   },
   icon: {
     position: 'absolute',
@@ -21,10 +24,12 @@ const styles = StyleSheet.create({
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
-export const SwipeResponse: FC<{
-  onResponse?: (scores: number) => void;
+export const SwipeScore: FC<{
+  onScore: (score: SrsScore) => void;
   children: ReactNode;
-}> = ({ onResponse, children }) => {
+}> = ({ onScore, children }) => {
+  const theme = useTheme();
+
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const pan = useRef(new Animated.ValueXY()).current;
   const movementRef = useRef<null | 'horizontal' | 'vertical'>(null);
@@ -87,10 +92,26 @@ export const SwipeResponse: FC<{
         }
       },
       onPanResponderRelease: () => {
+        if ((weakVisibility as any)._value === 1) {
+          onScore(0);
+          return;
+        }
+
+        if ((mediumVisibility as any)._value === 1) {
+          onScore(3);
+          return;
+        }
+
+        if ((strongVisibility as any)._value === 1) {
+          onScore(5);
+          return;
+        }
+
         pan.setValue({
           x: 0,
           y: 0,
         });
+
         weakVisibility.setValue(0);
         mediumVisibility.setValue(0);
         strongVisibility.setValue(0);
@@ -100,48 +121,58 @@ export const SwipeResponse: FC<{
   ).current;
 
   return (
-    <>
-      <View style={styles.container}>
-        <AnimatedIcon
-          style={[
-            styles.icon,
-            {
-              opacity: strongVisibility,
-              transform: [{ scale: strongVisibility }],
-            },
-          ]}
-          name="check-all"
-          size={100}
-        ></AnimatedIcon>
-        <AnimatedIcon
-          style={[
-            styles.icon,
-            {
-              opacity: mediumVisibility,
-              transform: [{ scale: mediumVisibility }],
-            },
-          ]}
-          name="check"
-          size={100}
-        ></AnimatedIcon>
-        <AnimatedIcon
-          style={[
-            styles.icon,
-            {
-              opacity: weakVisibility,
-              transform: [{ scale: weakVisibility }],
-            },
-          ]}
-          name="close"
-          size={100}
-        ></AnimatedIcon>
-        <Animated.View
-          style={{ transform: [{ translateX: pan.x }, { translateY: pan.y }] }}
-          {...panResponder.panHandlers}
-        >
-          {children}
-        </Animated.View>
-      </View>
-    </>
+    <View style={styles.container}>
+      <AnimatedIcon
+        style={[
+          styles.icon,
+          {
+            color: theme.colors.primary,
+          },
+          {
+            opacity: strongVisibility,
+            transform: [{ scale: strongVisibility }],
+          },
+        ]}
+        name="check-all"
+        size={100}
+      ></AnimatedIcon>
+      <AnimatedIcon
+        style={[
+          styles.icon,
+          {
+            color: theme.colors.primary,
+          },
+          {
+            opacity: mediumVisibility,
+            transform: [{ scale: mediumVisibility }],
+          },
+        ]}
+        name="check"
+        size={100}
+      ></AnimatedIcon>
+      <AnimatedIcon
+        style={[
+          styles.icon,
+          {
+            color: theme.colors.error,
+          },
+          {
+            opacity: weakVisibility,
+            transform: [{ scale: weakVisibility }],
+          },
+        ]}
+        name="close"
+        size={100}
+      ></AnimatedIcon>
+      <Animated.View
+        style={[
+          styles.container,
+          { transform: [{ translateX: pan.x }, { translateY: pan.y }] },
+        ]}
+        {...panResponder.panHandlers}
+      >
+        {children}
+      </Animated.View>
+    </View>
   );
 };
