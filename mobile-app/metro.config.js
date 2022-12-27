@@ -1,17 +1,24 @@
-/**
- * Metro configuration for React Native
- * https://github.com/facebook/react-native
- *
- * @format
- */
+const path = require('path');
+
+const sharedPackages = ['api', 'model', 'crud', 'sulna', 'srs'];
 
 module.exports = {
-  transformer: {
-    getTransformOptions: async () => ({
-      transform: {
-        experimentalImportSupport: false,
-        inlineRequires: true,
-      },
-    }),
+  projectRoot: __dirname,
+  watchFolders: sharedPackages.map((package) =>
+    path.resolve(`../packages/${package}`)
+  ),
+  resolver: {
+    transform: {
+      experimentalImportSupport: false,
+      inlineRequires: true,
+    },
+    extraNodeModules: new Proxy(
+      {},
+      {
+        get: (target, name) => {
+          return path.join(__dirname, `node_modules/${name}`);
+        },
+      }
+    ),
   },
 };
