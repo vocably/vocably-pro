@@ -5,7 +5,8 @@ import { loadLanguageDeck } from '@vocably/api';
 import { slice } from '@vocably/srs';
 import { Loader } from '../Loader';
 import { Card } from './Card';
-import { SwipeScore } from './SwipeScore';
+import { SwipeGrade } from './SwipeGrade';
+import { Completed } from './Completed';
 
 export const Study: FC = () => {
   const [cards, setCards] = useState<undefined | CardItem[]>();
@@ -31,11 +32,13 @@ export const Study: FC = () => {
         alignItems: 'center',
       }}
     >
-      {cards.slice(0, 1).map((card) => (
-        <SwipeScore onScore={() => setCards(cards.slice(1))} key={card.id}>
-          <Card card={card} />
-        </SwipeScore>
-      ))}
+      {cards.length > 0 &&
+        cards.slice(0, 1).map((card) => (
+          <SwipeGrade onGrade={() => setCards(cards.slice(1))} key={card.id}>
+            <Card card={card} />
+          </SwipeGrade>
+        ))}
+      {cards.length === 0 && <Completed onStudyAgain={() => {}}></Completed>}
     </View>
   );
 };

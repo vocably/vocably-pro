@@ -24,10 +24,10 @@ const styles = StyleSheet.create({
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
-export const SwipeScore: FC<{
-  onScore: (score: SrsScore) => void;
+export const SwipeGrade: FC<{
+  onGrade: (score: SrsScore) => void;
   children: ReactNode;
-}> = ({ onScore, children }) => {
+}> = ({ onGrade, children }) => {
   const theme = useTheme();
 
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
@@ -93,17 +93,17 @@ export const SwipeScore: FC<{
       },
       onPanResponderRelease: () => {
         if ((weakVisibility as any)._value === 1) {
-          onScore(0);
+          onGrade(0);
           return;
         }
 
         if ((mediumVisibility as any)._value === 1) {
-          onScore(3);
+          onGrade(3);
           return;
         }
 
         if ((strongVisibility as any)._value === 1) {
-          onScore(5);
+          onGrade(5);
           return;
         }
 
