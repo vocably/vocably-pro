@@ -11,6 +11,7 @@ import {
 import { Text, useTheme } from 'react-native-paper';
 import { CardItem } from '@vocably/model';
 import { explode } from '@vocably/sulna';
+import { Displayer } from './Displayer';
 
 const styles = StyleSheet.create({
   container: {
@@ -96,23 +97,27 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
   }, [card]);
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => (!!flipRotation ? flipToBack() : flipToFront())}
-    >
-      <View style={styles.container}>
-        <Animated.View style={{ ...styles.cardFront, ...flipToBackStyle }}>
-          <Text>{card.data.source}</Text>
-        </Animated.View>
-        <Animated.View style={{ ...styles.cardBack, ...flipToFrontStyle }}>
-          <FlatList
-            contentContainerStyle={styles.list}
-            data={sideB}
-            renderItem={(item) => (
-              <Text style={item.item.style}>{`\u2022 ${item.item.text}`}</Text>
-            )}
-          ></FlatList>
-        </Animated.View>
-      </View>
-    </TouchableWithoutFeedback>
+    <Displayer>
+      <TouchableWithoutFeedback
+        onPress={() => (!!flipRotation ? flipToBack() : flipToFront())}
+      >
+        <View style={styles.container}>
+          <Animated.View style={{ ...styles.cardFront, ...flipToBackStyle }}>
+            <Text>{card.data.source}</Text>
+          </Animated.View>
+          <Animated.View style={{ ...styles.cardBack, ...flipToFrontStyle }}>
+            <FlatList
+              contentContainerStyle={styles.list}
+              data={sideB}
+              renderItem={(item) => (
+                <Text
+                  style={item.item.style}
+                >{`\u2022 ${item.item.text}`}</Text>
+              )}
+            ></FlatList>
+          </Animated.View>
+        </View>
+      </TouchableWithoutFeedback>
+    </Displayer>
   );
 };

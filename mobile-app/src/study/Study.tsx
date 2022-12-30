@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { Text } from 'react-native-paper';
 import { CardItem } from '@vocably/model';
 import { loadLanguageDeck } from '@vocably/api';
 import { slice } from '@vocably/srs';
@@ -23,8 +22,6 @@ export const Study: FC = () => {
   if (cards === undefined) {
     return <Loader></Loader>;
   }
-
-  console.log(cards.length);
 
   return (
     <View
