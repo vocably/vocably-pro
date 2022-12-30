@@ -28,6 +28,10 @@ const styles = StyleSheet.create({
   cardFront: {
     position: 'absolute',
     backfaceVisibility: 'hidden',
+    width: '100%',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cardBack: {
     backfaceVisibility: 'hidden',
@@ -89,7 +93,6 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
         .concat({
           text: card.data.translation,
           style: {
-            fontStyle: 'italic',
             color: theme.colors.secondary,
           },
         })
@@ -103,7 +106,16 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
       >
         <View style={styles.container}>
           <Animated.View style={{ ...styles.cardFront, ...flipToBackStyle }}>
-            <Text>{card.data.source}</Text>
+            <View>
+              {card.data.partOfSpeech && (
+                <Text style={{ color: theme.colors.secondary }}>
+                  {card.data.partOfSpeech}
+                </Text>
+              )}
+              <Text style={{ fontSize: 32, maxWidth: '100%' }}>
+                {card.data.source}
+              </Text>
+            </View>
           </Animated.View>
           <Animated.View style={{ ...styles.cardBack, ...flipToFrontStyle }}>
             <FlatList
@@ -111,7 +123,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
               data={sideB}
               renderItem={(item) => (
                 <Text
-                  style={item.item.style}
+                  style={[item.item.style, { fontSize: 24 }]}
                 >{`\u2022 ${item.item.text}`}</Text>
               )}
             ></FlatList>
