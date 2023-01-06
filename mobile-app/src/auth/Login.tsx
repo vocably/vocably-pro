@@ -1,12 +1,11 @@
 import React, { FC, ReactNode, useContext } from 'react';
 import { AuthContext } from './AuthContext';
 import { Linking, View } from 'react-native';
-import { Auth, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
+import { Auth } from '@aws-amplify/auth';
 import { Text, Button, useTheme } from 'react-native-paper';
 import { Loader } from '../Loader';
 
-const signIn = () =>
-  Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google });
+const signIn = () => Auth.federatedSignIn();
 
 export const Login: FC<{
   children?: ReactNode;
