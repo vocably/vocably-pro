@@ -1,13 +1,16 @@
-import React, { FC } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import React, { FC, useContext } from 'react';
 import { Appbar } from 'react-native-paper';
 import { StackHeaderProps } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { LanguagesContext } from './languages/LanguagesContainer';
+import { getFullLanguageName } from '@vocably/model';
+import { LanguageSelector } from './LanguageSelector';
 
 type Header = FC<StackHeaderProps>;
 
 export const Header: Header = ({ back, navigation, route }) => {
+  const { languages, selectedLanguage } = useContext(LanguagesContext);
+
   return (
     <Appbar.Header>
       {back ? (
@@ -21,7 +24,10 @@ export const Header: Header = ({ back, navigation, route }) => {
         />
       )}
 
-      <Appbar.Content title={route.name} />
+      {selectedLanguage !== '' && (
+        <Appbar.Content title={getFullLanguageName(selectedLanguage)} />
+      )}
+      {languages.length > 1 && <LanguageSelector />}
     </Appbar.Header>
   );
 };
