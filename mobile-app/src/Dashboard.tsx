@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import { FC, useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
+import { DeckContext } from './DeckContainer';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,9 +14,10 @@ const styles = StyleSheet.create({
 type Dashboard = FC<{}>;
 
 export const Dashboard: Dashboard = () => {
+  const { deck } = useContext(DeckContext);
   return (
     <View style={styles.container}>
-      <Text>Dashboard</Text>
+      <Text>{deck.cards.length} cards</Text>
     </View>
   );
 };

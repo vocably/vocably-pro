@@ -7,6 +7,7 @@ import { configureApi } from '@vocably/api';
 import { NavigationContainer } from '@react-navigation/native';
 import { RootNavigator } from './RootNavigator';
 import { LanguagesContainer } from './languages/LanguagesContainer';
+import { DeckContainer } from './DeckContainer';
 
 configureApi({
   baseUrl: 'https://api.dev.env.vocably.pro',
@@ -20,9 +21,11 @@ const App = () => {
       <AuthContainer>
         <Login>
           <LanguagesContainer>
-            <NavigationContainer>
-              <RootNavigator />
-            </NavigationContainer>
+            <DeckContainer>
+              <NavigationContainer>
+                <RootNavigator />
+              </NavigationContainer>
+            </DeckContainer>
           </LanguagesContainer>
         </Login>
       </AuthContainer>
