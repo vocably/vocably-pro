@@ -1,27 +1,22 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { CardItem } from '@vocably/model';
-import { loadLanguageDeck } from '@vocably/api';
 import { slice } from '@vocably/srs';
-import { Loader } from '../Loader';
 import { Card } from './Card';
 import { SwipeGrade } from './SwipeGrade';
 import { Completed } from './Completed';
+import { DeckContext } from '../DeckContainer';
 
 export const Study: FC = () => {
-  const [cards, setCards] = useState<undefined | CardItem[]>();
-  useEffect(() => {
-    loadLanguageDeck('nl').then((deckResult) => {
-      if (deckResult.success === false) {
-        return;
-      }
+  const { deck } = useContext(DeckContext);
+  const [cards, setCards] = useState<CardItem[]>();
 
-      setCards(slice(new Date(), 10, deckResult.value.cards));
-    });
-  }, []);
+  useEffect(() => {
+    setCards(slice(new Date(), 10, deck.cards));
+  }, [deck]);
 
   if (cards === undefined) {
-    return <Loader></Loader>;
+    return <></>;
   }
 
   return (

@@ -8,12 +8,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { RootNavigator } from './RootNavigator';
 import { LanguagesContainer } from './languages/LanguagesContainer';
 import { DeckContainer } from './DeckContainer';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Study } from './study/Study';
+import { StudyScreen } from './study/StudyScreen';
 
 configureApi({
   baseUrl: 'https://api.dev.env.vocably.pro',
   region: 'eu-central-1',
   cardsBucket: 'vocably-dev-cards',
 });
+
+const RootStack = createStackNavigator();
 
 const App = () => {
   return (
@@ -23,7 +28,19 @@ const App = () => {
           <LanguagesContainer>
             <DeckContainer>
               <NavigationContainer>
-                <RootNavigator />
+                <RootStack.Navigator>
+                  <RootStack.Group screenOptions={{ headerShown: false }}>
+                    <RootStack.Screen name="Deck" component={RootNavigator} />
+                  </RootStack.Group>
+                  <RootStack.Group
+                    screenOptions={{
+                      presentation: 'modal',
+                      headerShown: false,
+                    }}
+                  >
+                    <RootStack.Screen name="Study" component={StudyScreen} />
+                  </RootStack.Group>
+                </RootStack.Navigator>
               </NavigationContainer>
             </DeckContainer>
           </LanguagesContainer>
