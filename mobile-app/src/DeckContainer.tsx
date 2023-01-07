@@ -95,6 +95,10 @@ export const DeckContainer: DeckContainer = ({ children }) => {
 
   useEffect(() => {
     setStatus('loading');
+    if (selectedLanguage === '') {
+      return;
+    }
+
     loadLanguageDeck(selectedLanguage).then((result) => {
       if (result.success === false) {
         setStatus('error');
