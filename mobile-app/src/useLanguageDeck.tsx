@@ -8,7 +8,7 @@ type SaveOptions = {
   silent: boolean;
 };
 
-type Deck = {
+export type Deck = {
   status: 'loading' | 'loaded' | 'error';
   deck: LanguageDeck;
   update: (

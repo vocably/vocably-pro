@@ -1,16 +1,9 @@
 import React, { FC, ReactNode } from 'react';
 import { createContext } from 'react';
 import { Loader } from './Loader';
-import { Card, CardItem, LanguageDeck, Result } from '@vocably/model';
+import { CardItem, Result } from '@vocably/model';
 import { Text } from 'react-native-paper';
-import { useLanguageDeck } from './useLanguageDeck';
-
-type Deck = {
-  status: 'loading' | 'loaded' | 'error';
-  deck: LanguageDeck;
-  update: (id: string, data: Partial<Card>) => Promise<Result<CardItem>>;
-  remove: (id: string) => Promise<Result<true>>;
-};
+import { Deck, useLanguageDeck } from './useLanguageDeck';
 
 export const DeckContext = createContext<Deck>({
   status: 'loading',
@@ -20,6 +13,7 @@ export const DeckContext = createContext<Deck>({
   },
   update: () => new Promise<Result<CardItem>>(() => {}),
   remove: () => new Promise<Result<true>>(() => {}),
+  reload: () => new Promise(() => {}),
 });
 
 type DeckContainer = FC<{
