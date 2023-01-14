@@ -1,19 +1,41 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { CardItem } from '@vocably/model';
-import { slice } from '@vocably/srs';
+import { grade, slice, SrsScore } from '@vocably/srs';
 import { Card } from './Card';
 import { SwipeGrade } from './SwipeGrade';
 import { Completed } from './Completed';
-import { DeckContext } from '../DeckContainer';
+import { Loader } from '../Loader';
+import { useLanguageDeck } from '../useLanguageDeck';
 
 export const Study: FC = () => {
-  const { deck } = useContext(DeckContext);
+  const { status, deck, update, reload } = useLanguageDeck();
   const [cards, setCards] = useState<CardItem[]>();
 
   useEffect(() => {
-    setCards(slice(new Date(), 10, deck.cards));
-  }, [deck]);
+    setCards(slice(new Date(), 2, deck.cards));
+  }, [deck.cards]);
+
+  const onGrade = useCallback(
+    (score: SrsScore) => {
+      if (cards === undefined) {
+        return;
+      }
+
+      if (cards.length === 0) {
+        return;
+      }
+
+      update(cards[0].id, grade(cards[0].data, score), { silent: true }).then();
+
+      setCards(cards.slice(1));
+    },
+    [cards]
+  );
+
+  if (status === 'loading') {
+    return <Loader></Loader>;
+  }
 
   if (cards === undefined) {
     return <></>;
@@ -29,11 +51,11 @@ export const Study: FC = () => {
     >
       {cards.length > 0 &&
         cards.slice(0, 1).map((card) => (
-          <SwipeGrade onGrade={() => setCards(cards.slice(1))} key={card.id}>
+          <SwipeGrade onGrade={onGrade} key={card.id}>
             <Card card={card} />
           </SwipeGrade>
         ))}
-      {cards.length === 0 && <Completed onStudyAgain={() => {}}></Completed>}
+      {cards.length === 0 && <Completed onStudyAgain={reload}></Completed>}
     </View>
   );
 };

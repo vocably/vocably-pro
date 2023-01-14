@@ -1,9 +1,8 @@
 import { FC } from 'react';
-import { DeckContainer } from '../DeckContainer';
 import { NavigationProp } from '@react-navigation/native';
 import { Study } from './Study';
 import { Text, useTheme } from 'react-native-paper';
-import { SafeAreaView, View } from 'react-native';
+import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type Dashboard = FC<{
@@ -34,9 +33,7 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
           Back
         </Text>
       </View>
-      <DeckContainer>
-        <Study></Study>
-      </DeckContainer>
+      <Study></Study>
     </>
   );
 };
