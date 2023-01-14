@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { DeckStoreService } from '../../deck-store.service';
 import { CardItem } from '@vocably/model';
-import { byDate } from '../../by-date';
+import { byDate } from '@vocably/sulna';
 
 @Component({
   selector: 'app-dashboard-page',

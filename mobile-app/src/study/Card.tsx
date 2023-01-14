@@ -1,17 +1,14 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useRef } from 'react';
 import {
   View,
   Animated,
   StyleSheet,
   TouchableWithoutFeedback,
-  FlatList,
-  StyleProp,
-  ViewStyle,
 } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { CardItem } from '@vocably/model';
-import { explode } from '@vocably/sulna';
 import { Displayer } from './Displayer';
+import { SideB } from '../SideB';
 
 const styles = StyleSheet.create({
   container: {
@@ -78,26 +75,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
     }).start();
   };
 
-  const [sideB, setSideB] = useState<
-    { text: string; style: StyleProp<ViewStyle> }[]
-  >([]);
   const theme = useTheme();
-
-  useEffect(() => {
-    setSideB(
-      explode(card.data.definition)
-        .map((text) => ({
-          text,
-          style: {},
-        }))
-        .concat({
-          text: card.data.translation,
-          style: {
-            color: theme.colors.secondary,
-          },
-        })
-    );
-  }, [card]);
 
   return (
     <Displayer>
@@ -118,15 +96,11 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
             </View>
           </Animated.View>
           <Animated.View style={{ ...styles.cardBack, ...flipToFrontStyle }}>
-            <FlatList
-              contentContainerStyle={styles.list}
-              data={sideB}
-              renderItem={(item) => (
-                <Text
-                  style={[item.item.style, { fontSize: 24 }]}
-                >{`\u2022 ${item.item.text}`}</Text>
-              )}
-            ></FlatList>
+            <SideB
+              card={card}
+              style={styles.list}
+              textStyle={{ fontSize: 24 }}
+            />
           </Animated.View>
         </View>
       </TouchableWithoutFeedback>
