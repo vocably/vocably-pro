@@ -31,7 +31,7 @@ export const DeckContainer: DeckContainer = ({ children }) => {
 
   return (
     <DeckContext.Provider value={deck}>
-      {deck.status === 'loading' && <Loader></Loader>}
+      {deck.status === 'loading' && <Loader>Loading cards...</Loader>}
       {deck.status === 'error' && <Text>Loading error</Text>}
       {deck.status === 'loaded' && children}
     </DeckContext.Provider>

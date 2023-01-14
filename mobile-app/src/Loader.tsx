@@ -1,8 +1,12 @@
-import React, { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { View } from 'react-native';
 import { Text, ActivityIndicator, useTheme } from 'react-native-paper';
 
-export const Loader: FC = () => {
+type Loader = {
+  children: ReactNode;
+};
+
+export const Loader: FC<Loader> = ({ children }) => {
   const theme = useTheme();
   return (
     <View
@@ -18,7 +22,7 @@ export const Loader: FC = () => {
         size={25}
       ></ActivityIndicator>
       <Text variant="bodyLarge" style={{ marginBottom: 15 }}>
-        Loading
+        {children}
       </Text>
     </View>
   );

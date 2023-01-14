@@ -34,7 +34,7 @@ export const Study: FC = () => {
   );
 
   if (status === 'loading') {
-    return <Loader></Loader>;
+    return <Loader>Loading cards...</Loader>;
   }
 
   if (cards === undefined) {

@@ -95,7 +95,7 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
 
   return (
     <LanguagesContext.Provider value={value}>
-      {status === 'loading' && <Loader></Loader>}
+      {status === 'loading' && <Loader>Loading languages...</Loader>}
       {status === 'error' && <>Loading error</>}
       {status === 'loaded' && children}
     </LanguagesContext.Provider>
