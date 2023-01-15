@@ -3,13 +3,12 @@ import { Appbar } from 'react-native-paper';
 import { StackHeaderProps } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { LanguagesContext } from './languages/LanguagesContainer';
-import { getFullLanguageName } from '@vocably/model';
 import { LanguageSelector } from './LanguageSelector';
 
 type Header = FC<StackHeaderProps>;
 
-export const Header: Header = ({ back, navigation, route }) => {
-  const { languages, selectedLanguage } = useContext(LanguagesContext);
+export const Header: Header = ({ options, back, navigation, route }) => {
+  const { languages } = useContext(LanguagesContext);
 
   return (
     <Appbar.Header>
@@ -24,10 +23,9 @@ export const Header: Header = ({ back, navigation, route }) => {
         />
       )}
 
-      {selectedLanguage !== '' && (
-        <Appbar.Content title={getFullLanguageName(selectedLanguage)} />
-      )}
-      {languages.length > 1 && <LanguageSelector />}
+      <Appbar.Content title={options.title} />
+
+      {!back && languages.length > 1 && <LanguageSelector />}
     </Appbar.Header>
   );
 };

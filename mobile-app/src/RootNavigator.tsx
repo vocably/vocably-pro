@@ -19,7 +19,7 @@ export const RootNavigator = () => {
   return (
     <Drawer.Navigator drawerContent={() => <DrawerContent />}>
       <Drawer.Screen
-        name="Home"
+        name="DeckStack"
         component={DeckStack}
         options={{ headerShown: false }}
       />

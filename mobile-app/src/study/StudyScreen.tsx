@@ -12,7 +12,12 @@ type Dashboard = FC<{
 export const StudyScreen: Dashboard = ({ navigation }) => {
   const theme = useTheme();
   return (
-    <>
+    <View
+      style={{
+        backgroundColor: theme.colors.background,
+        height: '100%',
+      }}
+    >
       <View
         style={{
           position: 'absolute',
@@ -34,6 +39,6 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
         </Text>
       </View>
       <Study></Study>
-    </>
+    </View>
   );
 };

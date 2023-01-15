@@ -1,22 +1,34 @@
 import { FC, useContext } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { Divider, Text, useTheme, Button } from 'react-native-paper';
+import { Text, useTheme, Button } from 'react-native-paper';
 import { DeckContext } from './DeckContainer';
 import { NavigationProp } from '@react-navigation/native';
 import { byDate } from '@vocably/sulna';
-import { SideB } from './SideB';
-
-const mainPadding = 24;
+import { CardList } from './CardList';
+import { mainPadding } from './styles';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+  },
+  contentContainer: {
+    width: '100%',
+    flex: 1,
+    alignItems: 'center',
     padding: mainPadding,
   },
-  button: {
+  editPanel: {
+    paddingLeft: mainPadding,
+    paddingRight: mainPadding,
+    paddingTop: mainPadding,
+    paddingBottom: mainPadding * 2,
     width: '100%',
     textAlign: 'center',
+    position: 'absolute',
+    bottom: 0,
+    display: 'flex',
+    alignItems: 'center',
   },
 });
 
@@ -30,38 +42,53 @@ export const Dashboard: Dashboard = ({ navigation }) => {
   const theme = useTheme();
 
   return (
-    <View style={styles.container}>
-      <Button
-        style={{
-          width: Dimensions.get('screen').width - mainPadding * 2,
-          marginBottom: 24,
-        }}
-        labelStyle={{
-          fontSize: 18,
-        }}
-        mode={'contained'}
-        onPress={() => navigation.navigate('Study')}
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: theme.colors.background,
+        },
+      ]}
+    >
+      <View style={styles.contentContainer}>
+        <Button
+          style={{
+            width: Dimensions.get('screen').width - mainPadding * 2,
+            marginBottom: 24,
+          }}
+          labelStyle={{
+            fontSize: 18,
+          }}
+          mode={'contained'}
+          onPress={() => navigation.navigate('Study')}
+        >
+          Practice
+        </Button>
+        <CardList cards={cards} />
+      </View>
+      <View
+        style={[
+          styles.editPanel,
+          {
+            backgroundColor: theme.colors.background,
+          },
+        ]}
       >
-        Practice
-      </Button>
-      {cards.map((card, index) => (
-        <View style={{ width: '100%' }} key={card.id}>
-          {index > 0 && <Divider style={{ marginTop: 16, marginBottom: 16 }} />}
-          <View
+        <Text
+          style={{ fontSize: 18 }}
+          onPress={() => navigation.navigate('EditDeck')}
+        >
+          <Text
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'baseline',
+              textDecorationLine: 'underline',
+              color: theme.colors.primary,
             }}
           >
-            <Text style={{ fontSize: 24 }}>{card.data.source}</Text>
-            {card.data.partOfSpeech && (
-              <Text style={{ marginLeft: 8 }}>{card.data.partOfSpeech}</Text>
-            )}
-          </View>
-          <SideB card={card} />
-        </View>
-      ))}
+            Edit deck
+          </Text>{' '}
+          ({deck.cards.length})
+        </Text>
+      </View>
     </View>
   );
 };

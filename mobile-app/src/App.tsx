@@ -9,7 +9,6 @@ import { RootNavigator } from './RootNavigator';
 import { LanguagesContainer } from './languages/LanguagesContainer';
 import { DeckContainer } from './DeckContainer';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Study } from './study/Study';
 import { StudyScreen } from './study/StudyScreen';
 
 configureApi({
