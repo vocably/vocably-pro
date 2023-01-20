@@ -13,7 +13,7 @@ export const Login: FC<{
   const authStatus = useContext(AuthContext);
 
   if (authStatus.status === 'undefined') {
-    return <Loader></Loader>;
+    return <Loader>Authenticating...</Loader>;
   }
 
   if (authStatus.status === 'logged-in') {
