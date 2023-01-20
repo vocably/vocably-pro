@@ -1,9 +1,10 @@
 import React, { FC, useContext } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { Divider, useTheme } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DeckContext } from './DeckContainer';
 import { byDate } from '@vocably/sulna';
-import { CardListItem } from './CardListItem';
+import { CardListItem, keyExtractor, Separator } from './CardListItem';
 import { mainPadding } from './styles';
 import { CardItem } from '@vocably/model';
 
@@ -14,16 +15,39 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
   },
+  button: {
+    position: 'absolute',
+    top: 0,
+  },
 });
 
+const renderItem: (options: {
+  onDelete: (id: string) => void;
+  buttonColor: string;
+}) => ListRenderItem<CardItem> =
+  ({ onDelete, buttonColor }): ListRenderItem<CardItem> =>
+  ({ item, index }) =>
+    (
+      <View style={{ position: 'relative' }}>
+        <CardListItem key={item.id} card={item} />
+        <Icon
+          style={[styles.button, { right: 0 }]}
+          onPress={() => onDelete(item.id)}
+          name="pencil-box-outline"
+          size={32}
+          color={buttonColor}
+        />
+        <Icon
+          style={[styles.button, { right: 36 }]}
+          onPress={() => onDelete(item.id)}
+          name="delete-outline"
+          size={32}
+          color={buttonColor}
+        />
+      </View>
+    );
+
 type EditDeck = FC<{}>;
-
-const renderItem: ListRenderItem<CardItem> = ({ item, index }) => (
-  <CardListItem key={item.id} card={item} index={index} />
-);
-
-const keyExtractor: (item: CardItem) => string = (item) => item.id;
-
 export const EditDeck: EditDeck = () => {
   const theme = useTheme();
   const { deck, update, remove } = useContext(DeckContext);
@@ -35,16 +59,20 @@ export const EditDeck: EditDeck = () => {
         styles.container,
         {
           backgroundColor: theme.colors.background,
-          padding: mainPadding,
         },
       ]}
     >
       <FlatList
         style={{
           width: '100%',
+          padding: mainPadding,
         }}
+        ItemSeparatorComponent={Separator}
         data={cards}
-        renderItem={renderItem}
+        renderItem={renderItem({
+          onDelete: console.log,
+          buttonColor: theme.colors.secondary,
+        })}
         keyExtractor={keyExtractor}
       />
     </View>

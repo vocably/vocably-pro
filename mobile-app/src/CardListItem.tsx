@@ -6,13 +6,11 @@ import { Divider, Text } from 'react-native-paper';
 
 type CardListItem = FC<{
   card: CardItem;
-  index: number;
 }>;
 
-export const CardListItem: CardListItem = ({ card, index }) => {
+export const CardListItem: CardListItem = ({ card }) => {
   return (
-    <View style={{ width: '100%' }}>
-      {index > 0 && <Divider style={{ marginTop: 16, marginBottom: 16 }} />}
+    <View>
       <View
         style={{
           display: 'flex',
@@ -29,3 +27,9 @@ export const CardListItem: CardListItem = ({ card, index }) => {
     </View>
   );
 };
+
+export const Separator: FC = () => (
+  <Divider style={{ marginTop: 16, marginBottom: 16 }} />
+);
+
+export const keyExtractor: (item: CardItem) => string = (item) => item.id;

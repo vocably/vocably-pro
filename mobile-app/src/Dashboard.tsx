@@ -1,11 +1,19 @@
 import { FC, useContext } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+  ListRenderItem,
+} from 'react-native';
 import { Text, useTheme, Button } from 'react-native-paper';
 import { DeckContext } from './DeckContainer';
 import { NavigationProp } from '@react-navigation/native';
 import { byDate } from '@vocably/sulna';
 import { CardList } from './CardList';
 import { mainPadding } from './styles';
+import { CardItem } from '@vocably/model';
+import { CardListItem, keyExtractor, Separator } from './CardListItem';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,6 +39,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+const renderItem: ListRenderItem<CardItem> = ({ item }) => (
+  <CardListItem card={item} />
+);
 
 type Dashboard = FC<{
   navigation: NavigationProp<any>;
@@ -64,7 +76,14 @@ export const Dashboard: Dashboard = ({ navigation }) => {
         >
           Practice
         </Button>
-        <CardList cards={cards} />
+        <FlatList
+          style={{ width: '100%' }}
+          ItemSeparatorComponent={Separator}
+          data={cards}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          scrollEnabled={false}
+        />
       </View>
       <View
         style={[
