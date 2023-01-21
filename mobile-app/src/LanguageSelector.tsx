@@ -23,7 +23,15 @@ export const LanguageSelector: LanguageSelector = () => {
     <>
       <Appbar.Action icon="earth" onPress={showDialog} />
       <Portal>
-        <Dialog visible={visible} onDismiss={hideDialog}>
+        <Dialog
+          visible={visible}
+          onDismiss={hideDialog}
+          style={{
+            alignSelf: 'center',
+            marginTop: 'auto',
+            marginBottom: 'auto',
+          }}
+        >
           <Dialog.Title>Select Language Deck</Dialog.Title>
           <Dialog.Content>
             {languages.map((language) => (

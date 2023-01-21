@@ -1,19 +1,13 @@
 import { FC, useContext } from 'react';
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  FlatList,
-  ListRenderItem,
-} from 'react-native';
+import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { Text, useTheme, Button } from 'react-native-paper';
 import { DeckContext } from './DeckContainer';
 import { NavigationProp } from '@react-navigation/native';
 import { byDate } from '@vocably/sulna';
-import { CardList } from './CardList';
 import { mainPadding } from './styles';
 import { CardItem } from '@vocably/model';
 import { CardListItem, keyExtractor, Separator } from './CardListItem';
+import { EmptyCardsList } from './EmptyCardsList';
 
 const styles = StyleSheet.create({
   container: {
@@ -55,58 +49,66 @@ export const Dashboard: Dashboard = ({ navigation }) => {
 
   return (
     <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: theme.colors.background,
-        },
-      ]}
+      style={{
+        backgroundColor: theme.colors.background,
+        flex: 1,
+      }}
     >
-      <View style={styles.contentContainer}>
-        <Button
-          style={{
-            width: Dimensions.get('screen').width - mainPadding * 2,
-            marginBottom: 24,
-          }}
-          labelStyle={{
-            fontSize: 18,
-          }}
-          mode={'contained'}
-          onPress={() => navigation.navigate('Study')}
-        >
-          Practice
-        </Button>
-        <FlatList
-          style={{ width: '100%' }}
-          ItemSeparatorComponent={Separator}
-          data={cards}
-          renderItem={renderItem}
-          keyExtractor={keyExtractor}
-          scrollEnabled={false}
-        />
-      </View>
-      <View
-        style={[
-          styles.editPanel,
-          {
-            backgroundColor: theme.colors.background,
-          },
-        ]}
-      >
-        <Text
-          style={{ fontSize: 18 }}
-          onPress={() => navigation.navigate('EditDeck')}
+      <View style={[styles.container]}>
+        {cards.length > 0 && (
+          <View style={styles.contentContainer}>
+            <View style={{ alignSelf: 'stretch' }}>
+              <Button
+                style={{
+                  marginBottom: 24,
+                }}
+                labelStyle={{
+                  fontSize: 18,
+                }}
+                mode={'contained'}
+                onPress={() => navigation.navigate('Study')}
+              >
+                Practice
+              </Button>
+            </View>
+            <FlatList
+              style={{ width: '100%' }}
+              ItemSeparatorComponent={Separator}
+              data={cards}
+              renderItem={renderItem}
+              keyExtractor={keyExtractor}
+              scrollEnabled={false}
+            />
+          </View>
+        )}
+        {cards.length === 0 && (
+          <EmptyCardsList>
+            <Text>Cards list is empty</Text>
+          </EmptyCardsList>
+        )}
+        <View
+          style={[
+            styles.editPanel,
+            {
+              backgroundColor: theme.colors.background,
+            },
+          ]}
         >
           <Text
-            style={{
-              textDecorationLine: 'underline',
-              color: theme.colors.primary,
-            }}
+            style={{ fontSize: 18 }}
+            onPress={() => navigation.navigate('EditDeck')}
           >
-            Edit deck
-          </Text>{' '}
-          ({deck.cards.length})
-        </Text>
+            <Text
+              style={{
+                textDecorationLine: 'underline',
+                color: theme.colors.primary,
+              }}
+            >
+              Edit deck
+            </Text>{' '}
+            ({deck.cards.length})
+          </Text>
+        </View>
       </View>
     </View>
   );

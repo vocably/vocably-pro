@@ -57,7 +57,7 @@ export const useLanguageDeck = (): Deck => {
 
         return updateResult;
       }),
-    []
+    [selectedLanguage]
   );
 
   const remove = useCallback(
@@ -84,7 +84,7 @@ export const useLanguageDeck = (): Deck => {
 
         return deleteResult;
       }),
-    []
+    [selectedLanguage]
   );
 
   const reload = useCallback((): Promise<Result<true>> => {
