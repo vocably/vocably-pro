@@ -25,7 +25,9 @@ export const Header: Header = ({ options, back, navigation, route }) => {
 
       <Appbar.Content title={options.title} />
 
-      {!back && languages.length > 1 && <LanguageSelector />}
+      {route.name === 'Dashboard' && languages.length > 1 && (
+        <LanguageSelector />
+      )}
     </Appbar.Header>
   );
 };

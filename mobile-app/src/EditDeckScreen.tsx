@@ -24,24 +24,25 @@ const styles = StyleSheet.create({
 });
 
 const renderItem: (options: {
-  onDelete: (id: string) => void;
+  onDelete: (card: CardItem) => void;
+  onEdit: (card: CardItem) => void;
   buttonColor: string;
 }) => ListRenderItem<CardItem> =
-  ({ onDelete, buttonColor }): ListRenderItem<CardItem> =>
+  ({ onDelete, onEdit, buttonColor }): ListRenderItem<CardItem> =>
   ({ item, index }) =>
     (
       <View style={{ position: 'relative' }}>
-        <CardListItem key={item.id} card={item} />
+        <CardListItem card={item} />
         <Icon
           style={[styles.button, { right: 0 }]}
-          onPress={() => onDelete(item.id)}
+          onPress={() => onEdit(item)}
           name="pencil-box-outline"
           size={32}
           color={buttonColor}
         />
         <Icon
           style={[styles.button, { right: 36 }]}
-          onPress={() => onDelete(item.id)}
+          onPress={() => onDelete(item)}
           name="delete-outline"
           size={32}
           color={buttonColor}
@@ -49,14 +50,14 @@ const renderItem: (options: {
       </View>
     );
 
-type EditDeck = FC<{
+type EditDeckScreen = FC<{
   navigation: NavigationProp<any>;
 }>;
 
-export const EditDeck: EditDeck = ({ navigation }) => {
+export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
   const theme = useTheme();
   const { status, deck, update, remove } = useContext(DeckContext);
-  const [toBeDeleted, setToBeDeleted] = useState<false | string>(false);
+  const [toBeDeleted, setToBeDeleted] = useState<false | CardItem>(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteAfterConfirmation = useCallback(async () => {
@@ -65,7 +66,7 @@ export const EditDeck: EditDeck = ({ navigation }) => {
     }
 
     setIsDeleting(true);
-    await remove(toBeDeleted, { silent: false });
+    await remove(toBeDeleted.id, { silent: false });
     setIsDeleting(false);
     setToBeDeleted(false);
   }, [toBeDeleted, remove, isDeleting]);
@@ -94,10 +95,11 @@ export const EditDeck: EditDeck = ({ navigation }) => {
           ItemSeparatorComponent={Separator}
           data={cards}
           renderItem={renderItem({
-            onDelete: (id) => {
-              setToBeDeleted(id);
+            onDelete: (card) => {
+              setToBeDeleted(card);
               setIsDeleting(false);
             },
+            onEdit: (card) => navigation.navigate('EditCard', { card }),
             buttonColor: theme.colors.secondary,
           })}
           keyExtractor={keyExtractor}
