@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
+const iconSize = 80;
+
 export const SwipeGrade: FC<{
   onGrade: (score: SrsScore) => void;
   children: ReactNode;
@@ -134,7 +136,7 @@ export const SwipeGrade: FC<{
           },
         ]}
         name="check-all"
-        size={100}
+        size={iconSize}
       ></AnimatedIcon>
       <AnimatedIcon
         style={[
@@ -148,7 +150,7 @@ export const SwipeGrade: FC<{
           },
         ]}
         name="check"
-        size={100}
+        size={iconSize}
       ></AnimatedIcon>
       <AnimatedIcon
         style={[
@@ -162,7 +164,7 @@ export const SwipeGrade: FC<{
           },
         ]}
         name="close"
-        size={100}
+        size={iconSize}
       ></AnimatedIcon>
       <Animated.View
         style={[

@@ -84,15 +84,19 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
       >
         <View style={styles.container}>
           <Animated.View style={{ ...styles.cardFront, ...flipToBackStyle }}>
-            <View>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+              }}
+            >
+              <Text style={{ fontSize: 32 }}>{card.data.source}</Text>
               {card.data.partOfSpeech && (
-                <Text style={{ color: theme.colors.secondary }}>
+                <Text style={{ color: theme.colors.secondary, marginLeft: 8 }}>
                   {card.data.partOfSpeech}
                 </Text>
               )}
-              <Text style={{ fontSize: 32, maxWidth: '100%' }}>
-                {card.data.source}
-              </Text>
             </View>
           </Animated.View>
           <Animated.View style={{ ...styles.cardBack, ...flipToFrontStyle }}>

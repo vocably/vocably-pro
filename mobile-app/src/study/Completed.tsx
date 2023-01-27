@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Text, useTheme } from 'react-native-paper';
+import { Button, useTheme } from 'react-native-paper';
 import { Displayer } from './Displayer';
 
 const styles = StyleSheet.create({
@@ -26,12 +26,9 @@ export const Completed: Completed = ({ onStudyAgain = () => {} }) => {
           size={128}
           color={theme.colors.primary}
         ></Icon>
-        <Text
-          style={{ marginTop: 24, color: theme.colors.primary }}
-          onPress={onStudyAgain}
-        >
+        <Button style={{ marginTop: 24 }} onPress={onStudyAgain}>
           Take one more round
-        </Text>
+        </Button>
       </View>
     </Displayer>
   );
