@@ -43,6 +43,7 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
   const deleteLanguage = useCallback(
     (language: string) =>
       deleteLanguageDeck(language).then((result) => {
+        console.log(result);
         if (result.success === false) {
           return result;
         }
