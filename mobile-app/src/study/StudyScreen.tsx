@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { NavigationProp } from '@react-navigation/native';
 import { Study } from './Study';
-import { Text, useTheme } from 'react-native-paper';
+import { Button, useTheme } from 'react-native-paper';
 import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -26,17 +26,9 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
           zIndex: 1,
         }}
       >
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 18,
-            color: theme.colors.primary,
-          }}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-left-thin" size={18} />
+        <Button icon="arrow-left-thin" onPress={() => navigation.goBack()}>
           Back
-        </Text>
+        </Button>
       </View>
       <Study></Study>
     </View>

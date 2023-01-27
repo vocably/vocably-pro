@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
-import { Text, useTheme, Button } from 'react-native-paper';
+import { Text, useTheme, Button, Badge } from 'react-native-paper';
 import { DeckContext } from './DeckContainer';
 import { NavigationProp } from '@react-navigation/native';
 import { byDate } from '@vocably/sulna';
@@ -25,12 +25,13 @@ const styles = StyleSheet.create({
     paddingRight: mainPadding,
     paddingTop: mainPadding,
     paddingBottom: mainPadding * 2,
-    width: '100%',
-    textAlign: 'center',
     position: 'absolute',
-    bottom: 0,
     display: 'flex',
+    bottom: 0,
+    width: '100%',
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -94,20 +95,20 @@ export const Dashboard: Dashboard = ({ navigation }) => {
             },
           ]}
         >
-          <Text
-            style={{ fontSize: 18 }}
+          <Button
+            compact={true}
             onPress={() => navigation.navigate('EditDeck')}
           >
-            <Text
-              style={{
-                textDecorationLine: 'underline',
-                color: theme.colors.primary,
-              }}
-            >
-              Edit deck
-            </Text>{' '}
-            ({deck.cards.length})
-          </Text>
+            Edit deck
+          </Button>
+          <Badge
+            style={{
+              alignSelf: 'center',
+              backgroundColor: theme.colors.secondary,
+            }}
+          >
+            {deck.cards.length}
+          </Badge>
         </View>
       </View>
     </View>
