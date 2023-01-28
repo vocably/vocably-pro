@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { Dashboard } from './Dashboard';
+import { DashboardScreen } from './DashboardScreen';
 import { Header } from './Header';
 import { EditDeckScreen } from './EditDeckScreen';
 import { useContext } from 'react';
@@ -15,7 +15,6 @@ export const DeckStack = () => {
   const fullLanguage = getFullLanguageName(selectedLanguage);
   return (
     <Stack.Navigator
-      initialRouteName="Dashboard"
       screenOptions={{
         header: Header,
       }}
@@ -23,7 +22,7 @@ export const DeckStack = () => {
       <Stack.Screen
         name="Dashboard"
         options={{ title: fullLanguage }}
-        component={Dashboard}
+        component={DashboardScreen}
       />
       <Stack.Screen
         name="EditDeck"

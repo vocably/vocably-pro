@@ -25,23 +25,21 @@ const App = () => {
       <AuthContainer>
         <Login>
           <LanguagesContainer>
-            <DeckContainer>
-              <NavigationContainer>
-                <RootStack.Navigator>
-                  <RootStack.Group screenOptions={{ headerShown: false }}>
-                    <RootStack.Screen name="Deck" component={RootNavigator} />
-                  </RootStack.Group>
-                  <RootStack.Group
-                    screenOptions={{
-                      presentation: 'modal',
-                      headerShown: false,
-                    }}
-                  >
-                    <RootStack.Screen name="Study" component={StudyScreen} />
-                  </RootStack.Group>
-                </RootStack.Navigator>
-              </NavigationContainer>
-            </DeckContainer>
+            <NavigationContainer>
+              <RootStack.Navigator>
+                <RootStack.Group screenOptions={{ headerShown: false }}>
+                  <RootStack.Screen name="Deck" component={RootNavigator} />
+                </RootStack.Group>
+                <RootStack.Group
+                  screenOptions={{
+                    presentation: 'modal',
+                    headerShown: false,
+                  }}
+                >
+                  <RootStack.Screen name="Study" component={StudyScreen} />
+                </RootStack.Group>
+              </RootStack.Navigator>
+            </NavigationContainer>
           </LanguagesContainer>
         </Login>
       </AuthContainer>

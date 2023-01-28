@@ -12,6 +12,7 @@ type Languages = {
   deleteLanguage: (language: string) => ReturnType<typeof deleteLanguageDeck>;
   selectedLanguage: string;
   selectLanguage: (language: string) => Promise<void>;
+  refreshLanguages: () => Promise<void>;
 };
 
 export const LanguagesContext = createContext<Languages>({
@@ -24,6 +25,7 @@ export const LanguagesContext = createContext<Languages>({
     }),
   selectedLanguage: '',
   selectLanguage: () => Promise.resolve(),
+  refreshLanguages: () => Promise.resolve(),
 });
 
 type LanguagesContainer = FC<{
@@ -43,7 +45,6 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
   const deleteLanguage = useCallback(
     (language: string) =>
       deleteLanguageDeck(language).then((result) => {
-        console.log(result);
         if (result.success === false) {
           return result;
         }
@@ -54,27 +55,29 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
 
         return result;
       }),
-    []
+    [setLanguages]
   );
 
-  useEffect(() => {
-    Promise.all([
+  const refreshLanguages = useCallback(() => {
+    return Promise.all([
       listLanguages(),
       AsyncStorage.getItem(selectedLanguageStorageKey),
-    ])
-      .then(([listResult, storedSelectedLanguage]) => {
-        if (listResult.success === false) {
-          setStatus('error');
-          return;
-        }
+    ]).then(([listResult, storedSelectedLanguage]) => {
+      if (listResult.success === false) {
+        setStatus('error');
+        return;
+      }
 
-        setStatus('loaded');
-        selectLanguage(storedSelectedLanguage ?? '').then(() =>
-          setLanguages(listResult.value)
-        );
-      })
-      .then();
-  }, []);
+      setStatus('loaded');
+      return selectLanguage(storedSelectedLanguage ?? '').then(() =>
+        setLanguages(listResult.value)
+      );
+    });
+  }, [listLanguages, setStatus, setLanguages, selectLanguage]);
+
+  useEffect(() => {
+    refreshLanguages().then();
+  }, [refreshLanguages]);
 
   useEffect(() => {
     if (selectedLanguage !== '' && languages.includes(selectedLanguage)) {
@@ -83,7 +86,10 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
 
     if (languages.length > 0) {
       selectLanguage(languages[0]).then();
+      return;
     }
+
+    selectLanguage('').then();
   }, [languages]);
 
   const value: Languages = {
@@ -92,6 +98,7 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
     deleteLanguage,
     selectedLanguage,
     selectLanguage,
+    refreshLanguages,
   };
 
   return (

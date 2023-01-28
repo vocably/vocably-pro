@@ -11,7 +11,8 @@ export const EditDeckMenu: EditDeckMenu = () => {
   const closeMenu = () => setVisible(false);
   const [isAboutToDelete, setIsAboutToDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const { selectedLanguage, deleteLanguage } = useContext(LanguagesContext);
+  const { selectedLanguage, deleteLanguage, languages } =
+    useContext(LanguagesContext);
   const navigation = useNavigation();
 
   const deleteAfterConfirmation = useCallback(async () => {
@@ -19,8 +20,11 @@ export const EditDeckMenu: EditDeckMenu = () => {
     await deleteLanguage(selectedLanguage);
     setIsAboutToDelete(false);
     setIsDeleting(false);
-    navigation.goBack();
-  }, [setIsDeleting]);
+
+    if (languages.length > 1) {
+      navigation.goBack();
+    }
+  }, [setIsDeleting, languages]);
 
   return (
     <>

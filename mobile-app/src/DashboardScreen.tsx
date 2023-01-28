@@ -39,11 +39,11 @@ const renderItem: ListRenderItem<CardItem> = ({ item }) => (
   <CardListItem card={item} />
 );
 
-type Dashboard = FC<{
+type DashboardScreen = FC<{
   navigation: NavigationProp<any>;
 }>;
 
-export const Dashboard: Dashboard = ({ navigation }) => {
+export const DashboardScreen: DashboardScreen = ({ navigation }) => {
   const { deck } = useContext(DeckContext);
   const cards = deck.cards.sort(byDate).slice(0, 7);
   const theme = useTheme();

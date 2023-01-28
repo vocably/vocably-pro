@@ -24,14 +24,14 @@ export type EditCardParams = {
 };
 
 type EditCardScreen = FC<{
-  route: Route<string, EditCardParams>;
+  route: Route<string, any>;
   navigation: NavigationProp<any>;
 }>;
 
 export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
   const { update } = useContext(DeckContext);
 
-  const { card } = route.params;
+  const { card } = route.params as EditCardParams;
   const [cardData, setCardData] = useState({ ...card.data });
   const [isUpdating, setIsUpdating] = useState(false);
 
