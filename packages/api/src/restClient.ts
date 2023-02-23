@@ -31,7 +31,8 @@ export const request = async (
 
     if (
       response.headers.has('Content-Type') &&
-      response.headers.get('Content-Type') === 'application/json'
+      response.headers.get('Content-Type') === 'application/json' &&
+      response.headers.get('Content-Length') !== '0'
     ) {
       return {
         success: true,
