@@ -1,0 +1,23 @@
+@import '../../styles/component';
+
+:host {
+  @include base-font();
+  display: block;
+}
+
+.container {
+  display: inline-block;
+}
+
+.p {
+  margin-bottom: $p-margin;
+}
+
+.button {
+  @include button();
+}
+
+select {
+  @include select(14px, 10px);
+  width: 100%;
+}
