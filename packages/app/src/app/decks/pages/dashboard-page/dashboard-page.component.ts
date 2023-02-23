@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { DeckStoreService } from '../../deck-store.service';
-import { CardItem } from '@vocably/model';
-import { byDate } from '@vocably/sulna';
+import { CardItem, byDate } from '@vocably/model';
 
 @Component({
   selector: 'app-dashboard-page',

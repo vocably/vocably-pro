@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DeckStoreService } from '../../deck-store.service';
-import { CardItem } from '@vocably/model';
+import { CardItem, byDate, getFullLanguageName } from '@vocably/model';
 import { Subject, takeUntil } from 'rxjs';
-import { byDate } from '@vocably/sulna';
-import { getFullLanguageName } from '@vocably/model';
 import { deleteLanguageDeck } from '@vocably/api';
 import { DeckListStoreService } from '../../deck-list-store.service';
 import { DeckService } from '../../deck.service';

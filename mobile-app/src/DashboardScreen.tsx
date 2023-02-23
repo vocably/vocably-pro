@@ -3,9 +3,8 @@ import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { Text, useTheme, Button, Badge } from 'react-native-paper';
 import { DeckContext } from './DeckContainer';
 import { NavigationProp } from '@react-navigation/native';
-import { byDate } from '@vocably/sulna';
 import { mainPadding } from './styles';
-import { CardItem } from '@vocably/model';
+import { CardItem, byDate } from '@vocably/model';
 import { CardListItem, keyExtractor, Separator } from './CardListItem';
 import { EmptyCardsList } from './EmptyCardsList';
 
