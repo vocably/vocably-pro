@@ -3,10 +3,9 @@ import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { Button, Dialog, Portal, Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DeckContext } from './DeckContainer';
-import { byDate } from '@vocably/sulna';
 import { CardListItem, keyExtractor, Separator } from './CardListItem';
 import { mainPadding } from './styles';
-import { CardItem } from '@vocably/model';
+import { CardItem, byDate } from '@vocably/model';
 import { NavigationProp } from '@react-navigation/native';
 import { EmptyCardsList } from './EmptyCardsList';
 

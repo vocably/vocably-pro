@@ -14,7 +14,7 @@
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^9.3.7",
     "@react-navigation/drawer": "^6.5.6",
-    "@react-navigation/material-bottom-tabs": "^6.2.10",
+    "@react-navigation/material-bottom-tabs": "^6.2.14",
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/stack": "^6.3.10",
     "@shopify/flash-list": "^1.4.0",
