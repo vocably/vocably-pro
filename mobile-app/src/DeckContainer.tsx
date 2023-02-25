@@ -3,14 +3,11 @@ import { createContext } from 'react';
 import { Loader } from './Loader';
 import { CardItem, Result } from '@vocably/model';
 import { Text } from 'react-native-paper';
-import { Deck, useLanguageDeck } from './useLanguageDeck';
+import { Deck, defaultDeckValue, useLanguageDeck } from './useLanguageDeck';
 
 export const DeckContext = createContext<Deck>({
   status: 'loading',
-  deck: {
-    language: '',
-    cards: [],
-  },
+  deck: defaultDeckValue,
   update: () => new Promise<Result<CardItem>>(() => {}),
   remove: () => new Promise<Result<true>>(() => {}),
   reload: () => new Promise(() => {}),

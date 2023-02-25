@@ -20,8 +20,14 @@ export type Deck = {
   reload: () => Promise<Result<true>>;
 };
 
+export const defaultDeckValue: LanguageDeck = {
+  language: '',
+  cards: [],
+};
+
 export const useLanguageDeck = (): Deck => {
-  const { selectedLanguage } = useContext(LanguagesContext);
+  const { selectedLanguage, status: decksLoadingStatus } =
+    useContext(LanguagesContext);
 
   const [status, setStatus] = useState<Deck['status']>('loading');
   const [deck, setDeck] = useState<LanguageDeck>({
@@ -88,6 +94,14 @@ export const useLanguageDeck = (): Deck => {
   );
 
   const reload = useCallback((): Promise<Result<true>> => {
+    if (decksLoadingStatus !== 'loaded' || selectedLanguage === '') {
+      setDeck(defaultDeckValue);
+      return Promise.resolve({
+        success: true,
+        value: true,
+      });
+    }
+
     setStatus('loading');
 
     return loadLanguageDeck(selectedLanguage).then((result) => {
@@ -104,16 +118,15 @@ export const useLanguageDeck = (): Deck => {
         value: true,
       };
     });
-  }, [selectedLanguage]);
+  }, [selectedLanguage, decksLoadingStatus]);
 
   useEffect(() => {
-    setStatus('loading');
-    if (selectedLanguage === '') {
+    if (decksLoadingStatus !== 'loaded') {
       return;
     }
 
     reload().then();
-  }, [selectedLanguage]);
+  }, [selectedLanguage, decksLoadingStatus]);
 
   return {
     status,

@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { TabsNavigator } from './TabsNavigator';
 import { StudyScreen } from './study/StudyScreen';
+import { DrawerNavigator } from './DrawerNavigator';
 
 const Stack = createStackNavigator();
 
@@ -8,7 +8,7 @@ export const RootModalStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Group screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="TabsNavigator" component={TabsNavigator} />
+        <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
       </Stack.Group>
       <Stack.Group
         screenOptions={{
