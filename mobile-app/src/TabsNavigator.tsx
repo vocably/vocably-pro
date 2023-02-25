@@ -8,9 +8,7 @@ import { DeckStack } from './DeckStack';
 
 const Tabs = createMaterialBottomTabNavigator();
 
-type TabsNavigator = FC<{}>;
-
-export const TabsNavigator: TabsNavigator = () => {
+export const TabsNavigator = () => {
   const { selectedLanguage } = useContext(LanguagesContext);
   return (
     <Tabs.Navigator>
