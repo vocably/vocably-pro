@@ -10,7 +10,7 @@ export const CardList: CardList = ({ cards }) => {
   return (
     <>
       {cards.map((card, index) => (
-        <CardListItem key={card.id} card={card} index={index} />
+        <CardListItem key={card.id} card={card} />
       ))}
     </>
   );
