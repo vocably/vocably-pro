@@ -33,7 +33,7 @@ const createItem =
     );
   };
 
-type LanguageSelectorScreen = FC<{
+type LanguageSelectorModal = FC<{
   navigation: NavigationProp<any>;
   route: Route<
     string,
@@ -46,7 +46,7 @@ type LanguageSelectorScreen = FC<{
   >;
 }>;
 
-export const LanguageSelectorScreen: LanguageSelectorScreen = ({
+export const LanguageSelectorModal: LanguageSelectorModal = ({
   route,
   navigation,
 }) => {

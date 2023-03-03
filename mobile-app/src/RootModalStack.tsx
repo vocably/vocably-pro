@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { StudyScreen } from './study/StudyScreen';
 import { DrawerNavigator } from './DrawerNavigator';
-import { LanguageSelectorScreen } from './LanguageSelectorScreen';
+import { LanguageSelectorModal } from './LanguageSelectorModal';
 
 const Stack = createStackNavigator();
 
@@ -20,7 +20,7 @@ export const RootModalStack = () => {
         <Stack.Screen name="Study" component={StudyScreen} />
         <Stack.Screen
           name="LanguageSelector"
-          component={LanguageSelectorScreen}
+          component={LanguageSelectorModal}
         />
       </Stack.Group>
     </Stack.Navigator>
