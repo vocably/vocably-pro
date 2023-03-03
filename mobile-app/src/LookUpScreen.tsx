@@ -1,8 +1,9 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useContext, useState } from 'react';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
 import { Button, IconButton } from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
 import { GoogleLanguage, languageList } from '@vocably/model';
+import { LanguagesContext } from './languages/LanguagesContainer';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +23,8 @@ type LookUpScreen = FC<{
 }>;
 
 export const LookUpScreen: LookUpScreen = ({ navigation }) => {
-  const [sourceLanguage, setSourceLanguage] = useState('en');
+  const { selectedLanguage, languages } = useContext(LanguagesContext);
+  const [sourceLanguage, setSourceLanguage] = useState(selectedLanguage);
   const [translationLanguage, setTranslationLanguage] = useState('en');
   const [isDirect, setIsDirect] = useState<boolean>(true);
 
@@ -33,11 +35,12 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const selectSourceLanguage = useCallback(() => {
     navigation.navigate('LanguageSelector', {
       title: 'Source',
-      selected: 'en',
-      preferred: [],
+      selected: sourceLanguage,
+      preferred: languages,
+      preferredTitle: 'Your Decks',
       onSelect: onSource,
     });
-  }, [onSource]);
+  }, [sourceLanguage, languages, onSource]);
 
   const onTranslation = useCallback((language: string) => {
     setTranslationLanguage(language);
@@ -46,11 +49,10 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const selectTranslationLanguage = useCallback(() => {
     navigation.navigate('LanguageSelector', {
       title: 'Translation',
-      selected: 'en',
-      preferred: [],
+      selected: translationLanguage,
       onSelect: onTranslation,
     });
-  }, [onTranslation]);
+  }, [translationLanguage, onTranslation]);
 
   return (
     <SafeAreaView style={styles.container}>

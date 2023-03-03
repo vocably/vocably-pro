@@ -13,8 +13,12 @@ export type LanguageList = {
 
 export const createLanguageList = ({
   selected,
+  preferred,
+  preferredTitle,
 }: {
   selected: string;
+  preferred: string[];
+  preferredTitle: string;
 }): LanguageList => {
   const data: LanguageList = [];
 
@@ -31,11 +35,24 @@ export const createLanguageList = ({
     });
   }
 
+  const filteredPreferred = preferred.filter((l) => l !== selected);
+
+  if (filteredPreferred.length > 0) {
+    data.push({
+      title: preferredTitle,
+      data: filteredPreferred.map((key) => ({
+        key,
+        selected: false,
+        label: languageList[key as GoogleLanguage],
+      })),
+    });
+  }
+
   data.push({
     title: 'Available',
     data: Object.entries(languageList)
       .map(([key, label]) => ({ key, label, selected: false }))
-      .filter(({ key }) => key !== selected),
+      .filter(({ key }) => key !== selected && !preferred.includes(key)),
   });
 
   return data;

@@ -40,8 +40,9 @@ type LanguageSelectorModal = FC<{
     {
       title: string;
       selected: string;
-      preferred: string[];
       onSelect: (language: string) => void;
+      preferred?: string[];
+      preferredTitle?: string;
     }
   >;
 }>;
@@ -50,7 +51,13 @@ export const LanguageSelectorModal: LanguageSelectorModal = ({
   route,
   navigation,
 }) => {
-  const { title, selected, preferred, onSelect } = route.params;
+  const {
+    title,
+    selected,
+    preferred = [],
+    preferredTitle = 'Preferred',
+    onSelect,
+  } = route.params;
   const theme = useTheme();
 
   const onPress = useCallback(
@@ -73,7 +80,7 @@ export const LanguageSelectorModal: LanguageSelectorModal = ({
         <Appbar.Action icon="close" onPress={() => navigation.goBack()} />
       </Appbar.Header>
       <SectionList
-        sections={createLanguageList({ selected })}
+        sections={createLanguageList({ selected, preferred, preferredTitle })}
         renderItem={createItem(onPress)}
         renderSectionHeader={({ section: { title } }) => (
           <Text
