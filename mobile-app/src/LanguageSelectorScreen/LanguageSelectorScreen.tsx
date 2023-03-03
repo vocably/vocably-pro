@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { View, ListRenderItem, SectionList, Pressable } from 'react-native';
 import { NavigationProp, Route } from '@react-navigation/native';
 import { Appbar, Divider, Text, useTheme } from 'react-native-paper';
@@ -6,7 +6,7 @@ import { createLanguageList, LanguageListItem } from './createLanguageList';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const createItem =
-  (onSelect: (language: string) => void): ListRenderItem<LanguageListItem> =>
+  (onPress: (language: string) => void): ListRenderItem<LanguageListItem> =>
   ({ item }) => {
     const theme = useTheme();
     return (
@@ -19,7 +19,7 @@ const createItem =
           },
           { padding: 16 },
         ]}
-        onPress={() => onSelect(item.key)}
+        onPress={() => onPress(item.key)}
       >
         <Text style={{ fontSize: 16 }}>
           {item.selected && (
@@ -52,6 +52,15 @@ export const LanguageSelectorScreen: LanguageSelectorScreen = ({
 }) => {
   const { title, selected, preferred, onSelect } = route.params;
   const theme = useTheme();
+
+  const onPress = useCallback(
+    (language: string) => {
+      onSelect(language);
+      navigation.goBack();
+    },
+    [onSelect]
+  );
+
   return (
     <View
       style={{
@@ -65,7 +74,7 @@ export const LanguageSelectorScreen: LanguageSelectorScreen = ({
       </Appbar.Header>
       <SectionList
         sections={createLanguageList({ selected })}
-        renderItem={createItem(onSelect)}
+        renderItem={createItem(onPress)}
         renderSectionHeader={({ section: { title } }) => (
           <Text
             style={{
