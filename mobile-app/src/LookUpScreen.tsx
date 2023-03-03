@@ -1,9 +1,17 @@
-import { FC, useCallback, useContext, useState } from 'react';
+import React, { FC, useCallback, useContext, useState } from 'react';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
-import { Button, IconButton } from 'react-native-paper';
+import {
+  Button,
+  IconButton,
+  Text,
+  TextInput,
+  useTheme,
+} from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
 import { GoogleLanguage, languageList } from '@vocably/model';
 import { LanguagesContext } from './languages/LanguagesContainer';
+
+const padding = 16;
 
 const styles = StyleSheet.create({
   container: {
@@ -11,10 +19,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   languageToolbar: {
-    padding: 16,
+    padding: padding,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+  },
+  textContainer: {
+    flex: 1,
+    width: '100%',
+    paddingLeft: padding,
+    paddingRight: padding,
+    alignItems: 'stretch',
   },
 });
 
@@ -27,6 +42,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const [sourceLanguage, setSourceLanguage] = useState(selectedLanguage);
   const [translationLanguage, setTranslationLanguage] = useState('en');
   const [isDirect, setIsDirect] = useState<boolean>(true);
+  const theme = useTheme();
 
   const onSource = useCallback((language: string) => {
     setSourceLanguage(language);
@@ -74,6 +90,24 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
             {languageList[translationLanguage as GoogleLanguage]}
           </Button>
         </View>
+      </View>
+      <View style={styles.textContainer}>
+        <TextInput
+          placeholder={
+            languageList[
+              (isDirect
+                ? sourceLanguage
+                : translationLanguage) as GoogleLanguage
+            ]
+          }
+          right={
+            <TextInput.Icon
+              icon={'magnify'}
+              color={theme.colors.primary}
+              mode={'contained'}
+            />
+          }
+        />
       </View>
     </SafeAreaView>
   );
