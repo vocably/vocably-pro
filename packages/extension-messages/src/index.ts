@@ -4,6 +4,7 @@ import {
   AnalyzePayload,
   Result,
   GoogleLanguage,
+  DirectAnalyzePayload,
 } from '@vocably/model';
 
 const createScope =
@@ -26,7 +27,7 @@ export const [isEligibleForTrial, onIsEligibleForTrialRequest] =
   createScopedMessage<void, boolean>('isEligibleForTrial');
 
 export const [analyze, onAnalyzeRequest] = createScopedMessage<
-  Omit<AnalyzePayload, 'targetLanguage'>,
+  Omit<DirectAnalyzePayload, 'targetLanguage'>,
   Result<TranslationCards>
 >('analyze');
 
