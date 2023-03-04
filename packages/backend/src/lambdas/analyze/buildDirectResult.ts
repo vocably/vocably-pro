@@ -1,13 +1,19 @@
-import { AnalyzePayload, Result, Analysis, Translation } from '@vocably/model';
+import {
+  Analysis,
+  DirectAnalysis,
+  DirectAnalyzePayload,
+  Result,
+  Translation,
+} from '@vocably/model';
 import { googleTranslate } from '../../googleTranslate';
-import { lexicala } from '../../lexicala';
 import { languageToLexicalaLanguage } from '../../lexicala/lexicalaLanguageMapper';
-import { lexicalaSearchResultToAnalysisItem } from '../../lexicala/lexicalaSearchResultToAnalysisItem';
 import { trimArticle } from './trimArticle';
+import { lexicala } from '../../lexicala';
+import { lexicalaSearchResultToAnalysisItem } from '../../lexicala/lexicalaSearchResultToAnalysisItem';
 
-export const buildPaidResult = async (
-  payload: AnalyzePayload
-): Promise<Result<Analysis>> => {
+export const buildDirectResult = async (
+  payload: DirectAnalyzePayload
+): Promise<Result<DirectAnalysis>> => {
   const translationResult = await googleTranslate(
     payload.source,
     payload.sourceLanguage,

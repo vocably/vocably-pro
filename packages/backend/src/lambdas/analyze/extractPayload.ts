@@ -1,5 +1,10 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { AnalyzePayload, isGoogleLanguage } from '@vocably/model';
+import {
+  AnalyzePayload,
+  isDirectAnalyzePayload,
+  isGoogleLanguage,
+  isReverseAnalyzePayload,
+} from '@vocably/model';
 import { get } from 'lodash-es';
 
 export type BackendPayload = AnalyzePayload & {
@@ -9,29 +14,35 @@ export type BackendPayload = AnalyzePayload & {
 export const extractPayload = (event: APIGatewayProxyEvent): BackendPayload => {
   const payload = JSON.parse(event.body);
 
-  if (!payload || !payload.source) {
+  if (!isDirectAnalyzePayload(payload) && !isReverseAnalyzePayload(payload)) {
     throw {
       success: false,
-      errorCode: 'TRANSLATION_REQUEST_MISSING_PHRASE',
-      reason: 'The translation phrase is missing.',
+      errorCode: 'TRANSLATION_REQUEST_MALFORMED_PAYLOAD',
+      reason: 'Unable to detect the translation payload type',
+      extra: { payload },
     };
   }
 
   if (payload.sourceLanguage && !isGoogleLanguage(payload.sourceLanguage)) {
     throw {
       success: false,
-      errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_REQUESTED_LANGUAGE',
+      errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_SOURCE_LANGUAGE',
       reason: `The REQUESTED source language (${payload.sourceLanguage}) is not available.`,
     };
   }
 
-  payload.isPaid = get(
-    event,
-    'requestContext.authorizer.claims.cognito:groups',
-    ''
-  )
-    .split(',')
-    .includes('paid');
+  if (payload.targetLanguage && !isGoogleLanguage(payload.targetLanguage)) {
+    throw {
+      success: false,
+      errorCode: 'TRANSLATION_REQUEST_UNAVAILABLE_TARGET_LANGUAGE',
+      reason: `The REQUESTED source language (${payload.targetLanguage}) is not available.`,
+    };
+  }
 
-  return payload;
+  return {
+    ...payload,
+    isPaid: get(event, 'requestContext.authorizer.claims.cognito:groups', '')
+      .split(',')
+      .includes('paid'),
+  };
 };

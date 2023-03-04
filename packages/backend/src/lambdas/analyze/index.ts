@@ -3,7 +3,7 @@ import { catchError, map } from 'rxjs/operators';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { buildResponse } from '../../utils/buildResponse';
 import { buildErrorResponse } from '../../utils/buildErrorResponse';
-import { buildPaidResult } from './buildPaidResult';
+import { buildResult } from './buildResult';
 import { extractPayload } from './extractPayload';
 import { sanitizePayload } from './sanitizePayload';
 import { buildFreeResult } from './buildFreeResult';
@@ -16,11 +16,7 @@ export const analyze = async (
       map(extractPayload),
       map(sanitizePayload),
       mergeMap((payload) => {
-        if (payload.isPaid) {
-          return buildPaidResult(payload);
-        } else {
-          return buildFreeResult(payload);
-        }
+        return buildResult(payload);
       }),
       map((result) => {
         if (result.success === false) {
