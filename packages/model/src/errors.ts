@@ -26,6 +26,7 @@ export const Errors = [
   'CRUD_UNABLE_TO_FIND_ITEM',
   'CRUD_ITEM_EXISTS',
   'FREE_ANALYSE_SOURCE_LANGUAGE_MISSING',
+  'FREE_ANALYSE_NON_DIRECT_PAYLOAD',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];

@@ -1,9 +1,23 @@
-import { AnalyzePayload, Result, Analysis } from '@vocably/model';
+import {
+  AnalyzePayload,
+  Result,
+  Analysis,
+  isDirectAnalyzePayload,
+} from '@vocably/model';
 import { cheapTranslate } from '../../cheapTranslate';
 
 export const buildFreeResult = async (
   payload: AnalyzePayload
 ): Promise<Result<Analysis>> => {
+  if (!isDirectAnalyzePayload(payload)) {
+    return {
+      success: false,
+      errorCode: 'FREE_ANALYSE_NON_DIRECT_PAYLOAD',
+      reason:
+        'The current version of free analyze accepts only the direct payload.',
+    };
+  }
+
   if (payload.sourceLanguage === undefined) {
     return {
       success: false,
