@@ -1,9 +1,14 @@
 import { sanitizeSource } from './sanitizeSource';
 import { BackendPayload } from './extractPayload';
+import { isDirectAnalyzePayload } from '@vocably/model';
 
 export const sanitizePayload = (payload: BackendPayload): BackendPayload => {
-  return {
-    ...payload,
-    source: sanitizeSource(payload.source),
-  };
+  if (isDirectAnalyzePayload(payload)) {
+    return {
+      ...payload,
+      source: sanitizeSource(payload.source),
+    };
+  }
+
+  return payload;
 };

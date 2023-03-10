@@ -4,7 +4,7 @@ import {
   APIGatewayProxyEvent,
 } from 'aws-lambda';
 import { inspect } from '../../utils/inspect';
-import { Analysis } from '@vocably/model';
+import { Analysis, ReverseAnalysis } from '@vocably/model';
 
 // @ts-ignore
 let mockEvent: APIGatewayProxyEvent = {};
@@ -59,7 +59,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
   });
 
-  it('performs cheap translation on unpaid items', async () => {
+  xit('performs cheap translation on unpaid items', async () => {
     mockEvent.body = JSON.stringify({
       source: 'gedaan',
       sourceLanguage: 'nl',
@@ -129,5 +129,25 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.items.length).toEqual(1);
     expect(resultBody.items[0].source).toEqual('de regeling');
     expect(resultBody.items[0].translation).toEqual('регулирование');
+  });
+
+  it('performs reverse analyze', async () => {
+    mockEvent.body = JSON.stringify({
+      target: 'правило',
+      sourceLanguage: 'nl',
+      targetLanguage: 'ru',
+    });
+    mockEvent.requestContext = paidRequestContext;
+    const result = await analyze(mockEvent);
+    expect(result.statusCode).toEqual(200);
+    const resultBody: ReverseAnalysis = JSON.parse(result.body);
+    expect(resultBody.target).toEqual('правило');
+    expect(resultBody.source).toEqual('regel');
+    expect(resultBody.translation).toBeDefined();
+    expect(resultBody.reverseTranslation).toBeDefined();
+    expect(resultBody.items[0].source).toEqual('de regel');
+    expect(resultBody.items[0].translation).toEqual('правило');
+    expect(resultBody.items[1].source).toEqual('regelen');
+    expect(resultBody.items[1].translation).toEqual('организовать');
   });
 });

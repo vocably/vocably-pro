@@ -5,6 +5,7 @@ import {
   AnalyzePayload,
   Analysis,
   Translation,
+  isDirectAnalyzePayload,
 } from '@vocably/model';
 import { createSrsItem } from '@vocably/srs';
 import { explode, join } from '@vocably/sulna';
@@ -70,7 +71,9 @@ export const createCards = (
     return addCardCandidates(collection, [
       {
         language: analysis.translation.sourceLanguage,
-        source: payload.source,
+        source: isDirectAnalyzePayload(payload)
+          ? payload.source
+          : analysis.source,
         definition: '',
         translation: analysis.translation.target,
         partOfSpeech: '',
