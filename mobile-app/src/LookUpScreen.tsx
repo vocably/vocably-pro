@@ -1,15 +1,10 @@
-import React, { FC, useCallback, useContext, useState } from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
-import {
-  Button,
-  IconButton,
-  Text,
-  TextInput,
-  useTheme,
-} from 'react-native-paper';
+import { TextInput, useTheme } from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
 import { GoogleLanguage, languageList } from '@vocably/model';
-import { LanguagesContext } from './languages/LanguagesContainer';
+import { TranslationPreset } from './LookUpScreen/TranslationPreset';
+import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
 
 const padding = 16;
 
@@ -20,9 +15,7 @@ const styles = StyleSheet.create({
   },
   languageToolbar: {
     padding: padding,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    width: '100%',
   },
   textContainer: {
     flex: 1,
@@ -38,66 +31,26 @@ type LookUpScreen = FC<{
 }>;
 
 export const LookUpScreen: LookUpScreen = ({ navigation }) => {
-  const { selectedLanguage, languages } = useContext(LanguagesContext);
-  const [sourceLanguage, setSourceLanguage] = useState(selectedLanguage);
-  const [translationLanguage, setTranslationLanguage] = useState('en');
-  const [isDirect, setIsDirect] = useState<boolean>(true);
+  const [translationPreset, setTranslationPreset] = useTranslationPreset();
+
   const theme = useTheme();
-
-  const onSource = useCallback((language: string) => {
-    setSourceLanguage(language);
-  }, []);
-
-  const selectSourceLanguage = useCallback(() => {
-    navigation.navigate('LanguageSelector', {
-      title: 'Source',
-      selected: sourceLanguage,
-      preferred: languages,
-      preferredTitle: 'Your Decks',
-      onSelect: onSource,
-    });
-  }, [sourceLanguage, languages, onSource]);
-
-  const onTranslation = useCallback((language: string) => {
-    setTranslationLanguage(language);
-  }, []);
-
-  const selectTranslationLanguage = useCallback(() => {
-    navigation.navigate('LanguageSelector', {
-      title: 'Translation',
-      selected: translationLanguage,
-      onSelect: onTranslation,
-    });
-  }, [translationLanguage, onTranslation]);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.languageToolbar}>
-        <View style={{ flex: 2 }}>
-          <Button mode={'contained'} onPress={selectSourceLanguage}>
-            {languageList[sourceLanguage as GoogleLanguage]}
-          </Button>
-        </View>
-        <View style={{ flex: 1, alignItems: 'center' }}>
-          <IconButton
-            icon={isDirect ? 'arrow-right' : 'arrow-left'}
-            onPress={() => setIsDirect(!isDirect)}
-            mode="contained"
-          ></IconButton>
-        </View>
-        <View style={{ flex: 2 }}>
-          <Button mode="contained-tonal" onPress={selectTranslationLanguage}>
-            {languageList[translationLanguage as GoogleLanguage]}
-          </Button>
-        </View>
+        <TranslationPreset
+          navigation={navigation}
+          preset={translationPreset}
+          onChange={setTranslationPreset}
+        />
       </View>
       <View style={styles.textContainer}>
         <TextInput
           placeholder={
             languageList[
-              (isDirect
-                ? sourceLanguage
-                : translationLanguage) as GoogleLanguage
+              (translationPreset.isReverse
+                ? translationPreset.translationLanguage
+                : translationPreset.sourceLanguage) as GoogleLanguage
             ]
           }
           right={
