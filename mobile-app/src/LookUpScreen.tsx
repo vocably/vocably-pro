@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
-import { TextInput, useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
 import { AnalyzePayload, GoogleLanguage, languageList } from '@vocably/model';
 import { TranslationPreset } from './LookUpScreen/TranslationPreset';
@@ -8,6 +8,7 @@ import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
 import { analyze } from '@vocably/api';
 import { InlineLoader } from './InlineLoader';
 import { Analyze } from './LookUpScreen/AnalyzeResult';
+import { SearchInput } from './LookUpScreen/SearchInput';
 
 const padding = 16;
 
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     padding: padding,
     width: '100%',
   },
-  textContainer: {
+  searchContainer: {
     width: '100%',
     paddingLeft: padding,
     paddingRight: padding,
@@ -73,11 +74,9 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
           onChange={setTranslationPreset}
         />
       </View>
-      <View style={styles.textContainer}>
-        <TextInput
+      <View style={[styles.searchContainer]}>
+        <SearchInput
           value={lookUpText}
-          autoCapitalize={'none'}
-          onChangeText={(text) => setLookUpText(text)}
           placeholder={
             languageList[
               (translationPreset.isReverse
@@ -85,14 +84,8 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
                 : translationPreset.sourceLanguage) as GoogleLanguage
             ]
           }
-          right={
-            <TextInput.Icon
-              icon={'magnify'}
-              color={theme.colors.primary}
-              mode={'contained'}
-              onPress={lookUp}
-            />
-          }
+          onChange={setLookUpText}
+          onSubmit={lookUp}
         />
       </View>
       {isAnalyzing && (
