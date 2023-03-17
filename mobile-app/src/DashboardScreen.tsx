@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 });
 
 const renderItem: ListRenderItem<CardItem> = ({ item }) => (
-  <CardListItem card={item} />
+  <CardListItem card={item.data} />
 );
 
 type DashboardScreen = FC<{

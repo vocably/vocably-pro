@@ -3,9 +3,10 @@ import { View } from 'react-native';
 import { CardItem } from '@vocably/model';
 import { SideB } from './SideB';
 import { Divider, Text } from 'react-native-paper';
+import { SimpleCard } from './SimpleCard';
 
 type CardListItem = FC<{
-  card: CardItem;
+  card: SimpleCard;
 }>;
 
 export const CardListItem: CardListItem = ({ card }) => {
@@ -18,9 +19,9 @@ export const CardListItem: CardListItem = ({ card }) => {
           alignItems: 'baseline',
         }}
       >
-        <Text style={{ fontSize: 24 }}>{card.data.source}</Text>
-        {card.data.partOfSpeech && (
-          <Text style={{ marginLeft: 8 }}>{card.data.partOfSpeech}</Text>
+        <Text style={{ fontSize: 24 }}>{card.source}</Text>
+        {card.partOfSpeech && (
+          <Text style={{ marginLeft: 8 }}>{card.partOfSpeech}</Text>
         )}
       </View>
       <SideB card={card} />

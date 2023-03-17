@@ -1,25 +1,25 @@
 import React, { FC } from 'react';
 import { StyleProp, ViewStyle, FlatList } from 'react-native';
-import { CardItem } from '@vocably/model';
 import { explode } from '@vocably/sulna';
 import { useTheme, Text } from 'react-native-paper';
+import { SimpleCard } from './SimpleCard';
 
 type SideB = FC<{
-  card: CardItem;
+  card: SimpleCard;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<Text>;
 }>;
 
 export const SideB: SideB = ({ card, style, textStyle }) => {
   const theme = useTheme();
-  let sideB = explode(card.data.definition).map((text) => ({
+  let sideB = explode(card.definition).map((text) => ({
     text,
     style: {},
   }));
 
-  if (card.data.translation) {
+  if (card.translation) {
     sideB = sideB.concat({
-      text: card.data.translation,
+      text: card.translation,
       style: {
         color: theme.colors.secondary,
       },

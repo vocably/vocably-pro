@@ -31,7 +31,7 @@ const renderItem: (options: {
   ({ item, index }) =>
     (
       <View style={{ position: 'relative' }}>
-        <CardListItem card={item} />
+        <CardListItem card={item.data} />
         <Icon
           style={[styles.button, { right: 0 }]}
           onPress={() => onEdit(item)}
