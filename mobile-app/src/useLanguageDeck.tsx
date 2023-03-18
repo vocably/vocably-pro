@@ -1,8 +1,9 @@
-import { SrsCard, CardItem, LanguageDeck, Result } from '@vocably/model';
+import { SrsCard, CardItem, LanguageDeck, Result, Card } from '@vocably/model';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { LanguagesContext } from './languages/LanguagesContainer';
-import { Item, makeDelete, makeUpdate } from '@vocably/crud';
+import { Item, makeCreate, makeDelete, makeUpdate } from '@vocably/crud';
 import { loadLanguageDeck, saveLanguageDeck } from '@vocably/api';
+import { createSrsItem } from '@vocably/srs';
 
 type SaveOptions = {
   silent: boolean;
@@ -11,6 +12,7 @@ type SaveOptions = {
 export type Deck = {
   status: 'loading' | 'loaded' | 'error';
   deck: LanguageDeck;
+  add: (card: Card) => Promise<Result<CardItem>>;
   update: (
     id: string,
     data: Partial<SrsCard>,
@@ -34,6 +36,34 @@ export const useLanguageDeck = (): Deck => {
     language: '',
     cards: [],
   });
+
+  const add = useCallback(
+    (card: Card): Promise<Result<CardItem>> =>
+      loadLanguageDeck(selectedLanguage).then(async (loadResult) => {
+        if (loadResult.success === false) {
+          return loadResult;
+        }
+
+        const cardItem = makeCreate(loadResult.value.cards)({
+          ...card,
+          ...createSrsItem(),
+        });
+
+        const saveResult = await saveLanguageDeck(loadResult.value);
+
+        if (saveResult.success === false) {
+          return saveResult;
+        }
+
+        setDeck(loadResult.value);
+
+        return {
+          success: true,
+          value: cardItem,
+        };
+      }),
+    [selectedLanguage]
+  );
 
   const update = useCallback(
     (
@@ -131,6 +161,7 @@ export const useLanguageDeck = (): Deck => {
   return {
     status,
     deck,
+    add,
     update,
     remove,
     reload,

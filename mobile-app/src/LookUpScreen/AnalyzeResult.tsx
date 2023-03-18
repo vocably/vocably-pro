@@ -1,47 +1,18 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import {
   View,
-  StyleSheet,
   FlatList,
   StyleProp,
   ViewStyle,
   ListRenderItem,
 } from 'react-native';
-import { Analysis, Card } from '@vocably/model';
+import { Analysis, Card, CardItem, Result } from '@vocably/model';
 import { makeCards } from './makeCards';
 import { CardListItem, Separator } from '../CardListItem';
 import { associateCards, AssociatedCard } from './associateCards';
 import { useLanguageDeck } from '../useLanguageDeck';
-import { IconButton, useTheme } from 'react-native-paper';
-
-const styles = StyleSheet.create({
-  itemContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-});
-
-type RenderItemParams = {
-  addIconColor: string;
-  removeIconColor: string;
-};
-
-const renderItem =
-  ({
-    addIconColor,
-    removeIconColor,
-  }: RenderItemParams): ListRenderItem<AssociatedCard> =>
-  ({ item: card }) =>
-    (
-      <View style={styles.itemContainer}>
-        <CardListItem card={card} style={{ flex: 1 }} />
-        <IconButton
-          icon={card.id ? 'minus-circle' : 'plus-circle'}
-          iconColor={card.id ? removeIconColor : addIconColor}
-        />
-      </View>
-    );
+import { ActivityIndicator, IconButton, useTheme } from 'react-native-paper';
+import { AnalyzeResultItem } from './AnalyzeResultItem';
 
 type AnalyzeResult = FC<{
   analysis: Analysis;
@@ -50,16 +21,53 @@ type AnalyzeResult = FC<{
 
 export const Analyze: AnalyzeResult = ({ analysis, style }) => {
   const theme = useTheme();
-  const { deck } = useLanguageDeck();
-  const cards = associateCards(makeCards(analysis), deck.cards);
+  const {
+    deck: { cards: existingCards },
+    add,
+    remove,
+  } = useLanguageDeck();
+  const cards = associateCards(makeCards(analysis), existingCards);
+
+  const onAdd = useCallback(
+    async (card: AssociatedCard): Promise<Result<CardItem>> => {
+      if (card.id) {
+        const existingCard = existingCards.find((item) => item.id === card.id);
+        if (existingCard) {
+          return {
+            success: true,
+            value: existingCard,
+          };
+        }
+      }
+
+      return add(card.card);
+    },
+    [existingCards]
+  );
+
+  const onRemove = useCallback(
+    async (card: AssociatedCard): Promise<Result<true>> => {
+      if (!card.id) {
+        return {
+          success: true,
+          value: true,
+        };
+      }
+
+      return remove(card.id, {
+        silent: false,
+      });
+    },
+    [existingCards]
+  );
+
   return (
     <FlatList
       style={style}
       data={cards}
-      renderItem={renderItem({
-        addIconColor: theme.colors.primary,
-        removeIconColor: theme.colors.error,
-      })}
+      renderItem={({ item }) => (
+        <AnalyzeResultItem onAdd={onAdd} onRemove={onRemove} item={item} />
+      )}
       ItemSeparatorComponent={Separator}
       nestedScrollEnabled={true}
     />
