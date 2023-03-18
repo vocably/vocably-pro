@@ -1,4 +1,4 @@
-import { Analysis, Card, SrsItem } from '@vocably/model';
+import { Analysis, SrsCard, SrsItem } from '@vocably/model';
 import { join } from '@vocably/sulna';
 import { SimpleCard } from '../SimpleCard';
 

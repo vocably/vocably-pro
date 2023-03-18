@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DeckStoreService } from './deck-store.service';
-import { Card, CardItem, Result } from '@vocably/model';
+import { SrsCard, CardItem, Result } from '@vocably/model';
 import { makeDelete, makeRestore, makeUpdate } from '@vocably/crud';
 import { from, map, Observable, of, switchMap, take, tap } from 'rxjs';
 import { loadLanguageDeck, saveLanguageDeck } from '@vocably/api';
@@ -31,7 +31,10 @@ export class DeckService {
     );
   }
 
-  public update(id: string, data: Partial<Card>): Observable<Result<CardItem>> {
+  public update(
+    id: string,
+    data: Partial<SrsCard>
+  ): Observable<Result<CardItem>> {
     return this.deckStore.deck$.pipe(
       take(1),
       map((deck) => deck.language),

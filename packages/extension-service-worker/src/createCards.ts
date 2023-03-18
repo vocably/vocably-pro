@@ -1,30 +1,19 @@
 import { Collection, makeCreate } from '@vocably/crud';
 import {
-  Card,
+  SrsCard,
   CardItem,
   AnalyzePayload,
   Analysis,
-  Translation,
   isDirectAnalyzePayload,
 } from '@vocably/model';
 import { createSrsItem } from '@vocably/srs';
 import { explode, join } from '@vocably/sulna';
 import { merge } from 'lodash-es';
-
-const equalCards =
-  (a: Card) =>
-  (b: Card): boolean =>
-    a.source.toLowerCase() === b.source.toLowerCase() &&
-    a.partOfSpeech === b.partOfSpeech;
-
-const byCard =
-  (card: Card) =>
-  (item: CardItem): boolean =>
-    equalCards(card)(item.data);
+import { byCard, equalCards } from '@vocably/model-operations';
 
 export const addCardCandidates = (
-  collection: Collection<Card>,
-  cardCandidates: Card[]
+  collection: Collection<SrsCard>,
+  cardCandidates: SrsCard[]
 ): CardItem[] => {
   const addItem = makeCreate(collection);
 
@@ -39,7 +28,7 @@ export const addCardCandidates = (
   });
 };
 
-export const combineCards = (acc: Card[], card: Card): Card[] => {
+export const combineCards = (acc: SrsCard[], card: SrsCard): SrsCard[] => {
   const existingIndex = acc.findIndex(equalCards(card));
   if (existingIndex === -1) {
     return [...acc, card];
@@ -61,7 +50,7 @@ export const combineCards = (acc: Card[], card: Card): Card[] => {
 };
 
 export const createCards = (
-  collection: Collection<Card>,
+  collection: Collection<SrsCard>,
   payload: AnalyzePayload,
   analysis: Analysis
 ): CardItem[] => {
@@ -85,7 +74,7 @@ export const createCards = (
   return addCardCandidates(
     collection,
     analysis.items
-      .map((analysisItem): Card => {
+      .map((analysisItem): SrsCard => {
         return {
           language: analysis.translation.sourceLanguage,
           source: analysisItem.source,

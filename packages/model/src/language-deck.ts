@@ -11,13 +11,15 @@ export type Card = {
   definition: string;
   translation: string;
   partOfSpeech: string;
-} & SrsItem;
+};
+
+export type SrsCard = Card & SrsItem;
 
 export type CardItem = {
   id: string;
   created: number;
   updated?: number;
-  data: Card;
+  data: SrsCard;
 };
 
 export type LanguageDeck = {

@@ -1,3 +1,3 @@
-import { Card, SrsItem } from '@vocably/model';
+import { SrsCard, SrsItem } from '@vocably/model';
 
-export type SimpleCard = Omit<Card, keyof SrsItem>;
+export type SimpleCard = Omit<SrsCard, keyof SrsItem>;

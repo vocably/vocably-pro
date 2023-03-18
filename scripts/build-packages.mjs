@@ -6,6 +6,7 @@ cd(rootDir);
 const packages = [
   'sulna',
   'model',
+  'model-operations',
   'srs',
   'webpack',
   'crud',

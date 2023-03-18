@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Card, CardItem } from '@vocably/model';
+import { SrsCard, CardItem } from '@vocably/model';
 import { pick } from 'lodash-es';
 
 export type CardFormEntity = Pick<
-  Card,
+  SrsCard,
   'source' | 'definition' | 'translation' | 'partOfSpeech'
 >;
 
