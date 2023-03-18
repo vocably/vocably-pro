@@ -101,7 +101,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
           </Animated.View>
           <Animated.View style={{ ...styles.cardBack, ...flipToFrontStyle }}>
             <SideB
-              card={card}
+              card={card.data}
               style={styles.list}
               textStyle={{ fontSize: 24 }}
             />
