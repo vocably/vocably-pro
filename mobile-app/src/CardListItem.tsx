@@ -1,17 +1,17 @@
 import React, { FC } from 'react';
-import { View } from 'react-native';
-import { CardItem } from '@vocably/model';
+import { StyleProp, View, ViewStyle } from 'react-native';
+import { Card, CardItem } from '@vocably/model';
 import { SideB } from './SideB';
 import { Divider, Text } from 'react-native-paper';
-import { SimpleCard } from './SimpleCard';
 
 type CardListItem = FC<{
-  card: SimpleCard;
+  card: Card;
+  style?: StyleProp<ViewStyle>;
 }>;
 
-export const CardListItem: CardListItem = ({ card }) => {
+export const CardListItem: CardListItem = ({ card, style }) => {
   return (
-    <View>
+    <View style={style}>
       <View
         style={{
           display: 'flex',

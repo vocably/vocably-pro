@@ -66,7 +66,9 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   }, [translationPreset, lookUpText, setIsAnalyzing, isAnalyzing]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
       <View style={styles.languageToolbar}>
         <TranslationPreset
           navigation={navigation}

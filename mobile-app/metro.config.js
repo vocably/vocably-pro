@@ -1,6 +1,13 @@
 const path = require('path');
 
-const sharedPackages = ['api', 'model', 'crud', 'sulna', 'srs'];
+const sharedPackages = [
+  'api',
+  'model',
+  'crud',
+  'sulna',
+  'srs',
+  'model-operations',
+];
 
 module.exports = {
   projectRoot: __dirname,

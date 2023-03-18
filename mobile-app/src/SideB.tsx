@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import { StyleProp, ViewStyle, FlatList } from 'react-native';
 import { explode } from '@vocably/sulna';
 import { useTheme, Text } from 'react-native-paper';
-import { SimpleCard } from './SimpleCard';
+import { Card } from '@vocably/model';
 
 type SideB = FC<{
-  card: SimpleCard;
+  card: Card;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<Text>;
 }>;

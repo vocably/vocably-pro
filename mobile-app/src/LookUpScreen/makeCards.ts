@@ -1,8 +1,7 @@
-import { Analysis, SrsCard, SrsItem } from '@vocably/model';
+import { Analysis, Card } from '@vocably/model';
 import { join } from '@vocably/sulna';
-import { SimpleCard } from '../SimpleCard';
 
-export const makeSimpleCards = (analysis: Analysis): SimpleCard[] => {
+export const makeCards = (analysis: Analysis): Card[] => {
   if (analysis.items && analysis.items.length > 0) {
     return analysis.items.map((item) => ({
       language: analysis.translation.sourceLanguage,
