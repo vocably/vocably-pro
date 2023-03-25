@@ -8,6 +8,7 @@ import { Deck, defaultDeckValue, useLanguageDeck } from './useLanguageDeck';
 export const DeckContext = createContext<Deck>({
   status: 'loading',
   deck: defaultDeckValue,
+  add: () => new Promise<Result<CardItem>>(() => {}),
   update: () => new Promise<Result<CardItem>>(() => {}),
   remove: () => new Promise<Result<true>>(() => {}),
   reload: () => new Promise(() => {}),

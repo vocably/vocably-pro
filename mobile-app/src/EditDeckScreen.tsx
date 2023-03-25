@@ -55,7 +55,7 @@ type EditDeckScreen = FC<{
 
 export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
   const theme = useTheme();
-  const { status, deck, update, remove } = useContext(DeckContext);
+  const { deck, remove } = useContext(DeckContext);
   const [toBeDeleted, setToBeDeleted] = useState<false | CardItem>(false);
   const [isDeleting, setIsDeleting] = useState(false);
 

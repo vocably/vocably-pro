@@ -1,17 +1,10 @@
-import React, { FC, useCallback, useState } from 'react';
-import {
-  View,
-  FlatList,
-  StyleProp,
-  ViewStyle,
-  ListRenderItem,
-} from 'react-native';
-import { Analysis, Card, CardItem, Result } from '@vocably/model';
+import React, { FC, useCallback } from 'react';
+import { FlatList, StyleProp, ViewStyle } from 'react-native';
+import { Analysis, CardItem, Result } from '@vocably/model';
 import { makeCards } from './makeCards';
-import { CardListItem, Separator } from '../CardListItem';
+import { Separator } from '../CardListItem';
 import { associateCards, AssociatedCard } from './associateCards';
 import { useLanguageDeck } from '../useLanguageDeck';
-import { ActivityIndicator, IconButton, useTheme } from 'react-native-paper';
 import { AnalyzeResultItem } from './AnalyzeResultItem';
 
 type AnalyzeResult = FC<{
@@ -20,7 +13,6 @@ type AnalyzeResult = FC<{
 }>;
 
 export const Analyze: AnalyzeResult = ({ analysis, style }) => {
-  const theme = useTheme();
   const {
     deck: { cards: existingCards },
     add,
