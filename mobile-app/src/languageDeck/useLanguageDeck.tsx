@@ -19,10 +19,7 @@ export const defaultDeckValue: LanguageDeck = {
   cards: [],
 };
 
-export const useLanguageDeck = (): Deck => {
-  const { selectedLanguage, status: decksLoadingStatus } =
-    useContext(LanguagesContext);
-
+export const useLanguageDeck = (language: string): Deck => {
   const [status, setStatus] = useState<Deck['status']>('loading');
   const [deck, setDeck] = useState<LanguageDeck>({
     language: '',
@@ -31,7 +28,7 @@ export const useLanguageDeck = (): Deck => {
 
   const add = useCallback(
     (card: Card): Promise<Result<CardItem>> =>
-      loadLanguageDeck(selectedLanguage).then(async (loadResult) => {
+      loadLanguageDeck(language).then(async (loadResult) => {
         if (loadResult.success === false) {
           return loadResult;
         }
@@ -54,12 +51,12 @@ export const useLanguageDeck = (): Deck => {
           value: cardItem,
         };
       }),
-    [selectedLanguage]
+    [language]
   );
 
   const update = useCallback(
     (id: string, data: Partial<SrsCard>): Promise<Result<Item<SrsCard>>> =>
-      loadLanguageDeck(selectedLanguage).then(async (loadResult) => {
+      loadLanguageDeck(language).then(async (loadResult) => {
         if (loadResult.success === false) {
           return loadResult;
         }
@@ -79,12 +76,12 @@ export const useLanguageDeck = (): Deck => {
 
         return updateResult;
       }),
-    [selectedLanguage]
+    [language]
   );
 
   const remove = useCallback(
     (id: string): Promise<Result<true>> =>
-      loadLanguageDeck(selectedLanguage).then(async (loadResult) => {
+      loadLanguageDeck(language).then(async (loadResult) => {
         if (loadResult.success === false) {
           return loadResult;
         }
@@ -104,11 +101,11 @@ export const useLanguageDeck = (): Deck => {
 
         return deleteResult;
       }),
-    [selectedLanguage]
+    [language]
   );
 
   const reload = useCallback((): Promise<Result<true>> => {
-    if (decksLoadingStatus !== 'loaded' || selectedLanguage === '') {
+    if (language === '') {
       setDeck(defaultDeckValue);
       return Promise.resolve({
         success: true,
@@ -118,7 +115,7 @@ export const useLanguageDeck = (): Deck => {
 
     setStatus('loading');
 
-    return loadLanguageDeck(selectedLanguage).then((result) => {
+    return loadLanguageDeck(language).then((result) => {
       if (result.success === false) {
         setStatus('error');
         return result;
@@ -132,15 +129,15 @@ export const useLanguageDeck = (): Deck => {
         value: true,
       };
     });
-  }, [selectedLanguage, decksLoadingStatus]);
+  }, [language]);
 
   useEffect(() => {
-    if (decksLoadingStatus !== 'loaded') {
+    if (!language) {
       return;
     }
 
     reload().then();
-  }, [selectedLanguage, decksLoadingStatus]);
+  }, [language]);
 
   return {
     status,

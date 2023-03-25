@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useContext, useState } from 'react';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
@@ -9,6 +9,8 @@ import { analyze } from '@vocably/api';
 import { InlineLoader } from './InlineLoader';
 import { Analyze } from './LookUpScreen/AnalyzeResult';
 import { SearchInput } from './LookUpScreen/SearchInput';
+import { useLanguageDeck } from './languageDeck/useLanguageDeck';
+import { DeckContext } from './DeckContainer';
 
 const padding = 16;
 
@@ -47,9 +49,15 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const [lookUpResult, setLookupResult] =
     useState<Awaited<ReturnType<typeof analyze>>>();
   const theme = useTheme();
+  const deck = useLanguageDeck(translationPreset.sourceLanguage);
+  const selectedDeck = useContext(DeckContext);
 
   const lookUp = useCallback(async () => {
     if (isAnalyzing) {
+      return;
+    }
+
+    if (deck.status !== 'loaded') {
       return;
     }
 
@@ -63,7 +71,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
     const lookupResult = await analyze(payload);
     setLookupResult(lookupResult);
     setIsAnalyzing(false);
-  }, [translationPreset, lookUpText, setIsAnalyzing, isAnalyzing]);
+  }, [translationPreset, lookUpText, setIsAnalyzing, isAnalyzing, deck]);
 
   return (
     <SafeAreaView
@@ -96,7 +104,15 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
         </View>
       )}
       {!isAnalyzing && lookUpResult && lookUpResult.success && (
-        <Analyze style={styles.resultContainer} analysis={lookUpResult.value} />
+        <Analyze
+          deck={
+            deck.deck.language === selectedDeck.deck.language
+              ? selectedDeck
+              : deck
+          }
+          style={styles.resultContainer}
+          analysis={lookUpResult.value}
+        />
       )}
     </SafeAreaView>
   );

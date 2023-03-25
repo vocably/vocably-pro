@@ -1,13 +1,14 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useContext } from 'react';
 import { createContext } from 'react';
 import { Loader } from './Loader';
-import { CardItem, Result } from '@vocably/model';
+import { CardItem, LanguageDeck, Result } from '@vocably/model';
 import { Text } from 'react-native-paper';
 import {
   Deck,
   defaultDeckValue,
   useLanguageDeck,
 } from './languageDeck/useLanguageDeck';
+import { LanguagesContext } from './languages/LanguagesContainer';
 
 export const DeckContext = createContext<Deck>({
   status: 'loading',
@@ -23,7 +24,8 @@ type DeckContainer = FC<{
 }>;
 
 export const DeckContainer: DeckContainer = ({ children }) => {
-  const deck = useLanguageDeck();
+  const { selectedLanguage } = useContext(LanguagesContext);
+  const deck = useLanguageDeck(selectedLanguage);
 
   return (
     <DeckContext.Provider value={deck}>

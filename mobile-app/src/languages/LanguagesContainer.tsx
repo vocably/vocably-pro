@@ -96,7 +96,7 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
     status,
     languages,
     deleteLanguage,
-    selectedLanguage,
+    selectedLanguage: selectedLanguage,
     selectLanguage,
     refreshLanguages,
   };

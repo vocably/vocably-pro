@@ -4,20 +4,24 @@ import { Analysis, CardItem, Result } from '@vocably/model';
 import { makeCards } from './makeCards';
 import { Separator } from '../CardListItem';
 import { associateCards, AssociatedCard } from './associateCards';
-import { useLanguageDeck } from '../languageDeck/useLanguageDeck';
 import { AnalyzeResultItem } from './AnalyzeResultItem';
+import { Deck } from '../languageDeck/useLanguageDeck';
 
 type AnalyzeResult = FC<{
   analysis: Analysis;
+  deck: Deck;
   style?: StyleProp<ViewStyle>;
 }>;
 
-export const Analyze: AnalyzeResult = ({ analysis, style }) => {
-  const {
+export const Analyze: AnalyzeResult = ({
+  analysis,
+  style,
+  deck: {
     deck: { cards: existingCards },
     add,
     remove,
-  } = useLanguageDeck();
+  },
+}) => {
   const cards = associateCards(makeCards(analysis), existingCards);
 
   const onAdd = useCallback(
