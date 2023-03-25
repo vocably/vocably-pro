@@ -4,7 +4,7 @@ import { Analysis, CardItem, Result } from '@vocably/model';
 import { makeCards } from './makeCards';
 import { Separator } from '../CardListItem';
 import { associateCards, AssociatedCard } from './associateCards';
-import { useLanguageDeck } from '../useLanguageDeck';
+import { useLanguageDeck } from '../languageDeck/useLanguageDeck';
 import { AnalyzeResultItem } from './AnalyzeResultItem';
 
 type AnalyzeResult = FC<{
@@ -46,9 +46,7 @@ export const Analyze: AnalyzeResult = ({ analysis, style }) => {
         };
       }
 
-      return remove(card.id, {
-        silent: false,
-      });
+      return remove(card.id);
     },
     [existingCards]
   );

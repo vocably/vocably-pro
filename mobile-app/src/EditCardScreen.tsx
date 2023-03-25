@@ -51,7 +51,7 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
 
   const onUpdate = useCallback(async () => {
     setIsUpdating(true);
-    await update(card.id, cardData, { silent: false });
+    await update(card.id, cardData);
     navigation.goBack();
   }, [cardData, update, card]);
 

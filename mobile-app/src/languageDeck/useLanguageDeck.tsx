@@ -1,24 +1,16 @@
 import { SrsCard, CardItem, LanguageDeck, Result, Card } from '@vocably/model';
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { LanguagesContext } from './languages/LanguagesContainer';
+import { LanguagesContext } from '../languages/LanguagesContainer';
 import { Item, makeCreate, makeDelete, makeUpdate } from '@vocably/crud';
 import { loadLanguageDeck, saveLanguageDeck } from '@vocably/api';
 import { createSrsItem } from '@vocably/srs';
-
-type SaveOptions = {
-  silent: boolean;
-};
 
 export type Deck = {
   status: 'loading' | 'loaded' | 'error';
   deck: LanguageDeck;
   add: (card: Card) => Promise<Result<CardItem>>;
-  update: (
-    id: string,
-    data: Partial<SrsCard>,
-    saveOptions: SaveOptions
-  ) => Promise<Result<CardItem>>;
-  remove: (id: string, saveOptions: SaveOptions) => Promise<Result<true>>;
+  update: (id: string, data: Partial<SrsCard>) => Promise<Result<CardItem>>;
+  remove: (id: string) => Promise<Result<true>>;
   reload: () => Promise<Result<true>>;
 };
 
@@ -66,11 +58,7 @@ export const useLanguageDeck = (): Deck => {
   );
 
   const update = useCallback(
-    (
-      id: string,
-      data: Partial<SrsCard>,
-      saveOptions: SaveOptions
-    ): Promise<Result<Item<SrsCard>>> =>
+    (id: string, data: Partial<SrsCard>): Promise<Result<Item<SrsCard>>> =>
       loadLanguageDeck(selectedLanguage).then(async (loadResult) => {
         if (loadResult.success === false) {
           return loadResult;
@@ -87,9 +75,7 @@ export const useLanguageDeck = (): Deck => {
           return saveResult;
         }
 
-        if (!saveOptions.silent) {
-          setDeck(loadResult.value);
-        }
+        setDeck(loadResult.value);
 
         return updateResult;
       }),
@@ -97,7 +83,7 @@ export const useLanguageDeck = (): Deck => {
   );
 
   const remove = useCallback(
-    (id: string, saveOptions: SaveOptions): Promise<Result<true>> =>
+    (id: string): Promise<Result<true>> =>
       loadLanguageDeck(selectedLanguage).then(async (loadResult) => {
         if (loadResult.success === false) {
           return loadResult;
@@ -114,9 +100,7 @@ export const useLanguageDeck = (): Deck => {
           return saveResult;
         }
 
-        if (!saveOptions.silent) {
-          setDeck(loadResult.value);
-        }
+        setDeck(loadResult.value);
 
         return deleteResult;
       }),

@@ -3,7 +3,11 @@ import { createContext } from 'react';
 import { Loader } from './Loader';
 import { CardItem, Result } from '@vocably/model';
 import { Text } from 'react-native-paper';
-import { Deck, defaultDeckValue, useLanguageDeck } from './useLanguageDeck';
+import {
+  Deck,
+  defaultDeckValue,
+  useLanguageDeck,
+} from './languageDeck/useLanguageDeck';
 
 export const DeckContext = createContext<Deck>({
   status: 'loading',

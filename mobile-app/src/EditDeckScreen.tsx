@@ -65,7 +65,7 @@ export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
     }
 
     setIsDeleting(true);
-    await remove(toBeDeleted.id, { silent: false });
+    await remove(toBeDeleted.id);
     setIsDeleting(false);
     setToBeDeleted(false);
   }, [toBeDeleted, remove, isDeleting]);
