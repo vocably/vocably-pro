@@ -32,12 +32,15 @@ export const TranslationPreset: TranslationPreset = ({
 }) => {
   const { languages } = useContext(LanguagesContext);
 
-  const onSourceSelection = useCallback((sourceLanguage: string) => {
-    onChange({
-      ...preset,
-      sourceLanguage,
-    });
-  }, []);
+  const onSourceSelection = useCallback(
+    (sourceLanguage: string) => {
+      onChange({
+        ...preset,
+        sourceLanguage,
+      });
+    },
+    [preset, onChange]
+  );
 
   const selectSourceLanguage = useCallback(() => {
     navigation.navigate('LanguageSelector', {

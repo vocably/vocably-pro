@@ -1,17 +1,39 @@
 import { Preset } from './TranslationPreset';
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { LanguagesContext } from '../languages/LanguagesContainer';
+import { useTranslationLanguage } from './useTranslationLanguage';
 
 export const useTranslationPreset = (): [
   preset: Preset,
-  setPreset: (preset: Preset) => void
+  setPreset: (preset: Preset) => Promise<void>
 ] => {
   const { selectedLanguage } = useContext(LanguagesContext);
-  const [preset, setPreset] = useState<Preset>({
+  const [translationLanguage, setTranslationLanguage] =
+    useTranslationLanguage();
+  const [preset, setPresetState] = useState<Preset>({
     sourceLanguage: selectedLanguage,
-    translationLanguage: 'en',
+    translationLanguage: translationLanguage ?? '',
     isReverse: false,
   });
+
+  const setPreset = useCallback(
+    (preset: Preset) => {
+      setPresetState(preset);
+      return setTranslationLanguage(preset.translationLanguage);
+    },
+    [setPresetState]
+  );
+
+  useEffect(() => {
+    if (translationLanguage === null) {
+      return;
+    }
+
+    setPresetState({
+      ...preset,
+      translationLanguage,
+    });
+  }, [translationLanguage]);
 
   return [preset, setPreset];
 };
