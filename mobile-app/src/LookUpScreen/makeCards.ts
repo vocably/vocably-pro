@@ -14,7 +14,7 @@ export const makeCards = (analysis: Analysis): Card[] => {
 
   return [
     {
-      language: analysis.translation.source,
+      language: analysis.translation.sourceLanguage,
       source: analysis.source,
       translation: analysis.translation.target,
       definition: '',

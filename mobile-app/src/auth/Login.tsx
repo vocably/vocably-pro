@@ -3,7 +3,7 @@ import { AuthContext } from './AuthContext';
 import { Linking, View } from 'react-native';
 import { Auth } from '@aws-amplify/auth';
 import { Text, Button, useTheme } from 'react-native-paper';
-import { Loader } from '../Loader';
+import { Loader } from '../loaders/Loader';
 
 const signIn = () => Auth.federatedSignIn();
 

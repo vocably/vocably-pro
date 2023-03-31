@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useCallback, useEffect, useState } from 'react';
 import { createContext } from 'react';
 import { listLanguages, deleteLanguageDeck } from '@vocably/api';
-import { Loader } from '../Loader';
+import { Loader } from '../loaders/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const selectedLanguageStorageKey = 'selected-language';
@@ -13,6 +13,7 @@ type Languages = {
   selectedLanguage: string;
   selectLanguage: (language: string) => Promise<void>;
   refreshLanguages: () => Promise<void>;
+  addLanguage: (language: string) => void;
 };
 
 export const LanguagesContext = createContext<Languages>({
@@ -26,6 +27,7 @@ export const LanguagesContext = createContext<Languages>({
   selectedLanguage: '',
   selectLanguage: () => Promise.resolve(),
   refreshLanguages: () => Promise.resolve(),
+  addLanguage: () => null,
 });
 
 type LanguagesContainer = FC<{
@@ -36,6 +38,17 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
   const [status, setStatus] = useState<Languages['status']>('loading');
   const [languages, setLanguages] = useState<string[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string>('');
+
+  const addLanguage = useCallback(
+    (language: string) => {
+      if (languages.includes(language)) {
+        return;
+      }
+
+      setLanguages([...languages, language]);
+    },
+    [languages, setLanguages]
+  );
 
   const selectLanguage = useCallback((language: string) => {
     setSelectedLanguage(language);
@@ -99,6 +112,7 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
     selectedLanguage: selectedLanguage,
     selectLanguage,
     refreshLanguages,
+    addLanguage,
   };
 
   return (

@@ -5,7 +5,7 @@ import { grade, slice, SrsScore } from '@vocably/srs';
 import { Card } from './Card';
 import { SwipeGrade } from './SwipeGrade';
 import { Completed } from './Completed';
-import { Loader } from '../Loader';
+import { Loader } from '../loaders/Loader';
 import { DeckContext } from '../DeckContainer';
 
 const maxCardsToStudy = 2;

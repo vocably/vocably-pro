@@ -13,16 +13,6 @@ export const TabsNavigator = () => {
   return (
     <Tabs.Navigator>
       <Tabs.Screen
-        name="LookUp"
-        component={LookUpScreen}
-        options={{
-          title: 'Look up',
-          tabBarIcon: ({ color }) => (
-            <Icon name="translate" color={color} size={24} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="DeckScreen"
         options={{
           title: 'Deck',
@@ -31,6 +21,16 @@ export const TabsNavigator = () => {
           ),
         }}
         component={selectedLanguage === '' ? WelcomeStack : DeckStack}
+      />
+      <Tabs.Screen
+        name="LookUp"
+        component={LookUpScreen}
+        options={{
+          title: 'Look up',
+          tabBarIcon: ({ color }) => (
+            <Icon name="translate" color={color} size={24} />
+          ),
+        }}
       />
     </Tabs.Navigator>
   );

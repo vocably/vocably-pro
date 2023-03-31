@@ -1,7 +1,7 @@
-import React, { FC, ReactNode, useContext } from 'react';
+import React, { FC, ReactNode, useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
-import { Loader } from './Loader';
-import { CardItem, LanguageDeck, Result } from '@vocably/model';
+import { Loader } from './loaders/Loader';
+import { CardItem, Result } from '@vocably/model';
 import { Text } from 'react-native-paper';
 import {
   Deck,
@@ -9,6 +9,7 @@ import {
   useLanguageDeck,
 } from './languageDeck/useLanguageDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
+import { OverlayLoader } from './loaders/OverlayLoader';
 
 export const DeckContext = createContext<Deck>({
   status: 'loading',
@@ -25,13 +26,27 @@ type DeckContainer = FC<{
 
 export const DeckContainer: DeckContainer = ({ children }) => {
   const { selectedLanguage } = useContext(LanguagesContext);
+  const [isFirstDeck, setIsFirstDeck] = useState(true);
   const deck = useLanguageDeck(selectedLanguage);
+
+  useEffect(() => {
+    if (deck.status === 'loaded' && isFirstDeck) {
+      setIsFirstDeck(false);
+    }
+  }, [setIsFirstDeck, deck.status]);
 
   return (
     <DeckContext.Provider value={deck}>
-      {deck.status === 'loading' && <Loader>Loading cards...</Loader>}
+      {isFirstDeck && deck.status === 'loading' && (
+        <Loader>Loading cards...</Loader>
+      )}
       {deck.status === 'error' && <Text>Loading error</Text>}
-      {deck.status === 'loaded' && children}
+      {((!isFirstDeck && deck.status !== 'error') ||
+        deck.status === 'loaded') && (
+        <OverlayLoader isLoading={deck.status === 'loading'}>
+          {children}
+        </OverlayLoader>
+      )}
     </DeckContext.Provider>
   );
 };

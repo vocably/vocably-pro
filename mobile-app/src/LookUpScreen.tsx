@@ -6,7 +6,7 @@ import { AnalyzePayload, GoogleLanguage, languageList } from '@vocably/model';
 import { TranslationPreset } from './LookUpScreen/TranslationPreset';
 import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
 import { analyze } from '@vocably/api';
-import { InlineLoader } from './InlineLoader';
+import { InlineLoader } from './loaders/InlineLoader';
 import { Analyze } from './LookUpScreen/AnalyzeResult';
 import { SearchInput } from './LookUpScreen/SearchInput';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
