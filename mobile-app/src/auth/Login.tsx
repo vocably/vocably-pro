@@ -11,6 +11,7 @@ export const Login: FC<{
   children?: ReactNode;
 }> = ({ children }) => {
   const authStatus = useContext(AuthContext);
+  const theme = useTheme();
 
   if (authStatus.status === 'undefined') {
     return <Loader>Authenticating...</Loader>;
@@ -19,8 +20,6 @@ export const Login: FC<{
   if (authStatus.status === 'logged-in') {
     return <>{children}</>;
   }
-
-  const theme = useTheme();
 
   return (
     <View

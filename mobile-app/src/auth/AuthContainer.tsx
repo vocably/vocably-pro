@@ -53,7 +53,7 @@ export const AuthContainer: FC<{
         return;
       }
     });
-  }, []);
+  }, [setAuthStatus]);
 
   return (
     <AuthContext.Provider value={authStatus}>{children}</AuthContext.Provider>
