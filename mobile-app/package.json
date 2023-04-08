@@ -23,7 +23,7 @@
     "aws-amplify": "^5.0.5",
     "aws-amplify-react-native": "^7.0.2",
     "react": "18.1.0",
-    "react-native": "0.70.6",
+    "react-native": "0.70.8",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-get-random-values": "^1.8.0",
     "react-native-paper": "^5.1.2",
