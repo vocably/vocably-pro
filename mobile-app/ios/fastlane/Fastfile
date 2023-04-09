@@ -28,7 +28,16 @@ platform :ios do
     certificates
     # Creates a signed file
     gym(
-      export_method: 'development'
+      export_method: 'app-store'
     )
+  end
+
+  desc "Upload to TestFlight"
+  lane :beta do
+    # Using default env variable names for fastlane to pick them up.
+    app_store_connect_api_key(
+      is_key_content_base64: true,
+    )
+    pilot
   end
 end
