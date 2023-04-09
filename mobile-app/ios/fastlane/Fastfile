@@ -22,4 +22,13 @@ platform :ios do
       readonly: true
     )
   end
+
+  desc 'Fetch code signing secrets. Build the iOS application.'
+  lane :build do
+    certificates
+    # Creates a signed file
+    gym(
+      export_method: 'development'
+    )
+  end
 end
