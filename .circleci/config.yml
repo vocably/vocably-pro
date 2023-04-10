@@ -53,6 +53,7 @@ jobs:
   ios-deploy-testflight:
     macos:
       xcode: 14.3.0
+    resource_class: macos.x86.medium.gen2
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: build
