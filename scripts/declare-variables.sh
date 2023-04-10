@@ -10,6 +10,17 @@ declare -a variables=(
   "TF_VAR_google_oauth2_client_secret"
   "TF_VAR_test_user_password"
   "TF_VAR_endtest_app_code"
+  "APP_STORE_CONNECT_API_KEY_KEY_ID"
+  "APP_STORE_CONNECT_API_KEY_ISSUER_ID"
+  "APP_STORE_CONNECT_API_KEY_KEY"
+  "APP_STORE_CONNECT_API_KEY_IN_HOUSE"
+  "FASTFILE_APP_IDENTIFIER"
+  "FASTFILE_GIT_URL"
+  "FASTFILE_GYM_EXPORT_METHOD"
+  "FASTFILE_ITC_TEAM_ID"
+  "FASTFILE_MATCH_TYPE"
+  "FASTFILE_TEAM_ID"
+  "FASTFILE_USERNAME"
 )
 
 for variable in "${variables[@]}"

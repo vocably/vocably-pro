@@ -16,6 +16,10 @@
 default_platform(:ios)
 
 platform :ios do
+  before_all do
+    setup_circle_ci
+  end
+
   desc 'Fetch certificates and provisioning profiles'
   lane :certificates do
     match(
@@ -28,7 +32,7 @@ platform :ios do
     certificates
     # Creates a signed file
     gym(
-      export_method: 'app-store'
+      export_method: ENV["FASTFILE_GYM_EXPORT_METHOD"]
     )
   end
 
