@@ -50,78 +50,6 @@ jobs:
       - run: npx semantic-release
       - run: npx zx ./scripts/build-extension.mjs
 
-  ios-deploy-testflight:
-    macos:
-      xcode: 14.3.0
-    resource_class: macos.x86.medium.gen2
-    environment:
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: build
-      ENV_NAME: DEV
-    steps:
-      - checkout
-      - install_npm_dependencies
-      - run: npx zx ./scripts/build-packages.mjs
-      - run: bash ./scripts/declare-variables.sh
-      - run:
-          name: Set Mobile App NPM cache folder
-          command: npm set cache mobile-app/.npm
-      - restore_cache:
-          name: Restore Mobile App NPM cache
-          keys:
-            - mobile-app-npm-deps-v1-{{ checksum "mobile-app/package-lock.json" }}
-            - mobile-app-npm-deps-v1-
-      - run:
-          name: Install Mobile App NPM Dependencies
-          command: npm ci --force
-          working_directory: mobile-app
-      - save_cache:
-          name: Save Mobile App NPM Cache
-          key: mobile-app-npm-deps-v1-{{ checksum "mobile-app/package-lock.json" }}
-          paths:
-            - mobile-app/.npm
-
-      - restore_cache:
-          name: Restore Mobile App Bundle cache
-          key: mobile-app-bundle-v1-{{ checksum "mobile-app/Gemfile.lock" }}-{{ arch }}
-
-      - restore_cache:
-          name: Restore Mobile App IOS Pods cache
-          key: mobile-app-ios-pods-v1-{{ checksum "mobile-app/ios/Podfile.lock" }}-{{ arch }}
-
-      - run:
-          name: Mobile App Bundle Install
-          command: bundle install
-          working_directory: mobile-app
-
-      - run:
-          name: Mobile App iOS Pod Install
-          command: pod install
-          working_directory: mobile-app/ios
-
-      - save_cache:
-          key: mobile-app-bundle-v1-{{ checksum "mobile-app/Gemfile.lock" }}-{{ arch }}
-          paths:
-            - mobile-app/vendor/bundle
-
-      - save_cache:
-          key: mobile-app-ios-pods-v1-{{ checksum "mobile-app/ios/Podfile.lock" }}-{{ arch }}
-          paths:
-            - mobile-app/ios/Pods
-
-      - run:
-          name: Mobile App Build iOS (Fastlane)
-          command: bundle exec fastlane $FASTLANE_LANE
-          working_directory: mobile-app/ios
-
-      - store_artifacts:
-          path: mobile-app/ios/output/gym/
-
-      - run:
-          name: Mobile App Deploy to TestFlight (Fastlane)
-          command: bundle exec fastlane beta
-          working_directory: mobile-app/ios
-
   stage:
     working_directory: ~/repo
     docker:
@@ -158,7 +86,6 @@ workflows:
     jobs:
       - bumpNewVersion:
           <<: *main_only
-      - ios-deploy-testflight
   deploy:
     jobs:
       - manual-testing:
