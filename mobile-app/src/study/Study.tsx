@@ -8,7 +8,7 @@ import { Completed } from './Completed';
 import { Loader } from '../loaders/Loader';
 import { DeckContext } from '../DeckContainer';
 
-const maxCardsToStudy = 2;
+const maxCardsToStudy = 10;
 
 export const Study: FC = () => {
   const { status, deck, update } = useContext(DeckContext);
