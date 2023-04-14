@@ -1,5 +1,12 @@
 import { FC, useContext, useState } from 'react';
-import { Appbar, Portal, Dialog, Button, Menu } from 'react-native-paper';
+import {
+  Appbar,
+  Portal,
+  Dialog,
+  Button,
+  Menu,
+  useTheme,
+} from 'react-native-paper';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { getFullLanguageName } from '@vocably/model';
 
@@ -10,6 +17,8 @@ export const LanguageSelector: LanguageSelector = () => {
     useContext(LanguagesContext);
 
   const [visible, setVisible] = useState(false);
+
+  const theme = useTheme();
 
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
@@ -32,13 +41,16 @@ export const LanguageSelector: LanguageSelector = () => {
             marginBottom: 'auto',
           }}
         >
-          <Dialog.Title>Select Language Deck</Dialog.Title>
+          <Dialog.Title style={{ color: theme.colors.secondary }}>
+            Select Language Deck
+          </Dialog.Title>
           <Dialog.Content>
             {languages.map((language) => (
               <Menu.Item
                 key={language}
                 title={getFullLanguageName(language)}
                 onPress={() => onSelect(language)}
+                titleStyle={{ color: theme.colors.secondary }}
                 leadingIcon={
                   language === selectedLanguage
                     ? 'radiobox-marked'

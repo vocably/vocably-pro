@@ -26,16 +26,17 @@ export const SearchInput: SearchInput = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const theme = useTheme();
+  const isSearchDisabled = value === '';
   return (
     <View
       style={[
         styles.container,
         {
-          borderWidth: 2,
+          borderWidth: 1,
           borderColor: isFocused
             ? theme.colors.primary
             : theme.colors.outlineVariant,
-          borderRadius: theme.roundness,
+          borderRadius: 8,
         },
       ]}
     >
@@ -43,7 +44,7 @@ export const SearchInput: SearchInput = ({
         style={{
           flex: 1,
           paddingLeft: 8,
-          color: theme.colors.onBackground,
+          color: theme.colors.secondary,
         }}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
@@ -57,15 +58,21 @@ export const SearchInput: SearchInput = ({
       {value && (
         <IconButton
           icon={'close-circle'}
-          iconColor={theme.colors.secondary}
+          iconColor={theme.colors.outlineVariant}
           onPress={() => onChange('')}
         />
       )}
       <IconButton
         icon={'magnify'}
         mode="contained"
+        iconColor={theme.colors.onPrimary}
+        style={{
+          backgroundColor: isSearchDisabled
+            ? theme.colors.surfaceVariant
+            : theme.colors.primary,
+        }}
         onPress={() => onSubmit(value)}
-        disabled={value === ''}
+        disabled={isSearchDisabled}
       />
     </View>
   );

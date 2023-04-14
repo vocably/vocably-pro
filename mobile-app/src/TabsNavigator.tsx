@@ -5,11 +5,14 @@ import { LookUpScreen } from './LookUpScreen';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { WelcomeStack } from './WelcomeStack';
 import { DeckStack } from './DeckStack';
+import { Provider, useTheme } from 'react-native-paper';
 
 const Tabs = createMaterialBottomTabNavigator();
 
 export const TabsNavigator = () => {
   const { selectedLanguage } = useContext(LanguagesContext);
+  const theme = useTheme();
+
   return (
     <Tabs.Navigator>
       <Tabs.Screen

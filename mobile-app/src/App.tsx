@@ -1,11 +1,10 @@
-import { Provider as PaperProvider } from 'react-native-paper';
 import { AuthContainer } from './auth/AuthContainer';
 import { Login } from './auth/Login';
 import { configureApi } from '@vocably/api';
-import { NavigationContainer } from '@react-navigation/native';
 import { LanguagesContainer } from './languages/LanguagesContainer';
 import { DeckContainer } from './DeckContainer';
-import { RootModalStack } from './RootModalStack';
+import { NavigationContainer } from './NavigationContainer';
+import { ThemeProvider } from './ThemeProvider';
 
 configureApi({
   baseUrl: 'https://api.dev.env.vocably.pro',
@@ -15,19 +14,17 @@ configureApi({
 
 const App = () => {
   return (
-    <PaperProvider>
+    <ThemeProvider>
       <AuthContainer>
         <Login>
           <LanguagesContainer>
             <DeckContainer>
-              <NavigationContainer>
-                <RootModalStack />
-              </NavigationContainer>
+              <NavigationContainer />
             </DeckContainer>
           </LanguagesContainer>
         </Login>
       </AuthContainer>
-    </PaperProvider>
+    </ThemeProvider>
   );
 };
 

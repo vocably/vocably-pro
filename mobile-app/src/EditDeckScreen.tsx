@@ -99,7 +99,7 @@ export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
               setIsDeleting(false);
             },
             onEdit: (card) => navigation.navigate('EditCard', { card }),
-            buttonColor: theme.colors.secondary,
+            buttonColor: theme.colors.primary,
           })}
           keyExtractor={keyExtractor}
         />

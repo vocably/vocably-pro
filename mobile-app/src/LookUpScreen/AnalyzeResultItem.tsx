@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { AssociatedCard } from './associateCards';
 import { CardItem, Result } from '@vocably/model';
 import { CardListItem } from '../CardListItem';
-import { ActivityIndicator, IconButton, useTheme } from 'react-native-paper';
+import { IconButton, useTheme } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   container: {

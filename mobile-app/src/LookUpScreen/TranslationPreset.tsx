@@ -89,7 +89,7 @@ export const TranslationPreset: TranslationPreset = ({
         ></IconButton>
       </View>
       <View style={{ flex: 2 }}>
-        <Button mode="contained-tonal" onPress={selectTranslationLanguage}>
+        <Button mode="outlined" onPress={selectTranslationLanguage}>
           {languageList[preset.translationLanguage as GoogleLanguage]}
         </Button>
       </View>

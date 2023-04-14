@@ -1,5 +1,12 @@
 import { FC, useContext } from 'react';
-import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  ListRenderItem,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
 import { Text, useTheme, Button, Badge } from 'react-native-paper';
 import { DeckContext } from './DeckContainer';
 import { NavigationProp } from '@react-navigation/native';
@@ -34,9 +41,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const renderItem: ListRenderItem<CardItem> = ({ item }) => (
-  <CardListItem card={item.data} />
-);
+const renderItem =
+  ({
+    sourceStyle,
+  }: {
+    sourceStyle: StyleProp<TextStyle>;
+  }): ListRenderItem<CardItem> =>
+  ({ item }) =>
+    <CardListItem card={item.data} sourceStyle={sourceStyle} />;
 
 type DashboardScreen = FC<{
   navigation: NavigationProp<any>;
@@ -75,7 +87,9 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
               style={{ width: '100%' }}
               ItemSeparatorComponent={Separator}
               data={cards}
-              renderItem={renderItem}
+              renderItem={renderItem({
+                sourceStyle: { fontSize: 24, color: theme.colors.secondary },
+              })}
               keyExtractor={keyExtractor}
               scrollEnabled={false}
             />
