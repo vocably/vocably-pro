@@ -13,10 +13,30 @@ const lightTheme: MD3Theme = {
   ...MD3LightTheme,
   colors: {
     ...MD3LightTheme.colors,
+    background: 'rgb(255, 255, 255)',
+    onBackground: 'rgb(106, 106, 106)',
+    surface: 'rgb(255, 255, 255)',
+    onSurface: 'rgb(106, 106, 106)',
+    primary: 'rgb(0, 80, 255)',
+    onPrimary: 'rgb(255, 255, 255)',
+    error: 'rgb(221, 34, 34)',
+    secondary: 'rgb(0, 0, 0)',
+    onSecondary: 'rgb(255, 255, 255)',
+    outline: 'rgb(0, 80, 255)',
+    outlineVariant: 'rgb(107, 106, 106)',
+    secondaryContainer: 'rgb(0, 80, 255)',
+    onSecondaryContainer: 'rgb(255, 255, 255)',
+    surfaceVariant: 'rgb(251, 251, 251)',
+    elevation: {
+      level0: 'rgb(255, 255, 255)',
+      level1: 'rgb(252, 252, 252)',
+      level2: 'rgb(250, 250, 250)',
+      level3: 'rgb(247, 247, 247)',
+      level4: 'rgb(245, 245, 245)',
+      level5: 'rgb(243, 243, 243)',
+    },
   },
 };
-
-console.log(MD3DarkTheme.colors.secondary);
 
 const darkTheme: MD3Theme = {
   ...MD3DarkTheme,

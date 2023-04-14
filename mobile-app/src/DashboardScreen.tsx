@@ -118,6 +118,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
             style={{
               alignSelf: 'center',
               backgroundColor: theme.colors.secondary,
+              color: theme.colors.onSecondary,
             }}
           >
             {deck.cards.length}

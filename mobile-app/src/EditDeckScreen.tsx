@@ -115,9 +115,13 @@ export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
             marginBottom: 'auto',
           }}
         >
-          <Dialog.Title>Delete Card</Dialog.Title>
+          <Dialog.Title style={{ color: theme.colors.secondary }}>
+            Delete Card
+          </Dialog.Title>
           <Dialog.Content>
-            <Text>Are you sure that you want to delete this card?</Text>
+            <Text style={{ color: theme.colors.secondary }}>
+              Are you sure that you want to delete this card?
+            </Text>
           </Dialog.Content>
           <Dialog.Actions>
             <Button
