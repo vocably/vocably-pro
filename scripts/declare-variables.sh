@@ -10,6 +10,8 @@ declare -a variables=(
   "TF_VAR_google_oauth2_client_secret"
   "TF_VAR_test_user_password"
   "TF_VAR_endtest_app_code"
+  "TF_VAR_apple_sign_in_key_id"
+  "TF_VAR_apple_sign_in_key"
   "APP_STORE_CONNECT_API_KEY_KEY_ID"
   "APP_STORE_CONNECT_API_KEY_ISSUER_ID"
   "APP_STORE_CONNECT_API_KEY_KEY"

@@ -14,6 +14,24 @@ variable "google_oauth2_client_secret" {
   type = string
 }
 
+variable "apple_sign_in_service_id" {
+  type = string
+}
+
+variable "apple_team_id" {
+  type = string
+}
+
+variable "apple_sign_in_key_id" {
+  type      = string
+  sensitive = true
+}
+
+variable "apple_sign_in_key" {
+  type      = string
+  sensitive = true
+}
+
 variable "lexicala_host" {
   type = string
 }

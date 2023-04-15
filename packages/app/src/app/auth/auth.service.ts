@@ -94,9 +94,7 @@ export class AuthService {
   }
 
   async signIn() {
-    return Auth.federatedSignIn({
-      provider: CognitoHostedUIIdentityProvider.Google,
-    });
+    return Auth.federatedSignIn();
   }
 
   async signOut() {

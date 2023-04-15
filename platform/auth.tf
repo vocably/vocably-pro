@@ -206,6 +206,42 @@ resource "aws_cognito_identity_provider" "google" {
   }
 }
 
+resource "aws_cognito_identity_provider" "apple" {
+  user_pool_id  = aws_cognito_user_pool.users.id
+  provider_name = "SignInWithApple"
+  provider_type = "SignInWithApple"
+
+  provider_details = {
+    authorize_scopes = "email name"
+    client_id        = var.apple_sign_in_service_id
+    team_id          = var.apple_team_id
+    key_id           = var.apple_sign_in_key_id
+    private_key      = var.apple_sign_in_key
+
+    attributes_url_add_attributes = "ignored"
+    authorize_url                 = "ignored"
+    oidc_issuer                   = "ignored"
+    token_request_method          = "ignored"
+    token_url                     = "ignored"
+  }
+
+  attribute_mapping = {
+    email    = "email"
+    username = "sub"
+    name     = "name"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      provider_details["attributes_url_add_attributes"],
+      provider_details["authorize_url"],
+      provider_details["oidc_issuer"],
+      provider_details["token_request_method"],
+      provider_details["token_url"]
+    ]
+  }
+}
+
 resource "aws_cognito_user_pool_domain" "auth" {
   domain          = local.auth_domain
   certificate_arn = aws_acm_certificate.primary-global.arn
@@ -243,7 +279,7 @@ resource "aws_cognito_user_pool_client" "client" {
   allowed_oauth_flows                  = ["code", "implicit"]
   allowed_oauth_scopes                 = ["profile", "email", "openid", "aws.cognito.signin.user.admin"]
   allowed_oauth_flows_user_pool_client = true
-  supported_identity_providers         = ["Google", "COGNITO"]
+  supported_identity_providers         = ["Google", "COGNITO", "SignInWithApple"]
   depends_on                           = [aws_cognito_identity_provider.google]
 }
 
