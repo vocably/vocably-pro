@@ -11,10 +11,6 @@ export namespace Components {
     }
     interface VocablyCloseButton {
     }
-    interface VocablyGoogleButton {
-    }
-    interface VocablyGoogleIcon {
-    }
     interface VocablyLanguage {
         "language": string;
     }
@@ -77,18 +73,6 @@ declare global {
         prototype: HTMLVocablyCloseButtonElement;
         new (): HTMLVocablyCloseButtonElement;
     };
-    interface HTMLVocablyGoogleButtonElement extends Components.VocablyGoogleButton, HTMLStencilElement {
-    }
-    var HTMLVocablyGoogleButtonElement: {
-        prototype: HTMLVocablyGoogleButtonElement;
-        new (): HTMLVocablyGoogleButtonElement;
-    };
-    interface HTMLVocablyGoogleIconElement extends Components.VocablyGoogleIcon, HTMLStencilElement {
-    }
-    var HTMLVocablyGoogleIconElement: {
-        prototype: HTMLVocablyGoogleIconElement;
-        new (): HTMLVocablyGoogleIconElement;
-    };
     interface HTMLVocablyLanguageElement extends Components.VocablyLanguage, HTMLStencilElement {
     }
     var HTMLVocablyLanguageElement: {
@@ -140,8 +124,6 @@ declare global {
     interface HTMLElementTagNameMap {
         "vocably-button": HTMLVocablyButtonElement;
         "vocably-close-button": HTMLVocablyCloseButtonElement;
-        "vocably-google-button": HTMLVocablyGoogleButtonElement;
-        "vocably-google-icon": HTMLVocablyGoogleIconElement;
         "vocably-language": HTMLVocablyLanguageElement;
         "vocably-logo": HTMLVocablyLogoElement;
         "vocably-popup": HTMLVocablyPopupElement;
@@ -157,10 +139,6 @@ declare namespace LocalJSX {
     }
     interface VocablyCloseButton {
         "onClose"?: (event: VocablyCloseButtonCustomEvent<void>) => void;
-    }
-    interface VocablyGoogleButton {
-    }
-    interface VocablyGoogleIcon {
     }
     interface VocablyLanguage {
         "language"?: string;
@@ -194,8 +172,6 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "vocably-button": VocablyButton;
         "vocably-close-button": VocablyCloseButton;
-        "vocably-google-button": VocablyGoogleButton;
-        "vocably-google-icon": VocablyGoogleIcon;
         "vocably-language": VocablyLanguage;
         "vocably-logo": VocablyLogo;
         "vocably-popup": VocablyPopup;
@@ -212,8 +188,6 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "vocably-button": LocalJSX.VocablyButton & JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
             "vocably-close-button": LocalJSX.VocablyCloseButton & JSXBase.HTMLAttributes<HTMLVocablyCloseButtonElement>;
-            "vocably-google-button": LocalJSX.VocablyGoogleButton & JSXBase.HTMLAttributes<HTMLVocablyGoogleButtonElement>;
-            "vocably-google-icon": LocalJSX.VocablyGoogleIcon & JSXBase.HTMLAttributes<HTMLVocablyGoogleIconElement>;
             "vocably-language": LocalJSX.VocablyLanguage & JSXBase.HTMLAttributes<HTMLVocablyLanguageElement>;
             "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;

@@ -9,6 +9,10 @@
   display: inline-block;
 }
 
+.button {
+  @include button();
+}
+
 .p {
   margin-bottom: $p-margin;
   text-align: center;

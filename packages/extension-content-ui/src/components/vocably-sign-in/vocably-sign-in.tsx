@@ -13,12 +13,13 @@ export class VocablySignIn {
       <Host data-test="sign-in">
         <div class="p">Please sign in to proceed.</div>
         <div class="p">
-          <vocably-google-button
+          <button
+            class="button"
             data-test="sign-in-button"
             onClick={() => this.confirm.emit()}
           >
-            Sign in with Google
-          </vocably-google-button>
+            Sign in or Create an account
+          </button>
         </div>
         <div>
           By signing in, you agree to our{' '}
