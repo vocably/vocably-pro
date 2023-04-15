@@ -1,6 +1,13 @@
 import React, { FC, useCallback, useContext, useState } from 'react';
-import { StyleSheet, SafeAreaView, View } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import {
+  StyleSheet,
+  SafeAreaView,
+  View,
+  ScrollView,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
+import { Text, useTheme } from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
 import { AnalyzePayload, GoogleLanguage, languageList } from '@vocably/model';
 import { TranslationPreset } from './LookUpScreen/TranslationPreset';
@@ -98,6 +105,11 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
           onSubmit={lookUp}
         />
       </View>
+      {!isAnalyzing && !lookUpResult && (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View style={{ flex: 1, width: '100%' }}></View>
+        </TouchableWithoutFeedback>
+      )}
       {isAnalyzing && (
         <View style={styles.loaderContainer}>
           <InlineLoader>Translating...</InlineLoader>
