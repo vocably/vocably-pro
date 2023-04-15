@@ -56,7 +56,7 @@ export const SwipeGrade: FC<{
             movementRef.current = 'horizontal';
           }
 
-          if (gestureState.dy > 0) {
+          if (gestureState.dy > 5) {
             movementRef.current = 'vertical';
           }
         }
