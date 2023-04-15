@@ -14,6 +14,7 @@ import { mainPadding } from './styles';
 import { CardItem, byDate } from '@vocably/model';
 import { CardListItem, keyExtractor, Separator } from './CardListItem';
 import { EmptyCardsList } from './EmptyCardsList';
+import LinearGradient from 'react-native-linear-gradient';
 
 const styles = StyleSheet.create({
   container: {
@@ -100,13 +101,11 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
             <Text>Cards list is empty</Text>
           </EmptyCardsList>
         )}
-        <View
-          style={[
-            styles.editPanel,
-            {
-              backgroundColor: theme.colors.background,
-            },
-          ]}
+        <LinearGradient
+          locations={[0.1, 0.3]}
+          // @ts-ignore
+          colors={[theme.colors.transparentSurface, theme.colors.surface]}
+          style={[styles.editPanel]}
         >
           <Button
             compact={true}
@@ -123,7 +122,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
           >
             {deck.cards.length}
           </Badge>
-        </View>
+        </LinearGradient>
       </View>
     </View>
   );

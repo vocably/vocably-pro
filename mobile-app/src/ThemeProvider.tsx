@@ -16,6 +16,8 @@ const lightTheme: MD3Theme = {
     background: 'rgb(255, 255, 255)',
     onBackground: 'rgb(106, 106, 106)',
     surface: 'rgb(255, 255, 255)',
+    // @ts-ignore
+    transparentSurface: 'rgba(255, 255, 255, 0)',
     onSurface: 'rgb(106, 106, 106)',
     primary: 'rgb(0, 80, 255)',
     onPrimary: 'rgb(255, 255, 255)',
@@ -44,6 +46,8 @@ const darkTheme: MD3Theme = {
     ...MD3DarkTheme.colors,
     background: 'rgb(37, 37, 37)',
     surface: 'rgb(37, 37, 37)',
+    // @ts-ignore
+    transparentSurface: 'rgba(37, 37, 37, 0)',
     onSurface: 'rgb(186, 186, 186)',
     primary: 'rgb(40, 165, 255)',
     onPrimary: 'rgb(255, 255, 255)',
