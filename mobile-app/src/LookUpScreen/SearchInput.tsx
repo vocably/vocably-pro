@@ -43,6 +43,7 @@ export const SearchInput: SearchInput = ({
       <TextInput
         style={{
           flex: 1,
+          height: '100%',
           paddingLeft: 8,
           color: theme.colors.secondary,
         }}
