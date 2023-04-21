@@ -29,6 +29,7 @@ const lightTheme: MD3Theme = {
     secondaryContainer: 'rgb(0, 80, 255)',
     onSecondaryContainer: 'rgb(255, 255, 255)',
     surfaceVariant: 'rgb(251, 251, 251)',
+    inversePrimary: 'rgba(0, 80, 255, 0.1)',
     elevation: {
       level0: 'rgb(255, 255, 255)',
       level1: 'rgb(252, 252, 252)',
@@ -59,6 +60,7 @@ const darkTheme: MD3Theme = {
     secondaryContainer: 'rgb(40, 165, 255)',
     onSecondaryContainer: 'rgb(255, 255, 255)',
     surfaceVariant: 'rgb(59, 59, 59)',
+    inversePrimary: 'rgba(40, 165, 255, 0.1)',
     elevation: {
       level0: 'rgb(37, 37, 37)',
       level1: 'rgb(50, 50, 50)',
