@@ -32,13 +32,8 @@ export const Login: FC<{
       <Text variant="bodyLarge" style={{ marginBottom: 15 }}>
         Sign in and enjoy the Vocably experience.
       </Text>
-      <Button
-        icon="google"
-        mode="contained"
-        onPress={signIn}
-        style={{ marginBottom: 20 }}
-      >
-        Sign in with Google
+      <Button mode="contained" onPress={signIn} style={{ marginBottom: 20 }}>
+        Sign in or Create an account
       </Button>
       <Text style={{ marginHorizontal: 20, textAlign: 'center' }}>
         By signing in, you agree to our{' '}
