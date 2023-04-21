@@ -2,15 +2,15 @@ import React, { FC } from 'react';
 import { StyleProp, TextStyle, View, ViewStyle } from 'react-native';
 import { Card, CardItem } from '@vocably/model';
 import { SideB } from './SideB';
-import { Divider, Text } from 'react-native-paper';
+import { Divider, Text, useTheme } from 'react-native-paper';
 
 type CardListItem = FC<{
   card: Card;
   style?: StyleProp<ViewStyle>;
-  sourceStyle?: StyleProp<TextStyle>;
 }>;
 
-export const CardListItem: CardListItem = ({ card, style, sourceStyle }) => {
+export const CardListItem: CardListItem = ({ card, style }) => {
+  const theme = useTheme();
   return (
     <View style={style}>
       <View
@@ -20,7 +20,9 @@ export const CardListItem: CardListItem = ({ card, style, sourceStyle }) => {
           alignItems: 'baseline',
         }}
       >
-        <Text style={sourceStyle}>{card.source}</Text>
+        <Text style={{ fontSize: 24, color: theme.colors.secondary }}>
+          {card.source}
+        </Text>
         {card.partOfSpeech && (
           <Text style={{ marginLeft: 8 }}>{card.partOfSpeech}</Text>
         )}

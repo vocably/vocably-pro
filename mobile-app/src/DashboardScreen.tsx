@@ -42,14 +42,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const renderItem =
-  ({
-    sourceStyle,
-  }: {
-    sourceStyle: StyleProp<TextStyle>;
-  }): ListRenderItem<CardItem> =>
-  ({ item }) =>
-    <CardListItem card={item.data} sourceStyle={sourceStyle} />;
+const renderItem: ListRenderItem<CardItem> = ({ item }) => (
+  <CardListItem card={item.data} />
+);
 
 type DashboardScreen = FC<{
   navigation: NavigationProp<any>;
@@ -88,9 +83,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
               style={{ width: '100%' }}
               ItemSeparatorComponent={Separator}
               data={cards}
-              renderItem={renderItem({
-                sourceStyle: { fontSize: 24, color: theme.colors.secondary },
-              })}
+              renderItem={renderItem}
               keyExtractor={keyExtractor}
               scrollEnabled={false}
             />

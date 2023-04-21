@@ -12,11 +12,7 @@ export const CardList: CardList = ({ cards }) => {
   return (
     <>
       {cards.map((card, index) => (
-        <CardListItem
-          key={card.id}
-          card={card}
-          sourceStyle={{ fontSize: 24, color: theme.colors.secondary }}
-        />
+        <CardListItem key={card.id} card={card.data} />
       ))}
     </>
   );
