@@ -2,8 +2,9 @@ import { FC, useCallback, useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import { LanguagesContext } from '../languages/LanguagesContainer';
-import { Button, IconButton } from 'react-native-paper';
+import { Button, IconButton, Text, useTheme } from 'react-native-paper';
 import { GoogleLanguage, languageList } from '@vocably/model';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,6 +32,7 @@ export const TranslationPreset: TranslationPreset = ({
   onChange,
 }) => {
   const { languages } = useContext(LanguagesContext);
+  const theme = useTheme();
 
   const onSourceSelection = useCallback(
     (sourceLanguage: string) => {
@@ -75,26 +77,43 @@ export const TranslationPreset: TranslationPreset = ({
   }, [preset]);
 
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 2 }}>
-        <Button mode={'contained'} onPress={selectSourceLanguage}>
-          {preset.sourceLanguage
-            ? languageList[preset.sourceLanguage as GoogleLanguage]
-            : 'Target language'}
-        </Button>
+    <View>
+      <View style={styles.container}>
+        <View style={{ flex: 2 }}>
+          <Button mode={'contained'} onPress={selectSourceLanguage}>
+            {preset.sourceLanguage
+              ? languageList[preset.sourceLanguage as GoogleLanguage]
+              : 'Target language'}
+          </Button>
+        </View>
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <IconButton
+            icon={preset.isReverse ? 'arrow-left' : 'arrow-right'}
+            onPress={clickReverse}
+            mode="contained"
+          ></IconButton>
+        </View>
+        <View style={{ flex: 2 }}>
+          <Button mode="outlined" onPress={selectTranslationLanguage}>
+            {languageList[preset.translationLanguage as GoogleLanguage]}
+          </Button>
+        </View>
       </View>
-      <View style={{ flex: 1, alignItems: 'center' }}>
-        <IconButton
-          icon={preset.isReverse ? 'arrow-left' : 'arrow-right'}
-          onPress={clickReverse}
-          mode="contained"
-        ></IconButton>
-      </View>
-      <View style={{ flex: 2 }}>
-        <Button mode="outlined" onPress={selectTranslationLanguage}>
-          {languageList[preset.translationLanguage as GoogleLanguage]}
-        </Button>
-      </View>
+      {!preset.sourceLanguage && (
+        <View
+          style={{
+            marginLeft: 48,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Icon name="arrow-up-thin" size={48} color={theme.colors.secondary} />
+          <Text style={{ color: theme.colors.secondary }}>
+            Select language you're learning.
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

@@ -82,7 +82,7 @@ export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
     >
       {cards.length === 0 && (
         <EmptyCardsList>
-          <Text>Cards list is empty</Text>
+          <Text>Card list is empty</Text>
         </EmptyCardsList>
       )}
       {cards.length > 0 && (

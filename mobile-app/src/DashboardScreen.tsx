@@ -91,7 +91,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
         )}
         {cards.length === 0 && (
           <EmptyCardsList>
-            <Text>Cards list is empty</Text>
+            <Text>Card list is empty</Text>
           </EmptyCardsList>
         )}
         <LinearGradient
