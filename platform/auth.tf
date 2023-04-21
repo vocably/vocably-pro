@@ -279,7 +279,7 @@ resource "aws_cognito_user_pool_client" "client" {
   allowed_oauth_flows                  = ["code", "implicit"]
   allowed_oauth_scopes                 = ["profile", "email", "openid", "aws.cognito.signin.user.admin"]
   allowed_oauth_flows_user_pool_client = true
-  supported_identity_providers         = ["Google", "COGNITO", "SignInWithApple"]
+  supported_identity_providers         = ["Google", "SignInWithApple"]
   depends_on                           = [aws_cognito_identity_provider.google]
 }
 
