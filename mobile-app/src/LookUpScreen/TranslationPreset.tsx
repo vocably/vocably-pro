@@ -78,7 +78,9 @@ export const TranslationPreset: TranslationPreset = ({
     <View style={styles.container}>
       <View style={{ flex: 2 }}>
         <Button mode={'contained'} onPress={selectSourceLanguage}>
-          {languageList[preset.sourceLanguage as GoogleLanguage]}
+          {preset.sourceLanguage
+            ? languageList[preset.sourceLanguage as GoogleLanguage]
+            : 'Target language'}
         </Button>
       </View>
       <View style={{ flex: 1, alignItems: 'center' }}>

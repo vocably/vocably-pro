@@ -16,6 +16,7 @@ type SearchInput = FC<{
   placeholder: string;
   onChange: (value: string) => void;
   onSubmit: (value: string) => void;
+  disabled?: boolean;
 }>;
 
 export const SearchInput: SearchInput = ({
@@ -23,6 +24,7 @@ export const SearchInput: SearchInput = ({
   placeholder,
   onChange,
   onSubmit,
+  disabled = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const theme = useTheme();
@@ -37,6 +39,7 @@ export const SearchInput: SearchInput = ({
             ? theme.colors.primary
             : theme.colors.outlineVariant,
           borderRadius: 8,
+          opacity: disabled ? 0.5 : 1,
         },
       ]}
     >
@@ -47,6 +50,7 @@ export const SearchInput: SearchInput = ({
           paddingLeft: 8,
           color: theme.colors.secondary,
         }}
+        editable={!disabled}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         value={value}

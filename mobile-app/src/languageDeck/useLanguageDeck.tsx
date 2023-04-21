@@ -133,6 +133,7 @@ export const useLanguageDeck = (language: string): Deck => {
 
   useEffect(() => {
     if (!language) {
+      setStatus('loaded');
       return;
     }
 

@@ -3,7 +3,6 @@ import {
   StyleSheet,
   SafeAreaView,
   View,
-  ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
@@ -103,6 +102,10 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
           }
           onChange={setLookUpText}
           onSubmit={lookUp}
+          disabled={
+            !translationPreset.sourceLanguage ||
+            !translationPreset.translationLanguage
+          }
         />
       </View>
       {!isAnalyzing && !lookUpResult && (
