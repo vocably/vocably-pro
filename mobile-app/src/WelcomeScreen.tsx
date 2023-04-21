@@ -45,7 +45,7 @@ export const WelcomeScreen: WelcomeScreen = () => {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      <Text>Welcome to Vocably {selectedLanguage}</Text>
+      <Text>Welcome to VocablyPro {selectedLanguage}</Text>
     </ScrollView>
   );
 };
