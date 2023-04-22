@@ -8,7 +8,13 @@ import {
 } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
-import { AnalyzePayload, GoogleLanguage, languageList } from '@vocably/model';
+import {
+  AnalyzePayload,
+  CardItem,
+  GoogleLanguage,
+  languageList,
+  Result,
+} from '@vocably/model';
 import { TranslationPreset } from './LookUpScreen/TranslationPreset';
 import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
 import { analyze } from '@vocably/api';
@@ -17,6 +23,8 @@ import { Analyze } from './LookUpScreen/AnalyzeResult';
 import { SearchInput } from './LookUpScreen/SearchInput';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { DeckContext } from './DeckContainer';
+import { AssociatedCard } from './LookUpScreen/associateCards';
+import { LanguagesContext } from './languages/LanguagesContainer';
 
 const padding = 16;
 
@@ -55,8 +63,14 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const [lookUpResult, setLookupResult] =
     useState<Awaited<ReturnType<typeof analyze>>>();
   const theme = useTheme();
-  const deck = useLanguageDeck(translationPreset.sourceLanguage);
+  const sourceDeck = useLanguageDeck(translationPreset.sourceLanguage);
   const selectedDeck = useContext(DeckContext);
+  const languages = useContext(LanguagesContext);
+
+  const deck =
+    sourceDeck.deck.language === selectedDeck.deck.language
+      ? selectedDeck
+      : sourceDeck;
 
   const lookUp = useCallback(async () => {
     if (isAnalyzing) {
@@ -78,6 +92,59 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
     setLookupResult(lookupResult);
     setIsAnalyzing(false);
   }, [translationPreset, lookUpText, setIsAnalyzing, isAnalyzing, deck]);
+
+  const onAdd = useCallback(
+    async (card: AssociatedCard): Promise<Result<CardItem>> => {
+      if (card.id) {
+        const existingCard = deck.deck.cards.find(
+          (item) => item.id === card.id
+        );
+        if (existingCard) {
+          return {
+            success: true,
+            value: existingCard,
+          };
+        }
+      }
+
+      const addResult = await deck.add(card.card);
+
+      if (addResult.success === false) {
+        return addResult;
+      }
+
+      languages.addLanguage(card.card.language);
+      await languages.selectLanguage(card.card.language);
+
+      return addResult;
+    },
+    [deck]
+  );
+
+  const onRemove = useCallback(
+    async (card: AssociatedCard): Promise<Result<true>> => {
+      console.log('remoe', card);
+      if (!card.id) {
+        return {
+          success: true,
+          value: true,
+        };
+      }
+
+      const removeResult = await selectedDeck.remove(card.id);
+
+      console.log(removeResult);
+
+      if (removeResult.success === false) {
+        return removeResult;
+      }
+
+      await languages.selectLanguage(card.card.language);
+
+      return removeResult;
+    },
+    [deck, languages]
+  );
 
   return (
     <SafeAreaView
@@ -120,13 +187,11 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
       )}
       {!isAnalyzing && lookUpResult && lookUpResult.success && (
         <Analyze
-          deck={
-            deck.deck.language === selectedDeck.deck.language
-              ? selectedDeck
-              : deck
-          }
           style={styles.resultContainer}
           analysis={lookUpResult.value}
+          cards={deck.deck.cards}
+          onAdd={onAdd}
+          onRemove={onRemove}
         />
       )}
     </SafeAreaView>

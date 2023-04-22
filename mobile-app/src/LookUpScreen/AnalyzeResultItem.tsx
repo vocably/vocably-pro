@@ -34,7 +34,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
       await onAdd(item);
     }
     setIsProcessing(false);
-  }, [setIsProcessing]);
+  }, [setIsProcessing, onAdd, onRemove]);
 
   return (
     <View style={styles.container}>
