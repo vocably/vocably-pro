@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     alignItems: 'center',
-    padding: mainPadding,
   },
   editPanel: {
     paddingLeft: mainPadding,
@@ -65,10 +64,12 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
       <View style={[styles.container]}>
         {cards.length > 0 && (
           <View style={styles.contentContainer}>
-            <View style={{ alignSelf: 'stretch' }}>
+            <View
+              style={{ alignSelf: 'stretch', marginHorizontal: mainPadding }}
+            >
               <Button
                 style={{
-                  marginBottom: 24,
+                  marginBottom: 8,
                 }}
                 labelStyle={{
                   fontSize: 18,

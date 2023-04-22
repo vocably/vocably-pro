@@ -39,15 +39,13 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     width: '100%',
-    paddingLeft: padding,
-    paddingRight: padding,
+    paddingHorizontal: padding,
   },
   loaderContainer: {
     padding: padding,
   },
   resultContainer: {
     flex: 1,
-    padding: padding,
     width: '100%',
   },
 });

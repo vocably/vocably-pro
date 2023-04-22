@@ -1,6 +1,19 @@
 import React, { FC, useCallback, useContext, useState } from 'react';
-import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
-import { Button, Dialog, Portal, Text, useTheme } from 'react-native-paper';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  ListRenderItem,
+  Pressable,
+} from 'react-native';
+import {
+  Button,
+  Dialog,
+  MD3Theme,
+  Portal,
+  Text,
+  useTheme,
+} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DeckContext } from './DeckContainer';
 import { CardListItem, keyExtractor, Separator } from './CardListItem';
@@ -25,28 +38,30 @@ const styles = StyleSheet.create({
 const renderItem: (options: {
   onDelete: (card: CardItem) => void;
   onEdit: (card: CardItem) => void;
-  buttonColor: string;
+  theme: MD3Theme;
 }) => ListRenderItem<CardItem> =
-  ({ onDelete, onEdit, buttonColor }): ListRenderItem<CardItem> =>
+  ({ onDelete, onEdit, theme }): ListRenderItem<CardItem> =>
   ({ item, index }) =>
     (
-      <View style={{ position: 'relative' }}>
+      <Pressable
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+              ? theme.colors.inversePrimary
+              : theme.colors.background,
+          },
+        ]}
+        onPress={() => onEdit(item)}
+      >
         <CardListItem card={item.data} />
         <Icon
-          style={[styles.button, { right: 0 }]}
-          onPress={() => onEdit(item)}
-          name="pencil-box-outline"
-          size={32}
-          color={buttonColor}
-        />
-        <Icon
-          style={[styles.button, { right: 36 }]}
+          style={[styles.button, { right: mainPadding, top: mainPadding }]}
           onPress={() => onDelete(item)}
           name="delete-outline"
           size={32}
-          color={buttonColor}
+          color={theme.colors.primary}
         />
-      </View>
+      </Pressable>
     );
 
 type EditDeckScreen = FC<{
@@ -89,7 +104,6 @@ export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
         <FlatList
           style={{
             width: '100%',
-            padding: mainPadding,
           }}
           ItemSeparatorComponent={Separator}
           data={cards}
@@ -99,7 +113,7 @@ export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
               setIsDeleting(false);
             },
             onEdit: (card) => navigation.navigate('EditCard', { card }),
-            buttonColor: theme.colors.primary,
+            theme: theme,
           })}
           keyExtractor={keyExtractor}
         />
