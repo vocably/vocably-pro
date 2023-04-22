@@ -2,6 +2,7 @@ import { FC, useCallback, useContext, useState } from 'react';
 import { StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { LanguagesContext } from './languages/LanguagesContainer';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +12,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 16,
   },
 });
 
@@ -19,7 +21,8 @@ type WelcomeScreen = FC<{}>;
 export const WelcomeScreen: WelcomeScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const theme = useTheme();
-  const { refreshLanguages, selectedLanguage } = useContext(LanguagesContext);
+  const { refreshLanguages } = useContext(LanguagesContext);
+  const navigation = useNavigation();
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -45,7 +48,19 @@ export const WelcomeScreen: WelcomeScreen = () => {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      <Text>Welcome to VocablyPro {selectedLanguage}</Text>
+      <Text style={{ textAlign: 'center', marginBottom: 8 }}>
+        Welcome to VocablyPro.
+      </Text>
+      <Text style={{ textAlign: 'center' }}>
+        For the beginning, try to{' '}
+        <Text
+          style={{ color: theme.colors.primary }}
+          onPress={() => navigation.navigate('LookUp')}
+        >
+          look up
+        </Text>{' '}
+        an unfamiliar word and add it to your collection.
+      </Text>
     </ScrollView>
   );
 };
