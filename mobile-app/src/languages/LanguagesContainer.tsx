@@ -3,12 +3,22 @@ import { createContext } from 'react';
 import { listLanguages, deleteLanguageDeck } from '@vocably/api';
 import { Loader } from '../loaders/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LanguageDeck } from '@vocably/model';
 
 const selectedLanguageStorageKey = 'selected-language';
+
+export type LanguageContainerDeck = {
+  status: 'loading' | 'loaded' | 'error';
+  deck: LanguageDeck;
+};
+
+type DecksCollection = Record<string, LanguageContainerDeck>;
 
 type Languages = {
   status: 'loading' | 'loaded' | 'error';
   languages: string[];
+  decks: DecksCollection;
+  storeDeck: (deck: LanguageContainerDeck) => void;
   deleteLanguage: (language: string) => ReturnType<typeof deleteLanguageDeck>;
   selectedLanguage: string;
   selectLanguage: (language: string) => Promise<void>;
@@ -19,6 +29,8 @@ type Languages = {
 export const LanguagesContext = createContext<Languages>({
   status: 'loading',
   languages: [],
+  decks: {},
+  storeDeck: () => null,
   deleteLanguage: () =>
     Promise.resolve({
       success: true,
@@ -38,6 +50,17 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
   const [status, setStatus] = useState<Languages['status']>('loading');
   const [languages, setLanguages] = useState<string[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string>('');
+  const [decks, setDecks] = useState<DecksCollection>({});
+
+  const storeDeck = useCallback(
+    (deck: LanguageContainerDeck) => {
+      setDecks({
+        ...decks,
+        [deck.deck.language]: deck,
+      });
+    },
+    [decks, setDecks]
+  );
 
   const addLanguage = useCallback(
     (language: string) => {
@@ -61,6 +84,9 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
         if (result.success === false) {
           return result;
         }
+
+        const { [language]: _, ...newDecks } = decks;
+        setDecks(newDecks);
 
         setLanguages((prevLanguages) =>
           prevLanguages.filter((prevLanguage) => prevLanguage !== language)
@@ -108,6 +134,8 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
   const value: Languages = {
     status,
     languages,
+    decks,
+    storeDeck: storeDeck,
     deleteLanguage,
     selectedLanguage: selectedLanguage,
     selectLanguage,

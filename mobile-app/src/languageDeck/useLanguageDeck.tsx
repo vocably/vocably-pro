@@ -1,13 +1,16 @@
 import { SrsCard, CardItem, LanguageDeck, Result, Card } from '@vocably/model';
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { LanguagesContext } from '../languages/LanguagesContainer';
+import { useCallback, useContext, useEffect } from 'react';
+import {
+  LanguageContainerDeck,
+  LanguagesContext,
+} from '../languages/LanguagesContainer';
 import { Item, makeCreate, makeDelete, makeUpdate } from '@vocably/crud';
 import { loadLanguageDeck, saveLanguageDeck } from '@vocably/api';
 import { createSrsItem } from '@vocably/srs';
 
 export type Deck = {
-  status: 'loading' | 'loaded' | 'error';
-  deck: LanguageDeck;
+  status: LanguageContainerDeck['status'];
+  deck: LanguageContainerDeck['deck'];
   add: (card: Card) => Promise<Result<CardItem>>;
   update: (id: string, data: Partial<SrsCard>) => Promise<Result<CardItem>>;
   remove: (id: string) => Promise<Result<true>>;
@@ -20,11 +23,14 @@ export const defaultDeckValue: LanguageDeck = {
 };
 
 export const useLanguageDeck = (language: string): Deck => {
-  const [status, setStatus] = useState<Deck['status']>('loading');
-  const [deck, setDeck] = useState<LanguageDeck>({
-    language: '',
-    cards: [],
-  });
+  const { decks, storeDeck, addLanguage } = useContext(LanguagesContext);
+  const deck = decks[language] ?? {
+    status: 'loading',
+    deck: {
+      language,
+      cards: [],
+    },
+  };
 
   const add = useCallback(
     (card: Card): Promise<Result<CardItem>> =>
@@ -44,14 +50,19 @@ export const useLanguageDeck = (language: string): Deck => {
           return saveResult;
         }
 
-        setDeck(loadResult.value);
+        addLanguage(deck.deck.language);
+
+        storeDeck({
+          ...deck,
+          deck: loadResult.value,
+        });
 
         return {
           success: true,
           value: cardItem,
         };
       }),
-    [language]
+    [language, addLanguage, storeDeck, deck]
   );
 
   const update = useCallback(
@@ -72,7 +83,10 @@ export const useLanguageDeck = (language: string): Deck => {
           return saveResult;
         }
 
-        setDeck(loadResult.value);
+        storeDeck({
+          ...deck,
+          deck: loadResult.value,
+        });
 
         return updateResult;
       }),
@@ -97,7 +111,10 @@ export const useLanguageDeck = (language: string): Deck => {
           return saveResult;
         }
 
-        setDeck(loadResult.value);
+        storeDeck({
+          ...deck,
+          deck: loadResult.value,
+        });
 
         return deleteResult;
       }),
@@ -106,34 +123,40 @@ export const useLanguageDeck = (language: string): Deck => {
 
   const reload = useCallback((): Promise<Result<true>> => {
     if (language === '') {
-      setDeck(defaultDeckValue);
       return Promise.resolve({
         success: true,
         value: true,
       });
     }
 
-    setStatus('loading');
+    storeDeck({
+      ...deck,
+      status: 'loading',
+    });
 
     return loadLanguageDeck(language).then((result) => {
       if (result.success === false) {
-        setStatus('error');
+        storeDeck({
+          ...deck,
+          status: 'error',
+        });
         return result;
       }
 
-      setStatus('loaded');
-      setDeck(result.value);
+      storeDeck({
+        status: 'loaded',
+        deck: result.value,
+      });
 
       return {
         success: true,
         value: true,
       };
     });
-  }, [language]);
+  }, [language, storeDeck, decks, deck]);
 
   useEffect(() => {
     if (!language) {
-      setStatus('loaded');
       return;
     }
 
@@ -141,11 +164,11 @@ export const useLanguageDeck = (language: string): Deck => {
   }, [language]);
 
   return {
-    status,
-    deck,
     add,
     update,
     remove,
     reload,
+    status: deck.status,
+    deck: deck.deck,
   };
 };

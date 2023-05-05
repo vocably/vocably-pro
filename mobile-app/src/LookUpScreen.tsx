@@ -61,14 +61,8 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const [lookUpResult, setLookupResult] =
     useState<Awaited<ReturnType<typeof analyze>>>();
   const theme = useTheme();
-  const sourceDeck = useLanguageDeck(translationPreset.sourceLanguage);
-  const selectedDeck = useContext(DeckContext);
+  const deck = useLanguageDeck(translationPreset.sourceLanguage);
   const languages = useContext(LanguagesContext);
-
-  const deck =
-    sourceDeck.deck.language === selectedDeck.deck.language
-      ? selectedDeck
-      : sourceDeck;
 
   const lookUp = useCallback(async () => {
     if (isAnalyzing) {
@@ -121,7 +115,6 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
 
   const onRemove = useCallback(
     async (card: AssociatedCard): Promise<Result<true>> => {
-      console.log('remoe', card);
       if (!card.id) {
         return {
           success: true,
@@ -129,9 +122,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
         };
       }
 
-      const removeResult = await selectedDeck.remove(card.id);
-
-      console.log(removeResult);
+      const removeResult = await deck.remove(card.id);
 
       if (removeResult.success === false) {
         return removeResult;
