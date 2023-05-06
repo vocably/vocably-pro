@@ -18,7 +18,7 @@ export const TabsNavigator = () => {
       <Tabs.Screen
         name="DeckScreen"
         options={{
-          title: 'Deck',
+          title: 'Cards',
           tabBarIcon: ({ color }) => (
             <Icon name="card-multiple-outline" color={color} size={24} />
           ),
