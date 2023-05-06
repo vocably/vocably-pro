@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { StyleProp, ViewStyle, FlatList } from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 import { explode } from '@vocably/sulna';
 import { useTheme, Text } from 'react-native-paper';
 import { Card } from '@vocably/model';
@@ -27,15 +27,13 @@ export const SideB: SideB = ({ card, style, textStyle }) => {
   }
 
   return (
-    <FlatList
-      contentContainerStyle={style}
-      data={sideB}
-      scrollEnabled={false}
-      renderItem={(item) => (
+    <>
+      {sideB.map((item, index) => (
         <Text
-          style={[item.item.style, textStyle]}
-        >{`\u2022 ${item.item.text}`}</Text>
-      )}
-    ></FlatList>
+          key={index}
+          style={[item.style, textStyle]}
+        >{`\u2022 ${item.text}`}</Text>
+      ))}
+    </>
   );
 };

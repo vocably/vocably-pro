@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, useCallback, useContext, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -6,6 +6,8 @@ import {
   ListRenderItem,
   StyleProp,
   TextStyle,
+  ScrollView,
+  RefreshControl,
 } from 'react-native';
 import { Text, useTheme, Button, Badge } from 'react-native-paper';
 import { DeckContext } from './DeckContainer';
@@ -15,6 +17,7 @@ import { CardItem, byDate } from '@vocably/model';
 import { CardListItem, keyExtractor, Separator } from './CardListItem';
 import { EmptyCardsList } from './EmptyCardsList';
 import LinearGradient from 'react-native-linear-gradient';
+import { LanguagesContext } from './languages/LanguagesContainer';
 
 const styles = StyleSheet.create({
   container: {
@@ -50,9 +53,19 @@ type DashboardScreen = FC<{
 }>;
 
 export const DashboardScreen: DashboardScreen = ({ navigation }) => {
-  const { deck } = useContext(DeckContext);
+  const { deck, reload } = useContext(DeckContext);
+  const { refreshLanguages } = useContext(LanguagesContext);
   const cards = deck.cards.sort(byDate).slice(0, 7);
   const theme = useTheme();
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await refreshLanguages();
+    await reload();
+    setRefreshing(false);
+  }, []);
 
   return (
     <View
@@ -62,39 +75,46 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
       }}
     >
       <View style={[styles.container]}>
-        {cards.length > 0 && (
-          <View style={styles.contentContainer}>
-            <View
-              style={{ alignSelf: 'stretch', marginHorizontal: mainPadding }}
-            >
-              <Button
-                style={{
-                  marginBottom: 8,
-                }}
-                labelStyle={{
-                  fontSize: 18,
-                }}
-                mode={'contained'}
-                onPress={() => navigation.navigate('Study')}
+        <ScrollView
+          style={{ width: '100%' }}
+          contentContainerStyle={{ flex: 1 }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          {cards.length > 0 && (
+            <View style={styles.contentContainer}>
+              <View
+                style={{ alignSelf: 'stretch', marginHorizontal: mainPadding }}
               >
-                Practice
-              </Button>
+                <Button
+                  style={{
+                    marginBottom: 8,
+                  }}
+                  labelStyle={{
+                    fontSize: 18,
+                  }}
+                  mode={'contained'}
+                  onPress={() => navigation.navigate('Study')}
+                >
+                  Practice
+                </Button>
+              </View>
+
+              {cards.map((card, index) => (
+                <View key={card.id} style={{ width: '100%' }}>
+                  {index !== 0 && <Separator />}
+                  {<CardListItem card={card.data} />}
+                </View>
+              ))}
             </View>
-            <FlatList
-              style={{ width: '100%' }}
-              ItemSeparatorComponent={Separator}
-              data={cards}
-              renderItem={renderItem}
-              keyExtractor={keyExtractor}
-              scrollEnabled={false}
-            />
-          </View>
-        )}
-        {cards.length === 0 && (
-          <EmptyCardsList>
-            <Text>Card list is empty</Text>
-          </EmptyCardsList>
-        )}
+          )}
+          {cards.length === 0 && (
+            <EmptyCardsList>
+              <Text>Card list is empty</Text>
+            </EmptyCardsList>
+          )}
+        </ScrollView>
         <LinearGradient
           locations={[0.1, 0.3]}
           // @ts-ignore
