@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useContext, useState } from 'react';
+import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -63,6 +63,12 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const theme = useTheme();
   const deck = useLanguageDeck(translationPreset.sourceLanguage);
   const languages = useContext(LanguagesContext);
+
+  useEffect(() => {
+    if (lookUpText === '') {
+      setLookupResult(undefined);
+    }
+  }, [lookUpText]);
 
   const lookUp = useCallback(async () => {
     if (isAnalyzing) {

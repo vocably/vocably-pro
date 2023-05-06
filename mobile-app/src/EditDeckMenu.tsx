@@ -31,7 +31,7 @@ export const EditDeckMenu: EditDeckMenu = () => {
       <Menu
         visible={visible}
         onDismiss={closeMenu}
-        anchor={<Appbar.Action onPress={openMenu} icon={'dots-vertical'} />}
+        anchor={<Appbar.Action onPress={openMenu} icon={'cog-outline'} />}
         anchorPosition={'bottom'}
       >
         <Menu.Item

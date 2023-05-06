@@ -25,7 +25,7 @@ export const defaultDeckValue: LanguageDeck = {
 export const useLanguageDeck = (language: string): Deck => {
   const { decks, storeDeck, addLanguage } = useContext(LanguagesContext);
   const deck = decks[language] ?? {
-    status: 'loading',
+    status: 'loaded',
     deck: {
       language,
       cards: [],

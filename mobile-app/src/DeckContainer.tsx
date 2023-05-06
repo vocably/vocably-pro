@@ -12,7 +12,7 @@ import { LanguagesContext } from './languages/LanguagesContainer';
 import { OverlayLoader } from './loaders/OverlayLoader';
 
 export const DeckContext = createContext<Deck>({
-  status: 'loading',
+  status: 'loaded',
   deck: defaultDeckValue,
   add: () => new Promise<Result<CardItem>>(() => {}),
   update: () => new Promise<Result<CardItem>>(() => {}),
@@ -30,7 +30,7 @@ export const DeckContainer: DeckContainer = ({ children }) => {
   const deck = useLanguageDeck(selectedLanguage);
 
   useEffect(() => {
-    if (deck.status === 'loaded' && isFirstDeck) {
+    if (deck.status === 'loaded' && deck.deck.language !== '' && isFirstDeck) {
       setIsFirstDeck(false);
     }
   }, [setIsFirstDeck, deck.status]);
