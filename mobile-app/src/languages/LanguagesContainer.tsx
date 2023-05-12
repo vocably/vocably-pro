@@ -4,6 +4,7 @@ import { listLanguages, deleteLanguageDeck } from '@vocably/api';
 import { Loader } from '../loaders/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LanguageDeck } from '@vocably/model';
+import { Error } from '../Error';
 
 const selectedLanguageStorageKey = 'selected-language';
 
@@ -146,7 +147,9 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
   return (
     <LanguagesContext.Provider value={value}>
       {status === 'loading' && <Loader>Loading languages...</Loader>}
-      {status === 'error' && <>Loading error</>}
+      {status === 'error' && (
+        <Error onRetry={refreshLanguages}>Unable to load user languages.</Error>
+      )}
       {status === 'loaded' && children}
     </LanguagesContext.Provider>
   );
