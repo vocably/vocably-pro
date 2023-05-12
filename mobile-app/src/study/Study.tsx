@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { CardItem } from '@vocably/model';
 import { grade, slice, SrsScore } from '@vocably/srs';
 import { Card } from './Card';
@@ -10,7 +10,11 @@ import { DeckContext } from '../DeckContainer';
 
 const maxCardsToStudy = 10;
 
-export const Study: FC = () => {
+type Study = FC<{
+  onExit: () => void;
+}>;
+
+export const Study: Study = ({ onExit }) => {
   const { status, deck, update } = useContext(DeckContext);
   const [cards, setCards] = useState<CardItem[]>();
   const [cardsStudied, setCardsStudied] = useState(0);
@@ -32,7 +36,20 @@ export const Study: FC = () => {
         return;
       }
 
-      update(cards[0].id, grade(cards[0].data, score)).then();
+      update(cards[0].id, grade(cards[0].data, score)).then((result) => {
+        if (result.success === false) {
+          Alert.alert(
+            `Unable to update card score`,
+            `Due to the technical issue, this practice session must be closed.`,
+            [
+              {
+                text: 'Exit the practice session',
+                onPress: onExit,
+              },
+            ]
+          );
+        }
+      });
 
       setCards(cards.slice(1));
       setCardsStudied(cardsStudied + 1);

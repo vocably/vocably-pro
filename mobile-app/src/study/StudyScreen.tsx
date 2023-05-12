@@ -30,7 +30,7 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
           Back
         </Button>
       </View>
-      <Study></Study>
+      <Study onExit={() => navigation.goBack()}></Study>
     </View>
   );
 };

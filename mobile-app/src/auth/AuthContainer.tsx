@@ -28,7 +28,6 @@ export const AuthContainer: FC<{
       });
 
     return Hub.listen('auth', ({ payload: { event, data } }) => {
-      console.log(event);
       if (event === 'signOut') {
         setAuthStatus({
           status: 'not-logged-in',
