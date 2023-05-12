@@ -2,6 +2,7 @@ import { FC, useCallback, useContext, useState } from 'react';
 import { Appbar, Button, Dialog, Menu, Portal, Text } from 'react-native-paper';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { useNavigation } from '@react-navigation/native';
+import { Alert } from 'react-native';
 
 type EditDeckMenu = FC<{}>;
 
@@ -17,9 +18,16 @@ export const EditDeckMenu: EditDeckMenu = () => {
 
   const deleteAfterConfirmation = useCallback(async () => {
     setIsDeleting(true);
-    await deleteLanguage(selectedLanguage);
+    const deleteResult = await deleteLanguage(selectedLanguage);
     setIsAboutToDelete(false);
     setIsDeleting(false);
+
+    if (deleteResult.success === false) {
+      Alert.alert(
+        'Error: Trouble deleting deck',
+        `Oops! Something went wrong while attempting to delete the deck. Please try again later and don't hesitate to let the support know if the issue persists.`
+      );
+    }
 
     if (languages.length > 1) {
       navigation.goBack();

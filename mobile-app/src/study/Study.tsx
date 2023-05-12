@@ -39,11 +39,11 @@ export const Study: Study = ({ onExit }) => {
       update(cards[0].id, grade(cards[0].data, score)).then((result) => {
         if (result.success === false) {
           Alert.alert(
-            `Unable to update card score`,
-            `Due to the technical issue, this practice session must be closed.`,
+            `Error: Card update failed`,
+            `Oops! Unable to continue practice session due to a technical issue. Please try again later or contact support for assistance.`,
             [
               {
-                text: 'Exit the practice session',
+                text: 'Exit practice session',
                 onPress: onExit,
               },
             ]

@@ -41,7 +41,9 @@ export const DeckContainer: DeckContainer = ({ children }) => {
         <Loader>Loading cards...</Loader>
       )}
       {deck.status === 'error' && (
-        <Error onRetry={deck.reload}>Unable to load cards.</Error>
+        <Error onRetry={deck.reload}>
+          Oops! We're unable to load your cards right now.
+        </Error>
       )}
       {((!isFirstDeck && deck.status !== 'error') ||
         deck.status === 'loaded') && (

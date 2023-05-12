@@ -148,7 +148,9 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
     <LanguagesContext.Provider value={value}>
       {status === 'loading' && <Loader>Loading languages...</Loader>}
       {status === 'error' && (
-        <Error onRetry={refreshLanguages}>Unable to load user languages.</Error>
+        <Error onRetry={refreshLanguages}>
+          Oops! We're unable to load your languages and cards right now.
+        </Error>
       )}
       {status === 'loaded' && children}
     </LanguagesContext.Provider>

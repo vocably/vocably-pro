@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 32,
   },
 });
 
@@ -18,6 +19,7 @@ type Error = FC<
 
 export const Error: Error = ({ children, onRetry }) => {
   const [retrying, setRetrying] = useState(false);
+  const [nRetries, nRetriesSet] = useState(0);
   const retry = useCallback(() => {
     if (!onRetry) {
       return;
@@ -25,12 +27,15 @@ export const Error: Error = ({ children, onRetry }) => {
 
     setRetrying(true);
     onRetry().then(() => {
-      setRetrying(false);
+      setTimeout(() => {
+        setRetrying(false);
+        nRetriesSet(nRetries + 1);
+      }, 1000);
     });
-  }, [onRetry]);
+  }, [onRetry, nRetries, nRetriesSet]);
   return (
     <View style={styles.container}>
-      <Text>{children}</Text>
+      <Text style={{ textAlign: 'center' }}>{children}</Text>
       {onRetry && (
         <Button
           mode={'contained'}
@@ -38,7 +43,7 @@ export const Error: Error = ({ children, onRetry }) => {
           loading={retrying}
           onPress={retry}
         >
-          Try again
+          Try {nRetries >= 2 ? 'harder!' : 'again'}
         </Button>
       )}
     </View>
