@@ -2,7 +2,6 @@ import React, { FC, ReactNode, useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
 import { Loader } from './loaders/Loader';
 import { CardItem, Result } from '@vocably/model';
-import { Text } from 'react-native-paper';
 import {
   Deck,
   defaultDeckValue,
@@ -10,6 +9,7 @@ import {
 } from './languageDeck/useLanguageDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { OverlayLoader } from './loaders/OverlayLoader';
+import { Error } from './Error';
 
 export const DeckContext = createContext<Deck>({
   status: 'loaded',
@@ -40,7 +40,9 @@ export const DeckContainer: DeckContainer = ({ children }) => {
       {isFirstDeck && deck.status === 'loading' && (
         <Loader>Loading cards...</Loader>
       )}
-      {deck.status === 'error' && <Text>Loading error</Text>}
+      {deck.status === 'error' && (
+        <Error onRetry={deck.reload}>Unable to load cards.</Error>
+      )}
       {((!isFirstDeck && deck.status !== 'error') ||
         deck.status === 'loaded') && (
         <OverlayLoader isLoading={deck.status === 'loading'}>
