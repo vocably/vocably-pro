@@ -40,7 +40,8 @@ export const Study: Study = ({ onExit }) => {
         if (result.success === false) {
           Alert.alert(
             `Error: Card update failed`,
-            `Oops! Unable to continue practice session due to a technical issue. Please try again later or contact support for assistance.`,
+            // `Oops! Unable to continue practice session due to a technical issue. Please try again later or contact support for assistance.`,
+            `Oops! Unable to continue practice session due to a technical issue. Please try again later.`,
             [
               {
                 text: 'Exit practice session',

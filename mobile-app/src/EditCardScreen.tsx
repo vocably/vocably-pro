@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { useTheme, TextInput, Button } from 'react-native-paper';
 import { NavigationProp, Route } from '@react-navigation/native';
 import { CardItem } from '@vocably/model';
@@ -51,7 +51,13 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
 
   const onUpdate = useCallback(async () => {
     setIsUpdating(true);
-    await update(card.id, cardData);
+    const updateResult = await update(card.id, cardData);
+    if (updateResult.success === false) {
+      Alert.alert(
+        'Error: Card update failed',
+        `Oops! Something went wrong while attempting to update the card. Please try again later.`
+      );
+    }
     navigation.goBack();
   }, [cardData, update, card]);
 

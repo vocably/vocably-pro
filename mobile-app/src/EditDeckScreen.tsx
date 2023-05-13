@@ -5,6 +5,7 @@ import {
   FlatList,
   ListRenderItem,
   Pressable,
+  Alert,
 } from 'react-native';
 import {
   Button,
@@ -80,7 +81,16 @@ export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
     }
 
     setIsDeleting(true);
-    await remove(toBeDeleted.id);
+    const deleteResult = await remove(toBeDeleted.id);
+
+    if (deleteResult.success === false) {
+      Alert.alert(
+        'Error: Card deletion failed',
+        // `Oops! Something went wrong while attempting to delete the card. Please try again later and don't hesitate to let the support know if the issue persists.`
+        `Oops! Something went wrong while attempting to delete the card. Please try again later.`
+      );
+    }
+
     setIsDeleting(false);
     setToBeDeleted(false);
   }, [toBeDeleted, remove, isDeleting]);

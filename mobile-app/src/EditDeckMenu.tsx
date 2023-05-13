@@ -25,7 +25,8 @@ export const EditDeckMenu: EditDeckMenu = () => {
     if (deleteResult.success === false) {
       Alert.alert(
         'Error: Trouble deleting deck',
-        `Oops! Something went wrong while attempting to delete the deck. Please try again later and don't hesitate to let the support know if the issue persists.`
+        // `Oops! Something went wrong while attempting to delete the deck. Please try again later and don't hesitate to let the support know if the issue persists.`
+        `Oops! Something went wrong while attempting to delete the deck. Please try again later.`
       );
     }
 
