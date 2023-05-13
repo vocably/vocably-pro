@@ -5,6 +5,7 @@ import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
@@ -87,6 +88,14 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
       targetLanguage: translationPreset.translationLanguage as GoogleLanguage,
     };
     const lookupResult = await analyze(payload);
+
+    if (lookupResult.success === false) {
+      Alert.alert(
+        'Error: Look up failed',
+        'Oops! Something went wrong while attempting to look up. Please try again later.'
+      );
+    }
+
     setLookupResult(lookupResult);
     setIsAnalyzing(false);
   }, [translationPreset, lookUpText, setIsAnalyzing, isAnalyzing, deck]);
@@ -108,6 +117,10 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
       const addResult = await deck.add(card.card);
 
       if (addResult.success === false) {
+        Alert.alert(
+          'Error: Card addition failed',
+          'Oops! Something went wrong while attempting to add a new card into your collection. Please try again later.'
+        );
         return addResult;
       }
 
@@ -131,6 +144,10 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
       const removeResult = await deck.remove(card.id);
 
       if (removeResult.success === false) {
+        Alert.alert(
+          'Error: Card removal failed',
+          'Oops! Something went wrong while attempting to remove a the card from your collection. Please try again later.'
+        );
         return removeResult;
       }
 
