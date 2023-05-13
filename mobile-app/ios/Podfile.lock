@@ -306,7 +306,7 @@ PODS:
     - glog
   - react-native-get-random-values (1.8.0):
     - React-Core
-  - react-native-netinfo (9.3.7):
+  - react-native-netinfo (9.3.10):
     - React-Core
   - react-native-safe-area-context (4.4.1):
     - RCT-Folly
@@ -649,7 +649,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 5e5497c844f2381e8648ec3a7d0ad25b3f27f23e
   React-logger: b277ad8f4473f2506fb30b762b6348534a3de10e
   react-native-get-random-values: a6ea6a8a65dc93e96e24a11105b1a9c8cfe1d72a
-  react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
+  react-native-netinfo: ccbe1085dffd16592791d550189772e13bf479e2
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   React-perflogger: e9249a18e055cae96fdf685bf6145cbea62506c8
   React-RCTActionSheet: a6d2a544a4605a111ce80fa9319cc870ca3ea778

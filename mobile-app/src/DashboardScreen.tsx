@@ -2,10 +2,7 @@ import { FC, useCallback, useContext, useState } from 'react';
 import {
   View,
   StyleSheet,
-  FlatList,
   ListRenderItem,
-  StyleProp,
-  TextStyle,
   ScrollView,
   RefreshControl,
 } from 'react-native';
@@ -18,6 +15,8 @@ import { CardListItem, keyExtractor, Separator } from './CardListItem';
 import { EmptyCardsList } from './EmptyCardsList';
 import LinearGradient from 'react-native-linear-gradient';
 import { LanguagesContext } from './languages/LanguagesContainer';
+import { useNetInfo } from '@react-native-community/netinfo';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,6 +56,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
   const { refreshLanguages } = useContext(LanguagesContext);
   const cards = deck.cards.sort(byDate).slice(0, 7);
   const theme = useTheme();
+  const netInfo = useNetInfo();
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -96,9 +96,17 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
                   }}
                   mode={'contained'}
                   onPress={() => navigation.navigate('Study')}
+                  disabled={!netInfo.isInternetReachable}
                 >
                   Practice
                 </Button>
+                <Text
+                  style={{ textAlign: 'left', color: theme.colors.secondary }}
+                >
+                  <Icon name="connection" /> Practice mode isn't available right
+                  now as it looks like your device is offline. Please connect to
+                  the internet and try again later.
+                </Text>
               </View>
 
               {cards.map((card, index) => (
