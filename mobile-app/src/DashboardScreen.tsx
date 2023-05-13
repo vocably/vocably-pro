@@ -100,13 +100,15 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
                 >
                   Practice
                 </Button>
-                <Text
-                  style={{ textAlign: 'left', color: theme.colors.secondary }}
-                >
-                  <Icon name="connection" /> Practice mode isn't available right
-                  now as it looks like your device is offline. Please connect to
-                  the internet and try again later.
-                </Text>
+                {!netInfo.isInternetReachable && (
+                  <Text
+                    style={{ textAlign: 'left', color: theme.colors.secondary }}
+                  >
+                    <Icon name="connection" /> Practice mode isn't available
+                    right now as it looks like your device is offline. Please
+                    connect to the internet and try again later.
+                  </Text>
+                )}
               </View>
 
               {cards.map((card, index) => (
