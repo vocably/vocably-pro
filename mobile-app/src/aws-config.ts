@@ -1,10 +1,19 @@
+import {
+  AWS_CONFIG_PROJECT_REGION,
+  AWS_CONFIG_COGNITO_REGION,
+  AWS_CONFIG_USER_POOLS_ID,
+  AWS_CONFIG_USER_POOLS_WEB_CLIENT_ID,
+  AWS_CONFIG_OAUTH_DOMAIN,
+  // @ts-ignore
+} from '@env';
+
 export const awsConfig = {
-  aws_project_region: 'eu-central-1',
-  aws_cognito_region: 'eu-central-1',
-  aws_user_pools_id: 'eu-central-1_g0OM2BVPL',
-  aws_user_pools_web_client_id: '2oar72d3bfrd0did0d9fbaoeli',
+  aws_project_region: AWS_CONFIG_PROJECT_REGION,
+  aws_cognito_region: AWS_CONFIG_COGNITO_REGION,
+  aws_user_pools_id: AWS_CONFIG_USER_POOLS_ID,
+  aws_user_pools_web_client_id: AWS_CONFIG_USER_POOLS_WEB_CLIENT_ID,
   oauth: {
-    domain: 'auth.dev.env.vocably.pro',
+    domain: AWS_CONFIG_OAUTH_DOMAIN,
     scope: ['email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
     redirectSignIn: 'vocably-pro://auth',
     redirectSignOut: 'vocably-pro://auth',
