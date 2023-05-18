@@ -25,11 +25,4 @@ await $`pwa-asset-generator assets/logo-light.svg packages/app/src/assets --padd
 
 await $`pwa-asset-generator assets/logo-light.svg packages/app/src/assets --padding "0 30% 20%" --background white --splash-only --landscape-only`;
 
-await $`svgexport assets/3d-icon.svg mobile-app/ios/VocablyPro/Images.xcassets/AppIcon.appiconset/icon-40x40.png 40:40`;
-await $`svgexport assets/3d-icon.svg mobile-app/ios/VocablyPro/Images.xcassets/AppIcon.appiconset/icon-60x60.png 60:60`;
-await $`svgexport assets/3d-icon.svg mobile-app/ios/VocablyPro/Images.xcassets/AppIcon.appiconset/icon-58x58.png 58:58`;
-await $`svgexport assets/3d-icon.svg mobile-app/ios/VocablyPro/Images.xcassets/AppIcon.appiconset/icon-87x87.png 87:87`;
-await $`svgexport assets/3d-icon.svg mobile-app/ios/VocablyPro/Images.xcassets/AppIcon.appiconset/icon-80x80.png 80:80`;
-await $`svgexport assets/3d-icon.svg mobile-app/ios/VocablyPro/Images.xcassets/AppIcon.appiconset/icon-120x120.png 120:120`;
-await $`svgexport assets/3d-icon.svg mobile-app/ios/VocablyPro/Images.xcassets/AppIcon.appiconset/icon-180x180.png 180:180`;
 await $`svgexport assets/3d-icon.svg mobile-app/ios/VocablyPro/Images.xcassets/AppIcon.appiconset/icon-1024x1024.png 1024:1024`;
