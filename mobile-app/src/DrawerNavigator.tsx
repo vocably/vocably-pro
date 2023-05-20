@@ -2,13 +2,21 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { View } from 'react-native';
 import { Auth } from '@aws-amplify/auth';
 import { TabsNavigator } from './TabsNavigator';
-import { Text } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 
 const Drawer = createDrawerNavigator();
 
 function DrawerContent() {
+  const theme = useTheme();
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: theme.colors.background,
+      }}
+    >
       <Text onPress={() => Auth.signOut()}>Sign out</Text>
     </View>
   );
