@@ -54,7 +54,7 @@ type DashboardScreen = FC<{
 export const DashboardScreen: DashboardScreen = ({ navigation }) => {
   const { deck, reload } = useContext(DeckContext);
   const { refreshLanguages } = useContext(LanguagesContext);
-  const cards = deck.cards.sort(byDate).slice(0, 7);
+  const cards = deck.cards.sort(byDate).slice(0, 17);
   const theme = useTheme();
   const netInfo = useNetInfo();
 
