@@ -29,6 +29,7 @@
     "react-native": "0.70.8",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-get-random-values": "^1.8.0",
+    "react-native-inappbrowser-reborn": "^3.7.0",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-paper": "^5.1.2",
     "react-native-reanimated": "^2.13.0",

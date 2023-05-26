@@ -6,6 +6,7 @@ import {
   AWS_CONFIG_OAUTH_DOMAIN,
   // @ts-ignore
 } from '@env';
+import { urlOpener } from './urlOpener';
 
 export const awsConfig = {
   aws_project_region: AWS_CONFIG_PROJECT_REGION,
@@ -18,6 +19,7 @@ export const awsConfig = {
     redirectSignIn: 'vocably-pro://auth',
     redirectSignOut: 'vocably-pro://auth',
     responseType: 'code',
+    urlOpener,
   },
   federationTarget: 'COGNITO_USER_POOLS',
   aws_cognito_username_attributes: [],
