@@ -3,11 +3,34 @@ import { View } from 'react-native';
 import { Auth } from '@aws-amplify/auth';
 import { TabsNavigator } from './TabsNavigator';
 import { Text, useTheme } from 'react-native-paper';
+import { Alert } from 'react-native';
+import { useCallback } from 'react';
 
 const Drawer = createDrawerNavigator();
 
 function DrawerContent() {
   const theme = useTheme();
+
+  const onDelete = useCallback(() => {
+    Alert.alert(
+      'Account Deletion',
+      'Are you sure you want to delete your account? This operation can not be undone.',
+      [
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: async () => {
+            await Auth.deleteUser();
+            await Auth.signOut();
+          },
+        },
+        {
+          text: 'Cancel',
+        },
+      ]
+    );
+  }, []);
+
   return (
     <View
       style={{
@@ -17,7 +40,20 @@ function DrawerContent() {
         backgroundColor: theme.colors.background,
       }}
     >
-      <Text onPress={() => Auth.signOut()}>Sign out</Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text onPress={() => Auth.signOut()}>Sign out</Text>
+      </View>
+      <View
+        style={{
+          paddingBottom: 64,
+          width: '100%',
+          alignItems: 'center',
+        }}
+      >
+        <Text style={{ color: theme.colors.error }} onPress={onDelete}>
+          Delete your account
+        </Text>
+      </View>
     </View>
   );
 }
