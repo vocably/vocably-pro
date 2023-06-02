@@ -65,7 +65,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
     await refreshLanguages();
     await reload();
     setRefreshing(false);
-  }, []);
+  }, [setRefreshing, refreshLanguages, reload]);
 
   return (
     <View
