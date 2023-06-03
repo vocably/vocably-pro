@@ -6,7 +6,8 @@ import { Card } from './Card';
 import { SwipeGrade } from './SwipeGrade';
 import { Completed } from './Completed';
 import { Loader } from '../loaders/Loader';
-import { DeckContext } from '../DeckContainer';
+import { LanguagesContext } from '../languages/LanguagesContainer';
+import { useLanguageDeck } from '../languageDeck/useLanguageDeck';
 
 const maxCardsToStudy = 10;
 
@@ -15,7 +16,8 @@ type Study = FC<{
 }>;
 
 export const Study: Study = ({ onExit }) => {
-  const { status, deck, update } = useContext(DeckContext);
+  const { selectedLanguage } = useContext(LanguagesContext);
+  const { status, deck, update } = useLanguageDeck(selectedLanguage);
   const [cards, setCards] = useState<CardItem[]>();
   const [cardsStudied, setCardsStudied] = useState(0);
   const totalCardsToStudy = Math.min(maxCardsToStudy, deck.cards.length);

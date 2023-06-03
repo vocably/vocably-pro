@@ -9,7 +9,7 @@ import { Error } from '../Error';
 const selectedLanguageStorageKey = 'selected-language';
 
 export type LanguageContainerDeck = {
-  status: 'loading' | 'loaded' | 'error';
+  status: 'initial' | 'loading' | 'loaded' | 'error';
   deck: LanguageDeck;
 };
 

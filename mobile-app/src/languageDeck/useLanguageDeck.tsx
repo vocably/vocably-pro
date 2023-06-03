@@ -25,7 +25,7 @@ export const defaultDeckValue: LanguageDeck = {
 export const useLanguageDeck = (language: string): Deck => {
   const { decks, storeDeck, addLanguage } = useContext(LanguagesContext);
   const deck = decks[language] ?? {
-    status: 'loaded',
+    status: 'initial',
     deck: {
       language,
       cards: [],
@@ -55,6 +55,7 @@ export const useLanguageDeck = (language: string): Deck => {
         storeDeck({
           ...deck,
           deck: loadResult.value,
+          status: 'loaded',
         });
 
         return {
@@ -86,6 +87,7 @@ export const useLanguageDeck = (language: string): Deck => {
         storeDeck({
           ...deck,
           deck: loadResult.value,
+          status: 'loaded',
         });
 
         return updateResult;
@@ -114,6 +116,7 @@ export const useLanguageDeck = (language: string): Deck => {
         storeDeck({
           ...deck,
           deck: loadResult.value,
+          status: 'loaded',
         });
 
         return deleteResult;
@@ -129,10 +132,12 @@ export const useLanguageDeck = (language: string): Deck => {
       });
     }
 
-    storeDeck({
-      ...deck,
-      status: 'loading',
-    });
+    if (deck.status === 'initial') {
+      storeDeck({
+        ...deck,
+        status: 'loading',
+      });
+    }
 
     return loadLanguageDeck(language).then((result) => {
       if (result.success === false) {

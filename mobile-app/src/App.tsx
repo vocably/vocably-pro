@@ -2,7 +2,6 @@ import { AuthContainer } from './auth/AuthContainer';
 import { Login } from './auth/Login';
 import { configureApi } from '@vocably/api';
 import { LanguagesContainer } from './languages/LanguagesContainer';
-import { DeckContainer } from './DeckContainer';
 import { NavigationContainer } from './NavigationContainer';
 import { ThemeProvider } from './ThemeProvider';
 // @ts-ignore
@@ -20,9 +19,7 @@ const App = () => {
       <AuthContainer>
         <Login>
           <LanguagesContainer>
-            <DeckContainer>
-              <NavigationContainer />
-            </DeckContainer>
+            <NavigationContainer />
           </LanguagesContainer>
         </Login>
       </AuthContainer>

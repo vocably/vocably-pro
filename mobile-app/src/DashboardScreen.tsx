@@ -7,16 +7,17 @@ import {
   RefreshControl,
 } from 'react-native';
 import { Text, useTheme, Button, Badge } from 'react-native-paper';
-import { DeckContext } from './DeckContainer';
 import { NavigationProp } from '@react-navigation/native';
 import { mainPadding } from './styles';
 import { CardItem, byDate } from '@vocably/model';
-import { CardListItem, keyExtractor, Separator } from './CardListItem';
+import { CardListItem, Separator } from './CardListItem';
 import { EmptyCardsList } from './EmptyCardsList';
 import LinearGradient from 'react-native-linear-gradient';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { useNetInfo } from '@react-native-community/netinfo';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Loader } from './loaders/Loader';
+import { userSelectedDeck } from './languageDeck/userSelectedDeck';
 
 const styles = StyleSheet.create({
   container: {
@@ -52,7 +53,7 @@ type DashboardScreen = FC<{
 }>;
 
 export const DashboardScreen: DashboardScreen = ({ navigation }) => {
-  const { deck, reload } = useContext(DeckContext);
+  const { deck, reload, status } = userSelectedDeck();
   const { refreshLanguages } = useContext(LanguagesContext);
   const cards = deck.cards.sort(byDate).slice(0, 17);
   const theme = useTheme();
@@ -67,10 +68,13 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
     setRefreshing(false);
   }, [setRefreshing, refreshLanguages, reload]);
 
+  if (deck.cards.length === 0 && status === 'loading') {
+    return <Loader>Loading cards...</Loader>;
+  }
+
   return (
     <View
       style={{
-        backgroundColor: theme.colors.background,
         flex: 1,
       }}
     >

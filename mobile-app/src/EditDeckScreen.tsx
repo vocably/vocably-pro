@@ -16,12 +16,12 @@ import {
   useTheme,
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { DeckContext } from './DeckContainer';
 import { CardListItem, keyExtractor, Separator } from './CardListItem';
 import { mainPadding } from './styles';
 import { CardItem, byDate } from '@vocably/model';
 import { NavigationProp } from '@react-navigation/native';
 import { EmptyCardsList } from './EmptyCardsList';
+import { userSelectedDeck } from './languageDeck/userSelectedDeck';
 
 const styles = StyleSheet.create({
   container: {
@@ -71,7 +71,7 @@ type EditDeckScreen = FC<{
 
 export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
   const theme = useTheme();
-  const { deck, remove } = useContext(DeckContext);
+  const { deck, remove } = userSelectedDeck();
   const [toBeDeleted, setToBeDeleted] = useState<false | CardItem>(false);
   const [isDeleting, setIsDeleting] = useState(false);
 

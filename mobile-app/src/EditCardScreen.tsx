@@ -1,10 +1,10 @@
-import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { useTheme, TextInput, Button } from 'react-native-paper';
 import { NavigationProp, Route } from '@react-navigation/native';
 import { CardItem } from '@vocably/model';
 import { mainPadding } from './styles';
-import { DeckContext } from './DeckContainer';
+import { userSelectedDeck } from './languageDeck/userSelectedDeck';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,7 +29,7 @@ type EditCardScreen = FC<{
 }>;
 
 export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
-  const { update } = useContext(DeckContext);
+  const { update } = userSelectedDeck();
 
   const { card } = route.params as EditCardParams;
   const [cardData, setCardData] = useState({ ...card.data });
