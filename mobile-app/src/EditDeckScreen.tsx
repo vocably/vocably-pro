@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useContext, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -22,6 +22,7 @@ import { CardItem, byDate } from '@vocably/model';
 import { NavigationProp } from '@react-navigation/native';
 import { EmptyCardsList } from './EmptyCardsList';
 import { userSelectedDeck } from './languageDeck/userSelectedDeck';
+import { dialogAlign } from './dialogAlign';
 
 const styles = StyleSheet.create({
   container: {
@@ -134,7 +135,7 @@ export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
           visible={toBeDeleted !== false}
           onDismiss={() => setToBeDeleted(false)}
           style={{
-            alignSelf: 'center',
+            alignSelf: dialogAlign,
             marginTop: 'auto',
             marginBottom: 'auto',
           }}

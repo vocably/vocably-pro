@@ -9,6 +9,7 @@ import {
 } from 'react-native-paper';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { getFullLanguageName } from '@vocably/model';
+import { dialogAlign } from './dialogAlign';
 
 type LanguageSelector = FC<{}>;
 
@@ -36,7 +37,7 @@ export const LanguageSelector: LanguageSelector = () => {
           visible={visible}
           onDismiss={hideDialog}
           style={{
-            alignSelf: 'center',
+            alignSelf: dialogAlign,
             marginTop: 'auto',
             marginBottom: 'auto',
           }}

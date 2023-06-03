@@ -3,6 +3,7 @@ import { Appbar, Button, Dialog, Menu, Portal, Text } from 'react-native-paper';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
+import { dialogAlign } from './dialogAlign';
 
 type EditDeckMenu = FC<{}>;
 
@@ -57,7 +58,7 @@ export const EditDeckMenu: EditDeckMenu = () => {
           visible={isAboutToDelete}
           onDismiss={() => setIsAboutToDelete(false)}
           style={{
-            alignSelf: 'center',
+            alignSelf: dialogAlign,
             marginTop: 'auto',
             marginBottom: 'auto',
           }}
