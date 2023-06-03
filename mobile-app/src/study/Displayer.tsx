@@ -30,6 +30,8 @@ export const Displayer: Displayer = ({ children }) => {
       style={{
         opacity: opacityAnimation,
         transform: [{ scale: scaleAnimation }],
+        width: '100%',
+        flex: 1,
       }}
     >
       {children}

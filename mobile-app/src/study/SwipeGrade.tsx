@@ -41,7 +41,9 @@ export const SwipeGrade: FC<{
 
   const panResponder = useRef(
     PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        return Math.abs(gestureState.dx) >= 5 || Math.abs(gestureState.dy) >= 5;
+      },
       onPanResponderGrant: () => {
         pan.setOffset({
           // @ts-ignore
