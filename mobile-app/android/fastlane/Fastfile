@@ -38,9 +38,9 @@ platform :android do
         "android.injected.signing.key.password" => key_password,
       }
     )
-#    upload_to_play_store(
-#      track: 'internal'
-#    )
+    upload_to_play_store(
+      track: 'internal'
+    )
   end
 
   desc "Deploy a new version to the Google Play"
