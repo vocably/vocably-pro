@@ -6,18 +6,6 @@ import 'video.js/dist/video-js.css';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
 
-const canInstallTheExtension = browser.satisfies({
-  desktop: {
-    chrome: '>1',
-  },
-});
-
-if (canInstallTheExtension !== true) {
-  document
-    .querySelectorAll('.browser-warning')
-    .forEach((element) => element.classList.remove('d-none'));
-}
-
 const promoVideo = document.getElementById('promo-video');
 if (promoVideo) {
   const isAutoplay = browser.is('desktop');
