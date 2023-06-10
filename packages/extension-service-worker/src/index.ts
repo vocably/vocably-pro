@@ -18,6 +18,8 @@ import {
   onIsEligibleForTrialRequest,
   onSetProxyLanguage,
   onGetProxyLanguage,
+  onGetInternalProxyLanuage,
+  onSetInternalProxyLanguage,
 } from '@vocably/extension-messages';
 import { createCards } from './createCards';
 import { makeDelete } from '@vocably/crud';
@@ -28,7 +30,7 @@ import {
   GoogleLanguage,
   mapUserAttributes,
 } from '@vocably/model';
-import { getProxyLanguage } from './proxyLanguage';
+import { getProxyLanguage, setProxyLanguage } from './proxyLanguage';
 
 type RegisterServiceWorkerOptions = {
   auth: Parameters<typeof Auth.configure>[0];
@@ -83,7 +85,7 @@ export const registerServiceWorker = (
     console.info(`Analyze has been requested.`);
     const analyzePayload = {
       ...payload,
-      targetLanguage: await getProxyLanguage(),
+      targetLanguage: (await getProxyLanguage()) ?? 'en',
     };
     try {
       const analysis = await analyze(analyzePayload);
@@ -194,15 +196,22 @@ export const registerServiceWorker = (
     return sendResponse('pong');
   });
 
-  onSetProxyLanguage(async (sendResponse, language) => {
-    await chrome.storage.sync.set({
-      proxyLanguage: language,
-    });
+  onGetInternalProxyLanuage(async (sendResponse) => {
+    return sendResponse(await getProxyLanguage());
+  });
+
+  onSetInternalProxyLanguage(async (sendResponse, language) => {
+    await setProxyLanguage(language);
     return sendResponse();
   });
 
   onGetProxyLanguage(async (sendResponse) => {
     return sendResponse(await getProxyLanguage());
+  });
+
+  onSetProxyLanguage(async (sendResponse, language) => {
+    await setProxyLanguage(language);
+    return sendResponse();
   });
 
   console.info('The service worker has been registered.');

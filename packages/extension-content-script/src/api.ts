@@ -6,11 +6,15 @@ import {
   ping,
   listLanguages,
   isEligibleForTrial,
+  getInternalProxyLanguage,
+  setInternalProxyLanguage,
 } from '@vocably/extension-messages';
 
 export const api = {
   appBaseUrl: 'https://app.vocably.pro',
   isLoggedIn,
+  getInternalProxyLanguage,
+  setInternalProxyLanguage,
   analyze,
   cleanUp,
   isActive,

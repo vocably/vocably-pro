@@ -43,6 +43,12 @@ export const [cleanUp, onCleanUpRequest] = createScopedMessage<
 
 export const [ping, onPing] = createScopedMessage<void, string>('ping');
 
+export const [getInternalProxyLanguage, onGetInternalProxyLanuage] =
+  createScopedMessage<void, GoogleLanguage | null>('getInternalProxyLanguage');
+
+export const [setInternalProxyLanguage, onSetInternalProxyLanguage] =
+  createScopedMessage<GoogleLanguage, void>('setInternalProxyLanguage');
+
 export const [pingExternal, onPingExternal] = createExternalMessage<
   void,
   string
@@ -55,5 +61,5 @@ export const [setProxyLanguage, onSetProxyLanguage] = createExternalMessage<
 
 export const [getProxyLanguage, onGetProxyLanguage] = createExternalMessage<
   void,
-  GoogleLanguage
+  GoogleLanguage | null
 >('vocably.getProxyLanguage');

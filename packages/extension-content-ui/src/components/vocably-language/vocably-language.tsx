@@ -8,6 +8,7 @@ import { languageList } from '@vocably/model';
 })
 export class VocablyLanguage {
   @Prop() language: string;
+  @Prop() waiting: boolean;
   @Event() confirm: EventEmitter<string>;
 
   private select: HTMLSelectElement;
@@ -16,6 +17,7 @@ export class VocablyLanguage {
     return (
       <Host data-test="language">
         <div class="container">
+          <div class="h1">My Mother Tongue Is...</div>
           <div class="p">What language do you speak fluently?</div>
           <div class="p">
             <select
@@ -34,8 +36,9 @@ export class VocablyLanguage {
               class="button"
               onClick={() => this.confirm.emit(this.select.value)}
               data-test="subscribe-button"
+              disabled={this.waiting}
             >
-              Save
+              {this.waiting ? 'Saving...' : 'Save'}
             </button>
           </div>
         </div>

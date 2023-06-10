@@ -1,5 +1,6 @@
 import { api } from '../api';
 import { GoogleLanguage } from '@vocably/model';
+import { addWarning } from '@angular-devkit/build-angular/src/utils/webpack-diagnostics';
 
 type Options = {
   popup: HTMLElement;
@@ -7,6 +8,14 @@ type Options = {
 };
 
 export type TearDown = () => void;
+
+const getLocaleLanguage = (): string => {
+  if (!window?.navigator?.language) {
+    return 'en';
+  }
+
+  return window.navigator.language.substring(0, 2);
+};
 
 export const setContents = async ({
   popup,
@@ -63,25 +72,43 @@ export const setContents = async ({
     popup.appendChild(translation);
   };
 
-  const isAlright = (): Promise<[boolean, boolean]> => {
-    return Promise.all([api.isLoggedIn(), api.isActive()]);
+  const isAlright = (): Promise<[boolean, boolean, boolean]> => {
+    return Promise.all([
+      api.isLoggedIn(),
+      api.isActive(),
+      api
+        .getInternalProxyLanguage()
+        .then((internalProxyLanguage) => !!internalProxyLanguage),
+    ]);
   };
 
-  const [isLoggedIn, isActive] = await isAlright();
+  const [isLoggedIn, isActive, hasProxyLanguage] = await isAlright();
 
-  if (isLoggedIn && isActive) {
+  if (isLoggedIn && isActive && hasProxyLanguage) {
     setTranslation();
     return tearDown;
   }
 
   const alert = document.createElement('div');
 
-  const updateAlertMessage = async (isLoggedIn: boolean, isActive: boolean) => {
+  const updateAlertMessage = async (
+    isLoggedIn: boolean,
+    isActive: boolean,
+    hasProxyLanguage: boolean
+  ) => {
     if (!isLoggedIn) {
       if (alert.dataset.message !== 'sign-in') {
         alert.dataset.message = 'sign-in';
         alert.innerHTML = '';
-        alert.appendChild(document.createElement('vocably-sign-in'));
+        const signInElement = document.createElement('vocably-sign-in');
+
+        signInElement.addEventListener('confirm', () => {
+          closeWindow();
+          windowProxy = window.open(`${api.appBaseUrl}/hands-free`, '_blank');
+          windowProxy.focus();
+        });
+
+        alert.appendChild(signInElement);
       }
       return;
     }
@@ -97,9 +124,26 @@ export const setContents = async ({
       }
       return;
     }
+
+    if (!hasProxyLanguage) {
+      if (alert.dataset.message !== 'proxy-language') {
+        alert.dataset.message = 'proxy-language';
+        alert.innerHTML = '';
+        const languageForm = document.createElement('vocably-language');
+        languageForm.language = getLocaleLanguage();
+
+        languageForm.addEventListener('confirm', async (event: CustomEvent) => {
+          languageForm.waiting = true;
+          const language = event.detail;
+          await api.setInternalProxyLanguage(language);
+        });
+
+        alert.appendChild(languageForm);
+      }
+    }
   };
 
-  await updateAlertMessage(isLoggedIn, isActive);
+  await updateAlertMessage(isLoggedIn, isActive, hasProxyLanguage);
 
   let windowProxy: WindowProxy | null = null;
 
@@ -111,22 +155,16 @@ export const setContents = async ({
   };
 
   intervalId = setInterval(async () => {
-    const [isLoggedIn, isActive] = await isAlright();
-    if (isLoggedIn && isActive) {
+    const [isLoggedIn, isActive, hasProxyLanguage] = await isAlright();
+    if (isLoggedIn && isActive && hasProxyLanguage) {
       clearInterval(intervalId);
       intervalId = null;
       setTranslation();
       setTimeout(closeWindow, 3000);
     } else {
-      await updateAlertMessage(isLoggedIn, isActive);
+      await updateAlertMessage(isLoggedIn, isActive, hasProxyLanguage);
     }
   }, 1000);
-
-  alert.addEventListener('confirm', () => {
-    closeWindow();
-    windowProxy = window.open(`${api.appBaseUrl}/hands-free`, '_blank');
-    windowProxy.focus();
-  });
 
   popup.innerHTML = '';
   popup.appendChild(alert);

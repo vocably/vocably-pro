@@ -13,6 +13,11 @@
   margin-bottom: $p-margin;
 }
 
+.h1 {
+  font-size: $base-font-size + 10px;
+  margin-bottom: $p-margin;
+}
+
 .button {
   @include button();
 }

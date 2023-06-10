@@ -254,9 +254,31 @@
       <h2>Fluent language</h2>
 
       <div class="mb-3">
-        <vocably-popup
-          ><vocably-language language="en"></vocably-language
-        ></vocably-popup>
+        <div>
+          <vocably-popup
+            ><vocably-language
+              language="en"
+              id="languageForm"
+            ></vocably-language
+          ></vocably-popup>
+        </div>
+        <div class="form-check form-check-inline form-switch">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="languageWaiting"
+          />
+          <label class="form-check-label" for="languageWaiting"
+            >Loading...</label
+          >
+        </div>
+        <script type="text/javascript">
+          const waitingCheckbox = document.getElementById('languageWaiting');
+          const languageForm = document.getElementById('languageForm');
+          waitingCheckbox.addEventListener('change', () => {
+            languageForm.waiting = waitingCheckbox.checked;
+          });
+        </script>
       </div>
 
       <h2>Free trial</h2>

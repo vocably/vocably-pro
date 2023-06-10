@@ -7,6 +7,17 @@ registerContentScript({
       Promise.resolve(
         (document.getElementById('isLoggedIn') as HTMLInputElement).checked
       ),
+    getInternalProxyLanguage: () =>
+      Promise.resolve(
+        (document.getElementById('hasProxyLanguage') as HTMLInputElement)
+          .checked
+          ? 'en'
+          : null
+      ),
+    setInternalProxyLanguage: async () => {
+      // @ts-ignore
+      document.getElementById('hasProxyLanguage').checked = true;
+    },
     isActive: () =>
       Promise.resolve(
         (document.getElementById('isActive') as HTMLInputElement).checked

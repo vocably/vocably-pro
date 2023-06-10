@@ -13,6 +13,7 @@ export namespace Components {
     }
     interface VocablyLanguage {
         "language": string;
+        "waiting": boolean;
     }
     interface VocablyLogo {
     }
@@ -143,6 +144,7 @@ declare namespace LocalJSX {
     interface VocablyLanguage {
         "language"?: string;
         "onConfirm"?: (event: VocablyLanguageCustomEvent<string>) => void;
+        "waiting"?: boolean;
     }
     interface VocablyLogo {
     }
