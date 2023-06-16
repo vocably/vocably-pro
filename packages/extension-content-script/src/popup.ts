@@ -1,4 +1,3 @@
-import { detectLanguage } from './detectLanguage';
 import { setContents, TearDown } from './popup/contents';
 import {
   applyMaxZIndex,
@@ -60,7 +59,7 @@ export const createPopup = async (selection: Selection) => {
   tearDownContents = await setContents({
     popup,
     source: selection.toString(),
-    detectedLanguage: detectLanguage(selection),
+    detectedLanguage: undefined,
   });
 
   const position = calculatePosition(selection);
