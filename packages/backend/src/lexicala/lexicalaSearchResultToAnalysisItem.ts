@@ -18,7 +18,7 @@ export const lexicalaSearchResultToAnalysisItem =
         .slice(0, 3)
         .filter((s) => s.definition)
         .map((s) => s.definition),
-      partOfSpeech: item.headword.text,
+      partOfSpeech: item.headword.pos,
       translation: translationResult.success ? translationResult.value : '',
     };
   };
