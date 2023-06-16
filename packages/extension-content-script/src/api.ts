@@ -2,12 +2,14 @@ import {
   analyze,
   cleanUp,
   getInternalProxyLanguage,
+  getInternalSourceLanguage,
   isActive,
   isEligibleForTrial,
   isLoggedIn,
   listLanguages,
   ping,
   setInternalProxyLanguage,
+  setInternalSourceLanguage,
 } from '@vocably/extension-messages';
 
 export const api = {
@@ -15,6 +17,8 @@ export const api = {
   isLoggedIn,
   getInternalProxyLanguage,
   setInternalProxyLanguage,
+  getInternalSourceLanguage,
+  setInternalSourceLanguage,
   analyze,
   cleanUp,
   isActive,

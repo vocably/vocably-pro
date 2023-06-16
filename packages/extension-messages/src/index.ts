@@ -48,6 +48,12 @@ export const [getInternalProxyLanguage, onGetInternalProxyLanuage] =
 export const [setInternalProxyLanguage, onSetInternalProxyLanguage] =
   createScopedMessage<GoogleLanguage, void>('setInternalProxyLanguage');
 
+export const [getInternalSourceLanguage, onGetInternalSourceLanguage] =
+  createScopedMessage<void, GoogleLanguage | null>('getInternalSourceLanguage');
+
+export const [setInternalSourceLanguage, onSetInternalSourceLanguage] =
+  createScopedMessage<GoogleLanguage, void>('setInternalSourceLanguage');
+
 export const [pingExternal, onPingExternal] = createExternalMessage<
   void,
   string

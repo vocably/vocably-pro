@@ -12,7 +12,8 @@ export namespace Components {
     interface VocablyCloseButton {
     }
     interface VocablyLanguage {
-        "language": string;
+        "sourceLanguage": string;
+        "targetLanguage": string;
         "waiting": boolean;
     }
     interface VocablyLogo {
@@ -142,8 +143,12 @@ declare namespace LocalJSX {
         "onClose"?: (event: VocablyCloseButtonCustomEvent<void>) => void;
     }
     interface VocablyLanguage {
-        "language"?: string;
-        "onConfirm"?: (event: VocablyLanguageCustomEvent<string>) => void;
+        "onConfirm"?: (event: VocablyLanguageCustomEvent<{
+    sourceLanguage: string;
+    targetLanguage: string;
+  }>) => void;
+        "sourceLanguage"?: string;
+        "targetLanguage"?: string;
         "waiting"?: boolean;
     }
     interface VocablyLogo {

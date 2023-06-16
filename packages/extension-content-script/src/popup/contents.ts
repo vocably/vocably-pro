@@ -67,25 +67,32 @@ export const setContents = async ({
       }
     );
 
-    analyze(detectedLanguage);
+    analyze();
 
     popup.innerHTML = '';
     popup.appendChild(translation);
   };
 
-  const isAlright = (): Promise<[boolean, boolean, boolean]> => {
+  const isAlright = (): Promise<
+    [boolean, boolean, GoogleLanguage | null, GoogleLanguage | null]
+  > => {
     return Promise.all([
       api.isLoggedIn(),
       api.isActive(),
-      api
-        .getInternalProxyLanguage()
-        .then((internalProxyLanguage) => !!internalProxyLanguage),
+      api.getInternalSourceLanguage(),
+      api.getInternalProxyLanguage(),
     ]);
   };
 
-  const [isLoggedIn, isActive, hasProxyLanguage] = await isAlright();
+  const [isLoggedIn, isActive, internalSourceLanguage, internalTargetLanguage] =
+    await isAlright();
 
-  if (isLoggedIn && isActive && hasProxyLanguage) {
+  if (
+    isLoggedIn &&
+    isActive &&
+    internalSourceLanguage &&
+    internalTargetLanguage
+  ) {
     setTranslation();
     return tearDown;
   }
@@ -95,7 +102,8 @@ export const setContents = async ({
   const updateAlertMessage = async (
     isLoggedIn: boolean,
     isActive: boolean,
-    hasProxyLanguage: boolean
+    internalSourceLanguage: GoogleLanguage | null,
+    internalTargetLanguage: GoogleLanguage | null
   ) => {
     if (!isLoggedIn) {
       if (alert.dataset.message !== 'sign-in') {
@@ -126,17 +134,23 @@ export const setContents = async ({
       return;
     }
 
-    if (!hasProxyLanguage) {
+    if (!internalSourceLanguage || !internalTargetLanguage) {
       if (alert.dataset.message !== 'proxy-language') {
         alert.dataset.message = 'proxy-language';
         alert.innerHTML = '';
         const languageForm = document.createElement('vocably-language');
-        languageForm.language = getLocaleLanguage();
+        languageForm.sourceLanguage =
+          internalSourceLanguage ?? detectedLanguage;
+        languageForm.targetLanguage =
+          internalTargetLanguage ?? getLocaleLanguage();
 
         languageForm.addEventListener('confirm', async (event: CustomEvent) => {
           languageForm.waiting = true;
-          const language = event.detail;
-          await api.setInternalProxyLanguage(language);
+          const { sourceLanguage, targetLanguage } = event.detail;
+          await Promise.all([
+            api.setInternalSourceLanguage(sourceLanguage),
+            api.setInternalProxyLanguage(targetLanguage),
+          ]);
         });
 
         alert.appendChild(languageForm);
@@ -144,7 +158,12 @@ export const setContents = async ({
     }
   };
 
-  await updateAlertMessage(isLoggedIn, isActive, hasProxyLanguage);
+  await updateAlertMessage(
+    isLoggedIn,
+    isActive,
+    internalSourceLanguage,
+    internalTargetLanguage
+  );
 
   let windowProxy: WindowProxy | null = null;
 
@@ -156,14 +175,29 @@ export const setContents = async ({
   };
 
   intervalId = setInterval(async () => {
-    const [isLoggedIn, isActive, hasProxyLanguage] = await isAlright();
-    if (isLoggedIn && isActive && hasProxyLanguage) {
+    const [
+      isLoggedIn,
+      isActive,
+      internalSourceLanguage,
+      internalTargetLanguage,
+    ] = await isAlright();
+    if (
+      isLoggedIn &&
+      isActive &&
+      internalSourceLanguage &&
+      internalTargetLanguage
+    ) {
       clearInterval(intervalId);
       intervalId = null;
       setTranslation();
       setTimeout(closeWindow, 3000);
     } else {
-      await updateAlertMessage(isLoggedIn, isActive, hasProxyLanguage);
+      await updateAlertMessage(
+        isLoggedIn,
+        isActive,
+        internalSourceLanguage,
+        internalTargetLanguage
+      );
     }
   }, 1000);
 

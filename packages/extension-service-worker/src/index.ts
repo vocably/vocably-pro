@@ -11,6 +11,7 @@ import {
   onAnalyzeRequest,
   onCleanUpRequest,
   onGetInternalProxyLanuage,
+  onGetInternalSourceLanguage,
   onGetProxyLanguage,
   onIsActiveRequest,
   onIsEligibleForTrialRequest,
@@ -19,6 +20,7 @@ import {
   onPing,
   onPingExternal,
   onSetInternalProxyLanguage,
+  onSetInternalSourceLanguage,
   onSetProxyLanguage,
 } from '@vocably/extension-messages';
 import {
@@ -31,6 +33,7 @@ import { createCards } from './createCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
 import { getProxyLanguage, setProxyLanguage } from './proxyLanguage';
+import { getSourceLanguage, setSourceLanguage } from './sourceLanguage';
 
 type RegisterServiceWorkerOptions = {
   auth: Parameters<typeof Auth.configure>[0];
@@ -85,8 +88,15 @@ export const registerServiceWorker = (
     console.info(`Analyze has been requested.`);
     const analyzePayload = {
       ...payload,
+      sourceLanguage:
+        payload.sourceLanguage ?? (await getSourceLanguage()) ?? undefined,
       targetLanguage: (await getProxyLanguage()) ?? 'en',
     };
+
+    if (payload.sourceLanguage) {
+      await setSourceLanguage(payload.sourceLanguage);
+    }
+
     try {
       const analysis = await analyze(analyzePayload);
       console.info(`Analyze has returned data.`, analysis);
@@ -202,6 +212,15 @@ export const registerServiceWorker = (
 
   onSetInternalProxyLanguage(async (sendResponse, language) => {
     await setProxyLanguage(language);
+    return sendResponse();
+  });
+
+  onGetInternalSourceLanguage(async (sendResponse) => {
+    return sendResponse(await getSourceLanguage());
+  });
+
+  onSetInternalSourceLanguage(async (sendResponse, language) => {
+    await setSourceLanguage(language);
     return sendResponse();
   });
 

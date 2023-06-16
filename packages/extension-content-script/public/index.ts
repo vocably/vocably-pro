@@ -18,6 +18,17 @@ registerContentScript({
       // @ts-ignore
       document.getElementById('hasProxyLanguage').checked = true;
     },
+    getInternalSourceLanguage: () =>
+      Promise.resolve(
+        (document.getElementById('hasProxyLanguage') as HTMLInputElement)
+          .checked
+          ? 'nl'
+          : null
+      ),
+    setInternalSourceLanguage: async () => {
+      // @ts-ignore
+      document.getElementById('hasProxyLanguage').checked = true;
+    },
     isActive: () =>
       Promise.resolve(
         (document.getElementById('isActive') as HTMLInputElement).checked
