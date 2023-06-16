@@ -4,6 +4,7 @@ import { api } from '../api';
 type Options = {
   popup: HTMLElement;
   source: string;
+  detectedLanguage: GoogleLanguage | undefined;
 };
 
 export type TearDown = () => void;
@@ -19,6 +20,7 @@ const getLocaleLanguage = (): string => {
 export const setContents = async ({
   popup,
   source,
+  detectedLanguage,
 }: Options): Promise<TearDown> => {
   let intervalId: ReturnType<typeof setInterval> | null = null;
 
@@ -65,7 +67,7 @@ export const setContents = async ({
       }
     );
 
-    analyze();
+    analyze(detectedLanguage);
 
     popup.innerHTML = '';
     popup.appendChild(translation);
