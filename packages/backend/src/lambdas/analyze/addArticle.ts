@@ -12,6 +12,12 @@ const languageArticles: Partial<Record<LexicalaLanguage, ArticleRules>> = {
     'masculine-neuter': 'de/het ',
     fallback: 'de ',
   },
+  de: {
+    feminine: 'die ',
+    masculine: 'der ',
+    neuter: 'das ',
+    fallback: '',
+  },
 };
 
 export const addArticle = (

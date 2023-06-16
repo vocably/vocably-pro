@@ -36,6 +36,7 @@ export const lexicala = async (
         text,
         source: 'global',
         morph: 'true',
+        analyzed: 'true',
       }).toString()}`,
       headers: {
         'X-RapidAPI-Host': process.env.LEXICALA_HOST,

@@ -96,7 +96,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.items[0].translation).toEqual('');
   });
 
-  it('adds articles and takes translations from lexicala', async () => {
+  it('adds articles and takes translations from lexicala (nl)', async () => {
     mockEvent.body = JSON.stringify({
       source: 'regeling',
       sourceLanguage: 'nl',
@@ -113,6 +113,23 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.items[0].translation).toEqual('regulation, settlement');
   });
 
+  it('adds articles and takes translations from lexicala (de)', async () => {
+    mockEvent.body = JSON.stringify({
+      source: 'katzen',
+      sourceLanguage: 'de',
+      targetLanguage: 'en',
+    });
+    mockEvent.requestContext = paidRequestContext;
+    const result = await analyze(mockEvent);
+    console.log({ result });
+    expect(result.statusCode).toEqual(200);
+    const resultBody: Analysis = JSON.parse(result.body);
+    expect(resultBody.source).toEqual('katzen');
+    expect(resultBody.translation).toBeDefined();
+    expect(resultBody.items[0].source).toEqual('die Katze');
+    expect(resultBody.items[0].translation).toEqual('cat');
+  });
+
   it('adds articles and takes translations from google', async () => {
     mockEvent.body = JSON.stringify({
       source: 'regeling',
@@ -126,7 +143,7 @@ describe('integration check for translate lambda', () => {
     const resultBody: Analysis = JSON.parse(result.body);
     expect(resultBody.source).toEqual('regeling');
     expect(resultBody.translation).toBeDefined();
-    expect(resultBody.items.length).toEqual(1);
+    expect(resultBody.items.length).toEqual(4);
     expect(resultBody.items[0].source).toEqual('de regeling');
     expect(resultBody.items[0].translation).toEqual('регулирование');
   });
@@ -141,13 +158,14 @@ describe('integration check for translate lambda', () => {
     const result = await analyze(mockEvent);
     expect(result.statusCode).toEqual(200);
     const resultBody: ReverseAnalysis = JSON.parse(result.body);
+    console.log(inspect(resultBody));
     expect(resultBody.target).toEqual('правило');
     expect(resultBody.source).toEqual('regel');
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.reverseTranslation).toBeDefined();
     expect(resultBody.items[0].source).toEqual('de regel');
     expect(resultBody.items[0].translation).toEqual('правило');
-    expect(resultBody.items[1].source).toEqual('regelen');
-    expect(resultBody.items[1].translation).toEqual('организовать');
+    expect(resultBody.items[1].source).toEqual('regelbaar');
+    expect(resultBody.items[1].translation).toEqual('регулируемый');
   });
 });
