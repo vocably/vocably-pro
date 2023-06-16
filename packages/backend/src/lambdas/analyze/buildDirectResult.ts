@@ -8,7 +8,9 @@ import { googleTranslate } from '../../googleTranslate';
 import { lexicala } from '../../lexicala';
 import { languageToLexicalaLanguage } from '../../lexicala/lexicalaLanguageMapper';
 import { lexicalaSearchResultToAnalysisItem } from '../../lexicala/lexicalaSearchResultToAnalysisItem';
+import { normalizeHeadword } from '../../lexicala/normalizeHeadword';
 import { combineItems } from './combineItems';
+import { fitsTheSize } from './fitsTheSize';
 import { trimArticle } from './trimArticle';
 
 export const buildDirectResult = async (
@@ -69,9 +71,10 @@ export const buildDirectResult = async (
       translation: translationResult.value,
       items: (
         await Promise.all(
-          lexicalaResult.value.map(
-            lexicalaSearchResultToAnalysisItem(translation)
-          )
+          lexicalaResult.value
+            .map(normalizeHeadword(payload.source))
+            .filter(fitsTheSize(payload.source))
+            .map(lexicalaSearchResultToAnalysisItem(translation))
         )
       ).reduce(combineItems, []),
     },

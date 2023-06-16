@@ -1,4 +1,12 @@
-import { Headword, LexicalaSearchResultItem } from '../lexicala';
+import { get as calculateLevenshtein } from 'fast-levenshtein';
+import { Headword } from '../lexicala';
 
-export const extractHeadword = (item: LexicalaSearchResultItem): Headword =>
-  Array.isArray(item.headword) ? item.headword[0] : item.headword;
+export const extractHeadword = (
+  source: string,
+  headwords: Headword[]
+): Headword =>
+  [...headwords].sort(
+    (a, b) =>
+      calculateLevenshtein(source, a.text, { useCollator: true }) -
+      calculateLevenshtein(source, b.text, { useCollator: true })
+  )[0];

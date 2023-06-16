@@ -1,12 +1,12 @@
 import { Result, Translation } from '@vocably/model';
-import { LexicalaSearchResultItem } from '../../lexicala';
 import { languageToLexicalaLanguage } from '../../lexicala/lexicalaLanguageMapper';
+import { LexicalaSearchResultItemWithNormalHeadword } from '../../lexicala/normalizeHeadword';
 import { extractItemTranslation } from './extractTranslation/extractItemTranslation';
 import { translateItem } from './extractTranslation/translateItem';
 
 export const extractTranslation = async (
   originalTranslation: Translation,
-  item: LexicalaSearchResultItem
+  item: LexicalaSearchResultItemWithNormalHeadword
 ): Promise<Result<string>> => {
   if (
     originalTranslation.sourceLanguage === originalTranslation.targetLanguage

@@ -1,10 +1,9 @@
 import { Result, Translation } from '@vocably/model';
 import { googleTranslate } from '../../../googleTranslate';
-import { LexicalaSearchResultItem } from '../../../lexicala';
-import { extractHeadword } from '../../../lexicala/extractHeadword';
+import { LexicalaSearchResultItemWithNormalHeadword } from '../../../lexicala/normalizeHeadword';
 
 export const translateItem = async (
-  item: LexicalaSearchResultItem,
+  item: LexicalaSearchResultItemWithNormalHeadword,
   translation: Translation
 ): Promise<Result<string>> => {
   if (translation.sourceLanguage === translation.targetLanguage) {
@@ -14,8 +13,7 @@ export const translateItem = async (
     };
   }
 
-  const headword = extractHeadword(item);
-  if (headword.text.toLowerCase() == translation.source.toLowerCase()) {
+  if (item.headword.text.toLowerCase() == translation.source.toLowerCase()) {
     return {
       success: true,
       value: translation.target,
@@ -23,7 +21,7 @@ export const translateItem = async (
   }
 
   const translationResult = await googleTranslate(
-    headword.text,
+    item.headword.text,
     translation.sourceLanguage,
     translation.targetLanguage
   );

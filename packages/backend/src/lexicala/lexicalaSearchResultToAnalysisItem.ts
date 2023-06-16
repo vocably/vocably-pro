@@ -1,24 +1,24 @@
 import { AnalysisItem, Translation } from '@vocably/model';
 import { addArticle } from '../lambdas/analyze/addArticle';
 import { extractTranslation } from '../lambdas/analyze/extractTranslation';
-import { LexicalaSearchResultItem } from '../lexicala';
-import { extractHeadword } from './extractHeadword';
+import { LexicalaSearchResultItemWithNormalHeadword } from './normalizeHeadword';
 
 export const lexicalaSearchResultToAnalysisItem =
   (originalTranslation: Translation) =>
-  async (item: LexicalaSearchResultItem): Promise<AnalysisItem> => {
+  async (
+    item: LexicalaSearchResultItemWithNormalHeadword
+  ): Promise<AnalysisItem> => {
     const translationResult = await extractTranslation(
       originalTranslation,
       item
     );
-    const headword = extractHeadword(item);
     return {
-      source: addArticle(item.language, headword),
+      source: addArticle(item.language, item.headword),
       definitions: item.senses
         .slice(0, 3)
         .filter((s) => s.definition)
         .map((s) => s.definition),
-      partOfSpeech: headword.pos,
+      partOfSpeech: item.headword.text,
       translation: translationResult.success ? translationResult.value : '',
     };
   };
