@@ -1,5 +1,5 @@
+import { Analysis, AnalyzePayload, Result } from '@vocably/model';
 import { request } from './restClient';
-import { AnalyzePayload, Analysis, Result } from '@vocably/model';
 
 export const analyze = async (
   payload: AnalyzePayload

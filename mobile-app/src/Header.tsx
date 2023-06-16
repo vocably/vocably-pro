@@ -1,10 +1,10 @@
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { StackHeaderProps } from '@react-navigation/stack';
 import React, { FC, useContext } from 'react';
 import { Appbar } from 'react-native-paper';
-import { StackHeaderProps } from '@react-navigation/stack';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { EditDeckMenu } from './EditDeckMenu';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { LanguageSelector } from './LanguageSelector';
-import { EditDeckMenu } from './EditDeckMenu';
 
 type Header = FC<StackHeaderProps>;
 

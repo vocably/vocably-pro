@@ -1,4 +1,4 @@
-import { Component, Host, h, EventEmitter, Event, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 
 @Component({
   tag: 'vocably-subscribe',

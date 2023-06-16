@@ -1,15 +1,15 @@
 import { Collection, makeCreate } from '@vocably/crud';
 import {
-  SrsCard,
-  CardItem,
-  AnalyzePayload,
   Analysis,
+  AnalyzePayload,
+  CardItem,
   isDirectAnalyzePayload,
+  SrsCard,
 } from '@vocably/model';
+import { byCard, equalCards } from '@vocably/model-operations';
 import { createSrsItem } from '@vocably/srs';
 import { explode, join } from '@vocably/sulna';
 import { merge } from 'lodash-es';
-import { byCard, equalCards } from '@vocably/model-operations';
 
 export const addCardCandidates = (
   collection: Collection<SrsCard>,

@@ -1,10 +1,10 @@
-import { FC, useCallback, useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
-import { LanguagesContext } from '../languages/LanguagesContainer';
-import { Button, IconButton, Text, useTheme } from 'react-native-paper';
 import { GoogleLanguage, languageList } from '@vocably/model';
+import { FC, useCallback, useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Button, IconButton, Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { LanguagesContext } from '../languages/LanguagesContainer';
 
 const styles = StyleSheet.create({
   container: {

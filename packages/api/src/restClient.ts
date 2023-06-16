@@ -1,7 +1,7 @@
 import { Auth } from '@aws-amplify/auth';
+import { Result } from '@vocably/model';
 import { merge } from 'lodash-es';
 import { apiOptions } from './config';
-import { Result } from '@vocably/model';
 
 export const request = async (
   url: string,

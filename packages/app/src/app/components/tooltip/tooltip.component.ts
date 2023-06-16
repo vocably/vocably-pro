@@ -1,11 +1,5 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
 
 @Component({
   selector: 'app-tooltip',

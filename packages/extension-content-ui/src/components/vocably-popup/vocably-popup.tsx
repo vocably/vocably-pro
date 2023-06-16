@@ -1,10 +1,10 @@
 import {
   Component,
-  Host,
-  h,
-  Event,
   Element,
+  Event,
   EventEmitter,
+  h,
+  Host,
 } from '@stencil/core';
 
 @Component({

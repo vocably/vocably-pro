@@ -1,7 +1,7 @@
-import { FC } from 'react';
 import { CardItem } from '@vocably/model';
-import { CardListItem } from './CardListItem';
+import { FC } from 'react';
 import { useTheme } from 'react-native-paper';
+import { CardListItem } from './CardListItem';
 
 type CardList = FC<{
   cards: CardItem[];

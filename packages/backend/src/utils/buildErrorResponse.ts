@@ -1,8 +1,8 @@
-import { isApiGatewayProxyResult } from './isApiGatewayProxyResult';
-import { Observable, of } from 'rxjs';
-import { APIGatewayProxyResult } from 'aws-lambda';
-import { buildResponse } from './buildResponse';
 import { isError } from '@vocably/model';
+import { APIGatewayProxyResult } from 'aws-lambda';
+import { Observable, of } from 'rxjs';
+import { buildResponse } from './buildResponse';
+import { isApiGatewayProxyResult } from './isApiGatewayProxyResult';
 
 export const buildErrorResponse = (
   e: any

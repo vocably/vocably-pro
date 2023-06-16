@@ -1,10 +1,10 @@
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import {
   AnalyzePayload,
   isDirectAnalyzePayload,
   isGoogleLanguage,
   isReverseAnalyzePayload,
 } from '@vocably/model';
+import { APIGatewayProxyEvent } from 'aws-lambda';
 import { get } from 'lodash-es';
 
 export type BackendPayload = AnalyzePayload & {

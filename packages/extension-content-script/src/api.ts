@@ -1,12 +1,12 @@
 import {
-  isLoggedIn,
   analyze,
   cleanUp,
-  isActive,
-  ping,
-  listLanguages,
-  isEligibleForTrial,
   getInternalProxyLanguage,
+  isActive,
+  isEligibleForTrial,
+  isLoggedIn,
+  listLanguages,
+  ping,
   setInternalProxyLanguage,
 } from '@vocably/extension-messages';
 

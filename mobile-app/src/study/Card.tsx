@@ -1,14 +1,14 @@
+import { CardItem } from '@vocably/model';
 import React, { FC, useRef } from 'react';
 import {
-  View,
   Animated,
   StyleSheet,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
-import { CardItem } from '@vocably/model';
-import { Displayer } from './Displayer';
 import { SideB } from '../SideB';
+import { Displayer } from './Displayer';
 
 const styles = StyleSheet.create({
   container: {

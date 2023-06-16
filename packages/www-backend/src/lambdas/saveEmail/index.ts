@@ -1,10 +1,10 @@
-import { lastValueFrom, mergeMap, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { buildResponse } from '../../utils/buildResponse';
-import { buildErrorResponse } from '../../utils/buildErrorResponse';
 import { DynamoDB } from 'aws-sdk';
 import { nanoid } from 'nanoid';
+import { lastValueFrom, mergeMap, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { buildErrorResponse } from '../../utils/buildErrorResponse';
+import { buildResponse } from '../../utils/buildResponse';
 const ddb = new DynamoDB.DocumentClient();
 
 export const saveEmail = async (

@@ -5,10 +5,10 @@ import {
   Translation,
 } from '@vocably/model';
 import { googleTranslate } from '../../googleTranslate';
-import { languageToLexicalaLanguage } from '../../lexicala/lexicalaLanguageMapper';
-import { trimArticle } from './trimArticle';
 import { lexicala } from '../../lexicala';
+import { languageToLexicalaLanguage } from '../../lexicala/lexicalaLanguageMapper';
 import { lexicalaSearchResultToAnalysisItem } from '../../lexicala/lexicalaSearchResultToAnalysisItem';
+import { trimArticle } from './trimArticle';
 
 export const buildDirectResult = async (
   payload: DirectAnalyzePayload

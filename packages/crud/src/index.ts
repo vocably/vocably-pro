@@ -1,5 +1,5 @@
-import { nanoid } from 'nanoid';
 import { Result } from '@vocably/model';
+import { nanoid } from 'nanoid';
 
 export type Timestamp = number;
 

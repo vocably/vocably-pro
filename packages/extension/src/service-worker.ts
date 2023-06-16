@@ -1,5 +1,5 @@
-import { registerExtensionStorage } from '@vocably/pontis';
 import { registerServiceWorker } from '@vocably/extension-service-worker';
+import { registerExtensionStorage } from '@vocably/pontis';
 
 const storage = registerExtensionStorage('sync');
 

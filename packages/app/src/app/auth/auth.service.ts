@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  Auth,
-  CognitoHostedUIIdentityProvider,
-  CognitoUser,
-} from '@aws-amplify/auth';
+import { Auth, CognitoUser } from '@aws-amplify/auth';
+import { mapUserAttributes, UserData } from '@vocably/model';
+import { get } from 'lodash-es';
 import {
   catchError,
   from,
@@ -16,9 +14,7 @@ import {
   take,
   tap,
 } from 'rxjs';
-import { mapUserAttributes, UserData } from '@vocably/model';
 import { isActive, isCancelled } from '../subscription/subscriptionStatus';
-import { get } from 'lodash-es';
 
 @Injectable({
   providedIn: 'root',

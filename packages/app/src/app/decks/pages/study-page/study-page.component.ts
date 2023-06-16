@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DeckStoreService } from '../../deck-store.service';
-import { grade, slice } from '@vocably/srs';
 import { CardItem } from '@vocably/model';
-import { GradeResult } from '../../../srs/list/list.component';
+import { grade, slice } from '@vocably/srs';
 import { Subject, takeUntil } from 'rxjs';
+import { GradeResult } from '../../../srs/list/list.component';
+import { DeckStoreService } from '../../deck-store.service';
 import { DeckService } from '../../deck.service';
 
 @Component({

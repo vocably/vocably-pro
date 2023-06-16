@@ -1,7 +1,7 @@
 import { ApplicationRef, Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SwUpdate } from '@angular/service-worker';
 import { concat, first, interval } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',

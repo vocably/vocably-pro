@@ -1,8 +1,8 @@
-import '@webcomponents/custom-elements';
 import { defineCustomElements } from '@vocably/extension-content-ui/loader';
+import '@webcomponents/custom-elements';
+import { api, ApiConfigOptions, configureApi } from './api';
 import { createButton, destroyButton } from './button';
 import { destroyPopup } from './popup';
-import { ApiConfigOptions, configureApi, api } from './api';
 import { isValidSelection } from './selection';
 
 type RegisterContentScriptOptions = {

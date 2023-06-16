@@ -1,5 +1,4 @@
 import { PassThrough } from '@vocably/model';
-import { environment } from '../../environments/environment';
 
 declare const Paddle: any;
 

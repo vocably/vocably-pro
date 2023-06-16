@@ -1,9 +1,9 @@
-import { FC, useCallback, useContext, useState } from 'react';
-import { Appbar, Button, Dialog, Menu, Portal, Text } from 'react-native-paper';
-import { LanguagesContext } from './languages/LanguagesContainer';
 import { useNavigation } from '@react-navigation/native';
+import { FC, useCallback, useContext, useState } from 'react';
 import { Alert } from 'react-native';
+import { Appbar, Button, Dialog, Menu, Portal, Text } from 'react-native-paper';
 import { dialogAlign } from './dialogAlign';
+import { LanguagesContext } from './languages/LanguagesContainer';
 
 type EditDeckMenu = FC<{}>;
 

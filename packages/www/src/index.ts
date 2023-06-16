@@ -1,8 +1,8 @@
-import './styles.scss';
-import './bootstrap.scss';
 import * as Bowser from 'bowser';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
+import './bootstrap.scss';
+import './styles.scss';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
 

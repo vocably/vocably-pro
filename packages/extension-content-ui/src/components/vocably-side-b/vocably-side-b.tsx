@@ -1,6 +1,6 @@
-import { Component, Host, h, Prop } from '@stencil/core';
-import { explode } from '@vocably/sulna';
+import { Component, h, Host, Prop } from '@stencil/core';
 import { CardItem } from '@vocably/model';
+import { explode } from '@vocably/sulna';
 
 @Component({
   tag: 'vocably-side-b',

@@ -1,10 +1,10 @@
-import { analyze } from './index';
+import { Analysis, ReverseAnalysis } from '@vocably/model';
 import {
   APIGatewayEventRequestContextWithAuthorizer,
   APIGatewayProxyEvent,
 } from 'aws-lambda';
 import { inspect } from '../../utils/inspect';
-import { Analysis, ReverseAnalysis } from '@vocably/model';
+import { analyze } from './index';
 
 // @ts-ignore
 let mockEvent: APIGatewayProxyEvent = {};

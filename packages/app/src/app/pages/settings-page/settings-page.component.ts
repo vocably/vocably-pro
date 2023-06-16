@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteAccountConfirmationComponent } from './delete-account-confirmation/delete-account-confirmation.component';
-import { LoaderService } from '../../components/loader.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Auth } from '@aws-amplify/auth';
+import { LoaderService } from '../../components/loader.service';
+import { DeleteAccountConfirmationComponent } from './delete-account-confirmation/delete-account-confirmation.component';
 
 @Component({
   selector: 'app-settings-page',

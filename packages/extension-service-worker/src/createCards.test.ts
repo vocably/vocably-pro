@@ -1,6 +1,6 @@
-import { addCardCandidates, combineCards } from './createCards';
 import { CardItem } from '@vocably/model';
 import { createSrsItem } from '@vocably/srs';
+import { addCardCandidates, combineCards } from './createCards';
 
 describe('createCards', () => {
   describe('addCardCandidates', () => {

@@ -1,9 +1,9 @@
-import React, { FC, ReactNode, useContext } from 'react';
-import { AuthContext } from './AuthContext';
-import { Linking, View } from 'react-native';
 import { Auth } from '@aws-amplify/auth';
-import { Text, Button, useTheme } from 'react-native-paper';
+import React, { FC, ReactNode, useContext } from 'react';
+import { Linking, View } from 'react-native';
+import { Button, Text, useTheme } from 'react-native-paper';
 import { Loader } from '../loaders/Loader';
+import { AuthContext } from './AuthContext';
 
 const signIn = () => Auth.federatedSignIn();
 

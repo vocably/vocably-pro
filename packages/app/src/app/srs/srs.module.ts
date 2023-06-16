@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { CardComponent } from './card/card.component';
-import { CardOptionsComponent } from './card-options/card-options.component';
-import { SuccessComponent } from './success/success.component';
-import { ListComponent } from './list/list.component';
-import { TextLengthDirective } from './text-length.directive';
-import { SideBComponent } from './side-b/side-b.component';
-import { ComponentsModule } from '../components/components.module';
+import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { IonicModule } from '@ionic/angular';
+import { ComponentsModule } from '../components/components.module';
+import { CardOptionsComponent } from './card-options/card-options.component';
+import { CardComponent } from './card/card.component';
+import { ListComponent } from './list/list.component';
+import { SideBComponent } from './side-b/side-b.component';
+import { SuccessComponent } from './success/success.component';
+import { TextLengthDirective } from './text-length.directive';
 
 @NgModule({
   declarations: [

@@ -1,9 +1,9 @@
-import { FC, useCallback } from 'react';
-import { View, ListRenderItem, SectionList, Pressable } from 'react-native';
 import { NavigationProp, Route } from '@react-navigation/native';
+import { FC, useCallback } from 'react';
+import { ListRenderItem, Pressable, SectionList, View } from 'react-native';
 import { Appbar, Divider, Text, useTheme } from 'react-native-paper';
-import { createLanguageList, LanguageListItem } from './createLanguageList';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createLanguageList, LanguageListItem } from './createLanguageList';
 
 const createItem =
   (onPress: (language: string) => void): ListRenderItem<LanguageListItem> =>

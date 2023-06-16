@@ -1,12 +1,12 @@
-import {
-  applyPosition,
-  Position,
-  applyMaxZIndex,
-  applyTransform,
-  setupTransform,
-  setHorizontalDisplacement,
-} from './styling';
 import { createPopup } from './popup';
+import {
+  applyMaxZIndex,
+  applyPosition,
+  applyTransform,
+  Position,
+  setHorizontalDisplacement,
+  setupTransform,
+} from './styling';
 
 const buttonId = 'translation-extension-button';
 

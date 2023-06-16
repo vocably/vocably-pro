@@ -1,10 +1,10 @@
 import { CognitoIdentityServiceProvider } from 'aws-sdk';
+import { AttributeType } from 'aws-sdk/clients/cognitoidentityserviceprovider';
 import {
   isPaddleSubscriptionCreated,
   PaddleSubscriptionCreated,
   PaddleSubscriptionUpdated,
 } from '../types';
-import { AttributeType } from 'aws-sdk/clients/cognitoidentityserviceprovider';
 
 export const setupUserSubscriptionAttributes = async (
   event: PaddleSubscriptionCreated | PaddleSubscriptionUpdated

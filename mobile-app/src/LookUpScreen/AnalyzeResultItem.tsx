@@ -1,9 +1,9 @@
-import React, { FC, useCallback, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { AssociatedCard } from './associateCards';
 import { CardItem, Result } from '@vocably/model';
-import { CardListItem } from '../CardListItem';
+import React, { FC, useCallback, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
+import { CardListItem } from '../CardListItem';
+import { AssociatedCard } from './associateCards';
 
 const styles = StyleSheet.create({
   container: {

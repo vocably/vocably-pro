@@ -1,8 +1,8 @@
 import {
-  AnalyzePayload,
-  Result,
   Analysis,
+  AnalyzePayload,
   isDirectAnalyzePayload,
+  Result,
 } from '@vocably/model';
 import { cheapTranslate } from '../../cheapTranslate';
 

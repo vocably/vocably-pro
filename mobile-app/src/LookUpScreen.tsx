@@ -1,14 +1,5 @@
-import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  SafeAreaView,
-  View,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Alert,
-} from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
+import { analyze } from '@vocably/api';
 import {
   AnalyzePayload,
   CardItem,
@@ -16,15 +7,24 @@ import {
   languageList,
   Result,
 } from '@vocably/model';
-import { TranslationPreset } from './LookUpScreen/TranslationPreset';
-import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
-import { analyze } from '@vocably/api';
+import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+import {
+  Alert,
+  Keyboard,
+  SafeAreaView,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import { useTheme } from 'react-native-paper';
+import { useLanguageDeck } from './languageDeck/useLanguageDeck';
+import { LanguagesContext } from './languages/LanguagesContainer';
 import { InlineLoader } from './loaders/InlineLoader';
 import { Analyze } from './LookUpScreen/AnalyzeResult';
-import { SearchInput } from './LookUpScreen/SearchInput';
-import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { AssociatedCard } from './LookUpScreen/associateCards';
-import { LanguagesContext } from './languages/LanguagesContainer';
+import { SearchInput } from './LookUpScreen/SearchInput';
+import { TranslationPreset } from './LookUpScreen/TranslationPreset';
+import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
 
 const padding = 16;
 

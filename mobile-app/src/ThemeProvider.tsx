@@ -1,11 +1,11 @@
 import { FC, PropsWithChildren, useEffect, useState } from 'react';
-import {
-  Provider,
-  MD3LightTheme,
-  MD3DarkTheme,
-  MD3Theme,
-} from 'react-native-paper';
 import { Appearance } from 'react-native';
+import {
+  MD3DarkTheme,
+  MD3LightTheme,
+  MD3Theme,
+  Provider,
+} from 'react-native-paper';
 
 type ThemeProvider = FC<PropsWithChildren<{}>>;
 

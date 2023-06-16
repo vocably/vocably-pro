@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { loadLanguageDeck } from '@vocably/api';
 import {
   combineLatest,
   filter,
@@ -12,10 +13,9 @@ import {
   tap,
   withLatestFrom,
 } from 'rxjs';
-import { loadLanguageDeck } from '@vocably/api';
+import { RouterParamsService } from '../../router-params.service';
 import { DeckListStoreService } from '../deck-list-store.service';
 import { DeckStoreService } from '../deck-store.service';
-import { RouterParamsService } from '../../router-params.service';
 
 @Component({
   selector: 'app-selected-deck',

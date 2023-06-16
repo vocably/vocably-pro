@@ -1,7 +1,7 @@
 import { Result } from '@vocably/model';
 import { URLSearchParams } from 'url';
-import { request } from './utils/request';
 import { LexicalaLanguage } from './lexicala/lexicalaLanguageMapper';
+import { request } from './utils/request';
 
 export type Headword = { text?: string; pos?: string; gender?: string };
 

@@ -1,11 +1,11 @@
+import { setContents, TearDown } from './popup/contents';
 import {
+  applyMaxZIndex,
   applyPosition,
   applyTransform,
   Position,
   setupTransform,
-  applyMaxZIndex,
 } from './styling';
-import { setContents, TearDown } from './popup/contents';
 
 let popup: HTMLElement;
 let resizeObserver: ResizeObserver;

@@ -1,6 +1,6 @@
-import { SubscriptionProduct } from './paddle';
+import { isEligibleForTrial, UserData } from '@vocably/model';
 import { environment } from '../../environments/environment';
-import { UserData, isEligibleForTrial } from '@vocably/model';
+import { SubscriptionProduct } from './paddle';
 
 export const getAvailableProducts = (
   userData: UserData

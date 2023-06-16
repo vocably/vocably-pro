@@ -1,12 +1,12 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { DashboardScreen } from './DashboardScreen';
-import { Header } from './Header';
-import { EditDeckScreen } from './EditDeckScreen';
-import { useContext } from 'react';
-import { LanguagesContext } from './languages/LanguagesContainer';
 import { getFullLanguageName } from '@vocably/model';
+import { useContext } from 'react';
+import { DashboardScreen } from './DashboardScreen';
 import { EditCardScreen } from './EditCardScreen';
+import { EditDeckScreen } from './EditDeckScreen';
+import { Header } from './Header';
+import { LanguagesContext } from './languages/LanguagesContainer';
 
 const Stack = createStackNavigator();
 

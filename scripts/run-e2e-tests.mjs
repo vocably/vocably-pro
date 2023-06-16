@@ -1,7 +1,7 @@
-import 'zx/globals';
 import { config } from 'dotenv-flow';
-import { scriptsDir } from './helpers/dirs.mjs';
 import { spinner } from 'zx/experimental';
+import 'zx/globals';
+import { scriptsDir } from './helpers/dirs.mjs';
 
 config({
   path: scriptsDir,

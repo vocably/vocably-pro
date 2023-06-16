@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { View, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StyleSheet, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Displayer } from './Displayer';
 
 const styles = StyleSheet.create({

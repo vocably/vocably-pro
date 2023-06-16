@@ -1,8 +1,8 @@
+import { Card } from '@vocably/model';
+import { explode } from '@vocably/sulna';
 import React, { FC } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
-import { explode } from '@vocably/sulna';
-import { useTheme, Text } from 'react-native-paper';
-import { Card } from '@vocably/model';
+import { Text, useTheme } from 'react-native-paper';
 
 type SideB = FC<{
   card: Card;

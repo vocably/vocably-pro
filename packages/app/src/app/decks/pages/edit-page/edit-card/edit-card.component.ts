@@ -1,6 +1,3 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CardItem } from '@vocably/model';
-import { CardFormEntity } from '../card-form/card-form.component';
 import {
   animate,
   state,
@@ -8,6 +5,9 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CardItem } from '@vocably/model';
+import { CardFormEntity } from '../card-form/card-form.component';
 
 const animationSpeed = '0.2s';
 

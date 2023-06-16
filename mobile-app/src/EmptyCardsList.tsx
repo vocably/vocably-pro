@@ -1,5 +1,5 @@
-import { ReactNode, FC } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { FC, ReactNode } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
 const styles = StyleSheet.create({

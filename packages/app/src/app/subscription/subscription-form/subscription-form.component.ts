@@ -7,9 +7,9 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { subscribe, SubscriptionProduct } from '../paddle';
-import { startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { UserData } from '@vocably/model';
+import { startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { subscribe, SubscriptionProduct } from '../paddle';
 
 @Component({
   selector: 'app-subscription-form',

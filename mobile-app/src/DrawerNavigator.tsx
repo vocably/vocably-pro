@@ -1,10 +1,9 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { View } from 'react-native';
 import { Auth } from '@aws-amplify/auth';
-import { TabsNavigator } from './TabsNavigator';
-import { Text, useTheme } from 'react-native-paper';
-import { Alert } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useCallback } from 'react';
+import { Alert, View } from 'react-native';
+import { Text, useTheme } from 'react-native-paper';
+import { TabsNavigator } from './TabsNavigator';
 
 const Drawer = createDrawerNavigator();
 

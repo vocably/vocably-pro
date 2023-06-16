@@ -1,5 +1,5 @@
-import { GoogleLanguage, Result } from '@vocably/model';
 import { listLanguages } from '@vocably/api';
+import { GoogleLanguage, Result } from '@vocably/model';
 
 let cache: {
   readonly timestamp: number;

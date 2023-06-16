@@ -1,15 +1,15 @@
+import { getFullLanguageName } from '@vocably/model';
 import { FC, useContext, useState } from 'react';
 import {
   Appbar,
-  Portal,
-  Dialog,
   Button,
+  Dialog,
   Menu,
+  Portal,
   useTheme,
 } from 'react-native-paper';
-import { LanguagesContext } from './languages/LanguagesContainer';
-import { getFullLanguageName } from '@vocably/model';
 import { dialogAlign } from './dialogAlign';
+import { LanguagesContext } from './languages/LanguagesContainer';
 
 type LanguageSelector = FC<{}>;
 

@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DeckStoreService } from '../../deck-store.service';
-import { CardItem, byDate, getFullLanguageName } from '@vocably/model';
-import { Subject, takeUntil } from 'rxjs';
-import { deleteLanguageDeck } from '@vocably/api';
-import { DeckListStoreService } from '../../deck-list-store.service';
-import { DeckService } from '../../deck.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/delete-confirmation-dialog.component';
+import { deleteLanguageDeck } from '@vocably/api';
+import { byDate, CardItem, getFullLanguageName } from '@vocably/model';
 import { omit } from 'lodash-es';
+import { Subject, takeUntil } from 'rxjs';
 import { LoaderService } from '../../../components/loader.service';
+import { DeckListStoreService } from '../../deck-list-store.service';
+import { DeckStoreService } from '../../deck-store.service';
+import { DeckService } from '../../deck.service';
+import { DeleteConfirmationDialogComponent } from './delete-confirmation-dialog/delete-confirmation-dialog.component';
 
 @Component({
   selector: 'app-edit-page',

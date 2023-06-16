@@ -1,10 +1,9 @@
 import {
   Overlay,
-  OverlayConfig,
   OverlayPositionBuilder,
   OverlayRef,
-  PositionStrategy,
 } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
   AfterViewInit,
   Directive,
@@ -14,7 +13,6 @@ import {
   OnInit,
   ViewContainerRef,
 } from '@angular/core';
-import { TemplatePortal } from '@angular/cdk/portal';
 import { TooltipComponent } from './tooltip.component';
 
 export declare type TooltipPosition = 'top';

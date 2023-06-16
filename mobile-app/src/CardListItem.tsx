@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import { StyleProp, TextStyle, View, ViewStyle } from 'react-native';
 import { Card, CardItem } from '@vocably/model';
-import { SideB } from './SideB';
+import React, { FC } from 'react';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import { Divider, Text, useTheme } from 'react-native-paper';
+import { SideB } from './SideB';
 import { mainPadding } from './styles';
 
 type CardListItem = FC<{

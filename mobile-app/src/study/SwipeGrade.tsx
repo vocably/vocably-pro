@@ -1,14 +1,14 @@
+import { SrsScore } from '@vocably/srs';
 import React, { FC, ReactNode, useRef } from 'react';
 import {
-  View,
   Animated,
-  StyleSheet,
   PanResponder,
+  StyleSheet,
   useWindowDimensions,
+  View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from 'react-native-paper';
-import { SrsScore } from '@vocably/srs';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const styles = StyleSheet.create({
   container: {

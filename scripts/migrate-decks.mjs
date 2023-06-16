@@ -1,6 +1,6 @@
-import 'zx/globals';
 import pkg from 'aws-sdk';
 import { mapKeys } from 'lodash-es';
+import 'zx/globals';
 const { S3 } = pkg;
 
 const bucket = 'vocably-dev-cards';

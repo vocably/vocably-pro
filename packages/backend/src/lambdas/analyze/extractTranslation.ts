@@ -1,8 +1,8 @@
 import { Result, Translation } from '@vocably/model';
 import { LexicalaSearchResultItem } from '../../lexicala';
 import { languageToLexicalaLanguage } from '../../lexicala/lexicalaLanguageMapper';
-import { translateItem } from './extractTranslation/translateItem';
 import { extractItemTranslation } from './extractTranslation/extractItemTranslation';
+import { translateItem } from './extractTranslation/translateItem';
 
 export const extractTranslation = async (
   originalTranslation: Translation,

@@ -1,6 +1,6 @@
 import { AppAuthStorage } from '@vocably/pontis';
-import { environment } from './environments/environment';
 import { merge } from 'lodash-es';
+import { environment } from './environments/environment';
 
 export const autoSignInPath = 'hands-free';
 export const signInConfirmationPath = 'signed-in';

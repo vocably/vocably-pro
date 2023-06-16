@@ -1,6 +1,6 @@
-import { request } from './restClient';
 import { LanguageDeck, Result } from '@vocably/model';
 import { parse } from 'fast-xml-parser';
+import { request } from './restClient';
 
 export const saveLanguageDeck = async (
   languageDeck: LanguageDeck

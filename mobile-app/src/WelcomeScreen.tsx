@@ -1,8 +1,8 @@
+import { useNavigation } from '@react-navigation/native';
 import { FC, useCallback, useContext, useState } from 'react';
-import { StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { RefreshControl, ScrollView, StyleSheet } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { LanguagesContext } from './languages/LanguagesContainer';
-import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {

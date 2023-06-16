@@ -1,5 +1,5 @@
 import { TranslationServiceClient } from '@google-cloud/translate';
-import { Result, Translation, GoogleLanguage } from '@vocably/model';
+import { GoogleLanguage, Result, Translation } from '@vocably/model';
 import {
   GoogleTranslateLanguage,
   googleTranslateLanguageToLanguage,

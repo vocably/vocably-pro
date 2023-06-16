@@ -1,13 +1,13 @@
-import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
-import { Alert, View } from 'react-native';
 import { CardItem } from '@vocably/model';
 import { grade, slice, SrsScore } from '@vocably/srs';
-import { Card } from './Card';
-import { SwipeGrade } from './SwipeGrade';
-import { Completed } from './Completed';
-import { Loader } from '../loaders/Loader';
-import { LanguagesContext } from '../languages/LanguagesContainer';
+import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+import { Alert, View } from 'react-native';
 import { useLanguageDeck } from '../languageDeck/useLanguageDeck';
+import { LanguagesContext } from '../languages/LanguagesContainer';
+import { Loader } from '../loaders/Loader';
+import { Card } from './Card';
+import { Completed } from './Completed';
+import { SwipeGrade } from './SwipeGrade';
 
 const maxCardsToStudy = 10;
 

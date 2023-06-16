@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DeckListStoreService } from '../../deck-list-store.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../../auth/auth.service';
-import { Subject, takeUntil } from 'rxjs';
-import { isSubscribed } from '../../../subscription/isSubscribed';
-import * as Bowser from 'bowser';
 import { GoogleLanguage } from '@vocably/model';
+import * as Bowser from 'bowser';
+import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from '../../../auth/auth.service';
 import { isExtensionInstalled } from '../../../isExtensionInstalled';
+import { isSubscribed } from '../../../subscription/isSubscribed';
+import { DeckListStoreService } from '../../deck-list-store.service';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
 

@@ -1,10 +1,10 @@
+import { Analysis, CardItem, Result } from '@vocably/model';
 import React, { FC } from 'react';
 import { FlatList, StyleProp, ViewStyle } from 'react-native';
-import { Analysis, CardItem, Result } from '@vocably/model';
-import { makeCards } from './makeCards';
 import { Separator } from '../CardListItem';
-import { associateCards, AssociatedCard } from './associateCards';
 import { AnalyzeResultItem } from './AnalyzeResultItem';
+import { associateCards, AssociatedCard } from './associateCards';
+import { makeCards } from './makeCards';
 
 type AnalyzeResult = FC<{
   analysis: Analysis;

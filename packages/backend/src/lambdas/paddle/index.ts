@@ -1,12 +1,12 @@
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { lastValueFrom, of, switchMap, tap } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { buildResponse } from '../../utils/buildResponse';
 import { buildErrorResponse } from '../../utils/buildErrorResponse';
+import { buildResponse } from '../../utils/buildResponse';
 import { extractBody } from './extractBody';
-import { verifyCaller } from './verifyCaller';
 import { extractPaddleEvent } from './extractPaddleEvent';
 import { handleEvent } from './handleEvent';
+import { verifyCaller } from './verifyCaller';
 
 export const paddle = async (
   event: APIGatewayProxyEvent

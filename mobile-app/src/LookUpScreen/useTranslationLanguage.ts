@@ -1,6 +1,6 @@
-import { Platform, NativeModules } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useState } from 'react';
+import { NativeModules, Platform } from 'react-native';
 
 const deviceLocale =
   Platform.OS === 'ios'

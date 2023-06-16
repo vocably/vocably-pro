@@ -1,12 +1,11 @@
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { lastValueFrom, mergeMap, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { buildResponse } from '../../utils/buildResponse';
 import { buildErrorResponse } from '../../utils/buildErrorResponse';
+import { buildResponse } from '../../utils/buildResponse';
 import { buildResult } from './buildResult';
 import { extractPayload } from './extractPayload';
 import { sanitizePayload } from './sanitizePayload';
-import { buildFreeResult } from './buildFreeResult';
 
 export const analyze = async (
   event: APIGatewayProxyEvent

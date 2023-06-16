@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DecksComponent } from './decks.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
-import { NoDecksPageComponent } from './pages/no-decks-page/no-decks-page.component';
-import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
-import { StudyPageComponent } from './pages/study-page/study-page.component';
 import { EditPageComponent } from './pages/edit-page/edit-page.component';
+import { NoDecksPageComponent } from './pages/no-decks-page/no-decks-page.component';
+import { StudyPageComponent } from './pages/study-page/study-page.component';
+import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
 
 const routes: Routes = [
   {

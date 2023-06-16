@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
 import { NavigationContainer as ReactNavigationContainer } from '@react-navigation/native';
-import { RootModalStack } from './RootModalStack';
+import React, { FC } from 'react';
 import { useTheme } from 'react-native-paper';
+import { RootModalStack } from './RootModalStack';
 
 type NavigationContainer = FC<{}>;
 

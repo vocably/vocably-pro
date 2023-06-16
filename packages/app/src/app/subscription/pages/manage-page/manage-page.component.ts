@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserData } from '@vocably/model';
 import { from, Subject, take, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { update } from '../../paddle';
-import { ActivatedRoute, Router } from '@angular/router';
 import { isActive, isCancelled } from '../../subscriptionStatus';
-import { UserData } from '@vocably/model';
 
 @Component({
   selector: 'app-manage-page',

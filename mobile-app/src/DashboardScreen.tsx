@@ -1,23 +1,23 @@
+import { useNetInfo } from '@react-native-community/netinfo';
+import { NavigationProp } from '@react-navigation/native';
+import { byDate, CardItem } from '@vocably/model';
 import { FC, useCallback, useContext, useState } from 'react';
 import {
-  View,
-  StyleSheet,
   ListRenderItem,
-  ScrollView,
   RefreshControl,
+  ScrollView,
+  StyleSheet,
+  View,
 } from 'react-native';
-import { Text, useTheme, Button, Badge } from 'react-native-paper';
-import { NavigationProp } from '@react-navigation/native';
-import { mainPadding } from './styles';
-import { CardItem, byDate } from '@vocably/model';
+import LinearGradient from 'react-native-linear-gradient';
+import { Badge, Button, Text, useTheme } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem, Separator } from './CardListItem';
 import { EmptyCardsList } from './EmptyCardsList';
-import LinearGradient from 'react-native-linear-gradient';
-import { LanguagesContext } from './languages/LanguagesContainer';
-import { useNetInfo } from '@react-native-community/netinfo';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Loader } from './loaders/Loader';
 import { userSelectedDeck } from './languageDeck/userSelectedDeck';
+import { LanguagesContext } from './languages/LanguagesContainer';
+import { Loader } from './loaders/Loader';
+import { mainPadding } from './styles';
 
 const styles = StyleSheet.create({
   container: {

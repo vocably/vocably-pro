@@ -1,8 +1,8 @@
-import React, { FC, ReactNode, useEffect, useState } from 'react';
-import { AuthContext, AuthStatus } from './AuthContext';
 import { Auth } from '@aws-amplify/auth';
-import { awsConfig } from '../aws-config';
 import { Hub } from 'aws-amplify';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
+import { awsConfig } from '../aws-config';
+import { AuthContext, AuthStatus } from './AuthContext';
 
 Auth.configure(awsConfig);
 

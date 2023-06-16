@@ -1,11 +1,11 @@
+import { configureApi } from '@vocably/api';
 import { AuthContainer } from './auth/AuthContainer';
 import { Login } from './auth/Login';
-import { configureApi } from '@vocably/api';
 import { LanguagesContainer } from './languages/LanguagesContainer';
 import { NavigationContainer } from './NavigationContainer';
 import { ThemeProvider } from './ThemeProvider';
 // @ts-ignore
-import { API_BASE_URL, API_REGION, API_CARDS_BUCKET } from '@env';
+import { API_BASE_URL, API_CARDS_BUCKET, API_REGION } from '@env';
 
 configureApi({
   baseUrl: API_BASE_URL,

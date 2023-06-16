@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
 
 const styles = StyleSheet.create({

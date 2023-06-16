@@ -1,10 +1,10 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
-import { useTheme, TextInput, Button } from 'react-native-paper';
 import { NavigationProp, Route } from '@react-navigation/native';
 import { CardItem } from '@vocably/model';
-import { mainPadding } from './styles';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { Alert, StyleSheet, View } from 'react-native';
+import { Button, TextInput, useTheme } from 'react-native-paper';
 import { userSelectedDeck } from './languageDeck/userSelectedDeck';
+import { mainPadding } from './styles';
 
 const styles = StyleSheet.create({
   container: {

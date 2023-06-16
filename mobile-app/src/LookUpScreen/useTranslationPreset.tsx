@@ -1,6 +1,6 @@
-import { Preset } from './TranslationPreset';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { LanguagesContext } from '../languages/LanguagesContainer';
+import { Preset } from './TranslationPreset';
 import { useTranslationLanguage } from './useTranslationLanguage';
 
 export const useTranslationPreset = (): [

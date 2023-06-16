@@ -1,11 +1,13 @@
+import { NavigationProp } from '@react-navigation/native';
+import { byDate, CardItem } from '@vocably/model';
 import React, { FC, useCallback, useState } from 'react';
 import {
-  View,
-  StyleSheet,
+  Alert,
   FlatList,
   ListRenderItem,
   Pressable,
-  Alert,
+  StyleSheet,
+  View,
 } from 'react-native';
 import {
   Button,
@@ -17,12 +19,10 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem, keyExtractor, Separator } from './CardListItem';
-import { mainPadding } from './styles';
-import { CardItem, byDate } from '@vocably/model';
-import { NavigationProp } from '@react-navigation/native';
+import { dialogAlign } from './dialogAlign';
 import { EmptyCardsList } from './EmptyCardsList';
 import { userSelectedDeck } from './languageDeck/userSelectedDeck';
-import { dialogAlign } from './dialogAlign';
+import { mainPadding } from './styles';
 
 const styles = StyleSheet.create({
   container: {

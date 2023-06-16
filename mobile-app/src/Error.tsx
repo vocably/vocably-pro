@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, useCallback, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   container: {

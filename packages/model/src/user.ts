@@ -1,7 +1,7 @@
-import { SubscriptionStatus } from './subscription';
 import { CognitoUser } from '@aws-amplify/auth';
-import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
 import { getAttributeValue } from '@vocably/sulna';
+import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
+import { SubscriptionStatus } from './subscription';
 
 export type UserData = {
   username: string;

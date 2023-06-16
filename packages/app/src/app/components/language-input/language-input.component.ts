@@ -5,15 +5,15 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { GoogleLanguage, languageList } from '@vocably/model';
 import { FormControl } from '@angular/forms';
-import { map, Observable, startWith, Subject, takeUntil } from 'rxjs';
-import { isExtensionInstalled } from '../../isExtensionInstalled';
 import {
   getProxyLanguage,
   setProxyLanguage,
 } from '@vocably/extension-messages';
+import { GoogleLanguage, languageList } from '@vocably/model';
+import { map, Observable, startWith, Subject, takeUntil } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { isExtensionInstalled } from '../../isExtensionInstalled';
 
 @Component({
   selector: 'app-language-input',

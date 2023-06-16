@@ -1,5 +1,5 @@
-import { lastValueFrom, of, switchMap, map, tap } from 'rxjs';
 import { ScheduledEvent } from 'aws-lambda';
+import { lastValueFrom, map, of, switchMap, tap } from 'rxjs';
 import { cancelSubscriptions } from './cancelSubscriptions';
 import { eventTimeToCancellationTimestamp } from './eventTimeToCancellationTimestamp';
 

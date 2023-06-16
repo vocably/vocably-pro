@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { StudyScreen } from './study/StudyScreen';
 import { DrawerNavigator } from './DrawerNavigator';
 import { LanguageSelectorModal } from './LanguageSelectorModal';
+import { StudyScreen } from './study/StudyScreen';
 
 const Stack = createStackNavigator();
 

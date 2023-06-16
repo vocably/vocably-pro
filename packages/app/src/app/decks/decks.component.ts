@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { listLanguages } from '@vocably/api';
 import {
   from,
   merge,
@@ -8,9 +9,8 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { DeckListStoreService } from './deck-list-store.service';
-import { listLanguages } from '@vocably/api';
 import { RefreshService } from '../refresh.service';
+import { DeckListStoreService } from './deck-list-store.service';
 
 @Component({
   selector: 'app-decks',

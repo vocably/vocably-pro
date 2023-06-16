@@ -1,8 +1,8 @@
-import { LexicalaSearchResultItem } from '../lexicala';
 import { AnalysisItem, Translation } from '@vocably/model';
 import { addArticle } from '../lambdas/analyze/addArticle';
-import { extractHeadword } from './extractHeadword';
 import { extractTranslation } from '../lambdas/analyze/extractTranslation';
+import { LexicalaSearchResultItem } from '../lexicala';
+import { extractHeadword } from './extractHeadword';
 
 export const lexicalaSearchResultToAnalysisItem =
   (originalTranslation: Translation) =>

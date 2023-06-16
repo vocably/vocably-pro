@@ -1,4 +1,4 @@
-import { Component, h, Host, Event, EventEmitter } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-close-button',

@@ -1,6 +1,6 @@
-import { subscriptionCanceller } from './index';
 import { ScheduledEvent } from 'aws-lambda';
 import { inspect } from '../../utils/inspect';
+import { subscriptionCanceller } from './index';
 
 // @ts-ignore
 let mockEvent: ScheduledEvent = {

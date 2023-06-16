@@ -1,7 +1,7 @@
-import { LexicalaSearchResultItem } from '../../../lexicala';
 import { Result, Translation } from '@vocably/model';
-import { extractHeadword } from '../../../lexicala/extractHeadword';
 import { googleTranslate } from '../../../googleTranslate';
+import { LexicalaSearchResultItem } from '../../../lexicala';
+import { extractHeadword } from '../../../lexicala/extractHeadword';
 
 export const translateItem = async (
   item: LexicalaSearchResultItem,

@@ -1,6 +1,6 @@
-import { paddle } from './index';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { inspect } from '../../utils/inspect';
+import { paddle } from './index';
 import { events } from './_mocks/events';
 
 // @ts-ignore

@@ -1,3 +1,7 @@
+import { handleSubscriptionCancelled } from './handleEvent/handleSubscriptionCancelled';
+import { handleSubscriptionCreated } from './handleEvent/handleSubscriptionCreated';
+import { handleSubscriptionPaymentSucceeded } from './handleEvent/handleSubscriptionPaymentSucceeded';
+import { handleSubscriptionUpdated } from './handleEvent/handleSubscriptionUpdated';
 import {
   alertSubscriptionCancelled,
   alertSubscriptionCreated,
@@ -5,10 +9,6 @@ import {
   alertSubscriptionUpdated,
   PaddleEvent,
 } from './types';
-import { handleSubscriptionCreated } from './handleEvent/handleSubscriptionCreated';
-import { handleSubscriptionUpdated } from './handleEvent/handleSubscriptionUpdated';
-import { handleSubscriptionCancelled } from './handleEvent/handleSubscriptionCancelled';
-import { handleSubscriptionPaymentSucceeded } from './handleEvent/handleSubscriptionPaymentSucceeded';
 
 export const handleEvent = async (event: PaddleEvent) => {
   switch (event.alert_name) {

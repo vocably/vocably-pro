@@ -1,5 +1,5 @@
-import 'zx/globals';
 import { config } from 'dotenv-flow';
+import 'zx/globals';
 
 config();
 

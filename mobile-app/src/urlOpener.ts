@@ -1,5 +1,5 @@
-import InAppBrowser from 'react-native-inappbrowser-reborn';
 import { Linking } from 'react-native';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 export const urlOpener = async (url: string, redirectUrl: string) => {
   try {
     if (await InAppBrowser.isAvailable()) {

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { explode } from '@vocably/sulna';
-import { CardItem } from '@vocably/model';
 
 type DefinitionItem = {
   text: string;

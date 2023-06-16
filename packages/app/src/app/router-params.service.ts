@@ -1,15 +1,15 @@
+import { Injectable } from '@angular/core';
 import {
+  ActivatedRouteSnapshot,
+  Data,
+  Event as RouterEvent,
   NavigationEnd,
   Params,
   Router,
-  Event as RouterEvent,
-  ActivatedRouteSnapshot,
-  Data,
 } from '@angular/router';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { filter } from 'rxjs/operators';
 import { isEqual } from 'lodash-es';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 const collectParams = (root: ActivatedRouteSnapshot): [Params, Data] => {
   const params: Params = {};

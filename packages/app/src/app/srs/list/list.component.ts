@@ -1,9 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Answer } from '../card/card.component';
-import { Subject } from 'rxjs';
 import { CardItem } from '@vocably/model';
 import { SrsScore } from '@vocably/srs';
+import { Subject } from 'rxjs';
+import { Answer } from '../card/card.component';
 
 const gradeMap: Record<Answer, SrsScore> = {
   weak: 0,

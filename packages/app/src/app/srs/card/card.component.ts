@@ -1,21 +1,20 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  HostListener,
-  Output,
-  EventEmitter,
-  OnDestroy,
-} from '@angular/core';
-import {
   animate,
   state,
   style,
   transition,
   trigger,
 } from '@angular/animations';
-import { Subject, takeUntil } from 'rxjs';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { CardItem } from '@vocably/model';
+import { Subject, takeUntil } from 'rxjs';
 
 type Point = {
   x: number;

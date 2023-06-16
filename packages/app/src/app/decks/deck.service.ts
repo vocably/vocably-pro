@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { DeckStoreService } from './deck-store.service';
-import { SrsCard, CardItem, Result } from '@vocably/model';
-import { makeDelete, makeRestore, makeUpdate } from '@vocably/crud';
-import { from, map, Observable, of, switchMap, take, tap } from 'rxjs';
 import { loadLanguageDeck, saveLanguageDeck } from '@vocably/api';
+import { makeDelete, makeRestore, makeUpdate } from '@vocably/crud';
+import { CardItem, Result, SrsCard } from '@vocably/model';
+import { from, map, Observable, of, switchMap, take, tap } from 'rxjs';
+import { DeckStoreService } from './deck-store.service';
 
 @Injectable({
   providedIn: 'root',

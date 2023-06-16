@@ -1,21 +1,21 @@
 import {
   Component,
-  h,
-  Prop,
-  Fragment,
   Event,
   EventEmitter,
+  Fragment,
+  h,
   Host,
+  Prop,
 } from '@stencil/core';
 import {
-  TranslationCards,
-  Result,
   getFullLanguageName,
-  languageList,
   GoogleLanguage,
+  languageList,
+  Result,
+  TranslationCards,
 } from '@vocably/model';
-import { sortLanguages } from './sortLanguages';
 import { isDirectNecessary } from './isDirectNecessary';
+import { sortLanguages } from './sortLanguages';
 
 @Component({
   tag: 'vocably-translation',

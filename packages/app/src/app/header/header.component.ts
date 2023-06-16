@@ -1,11 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import {
   isActive,
   isCancelled,
   isUnsubscribed,
 } from '../subscription/subscriptionStatus';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-header',

@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { View } from 'react-native';
-import { Text, ActivityIndicator, useTheme } from 'react-native-paper';
+import { ActivityIndicator, Text, useTheme } from 'react-native-paper';
 
 type Loader = {
   children: ReactNode;

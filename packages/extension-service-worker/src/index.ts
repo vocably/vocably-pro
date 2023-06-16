@@ -1,35 +1,35 @@
-import './fixAuth';
 import { Auth } from '@aws-amplify/auth';
 import {
-  configureApi,
   analyze,
+  configureApi,
+  deleteLanguageDeck,
   loadLanguageDeck,
   saveLanguageDeck,
-  deleteLanguageDeck,
 } from '@vocably/api';
+import { makeDelete } from '@vocably/crud';
 import {
-  onIsLoggedInRequest,
   onAnalyzeRequest,
   onCleanUpRequest,
+  onGetInternalProxyLanuage,
+  onGetProxyLanguage,
   onIsActiveRequest,
+  onIsEligibleForTrialRequest,
+  onIsLoggedInRequest,
+  onListLanguagesRequest,
   onPing,
   onPingExternal,
-  onListLanguagesRequest,
-  onIsEligibleForTrialRequest,
-  onSetProxyLanguage,
-  onGetProxyLanguage,
-  onGetInternalProxyLanuage,
   onSetInternalProxyLanguage,
+  onSetProxyLanguage,
 } from '@vocably/extension-messages';
-import { createCards } from './createCards';
-import { makeDelete } from '@vocably/crud';
-import { get } from 'lodash-es';
-import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
 import {
-  isEligibleForTrial,
   GoogleLanguage,
+  isEligibleForTrial,
   mapUserAttributes,
 } from '@vocably/model';
+import { get } from 'lodash-es';
+import { createCards } from './createCards';
+import './fixAuth';
+import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
 import { getProxyLanguage, setProxyLanguage } from './proxyLanguage';
 
 type RegisterServiceWorkerOptions = {

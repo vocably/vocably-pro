@@ -1,7 +1,7 @@
-import { URLSearchParams } from 'url';
-import { readFileSync, writeFileSync } from 'fs';
-import { colors } from './helpers/colors.mjs';
 import { config } from 'dotenv-flow';
+import { readFileSync, writeFileSync } from 'fs';
+import { URLSearchParams } from 'url';
+import { colors } from './helpers/colors.mjs';
 
 config();
 

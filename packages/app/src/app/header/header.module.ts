@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { ComponentsModule } from '../components/components.module';
 import { HeaderComponent } from './header.component';
 import { LogoComponent } from './logo/logo.component';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
-import { ComponentsModule } from '../components/components.module';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [HeaderComponent, LogoComponent],

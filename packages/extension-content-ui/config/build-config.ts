@@ -1,6 +1,6 @@
+import { angularOutputTarget } from '@stencil/angular-output-target';
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
-import { angularOutputTarget } from '@stencil/angular-output-target';
 
 type ConfigOptions = {
   buildDir: string;

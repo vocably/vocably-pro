@@ -1,3 +1,4 @@
+import { isPassThrough } from '@vocably/model';
 import {
   alertSubscriptionCancelled,
   alertSubscriptionCreated,
@@ -6,7 +7,6 @@ import {
   PaddleEvent,
   PaddleRawBody,
 } from './types';
-import { isPassThrough } from '@vocably/model';
 
 const availableEvents = [
   alertSubscriptionCreated,

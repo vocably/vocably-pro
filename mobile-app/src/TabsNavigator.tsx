@@ -1,11 +1,11 @@
-import { FC, useContext } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { useContext } from 'react';
+import { useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { LookUpScreen } from './LookUpScreen';
-import { LanguagesContext } from './languages/LanguagesContainer';
-import { WelcomeStack } from './WelcomeStack';
 import { DeckStack } from './DeckStack';
-import { Provider, useTheme } from 'react-native-paper';
+import { LanguagesContext } from './languages/LanguagesContainer';
+import { LookUpScreen } from './LookUpScreen';
+import { WelcomeStack } from './WelcomeStack';
 
 const Tabs = createMaterialBottomTabNavigator();
 

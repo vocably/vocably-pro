@@ -1,15 +1,15 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { RouterParamsService } from './router-params.service';
-import { UpdateService } from './update.service';
 import { Platform } from '@ionic/angular';
-import { RefreshService } from './refresh.service';
-import { firstValueFrom, map, switchMap, tap, distinct } from 'rxjs';
-import { PaddleService } from './subscription/paddle.service';
-import * as PullToRefresh from 'pulltorefreshjs';
-import { AuthService } from './auth/auth.service';
-import { setUp, setUserId } from '../piwik';
-import { environment } from '../environments/environment';
 import * as Sentry from '@sentry/browser';
+import * as PullToRefresh from 'pulltorefreshjs';
+import { distinct, firstValueFrom, map, switchMap, tap } from 'rxjs';
+import { environment } from '../environments/environment';
+import { setUp, setUserId } from '../piwik';
+import { AuthService } from './auth/auth.service';
+import { RefreshService } from './refresh.service';
+import { RouterParamsService } from './router-params.service';
+import { PaddleService } from './subscription/paddle.service';
+import { UpdateService } from './update.service';
 
 @Component({
   selector: 'app-root',

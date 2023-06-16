@@ -1,6 +1,5 @@
-import { api } from '../api';
 import { GoogleLanguage } from '@vocably/model';
-import { addWarning } from '@angular-devkit/build-angular/src/utils/webpack-diagnostics';
+import { api } from '../api';
 
 type Options = {
   popup: HTMLElement;
