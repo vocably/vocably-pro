@@ -15,6 +15,7 @@ export const lexicalaSearchResultToAnalysisItem =
     return {
       source: addArticle(item.language, headword),
       definitions: item.senses
+        .slice(0, 3)
         .filter((s) => s.definition)
         .map((s) => s.definition),
       partOfSpeech: headword.pos,
