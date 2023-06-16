@@ -8,19 +8,21 @@ export const extractItemTranslation = (
   item: LexicalaSearchResultItem,
   targetLanguage: LexicalaLanguage
 ): string | null => {
+  const refinedLanguage = targetLanguage === 'pt' ? 'br' : targetLanguage;
+
   const translations: LexicalaTranslation[] = item.senses
     .map((sense) => {
-      if (!sense.translations || !sense.translations[targetLanguage]) {
+      if (!sense.translations || !sense.translations[refinedLanguage]) {
         return [];
       }
 
-      if (Array.isArray(sense.translations[targetLanguage])) {
+      if (Array.isArray(sense.translations[refinedLanguage])) {
         // @ts-ignore
-        return sense.translations[targetLanguage] as LexicalaTranslation[];
+        return sense.translations[refinedLanguage] as LexicalaTranslation[];
       }
 
       // @ts-ignore
-      return [sense.translations[targetLanguage] as LexicalaTranslation];
+      return [sense.translations[refinedLanguage] as LexicalaTranslation];
     })
     .flat();
 
