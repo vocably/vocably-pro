@@ -91,6 +91,7 @@ NLP_TRANSLATION_KEY="${var.nlp_translation_key}"
 PADDLE_PUBLIC_KEY="${replace(var.paddle_public_key, "\n", "\\n")}"
 CONGINOT_USER_POOL_ID="${aws_cognito_user_pool.users.id}"
 CANCELLED_SUBCRIPTIONS_TABLE="${aws_dynamodb_table.cancelled_subscriptions.name}"
+USER_FEEDBACK_TABLE="${aws_dynamodb_table.user_feedback.name}"
   EOT
 }
 
