@@ -30,7 +30,14 @@ platform :ios do
   desc 'Fetch code signing secrets. Build the iOS application.'
   lane :build do
     certificates
-    # Creates a signed file
+    increment_build_number(
+      build_number: File.read("../../VERSION")
+    )
+
+    increment_version_number(
+      version_number: File.read("../../VERSION")
+    )
+
     gym(
       export_method: ENV["FASTFILE_GYM_EXPORT_METHOD"]
     )

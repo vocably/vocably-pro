@@ -21,8 +21,11 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
+  desc "Build the beta version and store it in app/build/outputs/bundle/release/app-release.aab"
   lane :beta do
+    android_set_version_name(version_name: File.read("../../VERSION").strip)
+    android_set_version_code(version_code: android_get_version_code.to_i + 1)
+
     store_password = prompt(text: "Signing Store Password: ", secure_text: true)
     key_password = prompt(text: "Alias Key Password: ", secure_text: true)
     releaseFilePath = File.join(Dir.pwd, "..", "my-release-key.keystore")
