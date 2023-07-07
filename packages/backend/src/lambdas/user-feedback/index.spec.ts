@@ -7,7 +7,9 @@ let mockEvent: APIGatewayProxyEvent = {
   // @ts-ignore
   requestContext: {
     authorizer: {
-      username: 'test-user',
+      claims: {
+        'cognito:username': 'test-user',
+      },
     },
   },
 };
