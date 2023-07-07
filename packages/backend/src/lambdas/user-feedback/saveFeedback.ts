@@ -1,15 +1,20 @@
+import { Result } from '@vocably/model';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { DynamoDB, SES } from 'aws-sdk';
 
 const ddb = new DynamoDB.DocumentClient();
 const ses = new SES();
 
-export const saveFeedback = async (event: APIGatewayProxyEvent) => {
-  console.log('Saving feedback', event.body);
+export const saveFeedback = async (
+  event: APIGatewayProxyEvent
+): Promise<Result<null>> => {
+  const { feedback, metadata = {} } = JSON.parse(event.body);
 
-  const { feedback } = JSON.parse(event.body);
   const timestamp = new Date().toISOString();
-  const username = event.requestContext.authorizer?.username;
+  const claims = event.requestContext?.authorizer?.claims ?? {};
+  const username = claims['cognito:username'] ?? '';
+
+  metadata['claims'] = claims;
 
   await ses
     .sendEmail({
@@ -24,7 +29,11 @@ export const saveFeedback = async (event: APIGatewayProxyEvent) => {
         Body: {
           Text: {
             Charset: 'UTF-8',
-            Data: `Username: ${username}\n\n${feedback}`,
+            Data: `Username: ${username}\n\n${feedback}\n\n${JSON.stringify(
+              metadata,
+              null,
+              4
+            )}`,
           },
         },
       },
@@ -44,7 +53,7 @@ export const saveFeedback = async (event: APIGatewayProxyEvent) => {
     .promise();
 
   return {
-    statusCode: 200,
-    body: JSON.stringify({ success: true }),
+    success: true,
+    value: null,
   };
 };

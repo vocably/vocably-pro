@@ -78,10 +78,12 @@ resource "aws_api_gateway_deployment" "deployment" {
       md5(file("${path.module}/api-analyze.tf")),
       md5(file("${path.module}/api-cards.tf")),
       md5(file("${path.module}/api-paddle.tf")),
+      md5(file("${path.module}/user-feedback.tf"))
     ]))
   }
   depends_on = [
     aws_api_gateway_integration.analyze,
+    aws_api_gateway_integration.user_feedback,
     aws_api_gateway_integration.paddle,
     aws_api_gateway_integration.put_language,
     aws_api_gateway_integration.get_language,
@@ -91,7 +93,7 @@ resource "aws_api_gateway_deployment" "deployment" {
     aws_api_gateway_integration_response.delete_language_200,
     aws_api_gateway_integration_response.get_language_200,
     aws_api_gateway_integration_response.get_language_4xx,
-    aws_api_gateway_integration_response.list_languages_200
+    aws_api_gateway_integration_response.list_languages_200,
   ]
   lifecycle {
     create_before_destroy = true

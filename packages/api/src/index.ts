@@ -6,3 +6,4 @@ export {
   loadLanguageDeck,
   saveLanguageDeck,
 } from './languageDecks';
+export { sendUserFeedback } from './userFeedback';

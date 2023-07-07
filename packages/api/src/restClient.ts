@@ -9,14 +9,16 @@ export const request = async (
 ): Promise<Result<any>> => {
   try {
     const session = await Auth.currentSession();
+    const headers = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${session.getIdToken().getJwtToken()}`,
+    };
+
     const response = await fetch(
       apiOptions.baseUrl + url,
       merge(init, {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${session.getIdToken().getJwtToken()}`,
-        },
+        headers,
       })
     );
 

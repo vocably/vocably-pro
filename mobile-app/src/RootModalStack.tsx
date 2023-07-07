@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { DrawerNavigator } from './DrawerNavigator';
+import { FeedbackModal } from './FeedbackModal';
 import { LanguageSelectorModal } from './LanguageSelectorModal';
 import { StudyScreen } from './study/StudyScreen';
 
@@ -22,6 +23,7 @@ export const RootModalStack = () => {
           name="LanguageSelector"
           component={LanguageSelectorModal}
         />
+        <Stack.Screen name={'Feedback'} component={FeedbackModal} />
       </Stack.Group>
     </Stack.Navigator>
   );
