@@ -17,7 +17,9 @@ export const saveFeedback = async (event: APIGatewayProxyEvent) => {
       Message: {
         Subject: {
           Charset: 'UTF-8',
-          Data: `${process.env.FEEDBACK_NOTIFICATION_PREFIX}User feedback received`,
+          Data: `${
+            process.env.FEEDBACK_NOTIFICATION_PREFIX ?? ''
+          }User feedback received`,
         },
         Body: {
           Text: {
@@ -30,16 +32,16 @@ export const saveFeedback = async (event: APIGatewayProxyEvent) => {
     })
     .promise();
 
-  // await ddb
-  //   .put({
-  //     TableName: process.env.USER_FEEDBACK_TABLE,
-  //     Item: {
-  //       Username: username,
-  //       Timestamp: timestamp,
-  //       Feedback: feedback,
-  //     },
-  //   })
-  //   .promise();
+  await ddb
+    .put({
+      TableName: process.env.USER_FEEDBACK_TABLE,
+      Item: {
+        Username: username,
+        Timestamp: timestamp,
+        Feedback: feedback,
+      },
+    })
+    .promise();
 
   return {
     statusCode: 200,
