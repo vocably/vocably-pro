@@ -52,3 +52,22 @@ if (promoVideo) {
     });
   });
 }
+
+if (document.getElementById('automatically-download-mobile-app')) {
+  const isAndroid = browser.is('android');
+  const isIos = browser.is('ios');
+
+  const progress = document.getElementById('mobile-app-progress');
+  const links = document.getElementById('mobile-app-links');
+
+  if (isAndroid) {
+    document.getElementById('mobile-app-ios-link').classList.add('d-none');
+  } else if (isIos) {
+    window.location.href =
+      'https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757';
+    document.getElementById('mobile-app-android-link').classList.add('d-none');
+  }
+
+  progress.classList.add('d-none');
+  links.classList.remove('d-none');
+}
