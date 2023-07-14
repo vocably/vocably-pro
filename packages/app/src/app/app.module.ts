@@ -16,8 +16,6 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
 import { HeaderModule } from './header/header.module';
-import { AndroidPageComponent } from './pages/android-page/android-page.component';
-import { IosPageComponent } from './pages/ios-page/ios-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { DeleteAccountConfirmationComponent } from './pages/settings-page/delete-account-confirmation/delete-account-confirmation.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
@@ -26,8 +24,6 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
   declarations: [
     AppComponent,
     NotFoundPageComponent,
-    IosPageComponent,
-    AndroidPageComponent,
     SettingsPageComponent,
     DeleteAccountConfirmationComponent,
   ],
