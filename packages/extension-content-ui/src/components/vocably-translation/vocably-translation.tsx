@@ -128,6 +128,16 @@ export class VocablyTranslation {
                       </div>
                     ))}
                   </div>
+
+                  <div class="margin-top-2 text-right small">
+                    <a
+                      href="https://app.vocably.pro/feedback"
+                      target="_blank"
+                      class="text-link"
+                    >
+                      Are you missing anything? Feel free to let me know.
+                    </a>
+                  </div>
                 </div>
               </div>
               {this.loading && (

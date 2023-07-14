@@ -24,6 +24,24 @@ $section-margin: 8px;
   margin-bottom: 12px;
 }
 
+.margin-top-2 {
+  margin-top: 12px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-link,
+.text-link:active,
+.text-link:visited {
+  color: $v-light-color-body !important;
+}
+
+.text-link:hover {
+  color: $v-light-color-emphasize !important;
+}
+
 .emphasized {
   color: $v-light-color-emphasize;
   font-weight: bold;
