@@ -1,4 +1,5 @@
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -16,6 +17,7 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
 import { HeaderModule } from './header/header.module';
+import { FeedbackPageComponent } from './pages/feedback-page/feedback-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { DeleteAccountConfirmationComponent } from './pages/settings-page/delete-account-confirmation/delete-account-confirmation.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
@@ -26,6 +28,7 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
     NotFoundPageComponent,
     SettingsPageComponent,
     DeleteAccountConfirmationComponent,
+    FeedbackPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
     AuthModule,
     HeaderModule,
     ComponentsModule,
+    FormsModule,
     IonicModule.forRoot({
       mode: 'md',
       statusTap: true,

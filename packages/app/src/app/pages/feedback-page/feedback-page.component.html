@@ -1,0 +1,32 @@
+<div class="container-xl top"><app-header title="Feedback"></app-header></div>
+<div class="container bottom">
+  <form (ngSubmit)="submitFeedback()">
+    <p>
+      Are you missing any crucial feature or simply want to share your opinion
+      about Vocably with me? I would love to hear from you!
+    </p>
+    <textarea
+      class="form-control mb-1"
+      name="feedback"
+      style="height: 6rem"
+      placeholder="Please enter your feedback here."
+      [(ngModel)]="feedback"
+    ></textarea>
+    <div class="mb-1">
+      <button
+        data-test="submit"
+        type="submit"
+        class="button"
+        [disabled]="feedback.trim() === '' || isSubmitting"
+      >
+        Submit
+      </button>
+      <ion-spinner *ngIf="isSubmitting" name="dots"></ion-spinner>
+    </div>
+    <div *ngIf="success" class="text-primary">Thanks for your feedback!</div>
+    <div *ngIf="error" class="text-danger">
+      Unfortunately, we have encountered an error while submitting your
+      feedback. Could you please try it again later?
+    </div>
+  </form>
+</div>
