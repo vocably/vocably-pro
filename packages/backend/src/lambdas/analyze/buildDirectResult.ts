@@ -11,6 +11,7 @@ import { lexicalaSearchResultToAnalysisItem } from '../../lexicala/lexicalaSearc
 import { normalizeHeadword } from '../../lexicala/normalizeHeadword';
 import { combineItems } from './combineItems';
 import { fitsTheSize } from './fitsTheSize';
+import { isOneWord } from './isOneWord';
 import { trimArticle } from './trimArticle';
 
 export const buildDirectResult = async (
@@ -47,6 +48,17 @@ export const buildDirectResult = async (
   }
 
   const trimmedArticle = trimArticle(lexicalaLanguage, payload.source);
+
+  if (!isOneWord(trimmedArticle.source)) {
+    return {
+      success: true,
+      value: {
+        source: payload.source,
+        translation: translationResult.value,
+      },
+    };
+  }
+
   const lexicalaResult = await lexicala(
     lexicalaLanguage,
     trimmedArticle.source
