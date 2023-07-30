@@ -6,7 +6,7 @@ type TrimArticleResult = {
 };
 
 const trimRegexes: Partial<Record<LexicalaLanguage, RegExp>> = {
-  nl: /^(de|het)/i,
+  nl: /^(de|het)\s/i,
 };
 
 export const trimArticle = (
@@ -27,7 +27,7 @@ export const trimArticle = (
     };
   }
 
-  const article = articleMatch[0].toLowerCase();
+  const article = articleMatch[0].trim().toLowerCase();
 
   return {
     article,

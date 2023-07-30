@@ -11,6 +11,9 @@ describe('trimArticle', () => {
       source: 'test',
       article: 'het',
     });
+    expect(trimArticle('nl', 'detest')).toEqual({
+      source: 'detest',
+    });
   });
 
   it('any', () => {
