@@ -12,6 +12,7 @@ declare -a variables=(
   "TF_VAR_endtest_app_code"
   "TF_VAR_apple_sign_in_key_id"
   "TF_VAR_apple_sign_in_key"
+  "TF_VAR_brevo_api_key"
   "APP_STORE_CONNECT_API_KEY_KEY_ID"
   "APP_STORE_CONNECT_API_KEY_ISSUER_ID"
   "APP_STORE_CONNECT_API_KEY_KEY"
