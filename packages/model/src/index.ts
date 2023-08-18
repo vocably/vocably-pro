@@ -4,7 +4,7 @@ export * from './errors';
 export * from './language';
 export * from './language-deck';
 export * from './language-list';
-export { isError, isSuccess, Result } from './result';
+export { isError, isSuccess, Result, resultify } from './result';
 export * from './subscription';
 export * from './translation-cards';
 export * from './user';

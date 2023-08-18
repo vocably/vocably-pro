@@ -28,6 +28,7 @@ export const Errors = [
   'FREE_ANALYSE_SOURCE_LANGUAGE_MISSING',
   'FREE_ANALYSE_NON_DIRECT_PAYLOAD',
   'USER_FEEDBACK_REQUEST_FAILED',
+  'BREVO_UNSUCCESSFUL_REQUEST',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];

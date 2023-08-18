@@ -28,3 +28,19 @@ export const isError = (object: any): object is Error => {
     object.reason
   );
 };
+
+export const resultify = async <T>(
+  p: Promise<T>,
+  failureReason: { errorCode: VocablyErrorCode; reason: string }
+): Promise<Result<T>> => {
+  try {
+    const value = await p;
+    return { success: true, value };
+  } catch (e: unknown) {
+    return {
+      success: false,
+      ...failureReason,
+      extra: e,
+    };
+  }
+};

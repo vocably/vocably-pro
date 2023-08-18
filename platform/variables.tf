@@ -158,3 +158,8 @@ variable "endtest_app_code" {
 variable "endtest_latest_env_suite" {
   type = string
 }
+
+variable "brevo_api_key" {
+  type      = string
+  sensitive = true
+}

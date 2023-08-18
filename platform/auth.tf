@@ -1,6 +1,17 @@
-// Lambdas
+locals {
+  auth_lambdas_content = <<EOT
+BREVO_API_KEY="${var.brevo_api_key}"
+  EOT
+}
+
+resource "local_file" "auth_lambdas_environment" {
+  content  = local.auth_lambdas_content
+  filename = "${local.auth_lambdas_root}/.env.local"
+}
 
 data "external" "auth_lambdas_build" {
+  depends_on = [local_file.auth_lambdas_environment]
+
   program = ["bash", "-c", <<EOT
 (npm run build) >&2 && echo "{\"dest\": \"dist\"}"
 EOT
@@ -55,6 +66,7 @@ resource "aws_iam_policy" "auth_post_confirmation_lambda_execution" {
         "Sid" : "Cognito",
         "Effect" : "Allow",
         "Action" : [
+          "cognito-idp:AdminGetUser",
           "cognito-idp:AdminUpdateUserAttributes",
           "cognito-idp:AdminAddUserToGroup",
           "cognito-idp:AdminRemoveUserFromGroup",
@@ -74,9 +86,9 @@ resource "aws_iam_role_policy_attachment" "auth_post_confirmation_lambda_executi
 
 resource "aws_lambda_function" "auth_post_confirmation" {
   filename         = data.archive_file.auth_lambdas_build.output_path
-  function_name    = "vocably-${terraform.workspace}-post_confirmation"
+  function_name    = "vocably-${terraform.workspace}-auth-post_confirmation"
   role             = aws_iam_role.auth_post_confirmation_lambda_execution.arn
-  handler          = "post-confirmation.postConfirmation"
+  handler          = "auth-post-confirmation.authPostConfirmation"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
   runtime          = "nodejs14.x"
 }

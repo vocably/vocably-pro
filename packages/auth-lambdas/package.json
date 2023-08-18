@@ -7,7 +7,7 @@
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "webpack --config webpack.config.js",
     "watch": "tsc --watch",
     "test": "echo '@vocably/auth-lambdas has no tests.'",
     "start": "npm run watch",
