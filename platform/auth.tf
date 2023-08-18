@@ -17,8 +17,8 @@ data "archive_file" "auth_lambdas_build" {
   output_path = "auth_lambdas_build.zip"
 }
 
-resource "aws_iam_role" "add_to_paid_lambda_execution" {
-  name               = "vocably-${terraform.workspace}-add_to_paid-lambda-execution"
+resource "aws_iam_role" "auth_post_confirmation_lambda_execution" {
+  name               = "vocably-${terraform.workspace}-auth_post_confirmation-lambda-execution"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -36,8 +36,8 @@ resource "aws_iam_role" "add_to_paid_lambda_execution" {
 EOF
 }
 
-resource "aws_iam_policy" "add_to_paid_lambda_execution" {
-  name = "vocably-${terraform.workspace}-add_to_paid-lambda-execution-policy"
+resource "aws_iam_policy" "auth_post_confirmation_lambda_execution" {
+  name = "vocably-${terraform.workspace}-auth_post_confirmation-lambda-execution-policy"
   policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -67,30 +67,30 @@ resource "aws_iam_policy" "add_to_paid_lambda_execution" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "add_to_paid_lambda_execution" {
-  role       = aws_iam_role.add_to_paid_lambda_execution.name
-  policy_arn = aws_iam_policy.add_to_paid_lambda_execution.arn
+resource "aws_iam_role_policy_attachment" "auth_post_confirmation_lambda_execution" {
+  role       = aws_iam_role.auth_post_confirmation_lambda_execution.name
+  policy_arn = aws_iam_policy.auth_post_confirmation_lambda_execution.arn
 }
 
-resource "aws_lambda_function" "add_to_paid" {
+resource "aws_lambda_function" "auth_post_confirmation" {
   filename         = data.archive_file.auth_lambdas_build.output_path
-  function_name    = "vocably-${terraform.workspace}-add_to_paid"
-  role             = aws_iam_role.add_to_paid_lambda_execution.arn
-  handler          = "add-to-paid.addToPaid"
+  function_name    = "vocably-${terraform.workspace}-post_confirmation"
+  role             = aws_iam_role.auth_post_confirmation_lambda_execution.arn
+  handler          = "post-confirmation.postConfirmation"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
   runtime          = "nodejs14.x"
 }
 
-resource "aws_lambda_permission" "add_to_paid" {
+resource "aws_lambda_permission" "auth_post_confirmation" {
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.add_to_paid.function_name
+  function_name = aws_lambda_function.auth_post_confirmation.function_name
   principal     = "cognito-idp.amazonaws.com"
 
   source_arn = aws_cognito_user_pool.users.arn
 }
 
-resource "aws_cloudwatch_log_group" "add_to_paid" {
-  name              = "/aws/lambda/${aws_lambda_function.add_to_paid.function_name}"
+resource "aws_cloudwatch_log_group" "auth_post_confirmation" {
+  name              = "/aws/lambda/${aws_lambda_function.auth_post_confirmation.function_name}"
   retention_in_days = 14
 }
 
@@ -117,7 +117,7 @@ resource "aws_cognito_user_pool" "users" {
   }
 
   lambda_config {
-    post_confirmation = aws_lambda_function.add_to_paid.arn
+    post_confirmation = aws_lambda_function.auth_post_confirmation.arn
   }
 
   schema {

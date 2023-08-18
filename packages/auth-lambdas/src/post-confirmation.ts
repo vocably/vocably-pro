@@ -22,7 +22,7 @@ const adminAddUserToGroup = async ({
   return cognitoIdp.adminAddUserToGroup(params).promise();
 };
 
-export const addToPaid = async (
+export const postConfirmation = async (
   event: PostConfirmationTriggerEvent,
   _context: Context,
   callback: Callback
