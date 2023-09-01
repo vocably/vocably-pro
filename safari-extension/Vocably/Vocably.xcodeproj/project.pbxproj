@@ -7,46 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32F22A432AA2347D00A53144 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F22A422AA2347D00A53144 /* AppDelegate.swift */; };
-		32F22A472AA2347D00A53144 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A452AA2347D00A53144 /* Main.html */; };
-		32F22A492AA2347D00A53144 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A482AA2347D00A53144 /* Icon.png */; };
-		32F22A4B2AA2347D00A53144 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A4A2AA2347D00A53144 /* Style.css */; };
-		32F22A4D2AA2347D00A53144 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A4C2AA2347D00A53144 /* Script.js */; };
-		32F22A4F2AA2347D00A53144 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F22A4E2AA2347D00A53144 /* ViewController.swift */; };
-		32F22A522AA2347D00A53144 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A502AA2347D00A53144 /* Main.storyboard */; };
-		32F22A542AA2347E00A53144 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A532AA2347E00A53144 /* Assets.xcassets */; };
-		32F22A5D2AA2347E00A53144 /* Vocably Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 32F22A5C2AA2347E00A53144 /* Vocably Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		32F22A622AA2347E00A53144 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32F22A612AA2347E00A53144 /* SafariWebExtensionHandler.swift */; };
-		32F22A792AA2347E00A53144 /* service-worker.js.LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A6F2AA2347E00A53144 /* service-worker.js.LICENSE.txt */; };
-		32F22A7A2AA2347E00A53144 /* content-script.d.ts in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A702AA2347E00A53144 /* content-script.d.ts */; };
-		32F22A7B2AA2347E00A53144 /* content-script.js.LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A712AA2347E00A53144 /* content-script.js.LICENSE.txt */; };
-		32F22A7C2AA2347E00A53144 /* popup in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A722AA2347E00A53144 /* popup */; };
-		32F22A7D2AA2347E00A53144 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A732AA2347E00A53144 /* images */; };
-		32F22A7E2AA2347E00A53144 /* service-worker.d.ts in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A742AA2347E00A53144 /* service-worker.d.ts */; };
-		32F22A7F2AA2347E00A53144 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A752AA2347E00A53144 /* manifest.json */; };
-		32F22A802AA2347E00A53144 /* content-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A762AA2347E00A53144 /* content-script.js */; };
-		32F22A812AA2347E00A53144 /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A772AA2347E00A53144 /* options.html */; };
-		32F22A822AA2347E00A53144 /* service-worker.js in Resources */ = {isa = PBXBuildFile; fileRef = 32F22A782AA2347E00A53144 /* service-worker.js */; };
+		32CB7A732AA2351A001DBA77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CB7A722AA2351A001DBA77 /* AppDelegate.swift */; };
+		32CB7A772AA2351A001DBA77 /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7A752AA2351A001DBA77 /* Main.html */; };
+		32CB7A792AA2351A001DBA77 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7A782AA2351A001DBA77 /* Icon.png */; };
+		32CB7A7B2AA2351A001DBA77 /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7A7A2AA2351A001DBA77 /* Style.css */; };
+		32CB7A7D2AA2351A001DBA77 /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7A7C2AA2351A001DBA77 /* Script.js */; };
+		32CB7A7F2AA2351A001DBA77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CB7A7E2AA2351A001DBA77 /* ViewController.swift */; };
+		32CB7A822AA2351A001DBA77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7A802AA2351A001DBA77 /* Main.storyboard */; };
+		32CB7A842AA2351A001DBA77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7A832AA2351A001DBA77 /* Assets.xcassets */; };
+		32CB7A8D2AA2351B001DBA77 /* Vocably Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 32CB7A8C2AA2351B001DBA77 /* Vocably Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		32CB7A922AA2351B001DBA77 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32CB7A912AA2351B001DBA77 /* SafariWebExtensionHandler.swift */; };
+		32CB7AA92AA2351B001DBA77 /* service-worker.js.LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7A9F2AA2351B001DBA77 /* service-worker.js.LICENSE.txt */; };
+		32CB7AAA2AA2351B001DBA77 /* content-script.d.ts in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7AA02AA2351B001DBA77 /* content-script.d.ts */; };
+		32CB7AAB2AA2351B001DBA77 /* content-script.js.LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7AA12AA2351B001DBA77 /* content-script.js.LICENSE.txt */; };
+		32CB7AAC2AA2351B001DBA77 /* popup in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7AA22AA2351B001DBA77 /* popup */; };
+		32CB7AAD2AA2351B001DBA77 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7AA32AA2351B001DBA77 /* images */; };
+		32CB7AAE2AA2351B001DBA77 /* service-worker.d.ts in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7AA42AA2351B001DBA77 /* service-worker.d.ts */; };
+		32CB7AAF2AA2351B001DBA77 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7AA52AA2351B001DBA77 /* manifest.json */; };
+		32CB7AB02AA2351B001DBA77 /* content-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7AA62AA2351B001DBA77 /* content-script.js */; };
+		32CB7AB12AA2351B001DBA77 /* options.html in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7AA72AA2351B001DBA77 /* options.html */; };
+		32CB7AB22AA2351B001DBA77 /* service-worker.js in Resources */ = {isa = PBXBuildFile; fileRef = 32CB7AA82AA2351B001DBA77 /* service-worker.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		32F22A5E2AA2347E00A53144 /* PBXContainerItemProxy */ = {
+		32CB7A8E2AA2351B001DBA77 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 32F22A372AA2347D00A53144 /* Project object */;
+			containerPortal = 32CB7A672AA2351A001DBA77 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 32F22A5B2AA2347E00A53144;
+			remoteGlobalIDString = 32CB7A8B2AA2351B001DBA77;
 			remoteInfo = "Vocably Extension";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		32F22A6A2AA2347E00A53144 /* Embed Foundation Extensions */ = {
+		32CB7A9A2AA2351B001DBA77 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				32F22A5D2AA2347E00A53144 /* Vocably Extension.appex in Embed Foundation Extensions */,
+				32CB7A8D2AA2351B001DBA77 /* Vocably Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,43 +54,43 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		32F22A3F2AA2347D00A53144 /* Vocably.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vocably.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		32F22A422AA2347D00A53144 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		32F22A462AA2347D00A53144 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
-		32F22A482AA2347D00A53144 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		32F22A4A2AA2347D00A53144 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
-		32F22A4C2AA2347D00A53144 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
-		32F22A4E2AA2347D00A53144 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		32F22A512AA2347D00A53144 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		32F22A532AA2347E00A53144 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		32F22A552AA2347E00A53144 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32F22A562AA2347E00A53144 /* Vocably.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vocably.entitlements; sourceTree = "<group>"; };
-		32F22A572AA2347E00A53144 /* Vocably.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vocably.entitlements; sourceTree = "<group>"; };
-		32F22A5C2AA2347E00A53144 /* Vocably Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vocably Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		32F22A612AA2347E00A53144 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
-		32F22A632AA2347E00A53144 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32F22A642AA2347E00A53144 /* Vocably_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vocably_Extension.entitlements; sourceTree = "<group>"; };
-		32F22A6F2AA2347E00A53144 /* service-worker.js.LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "service-worker.js.LICENSE.txt"; path = "Resources/service-worker.js.LICENSE.txt"; sourceTree = "<group>"; };
-		32F22A702AA2347E00A53144 /* content-script.d.ts */ = {isa = PBXFileReference; lastKnownFileType = text; name = "content-script.d.ts"; path = "Resources/content-script.d.ts"; sourceTree = "<group>"; };
-		32F22A712AA2347E00A53144 /* content-script.js.LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "content-script.js.LICENSE.txt"; path = "Resources/content-script.js.LICENSE.txt"; sourceTree = "<group>"; };
-		32F22A722AA2347E00A53144 /* popup */ = {isa = PBXFileReference; lastKnownFileType = folder; name = popup; path = Resources/popup; sourceTree = "<group>"; };
-		32F22A732AA2347E00A53144 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = Resources/images; sourceTree = "<group>"; };
-		32F22A742AA2347E00A53144 /* service-worker.d.ts */ = {isa = PBXFileReference; lastKnownFileType = text; name = "service-worker.d.ts"; path = "Resources/service-worker.d.ts"; sourceTree = "<group>"; };
-		32F22A752AA2347E00A53144 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = Resources/manifest.json; sourceTree = "<group>"; };
-		32F22A762AA2347E00A53144 /* content-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "content-script.js"; path = "Resources/content-script.js"; sourceTree = "<group>"; };
-		32F22A772AA2347E00A53144 /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = options.html; path = Resources/options.html; sourceTree = "<group>"; };
-		32F22A782AA2347E00A53144 /* service-worker.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "service-worker.js"; path = "Resources/service-worker.js"; sourceTree = "<group>"; };
+		32CB7A6F2AA2351A001DBA77 /* Vocably.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vocably.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		32CB7A722AA2351A001DBA77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		32CB7A762AA2351A001DBA77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
+		32CB7A782AA2351A001DBA77 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		32CB7A7A2AA2351A001DBA77 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		32CB7A7C2AA2351A001DBA77 /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		32CB7A7E2AA2351A001DBA77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		32CB7A812AA2351A001DBA77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		32CB7A832AA2351A001DBA77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		32CB7A852AA2351A001DBA77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32CB7A862AA2351A001DBA77 /* Vocably.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vocably.entitlements; sourceTree = "<group>"; };
+		32CB7A872AA2351A001DBA77 /* Vocably.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vocably.entitlements; sourceTree = "<group>"; };
+		32CB7A8C2AA2351B001DBA77 /* Vocably Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vocably Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32CB7A912AA2351B001DBA77 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		32CB7A932AA2351B001DBA77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		32CB7A942AA2351B001DBA77 /* Vocably_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vocably_Extension.entitlements; sourceTree = "<group>"; };
+		32CB7A9F2AA2351B001DBA77 /* service-worker.js.LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "service-worker.js.LICENSE.txt"; path = "Resources/service-worker.js.LICENSE.txt"; sourceTree = "<group>"; };
+		32CB7AA02AA2351B001DBA77 /* content-script.d.ts */ = {isa = PBXFileReference; lastKnownFileType = text; name = "content-script.d.ts"; path = "Resources/content-script.d.ts"; sourceTree = "<group>"; };
+		32CB7AA12AA2351B001DBA77 /* content-script.js.LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = "content-script.js.LICENSE.txt"; path = "Resources/content-script.js.LICENSE.txt"; sourceTree = "<group>"; };
+		32CB7AA22AA2351B001DBA77 /* popup */ = {isa = PBXFileReference; lastKnownFileType = folder; name = popup; path = Resources/popup; sourceTree = "<group>"; };
+		32CB7AA32AA2351B001DBA77 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = Resources/images; sourceTree = "<group>"; };
+		32CB7AA42AA2351B001DBA77 /* service-worker.d.ts */ = {isa = PBXFileReference; lastKnownFileType = text; name = "service-worker.d.ts"; path = "Resources/service-worker.d.ts"; sourceTree = "<group>"; };
+		32CB7AA52AA2351B001DBA77 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = Resources/manifest.json; sourceTree = "<group>"; };
+		32CB7AA62AA2351B001DBA77 /* content-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "content-script.js"; path = "Resources/content-script.js"; sourceTree = "<group>"; };
+		32CB7AA72AA2351B001DBA77 /* options.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = options.html; path = Resources/options.html; sourceTree = "<group>"; };
+		32CB7AA82AA2351B001DBA77 /* service-worker.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "service-worker.js"; path = "Resources/service-worker.js"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		32F22A3C2AA2347D00A53144 /* Frameworks */ = {
+		32CB7A6C2AA2351A001DBA77 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		32F22A592AA2347E00A53144 /* Frameworks */ = {
+		32CB7A892AA2351B001DBA77 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -100,74 +100,74 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		32F22A362AA2347D00A53144 = {
+		32CB7A662AA2351A001DBA77 = {
 			isa = PBXGroup;
 			children = (
-				32F22A412AA2347D00A53144 /* Vocably */,
-				32F22A602AA2347E00A53144 /* Vocably Extension */,
-				32F22A402AA2347D00A53144 /* Products */,
+				32CB7A712AA2351A001DBA77 /* Vocably */,
+				32CB7A902AA2351B001DBA77 /* Vocably Extension */,
+				32CB7A702AA2351A001DBA77 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		32F22A402AA2347D00A53144 /* Products */ = {
+		32CB7A702AA2351A001DBA77 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				32F22A3F2AA2347D00A53144 /* Vocably.app */,
-				32F22A5C2AA2347E00A53144 /* Vocably Extension.appex */,
+				32CB7A6F2AA2351A001DBA77 /* Vocably.app */,
+				32CB7A8C2AA2351B001DBA77 /* Vocably Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		32F22A412AA2347D00A53144 /* Vocably */ = {
+		32CB7A712AA2351A001DBA77 /* Vocably */ = {
 			isa = PBXGroup;
 			children = (
-				32F22A422AA2347D00A53144 /* AppDelegate.swift */,
-				32F22A4E2AA2347D00A53144 /* ViewController.swift */,
-				32F22A502AA2347D00A53144 /* Main.storyboard */,
-				32F22A532AA2347E00A53144 /* Assets.xcassets */,
-				32F22A552AA2347E00A53144 /* Info.plist */,
-				32F22A562AA2347E00A53144 /* Vocably.entitlements */,
-				32F22A572AA2347E00A53144 /* Vocably.entitlements */,
-				32F22A442AA2347D00A53144 /* Resources */,
+				32CB7A722AA2351A001DBA77 /* AppDelegate.swift */,
+				32CB7A7E2AA2351A001DBA77 /* ViewController.swift */,
+				32CB7A802AA2351A001DBA77 /* Main.storyboard */,
+				32CB7A832AA2351A001DBA77 /* Assets.xcassets */,
+				32CB7A852AA2351A001DBA77 /* Info.plist */,
+				32CB7A862AA2351A001DBA77 /* Vocably.entitlements */,
+				32CB7A872AA2351A001DBA77 /* Vocably.entitlements */,
+				32CB7A742AA2351A001DBA77 /* Resources */,
 			);
 			path = Vocably;
 			sourceTree = "<group>";
 		};
-		32F22A442AA2347D00A53144 /* Resources */ = {
+		32CB7A742AA2351A001DBA77 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				32F22A452AA2347D00A53144 /* Main.html */,
-				32F22A482AA2347D00A53144 /* Icon.png */,
-				32F22A4A2AA2347D00A53144 /* Style.css */,
-				32F22A4C2AA2347D00A53144 /* Script.js */,
+				32CB7A752AA2351A001DBA77 /* Main.html */,
+				32CB7A782AA2351A001DBA77 /* Icon.png */,
+				32CB7A7A2AA2351A001DBA77 /* Style.css */,
+				32CB7A7C2AA2351A001DBA77 /* Script.js */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		32F22A602AA2347E00A53144 /* Vocably Extension */ = {
+		32CB7A902AA2351B001DBA77 /* Vocably Extension */ = {
 			isa = PBXGroup;
 			children = (
-				32F22A6E2AA2347E00A53144 /* Resources */,
-				32F22A612AA2347E00A53144 /* SafariWebExtensionHandler.swift */,
-				32F22A632AA2347E00A53144 /* Info.plist */,
-				32F22A642AA2347E00A53144 /* Vocably_Extension.entitlements */,
+				32CB7A9E2AA2351B001DBA77 /* Resources */,
+				32CB7A912AA2351B001DBA77 /* SafariWebExtensionHandler.swift */,
+				32CB7A932AA2351B001DBA77 /* Info.plist */,
+				32CB7A942AA2351B001DBA77 /* Vocably_Extension.entitlements */,
 			);
 			path = "Vocably Extension";
 			sourceTree = "<group>";
 		};
-		32F22A6E2AA2347E00A53144 /* Resources */ = {
+		32CB7A9E2AA2351B001DBA77 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				32F22A6F2AA2347E00A53144 /* service-worker.js.LICENSE.txt */,
-				32F22A702AA2347E00A53144 /* content-script.d.ts */,
-				32F22A712AA2347E00A53144 /* content-script.js.LICENSE.txt */,
-				32F22A722AA2347E00A53144 /* popup */,
-				32F22A732AA2347E00A53144 /* images */,
-				32F22A742AA2347E00A53144 /* service-worker.d.ts */,
-				32F22A752AA2347E00A53144 /* manifest.json */,
-				32F22A762AA2347E00A53144 /* content-script.js */,
-				32F22A772AA2347E00A53144 /* options.html */,
-				32F22A782AA2347E00A53144 /* service-worker.js */,
+				32CB7A9F2AA2351B001DBA77 /* service-worker.js.LICENSE.txt */,
+				32CB7AA02AA2351B001DBA77 /* content-script.d.ts */,
+				32CB7AA12AA2351B001DBA77 /* content-script.js.LICENSE.txt */,
+				32CB7AA22AA2351B001DBA77 /* popup */,
+				32CB7AA32AA2351B001DBA77 /* images */,
+				32CB7AA42AA2351B001DBA77 /* service-worker.d.ts */,
+				32CB7AA52AA2351B001DBA77 /* manifest.json */,
+				32CB7AA62AA2351B001DBA77 /* content-script.js */,
+				32CB7AA72AA2351B001DBA77 /* options.html */,
+				32CB7AA82AA2351B001DBA77 /* service-worker.js */,
 			);
 			name = Resources;
 			path = "Vocably Extension";
@@ -176,32 +176,32 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		32F22A3E2AA2347D00A53144 /* Vocably */ = {
+		32CB7A6E2AA2351A001DBA77 /* Vocably */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 32F22A6B2AA2347E00A53144 /* Build configuration list for PBXNativeTarget "Vocably" */;
+			buildConfigurationList = 32CB7A9B2AA2351B001DBA77 /* Build configuration list for PBXNativeTarget "Vocably" */;
 			buildPhases = (
-				32F22A3B2AA2347D00A53144 /* Sources */,
-				32F22A3C2AA2347D00A53144 /* Frameworks */,
-				32F22A3D2AA2347D00A53144 /* Resources */,
-				32F22A6A2AA2347E00A53144 /* Embed Foundation Extensions */,
+				32CB7A6B2AA2351A001DBA77 /* Sources */,
+				32CB7A6C2AA2351A001DBA77 /* Frameworks */,
+				32CB7A6D2AA2351A001DBA77 /* Resources */,
+				32CB7A9A2AA2351B001DBA77 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				32F22A5F2AA2347E00A53144 /* PBXTargetDependency */,
+				32CB7A8F2AA2351B001DBA77 /* PBXTargetDependency */,
 			);
 			name = Vocably;
 			productName = Vocably;
-			productReference = 32F22A3F2AA2347D00A53144 /* Vocably.app */;
+			productReference = 32CB7A6F2AA2351A001DBA77 /* Vocably.app */;
 			productType = "com.apple.product-type.application";
 		};
-		32F22A5B2AA2347E00A53144 /* Vocably Extension */ = {
+		32CB7A8B2AA2351B001DBA77 /* Vocably Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 32F22A672AA2347E00A53144 /* Build configuration list for PBXNativeTarget "Vocably Extension" */;
+			buildConfigurationList = 32CB7A972AA2351B001DBA77 /* Build configuration list for PBXNativeTarget "Vocably Extension" */;
 			buildPhases = (
-				32F22A582AA2347E00A53144 /* Sources */,
-				32F22A592AA2347E00A53144 /* Frameworks */,
-				32F22A5A2AA2347E00A53144 /* Resources */,
+				32CB7A882AA2351B001DBA77 /* Sources */,
+				32CB7A892AA2351B001DBA77 /* Frameworks */,
+				32CB7A8A2AA2351B001DBA77 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -209,28 +209,28 @@
 			);
 			name = "Vocably Extension";
 			productName = "Vocably Extension";
-			productReference = 32F22A5C2AA2347E00A53144 /* Vocably Extension.appex */;
+			productReference = 32CB7A8C2AA2351B001DBA77 /* Vocably Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		32F22A372AA2347D00A53144 /* Project object */ = {
+		32CB7A672AA2351A001DBA77 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					32F22A3E2AA2347D00A53144 = {
+					32CB7A6E2AA2351A001DBA77 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
-					32F22A5B2AA2347E00A53144 = {
+					32CB7A8B2AA2351B001DBA77 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
 				};
 			};
-			buildConfigurationList = 32F22A3A2AA2347D00A53144 /* Build configuration list for PBXProject "Vocably" */;
+			buildConfigurationList = 32CB7A6A2AA2351A001DBA77 /* Build configuration list for PBXProject "Vocably" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -238,91 +238,91 @@
 				en,
 				Base,
 			);
-			mainGroup = 32F22A362AA2347D00A53144;
-			productRefGroup = 32F22A402AA2347D00A53144 /* Products */;
+			mainGroup = 32CB7A662AA2351A001DBA77;
+			productRefGroup = 32CB7A702AA2351A001DBA77 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				32F22A3E2AA2347D00A53144 /* Vocably */,
-				32F22A5B2AA2347E00A53144 /* Vocably Extension */,
+				32CB7A6E2AA2351A001DBA77 /* Vocably */,
+				32CB7A8B2AA2351B001DBA77 /* Vocably Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		32F22A3D2AA2347D00A53144 /* Resources */ = {
+		32CB7A6D2AA2351A001DBA77 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32F22A492AA2347D00A53144 /* Icon.png in Resources */,
-				32F22A522AA2347D00A53144 /* Main.storyboard in Resources */,
-				32F22A4D2AA2347D00A53144 /* Script.js in Resources */,
-				32F22A472AA2347D00A53144 /* Main.html in Resources */,
-				32F22A542AA2347E00A53144 /* Assets.xcassets in Resources */,
-				32F22A4B2AA2347D00A53144 /* Style.css in Resources */,
+				32CB7A792AA2351A001DBA77 /* Icon.png in Resources */,
+				32CB7A822AA2351A001DBA77 /* Main.storyboard in Resources */,
+				32CB7A7D2AA2351A001DBA77 /* Script.js in Resources */,
+				32CB7A772AA2351A001DBA77 /* Main.html in Resources */,
+				32CB7A842AA2351A001DBA77 /* Assets.xcassets in Resources */,
+				32CB7A7B2AA2351A001DBA77 /* Style.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		32F22A5A2AA2347E00A53144 /* Resources */ = {
+		32CB7A8A2AA2351B001DBA77 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32F22A7D2AA2347E00A53144 /* images in Resources */,
-				32F22A802AA2347E00A53144 /* content-script.js in Resources */,
-				32F22A7F2AA2347E00A53144 /* manifest.json in Resources */,
-				32F22A792AA2347E00A53144 /* service-worker.js.LICENSE.txt in Resources */,
-				32F22A7C2AA2347E00A53144 /* popup in Resources */,
-				32F22A7A2AA2347E00A53144 /* content-script.d.ts in Resources */,
-				32F22A822AA2347E00A53144 /* service-worker.js in Resources */,
-				32F22A7E2AA2347E00A53144 /* service-worker.d.ts in Resources */,
-				32F22A7B2AA2347E00A53144 /* content-script.js.LICENSE.txt in Resources */,
-				32F22A812AA2347E00A53144 /* options.html in Resources */,
+				32CB7AAD2AA2351B001DBA77 /* images in Resources */,
+				32CB7AB02AA2351B001DBA77 /* content-script.js in Resources */,
+				32CB7AAF2AA2351B001DBA77 /* manifest.json in Resources */,
+				32CB7AA92AA2351B001DBA77 /* service-worker.js.LICENSE.txt in Resources */,
+				32CB7AAC2AA2351B001DBA77 /* popup in Resources */,
+				32CB7AAA2AA2351B001DBA77 /* content-script.d.ts in Resources */,
+				32CB7AB22AA2351B001DBA77 /* service-worker.js in Resources */,
+				32CB7AAE2AA2351B001DBA77 /* service-worker.d.ts in Resources */,
+				32CB7AAB2AA2351B001DBA77 /* content-script.js.LICENSE.txt in Resources */,
+				32CB7AB12AA2351B001DBA77 /* options.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		32F22A3B2AA2347D00A53144 /* Sources */ = {
+		32CB7A6B2AA2351A001DBA77 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32F22A4F2AA2347D00A53144 /* ViewController.swift in Sources */,
-				32F22A432AA2347D00A53144 /* AppDelegate.swift in Sources */,
+				32CB7A7F2AA2351A001DBA77 /* ViewController.swift in Sources */,
+				32CB7A732AA2351A001DBA77 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		32F22A582AA2347E00A53144 /* Sources */ = {
+		32CB7A882AA2351B001DBA77 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32F22A622AA2347E00A53144 /* SafariWebExtensionHandler.swift in Sources */,
+				32CB7A922AA2351B001DBA77 /* SafariWebExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		32F22A5F2AA2347E00A53144 /* PBXTargetDependency */ = {
+		32CB7A8F2AA2351B001DBA77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 32F22A5B2AA2347E00A53144 /* Vocably Extension */;
-			targetProxy = 32F22A5E2AA2347E00A53144 /* PBXContainerItemProxy */;
+			target = 32CB7A8B2AA2351B001DBA77 /* Vocably Extension */;
+			targetProxy = 32CB7A8E2AA2351B001DBA77 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		32F22A452AA2347D00A53144 /* Main.html */ = {
+		32CB7A752AA2351A001DBA77 /* Main.html */ = {
 			isa = PBXVariantGroup;
 			children = (
-				32F22A462AA2347D00A53144 /* Base */,
+				32CB7A762AA2351A001DBA77 /* Base */,
 			);
 			name = Main.html;
 			sourceTree = "<group>";
 		};
-		32F22A502AA2347D00A53144 /* Main.storyboard */ = {
+		32CB7A802AA2351A001DBA77 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				32F22A512AA2347D00A53144 /* Base */,
+				32CB7A812AA2351A001DBA77 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -330,7 +330,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		32F22A652AA2347E00A53144 /* Debug */ = {
+		32CB7A952AA2351B001DBA77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -390,7 +390,7 @@
 			};
 			name = Debug;
 		};
-		32F22A662AA2347E00A53144 /* Release */ = {
+		32CB7A962AA2351B001DBA77 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -443,7 +443,7 @@
 			};
 			name = Release;
 		};
-		32F22A682AA2347E00A53144 /* Debug */ = {
+		32CB7A982AA2351B001DBA77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Vocably Extension/Vocably_Extension.entitlements";
@@ -473,7 +473,7 @@
 			};
 			name = Debug;
 		};
-		32F22A692AA2347E00A53144 /* Release */ = {
+		32CB7A992AA2351B001DBA77 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Vocably Extension/Vocably_Extension.entitlements";
@@ -503,7 +503,7 @@
 			};
 			name = Release;
 		};
-		32F22A6C2AA2347E00A53144 /* Debug */ = {
+		32CB7A9C2AA2351B001DBA77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -539,7 +539,7 @@
 			};
 			name = Debug;
 		};
-		32F22A6D2AA2347E00A53144 /* Release */ = {
+		32CB7A9D2AA2351B001DBA77 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -578,34 +578,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		32F22A3A2AA2347D00A53144 /* Build configuration list for PBXProject "Vocably" */ = {
+		32CB7A6A2AA2351A001DBA77 /* Build configuration list for PBXProject "Vocably" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				32F22A652AA2347E00A53144 /* Debug */,
-				32F22A662AA2347E00A53144 /* Release */,
+				32CB7A952AA2351B001DBA77 /* Debug */,
+				32CB7A962AA2351B001DBA77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		32F22A672AA2347E00A53144 /* Build configuration list for PBXNativeTarget "Vocably Extension" */ = {
+		32CB7A972AA2351B001DBA77 /* Build configuration list for PBXNativeTarget "Vocably Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				32F22A682AA2347E00A53144 /* Debug */,
-				32F22A692AA2347E00A53144 /* Release */,
+				32CB7A982AA2351B001DBA77 /* Debug */,
+				32CB7A992AA2351B001DBA77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		32F22A6B2AA2347E00A53144 /* Build configuration list for PBXNativeTarget "Vocably" */ = {
+		32CB7A9B2AA2351B001DBA77 /* Build configuration list for PBXNativeTarget "Vocably" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				32F22A6C2AA2347E00A53144 /* Debug */,
-				32F22A6D2AA2347E00A53144 /* Release */,
+				32CB7A9C2AA2351B001DBA77 /* Debug */,
+				32CB7A9D2AA2351B001DBA77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 32F22A372AA2347D00A53144 /* Project object */;
+	rootObject = 32CB7A672AA2351A001DBA77 /* Project object */;
 }

@@ -18,3 +18,5 @@ DerivedData
 *.app.dSYM.zip
 *.xcuserstate
 ios/.xcode.env.local
+
+/Vocably/Vocably Extension/Resources/*
