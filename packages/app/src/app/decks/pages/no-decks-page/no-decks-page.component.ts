@@ -1,16 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoogleLanguage } from '@vocably/model';
-import * as Bowser from 'bowser';
 import { Subject, takeUntil } from 'rxjs';
+import { browser } from '../../../../browser';
 import { AuthService } from '../../../auth/auth.service';
 import { isExtensionInstalled } from '../../../isExtensionInstalled';
 import { isSubscribed } from '../../../subscription/isSubscribed';
 import { DeckListStoreService } from '../../deck-list-store.service';
 
-const browser = Bowser.getParser(window.navigator.userAgent);
-
 const canInstallTheExtension = browser.satisfies({
+  desktop: {
+    chrome: '>1',
+    safari: '>10',
+  },
+});
+
+const isChrome = browser.satisfies({
   desktop: {
     chrome: '>1',
   },
@@ -29,6 +34,8 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
   public proxyLanguage: GoogleLanguage = 'en';
 
   public canInstallTheExtension = canInstallTheExtension;
+
+  public isChrome = isChrome;
 
   constructor(
     deckListStore: DeckListStoreService,

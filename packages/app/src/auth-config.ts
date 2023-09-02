@@ -1,6 +1,7 @@
 import { AppAuthStorage } from '@vocably/pontis';
 import { merge } from 'lodash-es';
 import { environment } from './environments/environment';
+import { extensionId } from './extension-id';
 
 export const autoSignInPath = 'hands-free';
 export const signInConfirmationPath = 'signed-in';
@@ -17,7 +18,7 @@ const constructRedirectSignInUrl = (): string => {
 };
 
 export const authConfig = {
-  storage: new AppAuthStorage(environment.chromeExtensionId),
+  storage: new AppAuthStorage(extensionId),
   ...merge(
     {
       oauth: {
