@@ -2,7 +2,7 @@
 //  SafariWebExtensionHandler.swift
 //  Vocably Extension
 //
-//  Created by Dima Snisarenko on 01/09/2023.
+//  Created by Dima Snisarenko on 02/09/2023.
 //
 
 import SafariServices

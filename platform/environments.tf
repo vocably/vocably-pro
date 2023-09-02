@@ -7,7 +7,8 @@ locals {
 locals {
   app_env_content = <<EOT
 export const environmentLocal = {
-  chromeExtensionId: '${var.extension_id}',
+  chromeExtensionId: '${var.chrome_extension_id}',
+  safariExtensionId: '${var.safari_extension_id}',
   piwikId: '${var.piwik_app_id}',
   sentryEnvironment: '${var.sentry_environment}',
   wwwBaseUrl: '${local.www_base_url}',

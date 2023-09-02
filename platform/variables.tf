@@ -76,8 +76,13 @@ variable "extension_auto_reload" {
   type = string
 }
 
-variable "extension_id" {
+variable "chrome_extension_id" {
   type = string
+}
+
+variable "safari_extension_id" {
+  type    = string
+  default = "pro.vocably.Vocably.Extension (789D8NRAM6)"
 }
 
 variable "sentry_environment" {
