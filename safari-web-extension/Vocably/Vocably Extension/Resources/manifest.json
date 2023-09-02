@@ -33,7 +33,7 @@
   "permissions": ["storage", "scripting"],
 
   "externally_connectable": {
-    "matches": ["https://*.vocably.pro/*", "http://localhost:8030/*"]
+    "matches": ["https://*.vocably.pro/*", "http://localhost/*"]
   },
   "host_permissions": ["<all_urls>"],
   "key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

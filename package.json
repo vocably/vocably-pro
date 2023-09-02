@@ -42,7 +42,7 @@
     "@types/lodash-es": "^4.17.6",
     "@types/node": "^16.11.43",
     "@types/video.js": "^7.3.42",
-    "@vocably/hermes": "^1.0.0",
+    "@vocably/hermes": "^1.0.1",
     "@vocably/pontis": "^1.0.1",
     "@webcomponents/custom-elements": "^1.5.0",
     "aws-sdk": "^2.1172.0",

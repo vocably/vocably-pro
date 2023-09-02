@@ -4,17 +4,14 @@
 
   <div class="inline-block text-left" style="width: 75%">
     <ol class="lead-2 outside">
-      <li class="mb-1">
+      <li class="mb-1" *ngIf="!isInstalled">
         <a
-          [class.strike]="isInstalled"
+          *ngIf="isChrome"
           href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
           target="_blank"
           >Install the extension</a
         >
-        <div *ngIf="!canInstallTheExtension" class="mt-1 tiny text-danger">
-          Currently, the Vocably browser extension exists only for Google
-          Chrome. The extension is an essential part of the Vocably experience.
-        </div>
+        <span *ngIf="!isChrome">Install the extension</span>
       </li>
       <li>
         Install the mobile app to learn your words on the go
@@ -29,7 +26,8 @@
         Go to any website and translate an unfamiliar word by selecting it
 
         <video loop autoplay muted controls>
-          <source src="/assets/how-to-extension.webm" type="video/mp4" />
+          <source src="/assets/how-to-extension.webm" type="video/webm" />
+          <source src="/assets/how-to-extension.mp4" type="video/mp4" />
         </video>
       </li>
     </ol>

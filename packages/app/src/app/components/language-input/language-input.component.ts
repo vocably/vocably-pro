@@ -12,7 +12,7 @@ import {
 } from '@vocably/extension-messages';
 import { GoogleLanguage, languageList } from '@vocably/model';
 import { map, Observable, startWith, Subject, takeUntil } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { extensionId } from '../../../extension-id';
 import { isExtensionInstalled } from '../../isExtensionInstalled';
 
 @Component({
@@ -43,9 +43,7 @@ export class LanguageInputComponent implements OnInit, OnDestroy {
   constructor() {
     isExtensionInstalled.pipe(takeUntil(this.destroy$)).subscribe(async () => {
       this.isInstalled = true;
-      this.languageInput.setValue(
-        await getProxyLanguage(environment.chromeExtensionId)
-      );
+      this.languageInput.setValue(await getProxyLanguage(extensionId));
       this.languageInput.enable();
     });
   }
@@ -79,7 +77,7 @@ export class LanguageInputComponent implements OnInit, OnDestroy {
   }
 
   async saveLanguage(language: GoogleLanguage) {
-    await setProxyLanguage(environment.chromeExtensionId, language);
+    await setProxyLanguage(extensionId, language);
     this.onSave.emit(language);
   }
 }
