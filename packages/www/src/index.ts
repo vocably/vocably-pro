@@ -71,3 +71,10 @@ if (document.getElementById('automatically-download-mobile-app')) {
   progress.classList.add('d-none');
   links.classList.remove('d-none');
 }
+
+if (document.getElementById('chromeCta')) {
+  const cta = document.getElementById('chromeCta');
+  if (browser.satisfies({ chrome: '>90', desktop: true })) {
+    cta.classList.remove('d-none');
+  }
+}
