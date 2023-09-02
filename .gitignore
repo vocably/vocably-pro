@@ -91,3 +91,4 @@ node_modules
 .envrc
 yarn-error.log
 .npm
+tmp
