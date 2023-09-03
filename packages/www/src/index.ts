@@ -72,9 +72,12 @@ if (document.getElementById('automatically-download-mobile-app')) {
   links.classList.remove('d-none');
 }
 
-if (document.getElementById('chromeCta')) {
-  const cta = document.getElementById('chromeCta');
-  if (browser.satisfies({ chrome: '>90', desktop: true })) {
-    cta.classList.remove('d-none');
-  }
+if (browser.satisfies({ desktop: { chrome: '>90', edge: '>90' } })) {
+  document.querySelectorAll('.chrome-cta').forEach((el) => {
+    el.classList.remove('d-none');
+  });
+} else if (browser.satisfies({ desktop: { safari: '>14' } })) {
+  document.querySelectorAll('.safari-cta').forEach((el) => {
+    el.classList.remove('d-none');
+  });
 }
