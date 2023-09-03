@@ -80,4 +80,8 @@ if (browser.satisfies({ desktop: { chrome: '>90', edge: '>90' } })) {
   document.querySelectorAll('.safari-cta').forEach((el) => {
     el.classList.remove('d-none');
   });
+} else {
+  document.querySelectorAll('.cta-else').forEach((el) => {
+    el.classList.remove('d-none');
+  });
 }
