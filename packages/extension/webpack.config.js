@@ -54,6 +54,11 @@ const prodConfig = {
         },
         { from: '.', to: '.', context: 'assets' },
         {
+          from: 'content-script.css',
+          to: 'content-script.css',
+          context: 'src',
+        },
+        {
           from: 'manifest.json.txt',
           to: 'manifest.json',
           context: 'src',

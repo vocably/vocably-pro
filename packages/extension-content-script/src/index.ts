@@ -4,9 +4,11 @@ import { api, ApiConfigOptions, configureApi } from './api';
 import { createButton, destroyButton } from './button';
 import { destroyPopup } from './popup';
 import { isValidSelection } from './selection';
+import { initYoutube, InitYouTubeOptions } from './youtube';
 
 type RegisterContentScriptOptions = {
   api: ApiConfigOptions;
+  youTube: InitYouTubeOptions;
 };
 
 const onMouseUp = async (event) => {
@@ -35,10 +37,14 @@ const onMouseDown = async () => {
 };
 
 export const registerContentScript = async (
-  { api: apiOptions }: RegisterContentScriptOptions = { api: {} }
+  { api: apiOptions, youTube: youTubeOptions }: RegisterContentScriptOptions = {
+    api: {},
+    youTube: { ytHosts: ['www.youtube.com'] },
+  }
 ) => {
   configureApi(apiOptions);
   defineCustomElements();
+  initYoutube(youTubeOptions);
   document.addEventListener('mouseup', onMouseUp);
   document.addEventListener('mousedown', onMouseDown);
 };

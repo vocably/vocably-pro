@@ -7,6 +7,12 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <style>
+      .vocably-word:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+      }
+    </style>
     <script type="text/javascript">
       const successfulResponse = `{
     "success": true,
@@ -253,6 +259,52 @@
         bedreigd. Een speciaal fokprogramma in Indonesië moet de diersoort
         redden.
       </p>
+
+      <h2>You Tube</h2>
+
+      <ytd-player
+        id="ytd-player"
+        context="WEB_PLAYER_CONTEXT_CONFIG_ID_KEVLAR_WATCH"
+        class="style-scope ytd-watch-flexy"
+        style="touch-action: pan-down"
+      >
+        <div
+          class="ytp-caption-window-container"
+          id="ytp-caption-window-container"
+          data-layer="4"
+        >
+          <div
+            class="caption-window ytp-caption-window-bottom"
+            id="caption-window-_37"
+            dir="ltr"
+            tabindex="0"
+            draggable="true"
+          >
+            <span
+              class="captions-text"
+              style="overflow-wrap: normal; display: block"
+              ><span class="caption-visual-line" style="display: block"
+                ><span
+                  class="ytp-caption-segment"
+                  style="
+                    display: inline-block;
+                    white-space: pre-wrap;
+                    background: rgba(8, 8, 8, 0.75);
+                    font-size: 16px;
+                    color: rgb(255, 255, 255);
+                    fill: rgb(255, 255, 255);
+                    font-family: 'YouTube Noto', Roboto, 'Arial Unicode Ms',
+                      Arial, Helvetica, Verdana, 'PT Sans Caption', sans-serif;
+                  "
+                ></span></span
+            ></span>
+          </div>
+        </div>
+      </ytd-player>
+
+      <button class="btn btn-primary" onclick="window.putCaptions()">
+        Captions
+      </button>
     </div>
   </body>
 </html>

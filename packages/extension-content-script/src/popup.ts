@@ -1,4 +1,6 @@
 import { detectLanguage } from './detectLanguage';
+import { getText } from './getText';
+import { isSelection } from './isSelection';
 import { setContents, TearDown } from './popup/contents';
 import {
   applyMaxZIndex,
@@ -12,8 +14,10 @@ let popup: HTMLElement;
 let resizeObserver: ResizeObserver;
 let tearDownContents: TearDown;
 
-const calculatePosition = (selection: Selection): Position => {
-  const rect = selection.getRangeAt(0).getBoundingClientRect();
+const calculatePosition = (anchor: Selection | HTMLElement): Position => {
+  const rect = isSelection(anchor)
+    ? anchor.getRangeAt(0).getBoundingClientRect()
+    : anchor.getBoundingClientRect();
 
   const left = window.scrollX + rect.left + rect.width / 2;
 
@@ -40,7 +44,15 @@ const show = (popup: HTMLElement) => {
   popup.style.opacity = '1';
 };
 
-export const createPopup = async (selection: Selection) => {
+const destroyOnSpace = (e: KeyboardEvent) => {
+  if (e.code === 'Space') {
+    destroyPopup();
+  }
+};
+
+export const createPopup = async (anchor: Selection | HTMLElement) => {
+  destroyPopup();
+
   popup = document.createElement('vocably-popup');
   applyInitialStyles(popup);
   document.body.appendChild(popup);
@@ -59,11 +71,11 @@ export const createPopup = async (selection: Selection) => {
 
   tearDownContents = await setContents({
     popup,
-    source: selection.toString(),
-    detectedLanguage: detectLanguage(selection),
+    source: getText(anchor),
+    detectedLanguage: detectLanguage(anchor),
   });
 
-  const position = calculatePosition(selection);
+  const position = calculatePosition(anchor);
   applyPosition(popup, position);
   setupTransform(popup);
   show(popup);
@@ -72,6 +84,8 @@ export const createPopup = async (selection: Selection) => {
     applyTransform(popup, position);
   });
   resizeObserver.observe(popup);
+
+  document.addEventListener('keydown', destroyOnSpace);
 };
 
 export const destroyPopup = () => {
@@ -88,4 +102,6 @@ export const destroyPopup = () => {
     tearDownContents();
     tearDownContents = null;
   }
+
+  document.removeEventListener('keydown', destroyOnSpace);
 };

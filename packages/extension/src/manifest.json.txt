@@ -25,6 +25,7 @@
     {
       "matches": ["*://*/*"],
       "js": ["content-script.js"],
+      "css": ["content-script.css"],
       "exclude_matches": [{{ process.env.CONTENT_SCRIPT_EXCLUDED_MATCHES }}],
       "all_frames": true
     }

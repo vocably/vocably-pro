@@ -57,4 +57,13 @@ registerContentScript({
     listLanguages: () =>
       Promise.resolve({ success: true, value: ['ar', 'nl'] }),
   },
+  youTube: {
+    ytHosts: ['localhost:8020'],
+  },
 }).then();
+
+(window as any).putCaptions = () => {
+  document.querySelector(
+    '.ytp-caption-segment'
+  ).innerHTML = `...These orbits, these arcs`;
+};

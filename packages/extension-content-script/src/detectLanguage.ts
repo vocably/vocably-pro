@@ -1,4 +1,5 @@
 import { GoogleLanguage, isGoogleLanguage } from '@vocably/model';
+import { isSelection } from './isSelection';
 
 const getNodeLanguage = (
   node: Node | null | undefined
@@ -18,7 +19,11 @@ const getNodeLanguage = (
 };
 
 export const detectLanguage = (
-  selection: Selection
+  anchor: Selection | HTMLElement
 ): GoogleLanguage | undefined => {
-  return getNodeLanguage(selection.anchorNode);
+  if (isSelection(anchor)) {
+    return getNodeLanguage(anchor.anchorNode);
+  }
+
+  return getNodeLanguage(anchor);
 };

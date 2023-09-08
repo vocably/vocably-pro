@@ -1,0 +1,8 @@
+.vocably-word {
+  cursor: pointer;
+}
+
+.vocably-word:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
