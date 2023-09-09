@@ -10,7 +10,7 @@
     "watch": "tsc --watch",
     "serve": "webpack serve --env development --open",
     "start": "npm-run-all --parallel watch serve",
-    "test": "echo '@vocably/extension-content-script has no tests.'",
+    "test": "jest",
     "extension-content-script": "npm start"
   },
   "repository": {

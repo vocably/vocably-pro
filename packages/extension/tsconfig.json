@@ -4,7 +4,9 @@
     "module": "es6",
     "target": "es6",
     "moduleResolution": "node",
-    "declaration": true
+    "declaration": true,
+    "emitBOM": true,
+    "charset": "utf8"
   },
   "exclude": ["dist"]
 }

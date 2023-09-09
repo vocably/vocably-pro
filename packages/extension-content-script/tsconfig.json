@@ -7,7 +7,9 @@
     "declaration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "emitBOM": true,
+    "charset": "utf8"
   },
   "include": ["src/index.ts"],
   "exclude": ["node_modules"]
