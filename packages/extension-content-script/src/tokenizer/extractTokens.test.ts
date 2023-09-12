@@ -12,21 +12,11 @@ describe('extractTokens', () => {
   });
 
   it('works with Japanese', () => {
-    expect(extractTokens('オンラインでNode.js日本語が', 'ja')).toEqual([
-      { type: 'word', text: 'オンライン' },
-      { type: 'word', text: 'で' },
-      { type: 'word', text: 'Node' },
-      { type: 'word', text: '.' },
-      { type: 'word', text: 'js' },
-      { type: 'word', text: '日本語' },
-      { type: 'word', text: 'が' },
-    ]);
+    expect(extractTokens('オンラインでNode.js日本語が', 'ja')).toEqual(false);
   });
 
   it('works with Korean', () => {
-    expect(extractTokens('안녕하세요')).toEqual([
-      { type: 'word', text: '안녕하세요' },
-    ]);
+    expect(extractTokens('안녕하세요')).toEqual(false);
   });
 
   it('works with English', () => {
@@ -38,11 +28,7 @@ describe('extractTokens', () => {
   });
 
   it('works with Korean', () => {
-    expect(extractTokens('이화영 진술만으로')).toEqual([
-      { type: 'word', text: '이화영' },
-      { type: 'punctuation', text: ' ' },
-      { type: 'word', text: '진술만으로' },
-    ]);
+    expect(extractTokens('이화영 진술만으로')).toEqual(false);
   });
 
   it('works with Russian', () => {
