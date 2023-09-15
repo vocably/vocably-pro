@@ -11,7 +11,8 @@ export const isValidSelection = (
     return false;
   }
 
-  if (!(selection.getRangeAt(0).commonAncestorContainer instanceof Text)) {
+  const clientRect = selection.getRangeAt(0).getBoundingClientRect();
+  if (clientRect.height === 0 || clientRect.width === 0) {
     return false;
   }
 

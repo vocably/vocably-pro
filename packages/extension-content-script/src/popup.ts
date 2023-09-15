@@ -1,7 +1,6 @@
-import { detectLanguage } from './detectLanguage';
-import { getText } from './getText';
-import { isSelection } from './isSelection';
+import { GoogleLanguage } from '@vocably/model';
 import { setContents, TearDown } from './popup/contents';
+import { GlobalRect } from './position';
 import {
   applyMaxZIndex,
   applyPosition,
@@ -14,22 +13,21 @@ let popup: HTMLElement;
 let resizeObserver: ResizeObserver;
 let tearDownContents: TearDown;
 
-const calculatePosition = (anchor: Selection | HTMLElement): Position => {
-  const rect = isSelection(anchor)
-    ? anchor.getRangeAt(0).getBoundingClientRect()
-    : anchor.getBoundingClientRect();
+const calculatePosition = (globalRect: GlobalRect): Position => {
+  const left = globalRect.left + globalRect.width / 2;
 
-  const left = window.scrollX + rect.left + rect.width / 2;
+  const top = globalRect.top - window.scrollY;
+  const bottom = top + globalRect.height;
 
-  if (rect.bottom < window.innerHeight / 2) {
+  if (bottom < window.innerHeight / 2) {
     return {
       left,
-      top: window.scrollY + rect.bottom,
+      top: window.scrollY + bottom,
     };
   } else {
     return {
       left,
-      bottom: window.scrollY + rect.top,
+      bottom: window.scrollY + top,
     };
   }
 };
@@ -50,7 +48,13 @@ const destroyOnSpace = (e: KeyboardEvent) => {
   }
 };
 
-export const createPopup = async (anchor: Selection | HTMLElement) => {
+type PopupOptions = {
+  text: string;
+  language?: GoogleLanguage;
+  globalRect: GlobalRect;
+};
+
+export const createPopup = async (options: PopupOptions) => {
   destroyPopup();
 
   popup = document.createElement('vocably-popup');
@@ -71,11 +75,11 @@ export const createPopup = async (anchor: Selection | HTMLElement) => {
 
   tearDownContents = await setContents({
     popup,
-    source: getText(anchor),
-    detectedLanguage: detectLanguage(anchor),
+    source: options.text,
+    detectedLanguage: options.language,
   });
 
-  const position = calculatePosition(anchor);
+  const position = calculatePosition(options.globalRect);
   applyPosition(popup, position);
   setupTransform(popup);
   show(popup);

@@ -1,4 +1,7 @@
+import { detectLanguage } from './detectLanguage';
+import { getText } from './getText';
 import { createPopup } from './popup';
+import { getGlobalRect } from './position';
 import {
   applyMaxZIndex,
   applyPosition,
@@ -71,8 +74,14 @@ export const createButton = async (selection: Selection, event: MouseEvent) => {
   document.body.appendChild(button);
   applyMaxZIndex(button);
 
+  const popupOptions = {
+    text: getText(selection),
+    language: detectLanguage(selection),
+    globalRect: getGlobalRect(selection.getRangeAt(0).getBoundingClientRect()),
+  };
+
   button.addEventListener('click', () => {
-    createPopup(selection);
+    createPopup(popupOptions);
     destroyButton();
   });
 
