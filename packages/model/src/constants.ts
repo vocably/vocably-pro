@@ -1,1 +1,1 @@
-export const MAX_SYMBOLS_TO_BE_TRANSLATED = 30;
+export const MAX_SYMBOLS_TO_BE_TRANSLATED = 150;
