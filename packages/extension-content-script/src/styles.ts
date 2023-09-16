@@ -10,6 +10,4 @@ export const setYouTubeStyles = () => {
   }
 `;
   document.head.appendChild(style);
-
-  console.log('styles.ts');
 };
