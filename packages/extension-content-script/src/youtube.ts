@@ -2,6 +2,7 @@ import { detectLanguage } from './detectLanguage';
 import { isHtmlElement } from './isHtmlElement';
 import { createPopup } from './popup';
 import { getGlobalRect } from './position';
+import { setYouTubeStyles } from './styles';
 import { extractTokens } from './tokenizer/extractTokens';
 
 const ytPlayerTagName = 'ytd-player';
@@ -89,6 +90,8 @@ export const initYoutube = async (options: InitYouTubeOptions) => {
     return;
   }
 
+  setYouTubeStyles();
+
   getPlayerElements().forEach((player) => {
     handlePlayerElement(player);
   });
@@ -162,6 +165,7 @@ export const initYoutube = async (options: InitYouTubeOptions) => {
 
           captionWindow.draggable = false;
           captionWindow.style.userSelect = 'auto';
+          captionWindow.style.webkitUserSelect = 'auto';
 
           captionWindow
             .querySelectorAll('.captions-text')
@@ -171,6 +175,7 @@ export const initYoutube = async (options: InitYouTubeOptions) => {
               }
 
               element.style.userSelect = 'auto';
+              element.style.webkitUserSelect = 'auto';
             });
 
           captionWindow
