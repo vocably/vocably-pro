@@ -31,6 +31,9 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/assets", "src/manifest.json", "src/.well-known"],
             "styles": ["src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules"]
+            },
             "scripts": [],
             "allowedCommonJsDependencies": [
               "crypto-js",

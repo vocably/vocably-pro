@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 @use 'sass:map';
-@import '~@vocably/styles/variables';
+@import '@vocably/styles/variables';
 @import './material-palette-generator';
 
 $mat-vocably-dark-primary-palette: mat.define-palette(mat.$grey-palette);
