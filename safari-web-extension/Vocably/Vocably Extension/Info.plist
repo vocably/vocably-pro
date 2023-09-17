@@ -4,12 +4,12 @@
 <dict>
 	<key>NSExtension</key>
 	<dict>
+		<key>LSApplicationCategoryType</key>
+		<string>public.app-category.business</string>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.Safari.web-extension</string>
 		<key>NSExtensionPrincipalClass</key>
 		<string>$(PRODUCT_MODULE_NAME).SafariWebExtensionHandler</string>
-		<key>LSApplicationCategoryType</key>
-    <string>public.app-category.business</string>
 	</dict>
 </dict>
 </plist>

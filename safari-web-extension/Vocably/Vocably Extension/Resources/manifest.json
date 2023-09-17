@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Vocably",
-  "description": "Expand your vocabulary while surfing the internet.",
-  "version": "1.210.0",
+  "description": "Vocably helps to translate new words and phrases and then learn them on iPhone or Android devices.",
+  "version": "1.218.2",
 
   "icons": {
     "16": "images/icon-16x16.png",
