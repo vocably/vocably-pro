@@ -32,6 +32,7 @@ export namespace Components {
     }
     interface VocablyTranslation {
         "existingLanguages": GoogleLanguage[];
+        "isFeedbackEnabled": boolean;
         "language": string;
         "loading": boolean;
         "phrase": string;
@@ -170,6 +171,7 @@ declare namespace LocalJSX {
     }
     interface VocablyTranslation {
         "existingLanguages"?: GoogleLanguage[];
+        "isFeedbackEnabled"?: boolean;
         "language"?: string;
         "loading"?: boolean;
         "onChangeLanguage"?: (event: VocablyTranslationCustomEvent<string>) => void;

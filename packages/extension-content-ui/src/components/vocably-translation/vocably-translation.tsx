@@ -27,6 +27,7 @@ export class VocablyTranslation {
   @Prop() result: Result<TranslationCards> | null = null;
   @Prop() loading: boolean = false;
   @Prop() existingLanguages: GoogleLanguage[] = [];
+  @Prop() isFeedbackEnabled: boolean = true;
   @Prop() language: string = '';
   @Event() changeLanguage: EventEmitter<string>;
 
@@ -129,15 +130,17 @@ export class VocablyTranslation {
                     ))}
                   </div>
 
-                  <div class="margin-top-2 text-right small">
-                    <a
-                      href="https://app.vocably.pro/feedback"
-                      target="_blank"
-                      class="text-link"
-                    >
-                      Are you missing anything? Feel free to let me know.
-                    </a>
-                  </div>
+                  {this.isFeedbackEnabled && (
+                    <div class="margin-top-2 text-right small">
+                      <a
+                        href="https://app.vocably.pro/feedback"
+                        target="_blank"
+                        class="text-link"
+                      >
+                        Are you missing anything? Feel free to let me know.
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
               {this.loading && (

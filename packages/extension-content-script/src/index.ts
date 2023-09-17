@@ -2,6 +2,10 @@ import { defineCustomElements } from '@vocably/extension-content-ui/loader';
 import '@webcomponents/custom-elements';
 import { api, ApiConfigOptions, configureApi } from './api';
 import { createButton, destroyButton } from './button';
+import {
+  configureContentScript,
+  ContentScriptConfiguration,
+} from './configuration';
 import { destroyPopup } from './popup';
 import { isValidSelection } from './selection';
 import { initYoutube, InitYouTubeOptions } from './youtube';
@@ -9,6 +13,7 @@ import { initYoutube, InitYouTubeOptions } from './youtube';
 type RegisterContentScriptOptions = {
   api: ApiConfigOptions;
   youTube: InitYouTubeOptions;
+  contentScript: ContentScriptConfiguration;
 };
 
 const onMouseUp = async (event) => {
@@ -37,14 +42,20 @@ const onMouseDown = async () => {
 };
 
 export const registerContentScript = async (
-  { api: apiOptions, youTube: youTubeOptions }: RegisterContentScriptOptions = {
+  {
+    api: apiOptions,
+    youTube: youTubeOptions,
+    contentScript,
+  }: RegisterContentScriptOptions = {
     api: {},
     youTube: { ytHosts: ['www.youtube.com'] },
+    contentScript: { isFeedbackEnabled: true },
   }
 ) => {
   configureApi(apiOptions);
   defineCustomElements();
   initYoutube(youTubeOptions);
+  configureContentScript(contentScript);
   document.addEventListener('mouseup', onMouseUp);
   document.addEventListener('mousedown', onMouseDown);
 };

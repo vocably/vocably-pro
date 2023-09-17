@@ -1,5 +1,6 @@
 import { GoogleLanguage } from '@vocably/model';
 import { api } from '../api';
+import { contentScriptConfiguration } from '../configuration';
 
 type Options = {
   popup: HTMLElement;
@@ -33,6 +34,8 @@ export const setContents = async ({
 
   const setTranslation = () => {
     const translation = document.createElement('vocably-translation');
+    translation.isFeedbackEnabled =
+      contentScriptConfiguration.isFeedbackEnabled;
     translation.phrase = source;
 
     const analyze = (sourceLanguage?: GoogleLanguage) => {

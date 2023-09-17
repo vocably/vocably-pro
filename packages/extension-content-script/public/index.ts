@@ -60,6 +60,9 @@ registerContentScript({
   youTube: {
     ytHosts: ['localhost:8020'],
   },
+  contentScript: {
+    isFeedbackEnabled: true,
+  },
 }).then();
 
 (window as any).putCaptions = () => {
