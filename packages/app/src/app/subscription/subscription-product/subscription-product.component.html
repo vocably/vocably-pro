@@ -1,5 +1,5 @@
 <div class="container-l mb-2">
-  <div class="mat-display-1 text-center text-emphasize mb-2">
+  <div class="mat-headline-5 text-center text-emphasize mb-2">
     Vocably inspires you to read in a foreign language
   </div>
 </div>
@@ -29,7 +29,7 @@
       >
         <div class="text-emphasize flex-1 nowrap">Per month</div>
         <div class="text-primary text-x150 flex-1 text-right">
-          {{ product.price / product.duration | currency: product.currency }}
+          {{ product.price / product.duration | currency : product.currency }}
         </div>
       </div>
       <div class="display-flex justify-content-center align-items-center mb-2">
@@ -39,11 +39,11 @@
           class="flex-1 ml-1 text-x150 text-center"
           >{{
             subscriptionProducts[0].price * product.duration
-              | currency: product.currency
+              | currency : product.currency
           }}</del
         >
         <div class="text-primary text-x150 flex-1 text-right">
-          {{ product.price | currency: product.currency }}
+          {{ product.price | currency : product.currency }}
         </div>
       </div>
       <div class="text-center">
