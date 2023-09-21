@@ -9,7 +9,7 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&family=Ruda:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <title>Vocably{{#if title}} - {{title}}{{/if}}</title>
     <meta name="description" content="Look up unfamiliar words while surfing the web, get flashcards created automatically, and study them on the go." />
     <meta property="og:type" content="website" />
@@ -19,7 +19,7 @@
     <meta property="og:image" content="{{htmlWebpackPlugin.options.environment.baseUrl}}/assets/og-image.png" />
     <base href="/" />
   </head>
-  <body id="page-top" class="fixed-navbar-top d-flex flex-column h-100">
+  <body id="page-top" class="d-flex flex-column h-100">
     <script type="text/javascript">
       (function(window, document, dataLayerName, id) {
         window[dataLayerName]=window[dataLayerName]||[],window[dataLayerName].push({start:(new Date).getTime(),event:"stg.start"});var scripts=document.getElementsByTagName("script")[0],tags=document.createElement("script");
@@ -30,89 +30,45 @@
         !function(a,n,i){a[n]=a[n]||{};for(var c=0;c<i.length;c++)!function(i){a[n][i]=a[n][i]||{},a[n][i].api=a[n][i].api||function(){var a=[].slice.call(arguments,0);"string"==typeof a[0]&&window[dataLayerName].push({event:n+"."+i+":"+a[0],parameters:[].slice.call(arguments,1)})}}(i[c])}(window,"ppms",["tm","cm"]);
       })(window, document, "dataLayer", "{{ htmlWebpackPlugin.options.environment.piwikId }}");
     </script>
-    <main class="flex-shrink-0">
-      <nav
-        class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm"
-        id="mainNav"
-      >
-        <div class="container-xxl">
-          <a class="navbar-brand fw-bold" href="/#page-top"><img
-            src="assets/logo.svg"
-            alt="Vocably"
-            class="logo"
-          /></a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <i class="bi-list"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
-              <li class="nav-item"><a
-                class="nav-link me-lg-3"
-                href="/#supported-languages"
-              >Supported Languages</a></li>
-            </ul>
-            <a
-              class="btn btn-primary rounded-pill px-3 mb-2 mb-lg-0"
-              href="https://app.vocably.pro"
-            >
-            <span class="d-flex align-items-center">
-              <i class="bi-box-arrow-in-right me-2"></i>
-              <span class="small">Sign in</span>
-            </span>
-            </a>
-          </div>
-        </div>
-      </nav>
+    <main class="flex-shrink-0 mb-5">
+      <div class="py-5 text-center">
+        <a href="/#page-top"><img
+          src="assets/logo.svg"
+          alt="Vocably"
+          class="nav-logo"
+        /></a>
+      </div>
 
       {{> @partial-block }}
     </main>
-    <!-- Footer-->
-    <footer class="bg-gray mt-auto text-white-50">
-      <div class="container-xxl">
-        <div class="py-5 px-3 px-sm-5">
-          <div class="row g-3">
-            <div class="col-lg-3 col-12 mb-4 mb-lg-0">
-              <a href="/"><img src="/assets/logo-dark.svg" alt="Vocably" style="height: 1.3em;opacity: 0.5"/></a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6 mb-4 mb-md-0">
-              <div class="text-uppercase fw-bold mb-2">Product</div>
-              <ul class="list-unstyled mb-0">
-                <li><a href="/about.html">About</a></li>
-                <li><a href="/tbd.html">To Be Done</a></li>
-              </ul>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6 mb-4 mb-md-0">
-              <div class="text-uppercase fw-bold mb-2">Experiences</div>
-              <ul class="list-unstyled mb-0">
-                <li><a href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb" target="_blank">Chrome Extension</a></li>
-                <li><a href="https://apps.apple.com/app/id6464076425" target="_blank">Desktop Safari Extension</a></li>
-                <li><a href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757" target="_blank">iOS App</a></li>
-                <li><a href="https://play.google.com/store/apps/details?id=com.vocablypro" target="_blank">Android App</a></li>
-              </ul>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6 mb-4 mb-md-0">
-              <div class="text-uppercase fw-bold mb-2">Contact</div>
-              <a href="mailto:d@vocably.pro" class="text-nowrap"><i class="bi bi-envelope align-middle me-1"></i>d@vocably.pro</a>
-            </div>
+
+    <footer class="bg-gray mt-auto text-white-50" style="font-size: 1rem;">
+      <div class="container py-5">
+        <div class="row g-3">
+          <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+            <a href="/"><img src="/assets/logo-dark.svg" alt="Vocably" style="height: 1.3em;opacity: 0.5"/></a>
+          </div>
+          <div class="col-lg-4 col-md-4 col-6 mb-4 mb-md-0">
+            <div class="text-uppercase fw-bold mb-2">Experiences</div>
+            <ul class="list-unstyled mb-0">
+              <li><a href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb" target="_blank">Chrome Extension</a></li>
+              <li><a href="https://apps.apple.com/app/id6464076425" target="_blank">Desktop Safari Extension</a></li>
+              <li><a href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757" target="_blank">iOS App</a></li>
+              <li><a href="https://play.google.com/store/apps/details?id=com.vocablypro" target="_blank">Android App</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-md-4 col-6 mb-4 mb-md-0">
+            <div class="text-uppercase fw-bold mb-2">Contact</div>
+            <a href="mailto:d@vocably.pro" class="text-nowrap"><i class="bi bi-envelope align-middle me-1"></i>d@vocably.pro</a>
           </div>
         </div>
       </div>
-      <div class="bg-dark">
-        <div class="container-xxl">
-          <ul class="py-4 px-3 px-sm-5 small list-inline mb-0">
-            <li class="list-inline-item d-block d-md-inline mb-2 mb-md-0 me-2 me-sm-3">&copy; 2022 Vocably B.V.</li>
-            <li class="list-inline-item me-2 me-sm-3"><a href="/privacy-policy.html">Privacy Policy</a></li>
-            <li class="list-inline-item me-2 me-sm-3"><a href="/terms-and-conditions.html">Terms and Conditions</a></li>
-          </ul>
-        </div>
+      <div class="bg-dark text-center">
+        <ul class="py-4 px-3 px-sm-5 small list-inline mb-0">
+          <li class="list-inline-item d-block d-md-inline mb-2 mb-md-0 me-2 me-sm-3">&copy; Vocably B.V.</li>
+          <li class="list-inline-item me-2 me-sm-3"><a href="/privacy-policy.html">Privacy Policy</a></li>
+          <li class="list-inline-item me-2 me-sm-3"><a href="/terms-and-conditions.html">Terms and Conditions</a></li>
+        </ul>
       </div>
     </footer>
     <script

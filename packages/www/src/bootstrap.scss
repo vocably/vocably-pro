@@ -1,4 +1,12 @@
 @import '~@vocably/styles/variables';
 @import './styles/variables.scss';
 
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 720px,
+  xl: 720px,
+  xxl: 720px
+);
+
 @import '~bootstrap/scss/bootstrap.scss';

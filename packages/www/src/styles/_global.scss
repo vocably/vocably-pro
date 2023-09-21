@@ -2,16 +2,6 @@ html {
   scroll-padding-top: 4.5rem;
 }
 
-aside,
-section {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-
-.mb-section {
-  margin-bottom: 4rem !important;
-}
-
 h1,
 h2,
 h3,
@@ -32,20 +22,3 @@ a {
   text-underline-offset: 2px !important;
 }
 
-.video-js,
-.vjs-poster {
-  background-color: transparent !important;
-}
-
-.video-js.vjs-ended {
-  .vjs-poster {
-    display: block;
-  }
-  .vjs-text-track-display {
-    display: none;
-  }
-
-  .vjs-big-play-button {
-    display: block;
-  }
-}

@@ -2,126 +2,121 @@
   title='Translate Words and Learn Them with Flashcards'
   url='/'
 }}
-  <!-- Mashead header-->
-  <header class="bg-light py-5">
-    <div class='container-xxl py-5'>
-      <div class='row align-items-center'>
-        <div class='col-lg-5 order-md-last mb-5 mb-md-0'>
-          <video
-            id="promo-video"
-            class="video-js vjs-fluid"
-            controls
-            width="640"
-            height="264"
-            poster="/assets/video-poster.png"
-          >
-            <source src="/assets/video.mp4" type="video/mp4" />
-            <track label="English" kind="subtitles" srclang="en" src="/assets/video-subtitles.vtt" default />
-            <p class="vjs-no-js">
-              To view this video please enable JavaScript, and consider upgrading to a
-              web browser that
-              <a href="https://videojs.com/html5-video-support/" target="_blank"
-              >supports HTML5 video</a
-              >
-            </p>
-          </video>
-        </div>
-        <div class='col-lg-7 order-md-first'>
-          <!-- Mashead text and app badges-->
-          <div class='mb-5 mb-lg-0 text-center text-lg-start'>
-            <h1 class='display-3 mb-5'>Translate new words while surfing the web and learn them on your mobile.</h1>
-            <p class="text-xs-center text-lg-start">
-              <a href="https://apps.apple.com/app/id6464076425"
-                 class="safari-cta d-none d-inline-flex justify-content-center align-items-center text-decoration-none text-secondary lh-sm"
-                 target="_blank"
-              >
-                  <span>
-                    <img src="assets/safari.svg" alt="Safari Logo" width="80" />
-                  </span>
-                  <span class="ms-3 text-start">
-                    Download the Safari<br />browser extension
-                  </span>
-              </a>
-              <a class="chrome-cta d-none"
-                 href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
-                 target="_blank"
-              ><img src="assets/available-in-the-chrome-web-store.svg" alt="Download on App Store" height="60" /></a>
-            <div class="mb-5">
-              <a href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757" target="_blank" class="d-inline-block mb-2"><img src="assets/download-on-app-store.svg" alt="Download on App Store" height="60" /></a>
-              <a href="https://play.google.com/store/apps/details?id=com.vocablypro" target="_blank" class="d-inline-block ms-2 mb-2"><img src="assets/get-it-on-google-play.svg" alt="Get it on Google Play" height="60" /></a>
-              <div class="cta-else d-none mt-3">
-                <a
-                  href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
-                  class="text-nowrap text-secondary text-decoration-none me-2"
-                  target="_blank"
-                >
-                  <img src="assets/chrome.svg" width="32" class="me-1"/>Chrome Extension
-                </a>
-                <a
-                  href="https://apps.apple.com/app/id6464076425"
-                  class="text-nowrap text-secondary text-decoration-none"
-                  target="_blank"
-                >
-                  <img src="assets/safari.svg" width="32" class="me-1"/>Safari Extension
-                </a>
-              </div>
-            </div>
-            <p class='lead fw-normal text-muted mb-5 me-lg-4'>If you want to master a new language, you must start using it. There is no other way. Vocably will support you in it by automatically creating high-quality flashcards based on the words you translated. You can review and learn your words in the mobile app when you have time.</p>
-          </div>
+  <div class="container-sm text-center">
+    <h1 class="mb-5">Translate new words while surfing the web or watching YouTube. Learn the translated words on your mobile.</h1>
+    <div class="mb-5">
+      Master the language by using it. Vocably will support
+      you by automatically creating high-quality flashcards based on the
+      words you translated. You can review and learn your words in
+      the mobile app when you have time.
+    </div>
+    <div class="mb-3 text-center chrome-cta d-none">
+      <a class="d-inline-flex px-4 py-2 align-items-center text-start btn btn-primary rounded-pill"
+         href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
+         target="_blank"
+      >
+        <img src="assets/chrome.svg" height="32" class="pe-3" />
+        <span class="text-center">Install Chrome Extension</span>
+      </a>
+    </div>
+    <div class="mb-3 text-center safari-cta d-none">
+      <a  class="d-inline-flex px-4 py-2 align-items-center text-start btn btn-primary rounded-pill"
+          href="https://apps.apple.com/app/id6464076425"
+          target="_blank"
+      >
+        <img src="assets/safari.svg" height="32" class="pe-3" />
+        <span>Install Safari Extension</span>
+      </a>
+    </div>
+    <div class="mb-3">
+      <a href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757" target="_blank" class="d-inline-block mb-2"><img src="assets/download-on-app-store.svg" alt="Download on App Store" height="40" /></a>
+      <a href="https://play.google.com/store/apps/details?id=com.vocablypro" target="_blank" class="d-inline-block ms-2 mb-2"><img src="assets/get-it-on-google-play.svg" alt="Get it on Google Play" height="40" /></a>
+    </div>
+
+    <div class="mb-5">
+      <span class="text-dark">Vocably is <strong>100% free</strong>.</span>
+      <button
+        class="btn btn-link px-0 text-decoration-none"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#whyItIsFree"
+        aria-controls="whyItIsFree"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >Why? <i class="bi-chevron-down icon-collapsed"></i><i class="bi-chevron-up icon-expanded"></i></button>
+
+      <div class="bg-light collapse" id="whyItIsFree">
+        <div class="p-4">
+          Vocably is a 100% free product. It costs me around 150 euros every month.
+          I created this project to help myself to learn Dutch by engaging in the Dutch web.
+          It is helping me so much that I see these 150 euros as my monthly payment for using a fantastic tool.
+          Also, Vocably is my hobby project, which is a win-win. Of course, I’d be happy to make it profitable.
+          And I don’t know yet how I will do it. But I will do my best to keep it free for current users.
         </div>
       </div>
     </div>
-  </header>
+  </div>
 
   <!-- How it works-->
-  <section id='how-it-works'>
-    <div class='container-xxl'>
-      <div class='h2 text-center text-lg-start mb-section'>How it works</div>
-      <div class="row gy-4">
-        <div class="col-md-4">
-          <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-01.svg" alt="Text selection">
-          <div class="text-center lead my-2 d-none d-md-block">1</div>
-          <p>Highlight an unfamiliar word while browsing any website on your desktop device.</p>
-        </div>
-        <div class="col-md-4">
-          <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-02.svg" alt="Created flashcard">
-          <div class="text-center lead my-2 d-none d-md-block">2</div>
-          <p>Vocably will automatically convert the word to the normal form (i.e. infinitive for a verb or singular for a noun), get its definitions, translations, and create high quality flashcards.</p>
-        </div>
-        <div class="col-md-4">
-          <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-03.svg" alt="Study cards on mobile device">
-          <div class="text-center lead my-2 d-none d-md-block">3</div>
-          <p>The created flashcards are available to be studied with Spaced
-            Repetition System (SRS) method across all your mobile and desktop
-            devices.</p>
-        </div>
+  <div class="container-sm text-center mb-5">
+    <div class="h2 mb-5">How it works</div>
+    <div class="row d-flex justify-content-center align-items-center mb-4 pb-4 border border-1 border-start-0 border-top-0 border-end-0">
+      <div class="col-1 fs-1 text-dark">1</div>
+      <div class="col-6 text-start">
+        Highlight an unfamiliar word while browsing any website on your desktop device.
       </div>
-      <div class="pt-5 text-center chrome-cta d-none">
-        <a class="d-inline-flex align-items-center text-start btn btn-primary rounded-pill"
-           href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
-           target="_blank"
-        >
-            <img src="assets/chrome.svg" height="32" class="pe-3" />
-            <span>Why don't you try Vocably Chrome Extension? It's free... as well as all other Vocably apps.</span>
-        </a>
-      </div>
-      <div class="pt-5 text-center safari-cta d-none">
-        <a  class="d-inline-flex align-items-center text-start btn btn-primary rounded-pill"
-            href="https://apps.apple.com/app/id6464076425"
-            target="_blank"
-        >
-          <img src="assets/safari.svg" height="32" class="pe-3" />
-          <span>Why don't you try Vocably Safari Desktop Extension? It's free... as well as all other Vocably apps.</span>
-        </a>
+      <div class="col-5">
+        <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-01.svg" alt="Created flashcard">
       </div>
     </div>
-  </section>
-  <!-- Supported languages -->
-  <section id='supported-languages' class='bg-light'>
-    <div class='container-xxl'>
-      <div class='h2 text-center text-lg-start mb-section'>Supported Languages</div>
-      <p class='lead'>Vocably supports Arabic, Czech, English, German, Danish, Greek, Spanish, French, Hebrew, Hindi, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Portuguese, Russian, Swedish, Thai, Turkish, Traditional Chinese, and Simplified Chinese.</p>
+    <div class="row mb-4 d-flex justify-content-center align-items-center mb-4 pb-4 border border-1 border-start-0 border-top-0 border-end-0">
+      <div class="col-1 fs-1 text-dark">2</div>
+      <div class="col-6 text-start">
+        Vocably will automatically convert the word to the normal form (i.e. infinitive for a verb or singular for a noun), get its definitions, translations, and create high quality flashcards.
+      </div>
+      <div class="col-5">
+        <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-02.svg" alt="Created flashcard">
+      </div>
     </div>
-  </section>
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-1 fs-1 text-dark">3</div>
+      <div class="col-6 text-start">
+        The created flashcards are available to be studied with Spaced
+        Repetition System (SRS) method across all your mobile and desktop
+        devices.
+      </div>
+      <div class="col-5">
+        <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-03.svg" alt="Created flashcard">
+      </div>
+    </div>
+  </div>
+
+  <div class="container-sm pt-5 mt-5">
+    <div class="h2 mb-5 text-center">Supported Languages</div>
+    <p>Vocably supports Arabic, Czech, English, German, Danish, Greek, Spanish, French, Hebrew, Hindi, Italian, Japanese, Korean, Dutch, Norwegian, Polish, Portuguese, Russian, Swedish, Thai, Turkish, Traditional Chinese, and Simplified Chinese.</p>
+  </div>
+
+  <div class="container-sm pt-5">
+    <div class="h2 mb-5 text-center">About Vocably</div>
+
+    <img src="assets/about.jpg" class="float-start me-4 rounded-2" width="40%" />
+
+    <p>
+      Hello, I'm Dima Snisarenko, an <a href="https://github.com/sneas" target="_blank">independent developer</a> from Ukraine living in the Netherlands since 2014.
+    </p>
+
+    <p>
+      I built Vocably to fit my own needs in language learning. I tried many different methods, but the most effective one was using a Spaced Repetition System (SRS).
+    </p>
+
+    <p>
+      Vocably has enabled me to learn Dutch by engaging in the Dutch web. Now I can read and understand news articles. Recently, I decided to work on my listening, thus I made Vocably to work with YouTube videos.
+    </p>
+
+    <p>
+      Vocably has helped me a great deal with my language learning, and I hope it will help you too.
+    </p>
+  </div>
+
 {{/layout}}
 

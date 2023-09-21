@@ -72,7 +72,7 @@ if (document.getElementById('automatically-download-mobile-app')) {
   links.classList.remove('d-none');
 }
 
-if (browser.satisfies({ desktop: { chrome: '>90', edge: '>90' } })) {
+if (browser.satisfies({ desktop: { chrome: '>90', edge: '>90', firefox: '>0' } })) {
   document.querySelectorAll('.chrome-cta').forEach((el) => {
     el.classList.remove('d-none');
   });
