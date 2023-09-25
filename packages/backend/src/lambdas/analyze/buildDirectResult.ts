@@ -15,6 +15,7 @@ import { isOneWord } from './isOneWord';
 import { trimArticle } from './trimArticle';
 import { wordDictionary } from "../../word-dictionary";
 import { wordDictionaryResultToAnalysisItems } from "./wordDictionaryResultToItems";
+import { lexicalaItemHasDefinitionOrCanBeTranslated } from "./lexicalaItemHasDefinitionOrCanBeTranslated";
 
 export const buildDirectResult = async (
   payload: DirectAnalyzePayload
@@ -121,6 +122,7 @@ export const buildDirectResult = async (
           lexicalaResult.value
             .map(normalizeHeadword(payload.source))
             .filter(fitsTheSize(payload.source))
+            .filter(lexicalaItemHasDefinitionOrCanBeTranslated(translation))
             .map(lexicalaSearchResultToAnalysisItem(translation))
         )
       ).reduce(combineItems, []),
