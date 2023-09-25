@@ -23,7 +23,7 @@ export const wordDictionary = async (entry: string): Promise<Result<WordDictiona
       }).toString()}`,
       headers: {
         'X-RapidAPI-Host': host,
-        'X-RapidAPI-Key': process.env.LEXICALA_KEY,
+        'X-RapidAPI-Key': process.env.NLP_TRANSLATION_KEY,
       },
     };
 
