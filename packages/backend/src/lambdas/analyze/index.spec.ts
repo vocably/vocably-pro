@@ -203,4 +203,17 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.items[1].source).toEqual('regelbaar');
     expect(resultBody.items[1].translation).toEqual('регулируемый');
   });
+
+  it('should use word dictionary', async () => {
+    mockEvent.body = JSON.stringify({
+      source: 'etymology',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+    });
+    mockEvent.requestContext = paidRequestContext;
+    const result = await analyze(mockEvent);
+    expect(result.statusCode).toEqual(200);
+    const resultBody: ReverseAnalysis = JSON.parse(result.body);
+    console.log(inspect(resultBody));
+  })
 });
