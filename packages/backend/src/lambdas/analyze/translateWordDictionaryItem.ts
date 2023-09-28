@@ -1,30 +1,31 @@
-import { DirectAnalyzePayload, Translation } from "@vocably/model";
-import { googleTranslate } from "../../googleTranslate";
+import { DirectAnalyzePayload, Translation } from '@vocably/model';
+import { translatePartOfSpeech } from './translatePartOfSpeech';
 
 type TranslateOptions = {
   source: string;
   partOfSpeech: string;
   originalTranslation: Translation;
   payload: DirectAnalyzePayload;
-}
-export const translateWordDictionaryItem = async ({source, originalTranslation, payload}: TranslateOptions): Promise<string> => {
+};
+export const translateWordDictionaryItem = async ({
+  source,
+  partOfSpeech,
+  originalTranslation,
+  payload,
+}: TranslateOptions): Promise<string> => {
   if (payload.sourceLanguage === payload.targetLanguage) {
     return '';
   }
 
-  if (source.toLowerCase() === originalTranslation.source.toLowerCase()) {
-    return originalTranslation.target;
-  }
-
-  const translationResult = await googleTranslate(
+  const translationResult = await translatePartOfSpeech({
     source,
-    payload.sourceLanguage,
-    payload.targetLanguage,
-  );
+    partOfSpeech,
+    originalTranslation: originalTranslation,
+  });
 
   if (translationResult.success === false) {
     return '';
   }
 
   return translationResult.value.target;
-}
+};

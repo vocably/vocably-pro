@@ -1,4 +1,4 @@
-import { Analysis, DirectAnalysis, ReverseAnalysis } from "@vocably/model";
+import { Analysis, DirectAnalysis, ReverseAnalysis } from '@vocably/model';
 import {
   APIGatewayEventRequestContextWithAuthorizer,
   APIGatewayProxyEvent,
@@ -229,5 +229,19 @@ describe('integration check for translate lambda', () => {
     const resultBody: DirectAnalysis = JSON.parse(result.body);
     console.log(inspect(resultBody));
     expect(resultBody.items.length).toEqual(1);
+  });
+
+  it('properly translates to non-article languages', async () => {
+    mockEvent.body = JSON.stringify({
+      source: 'trick',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+    });
+    mockEvent.requestContext = paidRequestContext;
+    const result = await analyze(mockEvent);
+    expect(result.statusCode).toEqual(200);
+    const resultBody: DirectAnalysis = JSON.parse(result.body);
+    console.log(inspect(resultBody));
+    expect(resultBody.items.length).toEqual(2);
   });
 });
