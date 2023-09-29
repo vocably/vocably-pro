@@ -30,11 +30,7 @@ export const extractItemTranslation = (
     return null;
   }
 
-  return translations.reduce((acc, translation) => {
-    if (acc.length > 0) {
-      return `${acc}, ${translation.text}`;
-    }
-
-    return translation.text;
-  }, '');
+  return [...new Set(translations.map((translation) => translation.text))].join(
+    ', '
+  );
 };

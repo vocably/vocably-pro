@@ -244,4 +244,18 @@ describe('integration check for translate lambda', () => {
     console.log(inspect(resultBody));
     expect(resultBody.items.length).toEqual(2);
   });
+
+  it('avoids duplicates in translations', async () => {
+    mockEvent.body = JSON.stringify({
+      source: 'zijn',
+      sourceLanguage: 'nl',
+      targetLanguage: 'en',
+    });
+    mockEvent.requestContext = paidRequestContext;
+    const result = await analyze(mockEvent);
+    expect(result.statusCode).toEqual(200);
+    const resultBody: DirectAnalysis = JSON.parse(result.body);
+    expect(resultBody.items[0].translation).toEqual('be, become');
+    expect(resultBody.items[1].translation).toEqual('his');
+  });
 });

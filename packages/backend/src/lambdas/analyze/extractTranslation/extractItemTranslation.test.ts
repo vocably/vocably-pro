@@ -48,6 +48,15 @@ describe('extractItemTranslation', () => {
                   ],
                 },
               },
+              {
+                translations: {
+                  en: [
+                    {
+                      text: 'test 1',
+                    },
+                  ],
+                },
+              },
             ],
             language: 'nl',
             headword: {
