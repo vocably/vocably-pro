@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "{{ process.env.NAME }}",
-  "description": "Vocably helps to translate new words and phrases and then learn them on iPhone or Android devices.",
+  "description": "Vocably helps to translate new words and phrases and then learn them on your mobile devices.",
   "version": "{{ process.env.VERSION }}",
 
   "icons": {
