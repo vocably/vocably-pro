@@ -77,16 +77,18 @@ export const setContents = async ({
     translation.addEventListener(
       'removeCard',
       async ({ detail: payload }: CustomEvent<RemoveCardPayload>) => {
-        console.log('removeCard', payload);
+        translation.isUpdating = payload.card;
         translation.result = await api.removeCard(payload);
+        translation.isUpdating = null;
       }
     );
 
     translation.addEventListener(
       'addCard',
       async ({ detail: payload }: CustomEvent<AddCardPayload>) => {
-        console.log('addCard', payload);
+        translation.isUpdating = payload.card;
         translation.result = await api.addCard(payload);
+        translation.isUpdating = null;
       }
     );
 

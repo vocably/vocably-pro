@@ -155,6 +155,10 @@ select {
       &:hover {
         opacity: 1;
       }
+
+      & > * {
+        vertical-align: middle;
+      }
     }
   }
 }

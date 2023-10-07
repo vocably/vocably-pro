@@ -15,6 +15,8 @@ export namespace Components {
     }
     interface VocablyIconRemove {
     }
+    interface VocablyIconSpin {
+    }
     interface VocablyLanguage {
         "sourceLanguage": string;
         "targetLanguage": string;
@@ -37,6 +39,7 @@ export namespace Components {
     interface VocablyTranslation {
         "existingLanguages": GoogleLanguage[];
         "isFeedbackEnabled": boolean;
+        "isUpdating": TranslationCard | null;
         "language": string;
         "loading": boolean;
         "phrase": string;
@@ -92,6 +95,12 @@ declare global {
         prototype: HTMLVocablyIconRemoveElement;
         new (): HTMLVocablyIconRemoveElement;
     };
+    interface HTMLVocablyIconSpinElement extends Components.VocablyIconSpin, HTMLStencilElement {
+    }
+    var HTMLVocablyIconSpinElement: {
+        prototype: HTMLVocablyIconSpinElement;
+        new (): HTMLVocablyIconSpinElement;
+    };
     interface HTMLVocablyLanguageElement extends Components.VocablyLanguage, HTMLStencilElement {
     }
     var HTMLVocablyLanguageElement: {
@@ -145,6 +154,7 @@ declare global {
         "vocably-close-button": HTMLVocablyCloseButtonElement;
         "vocably-icon-add": HTMLVocablyIconAddElement;
         "vocably-icon-remove": HTMLVocablyIconRemoveElement;
+        "vocably-icon-spin": HTMLVocablyIconSpinElement;
         "vocably-language": HTMLVocablyLanguageElement;
         "vocably-logo": HTMLVocablyLogoElement;
         "vocably-popup": HTMLVocablyPopupElement;
@@ -164,6 +174,8 @@ declare namespace LocalJSX {
     interface VocablyIconAdd {
     }
     interface VocablyIconRemove {
+    }
+    interface VocablyIconSpin {
     }
     interface VocablyLanguage {
         "onConfirm"?: (event: VocablyLanguageCustomEvent<{
@@ -194,6 +206,7 @@ declare namespace LocalJSX {
     interface VocablyTranslation {
         "existingLanguages"?: GoogleLanguage[];
         "isFeedbackEnabled"?: boolean;
+        "isUpdating"?: TranslationCard | null;
         "language"?: string;
         "loading"?: boolean;
         "onAddCard"?: (event: VocablyTranslationCustomEvent<AddCardPayload>) => void;
@@ -207,6 +220,7 @@ declare namespace LocalJSX {
         "vocably-close-button": VocablyCloseButton;
         "vocably-icon-add": VocablyIconAdd;
         "vocably-icon-remove": VocablyIconRemove;
+        "vocably-icon-spin": VocablyIconSpin;
         "vocably-language": VocablyLanguage;
         "vocably-logo": VocablyLogo;
         "vocably-popup": VocablyPopup;
@@ -225,6 +239,7 @@ declare module "@stencil/core" {
             "vocably-close-button": LocalJSX.VocablyCloseButton & JSXBase.HTMLAttributes<HTMLVocablyCloseButtonElement>;
             "vocably-icon-add": LocalJSX.VocablyIconAdd & JSXBase.HTMLAttributes<HTMLVocablyIconAddElement>;
             "vocably-icon-remove": LocalJSX.VocablyIconRemove & JSXBase.HTMLAttributes<HTMLVocablyIconRemoveElement>;
+            "vocably-icon-spin": LocalJSX.VocablyIconSpin & JSXBase.HTMLAttributes<HTMLVocablyIconSpinElement>;
             "vocably-language": LocalJSX.VocablyLanguage & JSXBase.HTMLAttributes<HTMLVocablyLanguageElement>;
             "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;

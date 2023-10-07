@@ -6,7 +6,7 @@ import {
   loadLanguageDeck,
   saveLanguageDeck,
 } from '@vocably/api';
-import { makeDelete } from '@vocably/crud';
+import { makeCreate, makeDelete } from '@vocably/crud';
 import {
   onAddCardRequest,
   onAnalyzeRequest,
@@ -35,7 +35,7 @@ import {
   mapUserAttributes,
   Result,
 } from '@vocably/model';
-import { get } from 'lodash-es';
+import { get, isEqual } from 'lodash-es';
 import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
@@ -178,16 +178,68 @@ export const registerServiceWorker = (
   });
 
   onRemoveCardRequest(async (sendResponse, payload) => {
+    const getLanguageDeckResult = await loadLanguageDeck(
+      payload.translationCards.translation.sourceLanguage
+    );
+
+    if (getLanguageDeckResult.success === false) {
+      return sendResponse(getLanguageDeckResult);
+    }
+
+    makeDelete(getLanguageDeckResult.value.cards)(payload.card.id);
+
+    const saveLanguageDeckResult = await saveLanguageDeck(
+      getLanguageDeckResult.value
+    );
+
+    if (saveLanguageDeckResult.success === false) {
+      return sendResponse(saveLanguageDeckResult);
+    }
+
     return sendResponse({
       success: true,
-      value: payload.translationCards,
+      value: {
+        ...payload.translationCards,
+        cards: payload.translationCards.cards.map((item) =>
+          isEqual(item, payload.card)
+            ? {
+                data: item.data,
+              }
+            : item
+        ),
+      },
     });
   });
 
   onAddCardRequest(async (sendResponse, payload) => {
+    const getLanguageDeckResult = await loadLanguageDeck(
+      payload.translationCards.translation.sourceLanguage
+    );
+
+    if (getLanguageDeckResult.success === false) {
+      return sendResponse(getLanguageDeckResult);
+    }
+
+    const addedCard = makeCreate(getLanguageDeckResult.value.cards)(
+      payload.card.data
+    );
+
+    const saveLanguageDeckResult = await saveLanguageDeck(
+      getLanguageDeckResult.value
+    );
+
+    if (saveLanguageDeckResult.success === false) {
+      return sendResponse(saveLanguageDeckResult);
+    }
+
     return sendResponse({
       success: true,
-      value: payload.translationCards,
+      value: {
+        ...payload.translationCards,
+        cards: payload.translationCards.cards.map((item) =>
+          isEqual(item, payload.card) ? addedCard : item
+        ),
+      },
     });
   });
 

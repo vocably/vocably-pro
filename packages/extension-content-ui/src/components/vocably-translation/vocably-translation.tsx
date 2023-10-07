@@ -16,6 +16,7 @@ import {
   languageList,
   RemoveCardPayload,
   Result,
+  TranslationCard,
   TranslationCards,
 } from '@vocably/model';
 import { isDirectNecessary } from './isDirectNecessary';
@@ -33,6 +34,7 @@ export class VocablyTranslation {
   @Prop() existingLanguages: GoogleLanguage[] = [];
   @Prop() isFeedbackEnabled: boolean = true;
   @Prop() language: string = '';
+  @Prop() isUpdating: TranslationCard | null = null;
   @Event() changeLanguage: EventEmitter<string>;
   @Event() removeCard: EventEmitter<RemoveCardPayload>;
   @Event() addCard: EventEmitter<AddCardPayload>;
@@ -105,6 +107,7 @@ export class VocablyTranslation {
                           {isCardItem(card) && (
                             <button
                               class="card-action-button"
+                              disabled={this.isUpdating !== null}
                               onClick={() =>
                                 this.result.success === true &&
                                 this.removeCard.emit({
@@ -113,12 +116,18 @@ export class VocablyTranslation {
                                 })
                               }
                             >
-                              <vocably-icon-remove></vocably-icon-remove>
+                              {this.isUpdating === card && (
+                                <vocably-icon-spin></vocably-icon-spin>
+                              )}
+                              {this.isUpdating !== card && (
+                                <vocably-icon-remove></vocably-icon-remove>
+                              )}
                             </button>
                           )}
                           {isDetachedCardItem(card) && (
                             <button
                               class="card-action-button"
+                              disabled={this.isUpdating !== null}
                               onClick={() =>
                                 this.result.success === true &&
                                 this.addCard.emit({
@@ -127,7 +136,12 @@ export class VocablyTranslation {
                                 })
                               }
                             >
-                              <vocably-icon-add></vocably-icon-add>
+                              {this.isUpdating === card && (
+                                <vocably-icon-spin></vocably-icon-spin>
+                              )}
+                              {this.isUpdating !== card && (
+                                <vocably-icon-add></vocably-icon-add>
+                              )}
                             </button>
                           )}
                         </div>
