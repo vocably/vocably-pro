@@ -1,4 +1,4 @@
-import { Collection, makeCreate } from '@vocably/crud';
+import { Collection } from '@vocably/crud';
 import {
   Analysis,
   AnalyzePayload,
@@ -11,17 +11,19 @@ import { createSrsItem } from '@vocably/srs';
 import { explode, join } from '@vocably/sulna';
 import { merge } from 'lodash-es';
 
-export const addCardCandidates = (
+export const getCardCandidates = (
   collection: Collection<SrsCard>,
   cardCandidates: SrsCard[]
 ): TranslationCard[] => {
-  const addItem = makeCreate(collection);
-
   return cardCandidates.map((card) => {
     const existingItem = collection.find(byCard(card));
 
+    console.log(collection);
+
     if (existingItem === undefined) {
-      return addItem(card);
+      return {
+        data: card,
+      };
     }
 
     return merge({ data: card }, existingItem);
@@ -49,7 +51,7 @@ export const combineCards = (acc: SrsCard[], card: SrsCard): SrsCard[] => {
   });
 };
 
-export const createCards = (
+export const createTranslationCards = (
   collection: Collection<SrsCard>,
   payload: AnalyzePayload,
   analysis: Analysis
@@ -57,7 +59,7 @@ export const createCards = (
   const srsItem = createSrsItem();
 
   if (analysis.items === undefined || analysis.items.length === 0) {
-    return addCardCandidates(collection, [
+    return getCardCandidates(collection, [
       {
         language: analysis.translation.sourceLanguage,
         source: isDirectAnalyzePayload(payload)
@@ -71,7 +73,7 @@ export const createCards = (
     ]);
   }
 
-  return addCardCandidates(
+  return getCardCandidates(
     collection,
     analysis.items
       .map((analysisItem): SrsCard => {

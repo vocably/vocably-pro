@@ -26,13 +26,17 @@ import {
   onSetProxyLanguage,
 } from '@vocably/extension-messages';
 import {
+  Analysis,
+  AnalyzePayload,
   GoogleLanguage,
   isCardItem,
   isEligibleForTrial,
+  LanguageDeck,
   mapUserAttributes,
+  Result,
 } from '@vocably/model';
 import { get } from 'lodash-es';
-import { createCards } from './createCards';
+import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
 import { getProxyLanguage, setProxyLanguage } from './proxyLanguage';
@@ -87,12 +91,39 @@ export const registerServiceWorker = (
     return sendResponse(isEligibleForTrial(userData));
   });
 
+  const getAnalysisAndCards = async (
+    analyzePayload: AnalyzePayload
+  ): Promise<[Result<Analysis>, Result<LanguageDeck>]> => {
+    if (analyzePayload.sourceLanguage) {
+      return Promise.all([
+        analyze(analyzePayload),
+        loadLanguageDeck(analyzePayload.sourceLanguage),
+      ]);
+    }
+
+    const analysisResult = await analyze(analyzePayload);
+    if (analysisResult.success === false) {
+      return [
+        analysisResult,
+        {
+          success: false,
+          errorCode: 'LANGUAGE_DECK_LOAD_ERROR',
+          reason: `The language deck can't be loaded because the source language is not specified and can't be detected.`,
+        },
+      ];
+    }
+
+    return [
+      analysisResult,
+      await loadLanguageDeck(analysisResult.value.translation.sourceLanguage),
+    ];
+  };
+
   onAnalyzeRequest(async (sendResponse, payload) => {
-    console.info(`Analyze has been requested.`);
     const analyzePayload = {
       ...payload,
       sourceLanguage:
-        payload.sourceLanguage ?? (await getSourceLanguage()) ?? undefined,
+        payload.sourceLanguage ?? (await getSourceLanguage()) ?? 'en',
       targetLanguage: (await getProxyLanguage()) ?? 'en',
     };
 
@@ -101,49 +132,35 @@ export const registerServiceWorker = (
     }
 
     try {
-      const analysis = await analyze(analyzePayload);
-      console.info(`Analyze has returned data.`, analysis);
+      const [analysisResult, loadLanguageDeckResult] =
+        await getAnalysisAndCards(analyzePayload);
 
-      if (analysis.success === false) {
-        analysis.extra &&
-          analysis.extra.body &&
-          console.info('Backend error body', analysis.extra.body.toString());
-        return sendResponse(analysis);
+      if (analysisResult.success === false) {
+        analysisResult.extra &&
+          analysisResult.extra.body &&
+          console.info(
+            'Backend error body',
+            analysisResult.extra.body.toString()
+          );
+        return sendResponse(analysisResult);
       }
-
-      const loadLanguageDeckResult = await loadLanguageDeck(
-        analysis.value.translation.sourceLanguage
-      );
-      console.info(`Cards loading has been requested.`, loadLanguageDeckResult);
 
       if (loadLanguageDeckResult.success === false) {
         return sendResponse(loadLanguageDeckResult);
       }
 
       const languageDeck = loadLanguageDeckResult.value;
-      const cards = createCards(
+      const cards = createTranslationCards(
         languageDeck.cards,
         analyzePayload,
-        analysis.value
+        analysisResult.value
       );
-
-      const saveCardsCollectionResult = await saveLanguageDeck(languageDeck);
-      console.info(
-        `Cards saving has been requested.`,
-        saveCardsCollectionResult
-      );
-
-      if (saveCardsCollectionResult.success === false) {
-        return sendResponse(saveCardsCollectionResult);
-      }
 
       const value = {
         cards,
-        source: analysis.value.source,
-        translation: analysis.value.translation,
+        source: analysisResult.value.source,
+        translation: analysisResult.value.translation,
       };
-
-      console.info('And translation result is', value);
 
       addLanguage(value.translation.sourceLanguage);
       return sendResponse({
