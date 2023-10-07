@@ -1,4 +1,8 @@
-import { GoogleLanguage } from '@vocably/model';
+import {
+  AddCardPayload,
+  GoogleLanguage,
+  RemoveCardPayload,
+} from '@vocably/model';
 import { api } from '../api';
 import { contentScriptConfiguration } from '../configuration';
 
@@ -67,6 +71,22 @@ export const setContents = async ({
         }
         translation.language = language;
         analyze(language);
+      }
+    );
+
+    translation.addEventListener(
+      'removeCard',
+      async ({ detail: payload }: CustomEvent<RemoveCardPayload>) => {
+        console.log('removeCard', payload);
+        translation.result = await api.removeCard(payload);
+      }
+    );
+
+    translation.addEventListener(
+      'addCard',
+      async ({ detail: payload }: CustomEvent<AddCardPayload>) => {
+        console.log('addCard', payload);
+        translation.result = await api.addCard(payload);
       }
     );
 

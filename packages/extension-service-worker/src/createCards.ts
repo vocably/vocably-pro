@@ -2,9 +2,9 @@ import { Collection, makeCreate } from '@vocably/crud';
 import {
   Analysis,
   AnalyzePayload,
-  CardItem,
   isDirectAnalyzePayload,
   SrsCard,
+  TranslationCard,
 } from '@vocably/model';
 import { byCard, equalCards } from '@vocably/model-operations';
 import { createSrsItem } from '@vocably/srs';
@@ -14,7 +14,7 @@ import { merge } from 'lodash-es';
 export const addCardCandidates = (
   collection: Collection<SrsCard>,
   cardCandidates: SrsCard[]
-): CardItem[] => {
+): TranslationCard[] => {
   const addItem = makeCreate(collection);
 
   return cardCandidates.map((card) => {
@@ -53,7 +53,7 @@ export const createCards = (
   collection: Collection<SrsCard>,
   payload: AnalyzePayload,
   analysis: Analysis
-): CardItem[] => {
+): TranslationCard[] => {
   const srsItem = createSrsItem();
 
   if (analysis.items === undefined || analysis.items.length === 0) {

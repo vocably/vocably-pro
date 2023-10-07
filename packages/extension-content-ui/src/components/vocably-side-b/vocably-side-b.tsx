@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop } from '@stencil/core';
-import { CardItem } from '@vocably/model';
+import { TranslationCard } from '@vocably/model';
 import { explode } from '@vocably/sulna';
 
 @Component({
@@ -8,7 +8,7 @@ import { explode } from '@vocably/sulna';
   shadow: true,
 })
 export class VocablySideB {
-  @Prop() item: CardItem;
+  @Prop() item: TranslationCard;
 
   render() {
     const definitions = explode(this.item.data.definition);

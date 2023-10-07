@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash-es';
 import { registerContentScript } from '../src';
 
 registerContentScript({
@@ -51,6 +52,36 @@ registerContentScript({
 
           resolve(result);
         }, parseInt((document.getElementById('delay') as HTMLInputElement).value));
+      }),
+    addCard: (payload) =>
+      Promise.resolve({
+        success: true,
+        value: {
+          ...payload.translationCards,
+          cards: payload.translationCards.cards.map((card) => {
+            return isEqual(card, payload.card)
+              ? {
+                  id: 'new-id',
+                  created: new Date().getTime(),
+                  ...payload.card,
+                }
+              : card;
+          }),
+        },
+      }),
+    removeCard: (payload) =>
+      Promise.resolve({
+        success: true,
+        value: {
+          ...payload.translationCards,
+          cards: payload.translationCards.cards.map((card) => {
+            return isEqual(card, payload.card)
+              ? {
+                  data: payload.card.data,
+                }
+              : card;
+          }),
+        },
       }),
     cleanUp: () => Promise.resolve({ success: true, value: null }),
     ping: () => Promise.resolve('pong'),

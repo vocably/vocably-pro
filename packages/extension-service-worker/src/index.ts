@@ -8,6 +8,7 @@ import {
 } from '@vocably/api';
 import { makeDelete } from '@vocably/crud';
 import {
+  onAddCardRequest,
   onAnalyzeRequest,
   onCleanUpRequest,
   onGetInternalProxyLanuage,
@@ -19,12 +20,14 @@ import {
   onListLanguagesRequest,
   onPing,
   onPingExternal,
+  onRemoveCardRequest,
   onSetInternalProxyLanguage,
   onSetInternalSourceLanguage,
   onSetProxyLanguage,
 } from '@vocably/extension-messages';
 import {
   GoogleLanguage,
+  isCardItem,
   isEligibleForTrial,
   mapUserAttributes,
 } from '@vocably/model';
@@ -157,6 +160,20 @@ export const registerServiceWorker = (
     }
   });
 
+  onRemoveCardRequest(async (sendResponse, payload) => {
+    return sendResponse({
+      success: true,
+      value: payload.translationCards,
+    });
+  });
+
+  onAddCardRequest(async (sendResponse, payload) => {
+    return sendResponse({
+      success: true,
+      value: payload.translationCards,
+    });
+  });
+
   onCleanUpRequest(async (sendResponse, payload) => {
     console.info(`Clean up has been requested.`, payload);
     try {
@@ -171,7 +188,11 @@ export const registerServiceWorker = (
       const deck = loadLanguageDeckResult.value;
 
       const deleteCard = makeDelete(deck.cards);
-      payload.cards.forEach((item) => deleteCard(item.id));
+      payload.cards.forEach((item) => {
+        if (isCardItem(item)) {
+          deleteCard(item.id);
+        }
+      });
 
       if (deck.cards.length === 0) {
         console.info(`The entire deck will be deleted.`, payload);

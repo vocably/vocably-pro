@@ -8,9 +8,13 @@ import {
   Prop,
 } from '@stencil/core';
 import {
+  AddCardPayload,
   getFullLanguageName,
   GoogleLanguage,
+  isCardItem,
+  isDetachedCardItem,
   languageList,
+  RemoveCardPayload,
   Result,
   TranslationCards,
 } from '@vocably/model';
@@ -30,6 +34,8 @@ export class VocablyTranslation {
   @Prop() isFeedbackEnabled: boolean = true;
   @Prop() language: string = '';
   @Event() changeLanguage: EventEmitter<string>;
+  @Event() removeCard: EventEmitter<RemoveCardPayload>;
+  @Event() addCard: EventEmitter<AddCardPayload>;
 
   render() {
     const languageSelector = this.result && this.result.success && (
@@ -93,16 +99,38 @@ export class VocablyTranslation {
                   )}
 
                   <div class="cards" data-test="cards">
-                    {this.result.value.cards.map((card, index, collection) => (
-                      <div
-                        data-test="card"
-                        class={
-                          'card' + (collection.length > 1 ? ' has-number' : '')
-                        }
-                      >
-                        {collection.length > 1 && (
-                          <div class="number">{index + 1}</div>
-                        )}
+                    {this.result.value.cards.map((card) => (
+                      <div data-test="card" class="card">
+                        <div class="card-action">
+                          {isCardItem(card) && (
+                            <button
+                              class="card-action-button"
+                              onClick={() =>
+                                this.result.success === true &&
+                                this.removeCard.emit({
+                                  translationCards: this.result.value,
+                                  card,
+                                })
+                              }
+                            >
+                              <vocably-icon-remove></vocably-icon-remove>
+                            </button>
+                          )}
+                          {isDetachedCardItem(card) && (
+                            <button
+                              class="card-action-button"
+                              onClick={() =>
+                                this.result.success === true &&
+                                this.addCard.emit({
+                                  translationCards: this.result.value,
+                                  card,
+                                })
+                              }
+                            >
+                              <vocably-icon-add></vocably-icon-add>
+                            </button>
+                          )}
+                        </div>
                         <div>
                           <span class="small">Side</span>{' '}
                           <span class="text-primary">A</span>

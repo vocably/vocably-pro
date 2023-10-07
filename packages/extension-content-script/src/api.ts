@@ -1,4 +1,5 @@
 import {
+  addCard,
   analyze,
   cleanUp,
   getInternalProxyLanguage,
@@ -8,6 +9,7 @@ import {
   isLoggedIn,
   listLanguages,
   ping,
+  removeCard,
   setInternalProxyLanguage,
   setInternalSourceLanguage,
 } from '@vocably/extension-messages';
@@ -20,6 +22,8 @@ export const api = {
   getInternalSourceLanguage,
   setInternalSourceLanguage,
   analyze,
+  addCard,
+  removeCard,
   cleanUp,
   isActive,
   ping,
