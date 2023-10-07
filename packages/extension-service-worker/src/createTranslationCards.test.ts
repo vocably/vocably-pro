@@ -1,12 +1,12 @@
 import { CardItem } from '@vocably/model';
 import { createSrsItem } from '@vocably/srs';
-import { addCardCandidates, combineCards } from './createCards';
+import { combineCards, getCardCandidates } from './createTranslationCards';
 
 describe('createCards', () => {
   describe('addCardCandidates', () => {
     it('properly adds candidates when no such words exist in dictionary', () => {
       const collection = [];
-      const cardItems = addCardCandidates(collection, [
+      const cardItems = getCardCandidates(collection, [
         {
           language: 'en',
           source: 'do',
@@ -25,34 +25,44 @@ describe('createCards', () => {
         },
       ]);
 
-      expect(collection.length).toEqual(2);
       expect(cardItems[0].data.source).toEqual('do');
       expect(cardItems[1].data.source).toEqual('swim');
+      // @ts-ignore
+      expect(cardItems[0].id).toEqual(undefined);
+      // @ts-ignore
+      expect(cardItems[1].id).toEqual(undefined);
     });
 
     it('properly returns an existing item if such a candidate already exists', () => {
-      const collection: CardItem[] = [];
-      addCardCandidates(collection, [
+      const collection: CardItem[] = [
         {
-          language: 'en',
-          source: 'do',
-          definition: 'делать',
-          translation: '',
-          partOfSpeech: '',
-          ...createSrsItem(),
+          id: '123',
+          created: 123,
+          data: {
+            language: 'en',
+            source: 'do',
+            definition: 'делать',
+            translation: '',
+            partOfSpeech: '',
+            ...createSrsItem(),
+          },
         },
         {
-          language: 'en',
-          source: 'swim',
-          definition: 'плавать',
-          translation: '',
-          partOfSpeech: '',
-          ...createSrsItem(),
+          id: '456',
+          created: 456,
+          data: {
+            language: 'en',
+            source: 'swim',
+            definition: 'плавать',
+            translation: '',
+            partOfSpeech: '',
+            ...createSrsItem(),
+          },
         },
-      ]);
+      ];
 
       const doId = collection[0].id;
-      const cardItems = addCardCandidates(collection, [
+      const cardItems = getCardCandidates(collection, [
         {
           language: 'en',
           source: 'fight',
@@ -71,32 +81,40 @@ describe('createCards', () => {
         },
       ]);
 
-      expect(collection.length).toEqual(3);
       expect(cardItems[0].data.source).toEqual('fight');
+      // @ts-ignore
       expect(cardItems[1].id).toEqual(doId);
     });
 
     it('considers parts of speech when adding card candidates', () => {
-      const collection: CardItem[] = [];
-      addCardCandidates(collection, [
+      const collection: CardItem[] = [
         {
-          language: 'nl',
-          source: 'naar',
-          definition: 'onprettig, onaangenaam',
-          partOfSpeech: 'adjective',
-          translation: '',
-          ...createSrsItem(),
+          id: '123',
+          created: 123,
+          data: {
+            language: 'nl',
+            source: 'naar',
+            definition: 'onprettig, onaangenaam',
+            partOfSpeech: 'adjective',
+            translation: '',
+            ...createSrsItem(),
+          },
         },
         {
-          language: 'nl',
-          source: 'naar',
-          definition: 'in de richting van',
-          partOfSpeech: 'preposition',
-          translation: '',
-          ...createSrsItem(),
+          id: '456',
+          created: 456,
+          data: {
+            language: 'nl',
+            source: 'naar',
+            definition: 'in de richting van',
+            partOfSpeech: 'preposition',
+            translation: '',
+            ...createSrsItem(),
+          },
         },
-      ]);
-      addCardCandidates(collection, [
+      ];
+
+      const cardItems = getCardCandidates(collection, [
         {
           language: 'nl',
           source: 'naar',
@@ -107,10 +125,7 @@ describe('createCards', () => {
         },
       ]);
 
-      expect(collection.length).toEqual(3);
-      expect(collection[0].data.partOfSpeech).toEqual('adjective');
-      expect(collection[1].data.partOfSpeech).toEqual('preposition');
-      expect(collection[2].data.partOfSpeech).toEqual('conjunction');
+      expect(cardItems[0].data.partOfSpeech).toEqual('conjunction');
     });
   });
 

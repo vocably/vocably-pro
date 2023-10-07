@@ -5,11 +5,17 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { CardItem, GoogleLanguage, Result, TranslationCards } from "@vocably/model";
+import { AddCardPayload, GoogleLanguage, RemoveCardPayload, Result, TranslationCard, TranslationCards } from "@vocably/model";
 export namespace Components {
     interface VocablyButton {
     }
     interface VocablyCloseButton {
+    }
+    interface VocablyIconAdd {
+    }
+    interface VocablyIconRemove {
+    }
+    interface VocablyIconSpin {
     }
     interface VocablyLanguage {
         "sourceLanguage": string;
@@ -21,7 +27,7 @@ export namespace Components {
     interface VocablyPopup {
     }
     interface VocablySideB {
-        "item": CardItem;
+        "item": TranslationCard;
     }
     interface VocablySignIn {
     }
@@ -33,6 +39,7 @@ export namespace Components {
     interface VocablyTranslation {
         "existingLanguages": GoogleLanguage[];
         "isFeedbackEnabled": boolean;
+        "isUpdating": TranslationCard | null;
         "language": string;
         "loading": boolean;
         "phrase": string;
@@ -75,6 +82,24 @@ declare global {
     var HTMLVocablyCloseButtonElement: {
         prototype: HTMLVocablyCloseButtonElement;
         new (): HTMLVocablyCloseButtonElement;
+    };
+    interface HTMLVocablyIconAddElement extends Components.VocablyIconAdd, HTMLStencilElement {
+    }
+    var HTMLVocablyIconAddElement: {
+        prototype: HTMLVocablyIconAddElement;
+        new (): HTMLVocablyIconAddElement;
+    };
+    interface HTMLVocablyIconRemoveElement extends Components.VocablyIconRemove, HTMLStencilElement {
+    }
+    var HTMLVocablyIconRemoveElement: {
+        prototype: HTMLVocablyIconRemoveElement;
+        new (): HTMLVocablyIconRemoveElement;
+    };
+    interface HTMLVocablyIconSpinElement extends Components.VocablyIconSpin, HTMLStencilElement {
+    }
+    var HTMLVocablyIconSpinElement: {
+        prototype: HTMLVocablyIconSpinElement;
+        new (): HTMLVocablyIconSpinElement;
     };
     interface HTMLVocablyLanguageElement extends Components.VocablyLanguage, HTMLStencilElement {
     }
@@ -127,6 +152,9 @@ declare global {
     interface HTMLElementTagNameMap {
         "vocably-button": HTMLVocablyButtonElement;
         "vocably-close-button": HTMLVocablyCloseButtonElement;
+        "vocably-icon-add": HTMLVocablyIconAddElement;
+        "vocably-icon-remove": HTMLVocablyIconRemoveElement;
+        "vocably-icon-spin": HTMLVocablyIconSpinElement;
         "vocably-language": HTMLVocablyLanguageElement;
         "vocably-logo": HTMLVocablyLogoElement;
         "vocably-popup": HTMLVocablyPopupElement;
@@ -143,6 +171,12 @@ declare namespace LocalJSX {
     interface VocablyCloseButton {
         "onClose"?: (event: VocablyCloseButtonCustomEvent<void>) => void;
     }
+    interface VocablyIconAdd {
+    }
+    interface VocablyIconRemove {
+    }
+    interface VocablyIconSpin {
+    }
     interface VocablyLanguage {
         "onConfirm"?: (event: VocablyLanguageCustomEvent<{
     sourceLanguage: string;
@@ -158,7 +192,7 @@ declare namespace LocalJSX {
         "onClose"?: (event: VocablyPopupCustomEvent<void>) => void;
     }
     interface VocablySideB {
-        "item"?: CardItem;
+        "item"?: TranslationCard;
     }
     interface VocablySignIn {
         "onConfirm"?: (event: VocablySignInCustomEvent<any>) => void;
@@ -172,15 +206,21 @@ declare namespace LocalJSX {
     interface VocablyTranslation {
         "existingLanguages"?: GoogleLanguage[];
         "isFeedbackEnabled"?: boolean;
+        "isUpdating"?: TranslationCard | null;
         "language"?: string;
         "loading"?: boolean;
+        "onAddCard"?: (event: VocablyTranslationCustomEvent<AddCardPayload>) => void;
         "onChangeLanguage"?: (event: VocablyTranslationCustomEvent<string>) => void;
+        "onRemoveCard"?: (event: VocablyTranslationCustomEvent<RemoveCardPayload>) => void;
         "phrase"?: string;
         "result"?: Result<TranslationCards> | null;
     }
     interface IntrinsicElements {
         "vocably-button": VocablyButton;
         "vocably-close-button": VocablyCloseButton;
+        "vocably-icon-add": VocablyIconAdd;
+        "vocably-icon-remove": VocablyIconRemove;
+        "vocably-icon-spin": VocablyIconSpin;
         "vocably-language": VocablyLanguage;
         "vocably-logo": VocablyLogo;
         "vocably-popup": VocablyPopup;
@@ -197,6 +237,9 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "vocably-button": LocalJSX.VocablyButton & JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
             "vocably-close-button": LocalJSX.VocablyCloseButton & JSXBase.HTMLAttributes<HTMLVocablyCloseButtonElement>;
+            "vocably-icon-add": LocalJSX.VocablyIconAdd & JSXBase.HTMLAttributes<HTMLVocablyIconAddElement>;
+            "vocably-icon-remove": LocalJSX.VocablyIconRemove & JSXBase.HTMLAttributes<HTMLVocablyIconRemoveElement>;
+            "vocably-icon-spin": LocalJSX.VocablyIconSpin & JSXBase.HTMLAttributes<HTMLVocablyIconSpinElement>;
             "vocably-language": LocalJSX.VocablyLanguage & JSXBase.HTMLAttributes<HTMLVocablyLanguageElement>;
             "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;

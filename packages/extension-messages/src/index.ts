@@ -1,7 +1,9 @@
 import { createExternalMessage, createMessage } from '@vocably/hermes';
 import {
+  AddCardPayload,
   DirectAnalyzePayload,
   GoogleLanguage,
+  RemoveCardPayload,
   Result,
   TranslationCards,
 } from '@vocably/model';
@@ -29,6 +31,16 @@ export const [analyze, onAnalyzeRequest] = createScopedMessage<
   Omit<DirectAnalyzePayload, 'targetLanguage'>,
   Result<TranslationCards>
 >('analyze');
+
+export const [removeCard, onRemoveCardRequest] = createScopedMessage<
+  RemoveCardPayload,
+  Result<TranslationCards>
+>('removeCard');
+
+export const [addCard, onAddCardRequest] = createScopedMessage<
+  AddCardPayload,
+  Result<TranslationCards>
+>('addCard');
 
 export const [listLanguages, onListLanguagesRequest] = createScopedMessage<
   void,

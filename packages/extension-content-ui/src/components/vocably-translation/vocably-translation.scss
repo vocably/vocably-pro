@@ -124,28 +124,41 @@ select {
 
   .card {
     position: relative;
-    padding: $input-padding-y $input-padding-x;
+    padding: $input-padding-y 48px $input-padding-y $input-padding-x;
     border-top: $internal-border;
 
     &:first-child {
       border-top: none;
     }
 
-    &.has-number {
-      padding-right: 48px !important;
-    }
-
-    .number {
+    .card-action {
       $size: 24px;
       position: absolute;
       right: $input-padding-x;
       top: $input-padding-y;
-      border: 1px solid $v-light-color-border-muted;
-      border-radius: 50%;
       min-width: $size;
       height: $size;
       line-height: $size;
       text-align: center;
+    }
+
+    .card-action-button {
+      padding: 0;
+      margin: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      opacity: 0.1;
+      transition: opacity 200ms;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      & > * {
+        vertical-align: middle;
+      }
     }
   }
 }
