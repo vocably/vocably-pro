@@ -145,7 +145,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.items.length).toEqual(4);
     expect(resultBody.items[0].source).toEqual('de regeling');
-    expect(resultBody.items[0].translation).toEqual('регулирование');
+    expect(resultBody.items[0].translation).toEqual('расположение');
   });
 
   it('trims article before analyzing', async () => {
@@ -163,7 +163,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.items.length).toEqual(4);
     expect(resultBody.items[0].source).toEqual('de regeling');
-    expect(resultBody.items[0].translation).toEqual('регулирование');
+    expect(resultBody.items[0].translation).toEqual('расположение');
   });
 
   it('skips analyze when source is more than one word', async () => {

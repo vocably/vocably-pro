@@ -1,5 +1,6 @@
 import { Result, Translation } from '@vocably/model';
 import { LexicalaSearchResultItemWithNormalHeadword } from '../../../lexicala/normalizeHeadword';
+import { addArticle } from '../addArticle';
 import { translatePartOfSpeech } from '../translatePartOfSpeech';
 
 export const translateItem = async (
@@ -17,6 +18,7 @@ export const translateItem = async (
     source: item.headword.text,
     partOfSpeech: item.headword.pos,
     originalTranslation: translation,
+    sourceWithArticle: addArticle(item.language, item.headword),
   });
 
   if (translationResult.success === false) {

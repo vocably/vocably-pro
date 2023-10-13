@@ -5,6 +5,7 @@ type Options = {
   partOfSpeech: string;
   source: string;
   originalTranslation: Translation;
+  sourceWithArticle?: string;
 };
 
 const noArticles: GoogleLanguage[] = [
@@ -34,6 +35,7 @@ export const translatePartOfSpeech = ({
   source,
   partOfSpeech,
   originalTranslation,
+  sourceWithArticle,
 }: Options): Promise<Result<Translation>> => {
   if (
     originalTranslation.sourceLanguage === 'en' &&
@@ -65,7 +67,7 @@ export const translatePartOfSpeech = ({
     noArticles.includes(originalTranslation.targetLanguage)
   ) {
     return googleTranslate(
-      `een ${source}`,
+      sourceWithArticle ? sourceWithArticle : `een ${source}`,
       originalTranslation.sourceLanguage,
       originalTranslation.targetLanguage
     );
