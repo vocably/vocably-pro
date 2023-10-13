@@ -59,6 +59,30 @@ export const translatePartOfSpeech = ({
     );
   }
 
+  if (
+    originalTranslation.sourceLanguage === 'nl' &&
+    partOfSpeech === 'noun' &&
+    noArticles.includes(originalTranslation.targetLanguage)
+  ) {
+    return googleTranslate(
+      `een ${source}`,
+      originalTranslation.sourceLanguage,
+      originalTranslation.targetLanguage
+    );
+  }
+
+  if (
+    originalTranslation.sourceLanguage === 'nl' &&
+    partOfSpeech === 'verb' &&
+    noArticles.includes(originalTranslation.targetLanguage)
+  ) {
+    return googleTranslate(
+      `te ${source}`,
+      originalTranslation.sourceLanguage,
+      originalTranslation.targetLanguage
+    );
+  }
+
   if (source.toLowerCase() === originalTranslation.source.toLowerCase()) {
     return Promise.resolve({
       success: true,

@@ -243,6 +243,23 @@ describe('integration check for translate lambda', () => {
     const resultBody: DirectAnalysis = JSON.parse(result.body);
     console.log(inspect(resultBody));
     expect(resultBody.items.length).toEqual(2);
+    expect(resultBody.items[0].translation).toEqual('трюк');
+    expect(resultBody.items[1].translation).toEqual('обмануть');
+  });
+
+  it('properly translates dutch to non-article languages', async () => {
+    mockEvent.body = JSON.stringify({
+      source: 'revalidatie',
+      sourceLanguage: 'nl',
+      targetLanguage: 'ru',
+    });
+    mockEvent.requestContext = paidRequestContext;
+    const result = await analyze(mockEvent);
+    expect(result.statusCode).toEqual(200);
+    const resultBody: DirectAnalysis = JSON.parse(result.body);
+    console.log(inspect(resultBody));
+    expect(resultBody.items.length).toEqual(1);
+    expect(resultBody.items[0].translation).toEqual('реабилитация');
   });
 
   it('avoids duplicates in translations', async () => {
