@@ -7,11 +7,13 @@ import {
   isActive,
   isEligibleForTrial,
   isLoggedIn,
+  isUserKnowsHowToAdd,
   listLanguages,
   ping,
   removeCard,
   setInternalProxyLanguage,
   setInternalSourceLanguage,
+  setUserKnowsHowToAdd,
 } from '@vocably/extension-messages';
 
 export const api = {
@@ -29,6 +31,8 @@ export const api = {
   ping,
   listLanguages,
   isEligibleForTrial,
+  isUserKnowsHowToAdd,
+  setUserKnowsHowToAdd,
 };
 
 export type ApiConfigOptions = Partial<typeof api>;

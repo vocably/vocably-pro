@@ -6,6 +6,7 @@ import {
   h,
   Host,
   Prop,
+  State,
 } from '@stencil/core';
 import {
   AddCardPayload,
@@ -35,9 +36,12 @@ export class VocablyTranslation {
   @Prop() isFeedbackEnabled: boolean = true;
   @Prop() language: string = '';
   @Prop() isUpdating: TranslationCard | null = null;
+  @Prop() showSaveHint: boolean = true;
   @Event() changeLanguage: EventEmitter<string>;
   @Event() removeCard: EventEmitter<RemoveCardPayload>;
   @Event() addCard: EventEmitter<AddCardPayload>;
+
+  @State() saveCardClicked = false;
 
   render() {
     const languageSelector = this.result && this.result.success && (
@@ -99,79 +103,92 @@ export class VocablyTranslation {
                   {!showDirect && (
                     <div class="margin-bottom-2">{languageSelector}</div>
                   )}
+                  <div class="save-hint-container">
+                    {this.showSaveHint && (
+                      <vocably-add-card-hint
+                        class={{
+                          'save-hint': true,
+                          hidden: this.saveCardClicked,
+                        }}
+                      ></vocably-add-card-hint>
+                    )}
 
-                  <div class="cards" data-test="cards">
-                    {this.result.value.cards.map((card) => (
-                      <div data-test="card" class="card">
-                        <div class="card-action">
-                          {isCardItem(card) && (
-                            <button
-                              class="card-action-button"
-                              disabled={this.isUpdating !== null}
-                              onClick={() =>
-                                this.result.success === true &&
-                                this.removeCard.emit({
-                                  translationCards: this.result.value,
-                                  card,
-                                })
-                              }
-                            >
-                              {this.isUpdating === card && (
-                                <vocably-icon-spin></vocably-icon-spin>
-                              )}
-                              {this.isUpdating !== card && (
-                                <vocably-icon-remove></vocably-icon-remove>
-                              )}
-                            </button>
-                          )}
-                          {isDetachedCardItem(card) && (
-                            <button
-                              class="card-action-button"
-                              disabled={this.isUpdating !== null}
-                              onClick={() =>
-                                this.result.success === true &&
-                                this.addCard.emit({
-                                  translationCards: this.result.value,
-                                  card,
-                                })
-                              }
-                            >
-                              {this.isUpdating === card && (
-                                <vocably-icon-spin></vocably-icon-spin>
-                              )}
-                              {this.isUpdating !== card && (
-                                <vocably-icon-add></vocably-icon-add>
-                              )}
-                            </button>
-                          )}
-                        </div>
-                        <div>
-                          <span class="small">Side</span>{' '}
-                          <span class="text-primary">A</span>
-                        </div>
-                        <div class="margin-left">
-                          <span class="emphasized">{card.data.source}</span>
-                          {card.data.partOfSpeech && (
-                            <Fragment>
-                              <span class="invisible-space ">&nbsp;</span>
-                              <span class="pos margin-left">
-                                {card.data.partOfSpeech}
-                              </span>
-                            </Fragment>
-                          )}
-                        </div>
+                    <div class="cards" data-test="cards">
+                      {this.result.value.cards.map((card) => (
+                        <div data-test="card" class="card">
+                          <div class="card-action">
+                            {isCardItem(card) && (
+                              <button
+                                class="card-action-button"
+                                disabled={this.isUpdating !== null}
+                                onClick={() => {
+                                  this.saveCardClicked = true;
+                                  this.result.success === true &&
+                                    this.removeCard.emit({
+                                      translationCards: this.result.value,
+                                      card,
+                                    });
+                                }}
+                              >
+                                {this.isUpdating === card && (
+                                  <vocably-icon-spin></vocably-icon-spin>
+                                )}
+                                {this.isUpdating !== card && (
+                                  <vocably-icon-remove></vocably-icon-remove>
+                                )}
+                              </button>
+                            )}
+                            {isDetachedCardItem(card) && (
+                              <button
+                                class="card-action-button"
+                                disabled={this.isUpdating !== null}
+                                onClick={() => {
+                                  this.saveCardClicked = true;
+                                  this.result.success === true &&
+                                    this.addCard.emit({
+                                      translationCards: this.result.value,
+                                      card,
+                                    });
+                                }}
+                              >
+                                {this.isUpdating === card && (
+                                  <vocably-icon-spin></vocably-icon-spin>
+                                )}
+                                {this.isUpdating !== card && (
+                                  <vocably-icon-add></vocably-icon-add>
+                                )}
+                              </button>
+                            )}
+                          </div>
+                          <div
+                            class={{ 'card-hint-displayed': this.showSaveHint }}
+                          >
+                            <span class="small">Side</span>{' '}
+                            <span class="text-primary">A</span>
+                          </div>
+                          <div class="margin-left">
+                            <span class="emphasized">{card.data.source}</span>
+                            {card.data.partOfSpeech && (
+                              <Fragment>
+                                <span class="invisible-space ">&nbsp;</span>
+                                <span class="pos margin-left">
+                                  {card.data.partOfSpeech}
+                                </span>
+                              </Fragment>
+                            )}
+                          </div>
 
-                        <div>
-                          <span class="small">Side</span>{' '}
-                          <span class="text-primary">B</span>
+                          <div>
+                            <span class="small">Side</span>{' '}
+                            <span class="text-primary">B</span>
+                          </div>
+                          <div class="margin-left">
+                            <vocably-side-b item={card}></vocably-side-b>
+                          </div>
                         </div>
-                        <div class="margin-left">
-                          <vocably-side-b item={card}></vocably-side-b>
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-
                   {this.isFeedbackEnabled && (
                     <div class="margin-top-2 text-right small">
                       <a

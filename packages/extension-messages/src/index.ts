@@ -66,6 +66,14 @@ export const [getInternalSourceLanguage, onGetInternalSourceLanguage] =
 export const [setInternalSourceLanguage, onSetInternalSourceLanguage] =
   createScopedMessage<GoogleLanguage, void>('setInternalSourceLanguage');
 
+export const [isUserKnowsHowToAdd, onIsUserKnowsHowToAdd] = createScopedMessage<
+  void,
+  boolean
+>('isUserKnowsHowToAdd');
+
+export const [setUserKnowsHowToAdd, onSetUserKnowsHowToAdd] =
+  createScopedMessage<boolean, void>('setUserKnowsHowToAdd');
+
 export const [pingExternal, onPingExternal] = createExternalMessage<
   void,
   string

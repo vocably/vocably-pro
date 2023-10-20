@@ -1,0 +1,11 @@
+@import '../../styles/variables';
+
+:host {
+  display: block;
+}
+
+.hint {
+  path {
+    fill: $v-light-color-primary;
+  }
+}

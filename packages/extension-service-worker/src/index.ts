@@ -17,6 +17,7 @@ import {
   onIsActiveRequest,
   onIsEligibleForTrialRequest,
   onIsLoggedInRequest,
+  onIsUserKnowsHowToAdd,
   onListLanguagesRequest,
   onPing,
   onPingExternal,
@@ -24,6 +25,7 @@ import {
   onSetInternalProxyLanguage,
   onSetInternalSourceLanguage,
   onSetProxyLanguage,
+  onSetUserKnowsHowToAdd,
 } from '@vocably/extension-messages';
 import {
   Analysis,
@@ -320,6 +322,20 @@ export const registerServiceWorker = (
 
   onSetProxyLanguage(async (sendResponse, language) => {
     await setProxyLanguage(language);
+    return sendResponse();
+  });
+
+  onIsUserKnowsHowToAdd(async (sendResponse) => {
+    const { userKnowsHowToAdd } = await chrome.storage.sync.get([
+      'userKnowsHowToAdd',
+    ]);
+    return sendResponse(userKnowsHowToAdd ?? false);
+  });
+
+  onSetUserKnowsHowToAdd(async (sendResponse, value) => {
+    await chrome.storage.sync.set({
+      userKnowsHowToAdd: value,
+    });
     return sendResponse();
   });
 

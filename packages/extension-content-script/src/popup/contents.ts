@@ -36,11 +36,12 @@ export const setContents = async ({
     }
   };
 
-  const setTranslation = () => {
+  const setTranslation = async () => {
     const translation = document.createElement('vocably-translation');
     translation.isFeedbackEnabled =
       contentScriptConfiguration.isFeedbackEnabled;
     translation.phrase = source;
+    translation.showSaveHint = !(await api.isUserKnowsHowToAdd());
 
     const analyze = (sourceLanguage?: GoogleLanguage) => {
       translation.loading = true;
@@ -80,6 +81,7 @@ export const setContents = async ({
         translation.isUpdating = payload.card;
         translation.result = await api.removeCard(payload);
         translation.isUpdating = null;
+        await api.setUserKnowsHowToAdd(true);
       }
     );
 
@@ -89,6 +91,7 @@ export const setContents = async ({
         translation.isUpdating = payload.card;
         translation.result = await api.addCard(payload);
         translation.isUpdating = null;
+        await api.setUserKnowsHowToAdd(true);
       }
     );
 
@@ -118,7 +121,7 @@ export const setContents = async ({
     internalSourceLanguage &&
     internalTargetLanguage
   ) {
-    setTranslation();
+    await setTranslation();
     return tearDown;
   }
 
@@ -214,7 +217,7 @@ export const setContents = async ({
     ) {
       clearInterval(intervalId);
       intervalId = null;
-      setTranslation();
+      await setTranslation();
       setTimeout(closeWindow, 3000);
     } else {
       await updateAlertMessage(

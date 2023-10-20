@@ -7,6 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AddCardPayload, GoogleLanguage, RemoveCardPayload, Result, TranslationCard, TranslationCards } from "@vocably/model";
 export namespace Components {
+    interface VocablyAddCardHint {
+    }
     interface VocablyButton {
     }
     interface VocablyCloseButton {
@@ -44,7 +46,12 @@ export namespace Components {
         "loading": boolean;
         "phrase": string;
         "result": Result<TranslationCards> | null;
+        "showSaveHint": boolean;
     }
+}
+export interface VocablyAddCardHintCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLVocablyAddCardHintElement;
 }
 export interface VocablyCloseButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -71,6 +78,12 @@ export interface VocablyTranslationCustomEvent<T> extends CustomEvent<T> {
     target: HTMLVocablyTranslationElement;
 }
 declare global {
+    interface HTMLVocablyAddCardHintElement extends Components.VocablyAddCardHint, HTMLStencilElement {
+    }
+    var HTMLVocablyAddCardHintElement: {
+        prototype: HTMLVocablyAddCardHintElement;
+        new (): HTMLVocablyAddCardHintElement;
+    };
     interface HTMLVocablyButtonElement extends Components.VocablyButton, HTMLStencilElement {
     }
     var HTMLVocablyButtonElement: {
@@ -150,6 +163,7 @@ declare global {
         new (): HTMLVocablyTranslationElement;
     };
     interface HTMLElementTagNameMap {
+        "vocably-add-card-hint": HTMLVocablyAddCardHintElement;
         "vocably-button": HTMLVocablyButtonElement;
         "vocably-close-button": HTMLVocablyCloseButtonElement;
         "vocably-icon-add": HTMLVocablyIconAddElement;
@@ -166,6 +180,9 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface VocablyAddCardHint {
+        "onConfirm"?: (event: VocablyAddCardHintCustomEvent<any>) => void;
+    }
     interface VocablyButton {
     }
     interface VocablyCloseButton {
@@ -214,8 +231,10 @@ declare namespace LocalJSX {
         "onRemoveCard"?: (event: VocablyTranslationCustomEvent<RemoveCardPayload>) => void;
         "phrase"?: string;
         "result"?: Result<TranslationCards> | null;
+        "showSaveHint"?: boolean;
     }
     interface IntrinsicElements {
+        "vocably-add-card-hint": VocablyAddCardHint;
         "vocably-button": VocablyButton;
         "vocably-close-button": VocablyCloseButton;
         "vocably-icon-add": VocablyIconAdd;
@@ -235,6 +254,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "vocably-add-card-hint": LocalJSX.VocablyAddCardHint & JSXBase.HTMLAttributes<HTMLVocablyAddCardHintElement>;
             "vocably-button": LocalJSX.VocablyButton & JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
             "vocably-close-button": LocalJSX.VocablyCloseButton & JSXBase.HTMLAttributes<HTMLVocablyCloseButtonElement>;
             "vocably-icon-add": LocalJSX.VocablyIconAdd & JSXBase.HTMLAttributes<HTMLVocablyIconAddElement>;

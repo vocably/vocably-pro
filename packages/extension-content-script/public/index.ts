@@ -1,6 +1,7 @@
 import { isEqual } from 'lodash-es';
 import { registerContentScript } from '../src';
 
+let isUserKnowsHowToAdd = false;
 registerContentScript({
   api: {
     appBaseUrl: 'http://localhost:8030',
@@ -95,6 +96,10 @@ registerContentScript({
     ping: () => Promise.resolve('pong'),
     listLanguages: () =>
       Promise.resolve({ success: true, value: ['ar', 'nl'] }),
+    isUserKnowsHowToAdd: () => Promise.resolve(isUserKnowsHowToAdd),
+    setUserKnowsHowToAdd: async (value) => {
+      isUserKnowsHowToAdd = value;
+    },
   },
   youTube: {
     ytHosts: ['localhost:8020'],

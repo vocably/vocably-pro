@@ -115,6 +115,36 @@ select {
   opacity: 0.5;
 }
 
+@keyframes floating {
+  0% {
+    transform: translate(0, -2px);
+  }
+  50% {
+    transform: translate(1px, 2px);
+  }
+  100% {
+    transform: translate(0, -2px);
+  }
+}
+
+.save-hint-container {
+  position: relative;
+}
+
+.save-hint {
+  position: absolute;
+  width: 265px;
+  top: 6px;
+  right: 40px;
+  animation: floating 3s ease-in-out infinite;
+  opacity: 1;
+  transition: opacity 200ms ease-in-out;
+}
+
+.save-hint.hidden {
+  opacity: 0;
+}
+
 .cards {
   border: $internal-border;
   border-radius: $v-border-radius;
@@ -129,6 +159,10 @@ select {
 
     &:first-child {
       border-top: none;
+    }
+
+    .card-hint-displayed {
+      min-width: 320px;
     }
 
     .card-action {
