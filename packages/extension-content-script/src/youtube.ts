@@ -49,6 +49,16 @@ const handlePlayerElement = (player: HTMLElement): (() => void) => {
           anchor.classList.add('vocably-word');
           anchor.innerText = token.text;
 
+          anchor.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          });
+
+          anchor.addEventListener('mouseup', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          });
+
           anchor.addEventListener('click', async () => {
             await createPopup({
               text: anchor.textContent,
