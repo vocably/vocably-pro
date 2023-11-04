@@ -1,7 +1,7 @@
 import { NavigationProp, Route } from '@react-navigation/native';
 import { CardItem } from '@vocably/model';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, TextInput, useTheme } from 'react-native-paper';
 import { userSelectedDeck } from './languageDeck/userSelectedDeck';
 import { mainPadding } from './styles';
@@ -63,51 +63,53 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
 
   const theme = useTheme();
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: theme.colors.background,
-        },
-      ]}
-    >
-      <TextInput
-        style={styles.inputItem}
-        mode={'outlined'}
-        label={'Source'}
-        value={cardData.source}
-        onChangeText={onTextChange('source')}
-      ></TextInput>
-      <TextInput
-        style={styles.inputItem}
-        mode={'outlined'}
-        label={'Part of Speech'}
-        value={cardData.partOfSpeech}
-        onChangeText={onTextChange('partOfSpeech')}
-      ></TextInput>
-      <TextInput
-        style={styles.inputItem}
-        mode={'outlined'}
-        label={'Translation'}
-        value={cardData.translation}
-        onChangeText={onTextChange('translation')}
-      ></TextInput>
-      <TextInput
-        style={styles.inputItem}
-        mode={'outlined'}
-        label={'Definition'}
-        value={cardData.definition}
-        multiline={true}
-        onChangeText={onTextChange('definition')}
-      ></TextInput>
-      <Button
-        mode={'contained'}
-        loading={isUpdating}
-        disabled={isUpdating}
-        onPress={onUpdate}
+    <ScrollView automaticallyAdjustKeyboardInsets={true}>
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: theme.colors.background,
+          },
+        ]}
       >
-        Save
-      </Button>
-    </View>
+        <TextInput
+          style={styles.inputItem}
+          mode={'outlined'}
+          label={'Source'}
+          value={cardData.source}
+          onChangeText={onTextChange('source')}
+        ></TextInput>
+        <TextInput
+          style={styles.inputItem}
+          mode={'outlined'}
+          label={'Part of Speech'}
+          value={cardData.partOfSpeech}
+          onChangeText={onTextChange('partOfSpeech')}
+        ></TextInput>
+        <TextInput
+          style={styles.inputItem}
+          mode={'outlined'}
+          label={'Translation'}
+          value={cardData.translation}
+          onChangeText={onTextChange('translation')}
+        ></TextInput>
+        <TextInput
+          style={styles.inputItem}
+          mode={'outlined'}
+          label={'Definition'}
+          value={cardData.definition}
+          multiline={true}
+          onChangeText={onTextChange('definition')}
+        ></TextInput>
+        <Button
+          mode={'contained'}
+          loading={isUpdating}
+          disabled={isUpdating}
+          onPress={onUpdate}
+        >
+          Save
+        </Button>
+      </View>
+    </ScrollView>
   );
 };
