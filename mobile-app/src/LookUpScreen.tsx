@@ -79,6 +79,8 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
       return;
     }
 
+    Keyboard.dismiss();
+
     setIsAnalyzing(true);
     // @ts-ignore
     const payload: AnalyzePayload = {
