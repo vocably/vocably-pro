@@ -7,11 +7,9 @@ export const getEnvironmentVariables = () => {
     definitions: Object.entries(process.env).map(([key, value]) => {
       return [`process.env.${key}`, value];
     }),
-    stringified: {
-      'process.env': Object.keys(process.env).reduce((env, key) => {
-        env[key] = JSON.stringify(process.env[key]);
-        return env;
-      }, {}),
-    },
+    stringified: Object.keys(process.env).reduce((env, key) => {
+      env[`process.env.${key}`] = JSON.stringify(process.env[key]);
+      return env;
+    }, {}),
   };
 };

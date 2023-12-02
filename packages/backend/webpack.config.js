@@ -12,6 +12,7 @@ module.exports = {
   entry: getModules('./src/lambdas'),
   externals: {
     'aws-sdk': 'aws-sdk',
+    '@aws-sdk/client-s3': '@aws-sdk/client-s3',
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
