@@ -1,9 +1,10 @@
+import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import { SendEmailCommand, SESv2Client } from '@aws-sdk/client-sesv2'; // ES Modules import
 import { Result } from '@vocably/model';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { DynamoDB, SES } from 'aws-sdk';
 
-const ddb = new DynamoDB.DocumentClient();
-const ses = new SES();
+const ddb = new DynamoDBClient();
+const ses = new SESv2Client();
 
 export const saveFeedback = async (
   event: APIGatewayProxyEvent
@@ -16,41 +17,50 @@ export const saveFeedback = async (
 
   metadata['claims'] = claims;
 
-  await ses
-    .sendEmail({
+  await ses.send(
+    new SendEmailCommand({
       Destination: { ToAddresses: ['d@vocably.pro'] },
-      Message: {
-        Subject: {
-          Charset: 'UTF-8',
-          Data: `${
-            process.env.FEEDBACK_NOTIFICATION_PREFIX ?? ''
-          }User feedback received`,
-        },
-        Body: {
-          Text: {
+
+      Content: {
+        Simple: {
+          Subject: {
             Charset: 'UTF-8',
-            Data: `Username: ${username}\n\n${feedback}\n\n${JSON.stringify(
-              metadata,
-              null,
-              4
-            )}`,
+            Data: `${
+              process.env.FEEDBACK_NOTIFICATION_PREFIX ?? ''
+            }User feedback received`,
+          },
+          Body: {
+            Text: {
+              Charset: 'UTF-8',
+              Data: `Username: ${username}\n\n${feedback}\n\n${JSON.stringify(
+                metadata,
+                null,
+                4
+              )}`,
+            },
           },
         },
       },
-      Source: 'd@vocably.pro',
+      FromEmailAddress: 'd@vocably.pro',
     })
-    .promise();
+  );
 
-  await ddb
-    .put({
+  await ddb.send(
+    new PutItemCommand({
       TableName: process.env.USER_FEEDBACK_TABLE,
       Item: {
-        Username: username,
-        Timestamp: timestamp,
-        Feedback: feedback,
+        Username: {
+          S: username,
+        },
+        Timestamp: {
+          S: timestamp,
+        },
+        Feedback: {
+          S: feedback,
+        },
       },
     })
-    .promise();
+  );
 
   return {
     success: true,

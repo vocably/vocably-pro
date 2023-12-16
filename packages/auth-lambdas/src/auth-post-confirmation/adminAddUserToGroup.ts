@@ -1,4 +1,10 @@
-import AWS from 'aws-sdk';
+import {
+  AdminAddUserToGroupCommand,
+  AdminAddUserToGroupCommandOutput,
+  CognitoIdentityProviderClient,
+} from '@aws-sdk/client-cognito-identity-provider';
+
+const client = new CognitoIdentityProviderClient();
 
 export const adminAddUserToGroup = async ({
   userPoolId,
@@ -8,15 +14,13 @@ export const adminAddUserToGroup = async ({
   userPoolId: string;
   username: string;
   groupName: string;
-}): Promise<{
-  $response: AWS.Response<Record<string, string>, AWS.AWSError>;
-}> => {
-  const params = {
+}): Promise<AdminAddUserToGroupCommandOutput> => {
+  const input = {
     GroupName: groupName,
     UserPoolId: userPoolId,
     Username: username,
   };
 
-  const cognitoIdp = new AWS.CognitoIdentityServiceProvider();
-  return cognitoIdp.adminAddUserToGroup(params).promise();
+  const command = new AdminAddUserToGroupCommand(input);
+  return client.send(command);
 };

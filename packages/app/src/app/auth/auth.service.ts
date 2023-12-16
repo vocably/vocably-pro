@@ -14,7 +14,6 @@ import {
   take,
   tap,
 } from 'rxjs';
-import { isActive, isCancelled } from '../subscription/subscriptionStatus';
 
 @Injectable({
   providedIn: 'root',
@@ -36,10 +35,6 @@ export class AuthService {
 
   public waitForSubscriptionHook$ = this.fetchUserData$.pipe(
     tap((userData) => {
-      if (!isActive(userData)) {
-        throw Error('The user attributes have not been updated yet.');
-      }
-
       this.userData$.next(userData);
     }),
     switchMap(() => {
@@ -54,10 +49,6 @@ export class AuthService {
 
   public waitForCancelHook$ = this.fetchUserData$.pipe(
     tap((userData) => {
-      if (!isCancelled(userData)) {
-        throw Error('The user attributes have not been updated yet.');
-      }
-
       this.userData$.next(userData);
     }),
     take(1),

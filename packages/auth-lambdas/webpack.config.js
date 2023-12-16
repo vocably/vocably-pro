@@ -11,7 +11,8 @@ module.exports = {
   },
   entry: getModules('./src'),
   externals: {
-    'aws-sdk': 'aws-sdk',
+    '@aws-sdk/client-cognito-identity-provider':
+      '@aws-sdk/client-cognito-identity-provider',
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],

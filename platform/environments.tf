@@ -12,11 +12,6 @@ export const environmentLocal = {
   piwikId: '${var.piwik_app_id}',
   sentryEnvironment: '${var.sentry_environment}',
   wwwBaseUrl: '${local.www_base_url}',
-  paddle: {
-    sandbox: ${var.paddle_sandbox ? "true" : "false"},
-    vendorId: ${var.paddle_vendor_id},
-    subscriptionProducts: ${jsonencode(concat(var.paddle_subscription_trial_products, var.paddle_subscription_non_trial_products))},
-  },
   auth: {
     region: '${data.aws_region.current.name}',
     userPoolId: '${aws_cognito_user_pool.users.id}',
@@ -89,7 +84,6 @@ LEXICALA_HOST="${var.lexicala_host}"
 LEXICALA_KEY="${var.lexicala_key}"
 NLP_TRANSLATION_HOST="${var.nlp_translation_host}"
 NLP_TRANSLATION_KEY="${var.nlp_translation_key}"
-PADDLE_PUBLIC_KEY="${replace(var.paddle_public_key, "\n", "\\n")}"
 CONGINOT_USER_POOL_ID="${aws_cognito_user_pool.users.id}"
 CANCELLED_SUBCRIPTIONS_TABLE="${aws_dynamodb_table.cancelled_subscriptions.name}"
 USER_FEEDBACK_TABLE="${aws_dynamodb_table.user_feedback.name}"
@@ -107,7 +101,6 @@ locals {
   backend_test_env_content = <<EOT
 ${local.backend_env_content}
 TEST_SKIP_SPEC="false"
-TEST_PADDLE_ENV="${var.paddle_test_env}"
   EOT
 }
 

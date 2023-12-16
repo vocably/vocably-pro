@@ -1,11 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import {
-  isActive,
-  isCancelled,
-  isUnsubscribed,
-} from '../subscription/subscriptionStatus';
 
 @Component({
   selector: 'app-header',
@@ -31,10 +26,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @Input() title: string = '';
   @Input() dense = false;
-
-  isActive = isActive;
-  isCancelled = isCancelled;
-  isUnsubscribed = isUnsubscribed;
 
   isLoggedIn: boolean | null = null;
 

@@ -4,7 +4,7 @@ resource "aws_lambda_function" "analyze" {
   role             = aws_iam_role.lambda_execution.arn
   handler          = "analyze.analyze"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
-  runtime          = "nodejs14.x"
+  runtime          = "nodejs18.x"
 }
 
 resource "aws_lambda_permission" "analyze" {

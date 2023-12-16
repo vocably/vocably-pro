@@ -11,8 +11,11 @@ module.exports = {
   },
   entry: getModules('./src/lambdas'),
   externals: {
-    'aws-sdk': 'aws-sdk',
     '@aws-sdk/client-s3': '@aws-sdk/client-s3',
+    '@aws-sdk/client-cognito-identity-provider':
+      '@aws-sdk/client-cognito-identity-provider',
+    '@aws-sdk/client-dynamodb': '@aws-sdk/client-dynamodb',
+    '@aws-sdk/client-sesv2': '@aws-sdk/client-sesv2',
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],

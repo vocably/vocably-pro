@@ -93,7 +93,7 @@ resource "aws_lambda_function" "subscription_canceller" {
   role             = aws_iam_role.subscription_canceller_lambda_execution.arn
   handler          = "subscription-canceller.subscriptionCanceller"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
-  runtime          = "nodejs14.x"
+  runtime          = "nodejs18.x"
 }
 
 resource "aws_cloudwatch_log_group" "subscription_canceller" {

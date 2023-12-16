@@ -97,7 +97,7 @@ resource "aws_lambda_function" "save_email" {
   role             = aws_iam_role.save_email_lambda.arn
   handler          = "saveEmail.saveEmail"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
-  runtime          = "nodejs14.x"
+  runtime          = "nodejs18.x"
 }
 
 resource "aws_cloudwatch_log_group" "save_email" {

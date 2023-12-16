@@ -8,7 +8,6 @@ import { setUp, setUserId } from '../piwik';
 import { AuthService } from './auth/auth.service';
 import { RefreshService } from './refresh.service';
 import { RouterParamsService } from './router-params.service';
-import { PaddleService } from './subscription/paddle.service';
 import { UpdateService } from './update.service';
 
 @Component({
@@ -25,7 +24,6 @@ export class AppComponent implements OnInit {
     private updateService: UpdateService,
     private refreshService: RefreshService,
     public platform: Platform,
-    private paddleService: PaddleService,
     private auth: AuthService
   ) {
     routerParams.data$.subscribe((data) => {
@@ -40,8 +38,6 @@ export class AppComponent implements OnInit {
         switchMap(() => this.updateService.checkForUpdate())
       )
       .subscribe(() => refreshService.unregister('update'));
-
-    this.paddleService.bootstrap();
 
     let isPiwikSet = false;
     this.auth.userData$

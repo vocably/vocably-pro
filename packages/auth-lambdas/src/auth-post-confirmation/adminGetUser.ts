@@ -1,5 +1,10 @@
-import AWS from 'aws-sdk';
-import { AdminGetUserResponse } from 'aws-sdk/clients/cognitoidentityserviceprovider';
+import {
+  AdminGetUserCommand,
+  AdminGetUserResponse,
+  CognitoIdentityProviderClient,
+} from '@aws-sdk/client-cognito-identity-provider';
+
+const client = new CognitoIdentityProviderClient();
 
 export const adminGetUser = async ({
   userPoolId,
@@ -8,11 +13,10 @@ export const adminGetUser = async ({
   userPoolId: string;
   username: string;
 }): Promise<AdminGetUserResponse> => {
-  const cognitoIdp = new AWS.CognitoIdentityServiceProvider();
-  return cognitoIdp
-    .adminGetUser({
+  return client.send(
+    new AdminGetUserCommand({
       UserPoolId: userPoolId,
       Username: username,
     })
-    .promise();
+  );
 };

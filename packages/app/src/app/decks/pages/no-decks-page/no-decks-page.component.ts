@@ -5,7 +5,6 @@ import { Subject, takeUntil } from 'rxjs';
 import { browser } from '../../../../browser';
 import { AuthService } from '../../../auth/auth.service';
 import { isExtensionInstalled } from '../../../isExtensionInstalled';
-import { isSubscribed } from '../../../subscription/isSubscribed';
 import { DeckListStoreService } from '../../deck-list-store.service';
 
 const canInstallTheExtension = browser.satisfies({
@@ -28,7 +27,6 @@ const isChrome = browser.satisfies({
 })
 export class NoDecksPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
-  public isSubscribed = false;
 
   public isInstalled = false;
   public proxyLanguage: GoogleLanguage = 'en';
@@ -43,10 +41,6 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
     route: ActivatedRoute,
     auth: AuthService
   ) {
-    auth.userData$.pipe(takeUntil(this.destroy$)).subscribe((userData) => {
-      this.isSubscribed = isSubscribed(userData);
-    });
-
     if (deckListStore.decks$.value.length > 0) {
       router.navigate([deckListStore.decks$.value[0]], {
         relativeTo: route,

@@ -90,7 +90,7 @@ resource "aws_lambda_function" "auth_post_confirmation" {
   role             = aws_iam_role.auth_post_confirmation_lambda_execution.arn
   handler          = "auth-post-confirmation.authPostConfirmation"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
-  runtime          = "nodejs14.x"
+  runtime          = "nodejs18.x"
 }
 
 resource "aws_lambda_permission" "auth_post_confirmation" {

@@ -47,14 +47,6 @@ const routes: Routes = [
     canActivate: [CognitoAuthGuard],
   },
   {
-    path: 'subscription',
-    loadChildren: () =>
-      import('./subscription/subscription.module').then(
-        (m) => m.SubscriptionModule
-      ),
-    canActivate: [CognitoAuthGuard],
-  },
-  {
     path: 'page',
     loadChildren: () =>
       import('./static-pages/static-pages.module').then(

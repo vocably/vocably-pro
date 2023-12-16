@@ -4,18 +4,6 @@ export const environmentLocal = {
   piwikId: '25473e53-4fde-4fe1-a2ce-273ec6a4d0e3',
   sentryEnvironment: 'dev',
   wwwBaseUrl: 'https://dev.env.vocably.pro',
-  paddle: {
-    sandbox: true,
-    vendorId: 5064,
-    subscriptionProducts: [
-      { currency: 'EUR', duration: 1, id: 26950, price: 9.95, trial: 7 },
-      { currency: 'EUR', duration: 3, id: 27076, price: 19.95, trial: 7 },
-      { currency: 'EUR', duration: 12, id: 26952, price: 59.4, trial: 7 },
-      { currency: 'EUR', duration: 1, id: 26951, price: 9.95, trial: 0 },
-      { currency: 'EUR', duration: 3, id: 27077, price: 19.95, trial: 0 },
-      { currency: 'EUR', duration: 12, id: 26953, price: 59.4, trial: 0 },
-    ],
-  },
   auth: {
     region: 'eu-central-1',
     userPoolId: 'eu-central-1_e2NoKqwUm',
