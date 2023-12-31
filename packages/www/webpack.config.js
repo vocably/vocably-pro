@@ -79,6 +79,9 @@ module.exports = (env) => {
       new CopyPlugin({
         patterns: [{ from: 'src/assets', to: 'assets' }],
       }),
+      new CopyPlugin({
+        patterns: [{ from: 'src/robots.txt', to: 'robots.txt' }],
+      }),
       new WebpackWatchPlugin({
         files: [`${pagesDir}/${pagesPattern}`, './environment.js'],
       }),
