@@ -55,16 +55,24 @@ module.exports = (env) => {
         : '[name].[ext][query]',
     },
     plugins: [
-      ...glob.sync(pagesPattern, { cwd: pagesDir }).map(
-        (handlebarsPage) =>
-          new HtmlWebpackPlugin({
-            template: `${pagesDir}/${handlebarsPage}`,
-            filename: handlebarsPage.replace(handlebarsExtension, 'html'),
-            inject: true,
-            favicon: './src/favicon.ico',
-            environment,
-          })
-      ),
+      ...glob.sync(pagesPattern, { cwd: pagesDir }).map((handlebarsPage) => {
+        const filename = handlebarsPage.replace(handlebarsExtension, 'html');
+
+        let canonicalHref = 'https://vocably.pro';
+
+        if (filename !== 'index.html') {
+          canonicalHref += `/${filename}`;
+        }
+
+        return new HtmlWebpackPlugin({
+          template: `${pagesDir}/${handlebarsPage}`,
+          filename: filename,
+          canonicalHref: canonicalHref,
+          inject: true,
+          favicon: './src/favicon.ico',
+          environment,
+        });
+      }),
       new MiniCssExtractPlugin({
         filename: env.production ? '[name].[contenthash].css' : '[name].css',
       }),
@@ -72,10 +80,7 @@ module.exports = (env) => {
         patterns: [{ from: 'src/assets', to: 'assets' }],
       }),
       new WebpackWatchPlugin({
-        files: [
-          `${pagesDir}/${pagesPattern}`,
-          './environment.js',
-        ],
+        files: [`${pagesDir}/${pagesPattern}`, './environment.js'],
       }),
     ],
     devServer: {
