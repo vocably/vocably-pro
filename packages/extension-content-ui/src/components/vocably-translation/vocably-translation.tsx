@@ -120,6 +120,7 @@ export class VocablyTranslation {
                             {isCardItem(card) && (
                               <button
                                 class="card-action-button"
+                                title="Remove card"
                                 disabled={this.isUpdating !== null}
                                 onClick={() => {
                                   this.saveCardClicked = true;
@@ -141,6 +142,7 @@ export class VocablyTranslation {
                             {isDetachedCardItem(card) && (
                               <button
                                 class="card-action-button"
+                                title="Add card"
                                 disabled={this.isUpdating !== null}
                                 onClick={() => {
                                   this.saveCardClicked = true;
