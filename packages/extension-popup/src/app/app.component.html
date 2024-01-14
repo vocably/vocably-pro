@@ -2,6 +2,14 @@
   <app-header class="mb-1"></app-header>
 
   <div>
-    <a [href]="appBaseUrl" target="_blank">Go to the app to study cards.</a>
+    <a [href]="appBaseUrl" target="_blank">Go to the web app</a>
+    or
+    <button class="link" (click)="showQRCode = true">
+      install the mobile app
+    </button>
+    to study your cards.
+  </div>
+  <div class="pt-1 qr-code" [class.visible]="showQRCode">
+    <img src="assets/qrcode.svg" width="200" />
   </div>
 </div>

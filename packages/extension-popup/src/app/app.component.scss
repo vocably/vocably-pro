@@ -1,4 +1,22 @@
+@import '~@vocably/styles/mixins/unstyled';
+@import '~@vocably/styles/mixins/link';
+
 .container {
   padding: 1rem;
   min-width: 240px;
+}
+
+.link {
+  @include unstyled();
+  @include link();
+}
+
+.qr-code {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+
+  &.visible {
+    max-height: 400px;
+  }
 }

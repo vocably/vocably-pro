@@ -8,4 +8,5 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
   appBaseUrl = environment.appBaseUrl;
+  showQRCode = false;
 }
