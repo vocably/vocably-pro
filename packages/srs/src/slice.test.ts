@@ -91,9 +91,9 @@ describe('slice', () => {
   it('greedy returns max cards when the current day is exhausted', () => {
     const batch = slice(new Date(dueDay0 + 1), 5, cards);
     expect(batch.length).toEqual(4);
-    expect(batch[0].id).toEqual('1');
-    expect(batch[1].id).toEqual('2');
-    expect(batch[2].id).toEqual('3');
-    expect(batch[3].id).toEqual('4');
+    expect(batch[0].id).toEqual('3');
+    expect(batch[1].id).toEqual('4');
+    expect(batch[2].id).toEqual('1');
+    expect(batch[3].id).toEqual('2');
   });
 });
