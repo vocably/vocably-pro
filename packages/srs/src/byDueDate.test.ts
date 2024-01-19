@@ -4,7 +4,7 @@ describe('byDueDate', function () {
   it('should put the smaller date first', () => {
     expect(
       byDueDate(0)({ data: { dueDate: 3 } }, { data: { dueDate: 2 } })
-    ).toBeGreaterThan(0);
+    ).toBeLessThan(0);
   });
 
   it('should prioritize the todays date', () => {

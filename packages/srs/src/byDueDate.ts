@@ -15,5 +15,5 @@ export const byDueDate =
       return 1;
     }
 
-    return item1.data.dueDate - item2.data.dueDate;
+    return item2.data.dueDate - item1.data.dueDate;
   };
