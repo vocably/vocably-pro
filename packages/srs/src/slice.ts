@@ -1,11 +1,14 @@
 import { CardItem } from '@vocably/model';
-import { byDueDate } from './byDueDate';
 
-export const slice = (
+export type SliceItem = {
+  data: Pick<CardItem['data'], 'dueDate'>;
+};
+
+export const slice = <T extends SliceItem>(
   today: Date,
   maxCards: number,
-  list: CardItem[]
-): CardItem[] => {
+  list: T[]
+): T[] => {
   if (list.length === 0) {
     return [];
   }
@@ -17,21 +20,48 @@ export const slice = (
   );
 
   const batch: CardItem[] = [];
-  const sortedList = list.sort(byDueDate(todayTS));
 
-  const isGreedy = sortedList[0].data.dueDate > todayTS;
+  const classifiedListItems: {
+    past: T[];
+    future: T[];
+    today: T[];
+  } = {
+    past: [],
+    future: [],
+    today: [],
+  };
 
-  for (let i = 0; i < sortedList.length; i++) {
-    if (i === maxCards) {
-      return batch;
+  list.forEach((item) => {
+    if (item.data.dueDate < todayTS) {
+      classifiedListItems.past.push(item);
+    } else if (item.data.dueDate === todayTS) {
+      classifiedListItems.today.push(item);
+    } else {
+      classifiedListItems.future.push(item);
     }
+  });
 
-    if (!isGreedy && sortedList[i].data.dueDate > todayTS) {
-      return batch;
-    }
+  const result = classifiedListItems.today.slice(0, maxCards);
 
-    batch.push(sortedList[i]);
+  if (result.length === maxCards) {
+    return result;
   }
 
-  return batch;
+  result.push(
+    ...classifiedListItems.past
+      .sort((a, b) => b.data.dueDate - a.data.dueDate)
+      .slice(0, maxCards - result.length)
+  );
+
+  if (classifiedListItems.today.length > 0 || result.length === maxCards) {
+    return result;
+  }
+
+  result.push(
+    ...classifiedListItems.future
+      .sort((a, b) => a.data.dueDate - b.data.dueDate)
+      .slice(0, maxCards - result.length)
+  );
+
+  return result;
 };
