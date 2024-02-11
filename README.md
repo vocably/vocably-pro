@@ -1,4 +1,4 @@
-# Vocably
+# Vocably - a language learning platform
 
 https://vocably.pro
 
@@ -11,6 +11,13 @@ Vocably is a language learning platform consisted of:
 ## How it works
 
 [![How I use Vocably](assets/how-i-use-vocably.png?raw=true)](https://youtu.be/UwNog9yKCeA)
+
+The idea of Vocably is “translate once, learn forever.” The platform solves two problems:
+
+- Conveniently translate a word or phrase
+- Learn what you have translated
+
+You can translate with the help of a browser extension or mobile app. Vocably will create a high-quality flashcards out of your transitions, so you can learn them when you have time.
 
 ## License
 
