@@ -5,8 +5,8 @@ https://vocably.pro
 Vocably is a language learning platform consisted of:
 
 - [Chrome](https://chromewebstore.google.com/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb) and [Safari](https://apps.apple.com/us/app/vocably-for-safari/id6464076425) browser extension
+- Mobile application ([iOS](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757) and [Android](https://play.google.com/store/apps/details?id=com.vocablypro))
 - [Web application](https://app.vocably.pro)
-- Mobile application ([iOS](https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757) and [Android](https://play.google.com/store/apps/details?id=com.vocablypro))
 
 ## How it works
 
