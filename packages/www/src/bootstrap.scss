@@ -6,7 +6,16 @@ $container-max-widths: (
   md: 720px,
   lg: 720px,
   xl: 720px,
-  xxl: 720px
+  xxl: 720px,
 );
 
+$headings-margin-bottom: 2rem;
+$paragraph-margin-bottom: 2rem;
+
 @import '~bootstrap/scss/bootstrap.scss';
+
+ol,
+ul,
+dl {
+  margin-bottom: $paragraph-margin-bottom;
+}
