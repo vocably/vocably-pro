@@ -134,12 +134,14 @@ export const initYoutube = async (options: InitYouTubeOptions) => {
     subtree: true,
   });
 
+  let isAltDown = false;
+
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Alt') {
+    if (e.key !== 'Alt' || isAltDown) {
       return;
     }
 
-    let isAltDown = true;
+    isAltDown = true;
     let isMouseDown = false;
 
     const players = getPlayerElements();
@@ -204,13 +206,29 @@ export const initYoutube = async (options: InitYouTubeOptions) => {
         });
     });
 
+    const onBlur = () => {
+      tearDown();
+    };
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        tearDown();
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    window.addEventListener('blur', onBlur);
+
     const tearDown = () => {
+      isAltDown = false;
       captionContainersCloneList.forEach((element) => element.remove());
       captionContainerList.forEach((element) => (element.hidden = false));
 
       document.removeEventListener('keyup', onKeyUp);
       document.removeEventListener('mouseup', onMouseUp);
       document.removeEventListener('mousedown', onMouseDown);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener('blur', onBlur);
     };
 
     const onMouseDown = (e: MouseEvent) => {
