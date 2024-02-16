@@ -108,7 +108,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
               style={{
                 flexDirection: 'row',
                 flexWrap: 'wrap',
-                alignItems: 'center',
+                alignItems: 'baseline',
               }}
             >
               <PlaySound

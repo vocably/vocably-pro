@@ -12,7 +12,12 @@ type PlaySound = FC<{
   style?: StyleProp<ViewStyle>;
 }>;
 
-export const PlaySound: PlaySound = ({ text, language, size = 16, style }) => {
+export const PlaySound: PlaySound = ({
+  text,
+  language,
+  size = 16,
+  style = {},
+}) => {
   const theme = useTheme();
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -54,7 +59,7 @@ export const PlaySound: PlaySound = ({ text, language, size = 16, style }) => {
       disabled={isPlaying}
       style={({ pressed }) => [
         {
-          opacity: pressed ? 0.5 : 1,
+          opacity: pressed ? 0.25 : 0.5,
         },
         style,
       ]}
