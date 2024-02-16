@@ -36,23 +36,15 @@ export const CardListItem: CardListItem = ({ card, style }) => {
           size={22}
           style={{ marginRight: 6 }}
         />
-
-        <View
+        <Text
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'baseline',
+            fontSize: 24,
+            color: theme.colors.secondary,
           }}
         >
-          <Text
-            style={{
-              fontSize: 24,
-              color: theme.colors.secondary,
-            }}
-          >
-            {card.source}
-          </Text>
-        </View>
+          {card.source}
+        </Text>
+
         {card.partOfSpeech && (
           <Text style={{ marginLeft: 8 }}>{card.partOfSpeech}</Text>
         )}
