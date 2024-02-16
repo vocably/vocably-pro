@@ -1,6 +1,6 @@
 import { GoogleLanguage } from '@vocably/model';
-import React, { FC, useCallback } from 'react';
-import { Pressable } from 'react-native';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { Alert, Pressable } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import Sound from 'react-native-sound';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,32 +14,51 @@ type PlaySound = FC<{
 export const PlaySound: PlaySound = ({ text, language, size = 16 }) => {
   const theme = useTheme();
 
-  const playAudio = useCallback(() => {
-    console.log('Playing audio!!@');
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [loadedAudio, setLoadedAudio] = useState<Sound | null>(null);
 
-    const audio = new Sound(
-      'https://translate.google.com/translate_tts?ie=UTF-8&q=de kring&tl=nl&client=tw-ob',
-      '',
-      (error) => {
-        if (error) {
-          console.log(error);
+  const playSound = useCallback(() => {
+    const audio =
+      loadedAudio ??
+      new Sound(
+        `https://translate.google.com/translate_tts?ie=UTF-8&q=${text}&tl=${language}&client=tw-ob`,
+        '',
+        (error) => {
+          if (error === null) {
+            setLoadedAudio(audio);
+          }
+          if (error) {
+            setIsPlaying(false);
+            Alert.alert(
+              'Error: The sound could not be played',
+              `Something went wrong during the sound playback. The sound playback is a new feature, and it might have problems. Could you please try to play the sound one more time?`
+            );
+          }
         }
-      }
-    );
+      );
 
-    console.log('Audio created');
+    setIsPlaying(true);
+  }, [text, language, setIsPlaying, setLoadedAudio, loadedAudio]);
 
-    audio.play();
-  }, []);
+  useEffect(() => {
+    if (isPlaying && loadedAudio) {
+      loadedAudio.play(() => {
+        setIsPlaying(false);
+      });
+    }
+  }, [isPlaying, loadedAudio, setIsPlaying]);
 
   return (
     <Pressable
+      disabled={isPlaying}
       style={({ pressed }) => [{}, { opacity: pressed ? 0.5 : 1 }]}
-      onPress={() => playAudio()}
+      onPress={playSound}
     >
       <Icon
-        name="play-circle"
-        style={{ color: theme.colors.primary }}
+        name={isPlaying ? 'volume-medium' : 'play-circle'}
+        style={{
+          color: theme.colors.onBackground,
+        }}
         size={size}
       />
     </Pressable>
