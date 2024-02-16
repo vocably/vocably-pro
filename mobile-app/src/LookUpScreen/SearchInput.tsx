@@ -49,6 +49,7 @@ export const SearchInput: SearchInput = ({
           height: '100%',
           paddingLeft: 8,
           color: theme.colors.secondary,
+          fontSize: 18,
         }}
         editable={!disabled}
         onFocus={() => setIsFocused(true)}
