@@ -52,7 +52,7 @@ export const WelcomeScreen: WelcomeScreen = () => {
         Welcome to VocablyPro.
       </Text>
       <Text style={{ textAlign: 'center' }}>
-        For the beginning, try to{' '}
+        To get started, try to{' '}
         <Text
           style={{ color: theme.colors.primary }}
           onPress={() => navigation.navigate('LookUp')}
