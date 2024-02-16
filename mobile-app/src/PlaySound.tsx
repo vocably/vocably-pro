@@ -1,6 +1,6 @@
 import { GoogleLanguage } from '@vocably/model';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Alert, Pressable } from 'react-native';
+import { Alert, Pressable, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import Sound from 'react-native-sound';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -9,9 +9,10 @@ type PlaySound = FC<{
   text: string;
   language: GoogleLanguage;
   size?: number;
+  style?: StyleProp<ViewStyle>;
 }>;
 
-export const PlaySound: PlaySound = ({ text, language, size = 16 }) => {
+export const PlaySound: PlaySound = ({ text, language, size = 16, style }) => {
   const theme = useTheme();
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -51,7 +52,12 @@ export const PlaySound: PlaySound = ({ text, language, size = 16 }) => {
   return (
     <Pressable
       disabled={isPlaying}
-      style={({ pressed }) => [{}, { opacity: pressed ? 0.5 : 1 }]}
+      style={({ pressed }) => [
+        {
+          opacity: pressed ? 0.5 : 1,
+        },
+        style,
+      ]}
       onPress={playSound}
     >
       <Icon

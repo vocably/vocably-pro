@@ -30,23 +30,24 @@ export const CardListItem: CardListItem = ({ card, style }) => {
           alignItems: 'baseline',
         }}
       >
+        <PlaySound
+          text={card.source}
+          language={card.language as GoogleLanguage}
+          size={22}
+          style={{ marginRight: 6 }}
+        />
+
         <View
           style={{
             display: 'flex',
             flexDirection: 'row',
-            alignItems: 'center',
+            alignItems: 'baseline',
           }}
         >
-          <PlaySound
-            text={card.source}
-            language={card.language as GoogleLanguage}
-            size={22}
-          />
           <Text
             style={{
               fontSize: 24,
               color: theme.colors.secondary,
-              marginLeft: 6,
             }}
           >
             {card.source}
