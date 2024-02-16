@@ -1,7 +1,8 @@
-import { Card, CardItem } from '@vocably/model';
+import { Card, CardItem, GoogleLanguage } from '@vocably/model';
 import React, { FC } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { Divider, Text, useTheme } from 'react-native-paper';
+import { PlaySound } from './PlaySound';
 import { SideB } from './SideB';
 import { mainPadding } from './styles';
 
@@ -29,9 +30,21 @@ export const CardListItem: CardListItem = ({ card, style }) => {
           alignItems: 'baseline',
         }}
       >
-        <Text style={{ fontSize: 24, color: theme.colors.secondary }}>
+        <PlaySound
+          text={card.source}
+          language={card.language as GoogleLanguage}
+          size={22}
+          style={{ marginRight: 6 }}
+        />
+        <Text
+          style={{
+            fontSize: 24,
+            color: theme.colors.secondary,
+          }}
+        >
           {card.source}
         </Text>
+
         {card.partOfSpeech && (
           <Text style={{ marginLeft: 8 }}>{card.partOfSpeech}</Text>
         )}

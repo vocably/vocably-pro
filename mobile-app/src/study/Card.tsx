@@ -1,5 +1,5 @@
-import { CardItem } from '@vocably/model';
-import React, { FC, useRef } from 'react';
+import { CardItem, GoogleLanguage } from '@vocably/model';
+import React, { FC, useCallback, useRef, useState } from 'react';
 import {
   Animated,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
+import { PlaySound } from '../PlaySound';
 import { SideB } from '../SideB';
 import { Displayer } from './Displayer';
 
@@ -60,20 +61,25 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
     ],
   };
 
-  const flipToFront = () => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const flipToFront = useCallback(() => {
+    setIsFlipped(false);
     Animated.timing(flipAnimation, {
       toValue: 180,
       duration: 300,
       useNativeDriver: true,
     }).start();
-  };
-  const flipToBack = () => {
+  }, [Animated, flipAnimation, setIsFlipped]);
+
+  const flipToBack = useCallback(() => {
+    setIsFlipped(true);
     Animated.timing(flipAnimation, {
       toValue: 0,
       duration: 300,
       useNativeDriver: true,
     }).start();
-  };
+  }, [Animated, flipAnimation, setIsFlipped]);
 
   const theme = useTheme();
 
@@ -81,16 +87,36 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
     <Displayer>
       <TouchableWithoutFeedback
         onPress={() => (!!flipRotation ? flipToBack() : flipToFront())}
+        style={{ borderStyle: 'solid', borderColor: '#f00', borderWidth: 1 }}
       >
         <View style={styles.container}>
+          <Animated.View
+            style={{
+              ...styles.cardBack,
+              ...flipToFrontStyle,
+              display: 'flex',
+            }}
+          >
+            <SideB
+              card={card.data}
+              style={styles.list}
+              textStyle={{ fontSize: 24 }}
+            />
+          </Animated.View>
           <Animated.View style={{ ...styles.cardFront, ...flipToBackStyle }}>
             <View
               style={{
                 flexDirection: 'row',
                 flexWrap: 'wrap',
-                alignItems: 'center',
+                alignItems: 'baseline',
               }}
             >
+              <PlaySound
+                text={card.data.source}
+                language={card.data.language as GoogleLanguage}
+                size={24}
+                style={{ marginRight: 6 }}
+              />
               <Text style={{ fontSize: 32, color: theme.colors.secondary }}>
                 {card.data.source}
               </Text>
@@ -98,13 +124,6 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
                 <Text style={{ marginLeft: 8 }}>{card.data.partOfSpeech}</Text>
               )}
             </View>
-          </Animated.View>
-          <Animated.View style={{ ...styles.cardBack, ...flipToFrontStyle }}>
-            <SideB
-              card={card.data}
-              style={styles.list}
-              textStyle={{ fontSize: 24 }}
-            />
           </Animated.View>
         </View>
       </TouchableWithoutFeedback>
