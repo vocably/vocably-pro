@@ -196,3 +196,13 @@ select {
     }
   }
 }
+
+vocably-play-sound {
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  margin-right: 4px;
+}

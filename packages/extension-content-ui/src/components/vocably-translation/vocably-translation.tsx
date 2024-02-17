@@ -81,6 +81,10 @@ export class VocablyTranslation {
                   <div class="section">
                     <div class="margin-bottom-1">{languageSelector}</div>
                     <div class="margin-left emphasized margin-bottom-2">
+                      <vocably-play-sound
+                        text={this.phrase}
+                        language={this.result.value.translation.sourceLanguage}
+                      />
                       {this.phrase}
                     </div>
 
@@ -169,6 +173,10 @@ export class VocablyTranslation {
                             <span class="text-primary">A</span>
                           </div>
                           <div class="margin-left">
+                            <vocably-play-sound
+                              text={card.data.source}
+                              language={card.data.language as GoogleLanguage}
+                            />
                             <span class="emphasized">{card.data.source}</span>
                             {card.data.partOfSpeech && (
                               <Fragment>
