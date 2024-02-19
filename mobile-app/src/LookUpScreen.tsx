@@ -15,8 +15,8 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context'
 import { useTheme } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { InlineLoader } from './loaders/InlineLoader';
