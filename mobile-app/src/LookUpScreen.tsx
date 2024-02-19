@@ -11,11 +11,11 @@ import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 import {
   Alert,
   Keyboard,
-  SafeAreaView,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context'
 import { useTheme } from 'react-native-paper';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
