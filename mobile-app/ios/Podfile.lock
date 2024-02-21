@@ -1,6 +1,6 @@
 PODS:
   - boost (1.76.0)
-  - BVLinearGradient (2.6.2):
+  - BVLinearGradient (2.8.3):
     - React-Core
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -379,7 +379,7 @@ PODS:
     - glog
   - react-native-get-random-values (1.10.0):
     - React-Core
-  - react-native-netinfo (9.3.10):
+  - react-native-netinfo (9.5.0):
     - React-Core
   - react-native-safe-area-context (4.7.4):
     - React-Core
@@ -493,13 +493,13 @@ PODS:
     - React-jsi (= 0.72.10)
     - React-logger (= 0.72.10)
     - React-perflogger (= 0.72.10)
-  - RNAWSCognito (6.0.1):
+  - RNAWSCognito (6.3.11):
     - React-Core
   - RNCAsyncStorage (1.22.1):
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNFlashList (1.4.0):
+  - RNFlashList (1.6.3):
     - React-Core
   - RNGestureHandler (2.15.0):
     - RCT-Folly (= 2021.07.22.00)
@@ -731,7 +731,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: 7dcd2de282d72e344012f7d6564d024930a6a440
-  BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
+  BVLinearGradient: 880f91a7854faff2df62518f0281afb1c60d49a3
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f91d538f197fa71a7d5b77ec2069d49550c0eb96
@@ -765,7 +765,7 @@ SPEC CHECKSUMS:
   React-jsinspector: de0198127395fec3058140a20c045167f761bb16
   React-logger: dc3a2b174d79c2da635059212747d8d929b54e06
   react-native-get-random-values: 384787fd76976f5aec9465aff6fa9e9129af1e74
-  react-native-netinfo: ccbe1085dffd16592791d550189772e13bf479e2
+  react-native-netinfo: 48c5f79a84fbc3ba1d28a8b0d04adeda72885fa8
   react-native-safe-area-context: 2cd91d532de12acdb0a9cbc8d43ac72a8e4c897c
   React-NativeModulesApple: c3e696ff867e4bc212266cbdf7e862e48a0166fd
   React-perflogger: 43287389ea08993c300897a46f95cfac04bb6c1a
@@ -784,10 +784,10 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 6ca43e8deadf01ff06b3f01abf8f0e4d508e23c3
   React-utils: 372b83030a74347331636909278bf0a60ec30d59
   ReactCommon: 38824bfffaf4c51fbe03a2730b4fd874ef34d67b
-  RNAWSCognito: 408d318d231eaea687fd483b4d1a382a610a48c2
+  RNAWSCognito: 1a1555d91bd55628034993282ad1aac5a197a0d6
   RNCAsyncStorage: 7deab901e27d1f989a83e8be6ce91b673772c848
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNFlashList: 399bf6a0db68f594ad2c86aaff3ea39564f39f8a
+  RNFlashList: 4b4b6b093afc0df60ae08f9cbf6ccd4c836c667a
   RNGestureHandler: 7909c50383a18f0cb10ce1db7262b9a6da504c03
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNReanimated: 43675f1f0e704abe8ebf953fd79b00e66302cda2
