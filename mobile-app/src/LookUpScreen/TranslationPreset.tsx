@@ -59,7 +59,7 @@ export const TranslationPreset: TranslationPreset = ({
       ...preset,
       translationLanguage,
     });
-  }, []);
+  }, [preset]);
 
   const selectTranslationLanguage = useCallback(() => {
     navigation.navigate('LanguageSelector', {

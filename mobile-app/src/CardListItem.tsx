@@ -1,4 +1,4 @@
-import { Card, CardItem, GoogleLanguage } from '@vocably/model';
+import { Card, CardItem, isGoogleTTSLanguage } from '@vocably/model';
 import React, { FC } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { Divider, Text, useTheme } from 'react-native-paper';
@@ -30,12 +30,14 @@ export const CardListItem: CardListItem = ({ card, style }) => {
           alignItems: 'baseline',
         }}
       >
-        <PlaySound
-          text={card.source}
-          language={card.language as GoogleLanguage}
-          size={22}
-          style={{ marginRight: 6 }}
-        />
+        {isGoogleTTSLanguage(card.language) && (
+          <PlaySound
+            text={card.source}
+            language={card.language}
+            size={22}
+            style={{ marginRight: 6 }}
+          />
+        )}
         <Text
           style={{
             fontSize: 24,

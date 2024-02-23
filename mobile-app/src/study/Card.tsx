@@ -1,4 +1,4 @@
-import { CardItem, GoogleLanguage } from '@vocably/model';
+import { CardItem, isGoogleTTSLanguage } from '@vocably/model';
 import React, { FC, useCallback, useRef, useState } from 'react';
 import {
   Animated,
@@ -111,12 +111,14 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
                 alignItems: 'baseline',
               }}
             >
-              <PlaySound
-                text={card.data.source}
-                language={card.data.language as GoogleLanguage}
-                size={24}
-                style={{ marginRight: 6 }}
-              />
+              {isGoogleTTSLanguage(card.data.language) && (
+                <PlaySound
+                  text={card.data.source}
+                  language={card.data.language}
+                  size={24}
+                  style={{ marginRight: 6 }}
+                />
+              )}
               <Text style={{ fontSize: 32, color: theme.colors.secondary }}>
                 {card.data.source}
               </Text>

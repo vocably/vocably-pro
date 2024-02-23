@@ -1,4 +1,4 @@
-import { GoogleLanguage } from '@vocably/model';
+import { GoogleTTSLanguage } from '@vocably/model';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, Pressable, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from 'react-native-paper';
@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type PlaySound = FC<{
   text: string;
-  language: GoogleLanguage;
+  language: GoogleTTSLanguage;
   size?: number;
   style?: StyleProp<ViewStyle>;
 }>;
@@ -24,6 +24,8 @@ export const PlaySound: PlaySound = ({
   const [loadedAudio, setLoadedAudio] = useState<Sound | null>(null);
 
   const playSound = useCallback(() => {
+    Sound.setCategory('Playback');
+
     const audio =
       loadedAudio ??
       new Sound(

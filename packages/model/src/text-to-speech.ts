@@ -1,0 +1,58 @@
+export const GoogleTTSLanguages = [
+  'af',
+  'ar',
+  'eu',
+  'bn',
+  'bg',
+  'ca',
+  'cs',
+  'da',
+  'nl',
+  'en',
+  'fi',
+  'fr',
+  'gl',
+  'de',
+  'el',
+  'gu',
+  'he',
+  'hi',
+  'hu',
+  'is',
+  'id',
+  'it',
+  'ja',
+  'kn',
+  'ko',
+  'lv',
+  'lt',
+  'ms',
+  'ml',
+  'mr',
+  'nb',
+  'pl',
+  'pt',
+  'pa',
+  'ro',
+  'ru',
+  'sr',
+  'sk',
+  'es',
+  'sv',
+  'ta',
+  'te',
+  'th',
+  'tr',
+  'uk',
+  'vi',
+  'zh',
+  'zh-TW',
+];
+
+export type GoogleTTSLanguage = typeof GoogleTTSLanguages[number];
+
+export const isGoogleTTSLanguage = (
+  language: string
+): language is GoogleTTSLanguage => {
+  return GoogleTTSLanguages.includes(language);
+};
