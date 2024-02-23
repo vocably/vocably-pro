@@ -4,6 +4,7 @@ import {
   configureApi,
   deleteLanguageDeck,
   loadLanguageDeck,
+  playSound,
   saveLanguageDeck,
 } from '@vocably/api';
 import { makeCreate, makeDelete } from '@vocably/crud';
@@ -21,6 +22,7 @@ import {
   onListLanguagesRequest,
   onPing,
   onPingExternal,
+  onPlaySound,
   onRemoveCardRequest,
   onSetInternalProxyLanguage,
   onSetInternalSourceLanguage,
@@ -337,6 +339,10 @@ export const registerServiceWorker = (
       userKnowsHowToAdd: value,
     });
     return sendResponse();
+  });
+
+  onPlaySound(async (sendResponse, payload) => {
+    return sendResponse(await playSound(payload));
   });
 
   console.info('The service worker has been registered.');

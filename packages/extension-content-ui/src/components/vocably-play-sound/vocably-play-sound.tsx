@@ -1,5 +1,10 @@
-import { Component, h, Host, Prop, State } from '@stencil/core';
-import { GoogleLanguage } from '@vocably/model';
+import { Component, h, Host, Prop } from '@stencil/core';
+import {
+  GoogleTTSLanguage,
+  PlaySoundPayload,
+  PlaySoundResponse,
+  Result,
+} from '@vocably/model';
 
 @Component({
   tag: 'vocably-play-sound',
@@ -8,28 +13,42 @@ import { GoogleLanguage } from '@vocably/model';
 })
 export class VocablyPlaySound {
   @Prop() text: string;
-  @Prop() language: GoogleLanguage;
+  @Prop() language: GoogleTTSLanguage;
 
-  @State() playing = false;
+  @Prop() playSound: (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
 
-  playSound() {
-    this.playing = true;
+  @Prop() isPlaying: boolean = false;
 
-    setTimeout(() => {
-      this.playing = false;
-    }, 1000);
-  }
+  onPlaySoundClick = async () => {
+    this.isPlaying = true;
+    const result = await this.playSound({
+      text: this.text,
+      language: this.language,
+    });
+
+    if (result.success) {
+      const audio = new Audio(result.value.url);
+      audio.addEventListener('ended', () => {
+        this.isPlaying = false;
+      });
+      audio.play();
+    } else {
+      this.isPlaying = false;
+    }
+  };
 
   render() {
     return (
       <Host>
         <button
           class="button"
-          onClick={() => this.playSound()}
-          disabled={this.playing}
+          onClick={() => this.onPlaySoundClick()}
+          disabled={this.isPlaying}
         >
-          {!this.playing && <vocably-icon-play-circle />}
-          {this.playing && <vocably-icon-volume-medium />}
+          {!this.isPlaying && <vocably-icon-play-circle />}
+          {this.isPlaying && <vocably-icon-volume-medium />}
         </button>
       </Host>
     );

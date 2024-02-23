@@ -5,6 +5,10 @@ export type PlaySoundPayload = {
   language: GoogleTTSLanguage;
 };
 
+export type PlaySoundResponse = {
+  url: string;
+};
+
 export const isPlaySoundPayload = (
   payload: any
 ): payload is PlaySoundPayload => {

@@ -41,6 +41,7 @@ export const setContents = async ({
     translation.isFeedbackEnabled =
       contentScriptConfiguration.isFeedbackEnabled;
     translation.phrase = source;
+    translation.playSound = api.playSound;
     translation.showSaveHint = !(await api.isUserKnowsHowToAdd());
 
     const analyze = (sourceLanguage?: GoogleLanguage) => {

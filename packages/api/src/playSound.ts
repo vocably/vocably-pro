@@ -1,7 +1,7 @@
 import { PlaySoundPayload, Result } from '@vocably/model';
 import { request } from './restClient';
 
-type PlaySoundResponse = {
+export type PlaySoundResponse = {
   url: string;
 };
 

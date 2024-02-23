@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { AddCardPayload, GoogleLanguage, RemoveCardPayload, Result, TranslationCard, TranslationCards } from "@vocably/model";
+import { AddCardPayload, GoogleLanguage, GoogleTTSLanguage, PlaySoundPayload, PlaySoundResponse, RemoveCardPayload, Result, TranslationCard, TranslationCards } from "@vocably/model";
 export namespace Components {
     interface VocablyAddCardHint {
     }
@@ -31,7 +31,11 @@ export namespace Components {
     interface VocablyLogo {
     }
     interface VocablyPlaySound {
-        "language": GoogleLanguage;
+        "isPlaying": boolean;
+        "language": GoogleTTSLanguage;
+        "playSound": (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
         "text": string;
     }
     interface VocablyPopup {
@@ -53,6 +57,9 @@ export namespace Components {
         "language": string;
         "loading": boolean;
         "phrase": string;
+        "playSound": (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
         "result": Result<TranslationCards> | null;
         "showSaveHint": boolean;
     }
@@ -239,7 +246,11 @@ declare namespace LocalJSX {
     interface VocablyLogo {
     }
     interface VocablyPlaySound {
-        "language"?: GoogleLanguage;
+        "isPlaying"?: boolean;
+        "language"?: GoogleTTSLanguage;
+        "playSound"?: (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
         "text"?: string;
     }
     interface VocablyPopup {
@@ -267,6 +278,9 @@ declare namespace LocalJSX {
         "onChangeLanguage"?: (event: VocablyTranslationCustomEvent<string>) => void;
         "onRemoveCard"?: (event: VocablyTranslationCustomEvent<RemoveCardPayload>) => void;
         "phrase"?: string;
+        "playSound"?: (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
         "result"?: Result<TranslationCards> | null;
         "showSaveHint"?: boolean;
     }

@@ -14,7 +14,10 @@ import {
   GoogleLanguage,
   isCardItem,
   isDetachedCardItem,
+  isGoogleTTSLanguage,
   languageList,
+  PlaySoundPayload,
+  PlaySoundResponse,
   RemoveCardPayload,
   Result,
   TranslationCard,
@@ -37,6 +40,9 @@ export class VocablyTranslation {
   @Prop() language: string = '';
   @Prop() isUpdating: TranslationCard | null = null;
   @Prop() showSaveHint: boolean = true;
+  @Prop() playSound: (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
   @Event() changeLanguage: EventEmitter<string>;
   @Event() removeCard: EventEmitter<RemoveCardPayload>;
   @Event() addCard: EventEmitter<AddCardPayload>;
@@ -81,10 +87,17 @@ export class VocablyTranslation {
                   <div class="section">
                     <div class="margin-bottom-1">{languageSelector}</div>
                     <div class="margin-left emphasized margin-bottom-2">
-                      <vocably-play-sound
-                        text={this.phrase}
-                        language={this.result.value.translation.sourceLanguage}
-                      />
+                      {isGoogleTTSLanguage(
+                        this.result.value.translation.sourceLanguage
+                      ) && (
+                        <vocably-play-sound
+                          text={this.phrase}
+                          language={
+                            this.result.value.translation.sourceLanguage
+                          }
+                          playSound={this.playSound}
+                        />
+                      )}
                       {this.phrase}
                     </div>
 
@@ -173,10 +186,13 @@ export class VocablyTranslation {
                             <span class="text-primary">A</span>
                           </div>
                           <div class="margin-left">
-                            <vocably-play-sound
-                              text={card.data.source}
-                              language={card.data.language as GoogleLanguage}
-                            />
+                            {isGoogleTTSLanguage(card.data.language) && (
+                              <vocably-play-sound
+                                text={card.data.source}
+                                language={card.data.language}
+                                playSound={this.playSound}
+                              />
+                            )}
                             <span class="emphasized">{card.data.source}</span>
                             {card.data.partOfSpeech && (
                               <Fragment>

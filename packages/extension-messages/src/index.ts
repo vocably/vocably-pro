@@ -1,8 +1,10 @@
+import { PlaySoundResponse } from '@vocably/api/dist/esm/playSound';
 import { createExternalMessage, createMessage } from '@vocably/hermes';
 import {
   AddCardPayload,
   DirectAnalyzePayload,
   GoogleLanguage,
+  PlaySoundPayload,
   RemoveCardPayload,
   Result,
   TranslationCards,
@@ -88,3 +90,8 @@ export const [getProxyLanguage, onGetProxyLanguage] = createExternalMessage<
   void,
   GoogleLanguage | null
 >('vocably.getProxyLanguage');
+
+export const [playSound, onPlaySound] = createScopedMessage<
+  PlaySoundPayload,
+  Result<PlaySoundResponse>
+>('playSound');
