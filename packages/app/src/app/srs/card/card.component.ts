@@ -13,6 +13,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+
 import { CardItem } from '@vocably/model';
 import { Subject, takeUntil } from 'rxjs';
 

@@ -32,6 +32,7 @@
     "@aws-sdk/client-s3": "^3.127.0",
     "@aws-sdk/client-sesv2": "^3.474.0",
     "@aws-sdk/s3-request-presigner": "^3.127.0",
+    "@google-cloud/text-to-speech": "^5.1.0",
     "@google-cloud/translate": "^7.0.0",
     "@semantic-release/git": "^10.0.1",
     "@sentry/angular": "^7.6.0",
