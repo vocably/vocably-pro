@@ -105,5 +105,3 @@ export const deleteLanguageDeck = async (
     };
   }
 };
-
-export class playSound {}
