@@ -1,10 +1,10 @@
-import { PlaySoundResponse } from '@vocably/api/dist/esm/playSound';
 import { createExternalMessage, createMessage } from '@vocably/hermes';
 import {
   AddCardPayload,
   DirectAnalyzePayload,
   GoogleLanguage,
   PlaySoundPayload,
+  PlaySoundResponse,
   RemoveCardPayload,
   Result,
   TranslationCards,

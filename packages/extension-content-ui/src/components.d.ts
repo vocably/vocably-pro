@@ -31,7 +31,6 @@ export namespace Components {
     interface VocablyLogo {
     }
     interface VocablyPlaySound {
-        "isPlaying": boolean;
         "language": GoogleTTSLanguage;
         "playSound": (
     payload: PlaySoundPayload
@@ -246,7 +245,6 @@ declare namespace LocalJSX {
     interface VocablyLogo {
     }
     interface VocablyPlaySound {
-        "isPlaying"?: boolean;
         "language"?: GoogleTTSLanguage;
         "playSound"?: (
     payload: PlaySoundPayload

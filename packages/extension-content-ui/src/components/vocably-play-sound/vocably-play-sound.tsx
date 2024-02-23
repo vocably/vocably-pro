@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop } from '@stencil/core';
+import { Component, h, Host, Prop, State } from '@stencil/core';
 import {
   GoogleTTSLanguage,
   PlaySoundPayload,
@@ -19,23 +19,25 @@ export class VocablyPlaySound {
     payload: PlaySoundPayload
   ) => Promise<Result<PlaySoundResponse>>;
 
-  @Prop() isPlaying: boolean = false;
+  @State() isLoading: boolean = false;
+  @State() isPlaying: boolean = false;
 
   onPlaySoundClick = async () => {
-    this.isPlaying = true;
+    this.isLoading = true;
     const result = await this.playSound({
       text: this.text,
       language: this.language,
     });
 
+    this.isLoading = false;
+
     if (result.success) {
+      this.isPlaying = true;
       const audio = new Audio(result.value.url);
       audio.addEventListener('ended', () => {
         this.isPlaying = false;
       });
       audio.play();
-    } else {
-      this.isPlaying = false;
     }
   };
 
@@ -45,10 +47,10 @@ export class VocablyPlaySound {
         <button
           class="button"
           onClick={() => this.onPlaySoundClick()}
-          disabled={this.isPlaying}
+          disabled={this.isPlaying || this.isLoading}
         >
-          {!this.isPlaying && <vocably-icon-play-circle />}
-          {this.isPlaying && <vocably-icon-volume-medium />}
+          {!this.isLoading && !this.isPlaying && <vocably-icon-play-circle />}
+          {(this.isLoading || this.isPlaying) && <vocably-icon-volume-medium />}
         </button>
       </Host>
     );

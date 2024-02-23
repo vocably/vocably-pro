@@ -1,9 +1,5 @@
-import { PlaySoundPayload, Result } from '@vocably/model';
+import { PlaySoundPayload, PlaySoundResponse, Result } from '@vocably/model';
 import { request } from './restClient';
-
-export type PlaySoundResponse = {
-  url: string;
-};
 
 export const playSound = async (
   payload: PlaySoundPayload
