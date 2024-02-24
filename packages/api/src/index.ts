@@ -6,4 +6,5 @@ export {
   loadLanguageDeck,
   saveLanguageDeck,
 } from './languageDecks';
+export { playSound } from './playSound';
 export { sendUserFeedback } from './userFeedback';

@@ -92,3 +92,4 @@ node_modules
 yarn-error.log
 .npm
 tmp
+dist

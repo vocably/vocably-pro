@@ -16,3 +16,8 @@ resource "google_service_account_key" "credentials" {
   service_account_id = google_service_account.translation_user.name
   public_key_type    = "TYPE_X509_PEM_FILE"
 }
+
+resource "google_project_service" "text_to_speech_api" {
+  project = var.gcloud_project_id
+  service = "texttospeech.googleapis.com"
+}

@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { AddCardPayload, GoogleLanguage, RemoveCardPayload, Result, TranslationCard, TranslationCards } from "@vocably/model";
+import { AddCardPayload, GoogleLanguage, GoogleTTSLanguage, PlaySoundPayload, PlaySoundResponse, RemoveCardPayload, Result, TranslationCard, TranslationCards } from "@vocably/model";
 export namespace Components {
     interface VocablyAddCardHint {
     }
@@ -15,9 +15,13 @@ export namespace Components {
     }
     interface VocablyIconAdd {
     }
+    interface VocablyIconPlayCircle {
+    }
     interface VocablyIconRemove {
     }
     interface VocablyIconSpin {
+    }
+    interface VocablyIconVolumeMedium {
     }
     interface VocablyLanguage {
         "sourceLanguage": string;
@@ -25,6 +29,13 @@ export namespace Components {
         "waiting": boolean;
     }
     interface VocablyLogo {
+    }
+    interface VocablyPlaySound {
+        "language": GoogleTTSLanguage;
+        "playSound": (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
+        "text": string;
     }
     interface VocablyPopup {
     }
@@ -45,6 +56,9 @@ export namespace Components {
         "language": string;
         "loading": boolean;
         "phrase": string;
+        "playSound": (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
         "result": Result<TranslationCards> | null;
         "showSaveHint": boolean;
     }
@@ -102,6 +116,12 @@ declare global {
         prototype: HTMLVocablyIconAddElement;
         new (): HTMLVocablyIconAddElement;
     };
+    interface HTMLVocablyIconPlayCircleElement extends Components.VocablyIconPlayCircle, HTMLStencilElement {
+    }
+    var HTMLVocablyIconPlayCircleElement: {
+        prototype: HTMLVocablyIconPlayCircleElement;
+        new (): HTMLVocablyIconPlayCircleElement;
+    };
     interface HTMLVocablyIconRemoveElement extends Components.VocablyIconRemove, HTMLStencilElement {
     }
     var HTMLVocablyIconRemoveElement: {
@@ -114,6 +134,12 @@ declare global {
         prototype: HTMLVocablyIconSpinElement;
         new (): HTMLVocablyIconSpinElement;
     };
+    interface HTMLVocablyIconVolumeMediumElement extends Components.VocablyIconVolumeMedium, HTMLStencilElement {
+    }
+    var HTMLVocablyIconVolumeMediumElement: {
+        prototype: HTMLVocablyIconVolumeMediumElement;
+        new (): HTMLVocablyIconVolumeMediumElement;
+    };
     interface HTMLVocablyLanguageElement extends Components.VocablyLanguage, HTMLStencilElement {
     }
     var HTMLVocablyLanguageElement: {
@@ -125,6 +151,12 @@ declare global {
     var HTMLVocablyLogoElement: {
         prototype: HTMLVocablyLogoElement;
         new (): HTMLVocablyLogoElement;
+    };
+    interface HTMLVocablyPlaySoundElement extends Components.VocablyPlaySound, HTMLStencilElement {
+    }
+    var HTMLVocablyPlaySoundElement: {
+        prototype: HTMLVocablyPlaySoundElement;
+        new (): HTMLVocablyPlaySoundElement;
     };
     interface HTMLVocablyPopupElement extends Components.VocablyPopup, HTMLStencilElement {
     }
@@ -167,10 +199,13 @@ declare global {
         "vocably-button": HTMLVocablyButtonElement;
         "vocably-close-button": HTMLVocablyCloseButtonElement;
         "vocably-icon-add": HTMLVocablyIconAddElement;
+        "vocably-icon-play-circle": HTMLVocablyIconPlayCircleElement;
         "vocably-icon-remove": HTMLVocablyIconRemoveElement;
         "vocably-icon-spin": HTMLVocablyIconSpinElement;
+        "vocably-icon-volume-medium": HTMLVocablyIconVolumeMediumElement;
         "vocably-language": HTMLVocablyLanguageElement;
         "vocably-logo": HTMLVocablyLogoElement;
+        "vocably-play-sound": HTMLVocablyPlaySoundElement;
         "vocably-popup": HTMLVocablyPopupElement;
         "vocably-side-b": HTMLVocablySideBElement;
         "vocably-sign-in": HTMLVocablySignInElement;
@@ -190,9 +225,13 @@ declare namespace LocalJSX {
     }
     interface VocablyIconAdd {
     }
+    interface VocablyIconPlayCircle {
+    }
     interface VocablyIconRemove {
     }
     interface VocablyIconSpin {
+    }
+    interface VocablyIconVolumeMedium {
     }
     interface VocablyLanguage {
         "onConfirm"?: (event: VocablyLanguageCustomEvent<{
@@ -204,6 +243,13 @@ declare namespace LocalJSX {
         "waiting"?: boolean;
     }
     interface VocablyLogo {
+    }
+    interface VocablyPlaySound {
+        "language"?: GoogleTTSLanguage;
+        "playSound"?: (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
+        "text"?: string;
     }
     interface VocablyPopup {
         "onClose"?: (event: VocablyPopupCustomEvent<void>) => void;
@@ -230,6 +276,9 @@ declare namespace LocalJSX {
         "onChangeLanguage"?: (event: VocablyTranslationCustomEvent<string>) => void;
         "onRemoveCard"?: (event: VocablyTranslationCustomEvent<RemoveCardPayload>) => void;
         "phrase"?: string;
+        "playSound"?: (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
         "result"?: Result<TranslationCards> | null;
         "showSaveHint"?: boolean;
     }
@@ -238,10 +287,13 @@ declare namespace LocalJSX {
         "vocably-button": VocablyButton;
         "vocably-close-button": VocablyCloseButton;
         "vocably-icon-add": VocablyIconAdd;
+        "vocably-icon-play-circle": VocablyIconPlayCircle;
         "vocably-icon-remove": VocablyIconRemove;
         "vocably-icon-spin": VocablyIconSpin;
+        "vocably-icon-volume-medium": VocablyIconVolumeMedium;
         "vocably-language": VocablyLanguage;
         "vocably-logo": VocablyLogo;
+        "vocably-play-sound": VocablyPlaySound;
         "vocably-popup": VocablyPopup;
         "vocably-side-b": VocablySideB;
         "vocably-sign-in": VocablySignIn;
@@ -258,10 +310,13 @@ declare module "@stencil/core" {
             "vocably-button": LocalJSX.VocablyButton & JSXBase.HTMLAttributes<HTMLVocablyButtonElement>;
             "vocably-close-button": LocalJSX.VocablyCloseButton & JSXBase.HTMLAttributes<HTMLVocablyCloseButtonElement>;
             "vocably-icon-add": LocalJSX.VocablyIconAdd & JSXBase.HTMLAttributes<HTMLVocablyIconAddElement>;
+            "vocably-icon-play-circle": LocalJSX.VocablyIconPlayCircle & JSXBase.HTMLAttributes<HTMLVocablyIconPlayCircleElement>;
             "vocably-icon-remove": LocalJSX.VocablyIconRemove & JSXBase.HTMLAttributes<HTMLVocablyIconRemoveElement>;
             "vocably-icon-spin": LocalJSX.VocablyIconSpin & JSXBase.HTMLAttributes<HTMLVocablyIconSpinElement>;
+            "vocably-icon-volume-medium": LocalJSX.VocablyIconVolumeMedium & JSXBase.HTMLAttributes<HTMLVocablyIconVolumeMediumElement>;
             "vocably-language": LocalJSX.VocablyLanguage & JSXBase.HTMLAttributes<HTMLVocablyLanguageElement>;
             "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
+            "vocably-play-sound": LocalJSX.VocablyPlaySound & JSXBase.HTMLAttributes<HTMLVocablyPlaySoundElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;
             "vocably-side-b": LocalJSX.VocablySideB & JSXBase.HTMLAttributes<HTMLVocablySideBElement>;
             "vocably-sign-in": LocalJSX.VocablySignIn & JSXBase.HTMLAttributes<HTMLVocablySignInElement>;

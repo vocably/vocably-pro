@@ -5,12 +5,13 @@ export const buildResponse = (
 ): APIGatewayProxyResult => {
   return {
     statusCode: 200,
+    body: JSON.stringify({ ok: true }),
+    ...response,
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'OPTIONS, GET',
+      'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
+      ...response.headers,
     },
-    body: JSON.stringify({ ok: true }),
-    ...response,
   };
 };
