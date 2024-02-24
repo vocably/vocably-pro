@@ -33,11 +33,15 @@ export class VocablyPlaySound {
 
     if (result.success) {
       this.isPlaying = true;
-      const audio = new Audio(result.value.url);
-      audio.addEventListener('ended', () => {
+      try {
+        const audio = new Audio(result.value.url);
+        audio.addEventListener('ended', () => {
+          this.isPlaying = false;
+        });
+        audio.play();
+      } catch (e) {
         this.isPlaying = false;
-      });
-      audio.play();
+      }
     }
   };
 
