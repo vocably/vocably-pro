@@ -1,6 +1,6 @@
 import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 import { google } from '@google-cloud/text-to-speech/build/protos/protos';
-import { Result } from '@vocably/model';
+import { PlaySoundResponse, Result } from '@vocably/model';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { lastValueFrom, mergeMap, of, tap } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -46,10 +46,11 @@ export const playSound = async (
       }),
       map((result) => {
         if (result.success === true) {
+          const responseBody: PlaySoundResponse = {
+            url: 'data:audio/mpeg;base64,' + result.value.toString('base64'),
+          };
           return buildResponse({
-            body: JSON.stringify({
-              url: 'data:audio/mpeg;base64,' + result.value.toString('base64'),
-            }),
+            body: JSON.stringify(responseBody),
           });
         }
 
