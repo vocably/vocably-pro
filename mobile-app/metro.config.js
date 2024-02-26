@@ -1,13 +1,5 @@
 
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
-
-/**
- * Metro configuration
- * https://facebook.github.io/metro/docs/configuration
- *
- * @type {import('metro-config').MetroConfig}
- */
-
 const path = require('path');
 
 const sharedPackages = [
@@ -19,25 +11,27 @@ const sharedPackages = [
   'model-operations',
 ];
 
+const buildSharedPackagePath = (package) => path.resolve(__dirname, `../packages/${package}`);
+
+const extraNodeModules = sharedPackages.reduce((result, package) => ({
+  ...result,
+  [`@vocably/${package}`]: buildSharedPackagePath(package)
+}), {})
+
+/**
+ * Metro configuration
+ * https://facebook.github.io/metro/docs/configuration
+ *
+ * @type {import('metro-config').MetroConfig}
+ */
 const config = {
-  projectRoot: __dirname,
-  watchFolders: sharedPackages.map((package) =>
-    path.resolve(`../packages/${package}`)
-  ),
   resolver: {
-    transform: {
-      experimentalImportSupport: false,
-      inlineRequires: true,
-    },
-    extraNodeModules: new Proxy(
-      {},
-      {
-        get: (target, name) => {
-          return path.join(__dirname, `node_modules/${name}`);
-        },
-      }
-    ),
+    extraNodeModules,
+    nodeModulesPaths: [
+      path.resolve(__dirname, 'node_modules'),
+    ]
   },
+  watchFolders: sharedPackages.map(buildSharedPackagePath)
 };
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);\
