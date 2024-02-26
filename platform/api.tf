@@ -77,11 +77,13 @@ resource "aws_api_gateway_deployment" "deployment" {
       md5(file("${path.module}/api.tf")),
       md5(file("${path.module}/api-analyze.tf")),
       md5(file("${path.module}/api-cards.tf")),
+      md5(file("${path.module}/api-play-sound.tf")),
       md5(file("${path.module}/user-feedback.tf"))
     ]))
   }
   depends_on = [
     aws_api_gateway_integration.analyze,
+    aws_api_gateway_integration.play_sound,
     aws_api_gateway_integration.user_feedback,
     aws_api_gateway_integration.put_language,
     aws_api_gateway_integration.get_language,

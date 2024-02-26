@@ -4,6 +4,7 @@ export * from './errors';
 export * from './language';
 export * from './language-deck';
 export * from './language-list';
+export * from './play-sound';
 export { isError, isSuccess, Result, resultify } from './result';
 export * from './subscription';
 export * from './text-to-speech';

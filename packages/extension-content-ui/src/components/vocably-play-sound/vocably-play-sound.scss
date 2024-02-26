@@ -1,0 +1,16 @@
+:host {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.button {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 18px;
+
+  &:disabled {
+    cursor: default;
+  }
+}

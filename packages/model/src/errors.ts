@@ -32,6 +32,8 @@ export const Errors = [
   'FREE_ANALYSE_NON_DIRECT_PAYLOAD',
   'USER_FEEDBACK_REQUEST_FAILED',
   'BREVO_UNSUCCESSFUL_REQUEST',
+  'PLAY_SOUND_REQUEST_MALFORMED_PAYLOAD',
+  'GOOGLE_TEXT_TO_SPEECH_ERROR',
 ] as const;
 
-export type VocablyErrorCode = typeof Errors[number];
+export type VocablyErrorCode = (typeof Errors)[number];

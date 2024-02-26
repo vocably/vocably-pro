@@ -100,6 +100,18 @@ registerContentScript({
     setUserKnowsHowToAdd: async (value) => {
       isUserKnowsHowToAdd = value;
     },
+    playSound: (payload) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({
+            success: true,
+            value: {
+              url: `https://ssl.gstatic.com/dictionary/static/sounds/20200429/hello--_gb_1.mp3`,
+            },
+          });
+        }, 3000);
+      });
+    },
   },
   youTube: {
     ytHosts: ['localhost:8020'],

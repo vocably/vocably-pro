@@ -10,6 +10,7 @@ import {
   isUserKnowsHowToAdd,
   listLanguages,
   ping,
+  playSound,
   removeCard,
   setInternalProxyLanguage,
   setInternalSourceLanguage,
@@ -33,6 +34,7 @@ export const api = {
   isEligibleForTrial,
   isUserKnowsHowToAdd,
   setUserKnowsHowToAdd,
+  playSound,
 };
 
 export type ApiConfigOptions = Partial<typeof api>;
