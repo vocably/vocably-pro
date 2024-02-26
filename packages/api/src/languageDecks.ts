@@ -1,6 +1,8 @@
 import { LanguageDeck, Result } from '@vocably/model';
-import { parse } from 'fast-xml-parser';
+import { XMLParser } from 'fast-xml-parser';
 import { request } from './restClient';
+
+const parser = new XMLParser();
 
 export const saveLanguageDeck = async (
   languageDeck: LanguageDeck
@@ -63,7 +65,7 @@ export const listLanguages = async (): Promise<Result<string[]>> => {
       return result;
     }
 
-    const jsonResult = parse(result.value);
+    const jsonResult = parser.parse(result.value);
 
     let contents = jsonResult?.ListBucketResult?.Contents ?? [];
     if (!Array.isArray(contents)) {
