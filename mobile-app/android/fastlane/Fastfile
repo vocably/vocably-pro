@@ -1,6 +1,6 @@
 # Load dotenv
 require 'dotenv'
-Dotenv.load
+Dotenv.load('.passwords')
 
 # This file contains the fastlane.tools configuration
 # You can find the documentation at https://docs.fastlane.tools
