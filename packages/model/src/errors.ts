@@ -36,4 +36,4 @@ export const Errors = [
   'GOOGLE_TEXT_TO_SPEECH_ERROR',
 ] as const;
 
-export type VocablyErrorCode = typeof Errors[number];
+export type VocablyErrorCode = (typeof Errors)[number];
