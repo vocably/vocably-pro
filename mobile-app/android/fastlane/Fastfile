@@ -1,3 +1,7 @@
+# Load dotenv
+require 'dotenv'
+Dotenv.load
+
 # This file contains the fastlane.tools configuration
 # You can find the documentation at https://docs.fastlane.tools
 #
@@ -26,8 +30,8 @@ platform :android do
     android_set_version_name(version_name: File.read("../../VERSION").strip)
     android_set_version_code(version_code: android_get_version_code.to_i + 1)
 
-    store_password = prompt(text: "Signing Store Password: ", secure_text: true)
-    key_password = prompt(text: "Alias Key Password: ", secure_text: true)
+    store_password = ENV['STORE_PASSWORD'] || prompt(text: "Signing Store Password: ", secure_text: true)
+    key_password = ENV['KEY_PASSWORD'] || prompt(text: "Alias Key Password: ", secure_text: true)
     releaseFilePath = File.join(Dir.pwd, "..", "my-release-key.keystore")
     gradle(task: 'clean')
     gradle(
