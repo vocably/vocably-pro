@@ -1,3 +1,101 @@
+locals {
+  user_files_bucket_name = "vocably-${terraform.workspace}-user-files"
+}
+
+resource "aws_s3_bucket" "user_files" {
+  bucket = local.user_files_bucket_name
+}
+
+resource "aws_s3_bucket_acl" "user_files" {
+  bucket = aws_s3_bucket.user_files.bucket
+
+  acl = "private"
+
+  depends_on = [aws_s3_bucket_ownership_controls.user_files]
+}
+
+resource "aws_s3_bucket_ownership_controls" "user_files" {
+  bucket = aws_s3_bucket.user_files.id
+  rule {
+    object_ownership = "ObjectWriter"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "user_files" {
+  bucket = aws_s3_bucket.user_files.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_s3_bucket_versioning" "user_files" {
+  bucket = aws_s3_bucket.user_files.bucket
+
+  versioning_configuration {
+    status = "Suspended"
+  }
+}
+
+resource "aws_s3_bucket_cors_configuration" "user_files" {
+  bucket = aws_s3_bucket.user_files.bucket
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["PUT", "POST", "GET", "DELETE", "HEAD"]
+    allowed_origins = ["*"]
+  }
+}
+
+resource "aws_iam_role" "user_files_api_bucket" {
+  name               = "vocably-${terraform.workspace}-api-gw-user-files-bucket"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": [
+          "s3.amazonaws.com",
+          "apigateway.amazonaws.com"
+        ]
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_policy" "user_files_api_bucket" {
+  name = "vocably-${terraform.workspace}-api-gw-user-files-bucket-policy"
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "UserFilesBucket",
+        "Effect" : "Allow",
+        "Action" : [
+          "s3:*"
+        ],
+        "Resource" : [
+          aws_s3_bucket.user_files.arn,
+          "${aws_s3_bucket.user_files.arn}/*"
+        ]
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "user_files_api_bucket" {
+  role       = aws_iam_role.user_files_api_bucket.name
+  policy_arn = aws_iam_policy.user_files_api_bucket.arn
+}
+
 resource "aws_api_gateway_resource" "user_files" {
   rest_api_id = aws_api_gateway_rest_api.rest_api.id
   parent_id   = aws_api_gateway_rest_api.rest_api.root_resource_id
@@ -64,8 +162,8 @@ resource "aws_api_gateway_integration" "put_user_file" {
   http_method             = aws_api_gateway_method.put_user_file.http_method
   type                    = "AWS"
   integration_http_method = "PUT"
-  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:s3:path/${aws_s3_bucket.cards.bucket}/{userId}/files/{userFile}"
-  credentials             = aws_iam_role.cards_api_bucket.arn
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:s3:path/${aws_s3_bucket.user_files.bucket}/{userId}/files/{userFile}"
+  credentials             = aws_iam_role.user_files_api_bucket.arn
 
   request_parameters = {
     "integration.request.path.userId"   = "context.authorizer.claims.sub",
@@ -145,8 +243,8 @@ resource "aws_api_gateway_integration" "get_user_file" {
   http_method             = aws_api_gateway_method.get_user_file.http_method
   type                    = "AWS"
   integration_http_method = "GET"
-  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:s3:path/${aws_s3_bucket.cards.bucket}/{userId}/files/{userFile}"
-  credentials             = aws_iam_role.cards_api_bucket.arn
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:s3:path/${aws_s3_bucket.user_files.bucket}/{userId}/files/{userFile}"
+  credentials             = aws_iam_role.user_files_api_bucket.arn
 
   request_parameters = {
     "integration.request.path.userId"   = "context.authorizer.claims.sub",
@@ -223,8 +321,8 @@ resource "aws_api_gateway_integration" "delete_user_file" {
   http_method             = aws_api_gateway_method.delete_user_file.http_method
   type                    = "AWS"
   integration_http_method = "DELETE"
-  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:s3:path/${aws_s3_bucket.cards.bucket}/{userId}/files/{userFile}"
-  credentials             = aws_iam_role.cards_api_bucket.arn
+  uri                     = "arn:aws:apigateway:${data.aws_region.current.name}:s3:path/${aws_s3_bucket.user_files.bucket}/{userId}/files/{userFile}"
+  credentials             = aws_iam_role.user_files_api_bucket.arn
 
   request_parameters = {
     "integration.request.path.userId"   = "context.authorizer.claims.sub",
