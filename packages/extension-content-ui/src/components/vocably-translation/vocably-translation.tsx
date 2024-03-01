@@ -37,17 +37,28 @@ export class VocablyTranslation {
   @Prop() loading: boolean = false;
   @Prop() existingLanguages: GoogleLanguage[] = [];
   @Prop() isFeedbackEnabled: boolean = true;
+  @Prop() askForRating: boolean = false;
   @Prop() language: string = '';
   @Prop() isUpdating: TranslationCard | null = null;
   @Prop() showSaveHint: boolean = true;
   @Prop() playSound: (
     payload: PlaySoundPayload
   ) => Promise<Result<PlaySoundResponse>>;
-  @Event() changeLanguage: EventEmitter<string>;
+  @Prop() extensionStoreUrl: string =
+    'https://chromewebstore.google.com/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb';
+
+  @Event() ratingInteraction: EventEmitter<
+    'review' | 'feedback' | 'later' | 'never'
+  >;
+
+  @Event()
+  changeLanguage: EventEmitter<string>;
   @Event() removeCard: EventEmitter<RemoveCardPayload>;
   @Event() addCard: EventEmitter<AddCardPayload>;
 
   @State() saveCardClicked = false;
+
+  private askForRatingContainer: HTMLDivElement;
 
   render() {
     const languageSelector = this.result && this.result.success && (
@@ -215,7 +226,38 @@ export class VocablyTranslation {
                       ))}
                     </div>
                   </div>
-                  {this.isFeedbackEnabled && (
+                  {this.askForRating && (
+                    <div
+                      class="margin-top-2 rate-container"
+                      ref={(el) => (this.askForRatingContainer = el)}
+                    >
+                      <div class="cards rate-padding">
+                        <vocably-rate
+                          extensionStoreUrl={this.extensionStoreUrl}
+                          onUserSelected={(choiceEvent) => {
+                            switch (choiceEvent.detail) {
+                              case 'review':
+                              case 'feedback':
+                                break;
+                              case 'later':
+                                this.askForRatingContainer.classList.add(
+                                  'hidden'
+                                );
+                                break;
+                              case 'never':
+                                this.askForRatingContainer.classList.add(
+                                  'hidden'
+                                );
+                                break;
+                            }
+
+                            this.ratingInteraction.emit(choiceEvent.detail);
+                          }}
+                        ></vocably-rate>
+                      </div>
+                    </div>
+                  )}
+                  {this.isFeedbackEnabled && !this.askForRating && (
                     <div class="margin-top-2 text-right small">
                       <a
                         href="https://app.vocably.pro/feedback"

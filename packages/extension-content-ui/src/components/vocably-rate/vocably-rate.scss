@@ -1,0 +1,24 @@
+@import '../../styles/component';
+
+:host {
+  @include base-font();
+  display: block;
+}
+
+.container {
+  display: inline-block;
+}
+
+.message {
+  margin-bottom: $p-margin;
+}
+
+.button {
+  @include button();
+  @include inline-button();
+}
+
+.link-button {
+  @include unstyled();
+  @include link();
+}
