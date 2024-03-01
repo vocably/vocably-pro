@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Vocably",
   "description": "Vocably helps to translate new words and phrases and then learn them on your mobile devices.",
-  "version": "1.225.1",
+  "version": "1.237.1",
 
   "icons": {
     "16": "images/icon-16x16.png",
