@@ -1,6 +1,7 @@
 @use 'sass:math';
 @import '~@vocably/styles/variables';
 @import '~@vocably/styles/mixins/link';
+@import '~@vocably/styles/mixins/unstyled';
 
 @mixin base-font() {
   font-family: $font-family !important;
@@ -38,6 +39,12 @@
     background: $v-light-btn-active-bg;
     box-shadow: $v-light-btn-active-shadow;
   }
+}
+
+@mixin inline-button() {
+  padding-left: $base-font-size;
+  padding-right: $base-font-size;
+  width: auto;
 }
 
 @mixin select($input-padding-x, $input-padding-y) {

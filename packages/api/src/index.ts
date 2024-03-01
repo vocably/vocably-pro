@@ -8,3 +8,4 @@ export {
 } from './languageDecks';
 export { playSound } from './playSound';
 export { sendUserFeedback } from './userFeedback';
+export { getUserMetadata, saveUserMetadata } from './userMetadata';

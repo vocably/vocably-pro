@@ -1,6 +1,7 @@
 import {
   addCard,
   analyze,
+  askForRating,
   cleanUp,
   getInternalProxyLanguage,
   getInternalSourceLanguage,
@@ -12,6 +13,7 @@ import {
   ping,
   playSound,
   removeCard,
+  saveAskForRatingResponse,
   setInternalProxyLanguage,
   setInternalSourceLanguage,
   setUserKnowsHowToAdd,
@@ -35,6 +37,8 @@ export const api = {
   isUserKnowsHowToAdd,
   setUserKnowsHowToAdd,
   playSound,
+  askForRating,
+  saveAskForRatingResponse,
 };
 
 export type ApiConfigOptions = Partial<typeof api>;

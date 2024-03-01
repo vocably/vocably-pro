@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { AddCardPayload, GoogleLanguage, GoogleTTSLanguage, PlaySoundPayload, PlaySoundResponse, RemoveCardPayload, Result, TranslationCard, TranslationCards } from "@vocably/model";
+import { AddCardPayload, GoogleLanguage, GoogleTTSLanguage, PlaySoundPayload, PlaySoundResponse, RateInteractionPayload, RemoveCardPayload, Result, TranslationCard, TranslationCards } from "@vocably/model";
 export namespace Components {
     interface VocablyAddCardHint {
     }
@@ -39,6 +39,9 @@ export namespace Components {
     }
     interface VocablyPopup {
     }
+    interface VocablyRate {
+        "platform": { name: string; url: string };
+    }
     interface VocablySideB {
         "item": TranslationCard;
     }
@@ -50,7 +53,9 @@ export namespace Components {
         "trial": boolean;
     }
     interface VocablyTranslation {
+        "askForRating": boolean;
         "existingLanguages": GoogleLanguage[];
+        "extensionPlatform": { name: string; url: string };
         "isFeedbackEnabled": boolean;
         "isUpdating": TranslationCard | null;
         "language": string;
@@ -78,6 +83,10 @@ export interface VocablyLanguageCustomEvent<T> extends CustomEvent<T> {
 export interface VocablyPopupCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLVocablyPopupElement;
+}
+export interface VocablyRateCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLVocablyRateElement;
 }
 export interface VocablySignInCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -164,6 +173,12 @@ declare global {
         prototype: HTMLVocablyPopupElement;
         new (): HTMLVocablyPopupElement;
     };
+    interface HTMLVocablyRateElement extends Components.VocablyRate, HTMLStencilElement {
+    }
+    var HTMLVocablyRateElement: {
+        prototype: HTMLVocablyRateElement;
+        new (): HTMLVocablyRateElement;
+    };
     interface HTMLVocablySideBElement extends Components.VocablySideB, HTMLStencilElement {
     }
     var HTMLVocablySideBElement: {
@@ -207,6 +222,7 @@ declare global {
         "vocably-logo": HTMLVocablyLogoElement;
         "vocably-play-sound": HTMLVocablyPlaySoundElement;
         "vocably-popup": HTMLVocablyPopupElement;
+        "vocably-rate": HTMLVocablyRateElement;
         "vocably-side-b": HTMLVocablySideBElement;
         "vocably-sign-in": HTMLVocablySignInElement;
         "vocably-spinner": HTMLVocablySpinnerElement;
@@ -254,6 +270,10 @@ declare namespace LocalJSX {
     interface VocablyPopup {
         "onClose"?: (event: VocablyPopupCustomEvent<void>) => void;
     }
+    interface VocablyRate {
+        "onUserSelected"?: (event: VocablyRateCustomEvent<'review' | 'later' | 'never' | 'feedback'>) => void;
+        "platform"?: { name: string; url: string };
+    }
     interface VocablySideB {
         "item"?: TranslationCard;
     }
@@ -267,13 +287,16 @@ declare namespace LocalJSX {
         "trial"?: boolean;
     }
     interface VocablyTranslation {
+        "askForRating"?: boolean;
         "existingLanguages"?: GoogleLanguage[];
+        "extensionPlatform"?: { name: string; url: string };
         "isFeedbackEnabled"?: boolean;
         "isUpdating"?: TranslationCard | null;
         "language"?: string;
         "loading"?: boolean;
         "onAddCard"?: (event: VocablyTranslationCustomEvent<AddCardPayload>) => void;
         "onChangeLanguage"?: (event: VocablyTranslationCustomEvent<string>) => void;
+        "onRatingInteraction"?: (event: VocablyTranslationCustomEvent<RateInteractionPayload>) => void;
         "onRemoveCard"?: (event: VocablyTranslationCustomEvent<RemoveCardPayload>) => void;
         "phrase"?: string;
         "playSound"?: (
@@ -295,6 +318,7 @@ declare namespace LocalJSX {
         "vocably-logo": VocablyLogo;
         "vocably-play-sound": VocablyPlaySound;
         "vocably-popup": VocablyPopup;
+        "vocably-rate": VocablyRate;
         "vocably-side-b": VocablySideB;
         "vocably-sign-in": VocablySignIn;
         "vocably-spinner": VocablySpinner;
@@ -318,6 +342,7 @@ declare module "@stencil/core" {
             "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
             "vocably-play-sound": LocalJSX.VocablyPlaySound & JSXBase.HTMLAttributes<HTMLVocablyPlaySoundElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;
+            "vocably-rate": LocalJSX.VocablyRate & JSXBase.HTMLAttributes<HTMLVocablyRateElement>;
             "vocably-side-b": LocalJSX.VocablySideB & JSXBase.HTMLAttributes<HTMLVocablySideBElement>;
             "vocably-sign-in": LocalJSX.VocablySignIn & JSXBase.HTMLAttributes<HTMLVocablySignInElement>;
             "vocably-spinner": LocalJSX.VocablySpinner & JSXBase.HTMLAttributes<HTMLVocablySpinnerElement>;

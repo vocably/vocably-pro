@@ -77,6 +77,7 @@ resource "aws_api_gateway_deployment" "deployment" {
       md5(file("${path.module}/api.tf")),
       md5(file("${path.module}/api-analyze.tf")),
       md5(file("${path.module}/api-cards.tf")),
+      md5(file("${path.module}/api-user-files.tf")),
       md5(file("${path.module}/api-play-sound.tf")),
       md5(file("${path.module}/user-feedback.tf"))
     ]))
@@ -94,6 +95,13 @@ resource "aws_api_gateway_deployment" "deployment" {
     aws_api_gateway_integration_response.get_language_200,
     aws_api_gateway_integration_response.get_language_4xx,
     aws_api_gateway_integration_response.list_languages_200,
+    aws_api_gateway_integration.put_user_file,
+    aws_api_gateway_integration.get_user_file,
+    aws_api_gateway_integration.delete_user_file,
+    aws_api_gateway_integration_response.put_user_file_200,
+    aws_api_gateway_integration_response.delete_user_file_200,
+    aws_api_gateway_integration_response.get_user_file_200,
+    aws_api_gateway_integration_response.get_user_file_4xx,
   ]
   lifecycle {
     create_before_destroy = true
