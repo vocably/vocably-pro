@@ -140,10 +140,6 @@ resource "null_resource" "app_upload" {
     aws_s3_bucket.app,
   ]
 
-  triggers = {
-    ngsw = sha256(jsonencode(merge(jsondecode(file("${data.external.app_build.result.dest}/ngsw.json")), { timestamp : 1 })))
-  }
-
   provisioner "local-exec" {
     command = "aws s3 sync ${data.external.app_build.result.dest}  s3://${aws_s3_bucket.app.id} --delete"
   }
