@@ -11,6 +11,7 @@ import { makeCreate, makeDelete } from '@vocably/crud';
 import {
   onAddCardRequest,
   onAnalyzeRequest,
+  onAskForRating,
   onCleanUpRequest,
   onGetInternalProxyLanuage,
   onGetInternalSourceLanguage,
@@ -24,6 +25,7 @@ import {
   onPingExternal,
   onPlaySound,
   onRemoveCardRequest,
+  onSaveAskForRatingResponse,
   onSetInternalProxyLanguage,
   onSetInternalSourceLanguage,
   onSetProxyLanguage,
@@ -40,11 +42,21 @@ import {
   Result,
 } from '@vocably/model';
 import { get, isEqual } from 'lodash-es';
+import {
+  getAskForRatingCounter,
+  resetAskForRatingCounter,
+  storeAskForRatingCounter,
+} from './askForRatingCounter';
 import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
 import { getProxyLanguage, setProxyLanguage } from './proxyLanguage';
 import { getSourceLanguage, setSourceLanguage } from './sourceLanguage';
+import {
+  getUserMetadata,
+  invalidateUserMetadata,
+  saveUserMetadata,
+} from './userMetadata';
 
 type RegisterServiceWorkerOptions = {
   auth: Parameters<typeof Auth.configure>[0];
@@ -343,6 +355,67 @@ export const registerServiceWorker = (
 
   onPlaySound(async (sendResponse, payload) => {
     return sendResponse(await playSound(payload));
+  });
+
+  onAskForRating(async (sendResponse, payload) => {
+    if (payload.translationResult.success === false) {
+      return sendResponse(false);
+    }
+
+    const userMetadataResult = await getUserMetadata();
+
+    if (userMetadataResult.success === false) {
+      return sendResponse(false);
+    }
+
+    const userMetadata = userMetadataResult.value;
+
+    if (
+      userMetadata.rate[payload.extensionPlatform] &&
+      (userMetadata.rate[payload.extensionPlatform].response === 'never' ||
+        userMetadata.rate[payload.extensionPlatform].response === 'review')
+    ) {
+      return sendResponse(false);
+    }
+
+    const counter = await getAskForRatingCounter(
+      payload.translationResult.value.translation.sourceLanguage
+    );
+
+    await storeAskForRatingCounter(counter + 1);
+
+    if (counter === 0) {
+      return sendResponse(false);
+    }
+
+    if (
+      userMetadata.rate[payload.extensionPlatform] &&
+      userMetadata.rate[payload.extensionPlatform].response === 'feedback'
+    ) {
+      return sendResponse(counter % 30 === 0);
+    }
+
+    return sendResponse(counter % 10 === 0);
+  });
+
+  onSaveAskForRatingResponse(async (sendResponse, payload) => {
+    invalidateUserMetadata();
+    const userMetadataResult = await getUserMetadata();
+
+    if (userMetadataResult.success === false) {
+      return sendResponse();
+    }
+
+    const userMetadata = userMetadataResult.value;
+
+    userMetadata.rate[payload.extensionPlatform] = {
+      response: payload.rateInteraction,
+      isoDate: new Date().toISOString(),
+    };
+
+    await saveUserMetadata(userMetadata);
+    await resetAskForRatingCounter();
+    return sendResponse();
   });
 
   console.info('The service worker has been registered.');

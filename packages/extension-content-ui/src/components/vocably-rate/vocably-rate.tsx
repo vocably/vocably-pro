@@ -6,10 +6,11 @@ import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
   shadow: false,
 })
 export class VocablyRate {
-  @Prop() extensionStoreUrl: string;
   @Event() userSelected: EventEmitter<
     'review' | 'later' | 'never' | 'feedback'
   >;
+
+  @Prop() platform: { name: string; url: string };
 
   render() {
     return (
@@ -17,9 +18,13 @@ export class VocablyRate {
         <div>
           <strong>You can help this project.</strong>
         </div>
-        <div class="margin-top-2">Your review will make a big difference.</div>
-        <div>
-          If you are missing anything in the app, please{' '}
+        <div class="margin-top-2">Vocably is 100% free and open-source.</div>
+        <div class="margin-top-2">
+          Your positive review on {this.platform.name} would help other users to
+          discover this project.
+        </div>
+        <div class="margin-top-2">
+          If you are missing or don't like something, you can always{' '}
           <a
             href="https://app.vocably.pro/feedback"
             target="_blank"
@@ -28,22 +33,22 @@ export class VocablyRate {
           >
             let me know
           </a>
-          .
+          .<br /> I take every feedback seriously.
         </div>
         <div class="margin-top-2">
           <a
-            href={this.extensionStoreUrl}
+            href={this.platform.url}
             target="_blank"
             class="button"
             onClick={() => this.userSelected.emit('review')}
           >
-            Write a review
+            Help this project. Leave a review.
           </a>
           <button
             class="link-button"
             onClick={() => this.userSelected.emit('later')}
           >
-            Ask me later
+            I don't have time now. Ask me later.
           </button>
         </div>
         <div class="margin-top-2">

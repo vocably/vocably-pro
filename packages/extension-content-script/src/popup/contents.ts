@@ -1,10 +1,12 @@
 import {
   AddCardPayload,
   GoogleLanguage,
+  RateInteractionPayload,
   RemoveCardPayload,
 } from '@vocably/model';
 import { api } from '../api';
 import { contentScriptConfiguration } from '../configuration';
+import { detectExtensionPlatform } from '../detectExtensionPlatform';
 
 type Options = {
   popup: HTMLElement;
@@ -37,12 +39,14 @@ export const setContents = async ({
   };
 
   const setTranslation = async () => {
+    const extensionPlatform = detectExtensionPlatform();
     const translation = document.createElement('vocably-translation');
     translation.isFeedbackEnabled =
       contentScriptConfiguration.isFeedbackEnabled;
     translation.phrase = source;
     translation.playSound = api.playSound;
     translation.showSaveHint = !(await api.isUserKnowsHowToAdd());
+    translation.extensionPlatform = extensionPlatform;
 
     const analyze = (sourceLanguage?: GoogleLanguage) => {
       translation.loading = true;
@@ -52,6 +56,14 @@ export const setContents = async ({
           translation.loading = false;
         })
         .then(async (translationResult) => {
+          api
+            .askForRating({
+              translationResult: translationResult,
+              extensionPlatform: extensionPlatform.platform,
+            })
+            .then((result) => {
+              translation.askForRating = result;
+            });
           translation.result = translationResult;
           if (translationResult.success === true) {
             translation.language =
@@ -93,6 +105,16 @@ export const setContents = async ({
         translation.result = await api.addCard(payload);
         translation.isUpdating = null;
         await api.setUserKnowsHowToAdd(true);
+      }
+    );
+
+    translation.addEventListener(
+      'ratingInteraction',
+      async ({ detail: payload }: CustomEvent<RateInteractionPayload>) => {
+        await api.saveAskForRatingResponse({
+          extensionPlatform: extensionPlatform.platform,
+          rateInteraction: payload,
+        });
       }
     );
 

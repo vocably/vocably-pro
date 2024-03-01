@@ -18,6 +18,7 @@ import {
   languageList,
   PlaySoundPayload,
   PlaySoundResponse,
+  RateInteractionPayload,
   RemoveCardPayload,
   Result,
   TranslationCard,
@@ -44,12 +45,9 @@ export class VocablyTranslation {
   @Prop() playSound: (
     payload: PlaySoundPayload
   ) => Promise<Result<PlaySoundResponse>>;
-  @Prop() extensionStoreUrl: string =
-    'https://chromewebstore.google.com/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb';
+  @Prop() extensionPlatform: { name: string; url: string };
 
-  @Event() ratingInteraction: EventEmitter<
-    'review' | 'feedback' | 'later' | 'never'
-  >;
+  @Event() ratingInteraction: EventEmitter<RateInteractionPayload>;
 
   @Event()
   changeLanguage: EventEmitter<string>;
@@ -228,12 +226,12 @@ export class VocablyTranslation {
                   </div>
                   {this.askForRating && (
                     <div
-                      class="margin-top-2 rate-container"
+                      class="rate-container"
                       ref={(el) => (this.askForRatingContainer = el)}
                     >
-                      <div class="cards rate-padding">
+                      <div class="cards rate-padding margin-top-2">
                         <vocably-rate
-                          extensionStoreUrl={this.extensionStoreUrl}
+                          platform={this.extensionPlatform}
                           onUserSelected={(choiceEvent) => {
                             switch (choiceEvent.detail) {
                               case 'review':

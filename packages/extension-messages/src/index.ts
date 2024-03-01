@@ -5,6 +5,7 @@ import {
   GoogleLanguage,
   PlaySoundPayload,
   PlaySoundResponse,
+  RateInteractionPayload,
   RemoveCardPayload,
   Result,
   TranslationCards,
@@ -95,3 +96,20 @@ export const [playSound, onPlaySound] = createScopedMessage<
   PlaySoundPayload,
   Result<PlaySoundResponse>
 >('playSound');
+
+export const [askForRating, onAskForRating] = createScopedMessage<
+  {
+    translationResult: Result<TranslationCards>;
+    extensionPlatform: 'chromeExtension' | 'safariExtension';
+  },
+  boolean
+>('askForRating');
+
+export const [saveAskForRatingResponse, onSaveAskForRatingResponse] =
+  createScopedMessage<
+    {
+      extensionPlatform: 'chromeExtension' | 'safariExtension';
+      rateInteraction: RateInteractionPayload;
+    },
+    void
+  >('askForRatingResponse');

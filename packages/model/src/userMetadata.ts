@@ -1,6 +1,11 @@
-type Platform = 'ios' | 'android' | 'web' | 'extension';
-type RateResponse = {
-  response: 'never' | 'later' | 'feedback' | 'review';
+export type Platform =
+  | 'ios'
+  | 'android'
+  | 'chromeExtension'
+  | 'safariExtension';
+export type RateInteractionPayload = 'never' | 'later' | 'feedback' | 'review';
+export type RateResponse = {
+  response: RateInteractionPayload;
   isoDate: string;
 };
 
@@ -12,8 +17,8 @@ const defaultUserMetadata: UserMetadata = {
   rate: {
     ios: undefined,
     android: undefined,
-    web: undefined,
-    extension: undefined,
+    chromeExtension: undefined,
+    safariExtension: undefined,
   },
 };
 
