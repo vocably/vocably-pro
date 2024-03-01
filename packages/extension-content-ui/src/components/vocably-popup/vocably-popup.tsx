@@ -20,9 +20,11 @@ export class VocablyPopup {
     const contentWrapper = this.el.shadowRoot.getElementById('content-wrapper');
     const content = this.el.shadowRoot.getElementById('content');
     const resizeObserver = new ResizeObserver(() => {
-      const rect = content.getBoundingClientRect();
-      contentWrapper.style.width = `${rect.width}px`;
-      contentWrapper.style.height = `${rect.height}px`;
+      requestAnimationFrame(() => {
+        const rect = content.getBoundingClientRect();
+        contentWrapper.style.width = `${rect.width}px`;
+        contentWrapper.style.height = `${rect.height}px`;
+      });
     });
 
     resizeObserver.observe(content);
