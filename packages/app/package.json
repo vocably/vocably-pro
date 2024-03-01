@@ -9,10 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "echo 'Use `npm run integration` to test @vocably/app.'",
     "integration": "ng test",
-    "app": "npm start",
-    "watch-prod": "ng build --watch --configuration production",
-    "serve": "http-server -p 8030 -c-1 dist -P http://localhost:8030?",
-    "pwa": "npm-run-all --parallel watch-prod serve"
+    "app": "npm start"
   },
   "dependencies": {
     "@ionic/angular": "^6.1.9",
