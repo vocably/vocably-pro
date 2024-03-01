@@ -95,7 +95,8 @@ resource "aws_lambda_function" "cards_backupper" {
   handler          = "cards-backupper.cardsBackupper"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
   runtime          = "nodejs18.x"
-  timeout          = 10
+  timeout          = 300
+  memory_size      = 256
 }
 
 resource "aws_cloudwatch_log_group" "cards_backupper" {
