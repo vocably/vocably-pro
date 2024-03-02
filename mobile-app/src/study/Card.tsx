@@ -87,7 +87,6 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
     <Displayer>
       <TouchableWithoutFeedback
         onPress={() => (!!flipRotation ? flipToBack() : flipToFront())}
-        style={{ borderStyle: 'solid', borderColor: '#f00', borderWidth: 1 }}
       >
         <View style={styles.container}>
           <Animated.View
