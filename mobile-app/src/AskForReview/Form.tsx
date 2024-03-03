@@ -1,7 +1,7 @@
 import { RateInteractionPayload } from '@vocably/model';
 import React, { FC } from 'react';
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
-import { Button, useTheme } from 'react-native-paper';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { Button, Text, useTheme } from 'react-native-paper';
 import { mobileStoreName } from '../mobilePlatform';
 
 const styles = StyleSheet.create({
