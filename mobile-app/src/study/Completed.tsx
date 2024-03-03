@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AskForReview } from '../AskForReview.tsx';
 import { Displayer } from './Displayer';
 
 const styles = StyleSheet.create({
@@ -13,10 +14,14 @@ const styles = StyleSheet.create({
 });
 
 type Completed = FC<{
+  numberOfRepetitions?: number;
   onStudyAgain?: () => void;
 }>;
 
-export const Completed: Completed = ({ onStudyAgain = () => {} }) => {
+export const Completed: Completed = ({
+  onStudyAgain = () => {},
+  numberOfRepetitions,
+}) => {
   const theme = useTheme();
   return (
     <Displayer>
@@ -29,6 +34,7 @@ export const Completed: Completed = ({ onStudyAgain = () => {} }) => {
         <Button style={{ marginTop: 24 }} onPress={onStudyAgain}>
           Take one more round
         </Button>
+        <AskForReview numberOfRepetitions={numberOfRepetitions} />
       </View>
     </Displayer>
   );
