@@ -6,6 +6,7 @@ import { NavigationContainer } from './NavigationContainer';
 import { ThemeProvider } from './ThemeProvider';
 // @ts-ignore
 import { API_BASE_URL, API_CARDS_BUCKET, API_REGION } from '@env';
+import { UserMetadataContainer } from './UserMetadataContainer';
 
 configureApi({
   baseUrl: API_BASE_URL,
@@ -18,9 +19,11 @@ const App = () => {
     <ThemeProvider>
       <AuthContainer>
         <Login>
-          <LanguagesContainer>
-            <NavigationContainer />
-          </LanguagesContainer>
+          <UserMetadataContainer>
+            <LanguagesContainer>
+              <NavigationContainer />
+            </LanguagesContainer>
+          </UserMetadataContainer>
         </Login>
       </AuthContainer>
     </ThemeProvider>

@@ -2,6 +2,7 @@ import { RateInteractionPayload } from '@vocably/model';
 import React, { FC } from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
+import { mobileStoreName } from '../mobilePlatform';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,13 +38,13 @@ export const AskForReviewForm: AskForReviewForm = ({
       </View>
       <View style={styles.element}>
         <Text style={{ textAlign: 'center' }}>
-          Your positive review on App Store would help other users to discover
-          this project.
+          Your positive review on {mobileStoreName} would help other users to
+          discover this project.
         </Text>
       </View>
       <View style={[styles.element, { alignSelf: 'stretch' }]}>
-        <Button mode={'contained'} onPress={() => onAction('rate')}>
-          Rate on App Store
+        <Button mode={'contained'} onPress={() => onAction('review')}>
+          Rate on {mobileStoreName}
         </Button>
       </View>
       <View style={[styles.element, { alignSelf: 'stretch' }]}>
@@ -51,18 +52,10 @@ export const AskForReviewForm: AskForReviewForm = ({
           Ask me later
         </Button>
       </View>
-      <View>
-        <Text
-          style={[
-            styles.element,
-            { color: theme.colors.primary, textAlign: 'center' },
-          ]}
-          onPress={() => {
-            onAction('never');
-          }}
-        >
+      <View style={styles.element}>
+        <Button mode="text" onPress={() => onAction('never')}>
           Please don't ask me about this.
-        </Text>
+        </Button>
       </View>
     </View>
   );

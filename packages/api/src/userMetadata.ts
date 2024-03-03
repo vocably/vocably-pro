@@ -1,6 +1,7 @@
 import {
   mapUserMetadata,
   mergeUserMetadata,
+  PartialUserMetadata,
   Result,
   UserMetadata,
 } from '@vocably/model';
@@ -22,7 +23,7 @@ export const getUserMetadata = async (): Promise<Result<UserMetadata>> => {
 };
 
 export const saveUserMetadata = async (
-  metadata: UserMetadata
+  metadata: PartialUserMetadata
 ): Promise<Result<UserMetadata>> => {
   const userMetadataResult = await getUserMetadata();
   if (userMetadataResult.success === false) {

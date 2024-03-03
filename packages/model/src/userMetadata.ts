@@ -13,7 +13,11 @@ export type UserMetadata = {
   rate: Record<Platform, RateResponse | undefined>;
 };
 
-const defaultUserMetadata: UserMetadata = {
+export type PartialUserMetadata = Partial<UserMetadata> & {
+  rate?: Partial<UserMetadata['rate']>;
+};
+
+export const defaultUserMetadata: UserMetadata = {
   rate: {
     ios: undefined,
     android: undefined,
@@ -24,15 +28,15 @@ const defaultUserMetadata: UserMetadata = {
 
 export const mergeUserMetadata = (
   md1: UserMetadata,
-  md2: UserMetadata
+  md2: PartialUserMetadata
 ): UserMetadata => {
   return {
     ...md1,
+    ...md2,
     rate: {
       ...md1.rate,
       ...md2.rate,
     },
-    ...md2,
   };
 };
 
