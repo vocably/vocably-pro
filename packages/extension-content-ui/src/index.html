@@ -22,12 +22,12 @@
   </head>
   <body>
     <div class="container">
-      <h1>Buttons</h1>
+      <h1 id="buttons">Buttons</h1>
       <p>
         <vocably-button></vocably-button>
       </p>
 
-      <h1>Popups</h1>
+      <h1 id="popups">Popups</h1>
 
       <h2>Loading</h2>
       <div class="mb-3">
@@ -144,7 +144,7 @@
         };
       </script>
 
-      <h2>Ask for rating</h2>
+      <h2 id="ask-for-rating">Ask for rating</h2>
 
       <div class="mb-3">
         <vocably-popup
@@ -167,6 +167,32 @@
             name: 'Chrome Web Store',
             url: 'https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb',
           };
+        </script>
+      </div>
+
+      <h2 id="preview-mode">Preview</h2>
+
+      <div class="mb-3">
+        <vocably-popup
+          ><vocably-translation
+            phrase="gemaakt"
+            id="previewTranslation"
+            language="nl"
+          ></vocably-translation
+        ></vocably-popup>
+      </div>
+
+      <div class="mb-3">
+        <script type="text/javascript">
+          const previewTranslation =
+            document.getElementById('previewTranslation');
+
+          previewTranslation.existingLanguages = ['en', 'nl'];
+          previewTranslation.result = successfulTranslationResult;
+          previewTranslation.showSaveHint = false;
+          previewTranslation.askForRating = false;
+          previewTranslation.isFeedbackEnabled = false;
+          previewTranslation.preview = true;
         </script>
       </div>
 

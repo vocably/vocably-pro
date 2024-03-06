@@ -1,13 +1,15 @@
 export type ContentScriptConfiguration = {
   isFeedbackEnabled: boolean;
+  isPreview: boolean;
 };
 
-export let contentScriptConfiguration: ContentScriptConfiguration = {
+export const contentScriptConfiguration: ContentScriptConfiguration = {
   isFeedbackEnabled: false,
+  isPreview: false,
 };
 
 export const configureContentScript = (
   configuration: ContentScriptConfiguration
 ) => {
-  contentScriptConfiguration = configuration;
+  Object.assign(contentScriptConfiguration, configuration);
 };

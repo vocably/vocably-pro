@@ -35,6 +35,7 @@ export namespace Components {
         "playSound": (
     payload: PlaySoundPayload
   ) => Promise<Result<PlaySoundResponse>>;
+        "preview": boolean;
         "text": string;
     }
     interface VocablyPopup {
@@ -64,6 +65,7 @@ export namespace Components {
         "playSound": (
     payload: PlaySoundPayload
   ) => Promise<Result<PlaySoundResponse>>;
+        "preview": boolean;
         "result": Result<TranslationCards> | null;
         "showSaveHint": boolean;
     }
@@ -265,6 +267,7 @@ declare namespace LocalJSX {
         "playSound"?: (
     payload: PlaySoundPayload
   ) => Promise<Result<PlaySoundResponse>>;
+        "preview"?: boolean;
         "text"?: string;
     }
     interface VocablyPopup {
@@ -302,6 +305,7 @@ declare namespace LocalJSX {
         "playSound"?: (
     payload: PlaySoundPayload
   ) => Promise<Result<PlaySoundResponse>>;
+        "preview"?: boolean;
         "result"?: Result<TranslationCards> | null;
         "showSaveHint"?: boolean;
     }

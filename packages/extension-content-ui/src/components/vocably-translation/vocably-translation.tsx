@@ -46,6 +46,7 @@ export class VocablyTranslation {
     payload: PlaySoundPayload
   ) => Promise<Result<PlaySoundResponse>>;
   @Prop() extensionPlatform: { name: string; url: string };
+  @Prop() preview = false;
 
   @Event() ratingInteraction: EventEmitter<RateInteractionPayload>;
 
@@ -59,23 +60,31 @@ export class VocablyTranslation {
   private askForRatingContainer: HTMLDivElement;
 
   render() {
-    const languageSelector = this.result && this.result.success && (
-      <select
-        data-test="language-selector"
-        disabled={this.loading}
-        onChange={(event) =>
-          this.changeLanguage.emit((event.target as HTMLSelectElement).value)
-        }
-      >
-        {Object.entries(languageList)
-          .sort(sortLanguages(this.existingLanguages))
-          .map(([code, name]) => (
-            <option selected={this.language === code} value={code}>
-              {name}
-            </option>
-          ))}
-      </select>
-    );
+    let languageSelector: any;
+
+    if (this.result && this.result.success && !this.preview) {
+      languageSelector = (
+        <select
+          data-test="language-selector"
+          disabled={this.loading}
+          onChange={(event) =>
+            this.changeLanguage.emit((event.target as HTMLSelectElement).value)
+          }
+        >
+          {Object.entries(languageList)
+            .sort(sortLanguages(this.existingLanguages))
+            .map(([code, name]) => (
+              <option selected={this.language === code} value={code}>
+                {name}
+              </option>
+            ))}
+        </select>
+      );
+    }
+
+    if (this.result && this.result.success && this.preview) {
+      languageSelector = <span>{languageList[this.language]}</span>;
+    }
 
     const showDirect =
       this.result &&
@@ -100,6 +109,7 @@ export class VocablyTranslation {
                         this.result.value.translation.sourceLanguage
                       ) && (
                         <vocably-play-sound
+                          preview={this.preview}
                           text={this.phrase}
                           language={
                             this.result.value.translation.sourceLanguage
@@ -197,6 +207,7 @@ export class VocablyTranslation {
                           <div class="margin-left">
                             {isGoogleTTSLanguage(card.data.language) && (
                               <vocably-play-sound
+                                preview={this.preview}
                                 text={card.data.source}
                                 language={card.data.language}
                                 playSound={this.playSound}

@@ -8,15 +8,9 @@ registerContentScript({
     appBaseUrl: environment,
     isLoggedIn: async () => true,
     getInternalProxyLanguage: async () => 'ru',
-    setInternalProxyLanguage: async () => {
-      // @ts-ignore
-      document.getElementById('hasProxyLanguage').checked = true;
-    },
+    setInternalProxyLanguage: async () => {},
     getInternalSourceLanguage: async () => 'en',
-    setInternalSourceLanguage: async () => {
-      // @ts-ignore
-      document.getElementById('hasProxyLanguage').checked = true;
-    },
+    setInternalSourceLanguage: async () => {},
     isActive: async () => true,
     isEligibleForTrial: async () => true,
     analyze: async (payload) => {
@@ -61,27 +55,21 @@ registerContentScript({
       }
     },
     // @ts-ignore
-    addCard: async (payload) => window.alert('Add'),
+    addCard: async (payload) => {},
     // @ts-ignore
     removeCard: async (payload) => {},
     cleanUp: () => Promise.resolve({ success: true, value: null }),
     ping: () => Promise.resolve('pong'),
-    listLanguages: () =>
-      Promise.resolve({ success: true, value: ['ar', 'nl'] }),
+    listLanguages: () => Promise.resolve({ success: true, value: [] }),
     isUserKnowsHowToAdd: async () => true,
     setUserKnowsHowToAdd: async (value) => {},
-    playSound: (payload) => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({
-            success: true,
-            value: {
-              url: `https://ssl.gstatic.com/dictionary/static/sounds/20200429/hello--_gb_1.mp3`,
-            },
-          });
-        }, 3000);
-      });
-    },
+    playSound: (payload) =>
+      Promise.resolve({
+        success: true,
+        value: {
+          url: `https://ssl.gstatic.com/dictionary/static/sounds/20200429/hello--_gb_1.mp3`,
+        },
+      }),
     askForRating: async () => false,
     saveAskForRatingResponse: () => Promise.resolve(null),
   },
@@ -90,5 +78,6 @@ registerContentScript({
   },
   contentScript: {
     isFeedbackEnabled: false,
+    isPreview: true,
   },
 }).then();

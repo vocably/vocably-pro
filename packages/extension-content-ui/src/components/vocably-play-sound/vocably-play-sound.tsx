@@ -14,6 +14,7 @@ import {
 export class VocablyPlaySound {
   @Prop() text: string;
   @Prop() language: GoogleTTSLanguage;
+  @Prop() preview = false;
 
   @Prop() playSound: (
     payload: PlaySoundPayload
@@ -23,6 +24,14 @@ export class VocablyPlaySound {
   @State() isPlaying: boolean = false;
 
   onPlaySoundClick = async () => {
+    if (this.preview) {
+      window.alert(
+        'You can listen to the audio pronunciation after installing the extension.'
+      );
+
+      return;
+    }
+
     this.isLoading = true;
     const result = await this.playSound({
       text: this.text,
