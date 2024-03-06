@@ -26,7 +26,7 @@ export class VocablyPlaySound {
   onPlaySoundClick = async () => {
     if (this.preview) {
       window.alert(
-        'You can listen to the audio pronunciation after installing the extension.'
+        'You will be able to listen to the audio pronunciation on any website after installing the extension.'
       );
 
       return;

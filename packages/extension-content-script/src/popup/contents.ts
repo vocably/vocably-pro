@@ -41,6 +41,7 @@ export const setContents = async ({
   const setTranslation = async () => {
     const extensionPlatform = detectExtensionPlatform();
     const translation = document.createElement('vocably-translation');
+    translation.preview = contentScriptConfiguration.isPreview;
     translation.isFeedbackEnabled =
       contentScriptConfiguration.isFeedbackEnabled;
     translation.phrase = source;

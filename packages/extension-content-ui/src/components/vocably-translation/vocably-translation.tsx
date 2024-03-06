@@ -181,6 +181,13 @@ export class VocablyTranslation {
                                 title="Add card"
                                 disabled={this.isUpdating !== null}
                                 onClick={() => {
+                                  if (this.preview) {
+                                    window.alert(
+                                      'You will be able to add cards to your collection on any website after installing the extension.'
+                                    );
+                                    return;
+                                  }
+
                                   this.saveCardClicked = true;
                                   this.result.success === true &&
                                     this.addCard.emit({
