@@ -44,7 +44,7 @@ resource "aws_apigatewayv2_api" "www_api" {
     allow_credentials = true
     allow_headers     = ["*"]
     allow_methods     = ["*"]
-    allow_origins     = ["https://*", "http://*"]
+    allow_origins     = ["https://vocably.pro", "https://dev.env.vocably.pro", "http://localhost:8050"]
   }
 }
 
