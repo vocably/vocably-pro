@@ -1,5 +1,5 @@
 import { Analysis, DirectAnalysis, ReverseAnalysis } from '@vocably/model';
-import { inspect } from '@vocably/sulna';
+import { inspect } from '@vocably/node-sulna';
 import {
   APIGatewayEventRequestContextWithAuthorizer,
   APIGatewayProxyEvent,

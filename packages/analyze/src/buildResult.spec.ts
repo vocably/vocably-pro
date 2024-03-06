@@ -1,4 +1,4 @@
-import { inspect } from '@vocably/sulna';
+import { inspect } from '@vocably/node-sulna';
 import { buildResult } from './buildResult';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 

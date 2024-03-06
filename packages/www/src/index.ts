@@ -2,8 +2,6 @@ import { registerContentScript } from '@vocably/extension-content-script';
 import { Result, TranslationCards } from '@vocably/model';
 import { environment } from '../environment.js';
 
-console.log(environment);
-
 registerContentScript({
   api: {
     appBaseUrl: environment,

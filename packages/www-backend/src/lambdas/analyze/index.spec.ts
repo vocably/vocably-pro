@@ -1,4 +1,4 @@
-import { inspect } from '@vocably/sulna';
+import { inspect } from '@vocably/node-sulna';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { analyze } from './index';
 

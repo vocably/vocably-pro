@@ -1,4 +1,4 @@
-import { inspect } from '@vocably/sulna';
+import { inspect } from '@vocably/node-sulna';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 import { wordDictionary } from './word-dictionary';
 

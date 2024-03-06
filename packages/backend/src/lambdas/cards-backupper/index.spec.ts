@@ -1,4 +1,4 @@
-import { inspect } from '@vocably/sulna';
+import { inspect } from '@vocably/node-sulna';
 import { ScheduledEvent } from 'aws-lambda';
 import { cardsBackupper } from './index';
 

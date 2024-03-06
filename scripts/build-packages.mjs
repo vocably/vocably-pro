@@ -5,6 +5,7 @@ cd(rootDir);
 
 const packages = [
   'sulna',
+  'node-sulna',
   'model',
   'model-operations',
   'srs',

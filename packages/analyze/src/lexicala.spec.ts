@@ -1,4 +1,4 @@
-import { inspect } from '@vocably/sulna';
+import { inspect } from '@vocably/node-sulna';
 import { lexicala } from './lexicala';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 
