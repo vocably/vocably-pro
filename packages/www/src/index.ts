@@ -1,5 +1,6 @@
+import { createTranslationCards } from '@vocably/analysis-cards';
 import { registerContentScript } from '@vocably/extension-content-script';
-import { Result, TranslationCards } from '@vocably/model';
+import { DirectAnalysis, DirectAnalyzePayload } from '@vocably/model';
 import { environment } from '../environment.js';
 
 registerContentScript({
@@ -18,62 +19,47 @@ registerContentScript({
     },
     isActive: async () => true,
     isEligibleForTrial: async () => true,
-    analyze: (payload) =>
-      new Promise((resolve) => {
-        setTimeout(() => {
-          const result: Result<TranslationCards> = {
-            success: true,
-            value: {
-              cards: [
-                {
-                  id: 'tVKa0',
-                  created: 1646242718636,
-                  data: {
-                    language: 'nl',
-                    source: 'gemaakt',
-                    definition: 'als iets niet natuurlijk is of gebeurt',
-                    translation: 'made',
-                    partOfSpeech: 'adjective',
-                    interval: 0,
-                    repetition: 0,
-                    eFactor: 2.5,
-                    dueDate: 1646179200000,
-                  },
-                },
-                {
-                  id: 'Oqewl',
-                  created: 1646242718636,
-                  data: {
-                    language: 'nl',
-                    source: 'maken',
-                    definition:
-                      '* (iets dat nog niet bestond) laten ontstaan\n* (iets dat kapot is) zorgen dat het weer heel is',
-                    translation: 'to make',
-                    partOfSpeech: 'verb',
-                    interval: 0,
-                    repetition: 0,
-                    eFactor: 2.5,
-                    dueDate: 1646179200000,
-                  },
-                },
-              ],
-              source: 'gemaakt',
-              translation: {
-                source: 'gemaakt',
-                sourceLanguage: 'nl',
-                target: 'made',
-                targetLanguage: 'en',
-              },
-            },
-          };
+    analyze: async (payload) => {
+      const wwwPayload: DirectAnalyzePayload = {
+        ...payload,
+        sourceLanguage: 'en',
+        targetLanguage: 'ru',
+      };
+      const analyzeResponse = await fetch(
+        `${environment.apiBaseUrl}/analyze?${new URLSearchParams(
+          wwwPayload
+        ).toString()}`
+      );
 
-          if (payload.sourceLanguage) {
-            result.value.translation.sourceLanguage = payload.sourceLanguage;
-          }
+      if (!analyzeResponse.ok) {
+        return {
+          success: false,
+          errorCode: 'WWW_ANALYZE_REQUEST_NOT_OK',
+          reason: 'The analyze request has ended up with an error.',
+          extra: await analyzeResponse.text(),
+        };
+      }
 
-          resolve(result);
-        }, Math.random() * 500);
-      }),
+      try {
+        const analysis: DirectAnalysis = await analyzeResponse.json();
+
+        return {
+          success: true,
+          value: {
+            source: analysis.source,
+            translation: analysis.translation,
+            cards: createTranslationCards([], wwwPayload, analysis),
+          },
+        };
+      } catch (e) {
+        return {
+          success: false,
+          errorCode: 'WWW_ANALYZE_RESPONSE_INVALID_JSON',
+          reason: 'Unable to convert JSON values from the analyze response.',
+          extra: e,
+        };
+      }
+    },
     // @ts-ignore
     addCard: async (payload) => window.alert('Add'),
     // @ts-ignore
@@ -96,19 +82,7 @@ registerContentScript({
         }, 3000);
       });
     },
-    askForRating: () => {
-      const askForRating = document.getElementById(
-        'askForRating'
-      ) as HTMLInputElement;
-      return new Promise((resolve) => {
-        if (askForRating.checked === false) {
-          resolve(false);
-          return;
-        }
-
-        setTimeout(() => resolve(true), 1000);
-      });
-    },
+    askForRating: async () => false,
     saveAskForRatingResponse: () => Promise.resolve(null),
   },
   youTube: {

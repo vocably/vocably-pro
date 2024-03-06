@@ -13,6 +13,7 @@ const packages = [
   'crud',
   'api',
   'analyze',
+  'analysis-cards',
   'extension-messages',
   'extension-service-worker',
   'extension-content-ui',

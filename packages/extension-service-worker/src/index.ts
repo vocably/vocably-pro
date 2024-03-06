@@ -1,4 +1,5 @@
 import { Auth } from '@aws-amplify/auth';
+import { createTranslationCards } from '@vocably/analysis-cards';
 import {
   analyze,
   configureApi,
@@ -47,7 +48,6 @@ import {
   resetAskForRatingCounter,
   storeAskForRatingCounter,
 } from './askForRatingCounter';
-import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
 import { getProxyLanguage, setProxyLanguage } from './proxyLanguage';

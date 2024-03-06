@@ -1,5 +1,5 @@
 {
-  "name": "@vocably/sulna",
+  "name": "@vocably/analysis-cards",
   "version": "0.0.0",
   "private": true,
   "description": "",
@@ -12,7 +12,7 @@
     "watch-commonjs": "tsc --watch --project tsconfig.commonjs.json",
     "start": "run-p watch*",
     "test": "jest",
-    "sulna": "npm start"
+    "analysis-cards": "npm start"
   },
   "repository": {
     "type": "git",

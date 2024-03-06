@@ -37,6 +37,8 @@ export const Errors = [
   'WWW_ANALYZE_LANGUAGE_NOT_SUPPORTED',
   'WWW_ANALYZE_NOT_DIRECT_REQUEST',
   'WWW_ANALYZE_SOURCE_IS_NOT_PRESENT_AT_THE_HOMEPAGE',
+  'WWW_ANALYZE_REQUEST_NOT_OK',
+  'WWW_ANALYZE_RESPONSE_INVALID_JSON',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];
