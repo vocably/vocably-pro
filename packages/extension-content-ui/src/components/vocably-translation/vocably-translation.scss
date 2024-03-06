@@ -224,3 +224,7 @@ vocably-play-sound {
 .rate-padding {
   padding: $container-padding;
 }
+
+.not-allowed {
+  cursor: not-allowed !important;
+}

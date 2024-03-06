@@ -58,7 +58,7 @@ export class VocablyPlaySound {
     return (
       <Host>
         <button
-          class="button"
+          class={{ button: true, 'not-allowed': this.preview }}
           onClick={() => this.onPlaySoundClick()}
           disabled={this.isPlaying || this.isLoading}
         >

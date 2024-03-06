@@ -62,11 +62,12 @@ export class VocablyTranslation {
   render() {
     let languageSelector: any;
 
-    if (this.result && this.result.success && !this.preview) {
+    if (this.result && this.result.success) {
       languageSelector = (
         <select
           data-test="language-selector"
-          disabled={this.loading}
+          disabled={this.loading || this.preview}
+          class={{ 'not-allowed': this.preview }}
           onChange={(event) =>
             this.changeLanguage.emit((event.target as HTMLSelectElement).value)
           }
@@ -80,10 +81,6 @@ export class VocablyTranslation {
             ))}
         </select>
       );
-    }
-
-    if (this.result && this.result.success && this.preview) {
-      languageSelector = <span>{languageList[this.language]}</span>;
     }
 
     const showDirect =
@@ -177,7 +174,10 @@ export class VocablyTranslation {
                             )}
                             {isDetachedCardItem(card) && (
                               <button
-                                class="card-action-button"
+                                class={{
+                                  'card-action-button': true,
+                                  'not-allowed': this.preview,
+                                }}
                                 title="Add card"
                                 disabled={this.isUpdating !== null}
                                 onClick={() => {
