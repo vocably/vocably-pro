@@ -1,11 +1,19 @@
+import { buildResult, configureAnalyzer } from '@vocably/analyze';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { lastValueFrom, mergeMap, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { buildErrorResponse } from '../../utils/buildErrorResponse';
 import { buildResponse } from '../../utils/buildResponse';
-import { buildResult } from './buildResult';
 import { extractPayload } from './extractPayload';
 import { sanitizePayload } from './sanitizePayload';
+
+configureAnalyzer({
+  lexicalaHost: process.env.LEXICALA_HOST,
+  lexicalaKey: process.env.LEXICALA_KEY,
+  googleProjectId: process.env.GOOGLE_PROJECT_ID,
+  nlpTranslationKey: process.env.NLP_TRANSLATION_KEY,
+  nlpTranslationHost: process.env.NLP_TRANSLATION_HOST,
+});
 
 export const analyze = async (
   event: APIGatewayProxyEvent

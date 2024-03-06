@@ -76,6 +76,11 @@ resource "local_file" "google_key" {
   filename = "${local.backend_root}/${local.google_key_filename}"
 }
 
+resource "local_file" "www_backend_google_key" {
+  content  = base64decode(google_service_account_key.credentials.private_key)
+  filename = "${local.www_backed_root}/${local.google_key_filename}"
+}
+
 locals {
   backend_env_content = <<EOT
 GOOGLE_APPLICATION_CREDENTIALS="${local.google_key_filename}"
@@ -112,6 +117,12 @@ resource "local_file" "backend_test_environment" {
 locals {
   www_backend_env_content = <<EOT
 EMAILS_TABLE="${aws_dynamodb_table.emails.name}"
+GOOGLE_APPLICATION_CREDENTIALS="${local.google_key_filename}"
+GOOGLE_PROJECT_ID="${var.gcloud_project_id}"
+LEXICALA_HOST="${var.lexicala_host}"
+LEXICALA_KEY="${var.lexicala_key}"
+NLP_TRANSLATION_HOST="${var.nlp_translation_host}"
+NLP_TRANSLATION_KEY="${var.nlp_translation_key}"
   EOT
 }
 

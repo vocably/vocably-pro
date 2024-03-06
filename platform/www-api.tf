@@ -8,73 +8,17 @@ resource "aws_dynamodb_table" "emails" {
   }
 }
 
-resource "aws_iam_role" "save_email_lambda" {
-  name               = "vocably-${terraform.workspace}-save-email-lambda"
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+data "external" "homepage_text" {
+  depends_on = [data.external.www_build]
+  program = ["bash", "-c", <<EOT
+(node www-api-refresh-homepage-text.mjs) >&2 && echo "{\"dest\": \"dist\"}"
+EOT
   ]
-}
-EOF
-}
-
-resource "aws_iam_policy" "logs" {
-  name = "vocably-${terraform.workspace}-save-email-lambda-logs-policy"
-  policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Sid" : "DefaultLogging",
-        "Effect" : "Allow",
-        "Action" : [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ],
-        "Resource" : "*"
-      }
-    ]
-  })
-}
-
-resource "aws_iam_policy" "save_email" {
-  name = "vocably-${terraform.workspace}-save-email-lambda-storage-policy"
-  policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Sid" : "SaveEmails",
-        "Effect" : "Allow",
-        "Action" : [
-          "dynamodb:PutItem"
-        ],
-        "Resource" : aws_dynamodb_table.emails.arn
-      }
-    ]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "save_emails_lambda_logging" {
-  role       = aws_iam_role.save_email_lambda.name
-  policy_arn = aws_iam_policy.logs.arn
-}
-
-resource "aws_iam_role_policy_attachment" "save_emails_db" {
-  role       = aws_iam_role.save_email_lambda.name
-  policy_arn = aws_iam_policy.save_email.arn
+  working_dir = local.scripts_root
 }
 
 data "external" "www_backend_build" {
-  depends_on = [local_file.www_backend_environment]
+  depends_on = [local_file.www_backend_environment, data.external.homepage_text]
   program = ["bash", "-c", <<EOT
 (npm run build) >&2 && echo "{\"dest\": \"dist\"}"
 EOT
@@ -91,19 +35,6 @@ data "archive_file" "www_backend_build" {
   output_path = "www_backend_build.zip"
 }
 
-resource "aws_lambda_function" "save_email" {
-  filename         = data.archive_file.www_backend_build.output_path
-  function_name    = "vocably-${terraform.workspace}-save-email"
-  role             = aws_iam_role.save_email_lambda.arn
-  handler          = "saveEmail.saveEmail"
-  source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
-  runtime          = "nodejs18.x"
-}
-
-resource "aws_cloudwatch_log_group" "save_email" {
-  name              = "/aws/lambda/${aws_lambda_function.save_email.function_name}"
-  retention_in_days = 14
-}
 
 resource "aws_apigatewayv2_api" "www_api" {
   name          = "vocably-${terraform.workspace}-www-api"
@@ -142,34 +73,10 @@ resource "aws_apigatewayv2_stage" "www_api" {
   }
 }
 
-resource "aws_apigatewayv2_integration" "save_email" {
-  api_id = aws_apigatewayv2_api.www_api.id
-
-  integration_uri    = aws_lambda_function.save_email.invoke_arn
-  integration_type   = "AWS_PROXY"
-  integration_method = "POST"
-}
-
-resource "aws_apigatewayv2_route" "save_email" {
-  api_id = aws_apigatewayv2_api.www_api.id
-
-  route_key = "POST /email"
-  target    = "integrations/${aws_apigatewayv2_integration.save_email.id}"
-}
-
 resource "aws_cloudwatch_log_group" "api_gw" {
   name = "/aws/api_gw/${aws_apigatewayv2_api.www_api.name}"
 
   retention_in_days = 30
-}
-
-resource "aws_lambda_permission" "www_api" {
-  statement_id  = "AllowExecutionFromAPIGateway"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.save_email.function_name
-  principal     = "apigateway.amazonaws.com"
-
-  source_arn = "${aws_apigatewayv2_api.www_api.execution_arn}/*/*"
 }
 
 resource "aws_apigatewayv2_domain_name" "www_api" {

@@ -2,6 +2,7 @@ const path = require('path');
 const getModules = require('./webpack/getModules.js');
 const { getEnvironmentVariables } = require('@vocably/webpack');
 const { DefinePlugin } = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -19,7 +20,12 @@ module.exports = {
   module: {
     rules: [{ test: /\.tsx?$/, loader: 'ts-loader' }],
   },
-  plugins: [new DefinePlugin(getEnvironmentVariables())],
+  plugins: [
+    new DefinePlugin(getEnvironmentVariables().stringified),
+    new CopyPlugin({
+      patterns: [{ from: 'google-key.json', to: 'google-key.json' }],
+    }),
+  ],
   output: {
     path: path.join(__dirname, 'dist'),
     libraryTarget: 'commonjs',

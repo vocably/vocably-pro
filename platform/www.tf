@@ -4,6 +4,9 @@ module.exports = {
   environment: {
     baseUrl: '${local.www_base_url}',
     piwikId: '${var.piwik_www_id}',
+    chromeExtensionId: '${var.chrome_extension_id}',
+    safariExtensionId: '${var.safari_extension_id}',
+    apiBaseUrl: 'https://${local.www_api_domain}',
   },
 };
   EOT

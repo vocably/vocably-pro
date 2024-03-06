@@ -1,0 +1,7 @@
+npm-debug.log
+node_modules/
+dist/
+tmp/
+.env.local
+.env.test.local
+google-key.json

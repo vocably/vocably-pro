@@ -12,7 +12,10 @@ const pagesPattern = `**/*${handlebarsExtension}`;
 module.exports = (env) => {
   return {
     mode: env.production ? 'production' : 'development',
-    entry: './src/index.ts',
+    entry: {
+      index: './src/index.ts',
+      main: './src/main.ts',
+    },
     module: {
       rules: [
         {
@@ -57,6 +60,7 @@ module.exports = (env) => {
     plugins: [
       ...glob.sync(pagesPattern, { cwd: pagesDir }).map((handlebarsPage) => {
         const filename = handlebarsPage.replace(handlebarsExtension, 'html');
+        const chunkName = filename.replace('.html', '');
 
         let canonicalHref = 'https://vocably.pro';
 
@@ -70,6 +74,7 @@ module.exports = (env) => {
           canonicalHref: canonicalHref,
           inject: true,
           favicon: './src/favicon.ico',
+          chunks: ['main', chunkName],
           environment,
         });
       }),

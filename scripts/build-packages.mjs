@@ -11,6 +11,7 @@ const packages = [
   'webpack',
   'crud',
   'api',
+  'analyze',
   'extension-messages',
   'extension-service-worker',
   'extension-content-ui',
