@@ -14,6 +14,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-VocablyPro-VocablyProTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-VocablyPro-VocablyProTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		9A053413448D43BE17A23796 /* libPods-VocablyProShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACFC469E98B8957D2AC21CD1 /* libPods-VocablyProShare.a */; };
 		BF11DAB92B95B00400AA1F29 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF11DAB72B95B00400AA1F29 /* MainInterface.storyboard */; };
 		BF11DABD2B95B00400AA1F29 /* VocablyProShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BF11DAB32B95B00400AA1F29 /* VocablyProShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF11DAC52B95B17900AA1F29 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF11DAC42B95B17900AA1F29 /* ShareViewController.swift */; };
@@ -62,11 +63,14 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VocablyPro/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-VocablyPro-VocablyProTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VocablyPro-VocablyProTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-VocablyPro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocablyPro.debug.xcconfig"; path = "Target Support Files/Pods-VocablyPro/Pods-VocablyPro.debug.xcconfig"; sourceTree = "<group>"; };
+		3FB06D1A33E6FEF50FBF11C5 /* Pods-VocablyProShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocablyProShare.release.xcconfig"; path = "Target Support Files/Pods-VocablyProShare/Pods-VocablyProShare.release.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-VocablyPro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocablyPro.release.xcconfig"; path = "Target Support Files/Pods-VocablyPro/Pods-VocablyPro.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-VocablyPro-VocablyProTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocablyPro-VocablyProTests.debug.xcconfig"; path = "Target Support Files/Pods-VocablyPro-VocablyProTests/Pods-VocablyPro-VocablyProTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-VocablyPro.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VocablyPro.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = VocablyPro/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-VocablyPro-VocablyProTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocablyPro-VocablyProTests.release.xcconfig"; path = "Target Support Files/Pods-VocablyPro-VocablyProTests/Pods-VocablyPro-VocablyProTests.release.xcconfig"; sourceTree = "<group>"; };
+		ACFC469E98B8957D2AC21CD1 /* libPods-VocablyProShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VocablyProShare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADB8C43F90367A076DDB7997 /* Pods-VocablyProShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VocablyProShare.debug.xcconfig"; path = "Target Support Files/Pods-VocablyProShare/Pods-VocablyProShare.debug.xcconfig"; sourceTree = "<group>"; };
 		BF11DAB32B95B00400AA1F29 /* VocablyProShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = VocablyProShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF11DAB82B95B00400AA1F29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		BF11DABA2B95B00400AA1F29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -95,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A053413448D43BE17A23796 /* libPods-VocablyProShare.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +142,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-VocablyPro.a */,
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-VocablyPro-VocablyProTests.a */,
+				ACFC469E98B8957D2AC21CD1 /* libPods-VocablyProShare.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -181,6 +187,8 @@
 				5709B34CF0A7D63546082F79 /* Pods-VocablyPro.release.xcconfig */,
 				5B7EB9410499542E8C5724F5 /* Pods-VocablyPro-VocablyProTests.debug.xcconfig */,
 				89C6BE57DB24E9ADA2F236DE /* Pods-VocablyPro-VocablyProTests.release.xcconfig */,
+				ADB8C43F90367A076DDB7997 /* Pods-VocablyProShare.debug.xcconfig */,
+				3FB06D1A33E6FEF50FBF11C5 /* Pods-VocablyProShare.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -246,9 +254,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF11DAC12B95B00400AA1F29 /* Build configuration list for PBXNativeTarget "VocablyProShare" */;
 			buildPhases = (
+				5676C15B33ED19CF8B486456 /* [CP] Check Pods Manifest.lock */,
 				BF11DAAF2B95B00400AA1F29 /* Sources */,
 				BF11DAB02B95B00400AA1F29 /* Frameworks */,
 				BF11DAB12B95B00400AA1F29 /* Resources */,
+				4B4D73DEE364777A33460A60 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -360,6 +370,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VocablyPro/Pods-VocablyPro-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B4D73DEE364777A33460A60 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VocablyProShare/Pods-VocablyProShare-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VocablyProShare/Pods-VocablyProShare-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VocablyProShare/Pods-VocablyProShare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5676C15B33ED19CF8B486456 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VocablyProShare-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
@@ -706,7 +755,10 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -774,7 +826,10 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -784,6 +839,7 @@
 		};
 		BF11DABF2B95B00400AA1F29 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADB8C43F90367A076DDB7997 /* Pods-VocablyProShare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -826,6 +882,7 @@
 		};
 		BF11DAC02B95B00400AA1F29 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3FB06D1A33E6FEF50FBF11C5 /* Pods-VocablyProShare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
