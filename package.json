@@ -25,7 +25,6 @@
     "@angular/platform-browser": "14.0.5",
     "@angular/platform-browser-dynamic": "14.0.5",
     "@angular/router": "14.0.5",
-    "@angular/service-worker": "14.0.5",
     "@aws-amplify/auth": "4.5.9",
     "@aws-sdk/client-cognito-identity-provider": "3.474.0",
     "@aws-sdk/client-dynamodb": "3.474.0",

@@ -144,6 +144,32 @@
         };
       </script>
 
+      <h2>Ask for rating</h2>
+
+      <div class="mb-3">
+        <vocably-popup
+          ><vocably-translation
+            phrase="gemaakt"
+            id="translationAskForRating"
+            language="nl"
+          ></vocably-translation
+        ></vocably-popup>
+      </div>
+
+      <div class="mb-3">
+        <script type="text/javascript">
+          const element = document.getElementById('translationAskForRating');
+
+          element.result = successfulTranslationResult;
+          element.showSaveHint = false;
+          element.askForRating = true;
+          element.extensionPlatform = {
+            name: 'Chrome Web Store',
+            url: 'https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb',
+          };
+        </script>
+      </div>
+
       <h2>Success</h2>
 
       <div class="mb-3">
@@ -182,6 +208,11 @@
           );
           simpletonTranslation.existingLanguages = ['en', 'nl'];
           simpletonTranslation.result = simpletonTranslationResult;
+          simpletonTranslation.askForRating = true;
+          simpletonTranslation.extensionPlatform = {
+            name: 'Chrome Web Store',
+            url: 'https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb',
+          };
         </script>
       </div>
 

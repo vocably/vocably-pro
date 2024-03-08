@@ -145,6 +145,8 @@ select {
   opacity: 0;
 }
 
+$container-padding: $input-padding-y 48px $input-padding-y $input-padding-x;
+
 .cards {
   border: $internal-border;
   border-radius: $v-border-radius;
@@ -154,7 +156,7 @@ select {
 
   .card {
     position: relative;
-    padding: $input-padding-y 48px $input-padding-y $input-padding-x;
+    padding: $container-padding;
     border-top: $internal-border;
 
     &:first-child {
@@ -205,4 +207,20 @@ vocably-play-sound {
   }
 
   margin-right: 4px;
+}
+
+.rate-container {
+  transition: all 1s ease-in-out;
+  max-height: 500px;
+  opacity: 1;
+  box-sizing: border-box;
+
+  &.hidden {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+.rate-padding {
+  padding: $container-padding;
 }

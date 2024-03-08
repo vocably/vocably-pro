@@ -10,3 +10,4 @@ export * from './subscription';
 export * from './text-to-speech';
 export * from './translation-cards';
 export * from './user';
+export * from './userMetadata';

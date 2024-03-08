@@ -112,6 +112,20 @@ registerContentScript({
         }, 3000);
       });
     },
+    askForRating: () => {
+      const askForRating = document.getElementById(
+        'askForRating'
+      ) as HTMLInputElement;
+      return new Promise((resolve) => {
+        if (askForRating.checked === false) {
+          resolve(false);
+          return;
+        }
+
+        setTimeout(() => resolve(true), 1000);
+      });
+    },
+    saveAskForRatingResponse: () => Promise.resolve(null),
   },
   youTube: {
     ytHosts: ['localhost:8020'],

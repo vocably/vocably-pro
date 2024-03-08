@@ -2,13 +2,12 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import * as Sentry from '@sentry/browser';
 import * as PullToRefresh from 'pulltorefreshjs';
-import { distinct, firstValueFrom, map, switchMap, tap } from 'rxjs';
+import { distinct, firstValueFrom, map } from 'rxjs';
 import { environment } from '../environments/environment';
 import { setUp, setUserId } from '../piwik';
 import { AuthService } from './auth/auth.service';
 import { RefreshService } from './refresh.service';
 import { RouterParamsService } from './router-params.service';
-import { UpdateService } from './update.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +20,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     routerParams: RouterParamsService,
-    private updateService: UpdateService,
     private refreshService: RefreshService,
     public platform: Platform,
     private auth: AuthService
@@ -29,15 +27,6 @@ export class AppComponent implements OnInit {
     routerParams.data$.subscribe((data) => {
       this.disabledRefresher = data['disabledRefresher'] ?? false;
     });
-
-    this.updateService.bootstrap();
-
-    refreshService.refresh$
-      .pipe(
-        tap(() => refreshService.register('update')),
-        switchMap(() => this.updateService.checkForUpdate())
-      )
-      .subscribe(() => refreshService.unregister('update'));
 
     let isPiwikSet = false;
     this.auth.userData$

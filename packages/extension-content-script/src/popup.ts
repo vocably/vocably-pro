@@ -85,7 +85,7 @@ export const createPopup = async (options: PopupOptions) => {
   show(popup);
 
   resizeObserver = new ResizeObserver(() => {
-    applyTransform(popup, position);
+    requestAnimationFrame(() => applyTransform(popup, position));
   });
   resizeObserver.observe(popup);
 
