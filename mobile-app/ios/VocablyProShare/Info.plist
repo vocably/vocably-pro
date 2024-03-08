@@ -2,28 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSExtension</key>
-	<dict>
-		<key>NSExtensionAttributes</key>
-		<dict>
-			<key>NSExtensionActivationRule</key>
-			<string>TRUEPREDICATE</string>
-		</dict>
-		<key>NSExtensionMainStoryboard</key>
-		<string>MainInterface</string>
-		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.share-services</string>
-	</dict>
 	<key>HostAppBundleIdentifier</key>
-	<string>YOUR_APP_TARGET_BUNDLE_ID</string>
+	<string>pro.vocably.app</string>
 	<key>HostAppURLScheme</key>
 	<string>vocably-pro://</string>
+	<!-- This url scheme CONTAINS :// at the end - E.G. "mycustomscheme://"-->
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>NSExtensionActivationRule</key>
 			<dict>
+				<!-- For a full list of available options, visit https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AppExtensionKeys.html#//apple_ref/doc/uid/TP40014212-SW10 -->
+				<key>NSExtensionActivationSupportsImageWithMaxCount</key>
+				<integer>1</integer>
 				<key>NSExtensionActivationSupportsText</key>
 				<true/>
 				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
