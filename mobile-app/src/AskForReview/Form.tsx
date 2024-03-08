@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { RateInteractionPayload } from '@vocably/model';
 import React, { FC } from 'react';
 import {
+  Dimensions,
   ScrollView,
   StyleProp,
   StyleSheet,
@@ -12,11 +13,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Button, Text, useTheme } from 'react-native-paper';
 import { mobileStoreName } from '../mobilePlatform';
 
+const windowDimensions = Dimensions.get('window');
+
 const gradientHeight = 100;
 
 const styles = StyleSheet.create({
   container: {
-    maxHeight: 300,
+    maxHeight: Math.min(380, 300 + (windowDimensions.height - 667)),
   },
 
   scrollContainer: {

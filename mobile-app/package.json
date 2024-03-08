@@ -8,7 +8,7 @@
     "start": "react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "reset-ios": "rm -rf ios/build ios/Pods && npx pod-install",
+    "reset-ios": "rm -rf ios/build ios/Pods && NO_FLIPPER=1 npx pod-install",
     "deploy-ios-dev": "(cd ios && fastlane ios build && fastlane ios beta)",
     "deploy-ios-prod": "(npm run setup-prod-env && cd ios && fastlane ios build && npm run setup-dev-env && fastlane ios beta)",
     "deploy-android": "(npm run setup-prod-env && cd android && fastlane android beta && npm run setup-dev-env)",
