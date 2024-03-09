@@ -1,5 +1,5 @@
 {
-  "name": "@vocably/sulna",
+  "name": "@vocably/node-sulna",
   "version": "0.0.0",
   "private": true,
   "description": "",
@@ -11,8 +11,8 @@
     "watch-esm": "tsc --watch",
     "watch-commonjs": "tsc --watch --project tsconfig.commonjs.json",
     "start": "run-p watch*",
-    "test": "jest",
-    "sulna": "npm start"
+    "test": "echo '@vocably/node-sulna has no tests.'",
+    "node-sulna": "npm start"
   },
   "repository": {
     "type": "git",

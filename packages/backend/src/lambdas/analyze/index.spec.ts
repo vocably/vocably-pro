@@ -1,9 +1,9 @@
 import { Analysis, DirectAnalysis, ReverseAnalysis } from '@vocably/model';
+import { inspect } from '@vocably/node-sulna';
 import {
   APIGatewayEventRequestContextWithAuthorizer,
   APIGatewayProxyEvent,
 } from 'aws-lambda';
-import { inspect } from '../../utils/inspect';
 import { analyze } from './index';
 
 // @ts-ignore

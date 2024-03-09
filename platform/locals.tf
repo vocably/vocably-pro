@@ -6,6 +6,7 @@ locals {
   www_api_domain                 = "www-api.${var.root_domain}"
   app_root                       = abspath("../packages/app")
   extension_root                 = abspath("../packages/extension")
+  analyze_root                   = abspath("../packages/analyze")
   backend_root                   = abspath("../packages/backend")
   auth_lambdas_root              = abspath("../packages/auth-lambdas")
   model_root                     = abspath("../packages/model")

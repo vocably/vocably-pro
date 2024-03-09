@@ -1,5 +1,5 @@
+import { inspect } from '@vocably/node-sulna';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { inspect } from '../../utils/inspect';
 import { playSound } from './index';
 
 // @ts-ignore

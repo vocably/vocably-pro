@@ -97,6 +97,11 @@ resource "local_file" "backend_environment" {
   filename = "${local.backend_root}/.env.local"
 }
 
+resource "local_file" "analyze_environment" {
+  content  = local.backend_env_content
+  filename = "${local.analyze_root}/.env.local"
+}
+
 locals {
   backend_test_env_content = <<EOT
 ${local.backend_env_content}

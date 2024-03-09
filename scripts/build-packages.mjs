@@ -5,12 +5,14 @@ cd(rootDir);
 
 const packages = [
   'sulna',
+  'node-sulna',
   'model',
   'model-operations',
   'srs',
   'webpack',
   'crud',
   'api',
+  'analyze',
   'extension-messages',
   'extension-service-worker',
   'extension-content-ui',

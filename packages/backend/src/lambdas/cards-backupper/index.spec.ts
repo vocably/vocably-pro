@@ -1,5 +1,5 @@
+import { inspect } from '@vocably/node-sulna';
 import { ScheduledEvent } from 'aws-lambda';
-import { inspect } from '../../utils/inspect';
 import { cardsBackupper } from './index';
 
 // @ts-ignore

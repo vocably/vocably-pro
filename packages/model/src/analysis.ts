@@ -48,3 +48,7 @@ export type ReverseAnalysis = DirectAnalysis & {
 };
 
 export type Analysis = DirectAnalysis | ReverseAnalysis;
+
+export const isReverseAnalysis = (o: any): o is ReverseAnalysis => {
+  return !(!o || !o.target || !o.reverseTranslation);
+};
