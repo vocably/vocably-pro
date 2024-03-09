@@ -71,9 +71,14 @@ locals {
   google_key_filename = "google-key.json"
 }
 
-resource "local_file" "google_key" {
+resource "local_file" "backend_google_key" {
   content  = base64decode(google_service_account_key.credentials.private_key)
   filename = "${local.backend_root}/${local.google_key_filename}"
+}
+
+resource "local_file" "analyze_google_key" {
+  content  = base64decode(google_service_account_key.credentials.private_key)
+  filename = "${local.analyze_root}/${local.google_key_filename}"
 }
 
 locals {
@@ -97,11 +102,6 @@ resource "local_file" "backend_environment" {
   filename = "${local.backend_root}/.env.local"
 }
 
-resource "local_file" "analyze_environment" {
-  content  = local.backend_env_content
-  filename = "${local.analyze_root}/.env.local"
-}
-
 locals {
   backend_test_env_content = <<EOT
 ${local.backend_env_content}
@@ -112,6 +112,11 @@ TEST_SKIP_SPEC="false"
 resource "local_file" "backend_test_environment" {
   content  = local.backend_test_env_content
   filename = "${local.backend_root}/.env.test.local"
+}
+
+resource "local_file" "analyze_test_environment" {
+  content  = local.backend_test_env_content
+  filename = "${local.analyze_root}/.env.local"
 }
 
 locals {
