@@ -116,7 +116,7 @@ resource "local_file" "backend_test_environment" {
 
 resource "local_file" "analyze_test_environment" {
   content  = local.backend_test_env_content
-  filename = "${local.analyze_root}/.env.local"
+  filename = "${local.analyze_root}/.env.test.local"
 }
 
 locals {
