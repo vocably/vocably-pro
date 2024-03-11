@@ -1,5 +1,7 @@
+import { configureTestAnalyzer } from '../test/configureTestAnalyzer';
 import { translateJapaneseHeadwords } from './translateJapaneseHeadwords';
 
+configureTestAnalyzer();
 describe('translateJapaneseHeadwords', () => {
   if (process.env.TEST_SKIP_SPEC === 'true') {
     it('skip spec testing', () => {});
