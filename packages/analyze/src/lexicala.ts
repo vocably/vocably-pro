@@ -4,7 +4,12 @@ import { config } from './config';
 import { LexicalaLanguage } from './lexicala/lexicalaLanguageMapper';
 import { request } from './request';
 
-export type Headword = { text?: string; pos?: string; gender?: string };
+export type Headword = {
+  text?: string;
+  pos?: string;
+  gender?: string;
+  alternative_scripts?: Array<{ type: string; text: string }>;
+};
 
 export type LexicalaTranslation = {
   text: string;
@@ -27,7 +32,11 @@ export type LexicalaSearchResultItem = {
 
 export const lexicala = async (
   language: LexicalaLanguage,
-  text: string
+  text: string,
+  overriddenParams: {
+    morph?: 'true' | 'false';
+    analyzed?: 'true' | 'false';
+  } = {}
 ): Promise<Result<LexicalaSearchResultItem[]>> => {
   try {
     const requestOptions = {
@@ -38,6 +47,7 @@ export const lexicala = async (
         source: 'global',
         morph: 'true',
         analyzed: 'true',
+        ...overriddenParams,
       }).toString()}`,
       headers: {
         'X-RapidAPI-Host': config.lexicalaHost,

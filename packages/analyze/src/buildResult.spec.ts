@@ -256,4 +256,42 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].translation).toEqual('be, become');
     expect(result.value.items[1].translation).toEqual('his');
   });
+
+  it('adds romaji for japanese multi translation', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'ja',
+      targetLanguage: 'en',
+      target: 'this is a message',
+    });
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    console.log(inspect(result.value));
+
+    expect(result.value.items[0].definitions[0]).toEqual(
+      '[korehamesseejidesu]'
+    );
+    expect(result.value.items[0].translation).toEqual('this is the message');
+  });
+
+  it('shows adds harigana, kanji and romanji to results and definitions', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'ja',
+      targetLanguage: 'ru',
+      source: '母親',
+    });
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.items[0].definitions[0]).toEqual('[hahaoya]');
+    expect(result.value.items[0].definitions[1]).toEqual('[母親]');
+    expect(result.value.items[0].translation).toEqual('мать');
+    expect(result.value.items[0].partOfSpeech).toEqual('noun');
+  });
 });

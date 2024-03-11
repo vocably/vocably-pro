@@ -4,6 +4,7 @@ import {
   Result,
   Translation,
 } from '@vocably/model';
+import { buildDirectJapaneseResult } from './buildDirectResult/buildDirectJapaneseResult';
 import { combineItems } from './combineItems';
 import { fitsTheSize } from './fitsTheSize';
 import { googleTranslate } from './googleTranslate';
@@ -35,6 +36,10 @@ export const buildDirectResult = async (
     sourceLanguage:
       payload.sourceLanguage ?? translationResult.value.sourceLanguage,
   };
+
+  if (translation.sourceLanguage === 'ja') {
+    return buildDirectJapaneseResult({ translation });
+  }
 
   const lexicalaLanguage = languageToLexicalaLanguage(
     translation.sourceLanguage

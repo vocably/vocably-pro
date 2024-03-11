@@ -83,6 +83,7 @@
     "tslib": "2.4.0",
     "typescript": "4.7.4",
     "verify-paddle-webhook": "1.1.0",
+    "wanakana": "^5.3.1",
     "webpack": "5.73.0",
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.9.3",
