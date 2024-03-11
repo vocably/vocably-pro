@@ -66,14 +66,17 @@ export const buildDirectJapaneseResult = async ({
           return translationResult;
         }
 
+        let definitions = [`[${japaneseHeadwords.romaji}]`];
+
+        if (japaneseHeadwords.kanji) {
+          definitions.push(`[${japaneseHeadwords.kanji}]`);
+        }
+
         return {
           success: true,
           value: {
             source: japaneseHeadwords.hiragana,
-            definitions: [
-              `[${japaneseHeadwords.romaji}]`,
-              ...(japaneseHeadwords.kanji && [`[${japaneseHeadwords.kanji}]`]),
-            ],
+            definitions,
             partOfSpeech: lexicalaItem.headword.pos,
             translation: translationResult.value,
           },
