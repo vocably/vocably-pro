@@ -289,8 +289,9 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    expect(result.value.items[0].source).toEqual('母親 [ ははおや ]');
-    expect(result.value.items[0].definitions[0]).toEqual('[hahaoya]');
+    expect(result.value.items[0].source).toEqual('母親');
+    expect(result.value.items[0].definitions[0]).toEqual('[ ははおや ]');
+    expect(result.value.items[0].definitions[1]).toEqual('[ hahaoya ]');
     expect(result.value.items[0].translation).toEqual('мать');
     expect(result.value.items[0].partOfSpeech).toEqual('noun');
   });

@@ -9,13 +9,14 @@ import { lexicala } from '../lexicala';
 import { normalizeHeadword } from '../lexicala/normalizeHeadword';
 import { extractJapaneseHeadwords } from './extractJapaneseHeadwords';
 import { translateJapaneseHeadwords } from './translateJapaneseHeadwords';
+import sources = chrome.devtools.panels.sources;
 
 const buildTranslationResult = (translation: Translation): DirectAnalysis => {
   const romaji = toRomaji(translation.source);
-  let definitions: string[] | undefined;
+  let definitions: string[] = [];
 
   if (isRomaji(romaji)) {
-    definitions = [`[${romaji}]`];
+    definitions.push(`[${romaji}]`);
   }
 
   return {
@@ -67,18 +68,14 @@ export const buildDirectJapaneseResult = async ({
           return translationResult;
         }
 
-        const definitions = [`[${japaneseHeadwords.romaji}]`];
+        let definitions: string[] = [];
 
-        let source = '';
-        if (japaneseHeadwords.kanji) {
-          source = japaneseHeadwords.kanji;
+        const source = japaneseHeadwords.kanji ?? japaneseHeadwords.hiragana;
+        if (japaneseHeadwords.kanji && japaneseHeadwords.hiragana) {
+          definitions.push(`[ ${japaneseHeadwords.hiragana} ]`);
         }
 
-        if (source.length > 0) {
-          source += ` [ ${japaneseHeadwords.hiragana} ]`;
-        } else {
-          source = japaneseHeadwords.hiragana;
-        }
+        definitions.push(`[ ${japaneseHeadwords.romaji} ]`);
 
         return {
           success: true,
