@@ -2,7 +2,7 @@ import { LexicalaSearchResultItem, LexicalaTranslation } from '../lexicala';
 import { LexicalaLanguage } from '../lexicala/lexicalaLanguageMapper';
 
 export const extractItemTranslation = (
-  item: LexicalaSearchResultItem,
+  item: Pick<LexicalaSearchResultItem, 'senses'>,
   targetLanguage: LexicalaLanguage
 ): string | null => {
   const refinedLanguage = targetLanguage === 'pt' ? 'br' : targetLanguage;

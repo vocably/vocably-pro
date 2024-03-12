@@ -60,22 +60,30 @@ export const buildDirectJapaneseResult = async ({
         const translationResult = await translateJapaneseHeadwords({
           translation,
           japaneseHeadwords,
+          lexicalaItem,
         });
 
         if (translationResult.success === false) {
           return translationResult;
         }
 
-        let definitions = [`[${japaneseHeadwords.romaji}]`];
+        const definitions = [`[${japaneseHeadwords.romaji}]`];
 
+        let source = '';
         if (japaneseHeadwords.kanji) {
-          definitions.push(`[${japaneseHeadwords.kanji}]`);
+          source = japaneseHeadwords.kanji;
+        }
+
+        if (source.length > 0) {
+          source += ` [ ${japaneseHeadwords.hiragana} ]`;
+        } else {
+          source = japaneseHeadwords.hiragana;
         }
 
         return {
           success: true,
           value: {
-            source: japaneseHeadwords.hiragana,
+            source,
             definitions,
             partOfSpeech: lexicalaItem.headword.pos,
             translation: translationResult.value,

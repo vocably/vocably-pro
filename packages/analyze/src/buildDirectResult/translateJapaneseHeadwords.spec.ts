@@ -17,9 +17,20 @@ describe('translateJapaneseHeadwords', () => {
       },
       translation: {
         source: 'hahaoya',
-        target: 'mama',
+        target: 'google mama',
         sourceLanguage: 'ja',
         targetLanguage: 'en',
+      },
+      lexicalaItem: {
+        senses: [
+          {
+            translations: {
+              en: {
+                text: 'mama',
+              },
+            },
+          },
+        ],
       },
     });
 
@@ -29,66 +40,58 @@ describe('translateJapaneseHeadwords', () => {
     });
   });
 
-  it('uses already translated text [hiragana]', async () => {
+  it('uses kanji to translate', async () => {
     const translationResult = await translateJapaneseHeadwords({
       japaneseHeadwords: {
-        romaji: 'hahaoya',
-        hiragana: 'ははおや',
-        kanji: '母親',
+        romaji: 'hai',
+        hiragana: 'はい',
+        kanji: '肺',
       },
       translation: {
-        source: 'ははおや',
-        target: 'mama',
+        source: 'はい',
+        target: 'yes',
         sourceLanguage: 'ja',
         targetLanguage: 'en',
+      },
+      lexicalaItem: {
+        senses: [],
       },
     });
 
     expect(translationResult).toEqual({
       success: true,
-      value: 'mama',
+      value: 'lung',
     });
   });
 
-  it('uses already translated text [kanji]', async () => {
+  it('uses english as proxy language', async () => {
     const translationResult = await translateJapaneseHeadwords({
       japaneseHeadwords: {
-        romaji: 'hahaoya',
-        hiragana: 'ははおや',
-        kanji: '母親',
+        romaji: 'hai',
+        hiragana: 'はい',
       },
       translation: {
-        source: '母親',
-        target: 'mama',
+        source: 'はい',
+        target: 'да',
         sourceLanguage: 'ja',
-        targetLanguage: 'en',
+        targetLanguage: 'ru',
+      },
+      lexicalaItem: {
+        senses: [
+          {
+            translations: {
+              en: {
+                text: 'lung',
+              },
+            },
+          },
+        ],
       },
     });
 
     expect(translationResult).toEqual({
       success: true,
-      value: 'mama',
-    });
-  });
-
-  it('translates from google', async () => {
-    const translationResult = await translateJapaneseHeadwords({
-      japaneseHeadwords: {
-        romaji: 'hahaoya',
-        hiragana: 'ははおや',
-        kanji: '母親',
-      },
-      translation: {
-        source: 'hahaya',
-        target: 'mama',
-        sourceLanguage: 'ja',
-        targetLanguage: 'en',
-      },
-    });
-
-    expect(translationResult).toEqual({
-      success: true,
-      value: 'mother',
+      value: 'легкое',
     });
   });
 });
