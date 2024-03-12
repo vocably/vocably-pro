@@ -9,14 +9,13 @@ import { lexicala } from '../lexicala';
 import { normalizeHeadword } from '../lexicala/normalizeHeadword';
 import { extractJapaneseHeadwords } from './extractJapaneseHeadwords';
 import { translateJapaneseHeadwords } from './translateJapaneseHeadwords';
-import sources = chrome.devtools.panels.sources;
 
 const buildTranslationResult = (translation: Translation): DirectAnalysis => {
   const romaji = toRomaji(translation.source);
   let definitions: string[] = [];
 
   if (isRomaji(romaji)) {
-    definitions.push(`[${romaji}]`);
+    definitions.push(`[ ${romaji} ]`);
   }
 
   return {
