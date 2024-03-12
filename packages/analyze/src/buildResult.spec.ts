@@ -272,7 +272,7 @@ describe('integration check for translate lambda', () => {
     console.log(inspect(result.value));
 
     expect(result.value.items[0].definitions[0]).toEqual(
-      '[korehamesseejidesu]'
+      '[ korehamesseejidesu ]'
     );
     expect(result.value.items[0].translation).toEqual('this is the message');
   });
