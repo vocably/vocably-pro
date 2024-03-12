@@ -15,11 +15,6 @@ describe('extractItemTranslation', () => {
                 },
               },
             ],
-            language: 'nl',
-            headword: {
-              text: 'Test headword',
-            },
-            id: 'NL_123',
           },
           'en'
         )
@@ -58,11 +53,6 @@ describe('extractItemTranslation', () => {
                 },
               },
             ],
-            language: 'nl',
-            headword: {
-              text: 'Test headword',
-            },
-            id: 'NL_123',
           },
           'en'
         )
@@ -84,11 +74,6 @@ describe('extractItemTranslation', () => {
                 },
               },
             ],
-            language: 'nl',
-            headword: {
-              text: 'Test headword',
-            },
-            id: 'NL_123',
           },
           'en'
         )
@@ -100,11 +85,6 @@ describe('extractItemTranslation', () => {
         extractItemTranslation(
           {
             senses: [{}],
-            language: 'nl',
-            headword: {
-              text: 'Test headword',
-            },
-            id: 'NL_123',
           },
           'en'
         )
