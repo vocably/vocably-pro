@@ -38,3 +38,13 @@ maintainAppSize();
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch((err) => console.error(err));
+
+// @ts-ignore
+browser.runtime.sendMessage(
+  'pro.vocably.app.Vocably-for-Safari (X2D37S38M5)',
+  { greeting: 'Hello!' },
+  function (response: any) {
+    console.log('Received response from the background page:');
+    console.log(response);
+  }
+);
