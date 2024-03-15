@@ -1,0 +1,55 @@
+//@use 'sass:math';
+@import '../../styles/component';
+
+:host {
+  display: block;
+}
+
+.button {
+  $size: 19px;
+  $icon-size: $size * 0.9;
+
+  color: $v-light-color-emphasize;
+  display: flex;
+  border-radius: 16px;
+  line-height: $size;
+  background-color: #fff;
+  padding: 8px;
+  border: 1px solid $v-light-color-border;
+  cursor: pointer;
+  box-sizing: content-box;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  user-select: none;
+  -webkit-user-select: none;
+  transition: all 0.2s;
+
+  &:active {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .svg {
+    height: $icon-size;
+  }
+
+  .caption {
+    margin-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 16px;
+
+    animation-duration: 1s;
+    animation-name: slideIn;
+  }
+
+  @keyframes slideIn {
+    from {
+      max-width: 0;
+    }
+
+    to {
+      max-width: 100px;
+    }
+  }
+}

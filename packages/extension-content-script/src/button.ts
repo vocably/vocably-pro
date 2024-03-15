@@ -67,8 +67,14 @@ const show = (button: HTMLElement) => {
   button.style.display = 'block';
 };
 
-export const createButton = async (selection: Selection, event: MouseEvent) => {
-  const button = document.createElement('vocably-button');
+export const createButton = async (
+  selection: Selection,
+  event: MouseEvent | null = null
+) => {
+  const isTouchscreen = event === null;
+  const button = document.createElement(
+    isTouchscreen ? 'vocably-mobile-button' : 'vocably-button'
+  );
   button.id = buttonId;
   hide(button);
   document.body.appendChild(button);
@@ -78,6 +84,7 @@ export const createButton = async (selection: Selection, event: MouseEvent) => {
     text: getText(selection),
     language: detectLanguage(selection),
     globalRect: getGlobalRect(selection.getRangeAt(0).getBoundingClientRect()),
+    isTouchscreen: isTouchscreen,
   };
 
   button.addEventListener('click', () => {
@@ -95,7 +102,12 @@ export const createButton = async (selection: Selection, event: MouseEvent) => {
     event.stopPropagation();
   });
 
-  const position = await getPosition(selection, event);
+  const position: Position = event
+    ? await getPosition(selection, event)
+    : {
+        left: window.scrollX + window.innerWidth / 2,
+        bottom: window.scrollY + window.innerHeight - 32,
+      };
 
   if (position === null) {
     destroyButton();
