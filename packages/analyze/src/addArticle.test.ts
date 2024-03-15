@@ -49,5 +49,29 @@ describe('addArticle', () => {
         pos: 'verb',
       })
     ).toEqual('test');
+
+    expect(
+      addArticle('no', {
+        text: 'fugl',
+        pos: 'noun',
+        gender: 'masculine',
+      })
+    ).toEqual('en fugl');
+
+    expect(
+      addArticle('no', {
+        text: 'hånd',
+        pos: 'noun',
+        gender: 'masculine-feminine',
+      })
+    ).toEqual('ei hånd');
+
+    expect(
+      addArticle('no', {
+        text: 'hus',
+        pos: 'noun',
+        gender: 'neuter',
+      })
+    ).toEqual('et hus');
   });
 });
