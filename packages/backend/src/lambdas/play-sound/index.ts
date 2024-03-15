@@ -2,14 +2,13 @@ import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 import { google } from '@google-cloud/text-to-speech/build/protos/protos';
 import { PlaySoundResponse, Result } from '@vocably/model';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { lastValueFrom, mergeMap, of, tap } from 'rxjs';
+import { lastValueFrom, mergeMap, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { buildErrorResponse } from '../../utils/buildErrorResponse';
 import { buildResponse } from '../../utils/buildResponse';
 import { extractPayload } from './extractPayload';
 import ISynthesizeSpeechRequest = google.cloud.texttospeech.v1.ISynthesizeSpeechRequest;
-import ISynthesizeSpeechResponse = google.cloud.texttospeech.v1.ISynthesizeSpeechResponse;
 import AudioEncoding = google.cloud.texttospeech.v1.AudioEncoding;
 import SsmlVoiceGender = google.cloud.texttospeech.v1.SsmlVoiceGender;
 
@@ -21,7 +20,6 @@ export const playSound = async (
   lastValueFrom(
     of(event).pipe(
       map(extractPayload),
-      tap(() => console.log(AudioEncoding.MP3)),
       mergeMap(async (payload): Promise<Result<Buffer>> => {
         const request: ISynthesizeSpeechRequest = {
           input: { text: payload.text },

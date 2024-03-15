@@ -18,8 +18,6 @@ export const getCardCandidates = (
   return cardCandidates.map((card) => {
     const existingItem = collection.find(byCard(card));
 
-    console.log(collection);
-
     if (existingItem === undefined) {
       return {
         data: card,
