@@ -5,6 +5,7 @@ import {
   applyMaxZIndex,
   applyPosition,
   applyTransform,
+  isTop,
   Position,
   setupTransform,
 } from './styling';
@@ -13,22 +14,40 @@ let popup: HTMLElement;
 let resizeObserver: ResizeObserver;
 let tearDownContents: TearDown;
 
-const calculatePosition = (globalRect: GlobalRect): Position => {
+const calculatePosition = (
+  globalRect: GlobalRect,
+  isTouchscreen: boolean
+): Position => {
   const left = globalRect.left + globalRect.width / 2;
 
   const top = globalRect.top - window.scrollY;
   const bottom = top + globalRect.height;
+  const selectionContextMenuHeight = Math.ceil(
+    50 / window.visualViewport.scale
+  );
 
   if (bottom < window.innerHeight / 2) {
     return {
       left,
-      top: window.scrollY + bottom,
+      top:
+        window.scrollY +
+        bottom +
+        (isTouchscreen ? selectionContextMenuHeight : 0),
     };
   } else {
     return {
       left,
-      bottom: window.scrollY + top,
+      bottom:
+        window.scrollY + top - (isTouchscreen ? selectionContextMenuHeight : 0),
     };
+  }
+};
+
+const calculateMaxHeight = (position: Position): string => {
+  if (isTop(position)) {
+    return `${window.scrollY - position.top + window.innerHeight}px`;
+  } else {
+    return `${position.bottom - window.scrollY}px`;
   }
 };
 
@@ -52,6 +71,7 @@ type PopupOptions = {
   text: string;
   language?: GoogleLanguage;
   globalRect: GlobalRect;
+  isTouchscreen: boolean;
 };
 
 export const createPopup = async (options: PopupOptions) => {
@@ -79,7 +99,10 @@ export const createPopup = async (options: PopupOptions) => {
     detectedLanguage: options.language,
   });
 
-  const position = calculatePosition(options.globalRect);
+  const position = calculatePosition(options.globalRect, options.isTouchscreen);
+
+  popup.style.setProperty('--max-height', calculateMaxHeight(position));
+  popup.style.setProperty('--max-width', `${window.visualViewport.width}px`);
   applyPosition(popup, position);
   setupTransform(popup);
   show(popup);

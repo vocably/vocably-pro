@@ -10,7 +10,9 @@ type PositionBelow = {
 
 export type Position = PositionAbove | PositionBelow;
 
-const isTop = (popupPosition: Position): popupPosition is PositionBelow => {
+export const isTop = (
+  popupPosition: Position
+): popupPosition is PositionBelow => {
   return Object.prototype.hasOwnProperty.call(popupPosition, 'top');
 };
 

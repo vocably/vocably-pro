@@ -30,6 +30,8 @@ export namespace Components {
     }
     interface VocablyLogo {
     }
+    interface VocablyMobileButton {
+    }
     interface VocablyPlaySound {
         "language": GoogleTTSLanguage;
         "playSound": (
@@ -161,6 +163,12 @@ declare global {
         prototype: HTMLVocablyLogoElement;
         new (): HTMLVocablyLogoElement;
     };
+    interface HTMLVocablyMobileButtonElement extends Components.VocablyMobileButton, HTMLStencilElement {
+    }
+    var HTMLVocablyMobileButtonElement: {
+        prototype: HTMLVocablyMobileButtonElement;
+        new (): HTMLVocablyMobileButtonElement;
+    };
     interface HTMLVocablyPlaySoundElement extends Components.VocablyPlaySound, HTMLStencilElement {
     }
     var HTMLVocablyPlaySoundElement: {
@@ -220,6 +228,7 @@ declare global {
         "vocably-icon-volume-medium": HTMLVocablyIconVolumeMediumElement;
         "vocably-language": HTMLVocablyLanguageElement;
         "vocably-logo": HTMLVocablyLogoElement;
+        "vocably-mobile-button": HTMLVocablyMobileButtonElement;
         "vocably-play-sound": HTMLVocablyPlaySoundElement;
         "vocably-popup": HTMLVocablyPopupElement;
         "vocably-rate": HTMLVocablyRateElement;
@@ -259,6 +268,8 @@ declare namespace LocalJSX {
         "waiting"?: boolean;
     }
     interface VocablyLogo {
+    }
+    interface VocablyMobileButton {
     }
     interface VocablyPlaySound {
         "language"?: GoogleTTSLanguage;
@@ -316,6 +327,7 @@ declare namespace LocalJSX {
         "vocably-icon-volume-medium": VocablyIconVolumeMedium;
         "vocably-language": VocablyLanguage;
         "vocably-logo": VocablyLogo;
+        "vocably-mobile-button": VocablyMobileButton;
         "vocably-play-sound": VocablyPlaySound;
         "vocably-popup": VocablyPopup;
         "vocably-rate": VocablyRate;
@@ -340,6 +352,7 @@ declare module "@stencil/core" {
             "vocably-icon-volume-medium": LocalJSX.VocablyIconVolumeMedium & JSXBase.HTMLAttributes<HTMLVocablyIconVolumeMediumElement>;
             "vocably-language": LocalJSX.VocablyLanguage & JSXBase.HTMLAttributes<HTMLVocablyLanguageElement>;
             "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
+            "vocably-mobile-button": LocalJSX.VocablyMobileButton & JSXBase.HTMLAttributes<HTMLVocablyMobileButtonElement>;
             "vocably-play-sound": LocalJSX.VocablyPlaySound & JSXBase.HTMLAttributes<HTMLVocablyPlaySoundElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;
             "vocably-rate": LocalJSX.VocablyRate & JSXBase.HTMLAttributes<HTMLVocablyRateElement>;

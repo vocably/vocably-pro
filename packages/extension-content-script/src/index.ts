@@ -16,7 +16,34 @@ type RegisterContentScriptOptions = {
   contentScript: ContentScriptConfiguration;
 };
 
+const onCreateSelectionTimeout = async () => {
+  try {
+    await api.ping();
+  } catch {
+    return;
+  }
+
+  const selection = window.getSelection();
+  if (!isValidSelection(selection)) {
+    return;
+  }
+  destroyButton();
+  await createButton(selection);
+};
+
+let createSelectionTimeout: ReturnType<typeof setTimeout> | null = null;
+
+const onTextSelect = async () => {
+  if (createSelectionTimeout) {
+    clearTimeout(createSelectionTimeout);
+    createSelectionTimeout = null;
+  }
+
+  createSelectionTimeout = setTimeout(onCreateSelectionTimeout, 500);
+};
+
 const onMouseUp = async (event) => {
+  document.addEventListener('selectionchange', onTextSelect, false);
   try {
     await api.ping();
   } catch {
@@ -31,6 +58,7 @@ const onMouseUp = async (event) => {
 };
 
 const onMouseDown = async () => {
+  document.removeEventListener('selectionchange', onTextSelect);
   try {
     await api.ping();
   } catch {
@@ -58,4 +86,5 @@ export const registerContentScript = async (
   configureContentScript(contentScript);
   document.addEventListener('mouseup', onMouseUp);
   document.addEventListener('mousedown', onMouseDown);
+  document.addEventListener('selectionchange', onTextSelect, false);
 };

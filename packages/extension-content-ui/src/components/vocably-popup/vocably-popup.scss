@@ -4,6 +4,7 @@
   @include base-font();
 
   --max-height: 48vh;
+  --max-width: 100vw;
   --background-rgb: 255, 255, 255;
   --header-height: 19px;
   --header-padding-top: 11px;
@@ -76,11 +77,15 @@
     right: 0;
     bottom: 0;
     height: var(--padding-bottom);
-    margin-right: var(--padding-x);
-    border-radius: 0 0 0 $v-border-radius;
+    border-radius: 0 0 $v-border-radius $v-border-radius;
+    pointer-events: none;
   }
 
   .body {
+    --padding-right: calc(
+      var(--padding-x) - var(--scrollbar-track) - var(--scrollbar-gutter)
+    );
+
     min-width: 140px;
     overflow: auto;
     box-sizing: border-box;
@@ -89,17 +94,17 @@
         var(--header-padding-bottom) - var(--padding-bottom) -
         var(--shadow-spread) * 2
     );
+    max-width: calc(var(--max-width) - var(--padding-right) - var(--padding-x));
     scrollbar-gutter: stable;
     padding-top: var(--header-padding-bottom);
     padding-left: var(--padding-x);
-    padding-right: calc(
-      var(--padding-x) - var(--scrollbar-track) - var(--scrollbar-gutter)
-    );
+    padding-right: var(--padding-right);
     padding-bottom: var(--padding-bottom);
 
     &::-webkit-scrollbar {
       -webkit-appearance: none;
       width: var(--scrollbar-track);
+      height: var(--scrollbar-track);
     }
 
     &::-webkit-scrollbar-thumb {

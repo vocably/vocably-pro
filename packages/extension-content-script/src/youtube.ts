@@ -64,6 +64,7 @@ const handlePlayerElement = (player: HTMLElement): (() => void) => {
               text: anchor.textContent,
               globalRect: getGlobalRect(anchor.getBoundingClientRect()),
               language: detectLanguage(anchor),
+              isTouchscreen: false,
             });
           });
 
