@@ -77,7 +77,7 @@ export const registerContentScript = async (
   }: RegisterContentScriptOptions = {
     api: {},
     youTube: { ytHosts: ['www.youtube.com'] },
-    contentScript: { isFeedbackEnabled: true },
+    contentScript: { isFeedbackEnabled: false, askForRatingEnabled: false },
   }
 ) => {
   configureApi(apiOptions);

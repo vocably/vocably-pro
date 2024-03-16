@@ -132,6 +132,7 @@ registerContentScript({
   },
   contentScript: {
     isFeedbackEnabled: true,
+    askForRatingEnabled: true,
   },
 }).then();
 

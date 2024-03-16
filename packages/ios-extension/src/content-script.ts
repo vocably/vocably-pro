@@ -6,6 +6,7 @@ registerContentScript({
   },
   youTube: { ytHosts: [] },
   contentScript: {
-    isFeedbackEnabled: process.env.IS_FEEDBACK_ENABLED == 'true',
+    isFeedbackEnabled: false,
+    askForRatingEnabled: false,
   },
 }).then();
