@@ -18,6 +18,13 @@ const languageArticles: Partial<Record<LexicalaLanguage, ArticleRules>> = {
     neuter: 'das ',
     fallback: '',
   },
+  no: {
+    masculine: 'en ',
+    feminine: 'ei ',
+    'masculine-feminine': 'ei ',
+    neuter: 'et ',
+    fallback: '',
+  },
 };
 
 export const addArticle = (
