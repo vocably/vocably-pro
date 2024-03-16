@@ -47,6 +47,7 @@ import {
   resetAskForRatingCounter,
   storeAskForRatingCounter,
 } from './askForRatingCounter';
+import { browserEnv } from './browserEnv';
 import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
@@ -340,14 +341,14 @@ export const registerServiceWorker = (
   });
 
   onIsUserKnowsHowToAdd(async (sendResponse) => {
-    const { userKnowsHowToAdd } = await chrome.storage.sync.get([
+    const { userKnowsHowToAdd } = await browserEnv.storage.sync.get([
       'userKnowsHowToAdd',
     ]);
     return sendResponse(userKnowsHowToAdd ?? false);
   });
 
   onSetUserKnowsHowToAdd(async (sendResponse, value) => {
-    await chrome.storage.sync.set({
+    await browserEnv.storage.sync.set({
       userKnowsHowToAdd: value,
     });
     return sendResponse();

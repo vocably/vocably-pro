@@ -16,24 +16,3 @@ registerServiceWorker({
     cardsBucket: process.env.API_CARDS_BUCKET,
   },
 });
-
-chrome.runtime.onInstalled.addListener(async (details) => {
-  if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
-    await chrome.tabs.create({
-      url: `${process.env.APP_BASE_URL}/page/welcome`,
-    });
-  }
-});
-
-if (process.env.AUTO_RELOAD === 'true') {
-  chrome.runtime.onInstalled.addListener(async () => {
-    for (const cs of chrome.runtime.getManifest().content_scripts) {
-      for (const tab of await chrome.tabs.query({ url: cs.matches })) {
-        chrome.scripting.executeScript({
-          target: { tabId: tab.id },
-          files: cs.js,
-        });
-      }
-    }
-  });
-}

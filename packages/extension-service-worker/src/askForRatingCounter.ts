@@ -1,7 +1,8 @@
 import { loadLanguageDeck } from '@vocably/api';
 import { GoogleLanguage } from '@vocably/model';
+import { browserEnv } from './browserEnv';
 
-const storage = chrome.storage.sync;
+const storage = browserEnv.storage.sync;
 const storageKey = 'askForRatingCounter';
 
 export const getAskForRatingCounter = async (
