@@ -16,6 +16,16 @@ for (let size of ['16', '32', '48', '128']) {
   await $`svgexport assets/extension-icon.svg packages/extension/assets/images/${iconFileName} ${size}:${size}`;
 }
 
+for (let size of ['48', '64', '96', '128', '256', '512']) {
+  const iconFileName = `icon-${size}.png`;
+  await $`svgexport assets/extension-icon.svg packages/ios-extension/assets/images/${iconFileName} ${size}:${size}`;
+}
+
+for (let size of ['16', '19', '32', '38', '48', '72']) {
+  const iconFileName = `toolbar-icon-${size}.png`;
+  await $`svgexport assets/ios-toolbar-icon.svg packages/ios-extension/assets/images/${iconFileName} ${size}:${size}`;
+}
+
 await $`pwa-asset-generator assets/pwa-icon.svg packages/app/src/assets -i packages/app/src/index.html -m packages/app/src/manifest.json --padding 0`;
 
 await $`svgexport assets/3d-icon.svg packages/app/src/assets/apple-icon-180.png 180:180`;
