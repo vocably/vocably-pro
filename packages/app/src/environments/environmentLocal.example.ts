@@ -1,6 +1,7 @@
 export const environmentLocal = {
   chromeExtensionId: 'mbpgmaflnlocikfiffhkjehhmnapkjgp',
   safariExtensionId: 'pro.vocably.Vocably.Extension (UNSIGNED)',
+  iosSafariExtensionId: 'pro.vocably.app.Vocably-for-Safari (789D8NRAM6)',
   piwikId: '25473e53-4fde-4fe1-a2ce-273ec6a4d0e3',
   sentryEnvironment: 'dev',
   wwwBaseUrl: 'https://dev.env.vocably.pro',

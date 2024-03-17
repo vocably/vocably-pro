@@ -85,6 +85,11 @@ variable "safari_extension_id" {
   default = "pro.vocably.Vocably.Extension (789D8NRAM6)"
 }
 
+variable "ios_safari_extension_id" {
+  type    = string
+  default = "pro.vocably.app.Vocably-for-Safari (789D8NRAM6)"
+}
+
 variable "sentry_environment" {
   type = string
 }

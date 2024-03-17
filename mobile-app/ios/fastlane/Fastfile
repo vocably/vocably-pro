@@ -22,9 +22,7 @@ platform :ios do
 
   desc 'Fetch certificates and provisioning profiles'
   lane :certificates do
-    match(
-      readonly: true
-    )
+    match(app_identifier: ["pro.vocably.app", "pro.vocably.app.Vocably-for-Safari"])
   end
 
   desc 'Fetch code signing secrets. Build the iOS application.'

@@ -14,7 +14,6 @@ import { BackButtonComponent } from './back-button/back-button.component';
 import { GoogleIconComponent } from './google-icon/google-icon.component';
 import { LanguageInputComponent } from './language-input/language-input.component';
 import { LoaderComponent } from './loader/loader.component';
-import { OfflineComponent } from './offline/offline.component';
 import { SubscriptionStatusPipe } from './subscription-status.pipe';
 import { TooltipTriggerForDirective } from './tooltip/tooltip-trigger-for.directive';
 import { TooltipComponent } from './tooltip/tooltip.component';
@@ -25,7 +24,6 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     TooltipTriggerForDirective,
     BackButtonComponent,
     SubscriptionStatusPipe,
-    OfflineComponent,
     GoogleIconComponent,
     LoaderComponent,
     LanguageInputComponent,
@@ -49,7 +47,6 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     TooltipTriggerForDirective,
     BackButtonComponent,
     SubscriptionStatusPipe,
-    OfflineComponent,
     GoogleIconComponent,
     LanguageInputComponent,
   ],

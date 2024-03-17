@@ -4,9 +4,9 @@ registerContentScript({
   api: {
     appBaseUrl: process.env.APP_BASE_URL,
   },
-  youTube: { ytHosts: ['www.youtube.com'] },
+  youTube: { ytHosts: [] },
   contentScript: {
-    isFeedbackEnabled: process.env.IS_FEEDBACK_ENABLED == 'true',
-    askForRatingEnabled: true,
+    isFeedbackEnabled: false,
+    askForRatingEnabled: false,
   },
 }).then();

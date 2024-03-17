@@ -7,4 +7,10 @@ export const extensionId = browser.satisfies({
   },
 })
   ? environment.safariExtensionId
+  : browser.satisfies({
+      ios: {
+        safari: '>0',
+      },
+    })
+  ? environment.iosSafariExtensionId
   : environment.chromeExtensionId;

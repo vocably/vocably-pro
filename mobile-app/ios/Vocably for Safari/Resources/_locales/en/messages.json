@@ -1,0 +1,10 @@
+{
+  "extension_name": {
+    "message": "Vocably for Safari",
+    "description": "The display name for the extension."
+  },
+  "extension_description": {
+    "message": "Highlight any word on a web page, click the Look Up button to see the translation, and add it to the collection.",
+    "description": "Description of what the extension does."
+  }
+}

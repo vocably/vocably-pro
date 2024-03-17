@@ -56,14 +56,17 @@ export const setContents = async ({
           translation.loading = false;
         })
         .then(async (translationResult) => {
-          api
-            .askForRating({
-              translationResult: translationResult,
-              extensionPlatform: extensionPlatform.platform,
-            })
-            .then((result) => {
-              translation.askForRating = result;
-            });
+          if (contentScriptConfiguration.askForRatingEnabled) {
+            api
+              .askForRating({
+                translationResult: translationResult,
+                extensionPlatform: extensionPlatform.platform,
+              })
+              .then((result) => {
+                translation.askForRating = result;
+              });
+          }
+
           translation.result = translationResult;
           if (translationResult.success === true) {
             translation.language =

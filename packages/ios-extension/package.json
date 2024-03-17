@@ -1,0 +1,21 @@
+{
+  "name": "@vocably/ios-extension",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build-dev": "(rimraf dist && npm run setup-dev-env && webpack --env production)",
+    "build-prod": "(rimraf dist && npm run setup-prod-env && webpack --env production && npm run setup-dev-env)",
+    "start": "webpack --watch --env development",
+    "test": "echo '@vocably/ios-extension has no tests.'",
+    "ios-extension": "npm start",
+    "setup-prod-env": "cp .env.prod .env",
+    "setup-dev-env": "cp .env.dev .env"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vocably/vocably-pro.git"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

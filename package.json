@@ -41,6 +41,7 @@
     "@types/aws-lambda": "8.10.101",
     "@types/chrome": "0.0.193",
     "@types/fast-levenshtein": "0.0.2",
+    "@types/firefox-webext-browser": "^120.0.3",
     "@types/jasmine": "4.0.3",
     "@types/lodash-es": "4.17.6",
     "@types/node": "16.11.43",
