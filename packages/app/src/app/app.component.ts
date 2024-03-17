@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import * as Sentry from '@sentry/browser';
 import * as PullToRefresh from 'pulltorefreshjs';
@@ -16,7 +16,6 @@ import { RouterParamsService } from './router-params.service';
 })
 export class AppComponent implements OnInit {
   disabledRefresher = false;
-  isOffline = !window.navigator.onLine;
 
   constructor(
     routerParams: RouterParamsService,
@@ -60,15 +59,5 @@ export class AppComponent implements OnInit {
         !this.disabledRefresher &&
         window.scrollY === 0,
     });
-  }
-
-  @HostListener('window:online')
-  onOnline() {
-    this.isOffline = false;
-  }
-
-  @HostListener('window:offline')
-  onOffline() {
-    this.isOffline = true;
   }
 }
