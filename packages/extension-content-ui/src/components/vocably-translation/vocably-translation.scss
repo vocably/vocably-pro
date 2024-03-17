@@ -58,6 +58,13 @@ $section-margin: 8px;
 .translation {
   display: flex;
   align-items: stretch;
+  gap: $section-margin;
+
+  @media screen and (max-width: 600px) {
+    & {
+      flex-direction: column;
+    }
+  }
 
   .value {
     margin-bottom: 8px;
@@ -80,11 +87,6 @@ $section-margin: 8px;
 
   .section {
     padding-left: $input-padding-x;
-    margin-left: $section-margin;
-
-    &:first-child {
-      margin-left: 0;
-    }
   }
 }
 
@@ -133,7 +135,7 @@ select {
 
 .save-hint {
   position: absolute;
-  width: 265px;
+  width: 165px;
   top: 6px;
   right: 40px;
   animation: floating 3s ease-in-out infinite;
@@ -164,7 +166,7 @@ $container-padding: $input-padding-y 48px $input-padding-y $input-padding-x;
     }
 
     .card-hint-displayed {
-      min-width: 320px;
+      min-width: 220px;
     }
 
     .card-action {
@@ -223,4 +225,9 @@ vocably-play-sound {
 
 .rate-padding {
   padding: $container-padding;
+}
+
+.direct-translation {
+  display: flex;
+  flex-direction: row;
 }

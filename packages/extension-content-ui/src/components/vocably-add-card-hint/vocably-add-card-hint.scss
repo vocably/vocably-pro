@@ -1,11 +1,18 @@
 @import '../../styles/variables';
 
 :host {
-  display: block;
 }
 
-.hint {
+.arrow {
+  vertical-align: middle;
   path {
     fill: $v-light-color-primary;
   }
+}
+
+.hint {
+  color: $v-light-color-primary;
+  margin-right: 8px;
+  font-size: 16px;
+  vertical-align: middle;
 }
