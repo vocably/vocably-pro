@@ -30,6 +30,7 @@ export const authPostConfirmation = async (
 
     return callback(null, event);
   } catch (error) {
+    console.log(error);
     return callback(error, event);
   }
 };
