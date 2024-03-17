@@ -9,6 +9,9 @@ import { maintainAppSize } from './app-size';
 import { AppModule } from './app/app.module';
 import { authConfig } from './auth-config';
 import { environment } from './environments/environment';
+import { extensionId } from './extension-id';
+
+console.log('extensionId', extensionId);
 
 Sentry.init({
   environment: environment.sentryEnvironment,
