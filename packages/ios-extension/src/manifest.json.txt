@@ -1,7 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Vocably for Safari",
-  "description": "Highlight any word on a web page, click Look Up button, see it's definition and translations, and add the word to your collection.",
+  "default_locale": "en",
+
+  "name": "__MSG_extension_name__",
+  "description": "__MSG_extension_description__",
   "version": "1.0",
 
   "icons": {
@@ -12,7 +14,7 @@
     "512": "images/icon-512.png"
   },
 
-  "browser_action": {
+  "action": {
     "default_icon": {
       "16": "images/toolbar-icon-16.png",
       "19": "images/toolbar-icon-19.png",

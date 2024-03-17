@@ -4,7 +4,7 @@
     "description": "The display name for the extension."
   },
   "extension_description": {
-    "message": "This is Vocably for Safari. You should tell us what your extension does here.",
+    "message": "Highlight any word on a web page, click the Look Up button to see the translation, and add it to the collection.",
     "description": "Description of what the extension does."
   }
 }
