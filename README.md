@@ -12,7 +12,7 @@ Vocably is a language learning platform consisted of:
 
 [![How I use Vocably](assets/how-i-use-vocably.png?raw=true)](https://youtu.be/UwNog9yKCeA)
 
-The idea of Vocably is “translate once, learn forever.” The platform solves two problems:
+The idea of Vocably is “translate once, remember forever.” The platform solves two problems:
 
 - Conveniently translate a word or phrase
 - Learn what you have translated
