@@ -134,14 +134,22 @@ EOT
   working_dir = local.app_root
 }
 
+locals {
+  app_dist = data.external.app_build.result.dest
+}
+
 resource "null_resource" "app_upload" {
   depends_on = [
     data.external.app_build,
     aws_s3_bucket.app,
   ]
 
+  triggers = {
+    sha1 = sha1(join("", [for f in fileset(local.app_dist, "**/*.*") : filesha1("${local.app_dist}/${f}")]))
+  }
+
   provisioner "local-exec" {
-    command = "aws s3 sync ${data.external.app_build.result.dest}  s3://${aws_s3_bucket.app.id} --delete"
+    command = "aws s3 sync ${local.app_dist}  s3://${aws_s3_bucket.app.id} --delete"
   }
 }
 
