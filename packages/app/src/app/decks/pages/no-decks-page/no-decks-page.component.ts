@@ -28,7 +28,7 @@ const isChrome = browser.satisfies({
 export class NoDecksPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
-  public isInstalled = false;
+  public isInstalled: boolean | undefined = undefined;
   public proxyLanguage: GoogleLanguage = 'en';
 
   public canInstallTheExtension = canInstallTheExtension;
@@ -48,9 +48,11 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
       });
     }
 
-    isExtensionInstalled.pipe(takeUntil(this.destroy$)).subscribe(async () => {
-      this.isInstalled = true;
-    });
+    isExtensionInstalled
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isInstalled) => {
+        this.isInstalled = isInstalled;
+      });
   }
 
   ngOnInit(): void {}

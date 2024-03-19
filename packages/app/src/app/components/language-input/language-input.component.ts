@@ -30,7 +30,7 @@ export class LanguageInputComponent implements OnInit, OnDestroy {
     disabled: true,
   });
 
-  isInstalled = false;
+  isInstalled: boolean | undefined = undefined;
 
   public languages$: Observable<GoogleLanguage[]> =
     this.languageInput.valueChanges.pipe(
@@ -41,11 +41,18 @@ export class LanguageInputComponent implements OnInit, OnDestroy {
     );
 
   constructor() {
-    isExtensionInstalled.pipe(takeUntil(this.destroy$)).subscribe(async () => {
-      this.isInstalled = true;
-      this.languageInput.setValue(await getProxyLanguage(extensionId));
-      this.languageInput.enable();
-    });
+    isExtensionInstalled
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(async (isInstalled) => {
+        this.isInstalled = isInstalled;
+
+        if (isInstalled) {
+          this.languageInput.setValue(await getProxyLanguage(extensionId));
+          this.languageInput.enable();
+        } else {
+          this.languageInput.disable();
+        }
+      });
   }
 
   ngOnInit(): void {}

@@ -4,7 +4,7 @@
 
   <div class="inline-block text-left" style="width: 75%">
     <ol class="lead-2 outside">
-      <li class="mb-1" *ngIf="!isInstalled">
+      <li class="mb-1" *ngIf="isInstalled === false">
         <a
           *ngIf="isChrome"
           href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"

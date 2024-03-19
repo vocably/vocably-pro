@@ -1,15 +1,12 @@
 import { pingExternal } from '@vocably/extension-messages';
-import { defer, map, retry, tap } from 'rxjs';
+import { distinctUntilChanged, Observable, switchMap, timer } from 'rxjs';
 import { extensionId } from '../extension-id';
 
-export const isExtensionInstalled = defer(() => pingExternal(extensionId)).pipe(
-  tap((result) => {
-    if (result !== 'pong') {
-      throw new Error('Extension is not installed');
-    }
-  }),
-  map(() => true),
-  retry({
-    delay: 2000,
-  })
+export const isExtensionInstalled: Observable<boolean> = timer(0, 2000).pipe(
+  switchMap(() =>
+    pingExternal(extensionId)
+      .catch(() => undefined)
+      .then((result) => result === 'pong')
+  ),
+  distinctUntilChanged()
 );
