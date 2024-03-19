@@ -106,7 +106,7 @@ export const createButton = async (
     ? await getPosition(selection, event)
     : {
         left: window.scrollX + window.innerWidth / 2,
-        bottom: window.scrollY + window.innerHeight - 32,
+        bottom: window.scrollY + window.innerHeight - 96,
       };
 
   if (position === null) {
