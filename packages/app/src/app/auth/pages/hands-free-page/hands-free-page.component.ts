@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, switchMap, take, takeUntil, tap } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { isExtensionInstalled } from '../../../isExtensionInstalled';
 import { AuthService } from '../../auth.service';
 
 @Component({
@@ -11,11 +13,21 @@ import { AuthService } from '../../auth.service';
 export class HandsFreePageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
+  public isInstalled: boolean | undefined = undefined;
+
   constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.auth.isLoggedIn$
-      .pipe(takeUntil(this.destroy$))
+    isExtensionInstalled
+      .pipe(
+        takeUntil(this.destroy$),
+        tap((isInstalled) => {
+          this.isInstalled = isInstalled;
+        }),
+        filter((isInstalled) => isInstalled === true),
+        take(1),
+        switchMap(() => this.auth.isLoggedIn$)
+      )
       .subscribe(async (isLoggedIn) => {
         if (isLoggedIn) {
           await this.auth.refreshToken();

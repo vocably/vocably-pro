@@ -4,7 +4,13 @@
 <div class="container bottom">
   <div class="hero">
     <div class="hero-body text-center">
-      <ion-spinner name="dots" class="mr-1"></ion-spinner>Signing in...
+      <ng-container *ngIf="isInstalled === false">
+        It seems like you don't have the browser extension installed yet. Please
+        install or enable the browser extension and try again.
+      </ng-container>
+      <ng-container *ngIf="isInstalled">
+        <ion-spinner name="dots" class="mr-1"></ion-spinner>Signing in...
+      </ng-container>
     </div>
   </div>
 </div>
