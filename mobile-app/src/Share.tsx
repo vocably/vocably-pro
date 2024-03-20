@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button, BackHandler } from 'react-native';
 import ShareMenu, { ShareData } from 'react-native-share-menu';
 
-export const Share = () => {
+export const useShare = () => {
   const [sharedText, setSharedText] = useState<string>(
     ""
   );
@@ -28,8 +28,15 @@ export const Share = () => {
       listener.remove();
     };
   }, []);
+  return sharedText;
+}
 
+const Share = () => {
+
+  const sharedText = useShare();
+  
   return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
     <View
       style={{
         alignItems: 'center',
@@ -39,6 +46,10 @@ export const Share = () => {
       }}
     >
       <Text style={{ fontSize: 32 }}>{sharedText}</Text>
+      <Button title='Done' onPress={() => BackHandler.exitApp()}/>
+    </View>
     </View>
   );
 };
+
+export default Share;
