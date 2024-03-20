@@ -6,13 +6,13 @@
 }
 
 .button {
-  $size: 19px;
-  $icon-size: $size * 0.9;
+  $height: 19px;
+  $icon-size: $height * 0.9;
 
   color: $v-light-color-emphasize;
   display: flex;
-  border-radius: 16px;
-  line-height: $size;
+  border-radius: $height;
+  line-height: $height;
   background-color: #fff;
   padding: 8px;
   border: 1px solid $v-light-color-border;
