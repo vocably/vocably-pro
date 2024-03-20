@@ -23,11 +23,13 @@ const onCreateSelectionTimeout = async () => {
     return;
   }
 
+  destroyButton();
+
   const selection = window.getSelection();
   if (!isValidSelection(selection)) {
     return;
   }
-  destroyButton();
+
   await createButton(selection);
 };
 
