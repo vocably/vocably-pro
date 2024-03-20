@@ -1,16 +1,16 @@
-import { browser } from './browser';
+import { browser, isIOS } from './browser';
 import { environment } from './environments/environment';
 
-export const extensionId = browser.satisfies({
-  macos: {
+export const extensionId =
+  isIOS() &&
+  browser.satisfies({
     safari: '>10.1',
-  },
-})
-  ? environment.safariExtensionId
-  : browser.satisfies({
-      ios: {
-        safari: '>0',
-      },
-    })
-  ? environment.iosSafariExtensionId
-  : environment.chromeExtensionId;
+  })
+    ? environment.iosSafariExtensionId
+    : browser.satisfies({
+        macos: {
+          safari: '>10.1',
+        },
+      })
+    ? environment.safariExtensionId
+    : environment.chromeExtensionId;
