@@ -3,8 +3,6 @@ import 'zx/globals';
 
 config();
 
-console.log(process.env);
-
 const userPool = JSON.parse(
   await $`aws cognito-idp describe-user-pool --user-pool-id ${process.env.USER_POOL_ID}`
 );
