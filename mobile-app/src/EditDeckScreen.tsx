@@ -1,70 +1,21 @@
 import { NavigationProp } from '@react-navigation/native';
 import { byDate, CardItem } from '@vocably/model';
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import {
   Alert,
-  FlatList,
-  ListRenderItem,
+  ListRenderItemInfo,
   Pressable,
   StyleSheet,
   View,
 } from 'react-native';
-import {
-  Button,
-  Dialog,
-  MD3Theme,
-  Portal,
-  Text,
-  useTheme,
-} from 'react-native-paper';
+import { ActivityIndicator, Text, useTheme } from 'react-native-paper';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem, keyExtractor, Separator } from './CardListItem';
-import { dialogAlign } from './dialogAlign';
 import { EmptyCardsList } from './EmptyCardsList';
 import { userSelectedDeck } from './languageDeck/userSelectedDeck';
-import { mainPadding } from './styles';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-  button: {
-    position: 'absolute',
-    top: 0,
-  },
-});
-
-const renderItem: (options: {
-  onDelete: (card: CardItem) => void;
-  onEdit: (card: CardItem) => void;
-  theme: MD3Theme;
-}) => ListRenderItem<CardItem> =
-  ({ onDelete, onEdit, theme }): ListRenderItem<CardItem> =>
-  ({ item, index }) =>
-    (
-      <Pressable
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed
-              ? theme.colors.inversePrimary
-              : theme.colors.background,
-          },
-        ]}
-        onPress={() => onEdit(item)}
-      >
-        <CardListItem card={item.data} />
-        <Icon
-          style={[styles.button, { right: mainPadding, top: mainPadding }]}
-          onPress={() => onDelete(item)}
-          name="delete-outline"
-          size={32}
-          color={theme.colors.primary}
-        />
-      </Pressable>
-    );
+const SWIPE_MENU_BUTTON_SIZE = 50;
 
 type EditDeckScreen = FC<{
   navigation: NavigationProp<any>;
@@ -73,30 +24,62 @@ type EditDeckScreen = FC<{
 export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
   const theme = useTheme();
   const { deck, remove } = userSelectedDeck();
-  const [toBeDeleted, setToBeDeleted] = useState<false | CardItem>(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const cards = useMemo(() => deck.cards.sort(byDate), [deck]);
 
-  const deleteAfterConfirmation = useCallback(async () => {
-    if (toBeDeleted === false) {
-      return;
-    }
+  const [toBeDeletedId, setToBeDeletedId] = useState<string | null>(null);
 
-    setIsDeleting(true);
-    const deleteResult = await remove(toBeDeleted.id);
+  const deleteCard = useCallback(
+    async (id: string) => {
+      setToBeDeletedId(id);
+      const deleteResult = await remove(id);
+      if (deleteResult.success === false) {
+        Alert.alert(
+          'Error: Card deletion failed',
+          `Oops! Something went wrong while attempting to delete the card. Please try again later.`
+        );
+      }
+      setToBeDeletedId(null);
+    },
+    [remove]
+  );
 
-    if (deleteResult.success === false) {
-      Alert.alert(
-        'Error: Card deletion failed',
-        // `Oops! Something went wrong while attempting to delete the card. Please try again later and don't hesitate to let the support know if the issue persists.`
-        `Oops! Something went wrong while attempting to delete the card. Please try again later.`
-      );
-    }
+  const renderCard = (data: ListRenderItemInfo<CardItem>) => (
+    <View style={{ backgroundColor: theme.colors.background }}>
+      <Pressable
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+              ? theme.colors.inversePrimary
+              : theme.colors.background,
+          },
+        ]}
+        onPress={() => navigation.navigate('EditCard', { card: data.item })}
+      >
+        <CardListItem card={data.item.data} />
+      </Pressable>
+    </View>
+  );
 
-    setIsDeleting(false);
-    setToBeDeleted(false);
-  }, [toBeDeleted, remove, isDeleting]);
+  const renderSwipeMenu = (data: ListRenderItemInfo<CardItem>) => (
+    <View style={styles.swipeMenu}>
+      <Pressable
+        onPress={() => deleteCard(data.item.id)}
+        disabled={toBeDeletedId === data.item.id}
+        style={[styles.swipeButton, { backgroundColor: theme.colors.error }]}
+      >
+        {toBeDeletedId === data.item.id ? (
+          <ActivityIndicator size={32} color={theme.colors.onSecondary} />
+        ) : (
+          <Icon
+            name="delete-outline"
+            size={32}
+            color={theme.colors.onSecondary}
+          />
+        )}
+      </Pressable>
+    </View>
+  );
 
-  const cards = deck.cards.sort(byDate);
   return (
     <View
       style={[
@@ -106,62 +89,45 @@ export const EditDeckScreen: EditDeckScreen = ({ navigation }) => {
         },
       ]}
     >
-      {cards.length === 0 && (
+      {!cards.length ? (
         <EmptyCardsList>
           <Text>Card list is empty</Text>
         </EmptyCardsList>
-      )}
-      {cards.length > 0 && (
-        <FlatList
-          style={{
-            width: '100%',
-          }}
-          ItemSeparatorComponent={Separator}
+      ) : (
+        <SwipeListView<CardItem>
+          style={styles.swipeList}
           data={cards}
-          renderItem={renderItem({
-            onDelete: (card) => {
-              setToBeDeleted(card);
-              setIsDeleting(false);
-            },
-            onEdit: (card) => navigation.navigate('EditCard', { card }),
-            theme: theme,
-          })}
+          ItemSeparatorComponent={Separator}
           keyExtractor={keyExtractor}
+          renderItem={renderCard}
+          renderHiddenItem={renderSwipeMenu}
+          rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
         />
       )}
-
-      <Portal>
-        <Dialog
-          visible={toBeDeleted !== false}
-          onDismiss={() => setToBeDeleted(false)}
-          style={{
-            alignSelf: dialogAlign,
-            marginTop: 'auto',
-            marginBottom: 'auto',
-          }}
-        >
-          <Dialog.Title style={{ color: theme.colors.secondary }}>
-            Delete Card
-          </Dialog.Title>
-          <Dialog.Content>
-            <Text style={{ color: theme.colors.secondary }}>
-              Are you sure that you want to delete this card?
-            </Text>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button
-              onPress={deleteAfterConfirmation}
-              loading={isDeleting}
-              disabled={isDeleting}
-            >
-              Yes
-            </Button>
-            <Button onPress={() => setToBeDeleted(false)} disabled={isDeleting}>
-              No
-            </Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  swipeList: {
+    width: '100%',
+  },
+  swipeButton: {
+    width: SWIPE_MENU_BUTTON_SIZE,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  swipeMenu: {
+    height: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+});
