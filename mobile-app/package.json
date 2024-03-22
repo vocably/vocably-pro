@@ -18,7 +18,8 @@
     "setup-dev-env": "rm -f .env.local",
     "copy-ios-extension": "cp -a ../packages/ios-extension/dist/. ios/Vocably\\ for\\ Safari/Resources",
     "setup-safari-extension-dev": "npm run build-dev --prefix ../packages/ios-extension && npm run copy-ios-extension",
-    "setup-safari-extension-prod": "npm run build-prod --prefix ../packages/ios-extension && npm run copy-ios-extension"
+    "setup-safari-extension-prod": "npm run build-prod --prefix ../packages/ios-extension && npm run copy-ios-extension",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.21.0",
