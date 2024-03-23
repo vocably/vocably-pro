@@ -1,0 +1,40 @@
+<mat-stepper [linear]="true" #stepper>
+  <mat-step
+    [stepControl]="targetLanguageGroup"
+    label="What language would you like to learn?"
+    class="text-left"
+  >
+    <div class="text-left">
+      <h2>What language would you like to learn?</h2>
+      <p>
+        You can learn multiple languages at the same time. But for the
+        beginning, lets pick up one.
+      </p>
+    </div>
+    <app-onboarding-language
+      [formGroup]="targetLanguageGroup"
+      (selected)="stepper.next()"
+      [languages]="targetLanguages"
+      errorMessage="Please select the language you learn."
+    ></app-onboarding-language>
+  </mat-step>
+  <mat-step
+    [stepControl]="proxyLanguageGroup"
+    label="What language do you speak fluently?"
+  >
+    <div class="text-left">
+      <h2>What language do you speak fluently?</h2>
+      <p>Vocably will provide translations into this language.</p>
+    </div>
+    <app-onboarding-language
+      [formGroup]="proxyLanguageGroup"
+      (selected)="onProxySelected()"
+      [languages]="proxyLanguages"
+      errorMessage="Please select the language you speak."
+    ></app-onboarding-language>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <ng-content></ng-content>
+  </mat-step>
+</mat-stepper>

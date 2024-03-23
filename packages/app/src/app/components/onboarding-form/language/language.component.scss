@@ -1,0 +1,14 @@
+$gap: 10px;
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap;
+}
+
+.grid-item {
+  width: calc(33.333% - $gap);
+  box-sizing: border-box;
+  overflow: hidden;
+  text-align: left;
+}

@@ -8,12 +8,17 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { LanguageModule } from '../language/language.module';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { GoogleIconComponent } from './google-icon/google-icon.component';
 import { LanguageInputComponent } from './language-input/language-input.component';
 import { LoaderComponent } from './loader/loader.component';
+import { LanguageComponent } from './onboarding-form/language/language.component';
+import { OnboardingFormComponent } from './onboarding-form/onboarding-form.component';
 import { SubscriptionStatusPipe } from './subscription-status.pipe';
 import { TooltipTriggerForDirective } from './tooltip/tooltip-trigger-for.directive';
 import { TooltipComponent } from './tooltip/tooltip.component';
@@ -27,6 +32,8 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     GoogleIconComponent,
     LoaderComponent,
     LanguageInputComponent,
+    OnboardingFormComponent,
+    LanguageComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +47,9 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
+    MatStepperModule,
+    MatRadioModule,
+    LanguageModule,
   ],
   exports: [
     TooltipComponent,
@@ -49,6 +59,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     SubscriptionStatusPipe,
     GoogleIconComponent,
     LanguageInputComponent,
+    OnboardingFormComponent,
   ],
 })
 export class ComponentsModule {}

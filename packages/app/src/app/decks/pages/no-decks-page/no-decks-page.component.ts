@@ -1,24 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GoogleLanguage } from '@vocably/model';
 import { Subject, takeUntil } from 'rxjs';
-import { browser } from '../../../../browser';
-import { AuthService } from '../../../auth/auth.service';
+import { isIOSSafari } from '../../../../browser';
+import {
+  canExtensionBeInstalled,
+  extensionInstallationUrl,
+} from '../../../../extension';
 import { isExtensionInstalled } from '../../../isExtensionInstalled';
 import { DeckListStoreService } from '../../deck-list-store.service';
-
-const canInstallTheExtension = browser.satisfies({
-  desktop: {
-    chrome: '>1',
-    safari: '>10',
-  },
-});
-
-const isChrome = browser.satisfies({
-  desktop: {
-    chrome: '>1',
-  },
-});
 
 @Component({
   selector: 'app-no-decks-page',
@@ -28,18 +17,15 @@ const isChrome = browser.satisfies({
 export class NoDecksPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
-  public isInstalled: boolean | undefined = undefined;
-  public proxyLanguage: GoogleLanguage = 'en';
-
-  public canInstallTheExtension = canInstallTheExtension;
-
-  public isChrome = isChrome;
+  public extensionCanBeInstalled = canExtensionBeInstalled;
+  public extensionIsInstalled: boolean | undefined = undefined;
+  public extensionInstallUrl = extensionInstallationUrl;
+  public isIOSSafari = isIOSSafari;
 
   constructor(
     deckListStore: DeckListStoreService,
     router: Router,
-    route: ActivatedRoute,
-    auth: AuthService
+    route: ActivatedRoute
   ) {
     if (deckListStore.decks$.value.length > 0) {
       router.navigate([deckListStore.decks$.value[0]], {
@@ -51,7 +37,7 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
     isExtensionInstalled
       .pipe(takeUntil(this.destroy$))
       .subscribe((isInstalled) => {
-        this.isInstalled = isInstalled;
+        this.extensionIsInstalled = isInstalled;
       });
   }
 

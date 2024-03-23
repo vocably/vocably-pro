@@ -1,35 +1,45 @@
 <div class="container-xl top"><app-header></app-header></div>
-<div class="container bottom text-center">
-  <p class="mat-display-1 mb-2 text-emphasize">You're almost set</p>
+<div class="container-xl bottom text-center">
+  <p class="mat-display-1 mb-2 text-emphasize">Tell me more about yourself.</p>
 
-  <div class="inline-block text-left" style="width: 75%">
-    <ol class="lead-2 outside">
-      <li class="mb-1" *ngIf="isInstalled === false">
-        <a
-          *ngIf="isChrome"
-          href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
-          target="_blank"
-          >Install the extension</a
-        >
-        <span *ngIf="!isChrome">Install the extension</span>
-      </li>
-      <li>
-        Install the mobile app to learn your words on the go
+  <app-onboarding-form (selected)="">
+    <div class="inline-block text-left lead-2" style="width: 75%">
+      <div
+        class="mb-1"
+        *ngIf="extensionCanBeInstalled && extensionIsInstalled === false"
+      >
+        <p>
+          It seems like you don't have the browser extension installed or
+          enabled.
+        </p>
+        <p>
+          <a [href]="extensionInstallUrl" target="_blank"
+            >Please click this link to install or enable the extension</a
+          >
+        </p>
+      </div>
+      <div class="mb-1" *ngIf="extensionIsInstalled === true">
+        <p>
+          Now go to any website and select any word you would like to learn.
+        </p>
+
+        <video loop autoplay muted controls>
+          <source src="/assets/how-to-extension.webm" type="video/webm" />
+          <source src="/assets/how-to-extension.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div *ngIf="extensionIsInstalled === true && !isIOSSafari">
+        <p>
+          Don't forget to install the mobile app so you can learn your words
+          when you are in toilet, on the train, or stuck in a boring meeting.
+        </p>
 
         <img
           src="/assets/app-qr-code.svg"
           alt="QR Code for the mobile app"
           width="120"
         />
-      </li>
-      <li>
-        Go to any website and translate an unfamiliar word by selecting it
-
-        <video loop autoplay muted controls>
-          <source src="/assets/how-to-extension.webm" type="video/webm" />
-          <source src="/assets/how-to-extension.mp4" type="video/mp4" />
-        </video>
-      </li>
-    </ol>
-  </div>
+      </div>
+    </div>
+  </app-onboarding-form>
 </div>

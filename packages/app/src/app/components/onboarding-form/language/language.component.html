@@ -1,0 +1,20 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-radio-group [formControlName]="this.controlName">
+    <div class="grid-container mb-2">
+      <div class="grid-item" *ngFor="let language of languages">
+        <mat-radio-button [value]="language">{{
+          language | language
+        }}</mat-radio-button>
+      </div>
+    </div>
+  </mat-radio-group>
+  <div
+    class="text-danger mb-1 text-center"
+    *ngIf="isSubmitted && !formGroup.valid"
+  >
+    {{ errorMessage }}
+  </div>
+  <div>
+    <button class="button block" type="submit">Next</button>
+  </div>
+</form>

@@ -12,7 +12,7 @@ import {
 } from '@vocably/extension-messages';
 import { GoogleLanguage, languageList } from '@vocably/model';
 import { map, Observable, startWith, Subject, takeUntil } from 'rxjs';
-import { extensionId } from '../../../extension-id';
+import { extensionId } from '../../../extension';
 import { isExtensionInstalled } from '../../isExtensionInstalled';
 
 @Component({

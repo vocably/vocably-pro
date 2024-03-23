@@ -15,6 +15,10 @@
   }
 }
 
+.text-center {
+  text-align: center;
+}
+
 .text-md-center {
   @media (min-width: $md) {
     text-align: center;

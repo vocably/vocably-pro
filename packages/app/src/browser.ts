@@ -2,7 +2,7 @@ import * as Bowser from 'bowser';
 
 export const browser = Bowser.getParser(window.navigator.userAgent);
 
-export const isIOS = () => {
+export const isIOS = (): boolean => {
   return (
     [
       'iPad Simulator',
@@ -16,3 +16,21 @@ export const isIOS = () => {
     (navigator.userAgent.includes('Mac') && 'ontouchend' in document)
   );
 };
+
+export const isIOSSafari =
+  isIOS() &&
+  !!browser.satisfies({
+    safari: '>10.1',
+  });
+
+export const isMacSafari = !!browser.satisfies({
+  macos: {
+    safari: '>10.1',
+  },
+});
+
+export const isChrome = !!browser.satisfies({
+  desktop: {
+    chrome: '>0',
+  },
+});
