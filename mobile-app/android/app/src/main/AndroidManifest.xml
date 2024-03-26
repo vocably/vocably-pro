@@ -13,5 +13,24 @@
         <data android:scheme="vocably-pro"/>
       </intent-filter>
     </activity>
+    <activity
+      android:theme="@style/Theme.Share.Transparent"
+      android:documentLaunchMode="intoExisting"
+      android:launchMode="singleInstancePerTask"
+      android:allowEmbedded="true"
+      android:autoRemoveFromRecents="true"
+      android:noHistory="true"
+      android:name=".ShareActivity"
+      android:configChanges="orientation"
+      android:screenOrientation="portrait"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.PROCESS_TEXT" />
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="text/plain" />
+        <!-- Any other mime types you want to support -->
+      </intent-filter>
+    </activity>
   </application>
 </manifest>
