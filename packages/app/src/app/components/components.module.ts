@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,8 +16,10 @@ import { IonicModule } from '@ionic/angular';
 import { LanguageModule } from '../language/language.module';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { GoogleIconComponent } from './google-icon/google-icon.component';
+import { LanguageIconComponent } from './language-icon/language-icon.component';
 import { LanguageInputComponent } from './language-input/language-input.component';
 import { LoaderComponent } from './loader/loader.component';
+import { LanguageButtonComponent } from './onboarding-form/language/button/language-button.component';
 import { LanguageComponent } from './onboarding-form/language/language.component';
 import { OnboardingFormComponent } from './onboarding-form/onboarding-form.component';
 import { SubscriptionStatusPipe } from './subscription-status.pipe';
@@ -34,6 +37,8 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     LanguageInputComponent,
     OnboardingFormComponent,
     LanguageComponent,
+    LanguageIconComponent,
+    LanguageButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -50,6 +55,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     MatStepperModule,
     MatRadioModule,
     LanguageModule,
+    MatRippleModule,
   ],
   exports: [
     TooltipComponent,
@@ -60,6 +66,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     GoogleIconComponent,
     LanguageInputComponent,
     OnboardingFormComponent,
+    LanguageIconComponent,
   ],
 })
 export class ComponentsModule {}

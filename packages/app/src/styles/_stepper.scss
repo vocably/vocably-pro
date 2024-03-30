@@ -1,0 +1,19 @@
+.mat-step-label {
+  .mat-step-text-label {
+    opacity: 0.3;
+  }
+}
+
+.mat-step-label-selected {
+  .mat-step-text-label {
+    opacity: 1;
+  }
+}
+
+mat-stepper[hide-header] .mat-horizontal-stepper-header-container {
+  display: none;
+}
+
+mat-stepper[hide-header] .mat-horizontal-content-container {
+  padding: 24px;
+}

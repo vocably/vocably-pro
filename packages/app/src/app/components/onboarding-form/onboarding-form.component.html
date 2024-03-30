@@ -1,37 +1,29 @@
-<mat-stepper [linear]="true" #stepper>
+<mat-stepper [linear]="true" #stepper hide-header>
   <mat-step
-    [stepControl]="targetLanguageGroup"
-    label="What language would you like to learn?"
+    [stepControl]="languageGroup"
+    label="Language you learn"
     class="text-left"
   >
+    <div class="display-flex align-items-center mb-2">
+      <div class="mat-h2 m-0 mr-1">I fluently speak</div>
+      <div class="flex-1"><app-language-input></app-language-input></div>
+    </div>
+
     <div class="text-left">
-      <h2>What language would you like to learn?</h2>
-      <p>
-        You can learn multiple languages at the same time. But for the
-        beginning, lets pick up one.
-      </p>
+      <div class="mat-h2 mt-1 mb-2">I want to learn</div>
     </div>
     <app-onboarding-language
-      [formGroup]="targetLanguageGroup"
+      [formGroup]="languageGroup"
       (selected)="stepper.next()"
       [languages]="targetLanguages"
       errorMessage="Please select the language you learn."
-    ></app-onboarding-language>
-  </mat-step>
-  <mat-step
-    [stepControl]="proxyLanguageGroup"
-    label="What language do you speak fluently?"
-  >
-    <div class="text-left">
-      <h2>What language do you speak fluently?</h2>
-      <p>Vocably will provide translations into this language.</p>
-    </div>
-    <app-onboarding-language
-      [formGroup]="proxyLanguageGroup"
-      (selected)="onProxySelected()"
-      [languages]="proxyLanguages"
-      errorMessage="Please select the language you speak."
-    ></app-onboarding-language>
+    >
+      <div class="text-right">
+        <button class="unstyled link">
+          I'd like to learn multiple languages.
+        </button>
+      </div>
+    </app-onboarding-language>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>

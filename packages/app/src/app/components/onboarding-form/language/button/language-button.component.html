@@ -1,0 +1,11 @@
+<button
+  class="select-button"
+  matRipple
+  matRippleColor="#41b0ff"
+  (click)="onSelected.emit()"
+  [class.checked]="selected"
+>
+  <div style="position: relative; z-index: 1">
+    <ng-content></ng-content>
+  </div>
+</button>

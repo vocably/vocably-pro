@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { GoogleLanguage } from '@vocably/model';
 
 @Component({
   selector: 'app-onboarding-language',
@@ -9,10 +10,13 @@ import { FormGroup } from '@angular/forms';
 export class LanguageComponent implements OnInit {
   @Input() formGroup!: FormGroup;
   @Input() errorMessage!: string;
-  @Input() languages!: string[];
+  @Input() languages!: GoogleLanguage[];
+  @Input() showTop = 6;
   @Output() selected = new EventEmitter();
 
   isSubmitted = false;
+
+  expanded = false;
 
   constructor() {}
 
@@ -25,8 +29,17 @@ export class LanguageComponent implements OnInit {
     }
   }
 
+  onClick(value: string) {
+    this.formGroup.controls[this.controlName].setValue(value);
+    this.onSubmit();
+  }
+
   get controlName(): string {
     return Object.keys(this.formGroup.controls)[0];
+  }
+
+  get controlValue(): string {
+    return this.formGroup.controls[this.controlName].value;
   }
 
   ngOnInit(): void {}
