@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../components/components.module';
 import { LanguageModule } from '../language/language.module';
 import { LanguageButtonComponent } from './language-button/language-button.component';
@@ -24,6 +25,7 @@ import { WelcomeComponent } from './welcome.component';
     MatIconModule,
     MatRippleModule,
     WelcomeRoutingModule,
+    IonicModule,
   ],
 })
 export class WelcomeModule {}

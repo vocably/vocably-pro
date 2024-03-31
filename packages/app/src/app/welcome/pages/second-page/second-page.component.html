@@ -1,1 +1,18 @@
-<p>second-page works!</p>
+<div class="mat-display-1 mb-2 text-emphasize">
+  Try to read the text below and select any word you can't understand.
+</div>
+<div class="mb-2" style="min-height: 400px">
+  <div *ngIf="isLoading">
+    <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading example text...
+  </div>
+  <div
+    *ngIf="!isLoading && exampleHtml"
+    class="text-example"
+    [innerHTML]="exampleHtml"
+  ></div>
+</div>
+<div>
+  <button class="unstyled link">
+    I selected a word, but can't understand what to do.
+  </button>
+</div>
