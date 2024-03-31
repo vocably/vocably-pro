@@ -6,7 +6,7 @@
 }
 
 .button {
-  $size: 19px;
+  $size: 21px;
   $icon-size: $size * 0.9;
 
   display: flex;
@@ -16,17 +16,23 @@
   line-height: $size;
   background-color: #fff;
   padding: 3px;
-  border: 1px solid $v-light-color-border;
   cursor: pointer;
   box-sizing: content-box;
   align-items: center;
   justify-content: center;
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+  transition: box-shadow 0.1s;
 
   .svg {
     height: $icon-size;
   }
 
   &:hover {
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.9);
+  }
+
+  &:active {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
   }
 }
