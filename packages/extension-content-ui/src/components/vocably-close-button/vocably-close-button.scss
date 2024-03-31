@@ -1,30 +1,31 @@
 @import '../../styles/component';
 
-$size: 11px;
+$button-size: 25px;
+$icon-size: $button-size - $close-button-padding * 2;
 
 :host {
   display: inline-block;
-  width: $size;
-  height: $size;
-  line-height: $size;
+  width: $button-size;
+  height: $button-size;
+  line-height: $button-size;
   vertical-align: middle;
 }
 
 .button {
   display: block;
-  width: $size;
-  height: $size;
-  line-height: $size !important;
+  width: $button-size;
+  height: $button-size;
+  line-height: $button-size !important;
   background: none;
   border: none;
-  padding: 0;
+  padding: $close-button-padding;
   font-size: 0;
   cursor: pointer;
 }
 
 .svg {
-  width: $size;
-  height: $size;
+  width: $icon-size;
+  height: $icon-size;
 }
 
 .path {
