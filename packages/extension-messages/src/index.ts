@@ -92,6 +92,16 @@ export const [getProxyLanguage, onGetProxyLanguage] = createExternalMessage<
   GoogleLanguage | null
 >('vocably.getProxyLanguage');
 
+export const [setSourceLanguage, onSetSourceLanguage] = createExternalMessage<
+  GoogleLanguage,
+  void
+>('vocably.setSourceLanguage');
+
+export const [getSourceLanguage, onGetSourceLanguage] = createExternalMessage<
+  void,
+  GoogleLanguage | null
+>('vocably.getSourceLanguage');
+
 export const [playSound, onPlaySound] = createScopedMessage<
   PlaySoundPayload,
   Result<PlaySoundResponse>

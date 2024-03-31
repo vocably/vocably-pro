@@ -16,6 +16,7 @@ import {
   onGetInternalProxyLanuage,
   onGetInternalSourceLanguage,
   onGetProxyLanguage,
+  onGetSourceLanguage,
   onIsActiveRequest,
   onIsEligibleForTrialRequest,
   onIsLoggedInRequest,
@@ -29,6 +30,7 @@ import {
   onSetInternalProxyLanguage,
   onSetInternalSourceLanguage,
   onSetProxyLanguage,
+  onSetSourceLanguage,
   onSetUserKnowsHowToAdd,
 } from '@vocably/extension-messages';
 import {
@@ -337,6 +339,15 @@ export const registerServiceWorker = (
 
   onSetProxyLanguage(async (sendResponse, language) => {
     await setProxyLanguage(language);
+    return sendResponse();
+  });
+
+  onGetSourceLanguage(async (sendResponse) => {
+    return sendResponse(await getSourceLanguage());
+  });
+
+  onSetSourceLanguage(async (sendResponse, language) => {
+    await setSourceLanguage(language);
     return sendResponse();
   });
 
