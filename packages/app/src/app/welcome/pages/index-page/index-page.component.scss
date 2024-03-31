@@ -29,11 +29,12 @@
 .collapsable {
   overflow: hidden;
   max-height: 0;
-  transition: max-height 0.3s;
+  transition: max-height 0.3s ease-out;
 }
 
 .collapsable.expanded {
-  max-height: 5000px;
+  max-height: 155rem;
+  transition: max-height 0.8s ease-out;
 }
 
 .select-button {
