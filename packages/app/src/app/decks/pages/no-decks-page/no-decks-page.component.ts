@@ -1,12 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
-import { isIOSSafari } from '../../../../browser';
-import {
-  canExtensionBeInstalled,
-  extensionInstallationUrl,
-} from '../../../../extension';
-import { isExtensionInstalled } from '../../../isExtensionInstalled';
 import { DeckListStoreService } from '../../deck-list-store.service';
 
 @Component({
@@ -14,14 +7,7 @@ import { DeckListStoreService } from '../../deck-list-store.service';
   templateUrl: './no-decks-page.component.html',
   styleUrls: ['./no-decks-page.component.scss'],
 })
-export class NoDecksPageComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject();
-
-  public extensionCanBeInstalled = canExtensionBeInstalled;
-  public extensionIsInstalled: boolean | undefined = undefined;
-  public extensionInstallUrl = extensionInstallationUrl;
-  public isIOSSafari = isIOSSafari;
-
+export class NoDecksPageComponent implements OnInit {
   constructor(
     deckListStore: DeckListStoreService,
     router: Router,
@@ -33,18 +19,7 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
         replaceUrl: true,
       });
     }
-
-    isExtensionInstalled
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((isInstalled) => {
-        this.extensionIsInstalled = isInstalled;
-      });
   }
 
   ngOnInit(): void {}
-
-  ngOnDestroy(): void {
-    this.destroy$.next(null);
-    this.destroy$.complete();
-  }
 }

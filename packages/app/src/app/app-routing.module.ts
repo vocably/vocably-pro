@@ -47,6 +47,12 @@ const routes: Routes = [
     canActivate: [CognitoAuthGuard],
   },
   {
+    path: 'welcome',
+    loadChildren: () =>
+      import('./welcome/welcome.module').then((m) => m.WelcomeModule),
+    canActivate: [CognitoAuthGuard],
+  },
+  {
     path: 'page',
     loadChildren: () =>
       import('./static-pages/static-pages.module').then(

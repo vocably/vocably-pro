@@ -1,0 +1,16 @@
+<div class="container-xl top"></div>
+<div class="container bottom">
+  <div class="hero">
+    <div *ngIf="extensionCanBeInstalled && extensionIsInstalled === false">
+      <p>
+        It seems like you don't have the browser extension installed or enabled.
+      </p>
+      <p>
+        <a [href]="extensionInstallUrl" target="_blank"
+          >Please click this link to install or enable the extension</a
+        >
+      </p>
+    </div>
+    <router-outlet *ngIf="extensionIsInstalled === true"></router-outlet>
+  </div>
+</div>

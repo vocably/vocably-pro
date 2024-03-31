@@ -1,4 +1,4 @@
-@import '../../../../../styles/variables';
+@import '../../../styles/variables';
 
 .select-button {
   --backround: var(--form-background-color);
@@ -22,6 +22,12 @@
   border-radius: $border-radius;
   text-align: left;
   cursor: pointer;
+
+  > * {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 
   &:hover,
   &:focus {

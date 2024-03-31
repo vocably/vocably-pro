@@ -1,45 +1,6 @@
 <div class="container-xl top"><app-header></app-header></div>
 <div class="container-xl bottom text-center">
-  <p class="mat-display-1 mb-2 text-emphasize">Tell me more about yourself.</p>
-
-  <app-onboarding-form>
-    <div class="inline-block text-left lead-2" style="width: 75%">
-      <div
-        class="mb-1"
-        *ngIf="extensionCanBeInstalled && extensionIsInstalled === false"
-      >
-        <p>
-          It seems like you don't have the browser extension installed or
-          enabled.
-        </p>
-        <p>
-          <a [href]="extensionInstallUrl" target="_blank"
-            >Please click this link to install or enable the extension</a
-          >
-        </p>
-      </div>
-      <div class="mb-1" *ngIf="extensionIsInstalled === true">
-        <p>
-          Now go to any website and select any word you would like to learn.
-        </p>
-
-        <video loop autoplay muted controls>
-          <source src="/assets/how-to-extension.webm" type="video/webm" />
-          <source src="/assets/how-to-extension.mp4" type="video/mp4" />
-        </video>
-      </div>
-      <div *ngIf="extensionIsInstalled === true && !isIOSSafari">
-        <p>
-          Don't forget to install the mobile app so you can learn your words
-          when you are in toilet, on the train, or stuck in a boring meeting.
-        </p>
-
-        <img
-          src="/assets/app-qr-code.svg"
-          alt="QR Code for the mobile app"
-          width="120"
-        />
-      </div>
-    </div>
-  </app-onboarding-form>
+  <p class="mat-display-1 mb-2 text-emphasize">
+    There are no cards in this deck, yet.
+  </p>
 </div>
