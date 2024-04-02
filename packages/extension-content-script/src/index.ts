@@ -65,6 +65,8 @@ const onMouseUp = async (event) => {
     return;
   }
 
+  destroyButton();
+
   const selection = window.getSelection();
   if (!isValidSelection(selection)) {
     return;
