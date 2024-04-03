@@ -21,6 +21,11 @@ $icon-size: $button-size - $close-button-padding * 2;
   padding: $close-button-padding;
   font-size: 0;
   cursor: pointer;
+  transition: transform 0.2s;
+
+  &:active {
+    transform: scale(0.8);
+  }
 }
 
 .svg {

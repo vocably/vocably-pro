@@ -8,5 +8,6 @@ registerContentScript({
   contentScript: {
     isFeedbackEnabled: false,
     askForRatingEnabled: false,
+    displayMobileLookupButton: true,
   },
 }).then();

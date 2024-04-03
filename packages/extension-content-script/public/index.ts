@@ -1,5 +1,6 @@
 import { isEqual } from 'lodash-es';
 import { registerContentScript } from '../src';
+import { configureContentScript } from '../src/configuration';
 
 let isUserKnowsHowToAdd = false;
 registerContentScript({
@@ -133,8 +134,18 @@ registerContentScript({
   contentScript: {
     isFeedbackEnabled: true,
     askForRatingEnabled: true,
+    displayMobileLookupButton: true,
   },
 }).then();
+
+document
+  .getElementById('showMobileButton')
+  .addEventListener('change', (event) => {
+    configureContentScript({
+      // @ts-ignore
+      displayMobileLookupButton: event.target.checked,
+    });
+  });
 
 (window as any).putCaptions = () => {
   document.querySelector(
