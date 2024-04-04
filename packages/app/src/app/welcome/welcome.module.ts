@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../components/components.module';
 import { LanguageModule } from '../language/language.module';
+import { HighlightComponent } from './highlight/highlight.component';
 import { LanguageButtonComponent } from './language-button/language-button.component';
 import { IndexPageComponent } from './pages/index-page/index-page.component';
 import { SecondPageComponent } from './pages/second-page/second-page.component';
@@ -17,6 +18,7 @@ import { WelcomeComponent } from './welcome.component';
     IndexPageComponent,
     SecondPageComponent,
     LanguageButtonComponent,
+    HighlightComponent,
   ],
   imports: [
     CommonModule,
