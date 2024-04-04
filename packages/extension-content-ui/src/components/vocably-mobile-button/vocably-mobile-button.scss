@@ -15,18 +15,18 @@
   line-height: $height;
   background-color: #fff;
   padding: 8px;
-  border: 1px solid $v-light-color-border;
+  border: none;
   cursor: pointer;
   box-sizing: content-box;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
   user-select: none;
   -webkit-user-select: none;
   transition: all 0.2s;
 
   &:active {
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
   }
 
   .svg {

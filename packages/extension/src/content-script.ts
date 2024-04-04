@@ -8,5 +8,6 @@ registerContentScript({
   contentScript: {
     isFeedbackEnabled: process.env.IS_FEEDBACK_ENABLED == 'true',
     askForRatingEnabled: true,
+    displayMobileLookupButton: false,
   },
 }).then();

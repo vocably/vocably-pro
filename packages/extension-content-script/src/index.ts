@@ -4,6 +4,7 @@ import { api, ApiConfigOptions, configureApi } from './api';
 import { createButton, destroyButton } from './button';
 import {
   configureContentScript,
+  contentScriptConfiguration,
   ContentScriptConfiguration,
 } from './configuration';
 import { destroyPopup } from './popup';
@@ -44,13 +45,27 @@ const onTextSelect = async () => {
   createSelectionTimeout = setTimeout(onCreateSelectionTimeout, 500);
 };
 
-const onMouseUp = async (event) => {
+const enableSelectionChangeDetection = () => {
+  if (!contentScriptConfiguration.displayMobileLookupButton) {
+    return;
+  }
+
   document.addEventListener('selectionchange', onTextSelect, false);
+};
+
+const disableSelectionChangeDetection = () =>
+  document.removeEventListener('selectionchange', onTextSelect);
+
+const onMouseUp = async (event) => {
+  enableSelectionChangeDetection();
+
   try {
     await api.ping();
   } catch {
     return;
   }
+
+  destroyButton();
 
   const selection = window.getSelection();
   if (!isValidSelection(selection)) {
@@ -60,7 +75,7 @@ const onMouseUp = async (event) => {
 };
 
 const onMouseDown = async () => {
-  document.removeEventListener('selectionchange', onTextSelect);
+  disableSelectionChangeDetection();
   try {
     await api.ping();
   } catch {
@@ -79,7 +94,11 @@ export const registerContentScript = async (
   }: RegisterContentScriptOptions = {
     api: {},
     youTube: { ytHosts: ['www.youtube.com'] },
-    contentScript: { isFeedbackEnabled: false, askForRatingEnabled: false },
+    contentScript: {
+      isFeedbackEnabled: false,
+      askForRatingEnabled: false,
+      displayMobileLookupButton: false,
+    },
   }
 ) => {
   configureApi(apiOptions);
@@ -88,5 +107,6 @@ export const registerContentScript = async (
   configureContentScript(contentScript);
   document.addEventListener('mouseup', onMouseUp);
   document.addEventListener('mousedown', onMouseDown);
-  document.addEventListener('selectionchange', onTextSelect, false);
+
+  enableSelectionChangeDetection();
 };
