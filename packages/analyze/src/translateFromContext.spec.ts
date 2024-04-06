@@ -1,6 +1,14 @@
+import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 import { translateFromContext } from './translateFromContext';
 
+configureTestAnalyzer();
+
 describe('translateFromContext', () => {
+  if (process.env.TEST_SKIP_SPEC === 'true') {
+    it('skip spec testing', () => {});
+    return;
+  }
+
   it('river bank', async () => {
     const translationResult = await translateFromContext({
       source: 'bank',
