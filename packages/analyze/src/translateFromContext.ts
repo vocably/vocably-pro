@@ -1,4 +1,6 @@
 import {
+  ChatGPTLanguage,
+  ChatGPTLanguages,
   GoogleLanguage,
   languageList,
   Result,
@@ -13,7 +15,7 @@ const OPENAI_MODEL = 'gpt-3.5-turbo';
 type Payload = {
   source: string;
   context: string;
-  sourceLanguage: GoogleLanguage;
+  sourceLanguage: ChatGPTLanguage;
   targetLanguage: GoogleLanguage;
 };
 
@@ -26,12 +28,14 @@ const isContextTranslation = (o: any): o is ContextTranslation => {
 };
 
 export const isContextPayload = (o: any): o is Payload => {
-  return !(
-    !o ||
-    !o.source ||
-    !o.context ||
-    !o.sourceLanguage ||
-    !o.targetLanguage
+  return (
+    !(
+      !o ||
+      !o.source ||
+      !o.context ||
+      !o.sourceLanguage ||
+      !o.targetLanguage
+    ) && ChatGPTLanguages.includes(o.sourceLanguage)
   );
 };
 
