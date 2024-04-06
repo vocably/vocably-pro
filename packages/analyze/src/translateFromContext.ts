@@ -5,8 +5,8 @@ import {
   resultify,
   Translation,
 } from '@vocably/model';
-import { tokenize } from 'wanakana';
 import { getOpenAiClient } from './openAiClient';
+import { tokenize } from './tokenize';
 
 const OPENAI_MODEL = 'gpt-3.5-turbo';
 
@@ -39,7 +39,7 @@ export const translateFromContext = async (
   payload: Payload
 ): Promise<Result<Translation>> => {
   const openai = await getOpenAiClient();
-  const promptContent = await createPrompt(payload);
+  const promptContent = createPrompt(payload);
 
   const completionResult = await resultify(
     openai.chat.completions.create({
@@ -95,17 +95,21 @@ export const translateFromContext = async (
 };
 
 const truncateText = (text: string, maxTokens = 100): string => {
-  return tokenize(text).slice(0, maxTokens).join('');
+  return tokenize(text).slice(0, maxTokens).join(' ');
 };
 
 const createPrompt = (payload: Payload): string => {
   const source = truncateText(payload.source, 10);
   const context = truncateText(payload.context, 50);
   return [
-    `Translate the word "${source}" in context of sentence "${context}" from ${
-      languageList[payload.sourceLanguage]
-    } into ${languageList[payload.targetLanguage]}.`,
+    `Translate the word`,
+    source,
+    `that appears in the context of sentence:`,
+    context,
+    `from ${languageList[payload.sourceLanguage]} to ${
+      languageList[payload.targetLanguage]
+    }.`,
     '',
-    `Respond in JSON, as in example: {"target": "translated word"}`,
+    `Respond in JSON, as in example: {"target": "перевод слова"}`,
   ].join('\n');
 };
