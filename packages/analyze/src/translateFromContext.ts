@@ -102,7 +102,7 @@ const createPrompt = (payload: Payload): string => {
   const source = truncateText(payload.source, 10);
   const context = truncateText(payload.context, 50);
   return [
-    `Translate the word`,
+    `Translate the ${languageList[payload.sourceLanguage]} word`,
     source,
     `that appears in the context of sentence:`,
     context,
@@ -110,6 +110,6 @@ const createPrompt = (payload: Payload): string => {
       languageList[payload.targetLanguage]
     }.`,
     '',
-    `Respond in JSON, as in example: {"target": "перевод слова"}`,
+    `Respond in JSON, as in example: {"target": "the translated word"}`,
   ].join('\n');
 };
