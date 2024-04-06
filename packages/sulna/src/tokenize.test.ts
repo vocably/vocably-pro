@@ -27,4 +27,13 @@ describe('tokenize', () => {
     const tokens = tokenize('Привет, мир! Как дела?');
     expect(tokens).toEqual(['Привет', 'мир', 'Как', 'дела']);
   });
+
+  it('trims the shit out', () => {
+    const tokens = tokenize(`
+
+                  Привет,
+
+      мир! Как дела?`);
+    expect(tokens).toEqual(['Привет', 'мир', 'Как', 'дела']);
+  });
 });

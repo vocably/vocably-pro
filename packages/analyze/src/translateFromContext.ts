@@ -7,8 +7,8 @@ import {
   resultify,
   Translation,
 } from '@vocably/model';
+import { tokenize } from '@vocably/sulna';
 import { getOpenAiClient } from './openAiClient';
-import { tokenize } from './tokenize';
 
 const OPENAI_MODEL = 'gpt-3.5-turbo';
 
