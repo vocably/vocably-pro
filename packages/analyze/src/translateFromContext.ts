@@ -35,6 +35,21 @@ export const isContextPayload = (o: any): o is Payload => {
   );
 };
 
+export const itMakesSense = (p: Payload): boolean => {
+  const source = tokenize(p.source);
+  const context = tokenize(p.context);
+
+  if (source.length === 0 || context.length === 0) {
+    return false;
+  }
+
+  if (source.length > 3) {
+    return false;
+  }
+
+  return true;
+};
+
 export const translateFromContext = async (
   payload: Payload
 ): Promise<Result<Translation>> => {
@@ -101,6 +116,7 @@ const truncateText = (text: string, maxTokens = 100): string => {
 const createPrompt = (payload: Payload): string => {
   const source = truncateText(payload.source, 10);
   const context = truncateText(payload.context, 50);
+
   return [
     `Translate the ${languageList[payload.sourceLanguage]} word`,
     source,

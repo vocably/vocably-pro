@@ -22,4 +22,9 @@ describe('tokenize', () => {
 
     expect(tokens.length).toEqual(57);
   });
+
+  it('works with non-latin symbols', () => {
+    const tokens = tokenize('Привет, мир! Как дела?');
+    expect(tokens).toEqual(['Привет', 'мир', 'Как', 'дела']);
+  });
 });

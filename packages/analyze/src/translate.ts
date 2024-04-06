@@ -1,6 +1,10 @@
 import { GoogleLanguage, Result, Translation } from '@vocably/model';
 import { googleTranslate } from './googleTranslate';
-import { isContextPayload, translateFromContext } from './translateFromContext';
+import {
+  isContextPayload,
+  itMakesSense,
+  translateFromContext,
+} from './translateFromContext';
 
 type Payload = {
   source: string;
@@ -12,7 +16,7 @@ type Payload = {
 export const translate = async (
   payload: Payload
 ): Promise<Result<Translation>> => {
-  if (!isContextPayload(payload)) {
+  if (!isContextPayload(payload) || !itMakesSense(payload)) {
     return googleTranslate(payload.source, null, payload.targetLanguage);
   }
 

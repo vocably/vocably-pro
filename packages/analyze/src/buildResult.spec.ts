@@ -388,4 +388,43 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.translation.target).toEqual('через');
   });
+
+  it('serbian', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'sr',
+      targetLanguage: 'ru',
+      source: 'одржала',
+      context: `НОВИ САД – Етно певачица Даница Црногорчевић одржала је у среду концерт на Великој сцени Српског народног позоришта, саопштио је`,
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.translation.target).toEqual('провела');
+  });
+
+  it('long serbian sentence', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'sr',
+      targetLanguage: 'ru',
+      source:
+        'ЂУРЂЕВ УПОЗОРИО Ако се настави демографска катаклизма, уз грађански рат који нам спремају, Срба у Србији више неће бити!',
+      context: `ЂУРЂЕВ УПОЗОРИО Ако се настави демографска катаклизма, уз грађански рат који нам спремају, Срба у Србији више неће бити!`,
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.translation.target).toEqual(
+      'ЖУРЖЕВ ПРЕДУПРЕЖДАЕТ: Если демографический катаклизм продолжится и гражданская война, которую нам готовят, сербов в Сербии больше не будет!'
+    );
+  });
 });
