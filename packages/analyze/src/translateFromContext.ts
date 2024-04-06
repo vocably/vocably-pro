@@ -5,12 +5,10 @@ import {
   resultify,
   Translation,
 } from '@vocably/model';
-import { getEncoding, getEncodingNameForModel } from 'js-tiktoken';
-import OpenAI from 'openai';
+import { tokenize } from 'wanakana';
+import { getOpenAiClient } from './openAiClient';
 
 const OPENAI_MODEL = 'gpt-3.5-turbo';
-const openai = new OpenAI();
-const tokenCodec = getEncoding(getEncodingNameForModel(OPENAI_MODEL));
 
 type Payload = {
   source: string;
@@ -40,7 +38,8 @@ export const isContextPayload = (o: any): o is Payload => {
 export const translateFromContext = async (
   payload: Payload
 ): Promise<Result<Translation>> => {
-  const promptContent = createPrompt(payload);
+  const openai = await getOpenAiClient();
+  const promptContent = await createPrompt(payload);
 
   const completionResult = await resultify(
     openai.chat.completions.create({
@@ -96,11 +95,7 @@ export const translateFromContext = async (
 };
 
 const truncateText = (text: string, maxTokens = 100): string => {
-  const tokens = tokenCodec
-    .encode(text)
-    .map((token: number): string => tokenCodec.decode([token]));
-  tokens.splice(maxTokens);
-  return tokens.join('');
+  return tokenize(text).slice(0, maxTokens).join('');
 };
 
 const createPrompt = (payload: Payload): string => {

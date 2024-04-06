@@ -79,7 +79,10 @@ resource "aws_api_gateway_deployment" "deployment" {
       md5(file("${path.module}/api-cards.tf")),
       md5(file("${path.module}/api-user-files.tf")),
       md5(file("${path.module}/api-play-sound.tf")),
-      md5(file("${path.module}/user-feedback.tf"))
+      md5(file("${path.module}/user-feedback.tf")),
+      aws_lambda_function.analyze.last_modified,
+      aws_lambda_function.play_sound.last_modified,
+      aws_lambda_function.user_feedback.last_modified,
     ]))
   }
   depends_on = [
@@ -102,6 +105,9 @@ resource "aws_api_gateway_deployment" "deployment" {
     aws_api_gateway_integration_response.delete_user_file_200,
     aws_api_gateway_integration_response.get_user_file_200,
     aws_api_gateway_integration_response.get_user_file_4xx,
+    aws_lambda_function.analyze,
+    aws_lambda_function.play_sound,
+    aws_lambda_function.user_feedback,
   ]
   lifecycle {
     create_before_destroy = true

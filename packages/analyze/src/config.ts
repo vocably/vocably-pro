@@ -4,6 +4,7 @@ export const config = {
   googleProjectId: 'vocably-332109',
   nlpTranslationKey: 'must be provided',
   nlpTranslationHost: 'must be provided',
+  openaiApiKey: 'must be provided',
 };
 
 type AnalyzerConfig = typeof config;
