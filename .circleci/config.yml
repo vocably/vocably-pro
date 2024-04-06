@@ -42,11 +42,11 @@ jobs:
       - checkout
       - install_npm_dependencies
       - run: npx zx ./scripts/build-packages.mjs
-      - run: npm run test -ws -- --runInBand
+      - run: npm run test -ws -- --runInBand --silent
       - run: bash ./scripts/install-build-dependencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
-      - run: npm run test -ws -- --runInBand
+      - run: npm run test -ws -- --runInBand --silent
       - run: npx semantic-release
       - run: npx zx ./scripts/build-extension.mjs
 
@@ -60,7 +60,7 @@ jobs:
       - checkout
       - install_npm_dependencies
       - run: npx zx ./scripts/build-packages.mjs
-      - run: npm run test -ws -- --runInBand
+      - run: npm run test -ws -- --runInBand --silent
       - run: bash ./scripts/install-build-dependencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
@@ -75,7 +75,7 @@ jobs:
       - checkout
       - install_npm_dependencies
       - run: npx zx ./scripts/build-packages.mjs
-      - run: npm run test -ws -- --runInBand
+      - run: npm run test -ws -- --runInBand --silent
       - run: bash ./scripts/install-build-dependencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
