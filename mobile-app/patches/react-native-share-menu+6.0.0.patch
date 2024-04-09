@@ -244,7 +244,7 @@ index 0000000..0d259dd
 +o/classes
 diff --git a/node_modules/react-native-share-menu/android/build/.transforms/01334f1c5c97950447ed7767618c1402/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-share-menu/android/build/.transforms/01334f1c5c97950447ed7767618c1402/transformed/classes/classes_dex/classes.dex
 new file mode 100644
-index 0000000..b0ff285
+index 0000000..8f7f0ce
 Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/.transforms/01334f1c5c97950447ed7767618c1402/transformed/classes/classes_dex/classes.dex differ
 diff --git a/node_modules/react-native-share-menu/android/build/.transforms/4de473ab1b895f050d350e0b5586e13f/results.bin b/node_modules/react-native-share-menu/android/build/.transforms/4de473ab1b895f050d350e0b5586e13f/results.bin
 new file mode 100644
@@ -253,6 +253,13 @@ index 0000000..e3f0ff0
 +++ b/node_modules/react-native-share-menu/android/build/.transforms/4de473ab1b895f050d350e0b5586e13f/results.bin
 @@ -0,0 +1 @@
 +i/classes_global-synthetics
+diff --git a/node_modules/react-native-share-menu/android/build/.transforms/4f85bd985b47fe10e9b55205b4516cc1/results.bin b/node_modules/react-native-share-menu/android/build/.transforms/4f85bd985b47fe10e9b55205b4516cc1/results.bin
+new file mode 100644
+index 0000000..1ed65e0
+--- /dev/null
++++ b/node_modules/react-native-share-menu/android/build/.transforms/4f85bd985b47fe10e9b55205b4516cc1/results.bin
+@@ -0,0 +1 @@
++i/
 diff --git a/node_modules/react-native-share-menu/android/build/.transforms/61d4d23f0cb7e501606dbfa715892f05/results.bin b/node_modules/react-native-share-menu/android/build/.transforms/61d4d23f0cb7e501606dbfa715892f05/results.bin
 new file mode 100644
 index 0000000..61a58fa
@@ -260,6 +267,61 @@ index 0000000..61a58fa
 +++ b/node_modules/react-native-share-menu/android/build/.transforms/61d4d23f0cb7e501606dbfa715892f05/results.bin
 @@ -0,0 +1 @@
 +i/classes_dex
+diff --git a/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/results.bin b/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/results.bin
+new file mode 100644
+index 0000000..5ff383e
+--- /dev/null
++++ b/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/results.bin
+@@ -0,0 +1 @@
++o/debug
+diff --git a/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/debug_dex/com/meedan/BuildConfig.dex b/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/debug_dex/com/meedan/BuildConfig.dex
+new file mode 100644
+index 0000000..49b63ec
+Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/debug_dex/com/meedan/BuildConfig.dex differ
+diff --git a/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/debug_dex/com/meedan/ShareMenuModule.dex b/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/debug_dex/com/meedan/ShareMenuModule.dex
+new file mode 100644
+index 0000000..242735e
+Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/debug_dex/com/meedan/ShareMenuModule.dex differ
+diff --git a/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/debug_dex/com/meedan/ShareMenuPackage.dex b/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/debug_dex/com/meedan/ShareMenuPackage.dex
+new file mode 100644
+index 0000000..2a5cd24
+Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/debug_dex/com/meedan/ShareMenuPackage.dex differ
+diff --git a/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/desugar_graph.bin b/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/desugar_graph.bin
+new file mode 100644
+index 0000000..601f245
+Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/.transforms/6913a249108293159ab5e353b185a871/transformed/debug/desugar_graph.bin differ
+diff --git a/node_modules/react-native-share-menu/android/build/.transforms/737eed00c6d9b6b325f3e3179f62c57d/results.bin b/node_modules/react-native-share-menu/android/build/.transforms/737eed00c6d9b6b325f3e3179f62c57d/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-share-menu/android/build/.transforms/737eed00c6d9b6b325f3e3179f62c57d/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-share-menu/android/build/.transforms/737eed00c6d9b6b325f3e3179f62c57d/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-share-menu/android/build/.transforms/737eed00c6d9b6b325f3e3179f62c57d/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..5678031
+Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/.transforms/737eed00c6d9b6b325f3e3179f62c57d/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/react-native-share-menu/android/build/.transforms/ade4656411d3d53088dbf5d459ef5d62/results.bin b/node_modules/react-native-share-menu/android/build/.transforms/ade4656411d3d53088dbf5d459ef5d62/results.bin
+new file mode 100644
+index 0000000..1ed65e0
+--- /dev/null
++++ b/node_modules/react-native-share-menu/android/build/.transforms/ade4656411d3d53088dbf5d459ef5d62/results.bin
+@@ -0,0 +1 @@
++i/
+diff --git a/node_modules/react-native-share-menu/android/build/.transforms/c0dfb43995925f48cb5dab49aac9f984/results.bin b/node_modules/react-native-share-menu/android/build/.transforms/c0dfb43995925f48cb5dab49aac9f984/results.bin
+new file mode 100644
+index 0000000..e3f0ff0
+--- /dev/null
++++ b/node_modules/react-native-share-menu/android/build/.transforms/c0dfb43995925f48cb5dab49aac9f984/results.bin
+@@ -0,0 +1 @@
++i/classes_global-synthetics
+diff --git a/node_modules/react-native-share-menu/android/build/.transforms/cbe6bfa1458b6427d2edf875d3e17756/results.bin b/node_modules/react-native-share-menu/android/build/.transforms/cbe6bfa1458b6427d2edf875d3e17756/results.bin
+new file mode 100644
+index 0000000..4c288ce
+--- /dev/null
++++ b/node_modules/react-native-share-menu/android/build/.transforms/cbe6bfa1458b6427d2edf875d3e17756/results.bin
+@@ -0,0 +1 @@
++i/debug_dex
 diff --git a/node_modules/react-native-share-menu/android/build/generated/source/buildConfig/debug/com/meedan/BuildConfig.java b/node_modules/react-native-share-menu/android/build/generated/source/buildConfig/debug/com/meedan/BuildConfig.java
 new file mode 100644
 index 0000000..6fc6410
@@ -336,7 +398,7 @@ index 0000000..9e26dfe
 \ No newline at end of file
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/compile_library_classes_jar/debug/classes.jar b/node_modules/react-native-share-menu/android/build/intermediates/compile_library_classes_jar/debug/classes.jar
 new file mode 100644
-index 0000000..0e4cd56
+index 0000000..5906ec5
 Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/compile_library_classes_jar/debug/classes.jar differ
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/compile_r_class_jar/debug/R.jar b/node_modules/react-native-share-menu/android/build/intermediates/compile_r_class_jar/debug/R.jar
 new file mode 100644
@@ -347,11 +409,11 @@ new file mode 100644
 index 0000000..e69de29
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties b/node_modules/react-native-share-menu/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
 new file mode 100644
-index 0000000..3f9c45f
+index 0000000..8515af5
 --- /dev/null
 +++ b/node_modules/react-native-share-menu/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
 @@ -0,0 +1 @@
-+#Thu Mar 14 13:53:51 KGT 2024
++#Mon Apr 08 18:39:41 KGT 2024
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml b/node_modules/react-native-share-menu/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
 new file mode 100644
 index 0000000..87a8f85
@@ -394,7 +456,7 @@ index 0000000..d2ac5fe
 Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/BuildConfig.class differ
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/ShareMenuModule.class b/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/ShareMenuModule.class
 new file mode 100644
-index 0000000..55449fb
+index 0000000..c8d9363
 Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/ShareMenuModule.class differ
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/ShareMenuPackage.class b/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/ShareMenuPackage.class
 new file mode 100644
@@ -443,9 +505,21 @@ index 0000000..0637a08
 @@ -0,0 +1 @@
 +[]
 \ No newline at end of file
+diff --git a/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_dir/debug/com/meedan/BuildConfig.class b/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_dir/debug/com/meedan/BuildConfig.class
+new file mode 100644
+index 0000000..d2ac5fe
+Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_dir/debug/com/meedan/BuildConfig.class differ
+diff --git a/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_dir/debug/com/meedan/ShareMenuModule.class b/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_dir/debug/com/meedan/ShareMenuModule.class
+new file mode 100644
+index 0000000..55449fb
+Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_dir/debug/com/meedan/ShareMenuModule.class differ
+diff --git a/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_dir/debug/com/meedan/ShareMenuPackage.class b/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_dir/debug/com/meedan/ShareMenuPackage.class
+new file mode 100644
+index 0000000..e90a5d6
+Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_dir/debug/com/meedan/ShareMenuPackage.class differ
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar b/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar
 new file mode 100644
-index 0000000..93bc2ce
+index 0000000..53a360e
 Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar differ
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt b/node_modules/react-native-share-menu/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
 new file mode 100644
@@ -479,7 +553,7 @@ index 0000000..e4e36cc
 +		INJECTED from /Users/bekatru/projects/vocably-pro/mobile-app/node_modules/react-native-share-menu/android/src/main/AndroidManifest.xml
 diff --git a/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/ShareMenuModule.class.uniqueId0 b/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/ShareMenuModule.class.uniqueId0
 new file mode 100644
-index 0000000..7f18851
+index 0000000..58d3d13
 Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/ShareMenuModule.class.uniqueId0 differ
 diff --git a/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/ShareMenuPackage.class.uniqueId1 b/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/ShareMenuPackage.class.uniqueId1
 new file mode 100644
@@ -487,10 +561,10 @@ index 0000000..e90a5d6
 Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/ShareMenuPackage.class.uniqueId1 differ
 diff --git a/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin b/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
 new file mode 100644
-index 0000000..aeda24e
+index 0000000..528f475
 Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ
 diff --git a/node_modules/react-native-share-menu/android/src/main/java/com/meedan/ShareMenuModule.java b/node_modules/react-native-share-menu/android/src/main/java/com/meedan/ShareMenuModule.java
-index 09abd7b..ae730f5 100644
+index 09abd7b..f074bb2 100644
 --- a/node_modules/react-native-share-menu/android/src/main/java/com/meedan/ShareMenuModule.java
 +++ b/node_modules/react-native-share-menu/android/src/main/java/com/meedan/ShareMenuModule.java
 @@ -64,6 +64,17 @@ public class ShareMenuModule extends ReactContextBaseJavaModule implements Activ
@@ -511,7 +585,27 @@ index 09abd7b..ae730f5 100644
        Uri fileUri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
        if (fileUri != null) {
          data.putString(DATA_KEY, fileUri.toString());
-@@ -112,6 +123,16 @@ public class ShareMenuModule extends ReactContextBaseJavaModule implements Activ
+@@ -92,19 +103,6 @@ public class ShareMenuModule extends ReactContextBaseJavaModule implements Activ
+       return;
+     }
+ 
+-    // If this isn't the root activity then make sure it is
+-    if (!currentActivity.isTaskRoot()) {
+-      Intent newIntent = new Intent(currentActivity.getIntent());
+-      newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+-      currentActivity.startActivity(newIntent);
+-
+-      ReadableMap shared = extractShared(newIntent);
+-      successCallback.invoke(shared);
+-      clearSharedText();
+-      currentActivity.finish();
+-      return;
+-    }
+-
+     Intent intent = currentActivity.getIntent();
+ 
+     ReadableMap shared = extractShared(intent);
+@@ -112,6 +110,16 @@ public class ShareMenuModule extends ReactContextBaseJavaModule implements Activ
      clearSharedText();
    }
  
@@ -528,7 +622,7 @@ index 09abd7b..ae730f5 100644
    private void dispatchEvent(ReadableMap shared) {
      if (mReactContext == null || !mReactContext.hasActiveCatalystInstance()) {
        return;
-@@ -136,6 +157,7 @@ public class ShareMenuModule extends ReactContextBaseJavaModule implements Activ
+@@ -136,6 +144,7 @@ public class ShareMenuModule extends ReactContextBaseJavaModule implements Activ
  
      if ("text/plain".equals(type)) {
        intent.removeExtra(Intent.EXTRA_TEXT);
