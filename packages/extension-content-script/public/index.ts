@@ -41,8 +41,9 @@ registerContentScript({
         (document.getElementById('isEligibleForTrial') as HTMLInputElement)
           .checked
       ),
-    analyze: (payload) =>
-      new Promise((resolve) => {
+    analyze: (payload) => {
+      console.info('Analyze request', payload);
+      return new Promise((resolve) => {
         setTimeout(() => {
           const result = JSON.parse(
             (document.getElementById('response') as HTMLTextAreaElement).value
@@ -54,7 +55,8 @@ registerContentScript({
 
           resolve(result);
         }, parseInt((document.getElementById('delay') as HTMLInputElement).value));
-      }),
+      });
+    },
     addCard: (payload) =>
       new Promise((resolve) => {
         setTimeout(() => {

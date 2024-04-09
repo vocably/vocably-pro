@@ -7,13 +7,13 @@ import {
 import { buildDirectJapaneseResult } from './buildDirectResult/buildDirectJapaneseResult';
 import { combineItems } from './combineItems';
 import { fitsTheSize } from './fitsTheSize';
-import { googleTranslate } from './googleTranslate';
 import { isOneWord } from './isOneWord';
 import { lexicala } from './lexicala';
 import { languageToLexicalaLanguage } from './lexicala/lexicalaLanguageMapper';
 import { lexicalaSearchResultToAnalysisItem } from './lexicala/lexicalaSearchResultToAnalysisItem';
 import { normalizeHeadword } from './lexicala/normalizeHeadword';
 import { lexicalaItemHasDefinitionOrCanBeTranslated } from './lexicalaItemHasDefinitionOrCanBeTranslated';
+import { translate } from './translate';
 import { trimArticle } from './trimArticle';
 import { wordDictionary } from './word-dictionary';
 import { wordDictionaryResultToAnalysisItems } from './wordDictionaryResultToItems';
@@ -21,11 +21,7 @@ import { wordDictionaryResultToAnalysisItems } from './wordDictionaryResultToIte
 export const buildDirectResult = async (
   payload: DirectAnalyzePayload
 ): Promise<Result<DirectAnalysis>> => {
-  const translationResult = await googleTranslate(
-    payload.source,
-    payload.sourceLanguage,
-    payload.targetLanguage
-  );
+  const translationResult = await translate(payload);
 
   if (translationResult.success === false) {
     return translationResult;

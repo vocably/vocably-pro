@@ -11,6 +11,7 @@ export type DirectAnalyzePayload = {
   source: string;
   sourceLanguage?: GoogleLanguage;
   targetLanguage: GoogleLanguage;
+  context?: string;
 };
 
 export type ReverseAnalyzePayload = {
