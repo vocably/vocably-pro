@@ -1,7 +1,7 @@
-import { NavigationContainer, NavigationProp } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { PropsWithChildren } from 'react';
-import { View } from 'react-native';
+import { BackHandler, Pressable, View } from "react-native";
 import {  useTheme } from 'react-native-paper';
 import { AuthContainer } from '../auth/AuthContainer';
 import { Login } from '../auth/Login';
@@ -15,11 +15,18 @@ const Stack = createStackNavigator();
 const Viewport = (props: PropsWithChildren) => {
   const theme = useTheme();
   return (
+    <>
+    <Pressable
+      onPress={() => BackHandler.exitApp()}
+      style={{
+        width: '100%',
+        height: '34%',
+      }}
+    />
     <View
       style={{
-        marginTop: 'auto',
         width: '100%',
-        height: '66%', 
+        height: '66%',
         overflow: 'hidden',
         backgroundColor: theme.colors.background,
         borderTopStartRadius: 16,
@@ -28,6 +35,7 @@ const Viewport = (props: PropsWithChildren) => {
     >
       {props.children}
     </View>
+    </>
   );
 };
 
