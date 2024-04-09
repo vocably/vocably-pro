@@ -110,6 +110,37 @@ export const GoogleLanguages = [
 
 export type GoogleLanguage = typeof GoogleLanguages[number];
 
+export const ChatGPTLanguages = [
+  'en',
+  'es',
+  'fr',
+  'de',
+  'zh',
+  'zh-TW',
+  'ja',
+  'ru',
+  'it',
+  'pt',
+  'ar',
+  'nl',
+  'ko',
+  'hi',
+  'tr',
+  'sv',
+  'no',
+  'da',
+  'fi',
+  'pl',
+  'el',
+  'he',
+  'th',
+  'vi',
+  'id',
+  'ms',
+] as const;
+
+export type ChatGPTLanguage = typeof ChatGPTLanguages[number];
+
 const NLPLanguages = [
   'af',
   'sq',

@@ -69,6 +69,7 @@ const destroyOnSpace = (e: KeyboardEvent) => {
 
 type PopupOptions = {
   text: string;
+  context?: string;
   language?: GoogleLanguage;
   globalRect: GlobalRect;
   isTouchscreen: boolean;
@@ -97,6 +98,7 @@ export const createPopup = async (options: PopupOptions) => {
     popup,
     source: options.text,
     detectedLanguage: options.language,
+    context: options.context,
   });
 
   const position = calculatePosition(options.globalRect, options.isTouchscreen);

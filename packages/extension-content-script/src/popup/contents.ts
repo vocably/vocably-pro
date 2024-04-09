@@ -12,6 +12,7 @@ type Options = {
   popup: HTMLElement;
   source: string;
   detectedLanguage: GoogleLanguage | undefined;
+  context?: string;
 };
 
 export type TearDown = () => void;
@@ -28,6 +29,7 @@ export const setContents = async ({
   popup,
   source,
   detectedLanguage,
+  context,
 }: Options): Promise<TearDown> => {
   let intervalId: ReturnType<typeof setInterval> | null = null;
 
@@ -51,7 +53,7 @@ export const setContents = async ({
     const analyze = (sourceLanguage?: GoogleLanguage) => {
       translation.loading = true;
       api
-        .analyze({ source: source, sourceLanguage })
+        .analyze({ source: source, sourceLanguage, context })
         .finally(() => {
           translation.loading = false;
         })

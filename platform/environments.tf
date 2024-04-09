@@ -95,6 +95,7 @@ CANCELLED_SUBCRIPTIONS_TABLE="${aws_dynamodb_table.cancelled_subscriptions.name}
 USER_FEEDBACK_TABLE="${aws_dynamodb_table.user_feedback.name}"
 CARDS_BUCKET="${aws_s3_bucket.cards.bucket}"
 CARDS_BACKUP_BUCKET="${aws_s3_bucket.cards_backup.bucket}"
+OPENAI_API_KEY="${var.openai_api_key}"
   EOT
 }
 
