@@ -17,7 +17,11 @@ export const translate = async (
   payload: Payload
 ): Promise<Result<Translation>> => {
   if (!isContextPayload(payload) || !itMakesSense(payload)) {
-    return googleTranslate(payload.source, null, payload.targetLanguage);
+    return googleTranslate(
+      payload.source,
+      payload.sourceLanguage,
+      payload.targetLanguage
+    );
   }
 
   const contextTranslation = await translateFromContext(payload);
