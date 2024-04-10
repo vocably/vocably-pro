@@ -34,6 +34,16 @@ export const useTranslationPreset = (): [
       translationLanguage,
     });
   }, [translationLanguage]);
+  useEffect(() => {
+    if (selectedLanguage === null) {
+      return;
+    }
+
+    setPresetState({
+      ...preset,
+      sourceLanguage: selectedLanguage
+    });
+  }, [selectedLanguage]);
 
   return [preset, setPreset];
 };

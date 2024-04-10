@@ -25,6 +25,7 @@ import { AssociatedCard } from './LookUpScreen/associateCards';
 import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPreset } from './LookUpScreen/TranslationPreset';
 import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
+import { useShareIntentData } from './ShareIntent/useShareIntentData';
 
 const padding = 16;
 
@@ -63,12 +64,25 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const theme = useTheme();
   const deck = useLanguageDeck(translationPreset.sourceLanguage);
   const languages = useContext(LanguagesContext);
+  const intentData = useShareIntentData();
 
   useEffect(() => {
     if (lookUpText === '') {
       setLookupResult(undefined);
     }
   }, [lookUpText]);
+
+  useEffect(() => {
+    if (intentData) {
+      setLookUpText(intentData);
+    }
+  }, [intentData]);
+
+  useEffect(() => {
+    if (lookUpText) {
+      lookUp().then();
+    }
+  }, [lookUpText, deck.status]);
 
   const lookUp = useCallback(async () => {
     if (isAnalyzing) {
