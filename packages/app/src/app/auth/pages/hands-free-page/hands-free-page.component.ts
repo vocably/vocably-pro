@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, switchMap, take, takeUntil, tap } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { browserType } from '../../../../browser';
 import { isExtensionInstalled } from '../../../isExtensionInstalled';
 import { AuthService } from '../../auth.service';
 
@@ -14,6 +15,7 @@ export class HandsFreePageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
   public isInstalled: boolean | undefined = undefined;
+  public browserType = browserType;
 
   constructor(private auth: AuthService, private router: Router) {}
 
