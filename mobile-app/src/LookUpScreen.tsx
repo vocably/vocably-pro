@@ -15,7 +15,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
@@ -26,7 +26,6 @@ import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPreset } from './LookUpScreen/TranslationPreset';
 import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
 import { useShareIntentData } from './ShareIntent/useShareIntentData';
-import { preset } from '../jest.config';
 
 const padding = 16;
 
@@ -77,7 +76,13 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
     if (intentData) {
       setLookUpText(intentData);
     }
-  }, [intentData])
+  }, [intentData]);
+
+  useEffect(() => {
+    if (lookUpText) {
+      lookUp().then();
+    }
+  }, [lookUpText, deck.status]);
 
   const lookUp = useCallback(async () => {
     if (isAnalyzing) {
