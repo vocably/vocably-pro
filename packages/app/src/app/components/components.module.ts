@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { BackButtonComponent } from './back-button/back-button.component';
+import { ExpansionComponent } from './expansion/expansion.component';
 import { GoogleIconComponent } from './google-icon/google-icon.component';
 import { LanguageInputComponent } from './language-input/language-input.component';
 import { LoaderComponent } from './loader/loader.component';
@@ -27,6 +28,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     GoogleIconComponent,
     LoaderComponent,
     LanguageInputComponent,
+    ExpansionComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     SubscriptionStatusPipe,
     GoogleIconComponent,
     LanguageInputComponent,
+    ExpansionComponent,
   ],
 })
 export class ComponentsModule {}

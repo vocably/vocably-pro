@@ -1,0 +1,24 @@
+.chevron {
+  vertical-align: middle;
+  transition: transform 0.1s ease-in-out;
+
+  &.expanded {
+    transform: rotate(90deg);
+  }
+}
+
+.panel {
+  padding-top: 1rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+
+  &.expanded {
+    max-height: 100vh;
+  }
+}
+
+.panel-content {
+  padding: 1rem;
+  background-color: var(--form-background-color);
+}
