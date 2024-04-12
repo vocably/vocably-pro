@@ -21,6 +21,10 @@
   padding: calc(var(--shadow-spread) - var(--shadow-v-offset))
     var(--shadow-spread) calc(var(--shadow-spread) + var(--shadow-v-offset));
 
+  // This fixes the problem that happens when  the page's
+  // `body.style.textAlign` is set to `center`
+  text-align: left;
+
   .popup {
     background: rgb(var(--background-rgb));
     box-shadow: 0 var(--shadow-v-offset) var(--shadow-spread) rgba(0, 0, 0, 0.6);
