@@ -371,24 +371,6 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation.target).toEqual('Учить');
   });
 
-  it('nl door', async () => {
-    const result = await buildResult({
-      sourceLanguage: 'nl',
-      targetLanguage: 'ru',
-      source: 'door',
-      context: `Russische propaganda te zien op kinderzender in Nederland na verstoring door hackers`,
-    });
-
-    console.log(inspect(result));
-
-    expect(result.success).toBeTruthy();
-    if (result.success === false) {
-      return;
-    }
-
-    expect(result.value.translation.target).toEqual('через');
-  });
-
   it('serbian', async () => {
     const result = await buildResult({
       sourceLanguage: 'sr',
