@@ -1,5 +1,4 @@
 import { registerContentScript } from '@vocably/extension-content-script';
-import { awakeServiceWorker } from '@vocably/extension-stay-alive';
 
 registerContentScript({
   api: {
@@ -12,5 +11,3 @@ registerContentScript({
     displayMobileLookupButton: true,
   },
 }).then();
-
-awakeServiceWorker();

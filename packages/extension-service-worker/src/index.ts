@@ -33,7 +33,6 @@ import {
   onSetSourceLanguage,
   onSetUserKnowsHowToAdd,
 } from '@vocably/extension-messages';
-import { stayAlive } from '@vocably/extension-stay-alive';
 import {
   Analysis,
   AnalyzePayload,
@@ -431,7 +430,5 @@ export const registerServiceWorker = (
     return sendResponse();
   });
 
-  stayAlive();
-
-  console.info('The service worker has been registered.');
+  console.info('The service worker has been registered');
 };
