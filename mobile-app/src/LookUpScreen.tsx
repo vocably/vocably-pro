@@ -56,6 +56,7 @@ type LookUpScreen = FC<{
 }>;
 
 export const LookUpScreen: LookUpScreen = ({ navigation }) => {
+  const [isAutomaticallyLookedUp, setIsAutomaticallyLookedUp] = useState(false);
   const [translationPreset, setTranslationPreset] = useTranslationPreset();
   const [lookUpText, setLookUpText] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -77,12 +78,6 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
       setLookUpText(intentData);
     }
   }, [intentData]);
-
-  useEffect(() => {
-    if (lookUpText) {
-      lookUp().then();
-    }
-  }, [lookUpText, deck.status]);
 
   const lookUp = useCallback(async () => {
     if (isAnalyzing) {
@@ -114,6 +109,18 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
     setLookupResult(lookupResult);
     setIsAnalyzing(false);
   }, [translationPreset, lookUpText, setIsAnalyzing, isAnalyzing, deck]);
+
+  useEffect(() => {
+    if (
+      !isAutomaticallyLookedUp &&
+      intentData &&
+      lookUpText &&
+      deck.status === 'loaded'
+    ) {
+      setIsAutomaticallyLookedUp(true);
+      lookUp().then();
+    }
+  }, [intentData, lookUpText, deck.status, isAutomaticallyLookedUp, lookUp]);
 
   const onAdd = useCallback(
     async (card: AssociatedCard): Promise<Result<CardItem>> => {

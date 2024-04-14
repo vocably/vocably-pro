@@ -41,7 +41,7 @@ export const useTranslationPreset = (): [
 
     setPresetState({
       ...preset,
-      sourceLanguage: selectedLanguage
+      sourceLanguage: selectedLanguage,
     });
   }, [selectedLanguage]);
 
