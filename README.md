@@ -1,23 +1,23 @@
-# Vocably - a language learning platform
+# Vocably - translate once, remember forever.
 
 https://vocably.pro
 
-Vocably is a language learning platform consisted of:
+Language is infinite. You can improve your language throughout your life. Vocably's ambition is to become your lifetime language companion.
 
-- [Chrome](https://chromewebstore.google.com/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb), [Safari](https://apps.apple.com/us/app/vocably-for-safari/id6464076425), and [iOS Safari](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757) browser extensions
-- Mobile application ([iOS](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757) and [Android](https://play.google.com/store/apps/details?id=com.vocablypro))
+For that, Vocably exists in multiple forms:
+
+- Browser extensions for [Desktop Chrome](https://chromewebstore.google.com/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb), [Desktop Safari](https://apps.apple.com/app/vocably-for-safari/id6464076425), and [iOS Safari](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757)
+- Mobile application for [iOS](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757) and [Android](https://play.google.com/store/apps/details?id=com.vocablypro)
 - [Web application](https://app.vocably.pro)
 
 ## How it works
 
 [![How I use Vocably](assets/how-i-use-vocably.png?raw=true)](https://youtu.be/UwNog9yKCeA)
 
-The idea of Vocably is “translate once, remember forever.” The platform solves two problems:
+The idea of Vocably is “translate once, remember forever.” Because the platform solves two problems:
 
-- Conveniently translate a word or phrase
-- Learn what you have translated
-
-You can translate with the help of a browser extension or mobile app. Vocably will create a high-quality flashcards out of your transitions, so you can learn them when you have time.
+- Conveniently translate a word or phrase when you see it.
+- Learn that word or phrase to remember it for an extended period.
 
 ## License
 
