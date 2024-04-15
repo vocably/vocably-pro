@@ -17,7 +17,7 @@ For that, Vocably exists in multiple forms:
 The idea of Vocably is “translate once, remember forever.” Because the platform solves two problems:
 
 - Conveniently translate a word or phrase when you see it.
-- Learn that word or phrase to remember it for an extended period.
+- Study that word or phrase to remember it for an extended period.
 
 ## License
 
