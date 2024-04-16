@@ -145,7 +145,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.items.length).toEqual(4);
     expect(resultBody.items[0].source).toEqual('de regeling');
-    expect(resultBody.items[0].translation).toEqual('расположение');
+    expect(resultBody.items[0].translation).toEqual('регулирование');
   });
 
   it('trims article before analyzing', async () => {
@@ -163,7 +163,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.items.length).toEqual(4);
     expect(resultBody.items[0].source).toEqual('de regeling');
-    expect(resultBody.items[0].translation).toEqual('расположение');
+    expect(resultBody.items[0].translation).toEqual('регулирование');
   });
 
   it('skips analyze when source is more than one word', async () => {
@@ -199,7 +199,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.reverseTranslation).toBeDefined();
     expect(resultBody.items[0].source).toEqual('de regel');
-    expect(resultBody.items[0].translation).toEqual('правило');
+    expect(resultBody.items[0].translation).toEqual('строка, правило, норма');
     expect(resultBody.items[1].source).toEqual('regelbaar');
     expect(resultBody.items[1].translation).toEqual('регулируемый');
   });
@@ -243,8 +243,8 @@ describe('integration check for translate lambda', () => {
     const resultBody: DirectAnalysis = JSON.parse(result.body);
     console.log(inspect(resultBody));
     expect(resultBody.items.length).toEqual(2);
-    expect(resultBody.items[0].translation).toEqual('трюк');
-    expect(resultBody.items[1].translation).toEqual('обмануть');
+    expect(resultBody.items[0].translation).toEqual('уловка, трюк, фокус');
+    expect(resultBody.items[1].translation).toEqual('обманывать');
   });
 
   it('properly translates dutch to non-article languages', async () => {
