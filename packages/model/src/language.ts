@@ -269,3 +269,8 @@ export const isGoogleLanguage = (
   language: string
 ): language is GoogleLanguage =>
   GoogleLanguages.indexOf(language as GoogleLanguage) !== -1;
+
+export const isChatGPTLanguage = (
+  language: string
+): language is ChatGPTLanguage =>
+  ChatGPTLanguages.indexOf(language as ChatGPTLanguage) !== -1;

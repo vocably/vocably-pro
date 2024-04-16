@@ -110,7 +110,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.items.length).toEqual(4);
     expect(result.value.items[0].source).toEqual('de regeling');
-    expect(result.value.items[0].translation).toEqual('расположение');
+    expect(result.value.items[0].translation).toEqual('регулирование');
   });
 
   it('trims article before analyzing', async () => {
@@ -130,7 +130,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.items.length).toEqual(4);
     expect(result.value.items[0].source).toEqual('de regeling');
-    expect(result.value.items[0].translation).toEqual('расположение');
+    expect(result.value.items[0].translation).toEqual('регулирование');
   });
 
   it('skips analyze when source is more than one word', async () => {
@@ -175,7 +175,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.reverseTranslation).toBeDefined();
     expect(result.value.items[0].source).toEqual('de regel');
-    expect(result.value.items[0].translation).toEqual('правило');
+    expect(result.value.items[0].translation).toEqual('строка, правило, норма');
     expect(result.value.items[1].source).toEqual('regelbaar');
     expect(result.value.items[1].translation).toEqual('регулируемый');
   });
@@ -220,8 +220,8 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.items.length).toEqual(2);
-    expect(result.value.items[0].translation).toEqual('трюк');
-    expect(result.value.items[1].translation).toEqual('обмануть');
+    expect(result.value.items[0].translation).toEqual('уловка, трюк, фокус');
+    expect(result.value.items[1].translation).toEqual('обманывать');
   });
 
   it('properly translates dutch to non-article languages', async () => {
@@ -407,5 +407,26 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.translation.target.length).toBeGreaterThan(110);
+  });
+
+  it('tailor', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      source: 'tailor',
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.items[0].partOfSpeech).toEqual('noun');
+    expect(result.value.items[0].translation).toEqual('портной');
+
+    expect(result.value.items[1].partOfSpeech).toEqual('verb');
+    expect(result.value.items[1].translation).toContain('подгонять');
   });
 });

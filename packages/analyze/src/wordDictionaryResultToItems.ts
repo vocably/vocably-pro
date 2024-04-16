@@ -22,10 +22,11 @@ export const wordDictionaryResultToAnalysisItems = ({
 }: Options): Promise<AnalysisItem>[] => {
   return Object.entries(result.meaning)
     .filter(([_, definitions]) => definitions.length > 0)
-    .map(async ([partOfSpeech, definitions]) => {
+    .map(async ([partOfSpeech, wdDefinitions]) => {
+      const definitions = getItemDefinitions(wdDefinitions);
       const item = {
         source: result.response,
-        definitions: getItemDefinitions(definitions),
+        definitions,
         partOfSpeech,
       };
       return {
@@ -34,6 +35,7 @@ export const wordDictionaryResultToAnalysisItems = ({
           ...item,
           payload,
           originalTranslation,
+          definitions,
         }),
       };
     });
