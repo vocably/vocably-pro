@@ -137,6 +137,7 @@ export const ChatGPTLanguages = [
   'vi',
   'id',
   'ms',
+  'uk',
 ] as const;
 
 export type ChatGPTLanguage = typeof ChatGPTLanguages[number];

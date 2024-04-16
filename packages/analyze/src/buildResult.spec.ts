@@ -409,7 +409,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation.target.length).toBeGreaterThan(110);
   });
 
-  it('tailor', async () => {
+  it('tailor - ru', async () => {
     const result = await buildResult({
       sourceLanguage: 'en',
       targetLanguage: 'ru',
@@ -428,5 +428,26 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.items[1].partOfSpeech).toEqual('verb');
     expect(result.value.items[1].translation).toContain('подгонять');
+  });
+
+  it('tailor - uk', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'uk',
+      source: 'tailor',
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.items[0].partOfSpeech).toEqual('noun');
+    expect(result.value.items[0].translation).toEqual('кравець');
+
+    expect(result.value.items[1].partOfSpeech).toEqual('verb');
+    expect(result.value.items[1].translation).toContain('пристосовувати');
   });
 });
