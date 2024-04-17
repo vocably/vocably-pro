@@ -10,7 +10,6 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import {
   ActivityIndicator,
   Badge,
@@ -27,7 +26,7 @@ import { LanguagesContext } from './languages/LanguagesContainer';
 import { Loader } from './loaders/Loader';
 import { mainPadding } from './styles';
 
-const SWIPE_MENU_BUTTON_SIZE = 50;
+const SWIPE_MENU_BUTTON_SIZE = 100;
 
 const styles = StyleSheet.create({
   container: {
@@ -203,12 +202,9 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
           </View>
         }
       />
-      <LinearGradient
-        onLayout={(e) => setEditPanelHeight(e.nativeEvent.layout.height)}
-        locations={[0.1, 0.3]}
-        // @ts-ignore
-        colors={[theme.colors.transparentSurface, theme.colors.surface]}
+      <View
         style={[styles.editPanel]}
+        onLayout={(e) => setEditPanelHeight(e.nativeEvent.layout.height)}
       >
         <Button compact={true} onPress={() => navigation.navigate('EditDeck')}>
           Edit deck
@@ -222,7 +218,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
         >
           {deck.cards.length}
         </Badge>
-      </LinearGradient>
+      </View>
     </View>
   );
 };
