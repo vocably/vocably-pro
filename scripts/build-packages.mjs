@@ -13,6 +13,7 @@ const packages = [
   'crud',
   'api',
   'analyze',
+  'extension-stay-alive',
   'extension-messages',
   'extension-service-worker',
   'extension-content-ui',

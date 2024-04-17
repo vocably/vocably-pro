@@ -1,5 +1,6 @@
 import { isEqual } from 'lodash-es';
 import { registerContentScript } from '../src';
+import { configureContentScript } from '../src/configuration';
 
 let isUserKnowsHowToAdd = false;
 registerContentScript({
@@ -40,8 +41,9 @@ registerContentScript({
         (document.getElementById('isEligibleForTrial') as HTMLInputElement)
           .checked
       ),
-    analyze: (payload) =>
-      new Promise((resolve) => {
+    analyze: (payload) => {
+      console.info('Analyze request', payload);
+      return new Promise((resolve) => {
         setTimeout(() => {
           const result = JSON.parse(
             (document.getElementById('response') as HTMLTextAreaElement).value
@@ -53,7 +55,8 @@ registerContentScript({
 
           resolve(result);
         }, parseInt((document.getElementById('delay') as HTMLInputElement).value));
-      }),
+      });
+    },
     addCard: (payload) =>
       new Promise((resolve) => {
         setTimeout(() => {
@@ -133,8 +136,18 @@ registerContentScript({
   contentScript: {
     isFeedbackEnabled: true,
     askForRatingEnabled: true,
+    displayMobileLookupButton: true,
   },
 }).then();
+
+document
+  .getElementById('showMobileButton')
+  .addEventListener('change', (event) => {
+    configureContentScript({
+      // @ts-ignore
+      displayMobileLookupButton: event.target.checked,
+    });
+  });
 
 (window as any).putCaptions = () => {
   document.querySelector(

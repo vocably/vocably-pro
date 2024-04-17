@@ -110,6 +110,38 @@ export const GoogleLanguages = [
 
 export type GoogleLanguage = typeof GoogleLanguages[number];
 
+export const ChatGPTLanguages = [
+  'en',
+  'es',
+  'fr',
+  'de',
+  'zh',
+  'zh-TW',
+  'ja',
+  'ru',
+  'it',
+  'pt',
+  'ar',
+  'nl',
+  'ko',
+  'hi',
+  'tr',
+  'sv',
+  'no',
+  'da',
+  'fi',
+  'pl',
+  'el',
+  'he',
+  'th',
+  'vi',
+  'id',
+  'ms',
+  'uk',
+] as const;
+
+export type ChatGPTLanguage = typeof ChatGPTLanguages[number];
+
 const NLPLanguages = [
   'af',
   'sq',
@@ -238,3 +270,8 @@ export const isGoogleLanguage = (
   language: string
 ): language is GoogleLanguage =>
   GoogleLanguages.indexOf(language as GoogleLanguage) !== -1;
+
+export const isChatGPTLanguage = (
+  language: string
+): language is ChatGPTLanguage =>
+  ChatGPTLanguages.indexOf(language as ChatGPTLanguage) !== -1;
