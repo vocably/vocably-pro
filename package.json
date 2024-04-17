@@ -11,9 +11,6 @@
       "packages/*"
     ]
   },
-  "scripts": {
-    "postinstall": "node scripts/build-packages"
-  },
   "devDependencies": {
     "@angular-devkit/build-angular": "14.0.5",
     "@angular/animations": "14.0.5",
