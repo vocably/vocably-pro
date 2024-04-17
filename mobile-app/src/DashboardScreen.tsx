@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
   editPanel: {
     paddingLeft: mainPadding,
     paddingRight: mainPadding,
-    paddingTop: mainPadding,
-    paddingBottom: mainPadding,
+    paddingTop: 18,
+    paddingBottom: 18,
     position: 'absolute',
     display: 'flex',
     bottom: 0,
