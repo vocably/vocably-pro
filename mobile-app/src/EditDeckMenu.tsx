@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { FC, useCallback, useContext, useState } from 'react';
 import { Alert } from 'react-native';
-import { Button, Dialog, Menu, Portal, Text } from 'react-native-paper';
+import { Button, Dialog, Portal, Text } from 'react-native-paper';
 import { dialogAlign } from './dialogAlign';
 import { LanguagesContext } from './languages/LanguagesContainer';
 
@@ -35,14 +35,15 @@ export const EditDeckMenu: EditDeckMenu = () => {
 
   return (
     <>
-
-        <Menu.Item
-          onPress={() => {
-            setIsAboutToDelete(true);
-          }}
-          leadingIcon={'delete'}
-          title="Delete deck"
-        />
+      <Button
+        onPress={() => {
+          setIsAboutToDelete(true);
+        }}
+        icon={'delete'}
+        mode="outlined"
+      >
+        Delete This Deck
+      </Button>
       <Portal>
         <Dialog
           visible={isAboutToDelete}

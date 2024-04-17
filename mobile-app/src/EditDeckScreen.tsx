@@ -25,11 +25,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     width: '100%',
     paddingVertical: mainPadding,
   },
   bottomInfo: {
     alignItems: 'center',
+    marginTop: 30,
   },
 });
