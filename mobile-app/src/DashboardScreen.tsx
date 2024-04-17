@@ -20,7 +20,6 @@ import {
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem, keyExtractor, Separator } from './CardListItem';
-import { EmptyCardsList } from './EmptyCardsList';
 import { userSelectedDeck } from './languageDeck/userSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { Loader } from './loaders/Loader';
@@ -41,8 +40,8 @@ const styles = StyleSheet.create({
   editPanel: {
     paddingLeft: mainPadding,
     paddingRight: mainPadding,
-    paddingTop: 18,
-    paddingBottom: 18,
+    paddingTop: 12,
+    paddingBottom: 12,
     position: 'absolute',
     display: 'flex',
     bottom: 0,
@@ -65,6 +64,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
+  },
+  emptyContentContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -150,6 +154,8 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
     return <Loader>Loading cards...</Loader>;
   }
 
+  const isEmpty = deck.cards.length === 0;
+
   return (
     <View
       style={{
@@ -157,6 +163,30 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
         paddingBottom: editPanelHeight,
       }}
     >
+      {!isEmpty && (
+        <View style={{ paddingHorizontal: mainPadding }}>
+          <Button
+            style={{
+              marginBottom: 8,
+            }}
+            labelStyle={{
+              fontSize: 18,
+            }}
+            mode={'contained'}
+            onPress={() => navigation.navigate('Study')}
+            disabled={!netInfo.isInternetReachable}
+          >
+            Practice
+          </Button>
+          {!netInfo.isInternetReachable && (
+            <Text style={{ textAlign: 'left', color: theme.colors.secondary }}>
+              <Icon name="connection" /> Practice mode isn't available right now
+              as it looks like your device is offline. Please connect to the
+              internet and try again later.
+            </Text>
+          )}
+        </View>
+      )}
       <SwipeListView<CardItem>
         onRefresh={onRefresh}
         refreshing={refreshing}
@@ -167,40 +197,11 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
         renderItem={renderCard}
         renderHiddenItem={renderSwipeMenu}
         rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
-        ListEmptyComponent={
-          <EmptyCardsList>
-            <Text>Card list is empty</Text>
-          </EmptyCardsList>
-        }
+        contentContainerStyle={isEmpty && styles.emptyContentContainer}
+        ListEmptyComponent={<Text>Card list is empty.</Text>}
         ListHeaderComponentStyle={{
           paddingHorizontal: mainPadding,
         }}
-        ListHeaderComponent={
-          <View>
-            <Button
-              style={{
-                marginBottom: 8,
-              }}
-              labelStyle={{
-                fontSize: 18,
-              }}
-              mode={'contained'}
-              onPress={() => navigation.navigate('Study')}
-              disabled={!netInfo.isInternetReachable}
-            >
-              Practice
-            </Button>
-            {!netInfo.isInternetReachable && (
-              <Text
-                style={{ textAlign: 'left', color: theme.colors.secondary }}
-              >
-                <Icon name="connection" /> Practice mode isn't available right
-                now as it looks like your device is offline. Please connect to
-                the internet and try again later.
-              </Text>
-            )}
-          </View>
-        }
       />
       <View
         style={[styles.editPanel]}
