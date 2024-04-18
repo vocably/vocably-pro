@@ -1,0 +1,11 @@
+<button class="unstyled link" (click)="isExpanded = !isExpanded">
+  {{ this.label
+  }}<mat-icon class="chevron" [class]="{ expanded: isExpanded }"
+    >chevron_right</mat-icon
+  >
+</button>
+<div class="panel" [class]="{ expanded: isExpanded }">
+  <div class="panel-content">
+    <ng-content></ng-content>
+  </div>
+</div>

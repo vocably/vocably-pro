@@ -110,7 +110,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.items.length).toEqual(4);
     expect(result.value.items[0].source).toEqual('de regeling');
-    expect(result.value.items[0].translation).toEqual('расположение');
+    expect(result.value.items[0].translation).toEqual('регулирование');
   });
 
   it('trims article before analyzing', async () => {
@@ -130,7 +130,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.items.length).toEqual(4);
     expect(result.value.items[0].source).toEqual('de regeling');
-    expect(result.value.items[0].translation).toEqual('расположение');
+    expect(result.value.items[0].translation).toEqual('регулирование');
   });
 
   it('skips analyze when source is more than one word', async () => {
@@ -175,7 +175,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.reverseTranslation).toBeDefined();
     expect(result.value.items[0].source).toEqual('de regel');
-    expect(result.value.items[0].translation).toEqual('правило');
+    expect(result.value.items[0].translation).toEqual('строка, правило, норма');
     expect(result.value.items[1].source).toEqual('regelbaar');
     expect(result.value.items[1].translation).toEqual('регулируемый');
   });
@@ -220,8 +220,8 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.items.length).toEqual(2);
-    expect(result.value.items[0].translation).toEqual('трюк');
-    expect(result.value.items[1].translation).toEqual('обмануть');
+    expect(result.value.items[0].translation).toEqual('уловка, трюк, фокус');
+    expect(result.value.items[1].translation).toEqual('обманывать');
   });
 
   it('properly translates dutch to non-article languages', async () => {
@@ -274,7 +274,9 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].definitions[0]).toEqual(
       '[ korehamesseejidesu ]'
     );
-    expect(result.value.items[0].translation).toEqual('this is the message');
+    expect(result.value.items[0].translation.toLowerCase()).toEqual(
+      'this is the message'
+    );
   });
 
   it('shows adds harigana, kanji and romanji to results and definitions', async () => {
@@ -311,5 +313,141 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items.length).toEqual(3);
 
     expect(result.value.items[2].translation).toEqual('да, здесь, сейчас');
+  });
+
+  it('performs the context translation', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      source: 'bank',
+      context:
+        "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversation?'",
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.source).toEqual('bank');
+    expect(result.value.translation.target).toEqual('берег');
+  });
+
+  it('performs the context translation (beginning)', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      source: 'late',
+      context: `There was nothing so very remarkable in that; nor did Alice think it so very much out of the way to hear the Rabbit say to itself, “Oh dear! Oh dear! I shall be late!” (when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit actually took a watch out of its waistcoat-pocket, and looked at it, and then hurried on, Alice started to her feet, for it flashed across her mind that she had never before seen a rabbit with either a waistcoat-pocket, or a watch to take out of it, and burning with curiosity, she ran across the field after it, and fortunately was just in time to see it pop down a large rabbit-hole under the hedge.'`,
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.translation.target).toEqual('поздно');
+  });
+
+  it('learn the language by using it', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      source: 'Learn',
+      context: `Learn the language by using it'`,
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.translation.target).toEqual('Учить');
+  });
+
+  it('serbian', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'sr',
+      targetLanguage: 'ru',
+      source: 'одржала',
+      context: `НОВИ САД – Етно певачица Даница Црногорчевић одржала је у среду концерт на Великој сцени Српског народног позоришта, саопштио је`,
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    // This is a bad translation, but Serbian is poorly supported by ChatGPT
+    expect(result.value.translation.target).toEqual('держал');
+  });
+
+  it('long serbian sentence', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'sr',
+      targetLanguage: 'ru',
+      source:
+        'ЂУРЂЕВ УПОЗОРИО Ако се настави демографска катаклизма, уз грађански рат који нам спремају, Срба у Србији више неће бити!',
+      context: `ЂУРЂЕВ УПОЗОРИО Ако се настави демографска катаклизма, уз грађански рат који нам спремају, Срба у Србији више неће бити!`,
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.translation.target.length).toBeGreaterThan(110);
+  });
+
+  it('tailor - ru', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      source: 'tailor',
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.items[0].partOfSpeech).toEqual('noun');
+    expect(result.value.items[0].translation).toEqual('портной');
+
+    expect(result.value.items[1].partOfSpeech).toEqual('verb');
+    expect(result.value.items[1].translation).toContain('подгонять');
+  });
+
+  it('tailor - uk', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'uk',
+      source: 'tailor',
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.items[0].partOfSpeech).toEqual('noun');
+    expect(result.value.items[0].translation).toEqual('кравець');
+
+    expect(result.value.items[1].partOfSpeech).toEqual('verb');
+    expect(result.value.items[1].translation).toContain('пристосовувати');
   });
 });

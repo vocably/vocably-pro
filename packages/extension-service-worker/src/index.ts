@@ -430,5 +430,5 @@ export const registerServiceWorker = (
     return sendResponse();
   });
 
-  console.info('The service worker has been registered.');
+  console.info('The service worker has been registered');
 };

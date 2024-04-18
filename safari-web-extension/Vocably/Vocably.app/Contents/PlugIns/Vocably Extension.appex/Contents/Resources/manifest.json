@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Vocably",
+  "description": "Vocably helps to translate new words and phrases and then learn them on your mobile devices.",
+  "version": "1.261.1",
+
+  "icons": {
+    "16": "images/icon-16x16.png",
+    "32": "images/icon-32x32.png",
+    "48": "images/icon-48x48.png",
+    "128": "images/icon-128x128.png"
+  },
+
+  "action": {
+    "default_icon": {
+      "16": "images/icon-16x16.png",
+      "32": "images/icon-32x32.png",
+      "48": "images/icon-48x48.png",
+      "128": "images/icon-128x128.png"
+    },
+    "default_popup": "popup/index.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["content-script.js"],
+      "exclude_matches": [],
+      "all_frames": true
+    }
+  ],
+
+  "permissions": ["storage"],
+
+  "externally_connectable": {
+    "matches": ["https://*.vocably.pro/*"]
+  },
+  
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArKNqtdLHY0m5KYrwlINdtqAbuM24V437v3AwODOQOR6nZjb1dKz27Gjb05TgwFIF4ZjvHO4hmDsdl88FvqAM1LPReOvVpOH+uxDF0QPYrBm7F4CXwtI4QOgtAesfk0AEgFsRYU794VItbihciyFJ9rkfDWjA7riHrFkcfNic8BDuT5yrtXWdBwj2YMinWXotvBCqrG/oGc2WAYty9Ni65brVWe7F5+LiIxpkgtQhMq2imSrnUYIadQf3dyaExKAzCATM6DGjDMBxgHYS+H8tG+o4PLIarkP/zEilbFQyG4S1xL3df0AtJ1MmXHnHWlkoV6JCt1ACmo+LFzzhOstikQIDAQAB",
+  "background": {
+    "service_worker": "service-worker.js"
+  }
+}

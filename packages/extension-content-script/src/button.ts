@@ -1,4 +1,6 @@
+import { contextLanguages } from './contextLanguages';
 import { detectLanguage } from './detectLanguage';
+import { getContext } from './getContext';
 import { getText } from './getText';
 import { createPopup } from './popup';
 import { getGlobalRect } from './position';
@@ -80,9 +82,16 @@ export const createButton = async (
   document.body.appendChild(button);
   applyMaxZIndex(button);
 
+  const detectedLanguage = detectLanguage(selection);
+  const context =
+    detectedLanguage && contextLanguages.includes(detectedLanguage)
+      ? getContext(selection)
+      : undefined;
+
   const popupOptions = {
     text: getText(selection),
-    language: detectLanguage(selection),
+    context: context,
+    language: detectedLanguage,
     globalRect: getGlobalRect(selection.getRangeAt(0).getBoundingClientRect()),
     isTouchscreen: isTouchscreen,
   };

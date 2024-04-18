@@ -10,7 +10,7 @@
   overflow: auto;
 
   &.max {
-    height: calc(var(--app-height));
+    min-height: calc(var(--app-height));
   }
 }
 

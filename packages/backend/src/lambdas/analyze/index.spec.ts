@@ -145,7 +145,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.items.length).toEqual(4);
     expect(resultBody.items[0].source).toEqual('de regeling');
-    expect(resultBody.items[0].translation).toEqual('расположение');
+    expect(resultBody.items[0].translation).toEqual('регулирование');
   });
 
   it('trims article before analyzing', async () => {
@@ -163,7 +163,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.items.length).toEqual(4);
     expect(resultBody.items[0].source).toEqual('de regeling');
-    expect(resultBody.items[0].translation).toEqual('расположение');
+    expect(resultBody.items[0].translation).toEqual('регулирование');
   });
 
   it('skips analyze when source is more than one word', async () => {
@@ -199,7 +199,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.reverseTranslation).toBeDefined();
     expect(resultBody.items[0].source).toEqual('de regel');
-    expect(resultBody.items[0].translation).toEqual('правило');
+    expect(resultBody.items[0].translation).toEqual('строка, правило, норма');
     expect(resultBody.items[1].source).toEqual('regelbaar');
     expect(resultBody.items[1].translation).toEqual('регулируемый');
   });
@@ -243,8 +243,8 @@ describe('integration check for translate lambda', () => {
     const resultBody: DirectAnalysis = JSON.parse(result.body);
     console.log(inspect(resultBody));
     expect(resultBody.items.length).toEqual(2);
-    expect(resultBody.items[0].translation).toEqual('трюк');
-    expect(resultBody.items[1].translation).toEqual('обмануть');
+    expect(resultBody.items[0].translation).toEqual('уловка, трюк, фокус');
+    expect(resultBody.items[1].translation).toEqual('обманывать');
   });
 
   it('properly translates dutch to non-article languages', async () => {
@@ -274,5 +274,35 @@ describe('integration check for translate lambda', () => {
     const resultBody: DirectAnalysis = JSON.parse(result.body);
     expect(resultBody.items[0].translation).toEqual('be, become');
     expect(resultBody.items[1].translation).toEqual('his');
+  });
+
+  it('properly translates dutch to non-article languages', async () => {
+    mockEvent.body = JSON.stringify({
+      source: 'revalidatie',
+      sourceLanguage: 'nl',
+      targetLanguage: 'ru',
+    });
+    mockEvent.requestContext = paidRequestContext;
+    const result = await analyze(mockEvent);
+    expect(result.statusCode).toEqual(200);
+    const resultBody: DirectAnalysis = JSON.parse(result.body);
+    console.log(inspect(resultBody));
+    expect(resultBody.items.length).toEqual(1);
+    expect(resultBody.items[0].translation).toEqual('реабилитация');
+  });
+
+  it('provides context translation', async () => {
+    mockEvent.body = JSON.stringify({
+      source: 'bank',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      context:
+        "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversation?'",
+    });
+    mockEvent.requestContext = paidRequestContext;
+    const result = await analyze(mockEvent);
+    expect(result.statusCode).toEqual(200);
+    const resultBody: DirectAnalysis = JSON.parse(result.body);
+    expect(resultBody.translation.target).toEqual('берег');
   });
 });

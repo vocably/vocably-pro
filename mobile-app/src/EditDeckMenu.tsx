@@ -1,16 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import { FC, useCallback, useContext, useState } from 'react';
 import { Alert } from 'react-native';
-import { Appbar, Button, Dialog, Menu, Portal, Text } from 'react-native-paper';
+import { Button, Dialog, Portal, Text } from 'react-native-paper';
 import { dialogAlign } from './dialogAlign';
 import { LanguagesContext } from './languages/LanguagesContainer';
 
 type EditDeckMenu = FC<{}>;
 
 export const EditDeckMenu: EditDeckMenu = () => {
-  const [visible, setVisible] = useState(false);
-  const openMenu = () => setVisible(true);
-  const closeMenu = () => setVisible(false);
   const [isAboutToDelete, setIsAboutToDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const { selectedLanguage, deleteLanguage, languages } =
@@ -38,21 +35,15 @@ export const EditDeckMenu: EditDeckMenu = () => {
 
   return (
     <>
-      <Menu
-        visible={visible}
-        onDismiss={closeMenu}
-        anchor={<Appbar.Action onPress={openMenu} icon={'cog-outline'} />}
-        anchorPosition={'bottom'}
+      <Button
+        onPress={() => {
+          setIsAboutToDelete(true);
+        }}
+        icon={'delete'}
+        mode="outlined"
       >
-        <Menu.Item
-          onPress={() => {
-            setIsAboutToDelete(true);
-            closeMenu();
-          }}
-          leadingIcon={'delete'}
-          title="Delete deck"
-        />
-      </Menu>
+        Delete This Deck
+      </Button>
       <Portal>
         <Dialog
           visible={isAboutToDelete}

@@ -1,4 +1,6 @@
+import { contextLanguages } from './contextLanguages';
 import { detectLanguage } from './detectLanguage';
+import { getContext } from './getContext';
 import { isHtmlElement } from './isHtmlElement';
 import { createPopup } from './popup';
 import { getGlobalRect } from './position';
@@ -60,11 +62,16 @@ const handlePlayerElement = (player: HTMLElement): (() => void) => {
           });
 
           anchor.addEventListener('click', async () => {
+            const detectedLanguage = detectLanguage(anchor);
             await createPopup({
               text: anchor.textContent,
               globalRect: getGlobalRect(anchor.getBoundingClientRect()),
               language: detectLanguage(anchor),
               isTouchscreen: false,
+              context:
+                detectedLanguage && contextLanguages.includes(detectedLanguage)
+                  ? getContext(anchor)
+                  : undefined,
             });
           });
 

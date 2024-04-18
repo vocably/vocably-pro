@@ -25,6 +25,7 @@ import { AssociatedCard } from './LookUpScreen/associateCards';
 import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPreset } from './LookUpScreen/TranslationPreset';
 import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
+import { useShareIntentData } from './ShareIntent/useShareIntentData';
 
 const padding = 16;
 
@@ -55,6 +56,7 @@ type LookUpScreen = FC<{
 }>;
 
 export const LookUpScreen: LookUpScreen = ({ navigation }) => {
+  const [isAutomaticallyLookedUp, setIsAutomaticallyLookedUp] = useState(false);
   const [translationPreset, setTranslationPreset] = useTranslationPreset();
   const [lookUpText, setLookUpText] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -63,12 +65,19 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const theme = useTheme();
   const deck = useLanguageDeck(translationPreset.sourceLanguage);
   const languages = useContext(LanguagesContext);
+  const intentData = useShareIntentData();
 
   useEffect(() => {
     if (lookUpText === '') {
       setLookupResult(undefined);
     }
   }, [lookUpText]);
+
+  useEffect(() => {
+    if (intentData) {
+      setLookUpText(intentData);
+    }
+  }, [intentData]);
 
   const lookUp = useCallback(async () => {
     if (isAnalyzing) {
@@ -100,6 +109,18 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
     setLookupResult(lookupResult);
     setIsAnalyzing(false);
   }, [translationPreset, lookUpText, setIsAnalyzing, isAnalyzing, deck]);
+
+  useEffect(() => {
+    if (
+      !isAutomaticallyLookedUp &&
+      intentData &&
+      lookUpText &&
+      deck.status === 'loaded'
+    ) {
+      setIsAutomaticallyLookedUp(true);
+      lookUp().then();
+    }
+  }, [intentData, lookUpText, deck.status, isAutomaticallyLookedUp, lookUp]);
 
   const onAdd = useCallback(
     async (card: AssociatedCard): Promise<Result<CardItem>> => {

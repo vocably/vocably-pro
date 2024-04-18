@@ -34,3 +34,10 @@ export const isChrome = !!browser.satisfies({
     chrome: '>0',
   },
 });
+
+export const browserType: 'desktop-safari' | 'ios-safari' | 'normal' =
+  isIOS() && browser.satisfies({ safari: '>0' })
+    ? 'ios-safari'
+    : browser.satisfies({ macos: { safari: '>0' } })
+    ? 'desktop-safari'
+    : 'normal';

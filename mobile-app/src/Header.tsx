@@ -2,7 +2,6 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { StackHeaderProps } from '@react-navigation/stack';
 import React, { FC, useContext } from 'react';
 import { Appbar } from 'react-native-paper';
-import { EditDeckMenu } from './EditDeckMenu';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { LanguageSelector } from './LanguageSelector';
 
@@ -29,8 +28,6 @@ export const Header: Header = ({ options, back, navigation, route }) => {
       {route.name === 'Dashboard' && languages.length > 1 && (
         <LanguageSelector />
       )}
-
-      {route.name === 'EditDeck' && <EditDeckMenu />}
     </Appbar.Header>
   );
 };

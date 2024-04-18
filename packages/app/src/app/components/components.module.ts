@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { LanguageModule } from '../language/language.module';
 import { BackButtonComponent } from './back-button/back-button.component';
+import { ExpansionComponent } from './expansion/expansion.component';
 import { GoogleIconComponent } from './google-icon/google-icon.component';
 import { LanguageIconComponent } from './language-icon/language-icon.component';
 import { LanguageInputComponent } from './language-input/language-input.component';
@@ -32,6 +33,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     LoaderComponent,
     LanguageInputComponent,
     LanguageIconComponent,
+    ExpansionComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +60,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     GoogleIconComponent,
     LanguageInputComponent,
     LanguageIconComponent,
+    ExpansionComponent,
   ],
 })
 export class ComponentsModule {}

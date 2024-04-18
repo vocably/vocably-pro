@@ -5,8 +5,55 @@
   <div class="hero">
     <div class="hero-body text-center">
       <ng-container *ngIf="isInstalled === false">
-        It seems like you don't have the browser extension installed yet. Please
-        install or enable the browser extension and try again.
+        <div>
+          <p>
+            It seems like you don't have
+            the&nbsp;browser&nbsp;extension&nbsp;installed&nbsp;yet.
+          </p>
+          Please install or enable the browser extension and try again.
+        </div>
+        <div *ngIf="browserType !== 'normal'" style="margin-top: 1rem">
+          <app-expansion label="But I have it installed">
+            <ng-container *ngIf="browserType === 'ios-safari'">
+              <div class="text-left">
+                <p>
+                  You are probably experiencing a Safari bug that is preventing
+                  the extension from being detected.
+                </p>
+                <p>Please perform the following steps:</p>
+
+                <ol class="mb-1">
+                  <li>
+                    Go to the iOS Settings -> Safari -> Extensions -> Vocably
+                    for Safari
+                  </li>
+                  <li>Uncheck the "Allow Extension"</li>
+                  <li>Quit Safari</li>
+                  <li>
+                    Go to the iOS Settings again and check the "Allow Extension"
+                    for Vocably for Safari
+                  </li>
+                </ol>
+
+                <div>
+                  I'm sorry that you have to do it. I'm trying fixing it.
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="browserType === 'desktop-safari'">
+              <div class="text-left">
+                <p>
+                  You are probably experiencing a Safari bug that is preventing
+                  the extension from being detected.
+                </p>
+                <p>Please restart Safari.</p>
+                <div>
+                  I'm sorry that you have to do it. I'm trying fixing it.
+                </div>
+              </div>
+            </ng-container>
+          </app-expansion>
+        </div>
       </ng-container>
       <ng-container *ngIf="isInstalled">
         <ion-spinner name="dots" class="mr-1"></ion-spinner>Signing in...
