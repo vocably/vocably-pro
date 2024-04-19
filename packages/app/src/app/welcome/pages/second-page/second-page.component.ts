@@ -2,8 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { setSourceLanguage } from '@vocably/extension-messages';
-import { isGoogleLanguage } from '@vocably/model';
-import { filter, map, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { GoogleLanguage, isGoogleLanguage } from '@vocably/model';
+import {
+  catchError,
+  filter,
+  map,
+  of,
+  Subject,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { extensionId } from '../../../../extension';
 
 @Component({
@@ -16,6 +25,9 @@ export class SecondPageComponent implements OnInit, OnDestroy {
 
   public isLoading = true;
   public exampleHtml = ``;
+  public hasNoExample = false;
+
+  public language: GoogleLanguage | undefined = undefined;
 
   constructor(
     private httpClient: HttpClient,
@@ -30,7 +42,10 @@ export class SecondPageComponent implements OnInit, OnDestroy {
         map((params) => params['language']),
         filter(isGoogleLanguage),
         tap(() => (this.isLoading = true)),
-        tap((language) => setSourceLanguage(extensionId, language)),
+        tap((language) => {
+          setSourceLanguage(extensionId, language);
+          this.language = language;
+        }),
         switchMap((language) =>
           this.httpClient.get(
             `/assets/language-text-examples/${language}.html`,
@@ -39,7 +54,11 @@ export class SecondPageComponent implements OnInit, OnDestroy {
             }
           )
         ),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
+        catchError(() => {
+          this.hasNoExample = true;
+          return of('');
+        })
       )
       .subscribe((response) => {
         this.isLoading = false;

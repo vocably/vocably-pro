@@ -1,19 +1,30 @@
-<div class="mat-display-1 mb-1">
-  <span highlight>Highlight</span> any word or phrase to see its meaning.
+<div *ngIf="isLoading">
+  <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading example text...
 </div>
-<div class="mat-lead mb-2">Or double click any word with your mouse.</div>
-<div class="mb-2" style="min-height: 400px">
-  <div *ngIf="isLoading">
-    <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading example text...
+<ng-container *ngIf="!isLoading && exampleHtml">
+  <div class="mat-display-1 mb-1">
+    <span highlight>Highlight</span> any word or phrase to see its meaning.
   </div>
-  <div
-    *ngIf="!isLoading && exampleHtml"
-    class="text-example"
-    [innerHTML]="exampleHtml"
-  ></div>
-</div>
-<div>
-  <button class="unstyled link">
-    I selected a word, but can't understand what to do.
-  </button>
-</div>
+  <div class="mat-lead mb-2">
+    Below is an example to practice. You can highlight any word or phrase on
+    <i>any</i>
+    website.
+  </div>
+  <div class="mb-2">
+    <div
+      *ngIf="!isLoading && exampleHtml"
+      class="text-example"
+      [innerHTML]="exampleHtml"
+    ></div>
+  </div>
+  <div>
+    <app-expansion label="Give me a better explanation, please">
+      <p>Sure. Here is a video of what you should do.</p>
+      <app-how-to-video></app-how-to-video>
+    </app-expansion>
+  </div>
+</ng-container>
+<app-generic-instruction
+  [language]="language"
+  *ngIf="language && !isLoading && !exampleHtml"
+></app-generic-instruction>
