@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { isIOSSafari } from '../../browser';
 import {
   canExtensionBeInstalled,
   extensionInstallationUrl,
@@ -18,7 +17,6 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   public extensionCanBeInstalled = canExtensionBeInstalled;
   public extensionIsInstalled: boolean | undefined = undefined;
   public extensionInstallUrl = extensionInstallationUrl;
-  public isIOSSafari = isIOSSafari;
 
   constructor() {}
 

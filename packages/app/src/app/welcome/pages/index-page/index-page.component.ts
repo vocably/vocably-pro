@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GoogleLanguage } from '@vocably/model';
-import { sortedTargetLanguages } from '../../../sorted-languages';
+import { GoogleLanguage, sortedTargetLanguages } from '@vocably/model';
 
 @Component({
   selector: 'app-index-page',
