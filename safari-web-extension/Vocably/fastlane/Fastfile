@@ -13,11 +13,21 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-default_platform(:ios)
+default_platform(:mac)
 
-platform :ios do
+platform :mac do
+  desc 'Fetch certificates and provisioning profiles'
+  lane :certificates do
+    match(
+      app_identifier: ["pro.vocably.Vocably"],
+      platform: "macos",
+      additional_cert_types: "mac_installer_distribution"
+    )
+  end
+
   desc "Push a new beta build to TestFlight"
   lane :beta do
+    certificates
     increment_build_number(xcodeproj: "Vocably.xcodeproj")
     build_app(scheme: "Vocably")
     upload_to_testflight

@@ -10,7 +10,7 @@
 		</data>
 		<key>Resources/content-script.js</key>
 		<data>
-		JaGDK1iEKoWxy5zLxs9Rck7FVWI=
+		GPktnh339kxpQLw5gmW3A5trJi8=
 		</data>
 		<key>Resources/content-script.js.LICENSE.txt</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Resources/manifest.json</key>
 		<data>
-		IHSU+gn7FKsaSU0V3xOJv690XEE=
+		OBtM8eL2FqvZ37ioHV1i+B74MOo=
 		</data>
 		<key>Resources/options.html</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Resources/popup/795.js</key>
 		<data>
-		qwwSdliAavN01cfdPiBVGuxXkgg=
+		yhikHz2M6mDFZcQaRO2LuemHfq4=
 		</data>
 		<key>Resources/popup/862.js</key>
 		<data>
@@ -86,11 +86,11 @@
 		</data>
 		<key>Resources/service-worker.d.ts</key>
 		<data>
-		uHjBGncSjnTDzxXJPvLO3fKqCzg=
+		K1XVd2vDtG13LiLjy5a59ReZkcY=
 		</data>
 		<key>Resources/service-worker.js</key>
 		<data>
-		1hizHuKg6AZAfSeT4qpTzgcbx8o=
+		E4elwmCNYo22KYcG/B3Kbn4D0ME=
 		</data>
 		<key>Resources/service-worker.js.LICENSE.txt</key>
 		<data>
@@ -110,7 +110,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			NON23CPBv7nOuQfIhCj2fqW1DtyYcHCvzyt3pILT8Ec=
+			IRtLZLZ/EbdjCZg573SUAycjDaYaozB46/M/H8BxfUo=
 			</data>
 		</dict>
 		<key>Resources/content-script.js.LICENSE.txt</key>
@@ -152,7 +152,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Z7PDlLhqOhCpt0OA0tHPZsggIGDzx4AwzRqCn4h4Ugs=
+			8Cr/7O421z5d+h3SlcC72d5rmYtazf6IEP4GJaSgpRE=
 			</data>
 		</dict>
 		<key>Resources/options.html</key>
@@ -180,7 +180,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2dBUWcazSRAjMIZNXC6eujv+WSQdeVsZWvLcZUI0K/Y=
+			jHT/0TzJJtzM86xvWHzgbklyOAONXYCH7IQOsTBFZAM=
 			</data>
 		</dict>
 		<key>Resources/popup/862.js</key>
@@ -243,14 +243,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			jmCbtxwguFjHfw6fkLsTGduEd7E/n5ZfGh4YUkv1CIE=
+			FIrxClvYM1bxQdGx0C9eWuMQUjKrXGTca4KqYvST0lo=
 			</data>
 		</dict>
 		<key>Resources/service-worker.js</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			JE0LqxB6bx4HlETpXbGBygVne4d4E+j/GtH9lbZ268w=
+			skuHfbcYdJkAZShsVLKoF6ekgll+89CPHgztfcb7UeQ=
 			</data>
 		</dict>
 		<key>Resources/service-worker.js.LICENSE.txt</key>
