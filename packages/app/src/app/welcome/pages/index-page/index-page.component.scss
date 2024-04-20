@@ -1,0 +1,69 @@
+@import '../../../../styles/variables';
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.grid-item {
+  width: calc(50% - 8px);
+
+  @media (min-width: $lg) {
+    &:not(.two-columns) {
+      width: calc(33.333% - 8px);
+    }
+  }
+
+  box-sizing: border-box;
+  overflow: hidden;
+  text-align: left;
+}
+
+.expand-icon {
+  transition: transform 0.3s;
+
+  &.down {
+    transform: rotate(90deg);
+  }
+}
+
+.collapsable {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+}
+
+.collapsable.expanded {
+  max-height: 155rem;
+  transition: max-height 0.8s ease-out;
+}
+
+.select-button {
+  --backround: var(--form-background-color);
+  --hover-background: var(--form-background-color-focus);
+  --color: var(--button-color);
+  --border-color: var(--form-border-color);
+
+  &.checked {
+    --backround: var(--button-bg);
+    --hover-background: var(--button-bg-hover);
+    --color: var(--button-color);
+    --border-color: transparent;
+  }
+
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  display: block !important;
+  background: var(--backround);
+  width: 100%;
+  color: var(--color);
+  border-radius: $border-radius;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: var(--hover-background);
+  }
+}

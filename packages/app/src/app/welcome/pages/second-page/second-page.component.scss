@@ -1,0 +1,12 @@
+@import '../../../../styles/variables';
+
+.text-example {
+  padding: 2rem;
+  color: var(--emphasize-color);
+  background: var(--contrast-bg);
+  font-size: 140%;
+}
+
+.text-example > *:last-child {
+  margin-bottom: 0;
+}

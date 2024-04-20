@@ -6,6 +6,7 @@ export * from './language-deck';
 export * from './language-list';
 export * from './play-sound';
 export { isError, isSuccess, Result, resultify } from './result';
+export * from './sorted-languages';
 export * from './subscription';
 export * from './text-to-speech';
 export * from './translation-cards';

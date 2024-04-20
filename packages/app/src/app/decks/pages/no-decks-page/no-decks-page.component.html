@@ -1,35 +1,6 @@
 <div class="container-xl top"><app-header></app-header></div>
-<div class="container bottom text-center">
-  <p class="mat-display-1 mb-2 text-emphasize">You're almost set</p>
-
-  <div class="inline-block text-left" style="width: 75%">
-    <ol class="lead-2 outside">
-      <li class="mb-1" *ngIf="isInstalled === false">
-        <a
-          *ngIf="isChrome"
-          href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
-          target="_blank"
-          >Install the extension</a
-        >
-        <span *ngIf="!isChrome">Install the extension</span>
-      </li>
-      <li>
-        Install the mobile app to learn your words on the go
-
-        <img
-          src="/assets/app-qr-code.svg"
-          alt="QR Code for the mobile app"
-          width="120"
-        />
-      </li>
-      <li>
-        Go to any website and translate an unfamiliar word by selecting it
-
-        <video loop autoplay muted controls>
-          <source src="/assets/how-to-extension.webm" type="video/webm" />
-          <source src="/assets/how-to-extension.mp4" type="video/mp4" />
-        </video>
-      </li>
-    </ol>
-  </div>
+<div class="container-xl bottom text-center">
+  <p class="mat-display-1 mb-2 text-emphasize">
+    There are no cards in this deck, yet.
+  </p>
 </div>

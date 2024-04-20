@@ -8,11 +8,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { LanguageModule } from '../language/language.module';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { ExpansionComponent } from './expansion/expansion.component';
 import { GoogleIconComponent } from './google-icon/google-icon.component';
+import { LanguageIconComponent } from './language-icon/language-icon.component';
 import { LanguageInputComponent } from './language-input/language-input.component';
 import { LoaderComponent } from './loader/loader.component';
 import { SubscriptionStatusPipe } from './subscription-status.pipe';
@@ -28,6 +32,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     GoogleIconComponent,
     LoaderComponent,
     LanguageInputComponent,
+    LanguageIconComponent,
     ExpansionComponent,
   ],
   imports: [
@@ -42,6 +47,9 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
+    MatStepperModule,
+    MatRadioModule,
+    LanguageModule,
   ],
   exports: [
     TooltipComponent,
@@ -51,6 +59,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     SubscriptionStatusPipe,
     GoogleIconComponent,
     LanguageInputComponent,
+    LanguageIconComponent,
     ExpansionComponent,
   ],
 })

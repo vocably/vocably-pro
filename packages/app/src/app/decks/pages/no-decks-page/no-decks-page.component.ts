@@ -1,45 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GoogleLanguage } from '@vocably/model';
-import { Subject, takeUntil } from 'rxjs';
-import { browser } from '../../../../browser';
-import { AuthService } from '../../../auth/auth.service';
-import { isExtensionInstalled } from '../../../isExtensionInstalled';
 import { DeckListStoreService } from '../../deck-list-store.service';
-
-const canInstallTheExtension = browser.satisfies({
-  desktop: {
-    chrome: '>1',
-    safari: '>10',
-  },
-});
-
-const isChrome = browser.satisfies({
-  desktop: {
-    chrome: '>1',
-  },
-});
 
 @Component({
   selector: 'app-no-decks-page',
   templateUrl: './no-decks-page.component.html',
   styleUrls: ['./no-decks-page.component.scss'],
 })
-export class NoDecksPageComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject();
-
-  public isInstalled: boolean | undefined = undefined;
-  public proxyLanguage: GoogleLanguage = 'en';
-
-  public canInstallTheExtension = canInstallTheExtension;
-
-  public isChrome = isChrome;
-
+export class NoDecksPageComponent implements OnInit {
   constructor(
     deckListStore: DeckListStoreService,
     router: Router,
-    route: ActivatedRoute,
-    auth: AuthService
+    route: ActivatedRoute
   ) {
     if (deckListStore.decks$.value.length > 0) {
       router.navigate([deckListStore.decks$.value[0]], {
@@ -47,18 +19,7 @@ export class NoDecksPageComponent implements OnInit, OnDestroy {
         replaceUrl: true,
       });
     }
-
-    isExtensionInstalled
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((isInstalled) => {
-        this.isInstalled = isInstalled;
-      });
   }
 
   ngOnInit(): void {}
-
-  ngOnDestroy(): void {
-    this.destroy$.next(null);
-    this.destroy$.complete();
-  }
 }

@@ -1,0 +1,65 @@
+<p class="mat-display-1 mb-2 text-emphasize">
+  Welcome to Vocably. Let's set you up.
+</p>
+
+<div class="display-flex align-items-center mb-2">
+  <div class="mat-h2 m-0 mr-1">I fluently speak</div>
+  <div class="flex-1"><app-language-input></app-language-input></div>
+</div>
+
+<div class="text-left">
+  <div class="mat-h2 mt-1 mb-2">I want to learn</div>
+</div>
+<div class="grid-container mb-2">
+  <div
+    class="grid-item two-columns"
+    *ngFor="let language of languages.slice(0, this.showTop)"
+  >
+    <app-language-button
+      (click)="onClick(language)"
+      [selected]="language === selected"
+    >
+      <app-language-icon
+        [language]="language"
+        class="middle mr-0_5"
+      ></app-language-icon
+      >{{ language | language }}
+    </app-language-button>
+  </div>
+</div>
+
+<div class="display-flex">
+  <div class="text-left">
+    <button class="unstyled link" type="button" (click)="expanded = !expanded">
+      Show more languages<mat-icon
+        aria-hidden="true"
+        class="middle expand-icon"
+        [class]="{ down: expanded }"
+        >arrow_right</mat-icon
+      >
+    </button>
+  </div>
+  <div class="flex-1">
+    <div class="text-right">
+      <button class="unstyled link" (click)="showHowToMultilang()">
+        I'd like to learn multiple languages.
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="collapsable" [class]="{ expanded: expanded }">
+  <div class="grid-container pt-2">
+    <div
+      class="grid-item"
+      *ngFor="let language of languages.slice(this.showTop)"
+    >
+      <app-language-button
+        (click)="onClick(language)"
+        [selected]="language === selected"
+      >
+        {{ language | language }}
+      </app-language-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+mat-form-field[nolabel] {
+  .mat-form-field-infix {
+    border-top: 0 !important;
+  }
+
+  .mat-form-field-flex {
+    margin-top: 0 !important;
+  }
+
+  .mat-form-field-outline {
+    top: 0 !important;
+  }
+
+  .mat-form-field-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}

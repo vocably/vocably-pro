@@ -1,7 +1,7 @@
 @use 'sass:math';
 
 .hero {
-  height: calc(
+  min-height: calc(
     var(--app-height) - var(--header-height) - var(--container-padding) * 2
   );
   display: flex;

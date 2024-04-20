@@ -1,25 +1,25 @@
-import { useCallback, useEffect, useState } from "react";
-import ShareMenu, { ShareData } from "react-native-share-menu";
+import { useCallback, useEffect, useState } from 'react';
+import ShareMenu, { ShareData } from 'react-native-share-menu';
 
 export const useShareIntentData = () => {
-    const [sharedText, setSharedText] = useState<string>('');
+  const [sharedText, setSharedText] = useState<string>('');
 
-    const handleShare = useCallback((data?: ShareData) => {
-      if (data) {
-        if (Array.isArray(data.data)) {
-          setSharedText(data.data.join(', '));
-        } else {
-          setSharedText(extractWord(data.data));
-        }
+  const handleShare = useCallback((data?: ShareData) => {
+    if (data) {
+      if (Array.isArray(data.data)) {
+        setSharedText(data.data.join(', '));
+      } else {
+        setSharedText(extractWord(data.data));
       }
-    }, []);
+    }
+  }, []);
 
-    useEffect(() => {
-      ShareMenu.getSharedText(handleShare);
-    }, []);
+  useEffect(() => {
+    ShareMenu.getSharedText(handleShare);
+  }, []);
 
-    return sharedText;
-  };
+  return sharedText;
+};
 
 function extractWord(inputString) {
   const regex = /"([^"]*)"/;

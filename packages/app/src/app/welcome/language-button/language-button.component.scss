@@ -1,0 +1,36 @@
+@import '../../../styles/variables';
+
+.select-button {
+  --backround: var(--form-background-color);
+  --hover-background: var(--form-background-color-focus);
+  --color: var(--button-color);
+  --border-color: var(--form-border-color);
+
+  &.checked {
+    --backround: var(--button-bg);
+    --hover-background: var(--button-bg-hover);
+    --color: var(--button-color);
+    --border-color: transparent;
+  }
+
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  display: block !important;
+  background: var(--backround);
+  width: 100%;
+  color: var(--color);
+  border-radius: $border-radius;
+  text-align: left;
+  cursor: pointer;
+
+  > * {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &:hover,
+  &:focus {
+    background: var(--hover-background);
+  }
+}
