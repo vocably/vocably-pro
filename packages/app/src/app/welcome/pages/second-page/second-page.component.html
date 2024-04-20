@@ -2,13 +2,12 @@
   <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading example text...
 </div>
 <ng-container *ngIf="!isLoading && exampleHtml">
-  <div class="mat-display-1 mb-1">
+  <div class="mat-display-1 mb-2">
     <span highlight>Highlight</span> any word or phrase to see its meaning.
   </div>
-  <div class="mat-lead mb-2">
-    Below is an example to practice. You can highlight any word or phrase on
-    <i>any</i>
-    website.
+  <div class="mb-2">
+    Try it on this text
+    <mat-icon style="vertical-align: middle">arrow_downward</mat-icon>
   </div>
   <div class="mb-2">
     <div
@@ -18,8 +17,7 @@
     ></div>
   </div>
   <div>
-    <app-expansion label="Give me a better explanation, please">
-      <p>Sure. Here is a video of what you should do.</p>
+    <app-expansion label="Help video">
       <app-how-to-video></app-how-to-video>
     </app-expansion>
   </div>
