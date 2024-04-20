@@ -14,6 +14,7 @@ import { GoogleLanguage, languageList } from '@vocably/model';
 import { map, Observable, startWith, Subject, takeUntil } from 'rxjs';
 import { extensionId } from '../../../extension';
 import { isExtensionInstalled } from '../../isExtensionInstalled';
+import { detectProxyLanguage } from './detectProxyLanguage';
 
 @Component({
   selector: 'app-language-input',
@@ -47,12 +48,27 @@ export class LanguageInputComponent implements OnInit, OnDestroy {
         this.isInstalled = isInstalled;
 
         if (isInstalled) {
-          this.languageInput.setValue(await getProxyLanguage(extensionId));
+          this.languageInput.setValue(
+            await this.getInitialLanguageInputValue()
+          );
           this.languageInput.enable();
         } else {
           this.languageInput.disable();
         }
       });
+  }
+
+  private async getInitialLanguageInputValue(): Promise<GoogleLanguage> {
+    const proxyLanguage = await getProxyLanguage(extensionId);
+
+    if (proxyLanguage) {
+      return proxyLanguage;
+    }
+
+    const detectedLanguage = detectProxyLanguage();
+    await setProxyLanguage(extensionId, detectedLanguage);
+
+    return detectedLanguage;
   }
 
   ngOnInit(): void {}
