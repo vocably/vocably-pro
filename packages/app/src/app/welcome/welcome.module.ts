@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../components/components.module';
 import { LanguageModule } from '../language/language.module';
 import { GenericInstructionComponent } from './generic-instruction/generic-instruction.component';
 import { HighlightComponent } from './highlight/highlight.component';
+import { HowToMultilangComponent } from './how-to-multilang/how-to-multilang.component';
 import { HowToVideoComponent } from './how-to-video/how-to-video.component';
 import { LanguageButtonComponent } from './language-button/language-button.component';
 import { IndexPageComponent } from './pages/index-page/index-page.component';
@@ -23,6 +25,7 @@ import { WelcomeComponent } from './welcome.component';
     HighlightComponent,
     GenericInstructionComponent,
     HowToVideoComponent,
+    HowToMultilangComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +35,7 @@ import { WelcomeComponent } from './welcome.component';
     MatRippleModule,
     WelcomeRoutingModule,
     IonicModule,
+    MatDialogModule,
   ],
 })
 export class WelcomeModule {}
