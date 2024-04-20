@@ -7,6 +7,8 @@ export const sortedTargetLanguages: GoogleLanguage[] = [
   'es',
   'nl',
   'fr',
+  'it',
+  'ja',
   // -------------------
   'af',
   'sq',
@@ -44,8 +46,6 @@ export const sortedTargetLanguages: GoogleLanguage[] = [
   'ig',
   'id',
   'ga',
-  'it',
-  'ja',
   'jv',
   'kn',
   'kk',

@@ -11,7 +11,7 @@ import { HowToMultilangComponent } from '../../how-to-multilang/how-to-multilang
 })
 export class IndexPageComponent implements OnInit {
   languages = sortedTargetLanguages;
-  showTop = 6;
+  showTop = 8;
   expanded = false;
   selected: GoogleLanguage | null = null;
 

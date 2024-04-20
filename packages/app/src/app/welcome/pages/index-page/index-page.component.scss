@@ -10,7 +10,9 @@
   width: calc(50% - 8px);
 
   @media (min-width: $lg) {
-    width: calc(33.333% - 8px);
+    &:not(.two-columns) {
+      width: calc(33.333% - 8px);
+    }
   }
 
   box-sizing: border-box;
