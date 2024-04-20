@@ -56,7 +56,9 @@ export class SecondPageComponent implements OnInit, OnDestroy {
         switchMap((language): Observable<string> => {
           return from(getProxyLanguage(extensionId)).pipe(
             switchMap((proxyLanguage): Observable<string> => {
-              // This is the case where the user has not set a proxy language yet
+              // This is the case where the user has not set a proxy language yet.
+              // We redirect users back, so they can select the language.
+              // I'd rather not rely on the proxy language being detected and set automatically.
               if (!proxyLanguage) {
                 this.router
                   .navigate(['../'], {
