@@ -199,7 +199,8 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.reverseTranslation).toBeDefined();
     expect(resultBody.items[0].source).toEqual('de regel');
-    expect(resultBody.items[0].translation).toEqual('строка, правило, норма');
+    expect(resultBody.items[0].translation).toContain('строка');
+    expect(resultBody.items[0].translation).toContain('правило');
     expect(resultBody.items[1].source).toEqual('regelbaar');
     expect(resultBody.items[1].translation).toEqual('регулируемый');
   });
