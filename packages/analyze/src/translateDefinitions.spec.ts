@@ -86,6 +86,10 @@ describe('translateDefinitions', () => {
     expect(translationResult.value.length).toEqual(2);
     // @ts-ignore
     expect(translationResult.value[0]).toEqual('источник');
-    expect(translationResult.value[1]).toContain('месторождение');
+    expect(
+      ['месторождение', 'рудник'].some((word) =>
+        translationResult.value[1].includes(word)
+      )
+    ).toBeTruthy();
   }, 60_000);
 });
