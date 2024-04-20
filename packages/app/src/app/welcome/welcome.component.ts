@@ -24,6 +24,12 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     isExtensionInstalled
       .pipe(takeUntil(this.destroy$))
       .subscribe((isInstalled) => {
+        // This handles the case where the extension is installed after the page is loaded
+        if (this.extensionIsInstalled === false && isInstalled) {
+          window.location.reload();
+          return;
+        }
+
         this.extensionIsInstalled = isInstalled;
       });
   }

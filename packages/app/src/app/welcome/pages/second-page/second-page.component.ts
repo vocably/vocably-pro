@@ -1,12 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { setSourceLanguage } from '@vocably/extension-messages';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  getProxyLanguage,
+  setSourceLanguage,
+} from '@vocably/extension-messages';
 import { GoogleLanguage, isGoogleLanguage } from '@vocably/model';
 import {
   catchError,
   filter,
+  from,
   map,
+  NEVER,
+  Observable,
   of,
   Subject,
   switchMap,
@@ -31,6 +37,7 @@ export class SecondPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private httpClient: HttpClient,
+    private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -46,14 +53,28 @@ export class SecondPageComponent implements OnInit, OnDestroy {
           setSourceLanguage(extensionId, language);
           this.language = language;
         }),
-        switchMap((language) =>
-          this.httpClient.get(
-            `/assets/language-text-examples/${language}.html`,
-            {
-              responseType: 'text',
-            }
-          )
-        ),
+        switchMap((language): Observable<string> => {
+          return from(getProxyLanguage(extensionId)).pipe(
+            switchMap((proxyLanguage): Observable<string> => {
+              // This is the case where the user has not set a proxy language yet
+              if (!proxyLanguage) {
+                this.router
+                  .navigate(['../'], {
+                    relativeTo: this.activatedRoute,
+                  })
+                  .then();
+                return NEVER;
+              }
+
+              return this.httpClient.get(
+                `/assets/language-text-examples/${language}.html`,
+                {
+                  responseType: 'text',
+                }
+              );
+            })
+          );
+        }),
         takeUntil(this.destroy$),
         catchError(() => {
           this.hasNoExample = true;
