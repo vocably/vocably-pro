@@ -41,14 +41,18 @@ export const setContents = async ({
   };
 
   const setTranslation = async () => {
+    const userKnowsHowToAdd = await api.isUserKnowsHowToAdd();
     const extensionPlatform = detectExtensionPlatform();
     const translation = document.createElement('vocably-translation');
     translation.isFeedbackEnabled =
       contentScriptConfiguration.isFeedbackEnabled;
     translation.phrase = source;
     translation.playSound = api.playSound;
-    translation.showSaveHint = !(await api.isUserKnowsHowToAdd());
+    translation.showSaveHint = !userKnowsHowToAdd;
     translation.extensionPlatform = extensionPlatform;
+    translation.canCongratulate =
+      contentScriptConfiguration.allowFirstTranslationCongratulation &&
+      !userKnowsHowToAdd;
 
     const analyze = (sourceLanguage?: GoogleLanguage) => {
       translation.loading = true;

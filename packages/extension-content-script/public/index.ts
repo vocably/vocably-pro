@@ -137,6 +137,7 @@ registerContentScript({
     isFeedbackEnabled: true,
     askForRatingEnabled: true,
     displayMobileLookupButton: true,
+    allowFirstTranslationCongratulation: true,
   },
 }).then();
 

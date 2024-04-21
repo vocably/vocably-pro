@@ -42,6 +42,7 @@ export class VocablyTranslation {
   @Prop() language: string = '';
   @Prop() isUpdating: TranslationCard | null = null;
   @Prop() showSaveHint: boolean = true;
+  @Prop() canCongratulate: boolean = false;
   @Prop() playSound: (
     payload: PlaySoundPayload
   ) => Promise<Result<PlaySoundResponse>>;
@@ -55,6 +56,7 @@ export class VocablyTranslation {
   @Event() addCard: EventEmitter<AddCardPayload>;
 
   @State() saveCardClicked = false;
+  @State() addedItemIndex = -1;
 
   private askForRatingContainer: HTMLDivElement;
 
@@ -140,7 +142,7 @@ export class VocablyTranslation {
                     )}
 
                     <div class="cards" data-test="cards">
-                      {this.result.value.cards.map((card) => (
+                      {this.result.value.cards.map((card, itemIndex) => (
                         <div data-test="card" class="card">
                           <div class="card-action">
                             {isCardItem(card) && (
@@ -150,6 +152,9 @@ export class VocablyTranslation {
                                 disabled={this.isUpdating !== null}
                                 onClick={() => {
                                   this.saveCardClicked = true;
+                                  if (this.addedItemIndex === itemIndex) {
+                                    this.addedItemIndex = -1;
+                                  }
                                   this.result.success === true &&
                                     this.removeCard.emit({
                                       translationCards: this.result.value,
@@ -172,6 +177,9 @@ export class VocablyTranslation {
                                 disabled={this.isUpdating !== null}
                                 onClick={() => {
                                   this.saveCardClicked = true;
+                                  if (this.addedItemIndex === -1) {
+                                    this.addedItemIndex = itemIndex;
+                                  }
                                   this.result.success === true &&
                                     this.addCard.emit({
                                       translationCards: this.result.value,
@@ -188,38 +196,58 @@ export class VocablyTranslation {
                               </button>
                             )}
                           </div>
-                          <div
-                            class={{ 'card-hint-displayed': this.showSaveHint }}
-                          >
-                            <span class="small">Side</span>{' '}
-                            <span class="text-primary">A</span>
-                          </div>
-                          <div class="margin-left">
-                            {isGoogleTTSLanguage(card.data.language) && (
-                              <vocably-play-sound
-                                text={card.data.source}
-                                language={card.data.language}
-                                playSound={this.playSound}
-                              />
-                            )}
-                            <span class="emphasized">{card.data.source}</span>
-                            {card.data.partOfSpeech && (
-                              <Fragment>
-                                <span class="invisible-space ">&nbsp;</span>
-                                <span class="pos margin-left">
-                                  {card.data.partOfSpeech}
-                                </span>
-                              </Fragment>
-                            )}
-                          </div>
+                          <div class="safe-action-area">
+                            <div
+                              class={{
+                                'card-hint-displayed': this.showSaveHint,
+                              }}
+                            >
+                              <span class="small">Side</span>{' '}
+                              <span class="text-primary">A</span>
+                            </div>
+                            <div class="margin-left">
+                              {isGoogleTTSLanguage(card.data.language) && (
+                                <vocably-play-sound
+                                  text={card.data.source}
+                                  language={card.data.language}
+                                  playSound={this.playSound}
+                                />
+                              )}
+                              <span class="emphasized">{card.data.source}</span>
+                              {card.data.partOfSpeech && (
+                                <Fragment>
+                                  <span class="invisible-space ">&nbsp;</span>
+                                  <span class="pos margin-left">
+                                    {card.data.partOfSpeech}
+                                  </span>
+                                </Fragment>
+                              )}
+                            </div>
 
-                          <div>
-                            <span class="small">Side</span>{' '}
-                            <span class="text-primary">B</span>
+                            <div>
+                              <span class="small">Side</span>{' '}
+                              <span class="text-primary">B</span>
+                            </div>
+                            <div class="margin-left">
+                              <vocably-side-b item={card}></vocably-side-b>
+                            </div>
                           </div>
-                          <div class="margin-left">
-                            <vocably-side-b item={card}></vocably-side-b>
-                          </div>
+                          {this.canCongratulate && (
+                            <div
+                              class={
+                                'added-congratulation' +
+                                (this.addedItemIndex === itemIndex
+                                  ? ' visible'
+                                  : '')
+                              }
+                            >
+                              <div class="added-congratulation-content">
+                                <div class="added-congratulation-content-1">
+                                  <vocably-first-translation-congratulation></vocably-first-translation-congratulation>
+                                </div>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>

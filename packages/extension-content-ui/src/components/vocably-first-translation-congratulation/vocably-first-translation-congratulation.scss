@@ -1,0 +1,21 @@
+@import '../../styles/variables';
+@import '../../styles/component';
+
+:host {
+  @include base-font();
+  display: block;
+
+  p {
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+
+  .small {
+    font-size: 90%;
+  }
+}
+
+.svg {
+  max-width: 100px;
+  width: 100%;
+}

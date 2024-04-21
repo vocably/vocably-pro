@@ -14,7 +14,7 @@ import { initYoutube, InitYouTubeOptions } from './youtube';
 type RegisterContentScriptOptions = {
   api: ApiConfigOptions;
   youTube: InitYouTubeOptions;
-  contentScript: ContentScriptConfiguration;
+  contentScript: Partial<ContentScriptConfiguration>;
 };
 
 const onCreateSelectionTimeout = async () => {
@@ -98,6 +98,7 @@ export const registerContentScript = async (
       isFeedbackEnabled: false,
       askForRatingEnabled: false,
       displayMobileLookupButton: false,
+      allowFirstTranslationCongratulation: false,
     },
   }
 ) => {

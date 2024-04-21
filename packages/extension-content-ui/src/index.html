@@ -31,6 +31,10 @@
         <vocably-mobile-button></vocably-mobile-button>
       </p>
 
+      <h1>First card added.</h1>
+
+      <vocably-first-translation-congratulation></vocably-first-translation-congratulation>
+
       <h1>Popups</h1>
 
       <h2>Loading</h2>
@@ -66,8 +70,6 @@
             },
             cards: [
               {
-                id: 'NYS4L',
-                created: 1639827779683,
                 data: {
                   language: 'nl',
                   source: 'gemaakt',
@@ -92,8 +94,6 @@
             },
             cards: [
               {
-                id: 'NYS4L',
-                created: 1639827779683,
                 data: {
                   language: 'nl',
                   source: 'gemaakt',
@@ -103,6 +103,8 @@
                 },
               },
               {
+                id: 'NYS4L',
+                created: 1639827779683,
                 data: {
                   language: 'nl',
                   source: 'maken',
@@ -191,6 +193,7 @@
             document.getElementById('translationSuccess');
           translationSuccess.existingLanguages = ['en', 'nl'];
           translationSuccess.result = successfulTranslationResult;
+          translationSuccess.canCongratulate = true;
         </script>
       </div>
 
@@ -212,6 +215,7 @@
           );
           simpletonTranslation.existingLanguages = ['en', 'nl'];
           simpletonTranslation.result = simpletonTranslationResult;
+          simpletonTranslation.canCongratulate = true;
           simpletonTranslation.askForRating = true;
           simpletonTranslation.extensionPlatform = {
             name: 'Chrome Web Store',

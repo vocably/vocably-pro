@@ -147,7 +147,8 @@ select {
   opacity: 0;
 }
 
-$container-padding: $input-padding-y 48px $input-padding-y $input-padding-x;
+$container-padding: $input-padding-y $input-padding-x $input-padding-y
+  $input-padding-x;
 
 .cards {
   border: $internal-border;
@@ -160,6 +161,10 @@ $container-padding: $input-padding-y 48px $input-padding-y $input-padding-x;
     position: relative;
     padding: $container-padding;
     border-top: $internal-border;
+
+    .safe-action-area {
+      padding-right: 34px;
+    }
 
     &:first-child {
       border-top: none;
@@ -230,4 +235,23 @@ vocably-play-sound {
 .direct-translation {
   display: flex;
   flex-direction: row;
+}
+
+.added-congratulation {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+
+  &.visible {
+    max-height: 500px;
+  }
+}
+
+.added-congratulation-content {
+  padding-top: 12px;
+}
+
+.added-congratulation-content-1 {
+  padding: 12px;
+  background: white;
 }
