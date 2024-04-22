@@ -18,6 +18,8 @@ export class NoDecksPageComponent implements OnInit {
         relativeTo: route,
         replaceUrl: true,
       });
+    } else {
+      router.navigate(['/welcome'], { replaceUrl: true });
     }
   }
 

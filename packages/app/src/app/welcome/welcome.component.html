@@ -6,10 +6,27 @@
         It seems like you don't have the browser extension installed or enabled.
       </p>
       <p>
-        <a [href]="extensionInstallUrl" target="_blank"
-          >Please click this link to install or enable the extension</a
+        <a class="button mr-1" [href]="extensionInstallUrl" target="_blank"
+          >Install or enable the extension</a
         >
+        <app-expansion label="I don't want to install the extension">
+          <p>You can use the mobile app.</p>
+          <p>Scan the QR Code:</p>
+          <p>
+            <img width="300" src="assets/app-qr-code.svg" alt="QR code" />
+          </p>
+          <p>Or open the following link on your mobile device:</p>
+          <div>
+            <a
+              style="font-size: 160%"
+              href="https://vocably.pro/app.html"
+              target="_blank"
+              >https://vocably.pro/app.html</a
+            >
+          </div>
+        </app-expansion>
       </p>
+      <p></p>
     </div>
     <router-outlet *ngIf="extensionIsInstalled === true"></router-outlet>
   </div>
