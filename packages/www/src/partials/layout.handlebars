@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <title>Vocably{{#if title}} - {{title}}{{/if}}</title>
+    {{#if redirect}}
+    <meta http-equiv="refresh" content="0; url={{redirect}}">
+    {{/if}}
     <meta name="description" content="Look up unfamiliar words while surfing the web, get flashcards created automatically, and study them on the go." />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Vocably{{#if title}} - {{title}}{{/if}}" />
