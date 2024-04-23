@@ -2,12 +2,12 @@
   <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading example text...
 </div>
 <ng-container *ngIf="!isLoading && exampleHtml">
-  <div class="mat-display-1 mb-2">
-    <span highlight>Highlight</span> any word or phrase to see its meaning.
-  </div>
-  <div class="mb-2">
-    Try it on this text
-    <mat-icon style="vertical-align: middle">arrow_downward</mat-icon>
+  <div class="mat-display-1 mb-2 mt-1">
+    <span highlight>Highlight</span> any word or phrase to see its meaning. Try
+    it on this text
+    <mat-icon style="vertical-align: middle; transform: scale(1.6)"
+      >arrow_downward</mat-icon
+    >
   </div>
   <div class="mb-2">
     <div
@@ -17,34 +17,10 @@
     ></div>
   </div>
   <div>
-    <app-expansion label="Help">
-      <p>Highlight any word on any website to see its meaning.</p>
-      <p>
-        Add the words you like to your collection by clicking
-        <mat-icon style="vertical-align: middle">add_circle</mat-icon>
-        button.
-      </p>
-      <p>
-        <app-how-to-video></app-how-to-video>
-      </p>
-      <p>
-        After adding a couple of words, install the mobile app to review and
-        learn these words.
-      </p>
-
-      <p>Scan the QR Code:</p>
-      <p>
-        <img width="300" src="assets/app-qr-code.svg" alt="QR code" />
-      </p>
-      <p>Or open the following link on your mobile device:</p>
-      <div>
-        <a
-          style="font-size: 160%"
-          href="https://vocably.pro/app.html"
-          target="_blank"
-          >https://vocably.pro/app.html</a
-        >
-      </div>
+    <app-expansion label="Explain it better" *ngIf="language">
+      <app-detailed-explanation
+        [language]="language"
+      ></app-detailed-explanation>
     </app-expansion>
   </div>
 </ng-container>

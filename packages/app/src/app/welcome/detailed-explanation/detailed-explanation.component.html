@@ -1,0 +1,37 @@
+<p>
+  Highlight any word on any {{ language | language }} website to see its
+  meaning.
+</p>
+<p>
+  Add the words you like to your collection by clicking
+  <mat-icon style="vertical-align: middle">add_circle</mat-icon>
+  button.
+</p>
+<p>
+  <app-how-to-video></app-how-to-video>
+</p>
+
+<ng-container *ngIf="!isMobilePlatform">
+  <p>
+    After adding a few words, install the mobile app to review and learn those
+    words.
+  </p>
+
+  <p>Scan the QR to install the app.</p>
+  <p>
+    <img style="width: 18rem" src="assets/app-qr-code.svg" alt="QR code" />
+  </p>
+  <p>Or open this link on your mobile device:</p>
+  <div>
+    <a href="https://vocably.pro/app.html" target="_blank"
+      >https://vocably.pro/app.html</a
+    >
+  </div>
+</ng-container>
+
+<ng-container *ngIf="isMobilePlatform">
+  <div>
+    After adding a few words, go back to the Vocably app to review and study
+    those words.
+  </div>
+</ng-container>
