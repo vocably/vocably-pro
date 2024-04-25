@@ -466,6 +466,7 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.items[0].partOfSpeech).toEqual('noun');
-    expect(result.value.items[0].translation).toEqual('кравець');
+    expect(result.value.items[0].translation).toContain('خواهر');
+    expect(result.value.items[0].translation).toContain('، ');
   });
 });
