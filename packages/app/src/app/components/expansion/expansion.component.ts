@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ExpansionComponent implements OnInit {
   @Input() label: string = '';
+  @Input() panelStyle: string = '';
 
   isExpanded = false;
 

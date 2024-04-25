@@ -4,7 +4,7 @@
     >chevron_right</mat-icon
   >
 </button>
-<div class="panel" [class]="{ expanded: isExpanded }">
+<div class="panel" [class]="{ expanded: isExpanded }" [style]="panelStyle">
   <div class="panel-content">
     <ng-content></ng-content>
   </div>

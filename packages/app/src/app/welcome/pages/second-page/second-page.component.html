@@ -17,7 +17,11 @@
     ></div>
   </div>
   <div>
-    <app-expansion label="Explain it better" *ngIf="language">
+    <app-expansion
+      label="Explain it better"
+      *ngIf="language"
+      panelStyle="padding-top: 2rem;"
+    >
       <app-detailed-explanation
         [language]="language"
       ></app-detailed-explanation>
