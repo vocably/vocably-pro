@@ -450,4 +450,22 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[1].partOfSpeech).toEqual('verb');
     expect(result.value.items[1].translation).toContain('пристосовувати');
   });
+
+  it('properly joins farsi definitions', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'fa',
+      source: 'sister',
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.items[0].partOfSpeech).toEqual('noun');
+    expect(result.value.items[0].translation).toEqual('кравець');
+  });
 });

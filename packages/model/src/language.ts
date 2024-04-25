@@ -130,6 +130,7 @@ export const ChatGPTLanguages = [
   'no',
   'da',
   'fi',
+  'fa',
   'pl',
   'el',
   'he',
