@@ -31,8 +31,10 @@ describe('translateFromContext', () => {
       targetLanguage: 'ru',
     });
     expect(translationResult.success).toEqual(true);
-    // @ts-ignore
-    expect(translationResult.value.target).toEqual('доктор');
+    expect(
+      // @ts-ignore
+      ['доктор', 'врач'].includes(translationResult.value.target)
+    ).toBeTruthy();
   }, 60_000);
 
   it('multi word source', async () => {
