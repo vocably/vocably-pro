@@ -469,4 +469,22 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].translation).toContain('خواهر');
     expect(result.value.items[0].translation).toContain('، ');
   });
+
+  it('provides lexicala examples', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      source: 'sister',
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.items[0].examples).toBeDefined();
+    expect(result.value.items[0].examples.length).toBeGreaterThan(0);
+  });
 });

@@ -27,6 +27,7 @@ export type LexicalaSearchResultItem = {
     translations?: Partial<
       Record<LexicalaLanguage, LexicalaTranslation | LexicalaTranslation[]>
     >;
+    examples?: Array<{ text: string }>;
   }[];
 };
 
