@@ -63,6 +63,7 @@ export const createTranslationCards = (
         source: isDirectAnalyzePayload(payload)
           ? payload.source
           : analysis.source,
+        example: '',
         definition: '',
         translation: analysis.translation.target,
         partOfSpeech: '',
@@ -78,6 +79,7 @@ export const createTranslationCards = (
         return {
           language: analysis.translation.sourceLanguage,
           source: analysisItem.source,
+          example: join(analysisItem.examples),
           definition: join(analysisItem.definitions),
           translation: analysisItem.translation,
           partOfSpeech: analysisItem.partOfSpeech ?? '',

@@ -46,6 +46,12 @@ export namespace Components {
     interface VocablyRate {
         "platform": { name: string; url: string };
     }
+    interface VocablySideA {
+        "item": TranslationCard;
+        "playSound": (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
+    }
     interface VocablySideB {
         "item": TranslationCard;
     }
@@ -196,6 +202,12 @@ declare global {
         prototype: HTMLVocablyRateElement;
         new (): HTMLVocablyRateElement;
     };
+    interface HTMLVocablySideAElement extends Components.VocablySideA, HTMLStencilElement {
+    }
+    var HTMLVocablySideAElement: {
+        prototype: HTMLVocablySideAElement;
+        new (): HTMLVocablySideAElement;
+    };
     interface HTMLVocablySideBElement extends Components.VocablySideB, HTMLStencilElement {
     }
     var HTMLVocablySideBElement: {
@@ -242,6 +254,7 @@ declare global {
         "vocably-play-sound": HTMLVocablyPlaySoundElement;
         "vocably-popup": HTMLVocablyPopupElement;
         "vocably-rate": HTMLVocablyRateElement;
+        "vocably-side-a": HTMLVocablySideAElement;
         "vocably-side-b": HTMLVocablySideBElement;
         "vocably-sign-in": HTMLVocablySignInElement;
         "vocably-spinner": HTMLVocablySpinnerElement;
@@ -297,6 +310,12 @@ declare namespace LocalJSX {
         "onUserSelected"?: (event: VocablyRateCustomEvent<'review' | 'later' | 'never' | 'feedback'>) => void;
         "platform"?: { name: string; url: string };
     }
+    interface VocablySideA {
+        "item"?: TranslationCard;
+        "playSound"?: (
+    payload: PlaySoundPayload
+  ) => Promise<Result<PlaySoundResponse>>;
+    }
     interface VocablySideB {
         "item"?: TranslationCard;
     }
@@ -345,6 +364,7 @@ declare namespace LocalJSX {
         "vocably-play-sound": VocablyPlaySound;
         "vocably-popup": VocablyPopup;
         "vocably-rate": VocablyRate;
+        "vocably-side-a": VocablySideA;
         "vocably-side-b": VocablySideB;
         "vocably-sign-in": VocablySignIn;
         "vocably-spinner": VocablySpinner;
@@ -371,6 +391,7 @@ declare module "@stencil/core" {
             "vocably-play-sound": LocalJSX.VocablyPlaySound & JSXBase.HTMLAttributes<HTMLVocablyPlaySoundElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;
             "vocably-rate": LocalJSX.VocablyRate & JSXBase.HTMLAttributes<HTMLVocablyRateElement>;
+            "vocably-side-a": LocalJSX.VocablySideA & JSXBase.HTMLAttributes<HTMLVocablySideAElement>;
             "vocably-side-b": LocalJSX.VocablySideB & JSXBase.HTMLAttributes<HTMLVocablySideBElement>;
             "vocably-sign-in": LocalJSX.VocablySignIn & JSXBase.HTMLAttributes<HTMLVocablySignInElement>;
             "vocably-spinner": LocalJSX.VocablySpinner & JSXBase.HTMLAttributes<HTMLVocablySpinnerElement>;

@@ -206,22 +206,10 @@ export class VocablyTranslation {
                               <span class="text-primary">A</span>
                             </div>
                             <div class="margin-left">
-                              {isGoogleTTSLanguage(card.data.language) && (
-                                <vocably-play-sound
-                                  text={card.data.source}
-                                  language={card.data.language}
-                                  playSound={this.playSound}
-                                />
-                              )}
-                              <span class="emphasized">{card.data.source}</span>
-                              {card.data.partOfSpeech && (
-                                <Fragment>
-                                  <span class="invisible-space ">&nbsp;</span>
-                                  <span class="pos margin-left">
-                                    {card.data.partOfSpeech}
-                                  </span>
-                                </Fragment>
-                              )}
+                              <vocably-side-a
+                                item={card}
+                                playSound={this.playSound}
+                              ></vocably-side-a>
                             </div>
 
                             <div>

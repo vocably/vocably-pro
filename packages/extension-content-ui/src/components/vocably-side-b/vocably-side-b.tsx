@@ -5,7 +5,7 @@ import { explode } from '@vocably/sulna';
 @Component({
   tag: 'vocably-side-b',
   styleUrl: 'vocably-side-b.scss',
-  shadow: true,
+  shadow: false,
 })
 export class VocablySideB {
   @Prop() item: TranslationCard;
@@ -28,7 +28,7 @@ export class VocablySideB {
         ))}
         {this.item.data.translation && (
           <li>
-            <span class="translation">{this.item.data.translation}</span>
+            <span class="italic">{this.item.data.translation}</span>
           </li>
         )}
       </ul>

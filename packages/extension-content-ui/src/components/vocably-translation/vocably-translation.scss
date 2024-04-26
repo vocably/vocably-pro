@@ -255,3 +255,21 @@ vocably-play-sound {
   padding: 12px;
   background: white;
 }
+
+.list {
+  list-style: outside;
+  padding: 0;
+  margin: 0 0 0 $base-font-size;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.mb-3 {
+  margin-bottom: 3px;
+}
+
+.mb-6 {
+  margin-bottom: 6px;
+}
