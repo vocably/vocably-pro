@@ -48,7 +48,7 @@ export class VocablyRate {
             class="link-button"
             onClick={() => this.userSelected.emit('later')}
           >
-            I don't have time now. Ask me later.
+            Ask me later.
           </button>
         </div>
         <div class="margin-top-2">
