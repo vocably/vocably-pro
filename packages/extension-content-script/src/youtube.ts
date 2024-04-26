@@ -165,10 +165,6 @@ export const initYoutube = async (options: InitYouTubeOptions) => {
         return;
       }
 
-      if (video) {
-        video.pause();
-      }
-
       const captionContainerClone = captionContainer.cloneNode(
         true
       ) as HTMLElement;
