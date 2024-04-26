@@ -196,29 +196,28 @@ export class VocablyTranslation {
                               </button>
                             )}
                           </div>
-                          <div class="safe-action-area">
-                            <div
-                              class={{
-                                'card-hint-displayed': this.showSaveHint,
-                              }}
-                            >
-                              <span class="small">Side</span>{' '}
-                              <span class="text-primary">A</span>
-                            </div>
-                            <div class="margin-left">
-                              <vocably-side-a
-                                item={card}
-                                playSound={this.playSound}
-                              ></vocably-side-a>
-                            </div>
-
-                            <div>
-                              <span class="small">Side</span>{' '}
-                              <span class="text-primary">B</span>
-                            </div>
-                            <div class="margin-left">
-                              <vocably-side-b item={card}></vocably-side-b>
-                            </div>
+                          <div
+                            class={{
+                              'safe-action-area': true,
+                              'card-hint-displayed': this.showSaveHint,
+                            }}
+                          >
+                            <vocably-card-source
+                              card={card}
+                              playSound={this.playSound}
+                            ></vocably-card-source>
+                            <vocably-card-definitions
+                              class="mb-6"
+                              card={card}
+                            ></vocably-card-definitions>
+                            {card.data.example && (
+                              <div>
+                                <div class="small mb-6">Example:</div>
+                                <vocably-card-examples
+                                  example={card.data.example}
+                                ></vocably-card-examples>
+                              </div>
+                            )}
                           </div>
                           {this.canCongratulate && (
                             <div

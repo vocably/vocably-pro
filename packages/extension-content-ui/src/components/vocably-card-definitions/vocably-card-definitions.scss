@@ -1,0 +1,6 @@
+@import '../../styles/component';
+
+vocably-card-definitions {
+  @include base-font();
+  display: block;
+}
