@@ -2,6 +2,7 @@ import { AnalysisItem, Translation } from '@vocably/model';
 import { addArticle } from '../addArticle';
 import { extractTranslation } from '../extractTranslation';
 import { getDefinitions } from './getDefinitions';
+import { getExamples } from './getExamples';
 import { LexicalaSearchResultItemWithNormalHeadword } from './normalizeHeadword';
 
 export const lexicalaSearchResultToAnalysisItem =
@@ -15,9 +16,7 @@ export const lexicalaSearchResultToAnalysisItem =
     );
     return {
       source: addArticle(item.language, item.headword),
-      // ToDo: uncomment the line below as soon as Chrome extension is releaed
-      // examples: getExamples(item.senses),
-      examples: [],
+      examples: process.env.EXAMPLES === 'true' ? getExamples(item.senses) : [],
       definitions: getDefinitions(item.senses),
       partOfSpeech: item.headword.pos,
       translation: translationResult.success ? translationResult.value : '',
