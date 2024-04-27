@@ -4,7 +4,7 @@ import { pick } from 'lodash-es';
 
 export type CardFormEntity = Pick<
   SrsCard,
-  'source' | 'definition' | 'translation' | 'partOfSpeech'
+  'source' | 'definition' | 'translation' | 'partOfSpeech' | 'example'
 >;
 
 @Component({
@@ -27,6 +27,7 @@ export class CardFormComponent implements OnInit {
       'definition',
       'translation',
       'partOfSpeech',
+      'example',
     ]);
   }
 }

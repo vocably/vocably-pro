@@ -17,6 +17,16 @@
     [(ngModel)]="model.partOfSpeech"
   />
 
+  <label [htmlFor]="'example_' + item.id">Examples</label>
+  <textarea
+    type="text"
+    class="form-control mb-1"
+    [id]="'example_' + item.id"
+    name="example"
+    [(ngModel)]="model.example"
+    style="height: 6rem"
+  ></textarea>
+
   <label [htmlFor]="'translation_' + item.id">Translation</label>
   <input
     type="text"
