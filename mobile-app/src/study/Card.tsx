@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { CardDefinition } from '../CardDefinition';
+import { CardExample } from '../CardExample';
 import { PlaySound } from '../PlaySound';
 import { Displayer } from './Displayer';
 
@@ -103,26 +104,38 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
             />
           </Animated.View>
           <Animated.View style={{ ...styles.cardFront, ...flipToBackStyle }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                alignItems: 'baseline',
-              }}
-            >
-              {isGoogleTTSLanguage(card.data.language) && (
-                <PlaySound
-                  text={card.data.source}
-                  language={card.data.language}
-                  size={24}
-                  style={{ marginRight: 6 }}
-                />
-              )}
-              <Text style={{ fontSize: 32, color: theme.colors.secondary }}>
-                {card.data.source}
-              </Text>
-              {card.data.partOfSpeech && (
-                <Text style={{ marginLeft: 8 }}>{card.data.partOfSpeech}</Text>
+            <View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  alignItems: 'baseline',
+                }}
+              >
+                {isGoogleTTSLanguage(card.data.language) && (
+                  <PlaySound
+                    text={card.data.source}
+                    language={card.data.language}
+                    size={24}
+                    style={{ marginRight: 6 }}
+                  />
+                )}
+                <Text style={{ fontSize: 32, color: theme.colors.secondary }}>
+                  {card.data.source}
+                </Text>
+                {card.data.partOfSpeech && (
+                  <Text style={{ marginLeft: 8 }}>
+                    {card.data.partOfSpeech}
+                  </Text>
+                )}
+              </View>
+              {card.data.example && (
+                <View style={{ marginTop: 8, marginLeft: 8 }}>
+                  <CardExample
+                    example={card.data.example}
+                    textStyle={{ fontSize: 18 }}
+                  />
+                </View>
               )}
             </View>
           </Animated.View>
