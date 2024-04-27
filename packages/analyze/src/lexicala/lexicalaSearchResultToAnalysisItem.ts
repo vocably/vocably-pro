@@ -16,7 +16,7 @@ export const lexicalaSearchResultToAnalysisItem =
     );
     return {
       source: addArticle(item.language, item.headword),
-      examples: process.env.EXAMPLES === 'true' ? getExamples(item.senses) : [],
+      examples: getExamples(item.senses),
       definitions: getDefinitions(item.senses),
       partOfSpeech: item.headword.pos,
       translation: translationResult.success ? translationResult.value : '',
