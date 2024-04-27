@@ -116,13 +116,6 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
   const renderCard = (data: ListRenderItemInfo<CardItem>) => (
     <View style={{ backgroundColor: theme.colors.background }}>
       <Pressable
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed
-              ? theme.colors.inversePrimary
-              : theme.colors.background,
-          },
-        ]}
         onPress={() => navigation.navigate('EditCard', { card: data.item })}
       >
         <CardListItem card={data.item.data} />
