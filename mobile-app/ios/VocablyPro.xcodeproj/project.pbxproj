@@ -12,6 +12,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3231777E2BDD2A4D00F1CEB6 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 3231777D2BDD2A4D00F1CEB6 /* PrivacyInfo.xcprivacy */; };
 		3282EC552BA1A1D100B37D07 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3282EC542BA1A1D100B37D07 /* SafariWebExtensionHandler.swift */; };
 		3282EC582BA1A1D100B37D07 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 3282EC572BA1A1D100B37D07 /* _locales */; };
 		3282EC5A2BA1A1D100B37D07 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 3282EC592BA1A1D100B37D07 /* images */; };
@@ -65,6 +66,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = VocablyPro/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VocablyPro/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-VocablyPro-VocablyProTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VocablyPro-VocablyProTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3231777D2BDD2A4D00F1CEB6 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3282EC522BA1A1D100B37D07 /* Vocably for Safari.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Vocably for Safari.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3282EC542BA1A1D100B37D07 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
 		3282EC572BA1A1D100B37D07 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				3231777D2BDD2A4D00F1CEB6 /* PrivacyInfo.xcprivacy */,
 			);
 			name = VocablyPro;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3231777E2BDD2A4D00F1CEB6 /* PrivacyInfo.xcprivacy in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -823,10 +827,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -894,10 +895,7 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

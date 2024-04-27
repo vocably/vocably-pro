@@ -36,8 +36,6 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
     setIsProcessing(false);
   }, [setIsProcessing, onAdd, onRemove]);
 
-  console.log(item);
-
   return (
     <View style={styles.container}>
       <CardListItem card={item.card} style={{ flex: 1 }} showExamples={true} />
