@@ -7,8 +7,8 @@ import {
   View,
 } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
+import { CardDefinition } from '../CardDefinition';
 import { PlaySound } from '../PlaySound';
-import { SideB } from '../SideB';
 import { Displayer } from './Displayer';
 
 const styles = StyleSheet.create({
@@ -96,7 +96,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
               display: 'flex',
             }}
           >
-            <SideB
+            <CardDefinition
               card={card.data}
               style={styles.list}
               textStyle={{ fontSize: 24 }}

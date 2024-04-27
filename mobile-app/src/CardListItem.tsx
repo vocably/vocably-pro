@@ -2,16 +2,22 @@ import { Card, CardItem, isGoogleTTSLanguage } from '@vocably/model';
 import React, { FC } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { Divider, Text, useTheme } from 'react-native-paper';
+import { CardDefinition } from './CardDefinition';
+import { CardExample } from './CardExample';
 import { PlaySound } from './PlaySound';
-import { SideB } from './SideB';
 import { mainPadding } from './styles';
 
 type CardListItem = FC<{
   card: Card;
   style?: StyleProp<ViewStyle>;
+  showExamples?: boolean;
 }>;
 
-export const CardListItem: CardListItem = ({ card, style }) => {
+export const CardListItem: CardListItem = ({
+  card,
+  style,
+  showExamples = false,
+}) => {
   const theme = useTheme();
   return (
     <View
@@ -51,7 +57,13 @@ export const CardListItem: CardListItem = ({ card, style }) => {
           <Text style={{ marginLeft: 8 }}>{card.partOfSpeech}</Text>
         )}
       </View>
-      <SideB card={card} />
+      <CardDefinition card={card} />
+      {showExamples && card.example && (
+        <View style={{ marginStart: 10, marginTop: 8 }}>
+          <Text style={{ fontWeight: 'bold' }}>Examples</Text>
+          <CardExample example={card.example} />
+        </View>
+      )}
     </View>
   );
 };

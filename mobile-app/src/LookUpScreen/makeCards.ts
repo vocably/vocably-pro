@@ -7,6 +7,7 @@ export const makeCards = (analysis: Analysis): Card[] => {
       language: analysis.translation.sourceLanguage,
       source: item.source,
       definition: join(item.definitions),
+      example: join(item.examples ?? []),
       translation: item.translation,
       partOfSpeech: item.partOfSpeech ?? '',
     }));

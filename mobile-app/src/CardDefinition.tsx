@@ -4,21 +4,21 @@ import React, { FC } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 
-type SideB = FC<{
+type CardDefinition = FC<{
   card: Card;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<Text>;
 }>;
 
-export const SideB: SideB = ({ card, style, textStyle }) => {
+export const CardDefinition: CardDefinition = ({ card, style, textStyle }) => {
   const theme = useTheme();
-  let sideB = explode(card.definition).map((text) => ({
+  let definitions = explode(card.definition).map((text) => ({
     text,
     style: {},
   }));
 
   if (card.translation) {
-    sideB = sideB.concat({
+    definitions.unshift({
       text: card.translation,
       style: {
         color: theme.colors.secondary,
@@ -28,7 +28,7 @@ export const SideB: SideB = ({ card, style, textStyle }) => {
 
   return (
     <>
-      {sideB.map((item, index) => (
+      {definitions.map((item, index) => (
         <Text
           key={index}
           style={[item.style, textStyle]}

@@ -36,9 +36,11 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
     setIsProcessing(false);
   }, [setIsProcessing, onAdd, onRemove]);
 
+  console.log(item);
+
   return (
     <View style={styles.container}>
-      <CardListItem card={item.card} style={{ flex: 1 }} />
+      <CardListItem card={item.card} style={{ flex: 1 }} showExamples={true} />
       <IconButton
         icon={!item.id ? 'plus-circle' : 'minus-circle'}
         iconColor={!item.id ? theme.colors.primary : theme.colors.error}
