@@ -8,6 +8,7 @@ import {
 } from '@vocably/model';
 import { tokenize } from '@vocably/sulna';
 import { chatGptRequest, CHAT_GPT_3_5 } from './chatGptRequest';
+import { isOneWord } from './isOneWord';
 
 type Payload = {
   source: string;
@@ -18,6 +19,7 @@ type Payload = {
 
 type ContextTranslation = {
   target: string;
+  partOfSpeech?: string;
 };
 
 const isContextTranslation = (o: any): o is ContextTranslation => {
@@ -78,6 +80,7 @@ export const translateFromContext = async (
       sourceLanguage: payload.sourceLanguage,
       targetLanguage: payload.targetLanguage,
       target: response.target,
+      partOfSpeech: response.partOfSpeech,
     },
   };
 };
@@ -90,6 +93,8 @@ const createPrompt = (payload: Payload): string => {
   const source = truncateText(payload.source, 10);
   const context = truncateText(payload.context, 50);
 
+  const isOnwWord = isOneWord(source);
+
   return [
     `Translate the ${languageList[payload.sourceLanguage]} word`,
     source,
@@ -99,6 +104,8 @@ const createPrompt = (payload: Payload): string => {
       languageList[payload.targetLanguage]
     }.`,
     '',
-    `Respond in JSON, as in example: {"target": "the translated word"}`,
+    `Respond in JSON, as in example: {"target": "the translated word"${
+      isOnwWord && ', "partOfSpeech": "noun"'
+    }}`,
   ].join('\n');
 };

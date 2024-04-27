@@ -13,6 +13,7 @@ import { languageToLexicalaLanguage } from './lexicala/lexicalaLanguageMapper';
 import { lexicalaSearchResultToAnalysisItem } from './lexicala/lexicalaSearchResultToAnalysisItem';
 import { normalizeHeadword } from './lexicala/normalizeHeadword';
 import { lexicalaItemHasDefinitionOrCanBeTranslated } from './lexicalaItemHasDefinitionOrCanBeTranslated';
+import { prependTranslation } from './prependTranslation';
 import { translate } from './translate';
 import { trimArticle } from './trimArticle';
 import { wordDictionary } from './word-dictionary';
@@ -51,7 +52,10 @@ export const buildDirectResult = async (
     };
   }
 
-  const trimmedArticle = trimArticle(lexicalaLanguage, payload.source);
+  const trimmedArticle = trimArticle(
+    translation.sourceLanguage,
+    payload.source
+  );
 
   if (!isOneWord(trimmedArticle.source)) {
     return {
@@ -101,12 +105,15 @@ export const buildDirectResult = async (
       value: {
         source: payload.source,
         translation: translationResult.value,
-        items: await Promise.all(
-          wordDictionaryResultToAnalysisItems({
-            result: results[1].value,
-            payload,
-            originalTranslation: translation,
-          })
+        items: prependTranslation(
+          await Promise.all(
+            wordDictionaryResultToAnalysisItems({
+              result: results[1].value,
+              payload,
+              originalTranslation: translation,
+            })
+          ),
+          translation
         ),
       },
     };
@@ -117,15 +124,18 @@ export const buildDirectResult = async (
     value: {
       source: payload.source,
       translation: translationResult.value,
-      items: (
-        await Promise.all(
-          lexicalaResult.value
-            .map(normalizeHeadword(payload.source))
-            .filter(fitsTheSize(payload.source))
-            .filter(lexicalaItemHasDefinitionOrCanBeTranslated(translation))
-            .map(lexicalaSearchResultToAnalysisItem(translation))
-        )
-      ).reduce(combineItems, []),
+      items: prependTranslation(
+        (
+          await Promise.all(
+            lexicalaResult.value
+              .map(normalizeHeadword(payload.source))
+              .filter(fitsTheSize(payload.source))
+              .filter(lexicalaItemHasDefinitionOrCanBeTranslated(translation))
+              .map(lexicalaSearchResultToAnalysisItem(translation))
+          )
+        ).reduce(combineItems, []),
+        translation
+      ),
     },
   };
 };
