@@ -101,6 +101,14 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
           multiline={true}
           onChangeText={onTextChange('definition')}
         ></TextInput>
+        <TextInput
+          style={styles.inputItem}
+          mode={'outlined'}
+          label={'Example'}
+          value={cardData.example}
+          multiline={true}
+          onChangeText={onTextChange('example')}
+        ></TextInput>
         <Button
           mode={'contained'}
           loading={isUpdating}
