@@ -51,6 +51,10 @@ $section-margin: 8px;
   font-size: $base-font-size * 0.9;
 }
 
+.muted {
+  color: $v-light-color-muted;
+}
+
 .text-primary {
   color: $v-light-color-primary;
 }
@@ -171,7 +175,7 @@ $container-padding: $input-padding-y $input-padding-x $input-padding-y
     }
 
     .card-hint-displayed {
-      min-width: 220px;
+      padding-right: 200px;
     }
 
     .card-action {

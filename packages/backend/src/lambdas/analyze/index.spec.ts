@@ -126,8 +126,11 @@ describe('integration check for translate lambda', () => {
     const resultBody: Analysis = JSON.parse(result.body);
     expect(resultBody.source).toEqual('katzen');
     expect(resultBody.translation).toBeDefined();
-    expect(resultBody.items[0].source).toEqual('die Katze');
-    expect(resultBody.items[0].translation).toEqual('cat');
+    expect(resultBody.items[0].source).toEqual('katzen');
+    expect(resultBody.items[0].translation).toEqual('cats');
+
+    expect(resultBody.items[1].source).toEqual('die Katze');
+    expect(resultBody.items[1].translation).toEqual('cat');
   });
 
   it('adds articles and takes translations from google', async () => {
@@ -163,7 +166,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.items.length).toEqual(4);
     expect(resultBody.items[0].source).toEqual('de regeling');
-    expect(resultBody.items[0].translation).toEqual('регулирование');
+    expect(resultBody.items[0].translation).toContain('регулирование');
   });
 
   it('skips analyze when source is more than one word', async () => {
@@ -180,7 +183,15 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.source).toEqual('vijf dagen');
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.translation.target).toEqual('five days');
-    expect(resultBody.items).not.toBeDefined();
+    expect(resultBody.items).toEqual([
+      {
+        source: 'vijf dagen',
+        translation: 'five days',
+        examples: [],
+        definitions: [],
+        partOfSpeech: undefined,
+      },
+    ]);
   });
 
   it('performs reverse analyze', async () => {
@@ -260,7 +271,7 @@ describe('integration check for translate lambda', () => {
     const resultBody: DirectAnalysis = JSON.parse(result.body);
     console.log(inspect(resultBody));
     expect(resultBody.items.length).toEqual(1);
-    expect(resultBody.items[0].translation).toEqual('реабилитация');
+    expect(resultBody.items[0].translation).toContain('реабилитация');
   });
 
   it('avoids duplicates in translations', async () => {
@@ -275,21 +286,6 @@ describe('integration check for translate lambda', () => {
     const resultBody: DirectAnalysis = JSON.parse(result.body);
     expect(resultBody.items[0].translation).toEqual('be, become');
     expect(resultBody.items[1].translation).toEqual('his');
-  });
-
-  it('properly translates dutch to non-article languages', async () => {
-    mockEvent.body = JSON.stringify({
-      source: 'revalidatie',
-      sourceLanguage: 'nl',
-      targetLanguage: 'ru',
-    });
-    mockEvent.requestContext = paidRequestContext;
-    const result = await analyze(mockEvent);
-    expect(result.statusCode).toEqual(200);
-    const resultBody: DirectAnalysis = JSON.parse(result.body);
-    console.log(inspect(resultBody));
-    expect(resultBody.items.length).toEqual(1);
-    expect(resultBody.items[0].translation).toEqual('реабилитация');
   });
 
   it('provides context translation', async () => {

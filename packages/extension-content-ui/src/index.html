@@ -73,7 +73,7 @@
                 data: {
                   language: 'nl',
                   source: 'gemaakt',
-                  translation: 'created',
+                  translation: 'created, done',
                   definition: '',
                   partOfSpeech: '',
                 },
@@ -100,7 +100,7 @@
                   example:
                     'Bij een gemaakte glimlach lachen onze ogen niet mee.',
                   definition: 'als iets niet natuurlijk is of gebeurt',
-                  translation: 'created',
+                  translation: 'created, done',
                   partOfSpeech: 'adjective',
                 },
               },
@@ -154,6 +154,47 @@
           },
         };
       </script>
+
+      <h2>First time</h2>
+
+      <div class="mb-3">
+        <vocably-popup
+          ><vocably-translation
+            phrase="gemaakt"
+            id="translationFirstTime"
+            language="nl"
+          ></vocably-translation
+        ></vocably-popup>
+
+        <script>
+          const element = document.getElementById('translationFirstTime');
+
+          element.result = {
+            success: true,
+            value: {
+              source: 'Alice was beginning to get very tired of sitting',
+              translation: {
+                source: 'Alice was beginning to get very tired of sitting',
+                sourceLanguage: 'en',
+                target: 'Алиса начала сильно уставать сидеть',
+                targetLanguage: 'ru',
+              },
+              cards: [
+                {
+                  data: {
+                    language: 'en',
+                    source: 'Alice was beginning to get very tired of sitting',
+                    translation: 'Алиса начала сильно уставать сидеть',
+                    definition: '',
+                    partOfSpeech: '',
+                  },
+                },
+              ],
+            },
+          };
+          element.showSaveHint = true;
+        </script>
+      </div>
 
       <h2>Ask for rating</h2>
 

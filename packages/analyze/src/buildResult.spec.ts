@@ -89,8 +89,10 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.source).toEqual('katzen');
     expect(result.value.translation).toBeDefined();
-    expect(result.value.items[0].source).toEqual('die Katze');
-    expect(result.value.items[0].translation).toEqual('cat');
+    expect(result.value.items[0].source).toEqual('katzen');
+    expect(result.value.items[0].translation).toEqual('cats');
+    expect(result.value.items[1].source).toEqual('die Katze');
+    expect(result.value.items[1].translation).toEqual('cat');
   });
 
   it('adds articles and takes translations from google', async () => {
@@ -119,7 +121,7 @@ describe('integration check for translate lambda', () => {
       sourceLanguage: 'nl',
       targetLanguage: 'ru',
     });
-    console.log({ result });
+    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -130,7 +132,9 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.items.length).toEqual(4);
     expect(result.value.items[0].source).toEqual('de regeling');
-    expect(result.value.items[0].translation).toEqual('регулирование');
+    expect(result.value.items[0].translation).toEqual(
+      'регулирование, расположение'
+    );
   });
 
   it('skips analyze when source is more than one word', async () => {
@@ -149,7 +153,15 @@ describe('integration check for translate lambda', () => {
     expect(result.value.source).toEqual('vijf dagen');
     expect(result.value.translation).toBeDefined();
     expect(result.value.translation.target).toEqual('five days');
-    expect(result.value.items).not.toBeDefined();
+    expect(result.value.items).toEqual([
+      {
+        source: 'vijf dagen',
+        translation: 'five days',
+        partOfSpeech: undefined,
+        definitions: [],
+        examples: [],
+      },
+    ]);
   });
 
   it('performs reverse analyze', async () => {
@@ -238,7 +250,7 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.items.length).toEqual(1);
-    expect(result.value.items[0].translation).toEqual('реабилитация');
+    expect(result.value.items[0].translation).toContain('реабилитация');
   });
 
   it('avoids duplicates in translations', async () => {
@@ -470,22 +482,21 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].translation).toContain('، ');
   });
 
-  // ToDo: uncomment whe Chrome extension is released
-  // it('provides lexicala examples', async () => {
-  //   const result = await buildResult({
-  //     sourceLanguage: 'en',
-  //     targetLanguage: 'ru',
-  //     source: 'sister',
-  //   });
-  //
-  //   console.log(inspect(result));
-  //
-  //   expect(result.success).toBeTruthy();
-  //   if (result.success === false) {
-  //     return;
-  //   }
-  //
-  //   expect(result.value.items[0].examples).toBeDefined();
-  //   expect(result.value.items[0].examples.length).toBeGreaterThan(0);
-  // });
+  it('provides lexicala examples', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      source: 'sister',
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.items[0].examples).toBeDefined();
+    expect(result.value.items[0].examples.length).toBeGreaterThan(0);
+  });
 });

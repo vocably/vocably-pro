@@ -5,6 +5,7 @@ export type Translation = {
   sourceLanguage: GoogleLanguage;
   target: string;
   targetLanguage: GoogleLanguage;
+  partOfSpeech?: string;
 };
 
 export type DirectAnalyzePayload = {

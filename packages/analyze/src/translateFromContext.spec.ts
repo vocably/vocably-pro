@@ -51,4 +51,17 @@ describe('translateFromContext', () => {
       'книга, которую читала ее сестра'
     );
   }, 60_000);
+
+  it('returns part of speech for single words', async () => {
+    const translationResult = await translateFromContext({
+      source: 'kamertjes',
+      context:
+        'Het was er moeilijk den weg te vinden, want in het huis waren veel donkere portaaltjes, trappen, kamertjes en ruime rommelzolders, en in den tuin waren overal schuttingen en broeikasten',
+      sourceLanguage: 'nl',
+      targetLanguage: 'ru',
+    });
+    expect(translationResult.success).toEqual(true);
+    // @ts-ignore
+    expect(translationResult.value.partOfSpeech).toEqual('noun');
+  });
 });

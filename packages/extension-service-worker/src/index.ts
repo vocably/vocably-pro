@@ -187,6 +187,8 @@ export const registerServiceWorker = (
         value,
       });
     } catch (e) {
+      console.error('Cards creation error', e);
+
       return sendResponse({
         success: false,
         errorCode: 'EXTENSION_SERVICE_WORKER_ERROR_CREATING_CARDS',

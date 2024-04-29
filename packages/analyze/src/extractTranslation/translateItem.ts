@@ -1,6 +1,6 @@
 import { isChatGPTLanguage, Result, Translation } from '@vocably/model';
 import { addArticle } from '../addArticle';
-import { joinDefinitions } from '../joinDefinitions';
+import { joinStrings } from '../joinStrings';
 import { getDefinitions } from '../lexicala/getDefinitions';
 import { LexicalaSearchResultItemWithNormalHeadword } from '../lexicala/normalizeHeadword';
 import { translateDefinitions } from '../translateDefinitions';
@@ -36,10 +36,7 @@ export const translateItem = async (
     if (translationResult.success === true) {
       return {
         success: true,
-        value: joinDefinitions(
-          translationResult.value,
-          translation.targetLanguage
-        ),
+        value: joinStrings(translationResult.value, translation.targetLanguage),
       };
     }
   }

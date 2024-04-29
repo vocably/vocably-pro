@@ -7,7 +7,7 @@ export const isDirectNecessary = (analyse: TranslationCards): boolean => {
     return false;
   }
 
-  if (analyse.cards.length > 1) {
+  if (analyse.cards.length === 0) {
     return true;
   }
 
