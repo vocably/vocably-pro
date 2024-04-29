@@ -187,7 +187,7 @@ export const registerServiceWorker = (
         value,
       });
     } catch (e) {
-      console.info('Cards creation error', e);
+      console.error('Cards creation error', e);
 
       return sendResponse({
         success: false,
