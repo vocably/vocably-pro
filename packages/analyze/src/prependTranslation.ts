@@ -42,6 +42,10 @@ export const prependTranslation = (
     return analysisItems;
   }
 
+  if (similarSources.length > 1) {
+    return analysisItems;
+  }
+
   if (similarSources.length === 1) {
     return analysisItems.map((item) => {
       if (item === similarSources[0]) {
@@ -62,6 +66,7 @@ export const prependTranslation = (
       translation: translation.target,
       partOfSpeech: translation.partOfSpeech,
       definitions: [],
+      examples: [],
     },
     ...analysisItems,
   ];

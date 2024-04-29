@@ -14,6 +14,8 @@ describe('prependTranslation', () => {
         source: 'hello',
         translation: 'привет',
         definitions: [],
+        examples: [],
+        partOfSpeech: undefined,
       },
     ]);
   });

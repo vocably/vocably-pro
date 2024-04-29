@@ -62,6 +62,10 @@ export const setContents = async ({
           translation.loading = false;
         })
         .then(async (translationResult) => {
+          if (translationResult.success === false) {
+            console.error('Analyze error', translationResult);
+          }
+
           if (contentScriptConfiguration.askForRatingEnabled) {
             api
               .askForRating({

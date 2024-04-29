@@ -1,5 +1,5 @@
 export const join = (lines: string[]): string => {
-  if (lines.length === 0) {
+  if (!lines || lines.length === 0) {
     return '';
   }
 
@@ -11,6 +11,10 @@ export const join = (lines: string[]): string => {
 };
 
 export const explode = (lines: string): string[] => {
+  if (!lines) {
+    return [];
+  }
+
   return lines
     .split(`\n`)
     .map((line) => line.replace(/^\* */, '').replace(/ +$/, ''))

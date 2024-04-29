@@ -72,10 +72,10 @@ const prodConfig = {
   performance: {
     hints: false,
   },
+  devtool: 'inline-source-map',
 };
 
 const devConfig = {
-  devtool: 'inline-source-map',
   plugins: [new WatchTimerPlugin(basename(__dirname))],
 };
 
