@@ -97,6 +97,9 @@ export class VocablyTranslation {
                   <div class="margin-bottom-2">{languageSelector}</div>
                   {showDirect && (
                     <div class="margin-bottom-2">
+                      <div class="small muted margin-bottom-1">
+                        ChatGPT 3.5 thinks that{' '}
+                      </div>
                       <span class="emphasized">
                         {isGoogleTTSLanguage(
                           this.result.value.translation.sourceLanguage
@@ -111,7 +114,7 @@ export class VocablyTranslation {
                         )}
                         {this.phrase}
                       </span>{' '}
-                      &mdash; <i>{this.result.value.translation.target}</i>
+                      means <i>{this.result.value.translation.target}</i>
                     </div>
                   )}
                   <div class="save-hint-container">
@@ -182,7 +185,8 @@ export class VocablyTranslation {
                           <div
                             class={{
                               'safe-action-area': true,
-                              'card-hint-displayed': this.showSaveHint,
+                              'card-hint-displayed':
+                                itemIndex === 0 && this.showSaveHint,
                             }}
                           >
                             <vocably-card-source
