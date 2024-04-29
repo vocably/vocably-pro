@@ -10,7 +10,6 @@ import {
 } from '@stencil/core';
 import {
   AddCardPayload,
-  getFullLanguageName,
   GoogleLanguage,
   isCardItem,
   isDetachedCardItem,
@@ -94,42 +93,26 @@ export class VocablyTranslation {
           {this.result && this.result.success === true && (
             <Fragment>
               <div class="translation" data-test="translation">
-                {showDirect && (
-                  <div class="section">
-                    <div class="margin-bottom-1">{languageSelector}</div>
-                    <div class="margin-left emphasized margin-bottom-2">
-                      {isGoogleTTSLanguage(
-                        this.result.value.translation.sourceLanguage
-                      ) && (
-                        <vocably-play-sound
-                          text={this.phrase}
-                          language={
-                            this.result.value.translation.sourceLanguage
-                          }
-                          playSound={this.playSound}
-                        />
-                      )}
-                      {this.phrase}
-                    </div>
-
-                    <Fragment>
-                      <div
-                        class="margin-bottom-1"
-                        data-test="translation-language"
-                      >
-                        {getFullLanguageName(
-                          this.result.value.translation.targetLanguage
-                        )}
-                      </div>
-                      <div class="margin-left emphasized margin-bottom-1">
-                        {this.result.value.translation.target}
-                      </div>
-                    </Fragment>
-                  </div>
-                )}
                 <div class="section">
-                  {!showDirect && (
-                    <div class="margin-bottom-2">{languageSelector}</div>
+                  <div class="margin-bottom-2">{languageSelector}</div>
+                  {showDirect && (
+                    <div class="margin-bottom-2">
+                      <span class="emphasized">
+                        {isGoogleTTSLanguage(
+                          this.result.value.translation.sourceLanguage
+                        ) && (
+                          <vocably-play-sound
+                            text={this.phrase}
+                            language={
+                              this.result.value.translation.sourceLanguage
+                            }
+                            playSound={this.playSound}
+                          />
+                        )}
+                        {this.phrase}
+                      </span>{' '}
+                      &mdash; <i>{this.result.value.translation.target}</i>
+                    </div>
                   )}
                   <div class="save-hint-container">
                     {this.showSaveHint && (

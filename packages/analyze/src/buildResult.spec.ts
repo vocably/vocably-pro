@@ -153,7 +153,15 @@ describe('integration check for translate lambda', () => {
     expect(result.value.source).toEqual('vijf dagen');
     expect(result.value.translation).toBeDefined();
     expect(result.value.translation.target).toEqual('five days');
-    expect(result.value.items).not.toBeDefined();
+    expect(result.value.items).toEqual([
+      {
+        source: 'vijf dagen',
+        translation: 'five days',
+        partOfSpeech: undefined,
+        definitions: [],
+        examples: [],
+      },
+    ]);
   });
 
   it('performs reverse analyze', async () => {

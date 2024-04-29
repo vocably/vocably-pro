@@ -15,6 +15,7 @@ import { normalizeHeadword } from './lexicala/normalizeHeadword';
 import { lexicalaItemHasDefinitionOrCanBeTranslated } from './lexicalaItemHasDefinitionOrCanBeTranslated';
 import { prependTranslation } from './prependTranslation';
 import { translate } from './translate';
+import { translationToAnalysisItem } from './translationToAnalyzeItem';
 import { trimArticle } from './trimArticle';
 import { wordDictionary } from './word-dictionary';
 import { wordDictionaryResultToAnalysisItems } from './wordDictionaryResultToItems';
@@ -48,6 +49,7 @@ export const buildDirectResult = async (
       value: {
         source: payload.source,
         translation: translationResult.value,
+        items: [translationToAnalysisItem(translation)],
       },
     };
   }
@@ -63,6 +65,7 @@ export const buildDirectResult = async (
       value: {
         source: payload.source,
         translation: translationResult.value,
+        items: [translationToAnalysisItem(translation)],
       },
     };
   }

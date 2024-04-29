@@ -1,5 +1,6 @@
 import { AnalysisItem, Translation } from '@vocably/model';
 import { joinStrings } from './joinStrings';
+import { translationToAnalysisItem } from './translationToAnalyzeItem';
 import { trimArticle } from './trimArticle';
 
 const sourcesAreMatched =
@@ -57,17 +58,10 @@ export const prependTranslation = (
           ),
         };
       }
+
+      return item;
     });
   }
 
-  return [
-    {
-      source: translation.source,
-      translation: translation.target,
-      partOfSpeech: translation.partOfSpeech,
-      definitions: [],
-      examples: [],
-    },
-    ...analysisItems,
-  ];
+  return [translationToAnalysisItem(translation), ...analysisItems];
 };

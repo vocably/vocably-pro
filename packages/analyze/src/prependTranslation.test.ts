@@ -117,6 +117,13 @@ describe('prependTranslation', () => {
           partOfSpeech: 'noun',
           definitions: ['ruimte in een gebouw'],
         },
+        {
+          source: 'kemeren',
+          translation: 'rooming',
+          partOfSpeech: 'verb',
+          definitions: [],
+          examples: [],
+        },
       ],
       {
         source: 'kamer',
@@ -132,6 +139,13 @@ describe('prependTranslation', () => {
         translation: 'room, somethingroom',
         partOfSpeech: 'noun',
         definitions: ['ruimte in een gebouw'],
+      },
+      {
+        source: 'kemeren',
+        translation: 'rooming',
+        partOfSpeech: 'verb',
+        definitions: [],
+        examples: [],
       },
     ]);
   });
