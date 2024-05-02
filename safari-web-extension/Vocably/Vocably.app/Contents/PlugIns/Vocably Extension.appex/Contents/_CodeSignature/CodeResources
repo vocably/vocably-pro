@@ -10,7 +10,7 @@
 		</data>
 		<key>Resources/content-script.js</key>
 		<data>
-		GPktnh339kxpQLw5gmW3A5trJi8=
+		ZzgStMYmWoJaxYwLFfU/3+QrTqo=
 		</data>
 		<key>Resources/content-script.js.LICENSE.txt</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Resources/manifest.json</key>
 		<data>
-		OBtM8eL2FqvZ37ioHV1i+B74MOo=
+		ddSDIlTCIFcfpfpHj1rs7i+9AC8=
 		</data>
 		<key>Resources/options.html</key>
 		<data>
@@ -43,6 +43,10 @@
 		<key>Resources/popup/3rdpartylicenses.txt</key>
 		<data>
 		p66wmj/CHiTMlugT3lqaWs7z0kg=
+		</data>
+		<key>Resources/popup/767.js</key>
+		<data>
+		YVEDtrO4kion+YuBK3Y7E1CKqWw=
 		</data>
 		<key>Resources/popup/781.js</key>
 		<data>
@@ -74,7 +78,7 @@
 		</data>
 		<key>Resources/popup/main.js</key>
 		<data>
-		ikqDtu/+j9VCJU/Qu3ctXbY44C0=
+		uUCEWqPToDBZUdi4lvHfWUD3LgI=
 		</data>
 		<key>Resources/popup/polyfills.js</key>
 		<data>
@@ -82,7 +86,7 @@
 		</data>
 		<key>Resources/popup/styles.css</key>
 		<data>
-		w3IspPh+vZb6Yby5D/brab9J2qY=
+		OKebxvBeeS6IGJvPt83jaq8l3JU=
 		</data>
 		<key>Resources/service-worker.d.ts</key>
 		<data>
@@ -90,7 +94,7 @@
 		</data>
 		<key>Resources/service-worker.js</key>
 		<data>
-		E4elwmCNYo22KYcG/B3Kbn4D0ME=
+		pr/PCN0WzLIAx86ZEsgiCrYMQxQ=
 		</data>
 		<key>Resources/service-worker.js.LICENSE.txt</key>
 		<data>
@@ -110,7 +114,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			IRtLZLZ/EbdjCZg573SUAycjDaYaozB46/M/H8BxfUo=
+			IktzJolIRO5raYWYPMrhNInNxaiezGSfpL8R8ijBwgw=
 			</data>
 		</dict>
 		<key>Resources/content-script.js.LICENSE.txt</key>
@@ -152,7 +156,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8Cr/7O421z5d+h3SlcC72d5rmYtazf6IEP4GJaSgpRE=
+			Rg0VlzDBTmd3/7Sk61/xLGXmlhZacG63ReZm+OLtrLs=
 			</data>
 		</dict>
 		<key>Resources/options.html</key>
@@ -167,6 +171,13 @@
 			<key>hash2</key>
 			<data>
 			8XiO9NZXRHTAKZgJMGEQVZxTpN2g1w/KVZPhZHafSKI=
+			</data>
+		</dict>
+		<key>Resources/popup/767.js</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			7DgwJvJycVNAIXMt4KQYKdfIxy0Rxl+ZUTU87yButKo=
 			</data>
 		</dict>
 		<key>Resources/popup/781.js</key>
@@ -222,7 +233,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aMWcHQYJgykMiHx5krys9xF+mqVn4KwE3PnIE1915cM=
+			aPLaQ/8aPf/IROLpL5YLFOZBZM3F6QvK/MODCFO9kCY=
 			</data>
 		</dict>
 		<key>Resources/popup/polyfills.js</key>
@@ -236,7 +247,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			29DiXJlUmByiOSjrok5z4q+0eWbfHD305USupKaaUGE=
+			adlM2shsN8jhHXrp0+ZoZxjEIoMr553x2LvDqJ1VjAA=
 			</data>
 		</dict>
 		<key>Resources/service-worker.d.ts</key>
@@ -250,7 +261,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			skuHfbcYdJkAZShsVLKoF6ekgll+89CPHgztfcb7UeQ=
+			h5jXkZTluug3T4RS4wKvafFT05tXBssf+usePdtUdpw=
 			</data>
 		</dict>
 		<key>Resources/service-worker.js.LICENSE.txt</key>
