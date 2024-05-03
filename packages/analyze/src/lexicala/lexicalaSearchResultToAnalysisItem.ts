@@ -16,6 +16,7 @@ export const lexicalaSearchResultToAnalysisItem =
     );
     return {
       source: addArticle(item.language, item.headword),
+      ipa: item.headword.pronunciation?.value ?? '',
       examples: getExamples(item.senses),
       definitions: getDefinitions(item.senses),
       partOfSpeech: item.headword.pos,

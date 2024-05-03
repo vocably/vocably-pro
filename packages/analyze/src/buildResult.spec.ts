@@ -503,4 +503,38 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].examples).toBeDefined();
     expect(result.value.items[0].examples.length).toBeGreaterThan(0);
   });
+
+  it('provides ipa in result', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      source: 'sister',
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.items[0].ipa).toEqual('ˈsɪstər');
+  });
+
+  it('provides ipa in result for word dictionary', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      source: 'etymology',
+    });
+
+    console.log(inspect(result));
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    expect(result.value.items[0].ipa).toEqual('ˌetɪˈmɒlədʒi');
+  });
 });
