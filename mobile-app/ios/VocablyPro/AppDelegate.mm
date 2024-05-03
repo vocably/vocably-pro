@@ -2,6 +2,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
+#import <RNShareMenu/ShareMenuManager.h>
 
 @implementation AppDelegate
 
@@ -9,7 +10,9 @@
    openURL:(NSURL *)url
    options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-  return [RCTLinkingManager application:application openURL:url options:options];
+  BOOL handledByShareMenu = [ShareMenuManager application:application openURL:url options:options];
+  BOOL handledByLinkingManager = [RCTLinkingManager application:application openURL:url options:options];
+  return handledByShareMenu || handledByLinkingManager;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
