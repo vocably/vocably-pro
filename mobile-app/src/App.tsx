@@ -25,14 +25,6 @@ const App = () => {
         AsyncStorage
           .multiGet(keys)
           .then((result) => SharedGroupPreferences.setItem("store", result, 'group.pro.vocably.app'));
-
-        // SharedGroupPreferences.setItem("allKeys", keys, 'group.pro.vocably.app');
-        // keys.forEach((key) => {
-        //   AsyncStorage.getItem(key)
-        //   .then((value) => {
-        //     SharedGroupPreferences.setItem(key, value, 'group.pro.vocably.app');
-        //   });
-        // })
       })
   }, [])
 
