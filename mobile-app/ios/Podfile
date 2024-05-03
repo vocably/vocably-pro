@@ -69,6 +69,8 @@ target 'VocablyProShare' do
   pod 'RNReactNativeSharedGroupPreferences', :path => '../node_modules/react-native-shared-group-preferences'
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'RNSound', :path => '../node_modules/react-native-sound'
+  pod 'react-native-get-random-values', :path => '../node_modules/react-native-get-random-values'
 
   # Manually link packages here to keep your extension bundle size minimal
 end
