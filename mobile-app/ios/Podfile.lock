@@ -1075,6 +1075,8 @@ PODS:
     - React-Core
   - RNInAppBrowser (3.7.0):
     - React-Core
+  - RNReactNativeSharedGroupPreferences (1.1.24):
+    - React
   - RNReanimated (3.9.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1160,6 +1162,7 @@ DEPENDENCIES:
   - "RNFlashList (from `../node_modules/@shopify/flash-list`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
+  - RNReactNativeSharedGroupPreferences (from `../node_modules/react-native-shared-group-preferences`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNShareMenu (from `../node_modules/react-native-share-menu`)
@@ -1289,6 +1292,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNInAppBrowser:
     :path: "../node_modules/react-native-inappbrowser-reborn"
+  RNReactNativeSharedGroupPreferences:
+    :path: "../node_modules/react-native-shared-group-preferences"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -1362,6 +1367,7 @@ SPEC CHECKSUMS:
   RNFlashList: b521ebdd7f9352673817f1d98e8bdc0c8cf8545b
   RNGestureHandler: bc2cdb2dc42facdf34992ae364b8a728e19a3686
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
+  RNReactNativeSharedGroupPreferences: 29092869fc2e40d5baca5e15d82fa5c24a668977
   RNReanimated: e4276a6afc57c02056daa5ea1afb41a5ec497d9b
   RNScreens: 134a7511b12b8eb440b87aac21e36a71295d6024
   RNShareMenu: cb9dac548c8bf147d06f0bf07296ad51ea9f5fc3
@@ -1370,6 +1376,6 @@ SPEC CHECKSUMS:
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 47d399a73c0c0caa9ff824e5c657eae31215bfee
 
-PODFILE CHECKSUM: 684759200e710bd1ba2456254b04a440ff269589
+PODFILE CHECKSUM: e9fb71070df66194a57dd3f9250697e299ff7a07
 
 COCOAPODS: 1.12.1

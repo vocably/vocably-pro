@@ -7,11 +7,28 @@ import { LanguagesContainer } from '../languages/LanguagesContainer';
 import { LanguageSelectorModal } from '../LanguageSelectorModal';
 import { LookUpScreen } from '../LookUpScreen';
 import { ThemeProvider } from '../ThemeProvider';
+import { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import SharedGroupPreferences from 'react-native-shared-group-preferences';
+import { configureApi } from '@vocably/api';
+import { API_BASE_URL, API_CARDS_BUCKET, API_REGION } from '@env';
+
+configureApi({
+  baseUrl: API_BASE_URL,
+  region: API_REGION,
+  cardsBucket: API_CARDS_BUCKET,
+});
 
 const Stack = createStackNavigator();
 
 const ShareIntentApp = () => {
-  console.log("Share component launched!")
+  useEffect(() => {
+    SharedGroupPreferences
+      .getItem("store", "group.pro.vocably.app")
+      .then((store) => JSON.parse(store))
+      .then((store) => AsyncStorage.multiSet(store));
+  },[])
+
   return (
     <ThemeProvider>
         <AuthContainer>

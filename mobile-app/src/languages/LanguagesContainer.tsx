@@ -109,6 +109,7 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
       listLanguages(),
       AsyncStorage.getItem(selectedLanguageStorageKey),
     ]).then(([listResult, storedSelectedLanguage]) => {
+      console.log(listResult);
       if (listResult.success === false) {
         setStatus('error');
         return;

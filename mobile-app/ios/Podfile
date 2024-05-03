@@ -66,6 +66,7 @@ target 'VocablyProShare' do
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+  pod 'RNReactNativeSharedGroupPreferences', :path => '../node_modules/react-native-shared-group-preferences'
 
   # Manually link packages here to keep your extension bundle size minimal
 end
