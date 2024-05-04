@@ -82,6 +82,13 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
         <TextInput
           style={styles.inputItem}
           mode={'outlined'}
+          label={'Transcription'}
+          value={cardData.ipa}
+          onChangeText={onTextChange('ipa')}
+        ></TextInput>
+        <TextInput
+          style={styles.inputItem}
+          mode={'outlined'}
           label={'Part of Speech'}
           value={cardData.partOfSpeech}
           onChangeText={onTextChange('partOfSpeech')}

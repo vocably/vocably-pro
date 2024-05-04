@@ -105,29 +105,56 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
           </Animated.View>
           <Animated.View style={{ ...styles.cardFront, ...flipToBackStyle }}>
             <View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  alignItems: 'baseline',
-                }}
-              >
+              <View style={{ flexDirection: 'row' }}>
                 {isGoogleTTSLanguage(card.data.language) && (
                   <PlaySound
                     text={card.data.source}
                     language={card.data.language}
                     size={24}
-                    style={{ marginRight: 6 }}
+                    style={{
+                      marginRight: 6,
+                      alignSelf: 'flex-start',
+                      marginTop: 12,
+                    }}
                   />
                 )}
-                <Text style={{ fontSize: 32, color: theme.colors.secondary }}>
-                  {card.data.source}
-                </Text>
-                {card.data.partOfSpeech && (
-                  <Text style={{ marginLeft: 8 }}>
-                    {card.data.partOfSpeech}
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'baseline',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 32,
+                      color: theme.colors.secondary,
+                      marginRight: 8,
+                    }}
+                  >
+                    {card.data.source}
                   </Text>
-                )}
+
+                  {(card.data.ipa || card.data.partOfSpeech) && (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        flexWrap: 'nowrap',
+                      }}
+                    >
+                      {card.data.ipa && (
+                        <Text style={{ marginRight: 8 }}>
+                          [{card.data.ipa}]
+                        </Text>
+                      )}
+                      {card.data.partOfSpeech && (
+                        <Text style={{ marginRight: 8 }}>
+                          {card.data.partOfSpeech}
+                        </Text>
+                      )}
+                    </View>
+                  )}
+                </View>
               </View>
               {card.data.example && (
                 <View style={{ marginTop: 8, marginLeft: 8 }}>

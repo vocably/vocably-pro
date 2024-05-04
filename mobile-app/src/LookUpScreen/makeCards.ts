@@ -6,6 +6,7 @@ export const makeCards = (analysis: Analysis): Card[] => {
     return analysis.items.map((item) => ({
       language: analysis.translation.sourceLanguage,
       source: item.source,
+      ipa: item.ipa ?? '',
       definition: join(item.definitions),
       example: join(item.examples ?? []),
       translation: item.translation,

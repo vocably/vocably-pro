@@ -24,8 +24,8 @@ export const CardListItem: CardListItem = ({
       style={[
         style,
         {
-          marginHorizontal: mainPadding,
-          marginVertical: 16,
+          paddingHorizontal: mainPadding,
+          paddingVertical: 16,
         },
       ]}
     >
@@ -34,28 +34,37 @@ export const CardListItem: CardListItem = ({
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'baseline',
+          flexWrap: 'nowrap',
         }}
       >
         {isGoogleTTSLanguage(card.language) && (
-          <PlaySound
-            text={card.source}
-            language={card.language}
-            size={22}
-            style={{ marginRight: 6 }}
-          />
+          <View
+            style={{ paddingTop: 6, alignSelf: 'flex-start', marginRight: 6 }}
+          >
+            <PlaySound text={card.source} language={card.language} size={22} />
+          </View>
         )}
-        <Text
+        <View
           style={{
-            fontSize: 24,
-            color: theme.colors.secondary,
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignItems: 'baseline',
           }}
         >
-          {card.source}
-        </Text>
+          <Text
+            style={{
+              fontSize: 24,
+              color: theme.colors.secondary,
+              marginRight: 8,
+            }}
+          >
+            {card.source}
+          </Text>
 
-        {card.partOfSpeech && (
-          <Text style={{ marginLeft: 8 }}>{card.partOfSpeech}</Text>
-        )}
+          {card.ipa && <Text style={{ marginRight: 8 }}>[{card.ipa}]</Text>}
+
+          {card.partOfSpeech && <Text>{card.partOfSpeech}</Text>}
+        </View>
       </View>
       <CardDefinition card={card} />
       {showExamples && card.example && (
