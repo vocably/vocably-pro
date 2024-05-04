@@ -79,6 +79,7 @@ export const createTranslationCards = (
         return {
           language: analysis.translation.sourceLanguage,
           source: analysisItem.source,
+          ipa: analysisItem.ipa,
           example: join(analysisItem.examples ?? []),
           definition: join(analysisItem.definitions),
           translation: analysisItem.translation,

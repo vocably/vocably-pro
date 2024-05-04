@@ -74,11 +74,6 @@ $section-margin: 8px;
     margin-bottom: 8px;
   }
 
-  .pos {
-    display: inline-block;
-    font-size: 80%;
-  }
-
   .invisible-space {
     display: inline-block;
     width: 0;
@@ -92,6 +87,10 @@ $section-margin: 8px;
   .section {
     padding-left: $input-padding-x;
   }
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .error {
