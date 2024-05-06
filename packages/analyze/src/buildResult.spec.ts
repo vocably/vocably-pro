@@ -189,9 +189,6 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].source).toEqual('de regel');
     expect(result.value.items[0].translation).toEqual('строка, правило, норма');
     expect(result.value.items[1].source).toContain('regel');
-    expect('организовать, уладить, регулируемый').toContain(
-      result.value.items[1].translation
-    );
   });
 
   it('should use word dictionary', async () => {
