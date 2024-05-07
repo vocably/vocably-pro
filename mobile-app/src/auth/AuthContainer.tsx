@@ -3,8 +3,8 @@ import { Hub } from 'aws-amplify';
 import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { awsConfig } from '../aws-config';
 import { AuthContext, AuthStatus } from './AuthContext';
+import { useAsyncStorageSync } from '../ShareIntent/useAsyncStorageSync';
 
-Auth.configure(awsConfig);
 
 export const AuthContainer: FC<{
   children?: ReactNode;
@@ -14,6 +14,8 @@ export const AuthContainer: FC<{
   });
 
   useEffect(() => {
+    Auth.configure(awsConfig);
+
     Auth.currentAuthenticatedUser()
       .then((user) => {
         setAuthStatus({
@@ -53,6 +55,8 @@ export const AuthContainer: FC<{
       }
     });
   }, [setAuthStatus]);
+
+  useAsyncStorageSync(authStatus);
 
   return (
     <AuthContext.Provider value={authStatus}>{children}</AuthContext.Provider>
