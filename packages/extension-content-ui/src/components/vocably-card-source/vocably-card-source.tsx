@@ -29,10 +29,18 @@ export class VocablyCardSource {
           />
         )}
         <span class="emphasized">{this.card.data.source}</span>
+        {this.card.data.ipa && (
+          <Fragment>
+            <span class="invisible-space ">&nbsp;</span>
+            <span class="margin-left muted">[{this.card.data.ipa}]</span>
+          </Fragment>
+        )}
         {this.card.data.partOfSpeech && (
           <Fragment>
             <span class="invisible-space ">&nbsp;</span>
-            <span class="pos margin-left">{this.card.data.partOfSpeech}</span>
+            <span class="muted small margin-left">
+              {this.card.data.partOfSpeech}
+            </span>
           </Fragment>
         )}
       </Host>

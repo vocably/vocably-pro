@@ -3,6 +3,7 @@ import { addArticle } from '../addArticle';
 import { extractTranslation } from '../extractTranslation';
 import { getDefinitions } from './getDefinitions';
 import { getExamples } from './getExamples';
+import { getIpa } from './getIpa';
 import { LexicalaSearchResultItemWithNormalHeadword } from './normalizeHeadword';
 
 export const lexicalaSearchResultToAnalysisItem =
@@ -16,6 +17,7 @@ export const lexicalaSearchResultToAnalysisItem =
     );
     return {
       source: addArticle(item.language, item.headword),
+      ipa: getIpa(item),
       examples: getExamples(item.senses),
       definitions: getDefinitions(item.senses),
       partOfSpeech: item.headword.pos,

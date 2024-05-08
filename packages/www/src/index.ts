@@ -3,11 +3,16 @@ import './bootstrap.scss';
 import './styles.scss';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
+const isAndroid = browser.is('android');
+const isIos = browser.is('ios');
+
+document.querySelectorAll('.hide-android').forEach((el) => {
+  if (isAndroid) {
+    el.classList.add('d-none');
+  }
+});
 
 if (document.getElementById('automatically-download-mobile-app')) {
-  const isAndroid = browser.is('android');
-  const isIos = browser.is('ios');
-
   const progress = document.getElementById('mobile-app-progress');
   const links = document.getElementById('mobile-app-links');
 

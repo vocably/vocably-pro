@@ -3,6 +3,11 @@
     {{ item.data.source }}
   </div>
 
+  <div *ngIf="item.data.ipa" class="small inline-block ml-0_5">
+    <span class="inline-block invisible-space">&nbsp;</span>
+    [{{ item.data.ipa }}]
+  </div>
+
   <div *ngIf="item.data.partOfSpeech" class="small inline-block ml-0_5">
     <span class="inline-block invisible-space">&nbsp;</span>
     {{ item.data.partOfSpeech }}
