@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { configureApi } from '@vocably/api';
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import { useTheme } from 'react-native-paper';
+import Animated, { FadeInUp } from 'react-native-reanimated';
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
 import { AuthContainer } from '../auth/AuthContainer';
 import { Error } from '../Error';
@@ -14,7 +15,6 @@ import { Loader } from '../loaders/Loader';
 import { LookUpScreen } from '../LookUpScreen';
 import { ThemeProvider } from '../ThemeProvider';
 import { Login } from './LoginIos';
-import Animated, { FadeInUp } from 'react-native-reanimated';
 
 configureApi({
   baseUrl: API_BASE_URL,
@@ -32,7 +32,7 @@ const useSharedStorageSync = () => {
       SharedGroupPreferences.getItem('store', 'group.pro.vocably.app')
         .then((store) => JSON.parse(store))
         .then((store) => {
-          store.length ? AsyncStorage.multiSet(store) : AsyncStorage.clear()
+          store.length ? AsyncStorage.multiSet(store) : AsyncStorage.clear();
         })
         .then(() => setStorageStatus('loaded'))
         .catch(() => setStorageStatus('error')),
@@ -40,23 +40,21 @@ const useSharedStorageSync = () => {
   );
 
   useEffect(() => {
-      handleStorageSynchronisation();
+    handleStorageSynchronisation();
   }, [handleStorageSynchronisation]);
 
   return {
     status: storageStatus,
-    sync: handleStorageSynchronisation
-  }
-}
+    sync: handleStorageSynchronisation,
+  };
+};
 
 const StorageProvider = (props: PropsWithChildren) => {
   const sharedStorage = useSharedStorageSync();
 
   if (sharedStorage.status === 'error') {
     return (
-      <Error onRetry={sharedStorage.sync}>
-        Oops! Something went wrong.
-      </Error>
+      <Error onRetry={sharedStorage.sync}>Oops! Something went wrong.</Error>
     );
   } else if (sharedStorage.status === 'loading') {
     return <Loader>Synchronizing...</Loader>;
@@ -84,36 +82,35 @@ const AnimatedLookUpScreen: FC<{
 const ShareIntentApp = () => {
   return (
     <StorageProvider>
-    <ThemeProvider>
-      <AuthContainer>
-        <Login>
-          <LanguagesContainer>
-            <NavigationContainer theme={useTheme()}>
-              <Stack.Navigator>
-                <Stack.Screen
-                  name="Main"
-                  component={AnimatedLookUpScreen}
-                  options={{
-                    headerShown: false,
-                    presentation: 'card',
-                  }}
-                />
-                <Stack.Screen
-                  name="LanguageSelector"
-                  component={LanguageSelectorModal}
-                  options={{
-                    headerShown: false,
-                    presentation: 'transparentModal',
-                  }}
-                />
-              </Stack.Navigator>
-            </NavigationContainer>
-          </LanguagesContainer>
-        </Login>
-      </AuthContainer>
-    </ThemeProvider>
+      <ThemeProvider>
+          <AuthContainer>
+            <Login>
+              <LanguagesContainer>
+                <NavigationContainer theme={useTheme()}>
+                  <Stack.Navigator>
+                    <Stack.Screen
+                      name="Main"
+                      component={AnimatedLookUpScreen}
+                      options={{
+                        headerShown: false,
+                        presentation: 'card',
+                      }}
+                    />
+                    <Stack.Screen
+                      name="LanguageSelector"
+                      component={LanguageSelectorModal}
+                      options={{
+                        headerShown: false,
+                        presentation: 'transparentModal',
+                      }}
+                    />
+                  </Stack.Navigator>
+                </NavigationContainer>
+              </LanguagesContainer>
+            </Login>
+          </AuthContainer>
+      </ThemeProvider>
     </StorageProvider>
-
   );
 };
 

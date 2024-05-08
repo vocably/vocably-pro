@@ -7,19 +7,6 @@
 		<string>MaterialIcons.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>
 	</array>
-	<key>ReactShareViewBackgroundColor</key>
-	<dict>
-		<key>Red</key>
-		<integer>1</integer>
-		<key>Green</key>
-		<integer>1</integer>
-		<key>Blue</key>
-		<integer>1</integer>
-		<key>Alpha</key>
-		<integer>1</integer>
-		<key>Transparent</key>
-		<false/>
-	</dict>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
