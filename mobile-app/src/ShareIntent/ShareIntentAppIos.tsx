@@ -1,12 +1,10 @@
 import { API_BASE_URL, API_CARDS_BUCKET, API_REGION } from '@env';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer, NavigationProp } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { configureApi } from '@vocably/api';
-import { FC, PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { useTheme } from 'react-native-paper';
 import Animated, { FadeInUp } from 'react-native-reanimated';
-import SharedGroupPreferences from 'react-native-shared-group-preferences';
 import { AuthContainer } from '../auth/AuthContainer';
 import { Error } from '../Error';
 import { LanguagesContainer } from '../languages/LanguagesContainer';
@@ -15,6 +13,7 @@ import { Loader } from '../loaders/Loader';
 import { LookUpScreen } from '../LookUpScreen';
 import { ThemeProvider } from '../ThemeProvider';
 import { Login } from './LoginIos';
+import { useSharedStorageSync } from './useSharedStorageSync';
 
 configureApi({
   baseUrl: API_BASE_URL,
@@ -23,31 +22,6 @@ configureApi({
 });
 
 const Stack = createStackNavigator();
-
-const useSharedStorageSync = () => {
-  const [storageStatus, setStorageStatus] = useState('loading');
-
-  const handleStorageSynchronisation = useCallback(
-    () =>
-      SharedGroupPreferences.getItem('store', 'group.pro.vocably.app')
-        .then((store) => JSON.parse(store))
-        .then((store) => {
-          store.length ? AsyncStorage.multiSet(store) : AsyncStorage.clear();
-        })
-        .then(() => setStorageStatus('loaded'))
-        .catch(() => setStorageStatus('error')),
-    []
-  );
-
-  useEffect(() => {
-    handleStorageSynchronisation();
-  }, [handleStorageSynchronisation]);
-
-  return {
-    status: storageStatus,
-    sync: handleStorageSynchronisation,
-  };
-};
 
 const StorageProvider = (props: PropsWithChildren) => {
   const sharedStorage = useSharedStorageSync();
