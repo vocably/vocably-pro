@@ -20,8 +20,7 @@ index 0000000..0d259dd
 +o/classes
 diff --git a/node_modules/react-native-share-menu/android/build/.transforms/01334f1c5c97950447ed7767618c1402/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-share-menu/android/build/.transforms/01334f1c5c97950447ed7767618c1402/transformed/classes/classes_dex/classes.dex
 new file mode 100644
-index 0000000..78c2f47
-Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/.transforms/01334f1c5c97950447ed7767618c1402/transformed/classes/classes_dex/classes.dex differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-share-menu/android/build/.transforms/4de473ab1b895f050d350e0b5586e13f/results.bin b/node_modules/react-native-share-menu/android/build/.transforms/4de473ab1b895f050d350e0b5586e13f/results.bin
 new file mode 100644
 index 0000000..e3f0ff0
@@ -112,12 +111,10 @@ index 0000000..9e26dfe
 \ No newline at end of file
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/compile_library_classes_jar/debug/classes.jar b/node_modules/react-native-share-menu/android/build/intermediates/compile_library_classes_jar/debug/classes.jar
 new file mode 100644
-index 0000000..620e094
-Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/compile_library_classes_jar/debug/classes.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/compile_r_class_jar/debug/R.jar b/node_modules/react-native-share-menu/android/build/intermediates/compile_r_class_jar/debug/R.jar
 new file mode 100644
-index 0000000..008bed8
-Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/compile_r_class_jar/debug/R.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/compile_symbol_list/debug/R.txt b/node_modules/react-native-share-menu/android/build/intermediates/compile_symbol_list/debug/R.txt
 new file mode 100644
 index 0000000..e69de29
@@ -166,16 +163,13 @@ index 0000000..b75a66d
 \ No newline at end of file
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/BuildConfig.class b/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/BuildConfig.class
 new file mode 100644
-index 0000000..d2ac5fe
-Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/BuildConfig.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/ShareMenuModule.class b/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/ShareMenuModule.class
 new file mode 100644
-index 0000000..4ceb597
-Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/ShareMenuModule.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/ShareMenuPackage.class b/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/ShareMenuPackage.class
 new file mode 100644
-index 0000000..e90a5d6
-Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/javac/debug/classes/com/meedan/ShareMenuPackage.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/local_only_symbol_list/debug/R-def.txt b/node_modules/react-native-share-menu/android/build/intermediates/local_only_symbol_list/debug/R-def.txt
 new file mode 100644
 index 0000000..78ac5b8
@@ -221,8 +215,7 @@ index 0000000..0637a08
 \ No newline at end of file
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar b/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar
 new file mode 100644
-index 0000000..f921e8d
-Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-share-menu/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt b/node_modules/react-native-share-menu/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
 new file mode 100644
 index 0000000..3a6ee17
@@ -255,10 +248,9 @@ index 0000000..e4e36cc
 +		INJECTED from /Users/bekatru/projects/vocably-pro/mobile-app/node_modules/react-native-share-menu/android/src/main/AndroidManifest.xml
 diff --git a/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin b/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
 new file mode 100644
-index 0000000..aadc50e
-Binary files /dev/null and b/node_modules/react-native-share-menu/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-share-menu/android/src/main/java/com/meedan/ShareMenuModule.java b/node_modules/react-native-share-menu/android/src/main/java/com/meedan/ShareMenuModule.java
-index 09abd7b..2980be1 100644
+index 09abd7b..4f5b735 100644
 --- a/node_modules/react-native-share-menu/android/src/main/java/com/meedan/ShareMenuModule.java
 +++ b/node_modules/react-native-share-menu/android/src/main/java/com/meedan/ShareMenuModule.java
 @@ -58,7 +58,18 @@ public class ShareMenuModule extends ReactContextBaseJavaModule implements Activ
@@ -299,7 +291,7 @@ index 09abd7b..2980be1 100644
 -    }
 -
      Intent intent = currentActivity.getIntent();
- 
+     
      ReadableMap shared = extractShared(intent);
 @@ -136,6 +134,7 @@ public class ShareMenuModule extends ReactContextBaseJavaModule implements Activ
  
@@ -323,3 +315,38 @@ index 09abd7b..2980be1 100644
 +     // Keep: Required for RN built in Event Emitter Calls.
 +   }
  }
+diff --git a/node_modules/react-native-share-menu/ios/ReactShareViewController.swift b/node_modules/react-native-share-menu/ios/ReactShareViewController.swift
+index f42bce6..413317e 100644
+--- a/node_modules/react-native-share-menu/ios/ReactShareViewController.swift
++++ b/node_modules/react-native-share-menu/ios/ReactShareViewController.swift
+@@ -13,7 +13,7 @@ class ReactShareViewController: ShareViewController, RCTBridgeDelegate, ReactSha
+   func sourceURL(for bridge: RCTBridge!) -> URL! {
+ #if DEBUG
+     return RCTBundleURLProvider.sharedSettings()?
+-      .jsBundleURL(forBundleRoot: "index.share", fallbackResource: nil)
++      .jsBundleURL(forBundleRoot: "index.share")
+ #else
+     return Bundle.main.url(forResource: "main", withExtension: "jsbundle")
+ #endif
+@@ -29,20 +29,7 @@ class ReactShareViewController: ShareViewController, RCTBridgeDelegate, ReactSha
+       initialProperties: nil
+     )
+ 
+-    rootView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+-    backgroundColorSetup: if let backgroundColorConfig = Bundle.main.infoDictionary?[REACT_SHARE_VIEW_BACKGROUND_COLOR_KEY] as? [String:Any] {
+-      if let transparent = backgroundColorConfig[COLOR_TRANSPARENT_KEY] as? Bool, transparent {
+-        rootView.backgroundColor = nil
+-        break backgroundColorSetup
+-      }
+-
+-      let red = backgroundColorConfig[COLOR_RED_KEY] as? Float ?? 1
+-      let green = backgroundColorConfig[COLOR_GREEN_KEY] as? Float ?? 1
+-      let blue = backgroundColorConfig[COLOR_BLUE_KEY] as? Float ?? 1
+-      let alpha = backgroundColorConfig[COLOR_ALPHA_KEY] as? Float ?? 1
+-
+-      rootView.backgroundColor = UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
+-    }
++    rootView.backgroundColor = UIColor.systemBackground
+ 
+     self.view = rootView
+ 
