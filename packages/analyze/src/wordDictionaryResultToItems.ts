@@ -26,6 +26,7 @@ export const wordDictionaryResultToAnalysisItems = ({
       const definitions = getItemDefinitions(wdDefinitions);
       const item = {
         source: result.response,
+        ipa: result.ipa ?? '',
         definitions,
         partOfSpeech,
       };

@@ -112,7 +112,7 @@ registerContentScript({
               url: `https://ssl.gstatic.com/dictionary/static/sounds/20200429/hello--_gb_1.mp3`,
             },
           });
-        }, 3000);
+        }, 500);
       });
     },
     askForRating: () => {

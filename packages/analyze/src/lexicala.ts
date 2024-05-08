@@ -9,6 +9,7 @@ export type Headword = {
   pos?: string;
   gender?: string;
   alternative_scripts?: Array<{ type: string; text: string }>;
+  pronunciation?: { value?: string };
 };
 
 export type LexicalaTranslation = {

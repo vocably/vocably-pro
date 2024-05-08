@@ -53,18 +53,6 @@ const styles = StyleSheet.create({
   swipeList: {
     width: '100%',
   },
-  swipeButton: {
-    width: SWIPE_MENU_BUTTON_SIZE,
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  swipeMenu: {
-    height: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
   emptyContentContainer: {
     flexGrow: 1,
     justifyContent: 'center',
@@ -114,21 +102,41 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
   );
 
   const renderCard = (data: ListRenderItemInfo<CardItem>) => (
-    <View style={{ backgroundColor: theme.colors.background }}>
-      <Pressable
-        onPress={() => navigation.navigate('EditCard', { card: data.item })}
-      >
-        <CardListItem card={data.item.data} />
-      </Pressable>
-    </View>
+    <Pressable
+      onPress={() => navigation.navigate('EditCard', { card: data.item })}
+      style={{
+        backgroundColor: theme.colors.background,
+        // This is to prevent the swipe menu
+        // from flashing occasionally
+        borderWidth: 1,
+        borderColor: 'transparent',
+      }}
+    >
+      <CardListItem card={data.item.data} />
+    </Pressable>
   );
 
   const renderSwipeMenu = (data: ListRenderItemInfo<CardItem>) => (
-    <View style={styles.swipeMenu}>
+    <View
+      style={{
+        alignSelf: 'flex-end',
+        height: '100%',
+        // This is to prevent the swipe menu
+        // from flashing occasionally
+        borderWidth: 1,
+        borderColor: 'transparent',
+      }}
+    >
       <Pressable
         onPress={() => deleteCard(data.item.id)}
         disabled={toBeDeletedId === data.item.id}
-        style={[styles.swipeButton, { backgroundColor: theme.colors.error }]}
+        style={{
+          backgroundColor: theme.colors.error,
+          width: SWIPE_MENU_BUTTON_SIZE,
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+        }}
       >
         {toBeDeletedId === data.item.id ? (
           <ActivityIndicator size={32} color={theme.colors.onSecondary} />

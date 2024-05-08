@@ -12,6 +12,7 @@ export type WordDictionaryResponse = {
     adverb: string;
     adjective: string;
   };
+  ipa?: string;
 };
 
 export const wordDictionary = async (

@@ -33,6 +33,7 @@ export const isReverseAnalyzePayload = (o: any): o is DirectAnalyzePayload => {
 
 export type AnalysisItem = {
   source: string;
+  ipa?: string;
   definitions: string[];
   examples?: string[];
   translation: string;

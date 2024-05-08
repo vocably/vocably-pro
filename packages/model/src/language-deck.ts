@@ -8,6 +8,7 @@ export type SrsItem = {
 export type Card = {
   language: string;
   source: string;
+  ipa?: string;
   example?: string;
   definition: string;
   translation: string;
