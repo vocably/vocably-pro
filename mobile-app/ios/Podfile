@@ -71,6 +71,7 @@ target 'VocablyProShare' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   pod 'RNSound', :path => '../node_modules/react-native-sound'
   pod 'react-native-get-random-values', :path => '../node_modules/react-native-get-random-values'
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
   # Manually link packages here to keep your extension bundle size minimal
 end
