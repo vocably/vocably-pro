@@ -316,7 +316,7 @@ index 09abd7b..4f5b735 100644
 +   }
  }
 diff --git a/node_modules/react-native-share-menu/ios/ReactShareViewController.swift b/node_modules/react-native-share-menu/ios/ReactShareViewController.swift
-index f42bce6..413317e 100644
+index f42bce6..2eecb56 100644
 --- a/node_modules/react-native-share-menu/ios/ReactShareViewController.swift
 +++ b/node_modules/react-native-share-menu/ios/ReactShareViewController.swift
 @@ -13,7 +13,7 @@ class ReactShareViewController: ShareViewController, RCTBridgeDelegate, ReactSha
@@ -324,11 +324,16 @@ index f42bce6..413317e 100644
  #if DEBUG
      return RCTBundleURLProvider.sharedSettings()?
 -      .jsBundleURL(forBundleRoot: "index.share", fallbackResource: nil)
-+      .jsBundleURL(forBundleRoot: "index.share")
++      .jsBundleURL(forBundleRoot: "index")
  #else
      return Bundle.main.url(forResource: "main", withExtension: "jsbundle")
  #endif
-@@ -29,20 +29,7 @@ class ReactShareViewController: ShareViewController, RCTBridgeDelegate, ReactSha
+@@ -25,24 +25,11 @@ class ReactShareViewController: ShareViewController, RCTBridgeDelegate, ReactSha
+     let bridge: RCTBridge! = RCTBridge(delegate: self, launchOptions: nil)
+     let rootView = RCTRootView(
+       bridge: bridge,
+-      moduleName: "ShareMenuModuleComponent",
++      moduleName: "VocablyProShare",
        initialProperties: nil
      )
  

@@ -4,6 +4,7 @@ import { FC, useCallback } from 'react';
 import { Alert, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
+import { APP_GROUP_ID, ASYNC_STORAGE_KEY } from '../ShareIntent/constants';
 
 type AccountMenu = FC<{}>;
 
@@ -12,7 +13,7 @@ export const AccountMenu: AccountMenu = () => {
 
   const handleSignOut = () => {
     return SharedGroupPreferences
-      .setItem("store", null, 'group.pro.vocably.app')
+      .setItem(ASYNC_STORAGE_KEY, null, APP_GROUP_ID)
       .then(() => AsyncStorage.clear())
       .then(() => Auth.signOut());
   }
