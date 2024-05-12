@@ -278,21 +278,17 @@ vocably-play-sound {
 .language-selector {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 4px;
   margin-left: -$input-padding-x;
   width: calc(100% + #{$input-padding-x});
 
   .language-wrapper {
-    width: 48%;
+    width: 46%;
 
     .language {
       width: 100%;
     }
-  }
-
-  .from-to {
-    width: 4%;
-    text-align: center;
   }
 }
 

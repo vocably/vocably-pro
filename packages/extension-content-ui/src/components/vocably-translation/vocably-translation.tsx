@@ -120,9 +120,7 @@ export class VocablyTranslation {
                 <div class="section">
                   <div class="margin-bottom-2 language-selector">
                     <div class="language-wrapper">{sourceLanguageSelector}</div>
-                    <span class="from-to">
-                      <vocably-icon-arrow-right></vocably-icon-arrow-right>
-                    </span>
+                    <vocably-icon-arrow-right class="from-to"></vocably-icon-arrow-right>
                     <div class="language-wrapper">{targetLanguageSelector}</div>
                   </div>
                   {showDirect && (
