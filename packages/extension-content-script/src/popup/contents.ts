@@ -54,10 +54,18 @@ export const setContents = async ({
       contentScriptConfiguration.allowFirstTranslationCongratulation &&
       !userKnowsHowToAdd;
 
-    const analyze = (sourceLanguage?: GoogleLanguage) => {
+    type AnalyzePayload = {
+      sourceLanguage?: GoogleLanguage;
+      targetLanguage?: GoogleLanguage;
+    };
+
+    const analyze = ({
+      sourceLanguage,
+      targetLanguage,
+    }: AnalyzePayload = {}) => {
       translation.loading = true;
       api
-        .analyze({ source: source, sourceLanguage, context })
+        .analyze({ source, sourceLanguage, targetLanguage, context })
         .finally(() => {
           translation.loading = false;
         })
@@ -79,25 +87,49 @@ export const setContents = async ({
 
           translation.result = translationResult;
           if (translationResult.success === true) {
-            translation.language =
+            translation.sourceLanguage =
               translationResult.value.translation.sourceLanguage;
+
+            translation.targetLanguage =
+              translationResult.value.translation.targetLanguage;
+
+            translation.existingTargetLanguages = [
+              translationResult.value.translation.targetLanguage,
+            ];
           }
 
           const existingLanguagesResult = await api.listLanguages();
-          translation.existingLanguages = existingLanguagesResult.success
+          translation.existingSourceLanguages = existingLanguagesResult.success
             ? existingLanguagesResult.value
             : [];
         });
     };
 
     translation.addEventListener(
-      'changeLanguage',
-      ({ detail: language }: CustomEvent) => {
+      'changeSourceLanguage',
+      ({ detail: sourceLanguage }: CustomEvent) => {
         if (translation.result && translation.result.success) {
           api.cleanUp(translation.result.value);
         }
-        translation.language = language;
-        analyze(language);
+        translation.sourceLanguage = sourceLanguage;
+        analyze({
+          sourceLanguage,
+          targetLanguage: translation.targetLanguage as GoogleLanguage,
+        });
+      }
+    );
+
+    translation.addEventListener(
+      'changeTargetLanguage',
+      ({ detail: targetLanguage }: CustomEvent) => {
+        if (translation.result && translation.result.success) {
+          api.cleanUp(translation.result.value);
+        }
+        translation.targetLanguage = targetLanguage;
+        analyze({
+          sourceLanguage: translation.sourceLanguage as GoogleLanguage,
+          targetLanguage,
+        });
       }
     );
 

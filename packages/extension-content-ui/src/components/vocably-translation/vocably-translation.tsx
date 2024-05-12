@@ -35,10 +35,12 @@ export class VocablyTranslation {
   @Prop() phrase: string;
   @Prop() result: Result<TranslationCards> | null = null;
   @Prop() loading: boolean = false;
-  @Prop() existingLanguages: GoogleLanguage[] = [];
+  @Prop() existingSourceLanguages: GoogleLanguage[] = [];
+  @Prop() existingTargetLanguages: GoogleLanguage[] = [];
   @Prop() isFeedbackEnabled: boolean = true;
   @Prop() askForRating: boolean = false;
-  @Prop() language: string = '';
+  @Prop() sourceLanguage: string = '';
+  @Prop() targetLanguage: string = '';
   @Prop() isUpdating: TranslationCard | null = null;
   @Prop() showSaveHint: boolean = true;
   @Prop() canCongratulate: boolean = false;
@@ -49,8 +51,8 @@ export class VocablyTranslation {
 
   @Event() ratingInteraction: EventEmitter<RateInteractionPayload>;
 
-  @Event()
-  changeLanguage: EventEmitter<string>;
+  @Event() changeSourceLanguage: EventEmitter<string>;
+  @Event() changeTargetLanguage: EventEmitter<string>;
   @Event() removeCard: EventEmitter<RemoveCardPayload>;
   @Event() addCard: EventEmitter<AddCardPayload>;
 
@@ -60,18 +62,40 @@ export class VocablyTranslation {
   private askForRatingContainer: HTMLDivElement;
 
   render() {
-    const languageSelector = this.result && this.result.success && (
+    const sourceLanguageSelector = this.result && this.result.success && (
       <select
-        data-test="language-selector"
+        class="language"
         disabled={this.loading}
         onChange={(event) =>
-          this.changeLanguage.emit((event.target as HTMLSelectElement).value)
+          this.changeSourceLanguage.emit(
+            (event.target as HTMLSelectElement).value
+          )
         }
       >
         {Object.entries(languageList)
-          .sort(sortLanguages(this.existingLanguages))
+          .sort(sortLanguages(this.existingSourceLanguages))
           .map(([code, name]) => (
-            <option selected={this.language === code} value={code}>
+            <option selected={this.sourceLanguage === code} value={code}>
+              {name}
+            </option>
+          ))}
+      </select>
+    );
+
+    const targetLanguageSelector = this.result && this.result.success && (
+      <select
+        class="language"
+        disabled={this.loading}
+        onChange={(event) =>
+          this.changeTargetLanguage.emit(
+            (event.target as HTMLSelectElement).value
+          )
+        }
+      >
+        {Object.entries(languageList)
+          .sort(sortLanguages(this.existingTargetLanguages))
+          .map(([code, name]) => (
+            <option selected={this.targetLanguage === code} value={code}>
               {name}
             </option>
           ))}
@@ -94,7 +118,13 @@ export class VocablyTranslation {
             <Fragment>
               <div class="translation" data-test="translation">
                 <div class="section">
-                  <div class="margin-bottom-2">{languageSelector}</div>
+                  <div class="margin-bottom-2 language-selector">
+                    <div class="language-wrapper">{sourceLanguageSelector}</div>
+                    <span class="from-to">
+                      <vocably-icon-arrow-right></vocably-icon-arrow-right>
+                    </span>
+                    <div class="language-wrapper">{targetLanguageSelector}</div>
+                  </div>
                   {showDirect && (
                     <div class="margin-bottom-2">
                       <div class="small muted margin-bottom-1">

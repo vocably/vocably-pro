@@ -143,11 +143,16 @@ export const registerServiceWorker = (
       ...payload,
       sourceLanguage:
         payload.sourceLanguage ?? (await getSourceLanguage()) ?? 'en',
-      targetLanguage: (await getProxyLanguage()) ?? 'en',
+      targetLanguage:
+        payload.targetLanguage || ((await getProxyLanguage()) ?? 'en'),
     };
 
     if (payload.sourceLanguage) {
       await setSourceLanguage(payload.sourceLanguage);
+    }
+
+    if (payload.targetLanguage) {
+      await setProxyLanguage(payload.targetLanguage);
     }
 
     try {
