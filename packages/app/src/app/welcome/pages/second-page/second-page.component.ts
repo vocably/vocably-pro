@@ -18,6 +18,7 @@ import {
   switchMap,
   takeUntil,
   tap,
+  throwError,
 } from 'rxjs';
 import { extensionId } from '../../../../extension';
 
@@ -54,6 +55,21 @@ export class SecondPageComponent implements OnInit, OnDestroy {
           this.language = language;
         }),
         switchMap((language): Observable<string> => {
+          const exampleExists = [
+            'de',
+            'en',
+            'es',
+            'fr',
+            'it',
+            'ja',
+            'nl',
+            'pt',
+          ].includes(language);
+
+          if (!exampleExists) {
+            return throwError(() => new Error('No example available'));
+          }
+
           return from(getProxyLanguage(extensionId)).pipe(
             switchMap((proxyLanguage): Observable<string> => {
               // This is the case where the user has not set a proxy language yet.
