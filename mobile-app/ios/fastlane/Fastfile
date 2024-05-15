@@ -24,7 +24,11 @@ platform :ios do
   lane :certificates do
     match(
       readonly: true,
-      app_identifier: ["pro.vocably.app", "pro.vocably.app.Vocably-for-Safari"]
+      app_identifier: [
+        "pro.vocably.app",
+        "pro.vocably.app.Vocably-for-Safari",
+        "pro.vocably.app.VocablyProShare"
+      ]
     )
   end
 
