@@ -2,7 +2,7 @@ import { GoogleLanguage, isGoogleLanguage } from '@vocably/model';
 
 const defaultLanguage = 'en';
 
-export const detectProxyLanguage = (): GoogleLanguage => {
+export const detectTargetLanguage = (): GoogleLanguage => {
   const userLocale = navigator.language;
   if (!userLocale) {
     return defaultLanguage;

@@ -19,16 +19,16 @@
   <div>
     <app-expansion
       label="Explain it better"
-      *ngIf="language"
+      *ngIf="sourceLanguage"
       panelStyle="padding-top: 2rem;"
     >
       <app-detailed-explanation
-        [language]="language"
+        [language]="sourceLanguage"
       ></app-detailed-explanation>
     </app-expansion>
   </div>
 </ng-container>
 <app-generic-instruction
-  [language]="language"
-  *ngIf="language && !isLoading && !exampleHtml"
+  [language]="sourceLanguage"
+  *ngIf="sourceLanguage && !isLoading && !exampleHtml"
 ></app-generic-instruction>

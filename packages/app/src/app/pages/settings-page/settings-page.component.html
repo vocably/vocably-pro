@@ -1,11 +1,14 @@
 <div class="container-xl top"><app-header title="Settings"></app-header></div>
 <div class="container bottom">
   <div class="green-zone">
-    <p>What language do you speak fluently?</p>
-    <div class="mt-1 mb-1 tiny">
-      Vocably will provide translations in that language.
-    </div>
-    <app-language-input (onSave)="notifyOnSave()"></app-language-input>
+    <p>Not so many settings here, right?</p>
+    <p>
+      Please let me know if you were bothered by something. I'd like to change
+      it.
+    </p>
+    <p>
+      <a class="button" [routerLink]="['/feedback']">Let me know</a>
+    </p>
   </div>
   <mat-divider style="margin-bottom: 1rem"></mat-divider>
   <button class="link unstyled" (click)="deleteAccount()">

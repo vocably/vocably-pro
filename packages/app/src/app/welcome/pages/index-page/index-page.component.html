@@ -2,9 +2,14 @@
   Welcome to Vocably. Let's set you up.
 </p>
 
-<div class="display-flex align-items-center mb-2">
+<div class="display-flex align-items-center mb-2" *ngIf="targetLanguage">
   <div class="mat-h2 m-0 mr-1">I fluently speak</div>
-  <div class="flex-1"><app-language-input></app-language-input></div>
+  <div class="flex-1">
+    <app-language-input
+      [value]="targetLanguage"
+      (onChange)="targetLanguage = $event"
+    ></app-language-input>
+  </div>
 </div>
 
 <div class="text-left">

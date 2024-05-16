@@ -1,37 +1,34 @@
 import {
   Component,
   EventEmitter,
+  Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import {
-  getProxyLanguage,
-  setProxyLanguage,
-} from '@vocably/extension-messages';
+import { setProxyLanguage } from '@vocably/extension-messages';
 import { GoogleLanguage, languageList } from '@vocably/model';
-import { map, Observable, startWith, Subject, takeUntil } from 'rxjs';
+import { map, Observable, startWith, Subject } from 'rxjs';
 import { extensionId } from '../../../extension';
-import { isExtensionInstalled } from '../../isExtensionInstalled';
-import { detectProxyLanguage } from './detectProxyLanguage';
 
 @Component({
   selector: 'app-language-input',
   templateUrl: './language-input.component.html',
   styleUrls: ['./language-input.component.scss'],
 })
-export class LanguageInputComponent implements OnInit, OnDestroy {
+export class LanguageInputComponent implements OnInit, OnDestroy, OnChanges {
   private destroy$ = new Subject();
 
-  @Output() onSave = new EventEmitter<GoogleLanguage>();
+  @Input() value: GoogleLanguage = 'en';
+  @Output() onChange = new EventEmitter<GoogleLanguage>();
 
   languageInput = new FormControl<GoogleLanguage>({
-    value: 'en',
-    disabled: true,
+    value: this.value,
+    disabled: false,
   });
-
-  isInstalled: boolean | undefined = undefined;
 
   public languages$: Observable<GoogleLanguage[]> =
     this.languageInput.valueChanges.pipe(
@@ -41,41 +38,21 @@ export class LanguageInputComponent implements OnInit, OnDestroy {
       )
     );
 
-  constructor() {
-    isExtensionInstalled
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(async (isInstalled) => {
-        this.isInstalled = isInstalled;
-
-        if (isInstalled) {
-          this.languageInput.setValue(
-            await this.getInitialLanguageInputValue()
-          );
-          this.languageInput.enable();
-        } else {
-          this.languageInput.disable();
-        }
-      });
-  }
-
-  private async getInitialLanguageInputValue(): Promise<GoogleLanguage> {
-    const proxyLanguage = await getProxyLanguage(extensionId);
-
-    if (proxyLanguage) {
-      return proxyLanguage;
-    }
-
-    const detectedLanguage = detectProxyLanguage();
-    await setProxyLanguage(extensionId, detectedLanguage);
-
-    return detectedLanguage;
-  }
-
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.destroy$.next(null);
     this.destroy$.complete();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes['value']) {
+      return;
+    }
+
+    if (changes['value'].currentValue !== changes['value'].previousValue) {
+      this.languageInput.setValue(changes['value'].currentValue);
+    }
   }
 
   private _filterLanguages(value: string): GoogleLanguage[] {
@@ -101,6 +78,6 @@ export class LanguageInputComponent implements OnInit, OnDestroy {
 
   async saveLanguage(language: GoogleLanguage) {
     await setProxyLanguage(extensionId, language);
-    this.onSave.emit(language);
+    this.onChange.emit(language);
   }
 }

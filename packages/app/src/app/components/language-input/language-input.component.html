@@ -1,6 +1,5 @@
 <mat-form-field
   style="width: 100%"
-  [class.opacity-50]="!isInstalled"
   appearance="outline"
   floatLabel="never"
   nolabel="true"
@@ -24,6 +23,3 @@
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
-<div *ngIf="isInstalled === false">
-  Please install the extension before selecting your main language.
-</div>
