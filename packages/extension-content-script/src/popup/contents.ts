@@ -114,7 +114,6 @@ export const setContents = async ({
         translation.sourceLanguage = sourceLanguage;
         analyze({
           sourceLanguage,
-          targetLanguage: translation.targetLanguage as GoogleLanguage,
         });
       }
     );
@@ -127,7 +126,6 @@ export const setContents = async ({
         }
         translation.targetLanguage = targetLanguage;
         analyze({
-          sourceLanguage: translation.sourceLanguage as GoogleLanguage,
           targetLanguage,
         });
       }

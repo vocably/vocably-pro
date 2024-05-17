@@ -54,9 +54,9 @@ export class SecondPageComponent implements OnInit, OnDestroy {
           );
         }),
         tap(() => (this.isLoading = true)),
-        tap((params) => {
-          setSourceLanguage(extensionId, params['sourceLanguage']);
-          setProxyLanguage(extensionId, params['targetLanguage']);
+        tap(async (params) => {
+          await setSourceLanguage(extensionId, params['sourceLanguage']);
+          await setProxyLanguage(extensionId, params['targetLanguage']);
           this.sourceLanguage = params['sourceLanguage'];
           this.targetLanguage = params['targetLanguage'];
         }),

@@ -53,8 +53,14 @@ import { browserEnv } from './browserEnv';
 import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
-import { getProxyLanguage, setProxyLanguage } from './proxyLanguage';
-import { getSourceLanguage, setSourceLanguage } from './sourceLanguage';
+import {
+  getProxyLanguage,
+  setProxyLanguage,
+} from './selectedLanguage/proxyLanguage';
+import {
+  getSourceLanguage,
+  setSourceLanguage,
+} from './selectedLanguage/sourceLanguage';
 import {
   getUserMetadata,
   invalidateUserMetadata,
@@ -139,14 +145,6 @@ export const registerServiceWorker = (
   };
 
   onAnalyzeRequest(async (sendResponse, payload) => {
-    const analyzePayload = {
-      ...payload,
-      sourceLanguage:
-        payload.sourceLanguage ?? (await getSourceLanguage()) ?? 'en',
-      targetLanguage:
-        payload.targetLanguage || ((await getProxyLanguage()) ?? 'en'),
-    };
-
     if (payload.sourceLanguage) {
       await setSourceLanguage(payload.sourceLanguage);
     }
@@ -154,6 +152,14 @@ export const registerServiceWorker = (
     if (payload.targetLanguage) {
       await setProxyLanguage(payload.targetLanguage);
     }
+
+    const analyzePayload = {
+      ...payload,
+      sourceLanguage:
+        payload.sourceLanguage ?? (await getSourceLanguage()) ?? 'en',
+      targetLanguage:
+        payload.targetLanguage ?? (await getProxyLanguage()) ?? 'en',
+    };
 
     try {
       const [analysisResult, loadLanguageDeckResult] =
