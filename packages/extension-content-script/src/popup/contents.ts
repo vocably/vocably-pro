@@ -92,16 +92,14 @@ export const setContents = async ({
 
             translation.targetLanguage =
               translationResult.value.translation.targetLanguage;
-
-            translation.existingTargetLanguages = [
-              translationResult.value.translation.targetLanguage,
-            ];
           }
 
           const existingLanguagesResult = await api.listLanguages();
           translation.existingSourceLanguages = existingLanguagesResult.success
             ? existingLanguagesResult.value
             : [];
+          const existingTargetLanguages = await api.listTargetLanguages();
+          translation.existingTargetLanguages = existingTargetLanguages;
         });
     };
 

@@ -22,6 +22,7 @@ import {
   onIsLoggedInRequest,
   onIsUserKnowsHowToAdd,
   onListLanguagesRequest,
+  onListTargetLanguagesRequest,
   onPing,
   onPingExternal,
   onPlaySound,
@@ -53,6 +54,7 @@ import { browserEnv } from './browserEnv';
 import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
+import { getLanguagePair } from './selectedLanguage/languagePairs';
 import {
   getProxyLanguage,
   setProxyLanguage,
@@ -319,6 +321,14 @@ export const registerServiceWorker = (
   onListLanguagesRequest(async (sendResponse) =>
     sendResponse(await getUserLanguages())
   );
+
+  onListTargetLanguagesRequest(async (sendResponse) => {
+    const sourceLanguage = await getSourceLanguage();
+    const languagePair = getLanguagePair(sourceLanguage);
+    return sendResponse(
+      languagePair ? languagePair.possibleTargetLanguages : []
+    );
+  });
 
   onPing((sendResponse) => {
     return sendResponse('pong');

@@ -99,6 +99,7 @@ registerContentScript({
     ping: () => Promise.resolve('pong'),
     listLanguages: () =>
       Promise.resolve({ success: true, value: ['ar', 'nl'] }),
+    listTargetLanguages: () => Promise.resolve(['en', 'ru']),
     isUserKnowsHowToAdd: () => Promise.resolve(isUserKnowsHowToAdd),
     setUserKnowsHowToAdd: async (value) => {
       isUserKnowsHowToAdd = value;

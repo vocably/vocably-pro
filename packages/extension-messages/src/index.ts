@@ -50,6 +50,9 @@ export const [listLanguages, onListLanguagesRequest] = createScopedMessage<
   Result<GoogleLanguage[]>
 >('listLanguages');
 
+export const [listTargetLanguages, onListTargetLanguagesRequest] =
+  createScopedMessage<void, GoogleLanguage[]>('listTargetLanguages');
+
 export const [cleanUp, onCleanUpRequest] = createScopedMessage<
   TranslationCards,
   Result<null>
