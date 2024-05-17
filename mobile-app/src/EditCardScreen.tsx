@@ -3,7 +3,7 @@ import { CardItem } from '@vocably/model';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, TextInput, useTheme } from 'react-native-paper';
-import { userSelectedDeck } from './languageDeck/userSelectedDeck';
+import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { mainPadding } from './styles';
 
 const styles = StyleSheet.create({
@@ -29,7 +29,7 @@ type EditCardScreen = FC<{
 }>;
 
 export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
-  const { update } = userSelectedDeck();
+  const { update } = useSelectedDeck();
 
   const { card } = route.params as EditCardParams;
   const [cardData, setCardData] = useState({ ...card.data });

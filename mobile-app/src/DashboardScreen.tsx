@@ -20,7 +20,7 @@ import {
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem, keyExtractor, Separator } from './CardListItem';
-import { userSelectedDeck } from './languageDeck/userSelectedDeck';
+import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { Loader } from './loaders/Loader';
 import { mainPadding } from './styles';
@@ -69,7 +69,7 @@ type DashboardScreen = FC<{
 }>;
 
 export const DashboardScreen: DashboardScreen = ({ navigation }) => {
-  const { deck, reload, status, remove } = userSelectedDeck();
+  const { deck, reload, status, remove } = useSelectedDeck();
   const { refreshLanguages } = useContext(LanguagesContext);
   const cards = deck.cards.sort(byDate);
   const theme = useTheme();
