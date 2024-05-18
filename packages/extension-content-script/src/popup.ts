@@ -70,7 +70,7 @@ const destroyOnSpace = (e: KeyboardEvent) => {
 type PopupOptions = {
   text: string;
   context?: string;
-  language?: GoogleLanguage;
+  detectedLanguage?: GoogleLanguage;
   globalRect: GlobalRect;
   isTouchscreen: boolean;
 };
@@ -97,7 +97,7 @@ export const createPopup = async (options: PopupOptions) => {
   tearDownContents = await setContents({
     popup,
     source: options.text,
-    detectedLanguage: options.language,
+    detectedLanguage: options.detectedLanguage,
     context: options.context,
   });
 

@@ -88,16 +88,16 @@ export const createButton = async (
       ? getContext(selection)
       : undefined;
 
-  const popupOptions = {
-    text: getText(selection),
-    context: context,
-    language: detectedLanguage,
-    globalRect: getGlobalRect(selection.getRangeAt(0).getBoundingClientRect()),
-    isTouchscreen: isTouchscreen,
-  };
-
   button.addEventListener('click', () => {
-    createPopup(popupOptions);
+    createPopup({
+      detectedLanguage,
+      text: getText(selection),
+      context: context,
+      globalRect: getGlobalRect(
+        selection.getRangeAt(0).getBoundingClientRect()
+      ),
+      isTouchscreen: isTouchscreen,
+    });
     destroyButton();
   });
 
