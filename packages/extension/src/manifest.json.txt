@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "{{ process.env.NAME }}",
-  "description": "Vocably helps to translate new words and phrases and then learn them on your mobile devices.",
+  "name": "{{ process.env.NAME }}: Pro Language Flashcards",
+  "description": "Translate and create flashcards in browser. Learn the flashcards on mobile.",
   "version": "{{ process.env.VERSION }}",
 
   "icons": {
