@@ -160,7 +160,9 @@ export const setContents = async ({
       }
     );
 
-    analyze();
+    analyze({
+      sourceLanguage: detectedLanguage,
+    });
 
     popup.innerHTML = '';
     popup.appendChild(translation);
