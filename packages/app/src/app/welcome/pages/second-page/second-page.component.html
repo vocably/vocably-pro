@@ -13,6 +13,7 @@
     <div
       *ngIf="!isLoading && exampleHtml"
       class="text-example"
+      [lang]="sourceLanguage"
       [innerHTML]="exampleHtml"
     ></div>
   </div>
