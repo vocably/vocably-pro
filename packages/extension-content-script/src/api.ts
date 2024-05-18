@@ -5,6 +5,7 @@ import {
   cleanUp,
   getInternalProxyLanguage,
   getInternalSourceLanguage,
+  getLocationLanguage,
   isActive,
   isEligibleForTrial,
   isLoggedIn,
@@ -15,6 +16,7 @@ import {
   playSound,
   removeCard,
   saveAskForRatingResponse,
+  saveLocationLanguage,
   setInternalProxyLanguage,
   setInternalSourceLanguage,
   setUserKnowsHowToAdd,
@@ -41,6 +43,8 @@ export const api = {
   playSound,
   askForRating,
   saveAskForRatingResponse,
+  getLocationLanguage,
+  saveLocationLanguage,
 };
 
 export type ApiConfigOptions = Partial<typeof api>;

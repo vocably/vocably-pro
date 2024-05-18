@@ -82,7 +82,7 @@ export const createButton = async (
   document.body.appendChild(button);
   applyMaxZIndex(button);
 
-  const detectedLanguage = detectLanguage(selection);
+  const detectedLanguage = await detectLanguage(selection);
   const context =
     detectedLanguage && contextLanguages.includes(detectedLanguage)
       ? getContext(selection)

@@ -15,6 +15,7 @@ import {
   onCleanUpRequest,
   onGetInternalProxyLanuage,
   onGetInternalSourceLanguage,
+  onGetLocationLanguageRequest,
   onGetProxyLanguage,
   onGetSourceLanguage,
   onIsActiveRequest,
@@ -28,6 +29,7 @@ import {
   onPlaySound,
   onRemoveCardRequest,
   onSaveAskForRatingResponse,
+  onSaveLocationLanguageRequest,
   onSetInternalProxyLanguage,
   onSetInternalSourceLanguage,
   onSetProxyLanguage,
@@ -54,6 +56,7 @@ import { browserEnv } from './browserEnv';
 import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
+import { getLocationLanguage, storeLocationLanguage } from './locationLanguage';
 import { getLanguagePair } from './selectedLanguage/languagePairs';
 import {
   getProxyLanguage,
@@ -450,6 +453,15 @@ export const registerServiceWorker = (
 
     await saveUserMetadata(userMetadata);
     await resetAskForRatingCounter();
+    return sendResponse();
+  });
+
+  onGetLocationLanguageRequest(async (sendResponse, url) => {
+    return sendResponse(getLocationLanguage(url));
+  });
+
+  onSaveLocationLanguageRequest(async (sendResponse, [url, language]) => {
+    await storeLocationLanguage(url, language);
     return sendResponse();
   });
 

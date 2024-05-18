@@ -98,7 +98,7 @@ registerContentScript({
     cleanUp: () => Promise.resolve({ success: true, value: null }),
     ping: () => Promise.resolve('pong'),
     listLanguages: () =>
-      Promise.resolve({ success: true, value: ['ar', 'nl'] }),
+      Promise.resolve({ success: true, value: ['en', 'nl'] }),
     listTargetLanguages: () => Promise.resolve(['en', 'ru']),
     isUserKnowsHowToAdd: () => Promise.resolve(isUserKnowsHowToAdd),
     setUserKnowsHowToAdd: async (value) => {
@@ -130,6 +130,8 @@ registerContentScript({
       });
     },
     saveAskForRatingResponse: () => Promise.resolve(null),
+    getLocationLanguage: () => Promise.resolve(undefined),
+    saveLocationLanguage: () => Promise.resolve(null),
   },
   youTube: {
     ytHosts: ['localhost:8020'],
