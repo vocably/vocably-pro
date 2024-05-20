@@ -15,6 +15,7 @@ import {
   onCleanUpRequest,
   onGetInternalProxyLanuage,
   onGetInternalSourceLanguage,
+  onGetLocationLanguageRequest,
   onGetProxyLanguage,
   onGetSourceLanguage,
   onIsActiveRequest,
@@ -22,11 +23,13 @@ import {
   onIsLoggedInRequest,
   onIsUserKnowsHowToAdd,
   onListLanguagesRequest,
+  onListTargetLanguagesRequest,
   onPing,
   onPingExternal,
   onPlaySound,
   onRemoveCardRequest,
   onSaveAskForRatingResponse,
+  onSaveLocationLanguageRequest,
   onSetInternalProxyLanguage,
   onSetInternalSourceLanguage,
   onSetProxyLanguage,
@@ -53,8 +56,16 @@ import { browserEnv } from './browserEnv';
 import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
-import { getProxyLanguage, setProxyLanguage } from './proxyLanguage';
-import { getSourceLanguage, setSourceLanguage } from './sourceLanguage';
+import { getLocationLanguage, storeLocationLanguage } from './locationLanguage';
+import { getLanguagePair } from './selectedLanguage/languagePairs';
+import {
+  getProxyLanguage,
+  setProxyLanguage,
+} from './selectedLanguage/proxyLanguage';
+import {
+  getSourceLanguage,
+  setSourceLanguage,
+} from './selectedLanguage/sourceLanguage';
 import {
   getUserMetadata,
   invalidateUserMetadata,
@@ -139,14 +150,6 @@ export const registerServiceWorker = (
   };
 
   onAnalyzeRequest(async (sendResponse, payload) => {
-    const analyzePayload = {
-      ...payload,
-      sourceLanguage:
-        payload.sourceLanguage ?? (await getSourceLanguage()) ?? 'en',
-      targetLanguage:
-        payload.targetLanguage || ((await getProxyLanguage()) ?? 'en'),
-    };
-
     if (payload.sourceLanguage) {
       await setSourceLanguage(payload.sourceLanguage);
     }
@@ -154,6 +157,14 @@ export const registerServiceWorker = (
     if (payload.targetLanguage) {
       await setProxyLanguage(payload.targetLanguage);
     }
+
+    const analyzePayload = {
+      ...payload,
+      sourceLanguage:
+        payload.sourceLanguage ?? (await getSourceLanguage()) ?? 'en',
+      targetLanguage:
+        payload.targetLanguage ?? (await getProxyLanguage()) ?? 'en',
+    };
 
     try {
       const [analysisResult, loadLanguageDeckResult] =
@@ -314,6 +325,14 @@ export const registerServiceWorker = (
     sendResponse(await getUserLanguages())
   );
 
+  onListTargetLanguagesRequest(async (sendResponse) => {
+    const sourceLanguage = await getSourceLanguage();
+    const languagePair = getLanguagePair(sourceLanguage);
+    return sendResponse(
+      languagePair ? languagePair.possibleTargetLanguages : []
+    );
+  });
+
   onPing((sendResponse) => {
     return sendResponse('pong');
   });
@@ -434,6 +453,15 @@ export const registerServiceWorker = (
 
     await saveUserMetadata(userMetadata);
     await resetAskForRatingCounter();
+    return sendResponse();
+  });
+
+  onGetLocationLanguageRequest(async (sendResponse, url) => {
+    return sendResponse(getLocationLanguage(url));
+  });
+
+  onSaveLocationLanguageRequest(async (sendResponse, [url, language]) => {
+    await storeLocationLanguage(url, language);
     return sendResponse();
   });
 

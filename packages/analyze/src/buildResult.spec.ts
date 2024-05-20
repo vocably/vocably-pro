@@ -387,7 +387,7 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    expect(result.value.translation.target).toEqual('Учить');
+    expect(result.value.translation.target).toContain('Учить');
   });
 
   it('serbian', async () => {

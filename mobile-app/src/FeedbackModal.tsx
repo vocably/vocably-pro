@@ -3,7 +3,7 @@ import { sendUserFeedback } from '@vocably/api';
 import { FC, useCallback, useState } from 'react';
 import { Alert, Platform, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import { VocablyTextInput } from './inputs/VocablyTextInput';
+import { VocablyTextInput } from './VocablyTextInput';
 
 const styles = StyleSheet.create({
   container: {

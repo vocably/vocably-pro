@@ -1,5 +1,7 @@
 import { GoogleLanguage, isGoogleLanguage } from '@vocably/model';
+import { api } from './api';
 import { isSelection } from './isSelection';
+import location = chrome.contentSettings.location;
 
 const getNodeLanguage = (
   node: Node | null | undefined
@@ -18,9 +20,16 @@ const getNodeLanguage = (
   return getNodeLanguage(node.parentNode);
 };
 
-export const detectLanguage = (
+export const detectLanguage = async (
   anchor: Selection | HTMLElement
-): GoogleLanguage | undefined => {
+): Promise<GoogleLanguage | undefined> => {
+  const locationLanguage = await api.getLocationLanguage(
+    window.location.toString()
+  );
+  if (locationLanguage) {
+    return locationLanguage;
+  }
+
   if (isSelection(anchor)) {
     return getNodeLanguage(anchor.anchorNode);
   }

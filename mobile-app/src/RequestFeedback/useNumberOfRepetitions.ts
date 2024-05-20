@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
-import { userSelectedDeck } from '../languageDeck/userSelectedDeck';
+import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { ASK_FOR_REVIEW_AFTER } from './isOkayToAsk';
 
 const numberOfRepetitionsKey = 'numberOfRepetitions';
@@ -20,7 +20,7 @@ AsyncStorage.getItem(numberOfRepetitionsKey).then(
 export const useNumberOfRepetitions = () => {
   const [numberOfRepetitions, setNumberOfRepetitions] = useState<number>();
 
-  const { status, deck } = userSelectedDeck();
+  const { status, deck } = useSelectedDeck();
 
   useEffect(() => {
     if (status === 'loaded' && storedNumberOfRepetitions === null) {

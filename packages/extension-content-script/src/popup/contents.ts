@@ -92,16 +92,14 @@ export const setContents = async ({
 
             translation.targetLanguage =
               translationResult.value.translation.targetLanguage;
-
-            translation.existingTargetLanguages = [
-              translationResult.value.translation.targetLanguage,
-            ];
           }
 
           const existingLanguagesResult = await api.listLanguages();
           translation.existingSourceLanguages = existingLanguagesResult.success
             ? existingLanguagesResult.value
             : [];
+          const existingTargetLanguages = await api.listTargetLanguages();
+          translation.existingTargetLanguages = existingTargetLanguages;
         });
     };
 
@@ -111,10 +109,10 @@ export const setContents = async ({
         if (translation.result && translation.result.success) {
           api.cleanUp(translation.result.value);
         }
+        api.saveLocationLanguage([window.location.toString(), sourceLanguage]);
         translation.sourceLanguage = sourceLanguage;
         analyze({
           sourceLanguage,
-          targetLanguage: translation.targetLanguage as GoogleLanguage,
         });
       }
     );
@@ -127,7 +125,6 @@ export const setContents = async ({
         }
         translation.targetLanguage = targetLanguage;
         analyze({
-          sourceLanguage: translation.sourceLanguage as GoogleLanguage,
           targetLanguage,
         });
       }
@@ -163,7 +160,9 @@ export const setContents = async ({
       }
     );
 
-    analyze();
+    analyze({
+      sourceLanguage: detectedLanguage,
+    });
 
     popup.innerHTML = '';
     popup.appendChild(translation);

@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export type AskForReviewForm = FC<{
+export type RequestFeedbackForm = FC<{
   style?: StyleProp<ViewStyle>;
   onAction?: (choice: RateInteractionPayload) => void;
 }>;
 
-export const AskForReviewForm: AskForReviewForm = ({
+export const RequestFeedbackForm: RequestFeedbackForm = ({
   style,
   onAction = () => {},
 }) => {

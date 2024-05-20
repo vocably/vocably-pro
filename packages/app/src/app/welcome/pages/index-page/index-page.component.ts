@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { getProxyLanguage } from '@vocably/extension-messages';
 import { GoogleLanguage, sortedTargetLanguages } from '@vocably/model';
+import { extensionId } from '../../../../extension';
 import { HowToMultilangComponent } from '../../how-to-multilang/how-to-multilang.component';
+import { detectTargetLanguage } from './detectTargetLanguage';
 
 @Component({
   selector: 'app-index-page',
@@ -13,6 +16,7 @@ export class IndexPageComponent implements OnInit {
   languages = sortedTargetLanguages;
   showTop = 8;
   expanded = false;
+  targetLanguage: GoogleLanguage | undefined;
   selected: GoogleLanguage | null = null;
 
   constructor(
@@ -21,12 +25,26 @@ export class IndexPageComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    this.targetLanguage = await this.getInitialLanguageInputValue();
+  }
+
+  private async getInitialLanguageInputValue(): Promise<GoogleLanguage> {
+    const proxyLanguage = await getProxyLanguage(extensionId);
+
+    if (proxyLanguage) {
+      return proxyLanguage;
+    }
+
+    return detectTargetLanguage();
+  }
 
   onClick(value: GoogleLanguage) {
     this.selected = value;
     this.router
-      .navigate([`./${value}`], { relativeTo: this.activatedRoute })
+      .navigate([`./${value}/${this.targetLanguage}`], {
+        relativeTo: this.activatedRoute,
+      })
       .then();
   }
 

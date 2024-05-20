@@ -82,22 +82,22 @@ export const createButton = async (
   document.body.appendChild(button);
   applyMaxZIndex(button);
 
-  const detectedLanguage = detectLanguage(selection);
+  const detectedLanguage = await detectLanguage(selection);
   const context =
     detectedLanguage && contextLanguages.includes(detectedLanguage)
       ? getContext(selection)
       : undefined;
 
-  const popupOptions = {
-    text: getText(selection),
-    context: context,
-    language: detectedLanguage,
-    globalRect: getGlobalRect(selection.getRangeAt(0).getBoundingClientRect()),
-    isTouchscreen: isTouchscreen,
-  };
-
   button.addEventListener('click', () => {
-    createPopup(popupOptions);
+    createPopup({
+      detectedLanguage,
+      text: getText(selection),
+      context: context,
+      globalRect: getGlobalRect(
+        selection.getRangeAt(0).getBoundingClientRect()
+      ),
+      isTouchscreen: isTouchscreen,
+    });
     destroyButton();
   });
 

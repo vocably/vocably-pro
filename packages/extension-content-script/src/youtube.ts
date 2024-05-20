@@ -62,11 +62,11 @@ const handlePlayerElement = (player: HTMLElement): (() => void) => {
           });
 
           anchor.addEventListener('click', async () => {
-            const detectedLanguage = detectLanguage(anchor);
+            const detectedLanguage = await detectLanguage(anchor);
             await createPopup({
+              detectedLanguage,
               text: anchor.textContent,
               globalRect: getGlobalRect(anchor.getBoundingClientRect()),
-              language: detectLanguage(anchor),
               isTouchscreen: false,
               context:
                 detectedLanguage && contextLanguages.includes(detectedLanguage)

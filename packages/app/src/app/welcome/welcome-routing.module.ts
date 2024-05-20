@@ -15,7 +15,7 @@ const routes: Routes = [
         component: IndexPageComponent,
       },
       {
-        path: ':language',
+        path: ':sourceLanguage/:targetLanguage',
         title: 'Try out Vocably',
         component: SecondPageComponent,
       },

@@ -6,17 +6,20 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { AskForReviewForm } from './AskForReview/Form';
-import { isOkayToAsk } from './AskForReview/isOkayToAsk';
 import { mobilePlatform, mobileStoreUrl } from './mobilePlatform';
+import { RequestFeedbackForm } from './RequestFeedback/Form';
+import { isOkayToAsk } from './RequestFeedback/isOkayToAsk';
 import { UserMetadataContext } from './UserMetadataContainer';
 
-type AskForReview = FC<{
+type RequestFeedback = FC<{
   style?: StyleProp<ViewStyle>;
   numberOfRepetitions?: number;
 }>;
 
-export const AskForReview: AskForReview = ({ style, numberOfRepetitions }) => {
+export const RequestFeedback: RequestFeedback = ({
+  style,
+  numberOfRepetitions,
+}) => {
   const askForReviewMaxHeight = useSharedValue(0);
   const askForReviewOpacity = useSharedValue(0);
 
@@ -45,7 +48,7 @@ export const AskForReview: AskForReview = ({ style, numberOfRepetitions }) => {
     });
   }, [numberOfRepetitions]);
 
-  const onAskForReviewAction = useCallback(
+  const onRequestFeedbackAction = useCallback(
     (choice: RateInteractionPayload) => {
       if (choice === 'later' || choice === 'never') {
         askForReviewOpacity.value = withTiming(0);
@@ -77,7 +80,9 @@ export const AskForReview: AskForReview = ({ style, numberOfRepetitions }) => {
         },
       ]}
     >
-      <AskForReviewForm onAction={onAskForReviewAction}></AskForReviewForm>
+      <RequestFeedbackForm
+        onAction={onRequestFeedbackAction}
+      ></RequestFeedbackForm>
     </Animated.View>
   );
 };

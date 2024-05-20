@@ -50,6 +50,17 @@ export const [listLanguages, onListLanguagesRequest] = createScopedMessage<
   Result<GoogleLanguage[]>
 >('listLanguages');
 
+export const [listTargetLanguages, onListTargetLanguagesRequest] =
+  createScopedMessage<void, GoogleLanguage[]>('listTargetLanguages');
+
+export const [getLocationLanguage, onGetLocationLanguageRequest] =
+  createScopedMessage<string, GoogleLanguage | undefined>(
+    'getLocationLanguage'
+  );
+
+export const [saveLocationLanguage, onSaveLocationLanguageRequest] =
+  createScopedMessage<[string, GoogleLanguage], void>('saveLocationLanguage');
+
 export const [cleanUp, onCleanUpRequest] = createScopedMessage<
   TranslationCards,
   Result<null>
