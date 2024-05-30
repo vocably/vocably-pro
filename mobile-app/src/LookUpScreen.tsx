@@ -57,7 +57,8 @@ type LookUpScreen = FC<{
 
 export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const [isAutomaticallyLookedUp, setIsAutomaticallyLookedUp] = useState(false);
-  const [translationPreset, setTranslationPreset] = useTranslationPreset();
+  const [translationPreset, languagePairs, setTranslationPreset] =
+    useTranslationPreset();
   const [lookUpText, setLookUpText] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [lookUpResult, setLookupResult] =
@@ -187,6 +188,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
       <View style={styles.languageToolbar}>
         <TranslationPreset
           navigation={navigation}
+          languagePairs={languagePairs}
           preset={translationPreset}
           onChange={setTranslationPreset}
         />

@@ -84,7 +84,10 @@
       "jsx",
       "json",
       "node"
-    ]
+    ],
+    "moduleNameMapper": {
+      "^lodash-es$": "lodash"
+    }
   },
   "engines": {
     "node": ">=18"
