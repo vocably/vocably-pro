@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
 import { APP_GROUP_ID, ASYNC_STORAGE_KEY } from './constants';
 
-export const useAsyncStorageSync = (factor: any) => {
+export const useAsyncStorageSync = (...factors: any[]) => {
   useEffect(() => {
     if (Platform.OS !== 'ios') return;
     AsyncStorage.getAllKeys().then((keys) => {
@@ -12,5 +12,5 @@ export const useAsyncStorageSync = (factor: any) => {
         SharedGroupPreferences.setItem(ASYNC_STORAGE_KEY, result, APP_GROUP_ID);
       });
     });
-  }, [factor]);
+  }, factors);
 };

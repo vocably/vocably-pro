@@ -7,7 +7,7 @@ export const useTranslationPreset = (): [
   preset: Preset,
   setPreset: (preset: Preset) => Promise<void>
 ] => {
-  const { selectedLanguage } = useContext(LanguagesContext);
+  const { selectedLanguage, selectLanguage } = useContext(LanguagesContext);
   const [translationLanguage, setTranslationLanguage] =
     useTranslationLanguage();
   const [preset, setPresetState] = useState<Preset>({
@@ -19,6 +19,7 @@ export const useTranslationPreset = (): [
   const setPreset = useCallback(
     (preset: Preset) => {
       setPresetState(preset);
+      selectLanguage(preset.sourceLanguage);
       return setTranslationLanguage(preset.translationLanguage);
     },
     [setPresetState]

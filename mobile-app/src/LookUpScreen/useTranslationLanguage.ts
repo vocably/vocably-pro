@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useState } from 'react';
 import { NativeModules, Platform } from 'react-native';
+import { useAsyncStorageSync } from '../ShareIntent/useAsyncStorageSync';
 
 const deviceLocale =
   Platform.OS === 'ios'
@@ -30,6 +31,8 @@ export const useTranslationLanguage = (): [
       }
     );
   }, [setLanguageState]);
+
+  useAsyncStorageSync(translationLanguage);
 
   return [translationLanguage, setTranslationLanguage];
 };
