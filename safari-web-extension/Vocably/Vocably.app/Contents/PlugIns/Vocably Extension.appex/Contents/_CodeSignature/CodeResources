@@ -10,7 +10,7 @@
 		</data>
 		<key>Resources/content-script.js</key>
 		<data>
-		ZzgStMYmWoJaxYwLFfU/3+QrTqo=
+		sVdA3DedGb1tuyYN9uB7RL6bNIc=
 		</data>
 		<key>Resources/content-script.js.LICENSE.txt</key>
 		<data>
@@ -34,11 +34,15 @@
 		</data>
 		<key>Resources/manifest.json</key>
 		<data>
-		ddSDIlTCIFcfpfpHj1rs7i+9AC8=
+		ApXgXzPnu1FS4fczr55X7I1hqI8=
 		</data>
 		<key>Resources/options.html</key>
 		<data>
 		jGnstu4ZNeyOqzUsAl7B6vEwF5c=
+		</data>
+		<key>Resources/popup/296.js</key>
+		<data>
+		djZcG193Tk5viubQflQnCPLl4Nc=
 		</data>
 		<key>Resources/popup/3rdpartylicenses.txt</key>
 		<data>
@@ -78,7 +82,7 @@
 		</data>
 		<key>Resources/popup/main.js</key>
 		<data>
-		uUCEWqPToDBZUdi4lvHfWUD3LgI=
+		nvDJmGT7heZtfIvlqqg/h1x6rPo=
 		</data>
 		<key>Resources/popup/polyfills.js</key>
 		<data>
@@ -94,7 +98,7 @@
 		</data>
 		<key>Resources/service-worker.js</key>
 		<data>
-		pr/PCN0WzLIAx86ZEsgiCrYMQxQ=
+		9LfB30S4+5KDigYvG64Zhhs/VmA=
 		</data>
 		<key>Resources/service-worker.js.LICENSE.txt</key>
 		<data>
@@ -114,7 +118,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			IktzJolIRO5raYWYPMrhNInNxaiezGSfpL8R8ijBwgw=
+			BgRs66t1xko7a+a+hE5HeUcatRvflC0EsgjOmaYFZ6o=
 			</data>
 		</dict>
 		<key>Resources/content-script.js.LICENSE.txt</key>
@@ -156,7 +160,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Rg0VlzDBTmd3/7Sk61/xLGXmlhZacG63ReZm+OLtrLs=
+			mtuExMj1elPzQHxOnqAZlLMYKEH2bem7bJkSF2yvp9c=
 			</data>
 		</dict>
 		<key>Resources/options.html</key>
@@ -164,6 +168,13 @@
 			<key>hash2</key>
 			<data>
 			b5YKV3bVEHZEI/i44Xe7avaDhPtj0OHqDEde4q33474=
+			</data>
+		</dict>
+		<key>Resources/popup/296.js</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			iAq96ctAdsKTDPqEJUX+SQxd3IDVtYoTMg7wigf3D18=
 			</data>
 		</dict>
 		<key>Resources/popup/3rdpartylicenses.txt</key>
@@ -233,7 +244,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aPLaQ/8aPf/IROLpL5YLFOZBZM3F6QvK/MODCFO9kCY=
+			GukX0XuN38zhglQzz0Ypa0mkTIzJfPL9HLitMtpd+qA=
 			</data>
 		</dict>
 		<key>Resources/popup/polyfills.js</key>
@@ -261,7 +272,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			h5jXkZTluug3T4RS4wKvafFT05tXBssf+usePdtUdpw=
+			c4MWgh5S2nYqG5+3kaIa8IB0ss9hEOVPzz2AWGoyZnY=
 			</data>
 		</dict>
 		<key>Resources/service-worker.js.LICENSE.txt</key>
