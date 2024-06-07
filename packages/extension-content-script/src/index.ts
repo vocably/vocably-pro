@@ -7,7 +7,6 @@ import {
   contentScriptConfiguration,
   ContentScriptConfiguration,
 } from './configuration';
-import { destroyPopup } from './popup';
 import { isValidSelection } from './selection';
 import { initYoutube, InitYouTubeOptions } from './youtube';
 
@@ -56,7 +55,25 @@ const enableSelectionChangeDetection = () => {
 const disableSelectionChangeDetection = () =>
   document.removeEventListener('selectionchange', onTextSelect);
 
-const onMouseUp = async (event) => {
+const isClickableElement = (element: HTMLElement) => {
+  if (
+    ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT'].includes(element.tagName)
+  ) {
+    return true;
+  }
+
+  if (element.parentElement) {
+    return isClickableElement(element.parentElement);
+  }
+
+  return false;
+};
+
+const onMouseUp = async (event: MouseEvent) => {
+  if (isClickableElement(event.target as HTMLElement)) {
+    return;
+  }
+
   enableSelectionChangeDetection();
 
   try {
@@ -74,7 +91,11 @@ const onMouseUp = async (event) => {
   await createButton(selection, event);
 };
 
-const onMouseDown = async () => {
+const onMouseDown = async (event: MouseEvent) => {
+  if (isClickableElement(event.target as HTMLElement)) {
+    return;
+  }
+
   disableSelectionChangeDetection();
   try {
     await api.ping();
@@ -83,7 +104,6 @@ const onMouseDown = async () => {
   }
 
   destroyButton();
-  destroyPopup();
 };
 
 export const registerContentScript = async (

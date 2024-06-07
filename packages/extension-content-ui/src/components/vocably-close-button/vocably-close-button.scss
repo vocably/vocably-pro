@@ -3,7 +3,7 @@
 $button-size: 25px;
 $icon-size: $button-size - $close-button-padding * 2;
 
-:host {
+vocably-close-button {
   display: inline-block;
   width: $button-size;
   height: $button-size;
@@ -11,7 +11,7 @@ $icon-size: $button-size - $close-button-padding * 2;
   vertical-align: middle;
 }
 
-.button {
+.vocably-close-button {
   display: block;
   width: $button-size;
   height: $button-size;
@@ -28,12 +28,12 @@ $icon-size: $button-size - $close-button-padding * 2;
   }
 }
 
-.svg {
+.vocably-close-svg {
   width: $icon-size;
   height: $icon-size;
 }
 
-.path {
+.vocably-close-svg-path {
   stroke-width: 0.5px;
   stroke: $v-light-color-body;
 }
