@@ -32,7 +32,7 @@ export class VocablyCardSource {
         {this.card.data.ipa && (
           <Fragment>
             <span class="vocably-invisible-space">&nbsp;</span>
-            <span class="vocably-translation-margin-left muted">
+            <span class="vocably-translation-margin-left vocably-muted">
               [{this.card.data.ipa}]
             </span>
           </Fragment>
@@ -40,7 +40,7 @@ export class VocablyCardSource {
         {this.card.data.partOfSpeech && (
           <Fragment>
             <span class="invisible-space ">&nbsp;</span>
-            <span class="muted small vocably-translation-margin-left">
+            <span class="vocably-muted vocably-small vocably-translation-margin-left">
               {this.card.data.partOfSpeech}
             </span>
           </Fragment>
