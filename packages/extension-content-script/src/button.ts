@@ -88,7 +88,10 @@ export const createButton = async (
       ? getContext(selection)
       : undefined;
 
-  button.addEventListener('click', () => {
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     createPopup({
       detectedLanguage,
       text: getText(selection),
