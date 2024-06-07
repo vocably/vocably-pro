@@ -13,6 +13,10 @@
   .small {
     font-size: 90%;
   }
+
+  a {
+    @include link();
+  }
 }
 
 .svg {

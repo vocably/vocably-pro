@@ -16,7 +16,7 @@
   overflow: hidden;
   transition: max-height 0.3s ease-in-out;
 
-  &.visible {
+  &.vocably-added-congratulation-visible {
     max-height: 400px;
   }
 }

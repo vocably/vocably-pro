@@ -10,9 +10,13 @@ import {
   setupTransform,
 } from './styling';
 
-let popup: HTMLElement;
-let resizeObserver: ResizeObserver;
-let tearDownContents: TearDown;
+type PopupStackItem = {
+  popup: HTMLElement;
+  resizeObserver: ResizeObserver;
+  tearDownContents: TearDown;
+};
+
+const popupStack: PopupStackItem[] = [];
 
 const calculatePosition = (
   globalRect: GlobalRect,
@@ -61,12 +65,6 @@ const show = (popup: HTMLElement) => {
   popup.style.opacity = '1';
 };
 
-const destroyOnSpace = (e: KeyboardEvent) => {
-  if (e.code === 'Space') {
-    destroyPopup();
-  }
-};
-
 type PopupOptions = {
   text: string;
   context?: string;
@@ -76,25 +74,15 @@ type PopupOptions = {
 };
 
 export const createPopup = async (options: PopupOptions) => {
-  destroyPopup();
-
-  popup = document.createElement('vocably-popup');
+  const popup = document.createElement('vocably-popup');
   applyInitialStyles(popup);
   document.body.appendChild(popup);
 
-  popup.addEventListener('mousedown', (event) => {
-    event.stopPropagation();
-  });
-
-  popup.addEventListener('mouseup', (event) => {
-    event.stopPropagation();
-  });
-
   popup.addEventListener('close', () => {
-    destroyPopup();
+    destroyPopup(popup);
   });
 
-  tearDownContents = await setContents({
+  const tearDownContents = await setContents({
     popup,
     source: options.text,
     detectedLanguage: options.detectedLanguage,
@@ -109,28 +97,41 @@ export const createPopup = async (options: PopupOptions) => {
   setupTransform(popup);
   show(popup);
 
-  resizeObserver = new ResizeObserver(() => {
+  const resizeObserver = new ResizeObserver(() => {
     requestAnimationFrame(() => applyTransform(popup, position));
   });
   resizeObserver.observe(popup);
 
-  document.addEventListener('keydown', destroyOnSpace);
+  popupStack.push({ popup, resizeObserver, tearDownContents });
 };
 
-export const destroyPopup = () => {
-  if (popup) {
-    popup.remove();
+export const destroyPopup = (popupToDestroy: HTMLElement) => {
+  const stackItemIndex = popupStack.findIndex(
+    (item) => item.popup === popupToDestroy
+  );
+
+  if (stackItemIndex === -1) {
+    return;
   }
 
-  if (resizeObserver) {
-    resizeObserver.disconnect();
-    resizeObserver = null;
-  }
+  const { popup, resizeObserver, tearDownContents } =
+    popupStack[stackItemIndex];
 
-  if (tearDownContents) {
-    tearDownContents();
-    tearDownContents = null;
-  }
-
-  document.removeEventListener('keydown', destroyOnSpace);
+  tearDownContents();
+  resizeObserver.unobserve(popup);
+  resizeObserver.disconnect();
+  popup.remove();
 };
+
+export const destroyAllPopups = () => {
+  popupStack.forEach(({ popup }) => {
+    destroyPopup(popup);
+  });
+};
+const destroyOnSpace = (e: KeyboardEvent) => {
+  if (e.code === 'Space') {
+    destroyAllPopups();
+  }
+};
+
+document.addEventListener('keydown', destroyOnSpace);
