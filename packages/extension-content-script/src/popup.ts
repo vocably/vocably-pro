@@ -103,6 +103,7 @@ export const createPopup = async (options: PopupOptions) => {
   resizeObserver.observe(popup);
 
   popupStack.push({ popup, resizeObserver, tearDownContents });
+  setTimeout(() => addGlobalEventListeners(), 100);
 };
 
 export const destroyPopup = (popupToDestroy: HTMLElement) => {
@@ -121,17 +122,58 @@ export const destroyPopup = (popupToDestroy: HTMLElement) => {
   resizeObserver.unobserve(popup);
   resizeObserver.disconnect();
   popup.remove();
+
+  popupStack.splice(stackItemIndex, 1);
 };
 
 export const destroyAllPopups = () => {
-  popupStack.forEach(({ popup }) => {
-    destroyPopup(popup);
-  });
+  while (popupStack.length > 0) {
+    destroyPopup(popupStack[0].popup);
+  }
+
+  removeGlobalEventListeners();
 };
+
+const addGlobalEventListeners = () => {
+  if (popupStack.length > 1) {
+    return;
+  }
+
+  document.addEventListener('click', destroyOnGlobalClick);
+  document.addEventListener('keydown', destroyOnSpace);
+};
+
+const removeGlobalEventListeners = () => {
+  document.removeEventListener('keydown', destroyOnSpace);
+  document.removeEventListener('click', destroyOnGlobalClick);
+};
+
 const destroyOnSpace = (e: KeyboardEvent) => {
   if (e.code === 'Space') {
     destroyAllPopups();
   }
 };
 
-document.addEventListener('keydown', destroyOnSpace);
+const isPopupElement = (verifiedElement: HTMLElement): boolean => {
+  if (verifiedElement.tagName === 'VOCABLY-POPUP') {
+    return true;
+  }
+
+  if (verifiedElement.parentElement) {
+    return isPopupElement(verifiedElement.parentElement);
+  }
+
+  return false;
+};
+
+const destroyOnGlobalClick = (e: MouseEvent) => {
+  if (!e.target) {
+    return;
+  }
+
+  const isClickOnPopup = isPopupElement(e.target as HTMLElement);
+
+  if (!isClickOnPopup) {
+    destroyAllPopups();
+  }
+};
