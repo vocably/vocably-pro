@@ -6,60 +6,54 @@ $input-padding-y: 10px;
 
 $section-margin: 8px;
 
-:host {
+vocably-translation {
   @include base-font();
-
-  display: block;
 }
 
-.margin-left {
-  margin-left: 12px;
-}
-
-.margin-bottom-1 {
+.vocably-mb-4 {
   margin-bottom: 4px;
 }
 
-.margin-bottom-2 {
-  margin-bottom: 12px;
+.vocably-mb-6 {
+  margin-bottom: 6px;
 }
 
-.margin-top-2 {
+.vocably-mt-12 {
   margin-top: 12px;
 }
 
-.text-right {
+.vocably-mb-12 {
+  margin-bottom: 12px;
+}
+
+.vocably-text-right {
   text-align: right;
 }
 
-.text-link,
-.text-link:active,
-.text-link:visited {
+.vocably-text-link,
+.vocably-text-link:active,
+.vocably-text-link:visited {
   color: $v-light-color-body !important;
 }
 
-.text-link:hover {
+.vocably-text-link:hover {
   color: $v-light-color-emphasize !important;
 }
 
-.emphasized {
+.vocably-emphasized {
   color: $v-light-color-emphasize;
   font-weight: bold;
 }
 
-.small {
+.vocably-small {
   font-size: $base-font-size * 0.9;
 }
 
-.muted {
+.vocably-muted {
   color: $v-light-color-muted;
 }
 
-.text-primary {
-  color: $v-light-color-primary;
-}
-
-.translation {
+.vocably-translation {
   display: flex;
   align-items: stretch;
   gap: $section-margin;
@@ -70,38 +64,26 @@ $section-margin: 8px;
     }
   }
 
-  .value {
-    margin-bottom: 8px;
+  .vocably-translation-section {
+    padding-left: $input-padding-x;
   }
 
-  .invisible-space {
+  .vocably-invisible-space {
     display: inline-block;
     width: 0;
     font-size: 0;
   }
-
-  .header {
-    margin-bottom: 12px;
-  }
-
-  .section {
-    padding-left: $input-padding-x;
-  }
 }
 
-.inline-block {
-  display: inline-block;
-}
-
-.error {
+.vocably-error {
   color: $v-light-color-danger;
 }
 
-.loading-container {
+.vocably-loading-container {
   position: relative;
 }
 
-.reload {
+.vocably-reload {
   position: absolute;
   top: 0;
   right: 0;
@@ -114,7 +96,7 @@ $section-margin: 8px;
   opacity: 0.5;
 }
 
-@keyframes floating {
+@keyframes vocably-floating {
   0% {
     transform: translate(0, -2px);
   }
@@ -126,40 +108,40 @@ $section-margin: 8px;
   }
 }
 
-.save-hint-container {
+.vocably-save-hint-container {
   position: relative;
 }
 
-.save-hint {
+.vocably-save-hint {
   position: absolute;
   width: 165px;
   top: 6px;
   right: 40px;
-  animation: floating 3s ease-in-out infinite;
+  animation: vocably-floating 3s ease-in-out infinite;
   opacity: 1;
   transition: opacity 200ms ease-in-out;
 }
 
-.save-hint.hidden {
+.vocably-save-hint.vocably-save-hint-hidden {
   opacity: 0;
 }
 
 $container-padding: $input-padding-y $input-padding-x $input-padding-y
   $input-padding-x;
 
-.cards {
+.vocably-cards {
   border: $internal-border;
   border-radius: $v-border-radius;
   background-color: $v-light-color-contrast;
   margin-left: -$input-padding-x;
   margin-bottom: 1px;
 
-  .card {
+  .vocably-card {
     position: relative;
     padding: $container-padding;
     border-top: $internal-border;
 
-    .safe-action-area {
+    .vocably-safe-action-area {
       padding-right: 34px;
     }
 
@@ -167,11 +149,11 @@ $container-padding: $input-padding-y $input-padding-x $input-padding-y
       border-top: none;
     }
 
-    .card-hint-displayed {
+    .vocably-card-hint-displayed {
       padding-right: 200px;
     }
 
-    .card-action {
+    .vocably-card-action {
       $size: 24px;
       position: absolute;
       right: $input-padding-x;
@@ -182,7 +164,7 @@ $container-padding: $input-padding-y $input-padding-x $input-padding-y
       text-align: center;
     }
 
-    .card-action-button {
+    .vocably-card-action-button {
       padding: 0;
       margin: 0;
       background: none;
@@ -213,69 +195,57 @@ vocably-play-sound {
   margin-right: 4px;
 }
 
-.rate-container {
+.vocably-rate-container {
   transition: all 1s ease-in-out;
   max-height: 500px;
   opacity: 1;
   box-sizing: border-box;
 
-  &.hidden {
+  &.vocably-rate-container-hidden {
     max-height: 0;
     opacity: 0;
   }
 }
 
-.rate-padding {
+.vocably-rate-padding {
   padding: $container-padding;
 }
 
-.direct-translation {
+.vocably-direct-translation {
   display: flex;
   flex-direction: row;
 }
 
-.added-congratulation {
+.vocably-added-congratulation {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease-in-out;
 
-  &.visible {
+  &.vocably-added-congratulation-visible {
     max-height: 500px;
   }
 }
 
-.added-congratulation-content {
+.vocably-added-congratulation-content {
   padding-top: 12px;
 }
 
-.added-congratulation-content-1 {
+.vocably-added-congratulation-content-1 {
   padding: 12px;
   background: white;
 }
 
-.list {
+.vocably-list {
   list-style: outside;
   padding: 0;
   margin: 0 0 0 $base-font-size;
 }
 
-.italic {
+.vocably-italic {
   font-style: italic;
 }
 
-.mb-3 {
-  margin-bottom: 3px;
-}
-
-.mb-6 {
-  margin-bottom: 6px;
-}
-
-.mt-6 {
-  margin-top: 6px;
-}
-
-.language-selector {
+.vocably-language-selector {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -283,15 +253,25 @@ vocably-play-sound {
   margin-left: -$input-padding-x;
   width: calc(100% + #{$input-padding-x});
 
-  .language-wrapper {
+  .vocably-language-wrapper {
     width: 46%;
 
-    .language {
+    .vocably-input-select {
       width: 100%;
     }
   }
 }
 
-select {
+.vocably-input-select {
   @include select($input-padding-x, $input-padding-y);
+}
+
+.vocably-button {
+  @include button();
+  @include inline-button();
+}
+
+.vocably-link-button {
+  @include unstyled();
+  @include link();
 }
