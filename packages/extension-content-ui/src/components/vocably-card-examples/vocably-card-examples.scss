@@ -1,6 +1,9 @@
 @import '../../styles/component';
 
-:host {
+vocably-card-examples {
   @include base-font();
   display: block;
+
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
 }
