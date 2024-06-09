@@ -1,11 +1,11 @@
-:host {
+vocably-play-sound {
   display: inline-block;
   vertical-align: baseline;
   // Reddit sets visibility: hidden for custom elements
   visibility: visible !important;
 }
 
-.button {
+.vocably-play-sound-button {
   padding: 0;
   background: none;
   border: none;
