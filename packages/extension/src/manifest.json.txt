@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "{{ process.env.NAME }}: Pro Language Flashcards",
-  "description": "Translate and create flashcards in browser. Learn the flashcards on mobile.",
+  "description": "Translate and create flashcards on any website or YouTube. Learn the flashcards on mobile.",
   "version": "{{ process.env.VERSION }}",
 
   "icons": {

@@ -16,16 +16,16 @@ export class VocablyCardDefinitions {
     if (definitions.length === 0) {
       return (
         <Host>
-          <div class="mt-6 italic">{this.card.data.translation}</div>
+          <div class="vocably-italic">{this.card.data.translation}</div>
         </Host>
       );
     }
 
     return (
-      <ul class="list">
+      <ul class="vocably-list">
         {this.card.data.translation && (
           <li>
-            <span class="italic">{this.card.data.translation}</span>
+            <span class="vocably-italic">{this.card.data.translation}</span>
           </li>
         )}
         {definitions.map((item) => (

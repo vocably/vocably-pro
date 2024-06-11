@@ -28,17 +28,19 @@ export class VocablyCardSource {
             playSound={this.playSound}
           />
         )}
-        <span class="emphasized">{this.card.data.source}</span>
+        <span class="vocably-emphasized">{this.card.data.source}</span>
         {this.card.data.ipa && (
           <Fragment>
-            <span class="invisible-space ">&nbsp;</span>
-            <span class="margin-left muted">[{this.card.data.ipa}]</span>
+            <span class="vocably-invisible-space">&nbsp;</span>
+            <span class="vocably-translation-margin-left vocably-muted">
+              [{this.card.data.ipa}]
+            </span>
           </Fragment>
         )}
         {this.card.data.partOfSpeech && (
           <Fragment>
             <span class="invisible-space ">&nbsp;</span>
-            <span class="muted small margin-left">
+            <span class="vocably-muted vocably-small vocably-translation-margin-left">
               {this.card.data.partOfSpeech}
             </span>
           </Fragment>

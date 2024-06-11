@@ -29,7 +29,7 @@ import { sortLanguages } from './sortLanguages';
 @Component({
   tag: 'vocably-translation',
   styleUrl: 'vocably-translation.scss',
-  shadow: true,
+  shadow: false,
 })
 export class VocablyTranslation {
   @Prop() phrase: string;
@@ -64,7 +64,7 @@ export class VocablyTranslation {
   render() {
     const sourceLanguageSelector = this.result && this.result.success && (
       <select
-        class="language"
+        class="vocably-input-select"
         disabled={this.loading}
         onChange={(event) =>
           this.changeSourceLanguage.emit(
@@ -84,7 +84,7 @@ export class VocablyTranslation {
 
     const targetLanguageSelector = this.result && this.result.success && (
       <select
-        class="language"
+        class="vocably-input-select"
         disabled={this.loading}
         onChange={(event) =>
           this.changeTargetLanguage.emit(
@@ -109,26 +109,30 @@ export class VocablyTranslation {
 
     return (
       <Host data-test="translation-container">
-        <div class="loading-container">
+        <div class="vocably-loading-container">
           {this.result === null && <vocably-spinner></vocably-spinner>}
           {this.result && this.result.success === false && (
-            <div class="error">An error has occurred.</div>
+            <div class="vocably-error">An error has occurred.</div>
           )}
           {this.result && this.result.success === true && (
             <Fragment>
-              <div class="translation" data-test="translation">
-                <div class="section">
-                  <div class="margin-bottom-2 language-selector">
-                    <div class="language-wrapper">{sourceLanguageSelector}</div>
-                    <vocably-icon-arrow-right class="from-to"></vocably-icon-arrow-right>
-                    <div class="language-wrapper">{targetLanguageSelector}</div>
+              <div class="vocably-translation" data-test="translation">
+                <div class="vocably-translation-section">
+                  <div class="vocably-mb-12 vocably-language-selector">
+                    <div class="vocably-language-wrapper">
+                      {sourceLanguageSelector}
+                    </div>
+                    <vocably-icon-arrow-right class="vocably-from-to"></vocably-icon-arrow-right>
+                    <div class="vocably-language-wrapper">
+                      {targetLanguageSelector}
+                    </div>
                   </div>
                   {showDirect && (
-                    <div class="margin-bottom-2">
-                      <div class="small muted margin-bottom-1">
+                    <div class="vocably-mb-12">
+                      <div class="vocably-small vocably-muted vocably-mb-4">
                         ChatGPT 3.5 thinks that{' '}
                       </div>
-                      <span class="emphasized">
+                      <span class="vocably-emphasized">
                         {isGoogleTTSLanguage(
                           this.result.value.translation.sourceLanguage
                         ) && (
@@ -145,23 +149,23 @@ export class VocablyTranslation {
                       means <i>{this.result.value.translation.target}</i>
                     </div>
                   )}
-                  <div class="save-hint-container">
+                  <div class="vocably-save-hint-container">
                     {this.showSaveHint && (
                       <vocably-add-card-hint
                         class={{
-                          'save-hint': true,
-                          hidden: this.saveCardClicked,
+                          'vocably-save-hint': true,
+                          'vocably-save-hint-hidden': this.saveCardClicked,
                         }}
                       ></vocably-add-card-hint>
                     )}
 
-                    <div class="cards" data-test="cards">
+                    <div class="vocably-cards" data-test="cards">
                       {this.result.value.cards.map((card, itemIndex) => (
-                        <div data-test="card" class="card">
-                          <div class="card-action">
+                        <div data-test="card" class="vocably-card">
+                          <div class="vocably-card-action">
                             {isCardItem(card) && (
                               <button
-                                class="card-action-button"
+                                class="vocably-card-action-button"
                                 title="Remove card"
                                 disabled={this.isUpdating !== null}
                                 onClick={() => {
@@ -186,7 +190,7 @@ export class VocablyTranslation {
                             )}
                             {isDetachedCardItem(card) && (
                               <button
-                                class="card-action-button"
+                                class="vocably-card-action-button"
                                 title="Add card"
                                 disabled={this.isUpdating !== null}
                                 onClick={() => {
@@ -212,22 +216,25 @@ export class VocablyTranslation {
                           </div>
                           <div
                             class={{
-                              'safe-action-area': true,
-                              'card-hint-displayed':
+                              'vocably-safe-action-area': true,
+                              'vocably-card-hint-displayed':
                                 itemIndex === 0 && this.showSaveHint,
                             }}
                           >
                             <vocably-card-source
                               card={card}
                               playSound={this.playSound}
+                              class="vocably-mb-6"
                             ></vocably-card-source>
                             <vocably-card-definitions
-                              class="mb-6"
+                              class="vocably-mb-6"
                               card={card}
                             ></vocably-card-definitions>
                             {card.data.example && (
                               <div>
-                                <div class="small mb-6">Example:</div>
+                                <div class="vocably-small vocably-mb-6">
+                                  Example:
+                                </div>
                                 <vocably-card-examples
                                   example={card.data.example}
                                 ></vocably-card-examples>
@@ -237,14 +244,14 @@ export class VocablyTranslation {
                           {this.canCongratulate && (
                             <div
                               class={
-                                'added-congratulation' +
+                                'vocably-added-congratulation' +
                                 (this.addedItemIndex === itemIndex
-                                  ? ' visible'
+                                  ? ' vocably-added-congratulation-visible'
                                   : '')
                               }
                             >
-                              <div class="added-congratulation-content">
-                                <div class="added-congratulation-content-1">
+                              <div class="vocably-added-congratulation-content">
+                                <div class="vocably-added-congratulation-content-1">
                                   <vocably-first-translation-congratulation></vocably-first-translation-congratulation>
                                 </div>
                               </div>
@@ -256,10 +263,10 @@ export class VocablyTranslation {
                   </div>
                   {this.askForRating && (
                     <div
-                      class="rate-container"
+                      class="vocably-rate-container"
                       ref={(el) => (this.askForRatingContainer = el)}
                     >
-                      <div class="cards rate-padding margin-top-2">
+                      <div class="vocably-cards vocably-rate-padding vocably-mt-12">
                         <vocably-rate
                           platform={this.extensionPlatform}
                           onUserSelected={(choiceEvent) => {
@@ -269,12 +276,12 @@ export class VocablyTranslation {
                                 break;
                               case 'later':
                                 this.askForRatingContainer.classList.add(
-                                  'hidden'
+                                  'vocably-rate-container-hidden'
                                 );
                                 break;
                               case 'never':
                                 this.askForRatingContainer.classList.add(
-                                  'hidden'
+                                  'vocably-rate-container-hidden'
                                 );
                                 break;
                             }
@@ -286,11 +293,11 @@ export class VocablyTranslation {
                     </div>
                   )}
                   {this.isFeedbackEnabled && !this.askForRating && (
-                    <div class="margin-top-2 text-right small">
+                    <div class="vocably-mt-12 vocably-text-right vocably-small">
                       <a
                         href="https://app.vocably.pro/feedback"
                         target="_blank"
-                        class="text-link"
+                        class="vocably-text-link"
                       >
                         Are you missing anything? Feel free to let me know.
                       </a>
@@ -299,7 +306,7 @@ export class VocablyTranslation {
                 </div>
               </div>
               {this.loading && (
-                <div class="reload" data-test="reload">
+                <div class="vocably-reload" data-test="reload">
                   <vocably-spinner></vocably-spinner>
                 </div>
               )}

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Vocably",
-  "description": "Vocably helps to translate new words and phrases and then learn them on your mobile devices.",
-  "version": "1.290.0",
+  "name": "Vocably: Pro Language Flashcards",
+  "description": "Translate and create flashcards on any website or YouTube. Learn the flashcards on mobile.",
+  "version": "1.308.2",
 
   "icons": {
     "16": "images/icon-16x16.png",
