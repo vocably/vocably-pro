@@ -1,9 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useTheme } from 'react-native-paper';
+import { Button, Text, useTheme } from 'react-native-paper';
 import { LanguagesContainer } from '../languages/LanguagesContainer';
 import { LanguageSelectorModal } from '../LanguageSelectorModal';
 import { AnimatedLookUpScreen } from './AnimatedLookUpScreen';
+import {ShareMenuReactView} from "react-native-share-menu";
+import { BackHandler, Platform } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -13,11 +15,18 @@ export const ShareIntentAppBase = () => {
       <NavigationContainer theme={useTheme()}>
         <Stack.Navigator>
           <Stack.Screen
-            name="Main"
+            name="Vocably"
             component={AnimatedLookUpScreen}
             options={{
-              headerShown: false,
+              headerShown: true,
               presentation: 'card',
+              headerTitleAlign: 'center',
+              headerTitle: () => <Text style={{fontSize: 20}}>Vocably</Text>,
+              headerRight: () => (
+                <Button
+                  onPress={() => Platform.OS === 'ios' ? ShareMenuReactView.dismissExtension() : BackHandler.exitApp()}
+                >Done</Button>
+              )
             }}
           />
           <Stack.Screen

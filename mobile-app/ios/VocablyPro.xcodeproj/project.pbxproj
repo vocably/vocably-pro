@@ -27,6 +27,7 @@
 		BF71724B2BE3A29C0096F153 /* VocablyProShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BF7172412BE3A29C0096F153 /* VocablyProShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BF7172502BE3A3360096F153 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF71724F2BE3A3360096F153 /* ShareViewController.swift */; };
 		BF7172562BE3B03B0096F153 /* ReactShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7172552BE3B03B0096F153 /* ReactShareViewController.swift */; };
+		BFFE78A62C196EBD007B2C13 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFFE78A52C196EBD007B2C13 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,7 @@
 		BF7172682BE4D8F10096F153 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		BF7172692BE4D8F10096F153 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		BF71726A2BE4D8F10096F153 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		BFFE78A52C196EBD007B2C13 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EE6502FE66FD4E7EA2BA7FF0 /* libPods-VocablyProShare.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VocablyProShare.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -287,6 +289,7 @@
 				BF7172452BE3A29C0096F153 /* MainInterface.storyboard */,
 				BF7172482BE3A29C0096F153 /* Info.plist */,
 				BF7172522BE3AFBC0096F153 /* VocablyProShare-Bridging-Header.h */,
+				BFFE78A52C196EBD007B2C13 /* Media.xcassets */,
 			);
 			path = VocablyProShare;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFFE78A62C196EBD007B2C13 /* Media.xcassets in Resources */,
 				BF7172472BE3A29C0096F153 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1121,6 +1125,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6FAD930B4CD0DDA75665E76B /* Pods-VocablyProShare.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1141,7 +1147,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VocablyProShare/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = VocablyProShare;
+				INFOPLIST_KEY_CFBundleDisplayName = "Translate with Vocably";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1171,6 +1177,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 64F5115E573F08A5888A3442 /* Pods-VocablyProShare.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1192,7 +1200,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VocablyProShare/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = VocablyProShare;
+				INFOPLIST_KEY_CFBundleDisplayName = "Translate with Vocably";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
