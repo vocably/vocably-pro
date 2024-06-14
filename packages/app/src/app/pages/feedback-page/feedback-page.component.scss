@@ -1,0 +1,16 @@
+.success {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+
+  &.expanded {
+    max-height: 200vh;
+  }
+}
+
+.success-content {
+  color: var(--emphasize-color);
+  background: var(--contrast-bg);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
