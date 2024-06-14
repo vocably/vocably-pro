@@ -36,7 +36,7 @@ export const FeedbackModal: FeedbackModal = ({ navigation }) => {
 
     if (res.success === true) {
       Alert.alert('Thank you for your feedback!');
-      navigation.goBack();
+      setText('');
     } else {
       Alert.alert('Something went wrong. Please try again later.');
     }
@@ -70,9 +70,10 @@ export const FeedbackModal: FeedbackModal = ({ navigation }) => {
       <VocablyTextInput
         style={{ marginBottom: 16 }}
         multiline
-        placeholder={'Type your feedback here.'}
+        placeholder={'Please type your message here...'}
         inputStyle={{ height: 128 }}
         onChangeText={setText}
+        value={text}
       />
       <View style={{ marginBottom: 16 }}>
         <Button
@@ -86,7 +87,7 @@ export const FeedbackModal: FeedbackModal = ({ navigation }) => {
       </View>
       <View>
         <Button mode={'outlined'} onPress={() => navigation.goBack()}>
-          Cancel
+          Close
         </Button>
       </View>
     </View>
