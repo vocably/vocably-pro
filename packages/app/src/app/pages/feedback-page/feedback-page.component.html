@@ -2,14 +2,26 @@
 <div class="container bottom">
   <form (ngSubmit)="submitFeedback()" *ngIf="userData$ | async as useData">
     <p>
-      Are you missing any crucial feature or simply want to share your opinion
-      about Vocably with me? I would love to hear from you!
+      Are you missing any crucial features? Do you have questions, or would you
+      like to share your opinion about Vocably? I would love to hear from you!
+    </p>
+    <p>
+      I respond to every user. Usually, it takes me a couple of days to reply.
+    </p>
+    <p>
+      I will respond to you at your email address
+      <strong>{{ useData.email }}</strong
+      >.
+      <ng-container *ngIf="useData.email.includes('privaterelay')">
+        This seems like a secret Apple email you shared with me during the
+        registration, but no worries; it should work just fine.
+      </ng-container>
     </p>
     <textarea
       class="form-control mb-1"
       name="feedback"
       style="height: 6rem"
-      placeholder="Please enter your feedback or question here."
+      placeholder="Please type your message here..."
       [(ngModel)]="feedback"
     ></textarea>
     <div class="mb-1">
@@ -25,16 +37,10 @@
     </div>
     <div class="success" [class.expanded]="success">
       <div class="success-content">
-        <p>Your feedback has been successfully submitted.</p>
-        <p>
-          I respond to every user. Usually, it takes me a couple of days to
-          reply.
-        </p>
-        <div>
-          You will get your response to your email address{{
-            getEmailAddress(useData)
-          }}
-        </div>
+        Your message has been successfully sent. Here is your message:
+        <pre style="margin: 1rem 0 0 0; white-space: pre-wrap">{{
+          lastFeedback
+        }}</pre>
       </div>
     </div>
     <div *ngIf="error" class="text-danger">
