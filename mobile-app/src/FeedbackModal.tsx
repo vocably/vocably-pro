@@ -3,6 +3,7 @@ import { sendUserFeedback } from '@vocably/api';
 import { FC, useCallback, useState } from 'react';
 import { Alert, Platform, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
+import { useUserEmail } from './auth/getEmail';
 import { VocablyTextInput } from './VocablyTextInput';
 
 const styles = StyleSheet.create({
@@ -21,6 +22,7 @@ type FeedbackModal = FC<{
 export const FeedbackModal: FeedbackModal = ({ navigation }) => {
   const [text, setText] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const userEmail = useUserEmail();
 
   const sendFeedback = useCallback(async () => {
     setIsSending(true);
@@ -45,8 +47,26 @@ export const FeedbackModal: FeedbackModal = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={{ marginBottom: 16 }}>
-        Please type in your feedback below. Your feedback will be sent to me.
+        Are you missing any crucial features? Do you have questions, or would
+        you like to share your opinion about Vocably? I would love to hear from
+        you!
       </Text>
+      <Text style={{ marginBottom: 16 }}>
+        I respond to every user. Usually, it takes me a couple of days to reply.
+      </Text>
+      {userEmail && (
+        <Text style={{ marginBottom: 16 }}>
+          I will respond to you at your email address{' '}
+          <Text style={{ fontWeight: 'bold' }}>{userEmail}</Text>.
+          {userEmail.includes('privaterelay') && (
+            <Text>
+              {' '}
+              This seems like a secret Apple email you shared with me during the
+              registration, but no worries; it should work just fine.
+            </Text>
+          )}
+        </Text>
+      )}
       <VocablyTextInput
         style={{ marginBottom: 16 }}
         multiline
