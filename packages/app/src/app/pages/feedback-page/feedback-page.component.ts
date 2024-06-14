@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { sendUserFeedback } from '@vocably/api';
+import { UserData } from '@vocably/model';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-feedback-page',
@@ -12,7 +14,9 @@ export class FeedbackPageComponent implements OnInit {
   success = false;
   error = false;
 
-  constructor() {}
+  userData$ = this.authService.fetchUserData$;
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
@@ -40,5 +44,13 @@ export class FeedbackPageComponent implements OnInit {
     } else {
       this.error = true;
     }
+  }
+
+  public getEmailAddress(userData: UserData) {
+    if (userData.email.includes('privaterelay')) {
+      return '.';
+    }
+
+    return `: ${userData.email}.`;
   }
 }

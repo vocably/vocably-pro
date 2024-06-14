@@ -1,6 +1,6 @@
 <div class="container-xl top"><app-header title="Feedback"></app-header></div>
 <div class="container bottom">
-  <form (ngSubmit)="submitFeedback()">
+  <form (ngSubmit)="submitFeedback()" *ngIf="userData$ | async as useData">
     <p>
       Are you missing any crucial feature or simply want to share your opinion
       about Vocably with me? I would love to hear from you!
@@ -9,7 +9,7 @@
       class="form-control mb-1"
       name="feedback"
       style="height: 6rem"
-      placeholder="Please enter your feedback here."
+      placeholder="Please enter your feedback or question here."
       [(ngModel)]="feedback"
     ></textarea>
     <div class="mb-1">
@@ -23,7 +23,20 @@
       </button>
       <ion-spinner *ngIf="isSubmitting" name="dots"></ion-spinner>
     </div>
-    <div *ngIf="success" class="text-primary">Thanks for your feedback!</div>
+    <div class="success" [class.expanded]="success">
+      <div class="success-content">
+        <p>Your feedback has been successfully submitted.</p>
+        <p>
+          I respond to every user. Usually, it takes me a couple of days to
+          reply.
+        </p>
+        <div>
+          You will get your response to your email address{{
+            getEmailAddress(useData)
+          }}
+        </div>
+      </div>
+    </div>
     <div *ngIf="error" class="text-danger">
       Unfortunately, we have encountered an error while submitting your
       feedback. Could you please try it again later?
