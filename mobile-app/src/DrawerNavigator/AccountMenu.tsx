@@ -1,23 +1,12 @@
 import { Auth } from '@aws-amplify/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FC, useCallback } from 'react';
 import { Alert, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
-import SharedGroupPreferences from 'react-native-shared-group-preferences';
-import { APP_GROUP_ID, ASYNC_STORAGE_KEY } from '../ShareIntent/constants';
 
 type AccountMenu = FC<{}>;
 
 export const AccountMenu: AccountMenu = () => {
   const theme = useTheme();
-
-  const handleSignOut = () => {
-    return SharedGroupPreferences
-      .setItem(ASYNC_STORAGE_KEY, null, APP_GROUP_ID)
-      .then(() => AsyncStorage.clear())
-      .then(() => Auth.signOut());
-  }
-
   const onDelete = useCallback(() => {
     Alert.alert(
       'Account Deletion',
@@ -28,7 +17,7 @@ export const AccountMenu: AccountMenu = () => {
           style: 'destructive',
           onPress: async () => {
             await Auth.deleteUser();
-            await handleSignOut();
+            await Auth.signOut();
           },
         },
         {
@@ -49,7 +38,7 @@ export const AccountMenu: AccountMenu = () => {
       <View
         style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
       >
-        <Text onPress={() => handleSignOut()}>Sign out</Text>
+        <Text onPress={() => Auth.signOut()}>Sign out</Text>
       </View>
       <View
         style={{

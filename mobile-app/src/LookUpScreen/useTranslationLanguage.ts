@@ -1,7 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useState } from 'react';
 import { NativeModules, Platform } from 'react-native';
-import { useAsyncStorageSync } from '../ShareIntent/useAsyncStorageSync';
+import * as asyncAppStorage from '../asyncAppStorage';
 
 const deviceLocale =
   Platform.OS === 'ios'
@@ -19,20 +18,18 @@ export const useTranslationLanguage = (): [
   const setTranslationLanguage = useCallback(
     (language: string) => {
       setLanguageState(language);
-      return AsyncStorage.setItem('translationLanguage', language);
+      return asyncAppStorage.setItem('translationLanguage', language);
     },
     [setLanguageState]
   );
 
   useEffect(() => {
-    AsyncStorage.getItem('translationLanguage').then(
-      (previouslySelectedLanguage) => {
+    asyncAppStorage
+      .getItem('translationLanguage')
+      .then((previouslySelectedLanguage) => {
         setLanguageState(previouslySelectedLanguage ?? deviceLanguage);
-      }
-    );
+      });
   }, [setLanguageState]);
-
-  useAsyncStorageSync(translationLanguage);
 
   return [translationLanguage, setTranslationLanguage];
 };
