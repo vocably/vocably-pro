@@ -9,11 +9,15 @@ const appGroupId = 'group.vocably.app';
 const groupStorageValues$ = new ReplaySubject<Record<string, any>>();
 
 if (Platform.OS === 'ios') {
-  SharedGroupPreferences.getItem(appGroupStorageKey, appGroupId).then(
-    (values) => {
+  SharedGroupPreferences.getItem(appGroupStorageKey, appGroupId)
+    .then((values) => {
       groupStorageValues$.next(values ? JSON.parse(values) : {});
-    }
-  );
+    })
+    .catch((errorCode: 0 | 1) => {
+      if (errorCode === 1) {
+        groupStorageValues$.next({});
+      }
+    });
 }
 
 export const getItem = async (key: string): Promise<string | undefined> => {
