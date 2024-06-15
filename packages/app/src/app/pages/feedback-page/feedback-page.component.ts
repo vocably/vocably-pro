@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { sendUserFeedback } from '@vocably/api';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-feedback-page',
@@ -10,9 +11,12 @@ export class FeedbackPageComponent implements OnInit {
   feedback = '';
   isSubmitting = false;
   success = false;
+  lastFeedback = '';
   error = false;
 
-  constructor() {}
+  userData$ = this.authService.fetchUserData$;
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
@@ -36,6 +40,7 @@ export class FeedbackPageComponent implements OnInit {
 
     if (res.success) {
       this.success = true;
+      this.lastFeedback = this.feedback;
       this.feedback = '';
     } else {
       this.error = true;
