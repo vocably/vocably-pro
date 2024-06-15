@@ -9,8 +9,8 @@ let dataMemory: AuthData = {};
 export class AuthStorage {
   private syncPromise: null | Promise<AuthData> = null;
 
-  async setItem(key: string, value: string) {
-    await asyncAppStorage.setItem(STORAGE_KEY_PREFIX + key, value);
+  setItem(key: string, value: string) {
+    asyncAppStorage.setItem(STORAGE_KEY_PREFIX + key, value).then();
     dataMemory[key] = value;
     return dataMemory[key];
   }
@@ -21,16 +21,16 @@ export class AuthStorage {
       : undefined;
   }
 
-  async removeItem(key: string) {
-    await asyncAppStorage.removeItem(STORAGE_KEY_PREFIX + key);
+  removeItem(key: string) {
+    asyncAppStorage.removeItem(STORAGE_KEY_PREFIX + key).then();
     return delete dataMemory[key];
   }
 
-  async clear() {
+  clear() {
     const storageKeys = Object.keys(dataMemory).map(
       (key) => STORAGE_KEY_PREFIX + key
     );
-    await asyncAppStorage.clear(storageKeys);
+    asyncAppStorage.clear(storageKeys).then();
     dataMemory = {};
     return dataMemory;
   }
