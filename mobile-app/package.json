@@ -46,7 +46,8 @@
     "react-native-shared-group-preferences": "^1.1.24",
     "react-native-sound": "0.11.2",
     "react-native-swipe-list-view": "3.2.9",
-    "react-native-vector-icons": "10.0.3"
+    "react-native-vector-icons": "10.0.3",
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -11,7 +11,6 @@ import React, {
 } from 'react';
 import { Error } from '../Error';
 import { Loader } from '../loaders/Loader';
-import { useAsyncStorageSync } from '../ShareIntent/useAsyncStorageSync';
 
 const selectedLanguageStorageKey = 'selected-language';
 
@@ -138,8 +137,6 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
 
     selectLanguage('').then();
   }, [languages]);
-
-  useAsyncStorageSync(selectedLanguage)
 
   const value: Languages = {
     status,

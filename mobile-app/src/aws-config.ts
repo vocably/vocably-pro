@@ -5,6 +5,7 @@ import {
   AWS_CONFIG_USER_POOLS_ID,
   AWS_CONFIG_USER_POOLS_WEB_CLIENT_ID,
 } from '@env';
+import { AuthStorage } from './auth/AuthStorage';
 import { urlOpener } from './urlOpener';
 
 export const awsConfig = {
@@ -19,6 +20,7 @@ export const awsConfig = {
     redirectSignOut: 'vocably-pro://auth',
     responseType: 'code',
     urlOpener,
+    storage: new AuthStorage(),
   },
   federationTarget: 'COGNITO_USER_POOLS',
   aws_cognito_username_attributes: [],
