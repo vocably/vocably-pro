@@ -10,7 +10,7 @@ export const useSelectedLanguage = (): [string, (language: string) => void] => {
   const setSelectedLanguage = useCallback(
     async (language: string) => {
       setSelectedLanguageState(language);
-      await asyncAppStorage.setItem('selectedLanauge', language);
+      await asyncAppStorage.setItem('selectedLanguage', language);
     },
     [setSelectedLanguageState]
   );
