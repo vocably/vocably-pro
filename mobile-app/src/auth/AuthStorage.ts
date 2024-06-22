@@ -27,9 +27,9 @@ AppState.addEventListener('change', (nextAppState) => {
   }
 });
 
-const dataMemory$ = new Subject<AuthData>();
+const updateValues$ = new Subject<void>();
 
-dataMemory$.pipe(debounceTime(500)).subscribe((data) => {
+updateValues$.pipe(debounceTime(500)).subscribe((data) => {
   if (!isSynced) {
     return;
   }
@@ -39,7 +39,7 @@ dataMemory$.pipe(debounceTime(500)).subscribe((data) => {
 export class AuthStorage {
   setItem(key: string, value: string) {
     dataMemory[key] = value;
-    dataMemory$.next(dataMemory);
+    updateValues$.next();
     return dataMemory[key];
   }
 
@@ -51,13 +51,13 @@ export class AuthStorage {
 
   removeItem(key: string) {
     const result = delete dataMemory[key];
-    dataMemory$.next(dataMemory);
+    updateValues$.next();
     return result;
   }
 
   clear() {
     dataMemory = {};
-    dataMemory$.next(dataMemory);
+    updateValues$.next();
     return dataMemory;
   }
 
