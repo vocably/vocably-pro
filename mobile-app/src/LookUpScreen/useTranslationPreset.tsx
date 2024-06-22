@@ -1,10 +1,10 @@
 import { isGoogleLanguage } from '@vocably/model';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { NativeModules, Platform } from 'react-native';
-import { LanguagesContext } from '../languages/LanguagesContainer';
 import { updateLanguagePairs } from './languagePairs';
 import { Preset } from './TranslationPreset';
 import { LanguagePairs, useLanguagePairs } from './useLanguagePairs';
+import { useSelectedLanguage } from './useSelectedLanguage';
 
 const deviceLocale =
   Platform.OS === 'ios'
@@ -19,7 +19,7 @@ export const useTranslationPreset = (): [
   languagePairs: LanguagePairs,
   setPreset: (preset: Preset) => Promise<void>
 ] => {
-  const { selectedLanguage } = useContext(LanguagesContext);
+  const [selectedLanguage, saveSelectedLanguage] = useSelectedLanguage();
   const [languagePairs, saveLanguagePairs] = useLanguagePairs();
   const [preset, setPresetState] = useState<Preset>({
     sourceLanguage: selectedLanguage,
@@ -30,6 +30,10 @@ export const useTranslationPreset = (): [
   const setPreset = useCallback(
     (preset: Preset) => {
       setPresetState(preset);
+      if (selectedLanguage !== preset.sourceLanguage) {
+        saveSelectedLanguage(preset.sourceLanguage);
+      }
+
       const newPairs = updateLanguagePairs(languagePairs ?? {}, preset);
       return saveLanguagePairs(newPairs);
     },
@@ -45,13 +49,19 @@ export const useTranslationPreset = (): [
       return;
     }
 
+    const translationLanguageCandidate = languagePairs[preset.sourceLanguage]
+      ? // @ts-ignore
+        languagePairs[preset.sourceLanguage].translationLanguage
+      : preset.translationLanguage;
+
+    if (translationLanguageCandidate === preset.translationLanguage) {
+      return;
+    }
+
     setPresetState({
       ...preset,
       sourceLanguage: selectedLanguage,
-      translationLanguage: languagePairs[preset.sourceLanguage]
-        ? // @ts-ignore
-          languagePairs[preset.sourceLanguage].translationLanguage
-        : preset.translationLanguage,
+      translationLanguage: translationLanguageCandidate,
     });
   }, [preset, languagePairs]);
 

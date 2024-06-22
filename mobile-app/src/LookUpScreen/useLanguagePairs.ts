@@ -1,6 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GoogleLanguage } from '@vocably/model';
 import { useCallback, useEffect, useState } from 'react';
+import * as asyncAppStorage from '../asyncAppStorage';
 
 type LanguageSetting = {
   translationLanguage: GoogleLanguage;
@@ -19,7 +19,7 @@ export const useLanguagePairs = (): [
   const saveLanguagePairs = useCallback(
     (languagePairs: LanguagePairs) => {
       setLanguagePairs(languagePairs);
-      return AsyncStorage.setItem(
+      return asyncAppStorage.setItem(
         'languagePairs',
         JSON.stringify(languagePairs)
       );
@@ -28,7 +28,7 @@ export const useLanguagePairs = (): [
   );
 
   useEffect(() => {
-    AsyncStorage.getItem('languagePairs').then((languagePairs) => {
+    asyncAppStorage.getItem('languagePairs').then((languagePairs) => {
       setLanguagePairs(languagePairs ? JSON.parse(languagePairs) : null);
     });
   }, [setLanguagePairs]);
