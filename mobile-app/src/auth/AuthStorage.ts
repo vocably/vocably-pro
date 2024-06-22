@@ -1,17 +1,45 @@
+import { AppState } from 'react-native';
+import { debounceTime, Subject } from 'rxjs';
 import * as asyncAppStorage from '../asyncAppStorage';
 
-const STORAGE_KEY_PREFIX = '@fcAuth:';
+const storageKey = 'auth';
 
 type AuthData = Record<string, string>;
 
+let isSynced = false;
 let dataMemory: AuthData = {};
 
-export class AuthStorage {
-  private syncPromise: null | Promise<AuthData> = null;
+const syncAuthStorage = async (): Promise<AuthData> => {
+  return asyncAppStorage.getItem(storageKey).then((value) => {
+    dataMemory = value ? JSON.parse(value) : {};
+    return dataMemory;
+  });
+};
 
+let syncPromise = syncAuthStorage().then((data) => {
+  isSynced = true;
+  return data;
+});
+
+AppState.addEventListener('change', (nextAppState) => {
+  if (nextAppState === 'active') {
+    syncPromise = syncAuthStorage();
+  }
+});
+
+const dataMemory$ = new Subject<AuthData>();
+
+dataMemory$.pipe(debounceTime(500)).subscribe((data) => {
+  if (!isSynced) {
+    return;
+  }
+  asyncAppStorage.setItem(storageKey, JSON.stringify(dataMemory));
+});
+
+export class AuthStorage {
   setItem(key: string, value: string) {
-    asyncAppStorage.setItem(STORAGE_KEY_PREFIX + key, value).then();
     dataMemory[key] = value;
+    dataMemory$.next(dataMemory);
     return dataMemory[key];
   }
 
@@ -22,41 +50,18 @@ export class AuthStorage {
   }
 
   removeItem(key: string) {
-    asyncAppStorage.removeItem(STORAGE_KEY_PREFIX + key).then();
-    return delete dataMemory[key];
+    const result = delete dataMemory[key];
+    dataMemory$.next(dataMemory);
+    return result;
   }
 
   clear() {
-    const storageKeys = Object.keys(dataMemory).map(
-      (key) => STORAGE_KEY_PREFIX + key
-    );
-    asyncAppStorage.clear(storageKeys).then();
     dataMemory = {};
+    dataMemory$.next(dataMemory);
     return dataMemory;
   }
 
   sync(): Promise<AuthData> {
-    if (this.syncPromise) {
-      return this.syncPromise;
-    }
-
-    this.syncPromise = asyncAppStorage
-      .getAllKeys()
-      .then((allKeys) =>
-        allKeys.filter((key) => key.startsWith(STORAGE_KEY_PREFIX))
-      )
-      .then((authKeys) => asyncAppStorage.getMulti(authKeys))
-      .then((authStorageData) => {
-        dataMemory = Object.fromEntries(
-          Object.entries(authStorageData).map(([key, value]) => [
-            key.replace(STORAGE_KEY_PREFIX, ''),
-            value,
-          ])
-        );
-
-        return dataMemory;
-      });
-
-    return this.syncPromise;
+    return syncPromise;
   }
 }

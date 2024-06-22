@@ -1,28 +1,27 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
-import { firstValueFrom, ReplaySubject } from 'rxjs';
 
 const appGroupStorageKey = 'app';
 const appGroupId = 'group.vocably.app';
 
-const groupStorageValues$ = new ReplaySubject<Record<string, any>>();
+type AllGroupStorageValues = Record<string, string>;
 
-if (Platform.OS === 'ios') {
-  SharedGroupPreferences.getItem(appGroupStorageKey, appGroupId)
+const getAllGroupStorageValues = async (): Promise<AllGroupStorageValues> => {
+  return SharedGroupPreferences.getItem(appGroupStorageKey, appGroupId)
     .then((values) => {
-      groupStorageValues$.next(values ? JSON.parse(values) : {});
+      return values ? JSON.parse(values) : {};
     })
     .catch((errorCode: 0 | 1) => {
       if (errorCode === 1) {
-        groupStorageValues$.next({});
+        return {};
       }
     });
-}
+};
 
 export const getItem = async (key: string): Promise<string | undefined> => {
   if (Platform.OS === 'ios') {
-    const groupStorageValues = await firstValueFrom(groupStorageValues$);
+    const groupStorageValues = await getAllGroupStorageValues();
     return groupStorageValues[key] ?? undefined;
   }
 
@@ -31,7 +30,7 @@ export const getItem = async (key: string): Promise<string | undefined> => {
 
 export const setItem = async (key: string, value: string): Promise<void> => {
   if (Platform.OS === 'ios') {
-    const groupStorageValues = await firstValueFrom(groupStorageValues$);
+    const groupStorageValues = await getAllGroupStorageValues();
     groupStorageValues[key] = value;
     return SharedGroupPreferences.setItem(
       appGroupStorageKey,
@@ -43,18 +42,9 @@ export const setItem = async (key: string, value: string): Promise<void> => {
   return AsyncStorage.setItem(key, value);
 };
 
-export const getAllKeys = async (): Promise<readonly string[]> => {
-  if (Platform.OS === 'ios') {
-    const groupStorageValues = await firstValueFrom(groupStorageValues$);
-    return Object.keys(groupStorageValues);
-  }
-
-  return AsyncStorage.getAllKeys();
-};
-
 export const removeItem = async (key: string): Promise<void> => {
   if (Platform.OS === 'ios') {
-    const groupStorageValues = await firstValueFrom(groupStorageValues$);
+    const groupStorageValues = await getAllGroupStorageValues();
     delete groupStorageValues[key];
     return SharedGroupPreferences.setItem(
       appGroupStorageKey,
@@ -68,7 +58,7 @@ export const removeItem = async (key: string): Promise<void> => {
 
 export const clear = async (keys: string[]): Promise<void> => {
   if (Platform.OS === 'ios') {
-    const groupStorageValues = await firstValueFrom(groupStorageValues$);
+    const groupStorageValues = await getAllGroupStorageValues();
     keys.forEach((key) => delete groupStorageValues[key]);
     return SharedGroupPreferences.setItem(
       appGroupStorageKey,
@@ -78,15 +68,4 @@ export const clear = async (keys: string[]): Promise<void> => {
   }
 
   return AsyncStorage.multiRemove(keys);
-};
-
-export const getMulti = (
-  keys: readonly string[]
-): Promise<Record<string, any>> => {
-  return Promise.all(keys.map((key) => getItem(key))).then((values) =>
-    values.reduce((acc, value, index) => {
-      acc[keys[index]] = value;
-      return acc;
-    }, {} as Record<string, any>)
-  );
 };
