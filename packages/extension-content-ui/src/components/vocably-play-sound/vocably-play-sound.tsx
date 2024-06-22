@@ -9,7 +9,7 @@ import {
 @Component({
   tag: 'vocably-play-sound',
   styleUrl: 'vocably-play-sound.scss',
-  shadow: true,
+  shadow: false,
 })
 export class VocablyPlaySound {
   @Prop() text: string;
@@ -49,7 +49,7 @@ export class VocablyPlaySound {
     return (
       <Host>
         <button
-          class="button"
+          class="vocably-play-sound-button"
           onClick={() => this.onPlaySoundClick()}
           disabled={this.isPlaying || this.isLoading}
         >

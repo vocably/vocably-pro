@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { deleteLanguageDeck, listLanguages } from '@vocably/api';
 import { LanguageDeck } from '@vocably/model';
 import React, {
@@ -9,6 +8,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import * as asyncAppStorage from '../asyncAppStorage';
 import { Error } from '../Error';
 import { Loader } from '../loaders/Loader';
 
@@ -82,7 +82,7 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
 
   const selectLanguage = useCallback((language: string) => {
     setSelectedLanguage(language);
-    return AsyncStorage.setItem(selectedLanguageStorageKey, language);
+    return asyncAppStorage.setItem(selectedLanguageStorageKey, language);
   }, []);
 
   const deleteLanguage = useCallback(
@@ -107,7 +107,7 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
   const refreshLanguages = useCallback(() => {
     return Promise.all([
       listLanguages(),
-      AsyncStorage.getItem(selectedLanguageStorageKey),
+      asyncAppStorage.getItem(selectedLanguageStorageKey),
     ]).then(([listResult, storedSelectedLanguage]) => {
       if (listResult.success === false) {
         setStatus('error');

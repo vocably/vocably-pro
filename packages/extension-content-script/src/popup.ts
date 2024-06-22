@@ -10,9 +10,13 @@ import {
   setupTransform,
 } from './styling';
 
-let popup: HTMLElement;
-let resizeObserver: ResizeObserver;
-let tearDownContents: TearDown;
+type PopupStackItem = {
+  popup: HTMLElement;
+  resizeObserver: ResizeObserver;
+  tearDownContents: TearDown;
+};
+
+const popupStack: PopupStackItem[] = [];
 
 const calculatePosition = (
   globalRect: GlobalRect,
@@ -61,12 +65,6 @@ const show = (popup: HTMLElement) => {
   popup.style.opacity = '1';
 };
 
-const destroyOnSpace = (e: KeyboardEvent) => {
-  if (e.code === 'Space') {
-    destroyPopup();
-  }
-};
-
 type PopupOptions = {
   text: string;
   context?: string;
@@ -76,25 +74,15 @@ type PopupOptions = {
 };
 
 export const createPopup = async (options: PopupOptions) => {
-  destroyPopup();
-
-  popup = document.createElement('vocably-popup');
+  const popup = document.createElement('vocably-popup');
   applyInitialStyles(popup);
   document.body.appendChild(popup);
 
-  popup.addEventListener('mousedown', (event) => {
-    event.stopPropagation();
-  });
-
-  popup.addEventListener('mouseup', (event) => {
-    event.stopPropagation();
-  });
-
   popup.addEventListener('close', () => {
-    destroyPopup();
+    destroyPopup(popup);
   });
 
-  tearDownContents = await setContents({
+  const tearDownContents = await setContents({
     popup,
     source: options.text,
     detectedLanguage: options.detectedLanguage,
@@ -109,28 +97,83 @@ export const createPopup = async (options: PopupOptions) => {
   setupTransform(popup);
   show(popup);
 
-  resizeObserver = new ResizeObserver(() => {
+  const resizeObserver = new ResizeObserver(() => {
     requestAnimationFrame(() => applyTransform(popup, position));
   });
   resizeObserver.observe(popup);
 
+  popupStack.push({ popup, resizeObserver, tearDownContents });
+  setTimeout(() => addGlobalEventListeners(), 100);
+};
+
+export const destroyPopup = (popupToDestroy: HTMLElement) => {
+  const stackItemIndex = popupStack.findIndex(
+    (item) => item.popup === popupToDestroy
+  );
+
+  if (stackItemIndex === -1) {
+    return;
+  }
+
+  const { popup, resizeObserver, tearDownContents } =
+    popupStack[stackItemIndex];
+
+  tearDownContents();
+  resizeObserver.unobserve(popup);
+  resizeObserver.disconnect();
+  popup.remove();
+
+  popupStack.splice(stackItemIndex, 1);
+};
+
+export const destroyAllPopups = () => {
+  while (popupStack.length > 0) {
+    destroyPopup(popupStack[0].popup);
+  }
+
+  removeGlobalEventListeners();
+};
+
+const addGlobalEventListeners = () => {
+  if (popupStack.length > 1) {
+    return;
+  }
+
+  document.addEventListener('click', destroyOnGlobalClick);
   document.addEventListener('keydown', destroyOnSpace);
 };
 
-export const destroyPopup = () => {
-  if (popup) {
-    popup.remove();
-  }
-
-  if (resizeObserver) {
-    resizeObserver.disconnect();
-    resizeObserver = null;
-  }
-
-  if (tearDownContents) {
-    tearDownContents();
-    tearDownContents = null;
-  }
-
+const removeGlobalEventListeners = () => {
   document.removeEventListener('keydown', destroyOnSpace);
+  document.removeEventListener('click', destroyOnGlobalClick);
+};
+
+const destroyOnSpace = (e: KeyboardEvent) => {
+  if (e.code === 'Space') {
+    destroyAllPopups();
+  }
+};
+
+const isPopupElement = (verifiedElement: HTMLElement): boolean => {
+  if (verifiedElement.tagName === 'VOCABLY-POPUP') {
+    return true;
+  }
+
+  if (verifiedElement.parentElement) {
+    return isPopupElement(verifiedElement.parentElement);
+  }
+
+  return false;
+};
+
+const destroyOnGlobalClick = (e: MouseEvent) => {
+  if (!e.target) {
+    return;
+  }
+
+  const isClickOnPopup = isPopupElement(e.target as HTMLElement);
+
+  if (!isClickOnPopup) {
+    destroyAllPopups();
+  }
 };

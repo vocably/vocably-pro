@@ -1,24 +1,8 @@
 @import '../../styles/component';
 
-:host {
+vocably-rate {
   @include base-font();
   display: block;
-}
-
-.container {
-  display: inline-block;
-}
-
-.message {
-  margin-bottom: $p-margin;
-}
-
-.button {
-  @include button();
-  @include inline-button();
-}
-
-.link-button {
-  @include unstyled();
-  @include link();
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
 }

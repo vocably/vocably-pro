@@ -2,6 +2,8 @@
 
 :host {
   @include base-font();
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
 
   --max-height: 48vh;
   --max-width: 100vw;

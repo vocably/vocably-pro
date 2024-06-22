@@ -7,6 +7,8 @@ $dot-size: 18px;
   width: 140px;
   height: $dot-size;
   vertical-align: middle;
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
 }
 
 .spinner {

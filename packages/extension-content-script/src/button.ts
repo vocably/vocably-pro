@@ -1,3 +1,4 @@
+import { applyButtonPosition } from './button/applyButtonPosition';
 import { contextLanguages } from './contextLanguages';
 import { detectLanguage } from './detectLanguage';
 import { getContext } from './getContext';
@@ -6,7 +7,6 @@ import { createPopup } from './popup';
 import { getGlobalRect } from './position';
 import {
   applyMaxZIndex,
-  applyPosition,
   applyTransform,
   Position,
   setHorizontalDisplacement,
@@ -88,7 +88,10 @@ export const createButton = async (
       ? getContext(selection)
       : undefined;
 
-  button.addEventListener('click', () => {
+  button.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     createPopup({
       detectedLanguage,
       text: getText(selection),
@@ -123,7 +126,7 @@ export const createButton = async (
     return;
   }
 
-  applyPosition(button, position);
+  applyButtonPosition({ element: button, position, isTouchscreen });
   setupTransform(button);
   applyTransform(button, position);
   await considerGoogleTranslate(button);

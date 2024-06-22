@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
-import ShareMenu, { ShareData } from 'react-native-share-menu';
+import { Platform } from 'react-native';
+import ShareMenu, {
+  ShareData,
+  ShareMenuReactView,
+} from 'react-native-share-menu';
 
 export const useShareIntentData = () => {
   const [sharedText, setSharedText] = useState<string>('');
@@ -14,14 +18,23 @@ export const useShareIntentData = () => {
     }
   }, []);
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
-    ShareMenu.getSharedText(handleShare);
+    if (Platform.OS === 'ios') {
+      ShareMenuReactView.data().then(({ mimeType, data }) => {
+        //@ts-ignore
+        setSharedText(data[0].data);
+      });
+    } else {
+      ShareMenu.getSharedText(handleShare);
+    }
   }, []);
 
   return sharedText;
 };
 
-function extractWord(inputString) {
+function extractWord(inputString: string) {
   const regex = /"([^"]*)"/;
   const match = regex.exec(inputString);
   if (match) {

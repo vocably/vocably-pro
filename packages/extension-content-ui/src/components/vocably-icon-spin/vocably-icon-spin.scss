@@ -1,5 +1,10 @@
 @import '../../styles/variables';
 
+:host {
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
+}
+
 .spinner_VpEe {
   animation: spinner_vXu6 1.2s cubic-bezier(0.52, 0.6, 0.25, 0.99) infinite;
 }
