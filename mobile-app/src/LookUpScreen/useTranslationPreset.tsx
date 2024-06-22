@@ -45,6 +45,15 @@ export const useTranslationPreset = (): [
       return;
     }
 
+    if (!preset.sourceLanguage && selectedLanguage) {
+      setPresetState({
+        ...preset,
+        sourceLanguage: selectedLanguage,
+      });
+
+      return;
+    }
+
     if (!isGoogleLanguage(preset.sourceLanguage)) {
       return;
     }
@@ -63,7 +72,7 @@ export const useTranslationPreset = (): [
       sourceLanguage: selectedLanguage,
       translationLanguage: translationLanguageCandidate,
     });
-  }, [preset, languagePairs]);
+  }, [preset, languagePairs, selectedLanguage]);
 
   return [preset, languagePairs ?? {}, setPreset];
 };
