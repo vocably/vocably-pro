@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import { Button, IconButton, Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LanguagesContext } from '../languages/LanguagesContainer';
+import { LanguagePairs } from './useLanguagePairs';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,12 +25,14 @@ type TranslationPreset = FC<{
   navigation: NavigationProp<any>;
   preset: Preset;
   onChange: (preset: Preset) => void;
+  languagePairs: LanguagePairs;
 }>;
 
 export const TranslationPreset: TranslationPreset = ({
   navigation,
   preset,
   onChange,
+  languagePairs,
 }) => {
   const { languages } = useContext(LanguagesContext);
   const theme = useTheme();
@@ -39,6 +42,11 @@ export const TranslationPreset: TranslationPreset = ({
       onChange({
         ...preset,
         sourceLanguage,
+        // @ts-ignore
+        translationLanguage: languagePairs[sourceLanguage]
+          ? // @ts-ignore
+            languagePairs[sourceLanguage].translationLanguage
+          : preset.translationLanguage,
       });
     },
     [preset, onChange]
@@ -54,16 +62,24 @@ export const TranslationPreset: TranslationPreset = ({
     });
   }, [preset, languages, onSourceSelection]);
 
-  const onTranslationSelection = useCallback((translationLanguage: string) => {
-    onChange({
-      ...preset,
-      translationLanguage,
-    });
-  }, [preset]);
+  const onTranslationSelection = useCallback(
+    (translationLanguage: string) => {
+      onChange({
+        ...preset,
+        translationLanguage,
+      });
+    },
+    [preset]
+  );
 
   const selectTranslationLanguage = useCallback(() => {
     navigation.navigate('LanguageSelector', {
       title: 'Translation',
+      // @ts-ignore
+      preferred: languagePairs[preset.sourceLanguage]
+        ? // @ts-ignore
+          languagePairs[preset.sourceLanguage].availableLanguages
+        : [],
       selected: preset.translationLanguage,
       onSelect: onTranslationSelection,
     });
