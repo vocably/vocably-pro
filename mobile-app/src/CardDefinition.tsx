@@ -23,12 +23,17 @@ export const CardDefinition: CardDefinition = ({
   }));
 
   if (maskSource) {
-    definitions = definitions.map((definition) => {
-      return {
-        ...definition,
-        text: maskTheWord(card.source, card.language)(definition.text).value,
-      };
-    });
+    definitions = definitions
+      .filter(
+        (definition) =>
+          !(definition.text.includes('[') && definition.text.includes(']'))
+      )
+      .map((definition) => {
+        return {
+          ...definition,
+          text: maskTheWord(card.source, card.language)(definition.text).value,
+        };
+      });
   }
 
   if (card.translation) {
