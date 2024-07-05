@@ -49,7 +49,7 @@ export const ReverseCardFront: FC<{ card: CardItem; hasChecked: boolean }> = ({
           >
             Example{examples.length > 1 ? 's' : ''}:
           </Text>
-          <CardExample example={join(examples)} />
+          <CardExample example={join(examples)} textStyle={{ fontSize: 18 }} />
         </>
       )}
     </View>

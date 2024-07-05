@@ -22,42 +22,35 @@ export const CardFront: FC<{ card: CardItem }> = ({ card }) => {
             }}
           />
         )}
+        <Text
+          style={{
+            fontSize: 32,
+            color: theme.colors.secondary,
+            marginRight: 8,
+          }}
+        >
+          {card.data.source}
+        </Text>
+      </View>
+      {(card.data.ipa || card.data.partOfSpeech) && (
         <View
           style={{
             flexDirection: 'row',
-            alignItems: 'baseline',
-            flexWrap: 'wrap',
+            flexWrap: 'nowrap',
+            marginLeft: 8,
+            marginTop: 6,
           }}
         >
-          <Text
-            style={{
-              fontSize: 32,
-              color: theme.colors.secondary,
-              marginRight: 8,
-            }}
-          >
-            {card.data.source}
-          </Text>
-
-          {(card.data.ipa || card.data.partOfSpeech) && (
-            <View
-              style={{
-                flexDirection: 'row',
-                flexWrap: 'nowrap',
-              }}
-            >
-              {card.data.ipa && (
-                <Text style={{ marginRight: 8 }}>[{card.data.ipa}]</Text>
-              )}
-              {card.data.partOfSpeech && (
-                <Text style={{ marginRight: 8 }}>{card.data.partOfSpeech}</Text>
-              )}
-            </View>
+          {card.data.ipa && (
+            <Text style={{ marginRight: 8 }}>[{card.data.ipa}]</Text>
+          )}
+          {card.data.partOfSpeech && (
+            <Text style={{ marginRight: 8 }}>{card.data.partOfSpeech}</Text>
           )}
         </View>
-      </View>
+      )}
       {card.data.example && (
-        <View style={{ marginTop: 8, marginLeft: 8 }}>
+        <View style={{ marginTop: 12, marginLeft: 8 }}>
           <CardExample
             example={card.data.example}
             textStyle={{ fontSize: 18 }}
