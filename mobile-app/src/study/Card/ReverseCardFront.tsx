@@ -7,15 +7,20 @@ import { CardDefinition } from '../../CardDefinition';
 import { CardExample } from '../../CardExample';
 import { maskTheWord } from '../../maskTheWord';
 
-export const ReverseCardFront: FC<{ card: CardItem }> = ({ card }) => {
+export const ReverseCardFront: FC<{ card: CardItem; hasChecked: boolean }> = ({
+  card,
+  hasChecked,
+}) => {
   const theme = useTheme();
 
-  const examples = card.data.example
-    ? explode(card.data.example)
-        .map(maskTheWord(card.data.source, card.data.language))
-        .filter((replacementResult) => replacementResult.masked)
-        .map((replacementResult) => replacementResult.value)
-    : [];
+  let examples = card.data.example ? explode(card.data.example) : [];
+
+  if (!hasChecked) {
+    examples = examples
+      .map(maskTheWord(card.data.source, card.data.language))
+      .filter((replacementResult) => replacementResult.masked)
+      .map((replacementResult) => replacementResult.value);
+  }
 
   return (
     <View>
@@ -31,7 +36,7 @@ export const ReverseCardFront: FC<{ card: CardItem }> = ({ card }) => {
       <CardDefinition
         card={card.data}
         textStyle={{ fontSize: 24 }}
-        maskSource={true}
+        maskSource={!hasChecked}
       />
       {examples.length > 0 && (
         <>

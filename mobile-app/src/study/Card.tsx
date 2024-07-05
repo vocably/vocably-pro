@@ -63,6 +63,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
   };
 
   const [isFlipped, setIsFlipped] = useState(false);
+  const [hasChecked, setHasChecked] = useState(false);
 
   const flipToFront = useCallback(() => {
     setIsFlipped(false);
@@ -75,12 +76,13 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
 
   const flipToBack = useCallback(() => {
     setIsFlipped(true);
+    setHasChecked(true);
     Animated.timing(flipAnimation, {
       toValue: 0,
       duration: 300,
       useNativeDriver: true,
     }).start();
-  }, [Animated, flipAnimation, setIsFlipped]);
+  }, [Animated, flipAnimation, setIsFlipped, setHasChecked]);
 
   const isReverse = card.data.reverse;
 
@@ -109,7 +111,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
             pointerEvents={!isFlipped ? 'none' : 'auto'}
           >
             {isReverse ? (
-              <ReverseCardFront card={card} />
+              <ReverseCardFront card={card} hasChecked={hasChecked} />
             ) : (
               <CardFront card={card} />
             )}
