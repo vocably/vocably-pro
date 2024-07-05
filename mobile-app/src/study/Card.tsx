@@ -6,6 +6,8 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { CardBack } from './Card/CardBack';
+import { CardFront } from './Card/CardFront';
 import { ReverseCardBack } from './Card/ReverseCardBack';
 import { ReverseCardFront } from './Card/ReverseCardFront';
 import { Displayer } from './Displayer';
@@ -80,6 +82,8 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
     }).start();
   }, [Animated, flipAnimation, setIsFlipped]);
 
+  const isReverse = card.data.reverse;
+
   return (
     <Displayer>
       <TouchableWithoutFeedback
@@ -94,15 +98,21 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
             }}
             pointerEvents={isFlipped ? 'none' : 'auto'}
           >
-            {/*<CardBack card={card} />*/}
-            <ReverseCardBack card={card} />
+            {isReverse ? (
+              <ReverseCardBack card={card} />
+            ) : (
+              <CardBack card={card} />
+            )}
           </Animated.View>
           <Animated.View
             style={{ ...styles.cardFront, ...flipToBackStyle }}
             pointerEvents={!isFlipped ? 'none' : 'auto'}
           >
-            <ReverseCardFront card={card} />
-            {/*<CardFront card={card} />*/}
+            {isReverse ? (
+              <ReverseCardFront card={card} />
+            ) : (
+              <CardFront card={card} />
+            )}
           </Animated.View>
         </View>
       </TouchableWithoutFeedback>

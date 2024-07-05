@@ -29,10 +29,20 @@ export const grade = (item: SrsItem, score: SrsScore): SrsItem => {
 
   if (nextEFactor < 1.3) nextEFactor = 1.3;
 
+  const currentReverse = !!item.reverse;
+  let nextReverse: boolean;
+
+  if (score === 5) {
+    nextReverse = !currentReverse;
+  } else if (score < 3) {
+    nextReverse = false;
+  }
+
   return {
     interval: nextInterval,
     repetition: nextRepetition,
     eFactor: nextEFactor,
     dueDate: buildDueDate(nextInterval),
+    reverse: nextReverse,
   };
 };
