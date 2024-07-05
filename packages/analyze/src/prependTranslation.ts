@@ -1,7 +1,7 @@
 import { AnalysisItem, Translation } from '@vocably/model';
+import { trimArticle } from '@vocably/sulna';
 import { joinStrings } from './joinStrings';
 import { translationToAnalysisItem } from './translationToAnalyzeItem';
-import { trimArticle } from './trimArticle';
 
 const sourcesAreMatched =
   (translation: Translation) =>

@@ -1,4 +1,4 @@
-import { CardItem, isGoogleTTSLanguage } from '@vocably/model';
+import { CardItem } from '@vocably/model';
 import React, { FC, useCallback, useRef, useState } from 'react';
 import {
   Animated,
@@ -6,10 +6,8 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
-import { CardDefinition } from '../CardDefinition';
-import { CardExample } from '../CardExample';
-import { PlaySound } from '../PlaySound';
+import { ReverseCardBack } from './Card/ReverseCardBack';
+import { ReverseCardFront } from './Card/ReverseCardFront';
 import { Displayer } from './Displayer';
 
 const styles = StyleSheet.create({
@@ -82,8 +80,6 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
     }).start();
   }, [Animated, flipAnimation, setIsFlipped]);
 
-  const theme = useTheme();
-
   return (
     <Displayer>
       <TouchableWithoutFeedback
@@ -96,75 +92,17 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
               ...flipToFrontStyle,
               display: 'flex',
             }}
+            pointerEvents={isFlipped ? 'none' : 'auto'}
           >
-            <CardDefinition
-              card={card.data}
-              style={styles.list}
-              textStyle={{ fontSize: 24 }}
-            />
+            {/*<CardBack card={card} />*/}
+            <ReverseCardBack card={card} />
           </Animated.View>
-          <Animated.View style={{ ...styles.cardFront, ...flipToBackStyle }}>
-            <View>
-              <View style={{ flexDirection: 'row' }}>
-                {isGoogleTTSLanguage(card.data.language) && (
-                  <PlaySound
-                    text={card.data.source}
-                    language={card.data.language}
-                    size={24}
-                    style={{
-                      marginRight: 6,
-                      alignSelf: 'flex-start',
-                      marginTop: 12,
-                    }}
-                  />
-                )}
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'baseline',
-                    flexWrap: 'wrap',
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 32,
-                      color: theme.colors.secondary,
-                      marginRight: 8,
-                    }}
-                  >
-                    {card.data.source}
-                  </Text>
-
-                  {(card.data.ipa || card.data.partOfSpeech) && (
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        flexWrap: 'nowrap',
-                      }}
-                    >
-                      {card.data.ipa && (
-                        <Text style={{ marginRight: 8 }}>
-                          [{card.data.ipa}]
-                        </Text>
-                      )}
-                      {card.data.partOfSpeech && (
-                        <Text style={{ marginRight: 8 }}>
-                          {card.data.partOfSpeech}
-                        </Text>
-                      )}
-                    </View>
-                  )}
-                </View>
-              </View>
-              {card.data.example && (
-                <View style={{ marginTop: 8, marginLeft: 8 }}>
-                  <CardExample
-                    example={card.data.example}
-                    textStyle={{ fontSize: 18 }}
-                  />
-                </View>
-              )}
-            </View>
+          <Animated.View
+            style={{ ...styles.cardFront, ...flipToBackStyle }}
+            pointerEvents={!isFlipped ? 'none' : 'auto'}
+          >
+            <ReverseCardFront card={card} />
+            {/*<CardFront card={card} />*/}
           </Animated.View>
         </View>
       </TouchableWithoutFeedback>
