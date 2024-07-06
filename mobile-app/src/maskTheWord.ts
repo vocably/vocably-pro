@@ -3,6 +3,13 @@ import { get as calculateLevenshtein } from 'fast-levenshtein';
 import { escapeRegExp } from 'lodash-es';
 
 export const compareWords = (a: string, b: string): boolean => {
+  const minLength = Math.min(a.length, b.length);
+  const maxLength = Math.max(a.length, b.length);
+
+  if (minLength <= 3 && maxLength >= 5) {
+    return false;
+  }
+
   const upperA = a.toUpperCase();
   const upperB = b.toUpperCase();
   if (upperA === upperB) {
@@ -14,7 +21,6 @@ export const compareWords = (a: string, b: string): boolean => {
   }
 
   const distance = calculateLevenshtein(a, b);
-  const minLength = Math.min(upperA.length, upperB.length);
 
   if (minLength / distance >= 2) {
     return true;

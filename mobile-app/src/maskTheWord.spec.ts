@@ -56,5 +56,22 @@ describe('maskTheWord', () => {
     it('afschaft - afschaffing', () => {
       expect(compareWords('afschaft', 'afschaffing')).toEqual(true);
     });
+
+    it('a - aquisition', () => {
+      expect(compareWords('a', 'aquisition')).toEqual(false);
+      expect(compareWords('theory', 'the')).toEqual(false);
+    });
+
+    it('theory - theater', () => {
+      expect(compareWords('theory', 'theater')).toEqual(false);
+    });
+
+    it('zien - zeit', () => {
+      expect(compareWords('zien', 'ziet')).toEqual(true);
+    });
+
+    it('in - intro', () => {
+      expect(compareWords('in', 'intro')).toEqual(false);
+    });
   });
 });
