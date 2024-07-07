@@ -34,7 +34,9 @@ export const grade = (item: SrsItem, score: SrsScore): SrsItem => {
 
   if (score === 5) {
     nextReverse = !currentReverse;
-  } else if (score < 3) {
+  } else if (score < 5 && score > 1) {
+    nextReverse = currentReverse;
+  } else {
     nextReverse = false;
   }
 
