@@ -1,21 +1,40 @@
 import { Card } from '@vocably/model';
 import { explode } from '@vocably/sulna';
 import React, { FC } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { StyleProp } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
+import { maskTheWord } from './maskTheWord';
 
 type CardDefinition = FC<{
   card: Card;
-  style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<Text>;
+  maskSource?: boolean;
 }>;
 
-export const CardDefinition: CardDefinition = ({ card, style, textStyle }) => {
+export const CardDefinition: CardDefinition = ({
+  card,
+  textStyle,
+  maskSource = false,
+}) => {
   const theme = useTheme();
   let definitions = explode(card.definition).map((text) => ({
     text,
     style: {},
   }));
+
+  if (maskSource) {
+    definitions = definitions
+      .filter(
+        (definition) =>
+          !(definition.text.includes('[') && definition.text.includes(']'))
+      )
+      .map((definition) => {
+        return {
+          ...definition,
+          text: maskTheWord(card.source, card.language)(definition.text).value,
+        };
+      });
+  }
 
   if (card.translation) {
     definitions.unshift({

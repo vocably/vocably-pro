@@ -1,18 +1,15 @@
-import { GoogleLanguage } from '@vocably/model';
-import { LexicalaLanguage } from './lexicala/lexicalaLanguageMapper';
-
 type TrimArticleResult = {
   source: string;
   article?: string;
 };
 
-const trimRegexes: Partial<Record<LexicalaLanguage, RegExp>> = {
+const trimRegexes: Partial<Record<string, RegExp>> = {
   nl: /^(de|het)\s/i,
   de: /^(der|die|das)\s/i,
 };
 
 export const trimArticle = (
-  language: GoogleLanguage,
+  language: string,
   source: string
 ): TrimArticleResult => {
   if (trimRegexes[language] === undefined) {

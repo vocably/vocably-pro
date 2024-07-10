@@ -4,6 +4,7 @@ import {
   Result,
   Translation,
 } from '@vocably/model';
+import { trimArticle } from '@vocably/sulna';
 import { buildDirectJapaneseResult } from './buildDirectResult/buildDirectJapaneseResult';
 import { combineItems } from './combineItems';
 import { fitsTheSize } from './fitsTheSize';
@@ -16,7 +17,6 @@ import { lexicalaItemHasDefinitionOrCanBeTranslated } from './lexicalaItemHasDef
 import { prependTranslation } from './prependTranslation';
 import { translate } from './translate';
 import { translationToAnalysisItem } from './translationToAnalyzeItem';
-import { trimArticle } from './trimArticle';
 import { wordDictionary } from './word-dictionary';
 import { wordDictionaryResultToAnalysisItems } from './wordDictionaryResultToItems';
 

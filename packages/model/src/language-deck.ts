@@ -3,6 +3,7 @@ export type SrsItem = {
   repetition: number;
   eFactor: number;
   dueDate: number;
+  reverse?: boolean;
 };
 
 export type Card = {
