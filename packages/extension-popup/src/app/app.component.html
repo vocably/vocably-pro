@@ -16,6 +16,21 @@
         Display the translations on double-click.
       </label>
     </p>
+
+    <p class="mb-1">
+      <label>
+        <input
+          type="checkbox"
+          [checked]="settings.autoPlay"
+          (change)="
+            setSettings({
+              autoPlay: !settings.autoPlay
+            })
+          "
+        />
+        Automatically play audio pronunciation.
+      </label>
+    </p>
   </ng-container>
 
   <div>

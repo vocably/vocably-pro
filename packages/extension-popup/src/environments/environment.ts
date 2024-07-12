@@ -8,6 +8,7 @@ import { environmentLocal } from './environmentLocal';
 
 let settings: ExtensionSettings = {
   showOnDoubleClick: true,
+  autoPlay: true,
 };
 
 const mockGetSettings: typeof getSettings = async () => {

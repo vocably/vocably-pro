@@ -138,6 +138,9 @@ registerContentScript({
           showOnDoubleClick: (
             document.getElementById('showOnDoubleClick') as HTMLInputElement
           ).checked,
+
+          autoPlay: (document.getElementById('playSound') as HTMLInputElement)
+            .checked,
         });
       }),
   },

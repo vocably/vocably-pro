@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop, State } from '@stencil/core';
+import { Component, h, Host, Method, Prop, State } from '@stencil/core';
 import {
   GoogleTTSLanguage,
   PlaySoundPayload,
@@ -22,7 +22,8 @@ export class VocablyPlaySound {
   @State() isLoading: boolean = false;
   @State() isPlaying: boolean = false;
 
-  onPlaySoundClick = async () => {
+  @Method()
+  async play() {
     this.isLoading = true;
     const result = await this.playSound({
       text: this.text,
@@ -43,14 +44,14 @@ export class VocablyPlaySound {
         this.isPlaying = false;
       }
     }
-  };
+  }
 
   render() {
     return (
       <Host>
         <button
           class="vocably-play-sound-button"
-          onClick={() => this.onPlaySoundClick()}
+          onClick={() => this.play()}
           disabled={this.isPlaying || this.isLoading}
         >
           {!this.isLoading && !this.isPlaying && <vocably-icon-play-circle />}

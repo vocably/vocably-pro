@@ -12,6 +12,7 @@ type Options = {
   popup: HTMLElement;
   source: string;
   detectedLanguage: GoogleLanguage | undefined;
+  autoPlay: boolean;
   context?: string;
 };
 
@@ -30,6 +31,7 @@ export const setContents = async ({
   source,
   detectedLanguage,
   context,
+  autoPlay,
 }: Options): Promise<TearDown> => {
   let intervalId: ReturnType<typeof setInterval> | null = null;
 
@@ -92,6 +94,12 @@ export const setContents = async ({
 
             translation.targetLanguage =
               translationResult.value.translation.targetLanguage;
+
+            if (autoPlay) {
+              setTimeout(() => {
+                translation.querySelector('vocably-play-sound')?.play();
+              }, 500);
+            }
           }
 
           const existingLanguagesResult = await api.listLanguages();

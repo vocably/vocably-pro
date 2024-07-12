@@ -25,6 +25,7 @@ export const [isLoggedIn, onIsLoggedInRequest] = createScopedMessage<
 
 export type ExtensionSettings = {
   showOnDoubleClick: boolean;
+  autoPlay: boolean;
 };
 
 export const [getSettings, onGetSettingsRequest] = createScopedMessage<

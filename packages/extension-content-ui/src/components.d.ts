@@ -50,6 +50,7 @@ export namespace Components {
     }
     interface VocablyPlaySound {
         "language": GoogleTTSLanguage;
+        "play": () => Promise<void>;
         "playSound": (
     payload: PlaySoundPayload
   ) => Promise<Result<PlaySoundResponse>>;

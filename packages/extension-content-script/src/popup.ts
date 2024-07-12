@@ -1,4 +1,5 @@
 import { GoogleLanguage } from '@vocably/model';
+import { api } from './api';
 import { setContents, TearDown } from './popup/contents';
 import { GlobalRect } from './position';
 import {
@@ -82,11 +83,14 @@ export const createPopup = async (options: PopupOptions) => {
     destroyPopup(popup);
   });
 
+  const { autoPlay } = await api.getSettings();
+
   const tearDownContents = await setContents({
     popup,
     source: options.text,
     detectedLanguage: options.detectedLanguage,
     context: options.context,
+    autoPlay,
   });
 
   const position = calculatePosition(options.globalRect, options.isTouchscreen);
