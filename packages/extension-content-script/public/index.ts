@@ -132,6 +132,14 @@ registerContentScript({
     saveAskForRatingResponse: () => Promise.resolve(null),
     getLocationLanguage: () => Promise.resolve(undefined),
     saveLocationLanguage: () => Promise.resolve(null),
+    getSettings: () =>
+      new Promise((resolve) => {
+        resolve({
+          showOnDoubleClick: (
+            document.getElementById('showOnDoubleClick') as HTMLInputElement
+          ).checked,
+        });
+      }),
   },
   youTube: {
     ytHosts: ['localhost:8020'],

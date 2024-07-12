@@ -23,6 +23,20 @@ export const [isLoggedIn, onIsLoggedInRequest] = createScopedMessage<
   boolean
 >('isLoggedIn');
 
+export type ExtensionSettings = {
+  showOnDoubleClick: boolean;
+};
+
+export const [getSettings, onGetSettingsRequest] = createScopedMessage<
+  void,
+  ExtensionSettings
+>('getSettings');
+
+export const [setSettings, onSetSettingsRequest] = createScopedMessage<
+  Partial<ExtensionSettings>,
+  ExtensionSettings
+>('setSettings');
+
 export const [isActive, onIsActiveRequest] = createScopedMessage<void, boolean>(
   'isActive'
 );

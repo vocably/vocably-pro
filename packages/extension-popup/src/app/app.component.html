@@ -1,6 +1,23 @@
 <div class="container">
   <app-header class="mb-1"></app-header>
 
+  <ng-container *ngIf="settings$ | async as settings">
+    <p class="mb-1">
+      <label>
+        <input
+          type="checkbox"
+          [checked]="settings.showOnDoubleClick"
+          (change)="
+            setSettings({
+              showOnDoubleClick: !settings.showOnDoubleClick
+            })
+          "
+        />
+        Display the translations on double-click.
+      </label>
+    </p>
+  </ng-container>
+
   <div>
     <button class="link" (click)="showQRCode = true">
       Install the mobile app

@@ -6,6 +6,7 @@ import {
   getInternalProxyLanguage,
   getInternalSourceLanguage,
   getLocationLanguage,
+  getSettings,
   isActive,
   isEligibleForTrial,
   isLoggedIn,
@@ -45,6 +46,7 @@ export const api = {
   saveAskForRatingResponse,
   getLocationLanguage,
   saveLocationLanguage,
+  getSettings,
 };
 
 export type ApiConfigOptions = Partial<typeof api>;

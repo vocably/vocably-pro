@@ -17,6 +17,7 @@ import {
   onGetInternalSourceLanguage,
   onGetLocationLanguageRequest,
   onGetProxyLanguage,
+  onGetSettingsRequest,
   onGetSourceLanguage,
   onIsActiveRequest,
   onIsEligibleForTrialRequest,
@@ -33,6 +34,7 @@ import {
   onSetInternalProxyLanguage,
   onSetInternalSourceLanguage,
   onSetProxyLanguage,
+  onSetSettingsRequest,
   onSetSourceLanguage,
   onSetUserKnowsHowToAdd,
 } from '@vocably/extension-messages';
@@ -66,6 +68,7 @@ import {
   getSourceLanguage,
   setSourceLanguage,
 } from './selectedLanguage/sourceLanguage';
+import { getSettings, setSettings } from './settings';
 import {
   getUserMetadata,
   invalidateUserMetadata,
@@ -463,6 +466,14 @@ export const registerServiceWorker = (
   onSaveLocationLanguageRequest(async (sendResponse, [url, language]) => {
     await storeLocationLanguage(url, language);
     return sendResponse();
+  });
+
+  onGetSettingsRequest(async (sendResponse) => {
+    return sendResponse(await getSettings());
+  });
+
+  onSetSettingsRequest(async (sendResponse, partialSettings) => {
+    return sendResponse(await setSettings(partialSettings));
   });
 
   console.info('The service worker has been registered');

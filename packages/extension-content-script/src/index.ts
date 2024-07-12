@@ -1,5 +1,6 @@
 import { defineCustomElements } from '@vocably/extension-content-ui/loader';
 import '@webcomponents/custom-elements';
+import { map, merge, Subject, take, timer } from 'rxjs';
 import { api, ApiConfigOptions, configureApi } from './api';
 import { createButton, destroyButton } from './button';
 import {
@@ -7,6 +8,12 @@ import {
   contentScriptConfiguration,
   ContentScriptConfiguration,
 } from './configuration';
+import { contextLanguages } from './contextLanguages';
+import { detectLanguage } from './detectLanguage';
+import { getContext } from './getContext';
+import { getText } from './getText';
+import { createPopup } from './popup';
+import { getGlobalRect } from './position';
 import { isValidSelection } from './selection';
 import { initYoutube, InitYouTubeOptions } from './youtube';
 
@@ -69,6 +76,8 @@ const isClickableElement = (element: HTMLElement) => {
   return false;
 };
 
+const doubleClick$ = new Subject<void>();
+
 const onMouseUp = async (event: MouseEvent) => {
   if (isClickableElement(event.target as HTMLElement)) {
     return;
@@ -88,7 +97,42 @@ const onMouseUp = async (event: MouseEvent) => {
   if (!isValidSelection(selection)) {
     return;
   }
-  await createButton(selection, event);
+
+  merge(doubleClick$.pipe(map(() => true)), timer(50).pipe(map(() => false)))
+    .pipe(take(1))
+    .subscribe(async (doubleClick) => {
+      if (!doubleClick) {
+        await createButton(selection, event);
+      }
+    });
+};
+
+const onDoubleCLick = async (event: MouseEvent) => {
+  const settings = await api.getSettings();
+  if (!settings.showOnDoubleClick) {
+    return;
+  }
+
+  doubleClick$.next();
+
+  const selection = window.getSelection();
+  if (!isValidSelection(selection)) {
+    return;
+  }
+
+  const detectedLanguage = await detectLanguage(selection);
+  const context =
+    detectedLanguage && contextLanguages.includes(detectedLanguage)
+      ? getContext(selection)
+      : undefined;
+
+  createPopup({
+    detectedLanguage,
+    text: getText(selection),
+    context: context,
+    globalRect: getGlobalRect(selection.getRangeAt(0).getBoundingClientRect()),
+    isTouchscreen: false,
+  });
 };
 
 const onMouseDown = async (event: MouseEvent) => {
@@ -128,6 +172,8 @@ export const registerContentScript = async (
   configureContentScript(contentScript);
   document.addEventListener('mouseup', onMouseUp);
   document.addEventListener('mousedown', onMouseDown);
+
+  document.addEventListener('dblclick', onDoubleCLick);
 
   enableSelectionChangeDetection();
 };
