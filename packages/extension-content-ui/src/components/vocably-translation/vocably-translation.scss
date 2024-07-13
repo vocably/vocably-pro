@@ -10,6 +10,10 @@ vocably-translation {
   @include base-font();
   // Reddit sets visibility: hidden for custom elements
   visibility: visible !important;
+
+  li {
+    margin: 0;
+  }
 }
 
 .vocably-mb-4 {
@@ -36,6 +40,7 @@ vocably-translation {
 .vocably-text-link:active,
 .vocably-text-link:visited {
   color: $v-light-color-body !important;
+  text-decoration: underline !important;
 }
 
 .vocably-text-link:hover {
@@ -172,6 +177,9 @@ $container-padding: $input-padding-y $input-padding-x $input-padding-y
       background: none;
       border: none;
       cursor: pointer;
+      outline: none;
+      min-width: auto;
+      box-shadow: none;
 
       opacity: 0.1;
       transition: opacity 200ms;

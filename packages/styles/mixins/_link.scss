@@ -4,6 +4,9 @@
 @mixin link() {
   @include underline();
   color: $v-light-color-primary !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
 
   &:hover,
   &:focus,
