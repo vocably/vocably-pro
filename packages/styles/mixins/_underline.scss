@@ -1,5 +1,5 @@
-@mixin underline {
-  text-decoration: underline !important;
-  text-decoration-thickness: 0.5px !important;
-  text-underline-offset: 2px !important;
+@mixin underline($important: '') {
+  text-decoration: underline #{$important};
+  text-decoration-thickness: 0.5px #{$important};
+  text-underline-offset: 2px #{$important};
 }

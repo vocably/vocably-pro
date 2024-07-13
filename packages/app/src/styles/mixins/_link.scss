@@ -1,7 +1,7 @@
 @import '~@vocably/styles/mixins/underline';
 
 @mixin link($important: '') {
-  @include underline();
+  @include underline($important);
   color: var(--primary-color) #{$important};
 
   &:hover,

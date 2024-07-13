@@ -283,5 +283,5 @@ vocably-play-sound {
 
 .vocably-link-button {
   @include unstyled();
-  @include link();
+  @include link(!important);
 }

@@ -25,5 +25,5 @@
 }
 
 .link {
-  @include link();
+  @include link(!important);
 }

@@ -1,12 +1,12 @@
 @import '../variables';
 @import 'underline';
 
-@mixin link() {
-  @include underline();
+@mixin link($important: '') {
+  @include underline($important);
   color: $v-light-color-primary !important;
-  background: none !important;
-  border: none !important;
-  border-radius: 0 !important;
+  background: none #{$important};
+  border: none #{$important};
+  border-radius: 0 #{$important};
 
   &:hover,
   &:focus,
