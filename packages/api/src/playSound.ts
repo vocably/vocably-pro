@@ -1,9 +1,13 @@
-import { PlaySoundPayload, PlaySoundResponse, Result } from '@vocably/model';
+import {
+  AudioPronunciationPayload,
+  AudioPronunciationResponse,
+  Result,
+} from '@vocably/model';
 import { request } from './restClient';
 
 export const playSound = async (
-  payload: PlaySoundPayload
-): Promise<Result<PlaySoundResponse>> => {
+  payload: AudioPronunciationPayload
+): Promise<Result<AudioPronunciationResponse>> => {
   try {
     return await request('/audio?' + new URLSearchParams(payload), {
       method: 'GET',

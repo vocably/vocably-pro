@@ -10,13 +10,12 @@ import {
 } from '@stencil/core';
 import {
   AddCardPayload,
+  AudioPronunciationPayload,
   GoogleLanguage,
   isCardItem,
   isDetachedCardItem,
   isGoogleTTSLanguage,
   languageList,
-  PlaySoundPayload,
-  PlaySoundResponse,
   RateInteractionPayload,
   RemoveCardPayload,
   Result,
@@ -44,9 +43,9 @@ export class VocablyTranslation {
   @Prop() isUpdating: TranslationCard | null = null;
   @Prop() showSaveHint: boolean = true;
   @Prop() canCongratulate: boolean = false;
-  @Prop() playSound: (
-    payload: PlaySoundPayload
-  ) => Promise<Result<PlaySoundResponse>>;
+  @Prop() playAudioPronunciation: (
+    payload: AudioPronunciationPayload
+  ) => Promise<Result<true>>;
   @Prop() extensionPlatform: { name: string; url: string };
 
   @Event() ratingInteraction: EventEmitter<RateInteractionPayload>;
@@ -141,7 +140,7 @@ export class VocablyTranslation {
                             language={
                               this.result.value.translation.sourceLanguage
                             }
-                            playSound={this.playSound}
+                            playAudioPronunciation={this.playAudioPronunciation}
                           />
                         )}
                         {this.phrase}
@@ -223,7 +222,9 @@ export class VocablyTranslation {
                           >
                             <vocably-card-source
                               card={card}
-                              playSound={this.playSound}
+                              playAudioPronunciation={
+                                this.playAudioPronunciation
+                              }
                               class="vocably-mb-6"
                             ></vocably-card-source>
                             <vocably-card-definitions

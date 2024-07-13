@@ -37,6 +37,8 @@ export const Errors = [
   'OPENAI_UNSUCCESSFUL_REQUEST',
   'OPENAI_UNABLE_TO_PARSE_RESPONSE',
   'OPENAI_UNEXPECTED_RESPONSE',
+  'EXTENSION_OFFSCREEN_DOES_NOT_EXIST',
+  'UNABLE_TO_PLAY_AUDIO_DATA_URL',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];

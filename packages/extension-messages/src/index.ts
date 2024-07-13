@@ -1,10 +1,10 @@
 import { createExternalMessage, createMessage } from '@vocably/hermes';
 import {
   AddCardPayload,
+  AudioPronunciationPayload,
+  AudioPronunciationResponse,
   DirectAnalyzePayload,
   GoogleLanguage,
-  PlaySoundPayload,
-  PlaySoundResponse,
   RateInteractionPayload,
   RemoveCardPayload,
   Result,
@@ -128,10 +128,11 @@ export const [getSourceLanguage, onGetSourceLanguage] = createExternalMessage<
   GoogleLanguage | null
 >('vocably.getSourceLanguage');
 
-export const [playSound, onPlaySound] = createScopedMessage<
-  PlaySoundPayload,
-  Result<PlaySoundResponse>
->('playSound');
+export const [getAudioPronunciation, onGetAudioPronunciation] =
+  createScopedMessage<
+    AudioPronunciationPayload,
+    Result<AudioPronunciationResponse>
+  >('getAudioPronunciation');
 
 export const [askForRating, onAskForRating] = createScopedMessage<
   {
@@ -149,3 +150,20 @@ export const [saveAskForRatingResponse, onSaveAskForRatingResponse] =
     },
     void
   >('askForRatingResponse');
+
+export const [playAudioPronunciation, onPlayAudioPronunciation] =
+  createScopedMessage<AudioPronunciationPayload, Result<true>>(
+    'playAudioPronunciation'
+  );
+
+export const [
+  playAudioPronunciationOffscreen,
+  onPlayAudioPronunciationOffscreen,
+] = createScopedMessage<AudioPronunciationPayload, Result<true>>(
+  'playAudioPronunciationOffscreen'
+);
+
+export const [canPlayOffScreen, onCanPlayOffScreen] = createScopedMessage<
+  void,
+  boolean
+>('canPlayOffScreen');

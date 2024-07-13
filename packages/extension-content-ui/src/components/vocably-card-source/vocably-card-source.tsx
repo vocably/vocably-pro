@@ -1,8 +1,7 @@
 import { Component, Fragment, h, Host, Prop } from '@stencil/core';
 import {
+  AudioPronunciationPayload,
   isGoogleTTSLanguage,
-  PlaySoundPayload,
-  PlaySoundResponse,
   Result,
   TranslationCard,
 } from '@vocably/model';
@@ -14,9 +13,9 @@ import {
 })
 export class VocablyCardSource {
   @Prop() card: TranslationCard;
-  @Prop() playSound: (
-    payload: PlaySoundPayload
-  ) => Promise<Result<PlaySoundResponse>>;
+  @Prop() playAudioPronunciation: (
+    payload: AudioPronunciationPayload
+  ) => Promise<Result<true>>;
 
   render() {
     return (
@@ -25,7 +24,7 @@ export class VocablyCardSource {
           <vocably-play-sound
             text={this.card.data.source}
             language={this.card.data.language}
-            playSound={this.playSound}
+            playAudioPronunciation={this.playAudioPronunciation}
           />
         )}
         <span class="vocably-emphasized">{this.card.data.source}</span>

@@ -24,13 +24,13 @@
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "js": ["content-script.js"],
+      "js": ["content-script.js", "play-audio.js"],
       "exclude_matches": [{{ process.env.CONTENT_SCRIPT_EXCLUDED_MATCHES }}],
       "all_frames": true
     }
   ],
 
-  "permissions": ["storage"{{ process.env.EXTRA_PERMISSIONS }}],
+  "permissions": ["storage", "offscreen"{{ process.env.EXTRA_PERMISSIONS }}],
 
   "externally_connectable": {
     "matches": [{{ process.env.EXTERNALLY_CONNECTABLE_MATCHES }}]

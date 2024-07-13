@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { AddCardPayload, GoogleLanguage, GoogleTTSLanguage, PlaySoundPayload, PlaySoundResponse, RateInteractionPayload, RemoveCardPayload, Result, TranslationCard, TranslationCards } from "@vocably/model";
+import { AddCardPayload, AudioPronunciationPayload, GoogleLanguage, GoogleTTSLanguage, RateInteractionPayload, RemoveCardPayload, Result, TranslationCard, TranslationCards } from "@vocably/model";
 export namespace Components {
     interface VocablyAddCardHint {
     }
@@ -19,9 +19,9 @@ export namespace Components {
     }
     interface VocablyCardSource {
         "card": TranslationCard;
-        "playSound": (
-    payload: PlaySoundPayload
-  ) => Promise<Result<PlaySoundResponse>>;
+        "playAudioPronunciation": (
+    payload: AudioPronunciationPayload
+  ) => Promise<Result<true>>;
     }
     interface VocablyCloseButton {
     }
@@ -30,6 +30,8 @@ export namespace Components {
     interface VocablyIconAdd {
     }
     interface VocablyIconArrowRight {
+    }
+    interface VocablyIconError {
     }
     interface VocablyIconPlayCircle {
     }
@@ -51,9 +53,9 @@ export namespace Components {
     interface VocablyPlaySound {
         "language": GoogleTTSLanguage;
         "play": () => Promise<void>;
-        "playSound": (
-    payload: PlaySoundPayload
-  ) => Promise<Result<PlaySoundResponse>>;
+        "playAudioPronunciation": (
+    payload: AudioPronunciationPayload
+  ) => Promise<Result<true>>;
         "text": string;
     }
     interface VocablyPopup {
@@ -78,9 +80,9 @@ export namespace Components {
         "isUpdating": TranslationCard | null;
         "loading": boolean;
         "phrase": string;
-        "playSound": (
-    payload: PlaySoundPayload
-  ) => Promise<Result<PlaySoundResponse>>;
+        "playAudioPronunciation": (
+    payload: AudioPronunciationPayload
+  ) => Promise<Result<true>>;
         "result": Result<TranslationCards> | null;
         "showSaveHint": boolean;
         "sourceLanguage": string;
@@ -173,6 +175,12 @@ declare global {
     var HTMLVocablyIconArrowRightElement: {
         prototype: HTMLVocablyIconArrowRightElement;
         new (): HTMLVocablyIconArrowRightElement;
+    };
+    interface HTMLVocablyIconErrorElement extends Components.VocablyIconError, HTMLStencilElement {
+    }
+    var HTMLVocablyIconErrorElement: {
+        prototype: HTMLVocablyIconErrorElement;
+        new (): HTMLVocablyIconErrorElement;
     };
     interface HTMLVocablyIconPlayCircleElement extends Components.VocablyIconPlayCircle, HTMLStencilElement {
     }
@@ -268,6 +276,7 @@ declare global {
         "vocably-first-translation-congratulation": HTMLVocablyFirstTranslationCongratulationElement;
         "vocably-icon-add": HTMLVocablyIconAddElement;
         "vocably-icon-arrow-right": HTMLVocablyIconArrowRightElement;
+        "vocably-icon-error": HTMLVocablyIconErrorElement;
         "vocably-icon-play-circle": HTMLVocablyIconPlayCircleElement;
         "vocably-icon-remove": HTMLVocablyIconRemoveElement;
         "vocably-icon-spin": HTMLVocablyIconSpinElement;
@@ -298,9 +307,9 @@ declare namespace LocalJSX {
     }
     interface VocablyCardSource {
         "card"?: TranslationCard;
-        "playSound"?: (
-    payload: PlaySoundPayload
-  ) => Promise<Result<PlaySoundResponse>>;
+        "playAudioPronunciation"?: (
+    payload: AudioPronunciationPayload
+  ) => Promise<Result<true>>;
     }
     interface VocablyCloseButton {
         "onClose"?: (event: VocablyCloseButtonCustomEvent<void>) => void;
@@ -310,6 +319,8 @@ declare namespace LocalJSX {
     interface VocablyIconAdd {
     }
     interface VocablyIconArrowRight {
+    }
+    interface VocablyIconError {
     }
     interface VocablyIconPlayCircle {
     }
@@ -334,9 +345,9 @@ declare namespace LocalJSX {
     }
     interface VocablyPlaySound {
         "language"?: GoogleTTSLanguage;
-        "playSound"?: (
-    payload: PlaySoundPayload
-  ) => Promise<Result<PlaySoundResponse>>;
+        "playAudioPronunciation"?: (
+    payload: AudioPronunciationPayload
+  ) => Promise<Result<true>>;
         "text"?: string;
     }
     interface VocablyPopup {
@@ -370,9 +381,9 @@ declare namespace LocalJSX {
         "onRatingInteraction"?: (event: VocablyTranslationCustomEvent<RateInteractionPayload>) => void;
         "onRemoveCard"?: (event: VocablyTranslationCustomEvent<RemoveCardPayload>) => void;
         "phrase"?: string;
-        "playSound"?: (
-    payload: PlaySoundPayload
-  ) => Promise<Result<PlaySoundResponse>>;
+        "playAudioPronunciation"?: (
+    payload: AudioPronunciationPayload
+  ) => Promise<Result<true>>;
         "result"?: Result<TranslationCards> | null;
         "showSaveHint"?: boolean;
         "sourceLanguage"?: string;
@@ -388,6 +399,7 @@ declare namespace LocalJSX {
         "vocably-first-translation-congratulation": VocablyFirstTranslationCongratulation;
         "vocably-icon-add": VocablyIconAdd;
         "vocably-icon-arrow-right": VocablyIconArrowRight;
+        "vocably-icon-error": VocablyIconError;
         "vocably-icon-play-circle": VocablyIconPlayCircle;
         "vocably-icon-remove": VocablyIconRemove;
         "vocably-icon-spin": VocablyIconSpin;
@@ -417,6 +429,7 @@ declare module "@stencil/core" {
             "vocably-first-translation-congratulation": LocalJSX.VocablyFirstTranslationCongratulation & JSXBase.HTMLAttributes<HTMLVocablyFirstTranslationCongratulationElement>;
             "vocably-icon-add": LocalJSX.VocablyIconAdd & JSXBase.HTMLAttributes<HTMLVocablyIconAddElement>;
             "vocably-icon-arrow-right": LocalJSX.VocablyIconArrowRight & JSXBase.HTMLAttributes<HTMLVocablyIconArrowRightElement>;
+            "vocably-icon-error": LocalJSX.VocablyIconError & JSXBase.HTMLAttributes<HTMLVocablyIconErrorElement>;
             "vocably-icon-play-circle": LocalJSX.VocablyIconPlayCircle & JSXBase.HTMLAttributes<HTMLVocablyIconPlayCircleElement>;
             "vocably-icon-remove": LocalJSX.VocablyIconRemove & JSXBase.HTMLAttributes<HTMLVocablyIconRemoveElement>;
             "vocably-icon-spin": LocalJSX.VocablyIconSpin & JSXBase.HTMLAttributes<HTMLVocablyIconSpinElement>;

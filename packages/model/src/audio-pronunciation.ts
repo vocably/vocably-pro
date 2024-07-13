@@ -1,17 +1,17 @@
 import { GoogleTTSLanguage, isGoogleTTSLanguage } from './text-to-speech';
 
-export type PlaySoundPayload = {
+export type AudioPronunciationPayload = {
   text: string;
   language: GoogleTTSLanguage;
 };
 
-export type PlaySoundResponse = {
+export type AudioPronunciationResponse = {
   url: string;
 };
 
-export const isPlaySoundPayload = (
+export const isAudioPronunciationPayload = (
   payload: any
-): payload is PlaySoundPayload => {
+): payload is AudioPronunciationPayload => {
   return (
     !(!payload || !payload.text || !payload.language) &&
     typeof payload.text === 'string' &&

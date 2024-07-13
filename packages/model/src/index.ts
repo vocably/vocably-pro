@@ -1,10 +1,10 @@
 export * from './analysis';
+export * from './audio-pronunciation';
 export * from './constants';
 export * from './errors';
 export * from './language';
 export * from './language-deck';
 export * from './language-list';
-export * from './play-sound';
 export { isError, isSuccess, Result, resultify } from './result';
 export * from './sorted-languages';
 export * from './subscription';

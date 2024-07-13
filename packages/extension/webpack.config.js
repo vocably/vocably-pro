@@ -17,6 +17,7 @@ const prodConfig = {
   entry: {
     'content-script': './src/content-script.ts',
     'service-worker': './src/service-worker.ts',
+    'play-audio': './src/play-audio.ts',
   },
   module: {
     rules: [
@@ -42,10 +43,6 @@ const prodConfig = {
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
-    new HtmlWebpackPlugin({
-      template: './src/options.html',
-      filename: 'options.html',
-    }),
     new CopyPlugin({
       patterns: [
         {
@@ -64,6 +61,7 @@ const prodConfig = {
             );
           },
         },
+        { from: 'play-audio.html', to: 'play-audio.html', context: 'src' },
       ],
       options: {},
     }),

@@ -7,6 +7,7 @@ import {
 import { api } from '../api';
 import { contentScriptConfiguration } from '../configuration';
 import { detectExtensionPlatform } from '../detectExtensionPlatform';
+import { playAudioPronunciation } from '../playAudioPronunciation';
 
 type Options = {
   popup: HTMLElement;
@@ -49,7 +50,7 @@ export const setContents = async ({
     translation.isFeedbackEnabled =
       contentScriptConfiguration.isFeedbackEnabled;
     translation.phrase = source;
-    translation.playSound = api.playSound;
+    translation.playAudioPronunciation = playAudioPronunciation;
     translation.showSaveHint = !userKnowsHowToAdd;
     translation.extensionPlatform = extensionPlatform;
     translation.canCongratulate =

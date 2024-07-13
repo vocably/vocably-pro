@@ -104,7 +104,7 @@ registerContentScript({
     setUserKnowsHowToAdd: async (value) => {
       isUserKnowsHowToAdd = value;
     },
-    playSound: (payload) => {
+    getAudioPronunciation: (payload) => {
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve({
@@ -113,8 +113,17 @@ registerContentScript({
               url: `https://ssl.gstatic.com/dictionary/static/sounds/20200429/hello--_gb_1.mp3`,
             },
           });
-        }, 500);
+        }, 50);
       });
+    },
+    canPlayOffScreen: async () => {
+      return false;
+    },
+    playAudioPronunciation: async () => {
+      return {
+        success: true,
+        value: true,
+      };
     },
     askForRating: () => {
       const askForRating = document.getElementById(

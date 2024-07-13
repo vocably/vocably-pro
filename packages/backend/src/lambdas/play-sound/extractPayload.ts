@@ -1,20 +1,15 @@
 import {
-  AnalyzePayload,
-  isPlaySoundPayload,
-  PlaySoundPayload,
+  AudioPronunciationPayload,
+  isAudioPronunciationPayload,
 } from '@vocably/model';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 
-export type BackendPayload = AnalyzePayload & {
-  isPaid: boolean;
-};
-
 export const extractPayload = (
   event: APIGatewayProxyEvent
-): PlaySoundPayload => {
+): AudioPronunciationPayload => {
   const payload = event.queryStringParameters;
 
-  if (!isPlaySoundPayload(payload)) {
+  if (!isAudioPronunciationPayload(payload)) {
     throw {
       success: false,
       errorCode: 'PLAY_SOUND_REQUEST_MALFORMED_PAYLOAD',

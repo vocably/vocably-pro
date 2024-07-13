@@ -64,7 +64,14 @@ const disableSelectionChangeDetection = () =>
 
 const isClickableElement = (element: HTMLElement) => {
   if (
-    ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT'].includes(element.tagName)
+    [
+      'A',
+      'BUTTON',
+      'INPUT',
+      'TEXTAREA',
+      'SELECT',
+      'VOCABLY-PLAY-SOUND',
+    ].includes(element.tagName)
   ) {
     return true;
   }
@@ -126,7 +133,7 @@ const onDoubleCLick = async (event: MouseEvent) => {
       ? getContext(selection)
       : undefined;
 
-  createPopup({
+  await createPopup({
     detectedLanguage,
     text: getText(selection),
     context: context,

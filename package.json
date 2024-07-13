@@ -39,7 +39,7 @@
     "@stencil/core": "2.17.1",
     "@stencil/sass": "1.5.2",
     "@types/aws-lambda": "8.10.101",
-    "@types/chrome": "0.0.193",
+    "@types/chrome": "0.0.268",
     "@types/fast-levenshtein": "0.0.2",
     "@types/firefox-webext-browser": "^120.0.3",
     "@types/jasmine": "4.0.3",

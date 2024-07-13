@@ -12,7 +12,9 @@ import {
   onAddCardRequest,
   onAnalyzeRequest,
   onAskForRating,
+  onCanPlayOffScreen,
   onCleanUpRequest,
+  onGetAudioPronunciation,
   onGetInternalProxyLanuage,
   onGetInternalSourceLanguage,
   onGetLocationLanguageRequest,
@@ -27,7 +29,7 @@ import {
   onListTargetLanguagesRequest,
   onPing,
   onPingExternal,
-  onPlaySound,
+  onPlayAudioPronunciation,
   onRemoveCardRequest,
   onSaveAskForRatingResponse,
   onSaveLocationLanguageRequest,
@@ -37,6 +39,7 @@ import {
   onSetSettingsRequest,
   onSetSourceLanguage,
   onSetUserKnowsHowToAdd,
+  playAudioPronunciationOffscreen,
 } from '@vocably/extension-messages';
 import {
   Analysis,
@@ -54,7 +57,7 @@ import {
   resetAskForRatingCounter,
   storeAskForRatingCounter,
 } from './askForRatingCounter';
-import { browserEnv } from './browserEnv';
+import { browserEnv, hasOffscreen } from './browserEnv';
 import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
@@ -394,7 +397,9 @@ export const registerServiceWorker = (
     return sendResponse();
   });
 
-  onPlaySound(async (sendResponse, payload) => {
+  onGetAudioPronunciation(async (sendResponse, payload) => {
+    // @ts-ignore
+    console.log(browserEnv.offscreen);
     return sendResponse(await playSound(payload));
   });
 
@@ -474,6 +479,31 @@ export const registerServiceWorker = (
 
   onSetSettingsRequest(async (sendResponse, partialSettings) => {
     return sendResponse(await setSettings(partialSettings));
+  });
+
+  onCanPlayOffScreen(async (sendResponse) => {
+    return sendResponse(hasOffscreen(browserEnv));
+  });
+
+  onPlayAudioPronunciation(async (sendResponse, payload) => {
+    if (!hasOffscreen(browserEnv)) {
+      return {
+        success: false,
+        errorCode: 'EXTENSION_OFFSCREEN_DOES_NOT_EXIST',
+        reason:
+          'The extension is trying to use browser.offscreen to play the audio pronunciation',
+      };
+    }
+
+    if (!(await browserEnv.offscreen.hasDocument())) {
+      await browserEnv.offscreen.createDocument({
+        url: 'play-audio.html',
+        reasons: [browserEnv.offscreen.Reason.AUDIO_PLAYBACK],
+        justification: 'Play the audio pronunciation',
+      });
+    }
+
+    return sendResponse(await playAudioPronunciationOffscreen(payload));
   });
 
   console.info('The service worker has been registered');
