@@ -63,7 +63,7 @@ export class VocablyTranslation {
   @Element() el: HTMLElement;
 
   @Method()
-  play() {
+  async play() {
     const playSoundElement =
       this.el.shadowRoot.querySelector('vocably-play-sound');
 
