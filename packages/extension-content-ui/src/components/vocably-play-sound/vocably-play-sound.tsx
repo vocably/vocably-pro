@@ -30,8 +30,6 @@ export class VocablyPlaySound {
       language: this.language,
     });
 
-    console.log(result);
-
     if (result.success === false) {
       this.isPlayError = true;
     }

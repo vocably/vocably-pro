@@ -398,8 +398,6 @@ export const registerServiceWorker = (
   });
 
   onGetAudioPronunciation(async (sendResponse, payload) => {
-    // @ts-ignore
-    console.log(browserEnv.offscreen);
     return sendResponse(await playSound(payload));
   });
 
