@@ -80,6 +80,7 @@ export namespace Components {
         "isUpdating": TranslationCard | null;
         "loading": boolean;
         "phrase": string;
+        "play": () => Promise<void>;
         "playAudioPronunciation": (
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;

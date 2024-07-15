@@ -98,8 +98,8 @@ export const setContents = async ({
 
             if (autoPlay) {
               setTimeout(() => {
-                translation.querySelector('vocably-play-sound')?.play();
-              }, 500);
+                translation.play();
+              }, 50);
             }
           }
 

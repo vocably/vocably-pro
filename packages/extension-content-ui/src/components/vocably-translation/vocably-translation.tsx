@@ -1,10 +1,12 @@
 import {
   Component,
+  Element,
   Event,
   EventEmitter,
   Fragment,
   h,
   Host,
+  Method,
   Prop,
   State,
 } from '@stencil/core';
@@ -28,7 +30,7 @@ import { sortLanguages } from './sortLanguages';
 @Component({
   tag: 'vocably-translation',
   styleUrl: 'vocably-translation.scss',
-  shadow: false,
+  shadow: true,
 })
 export class VocablyTranslation {
   @Prop() phrase: string;
@@ -57,6 +59,20 @@ export class VocablyTranslation {
 
   @State() saveCardClicked = false;
   @State() addedItemIndex = -1;
+
+  @Element() el: HTMLElement;
+
+  @Method()
+  play() {
+    const playSoundElement =
+      this.el.shadowRoot.querySelector('vocably-play-sound');
+
+    if (!playSoundElement) {
+      return;
+    }
+
+    playSoundElement.play();
+  }
 
   private askForRatingContainer: HTMLDivElement;
 
