@@ -23,7 +23,10 @@ const calculatePosition = (
   globalRect: GlobalRect,
   isTouchscreen: boolean
 ): Position => {
-  const left = globalRect.left + globalRect.width / 2;
+  const left =
+    window.innerWidth < 640
+      ? window.scrollX + window.innerWidth / 2
+      : globalRect.left + globalRect.width / 2;
 
   const top = globalRect.top - window.scrollY;
   const bottom = top + globalRect.height;
