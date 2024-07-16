@@ -59,9 +59,12 @@ export const PlaySound: PlaySound = ({
   return (
     <Pressable
       disabled={isPlaying}
+      hitSlop={20}
       style={({ pressed }) => [
         {
           opacity: pressed ? 0.25 : 0.5,
+          // Make play sound stand out and hitSlop working
+          zIndex: 1,
         },
         style,
       ]}
