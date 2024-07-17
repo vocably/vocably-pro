@@ -65,8 +65,8 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [hasChecked, setHasChecked] = useState(false);
 
-  const flipToFront = useCallback(() => {
-    setIsFlipped(false);
+  const flipToBack = useCallback(() => {
+    setIsFlipped(true);
     Animated.timing(flipAnimation, {
       toValue: 180,
       duration: 300,
@@ -74,8 +74,8 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
     }).start();
   }, [Animated, flipAnimation, setIsFlipped]);
 
-  const flipToBack = useCallback(() => {
-    setIsFlipped(true);
+  const flipToFront = useCallback(() => {
+    setIsFlipped(false);
     setHasChecked(true);
     Animated.timing(flipAnimation, {
       toValue: 0,
@@ -89,7 +89,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
   return (
     <Displayer>
       <TouchableWithoutFeedback
-        onPress={() => (!!flipRotation ? flipToBack() : flipToFront())}
+        onPress={() => (isFlipped ? flipToFront() : flipToBack())}
       >
         <View style={styles.container}>
           <Animated.View
@@ -98,7 +98,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
               ...flipToFrontStyle,
               display: 'flex',
             }}
-            pointerEvents={isFlipped ? 'none' : 'auto'}
+            pointerEvents={!isFlipped ? 'none' : 'auto'}
           >
             {isReverse ? (
               <ReverseCardBack card={card} />
@@ -108,7 +108,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
           </Animated.View>
           <Animated.View
             style={{ ...styles.cardFront, ...flipToBackStyle }}
-            pointerEvents={!isFlipped ? 'none' : 'auto'}
+            pointerEvents={isFlipped ? 'none' : 'auto'}
           >
             {isReverse ? (
               <ReverseCardFront card={card} hasChecked={hasChecked} />
