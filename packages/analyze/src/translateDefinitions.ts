@@ -1,6 +1,6 @@
 import { ChatGPTLanguage, languageList, Result } from '@vocably/model';
 import { tokenize } from '@vocably/sulna';
-import { chatGptRequest, CHAT_GPT_3_5 } from './chatGptRequest';
+import { chatGptRequest, CHAT_GPT_4O_MINI } from './chatGptRequest';
 import { enrichSource } from './translateDefinitions/enrichSource';
 
 type ChatGptResponse = {
@@ -59,7 +59,7 @@ export const translateDefinitions = async ({
     )}`,
   ].join('\n');
 
-  const result = await chatGptRequest({ prompt, model: CHAT_GPT_3_5 });
+  const result = await chatGptRequest({ prompt, model: CHAT_GPT_4O_MINI });
 
   if (result.success === false) {
     return result;

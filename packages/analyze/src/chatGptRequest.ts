@@ -1,9 +1,11 @@
 import { Result, resultify } from '@vocably/model';
+import { get } from 'lodash';
 import { getOpenAiClient } from './openAiClient';
+import { parseJson } from './parseJson';
 
-export const CHAT_GPT_3_5 = 'gpt-3.5-turbo';
+export const CHAT_GPT_4O_MINI = 'gpt-4o-mini';
 
-type OpenAiModel = typeof CHAT_GPT_3_5;
+type OpenAiModel = typeof CHAT_GPT_4O_MINI;
 
 type Options = {
   prompt: string;
@@ -39,19 +41,21 @@ export const chatGptRequest = async ({
     return completionResult;
   }
 
-  let response: unknown;
-  try {
-    response = JSON.parse(completionResult.value.choices[0].message.content);
-  } catch (e) {
+  const parseResult = parseJson(
+    get(completionResult, 'value.choices[0].message.content', '')
+  );
+
+  if (parseResult.success === false) {
     return {
       success: false,
       errorCode: 'OPENAI_UNABLE_TO_PARSE_RESPONSE',
-      reason: `Failed to parse analyzer's response as JSON: ${e}`,
+      reason: 'Unable to parse the response from ChatGPT',
+      extra: parseResult,
     };
   }
 
   return {
     success: true,
-    value: response,
+    value: parseResult.value,
   };
 };

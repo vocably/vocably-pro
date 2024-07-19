@@ -65,7 +65,7 @@ describe('translateDefinitions', () => {
     });
     expect(translationResult.success).toEqual(true);
     // @ts-ignore
-    expect(translationResult.value).toEqual(['source', 'spring', 'origin']);
+    expect(translationResult.value).toEqual(['spring', 'source', 'origin']);
   }, 60_000);
 
   it('de bron to ru', async () => {

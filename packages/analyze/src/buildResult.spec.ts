@@ -236,7 +236,7 @@ describe('integration check for translate lambda', () => {
         result.value.items[0].translation.includes(word)
       ).length
     ).toBeGreaterThan(1);
-    expect(result.value.items[1].translation).toEqual('обманывать');
+    expect(result.value.items[1].translation).toEqual('обмануть, провести');
   });
 
   it('properly translates dutch to non-article languages', async () => {
@@ -369,7 +369,7 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    expect(result.value.translation.target).toEqual('поздно');
+    expect(result.value.translation.target).toEqual('опоздать');
   });
 
   it('learn the language by using it', async () => {
@@ -387,7 +387,7 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    expect(result.value.translation.target).toContain('Учить');
+    expect(result.value.translation.target).toContain('учите');
   });
 
   it('serbian', async () => {
