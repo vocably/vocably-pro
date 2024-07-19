@@ -64,14 +64,9 @@ const disableSelectionChangeDetection = () =>
 
 const isClickableElement = (element: HTMLElement) => {
   if (
-    [
-      'A',
-      'BUTTON',
-      'INPUT',
-      'TEXTAREA',
-      'SELECT',
-      'VOCABLY-PLAY-SOUND',
-    ].includes(element.tagName)
+    ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'VOCABLY-POPUP'].includes(
+      element.tagName
+    )
   ) {
     return true;
   }
