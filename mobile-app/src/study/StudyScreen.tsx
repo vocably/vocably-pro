@@ -1,7 +1,12 @@
 import { NavigationProp } from '@react-navigation/native';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { View } from 'react-native';
-import { Button, useTheme } from 'react-native-paper';
+import { Button, IconButton, useTheme } from 'react-native-paper';
+import {
+  getAutoPlayFromStorage,
+  saveAutoPlayToStorage,
+} from '../autoPlayState';
+import { useAsync } from '../useAsync';
 import { Study } from './Study';
 
 type Dashboard = FC<{
@@ -10,6 +15,12 @@ type Dashboard = FC<{
 
 export const StudyScreen: Dashboard = ({ navigation }) => {
   const theme = useTheme();
+
+  const [autoPlayState, setAutoPlay] = useAsync(
+    getAutoPlayFromStorage,
+    saveAutoPlayToStorage
+  );
+
   return (
     <View
       style={{
@@ -23,13 +34,35 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
           width: '100%',
           padding: 20,
           zIndex: 1,
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        <Button icon="arrow-left-thin" onPress={() => navigation.goBack()}>
-          Back
-        </Button>
+        {autoPlayState.status === 'loaded' && (
+          <IconButton
+            icon={autoPlayState.value ? 'volume-high' : 'volume-variant-off'}
+            size={24}
+            animated={true}
+            onPress={() => setAutoPlay(!autoPlayState.value)}
+          />
+        )}
+        <View style={{ flex: 1, alignItems: 'flex-end' }}>
+          <Button
+            textColor={theme.colors.onBackground}
+            onPress={() => navigation.goBack()}
+          >
+            Done
+          </Button>
+        </View>
       </View>
-      <Study onExit={() => navigation.goBack()}></Study>
+      {autoPlayState.status === 'loaded' && (
+        <Study
+          onExit={() => navigation.goBack()}
+          autoPlay={autoPlayState.value}
+        ></Study>
+      )}
     </View>
   );
 };

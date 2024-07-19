@@ -4,11 +4,16 @@ import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { CardFront } from './CardFront';
 
-export const ReverseCardBack: FC<{ card: CardItem }> = ({ card }) => {
+type Props = {
+  card: CardItem;
+  autoPlay: boolean;
+};
+
+export const ReverseCardBack: FC<Props> = ({ card, autoPlay }) => {
   return (
     <View>
       <Text style={{ fontSize: 18, marginBottom: 8 }}>The answer is</Text>
-      <CardFront card={card} />
+      <CardFront autoPlay={autoPlay} card={card} />
     </View>
   );
 };

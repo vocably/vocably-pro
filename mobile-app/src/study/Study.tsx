@@ -5,7 +5,7 @@ import { Alert, View } from 'react-native';
 import { useLanguageDeck } from '../languageDeck/useLanguageDeck';
 import { LanguagesContext } from '../languages/LanguagesContainer';
 import { Loader } from '../loaders/Loader';
-import { useNumberOfRepetitions } from '../RequestFeedback/useNumberOfRepetitions.ts';
+import { useNumberOfRepetitions } from '../RequestFeedback/useNumberOfRepetitions';
 import { Card } from './Card';
 import { Completed } from './Completed';
 import { SwipeGrade } from './SwipeGrade';
@@ -14,9 +14,10 @@ const maxCardsToStudy = 10;
 
 type Study = FC<{
   onExit: () => void;
+  autoPlay: boolean;
 }>;
 
-export const Study: Study = ({ onExit }) => {
+export const Study: Study = ({ onExit, autoPlay }) => {
   const { selectedLanguage } = useContext(LanguagesContext);
   const { status, deck, update } = useLanguageDeck(selectedLanguage);
   const [cards, setCards] = useState<CardItem[]>();
@@ -91,7 +92,7 @@ export const Study: Study = ({ onExit }) => {
       {cards.length > 0 &&
         cards.slice(0, 1).map((card) => (
           <SwipeGrade onGrade={onGrade} key={card.id}>
-            <Card card={card} />
+            <Card autoPlay={autoPlay} card={card} />
           </SwipeGrade>
         ))}
       {totalCardsToStudy === cardsStudied && (

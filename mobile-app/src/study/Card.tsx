@@ -37,10 +37,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Card: FC<{ card: CardItem }> = ({ card }) => {
+type Props = {
+  autoPlay: boolean;
+  card: CardItem;
+};
+
+export const Card: FC<Props> = ({ card, autoPlay }) => {
   const flipAnimation = useRef(new Animated.Value(0)).current;
-  let flipRotation = 0;
-  flipAnimation.addListener(({ value }) => (flipRotation = value));
   const flipToFrontStyle = {
     transform: [
       {
@@ -101,7 +104,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
             pointerEvents={!isFlipped ? 'none' : 'auto'}
           >
             {isReverse ? (
-              <ReverseCardBack card={card} />
+              <ReverseCardBack autoPlay={autoPlay && isFlipped} card={card} />
             ) : (
               <CardBack card={card} />
             )}
@@ -113,7 +116,7 @@ export const Card: FC<{ card: CardItem }> = ({ card }) => {
             {isReverse ? (
               <ReverseCardFront card={card} hasChecked={hasChecked} />
             ) : (
-              <CardFront card={card} />
+              <CardFront autoPlay={autoPlay && !isFlipped} card={card} />
             )}
           </Animated.View>
         </View>
