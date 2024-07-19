@@ -25,7 +25,7 @@ export class VocablySignIn {
           By signing in, you agree to our{' '}
           <a
             class="link"
-            href="https://app.vocably.pro/page/terms-of-service"
+            href="https://vocably.pro/terms-and-conditions.html"
             target="_blank"
           >
             Terms of Service
@@ -33,7 +33,7 @@ export class VocablySignIn {
           and{' '}
           <a
             class="link"
-            href="https://app.vocably.pro/page/privacy-policy"
+            href="https://vocably.pro/privacy-policy.html"
             target="_blank"
           >
             Privacy Policy
