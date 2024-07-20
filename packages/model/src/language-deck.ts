@@ -1,3 +1,14 @@
+export type Tag = {
+  title: string;
+};
+
+export type TagItem = {
+  id: string;
+  created: number;
+  updated?: number;
+  data: Tag;
+};
+
 export type SrsItem = {
   interval: number;
   repetition: number;
@@ -14,6 +25,7 @@ export type Card = {
   definition: string;
   translation: string;
   partOfSpeech: string;
+  tags?: string[];
 };
 
 export type SrsCard = Card & SrsItem;
@@ -28,6 +40,7 @@ export type CardItem = {
 export type LanguageDeck = {
   language: string;
   cards: CardItem[];
+  tags?: TagItem[];
 };
 
 export const byDate = (a: CardItem, b: CardItem): number => {

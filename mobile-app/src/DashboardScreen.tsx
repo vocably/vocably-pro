@@ -1,6 +1,6 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import { NavigationProp } from '@react-navigation/native';
-import { byDate, CardItem } from '@vocably/model';
+import { byDate, CardItem, TagItem } from '@vocably/model';
 import { FC, useCallback, useContext, useState } from 'react';
 import {
   Alert,
@@ -24,6 +24,7 @@ import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { Loader } from './loaders/Loader';
 import { mainPadding } from './styles';
+import { TagsSelector } from './TagsSelector';
 
 const SWIPE_MENU_BUTTON_SIZE = 100;
 
@@ -151,6 +152,8 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
     </View>
   );
 
+  const [selectedTags, setSelectedTags] = useState<TagItem[]>([]);
+
   if (deck.cards.length === 0 && status === 'loading') {
     return <Loader>Loading cards...</Loader>;
   }
@@ -186,6 +189,11 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
               internet and try again later.
             </Text>
           )}
+          <TagsSelector
+            selectedTags={selectedTags}
+            existingTags={[]}
+            onChange={async (tags) => console.log(tags)}
+          />
         </View>
       )}
       <SwipeListView<CardItem>
