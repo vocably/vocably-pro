@@ -1,89 +1,50 @@
 import { TagItem } from '@vocably/model';
 import React, { FC, useState } from 'react';
-import { View } from 'react-native';
-import { Divider, IconButton, List, Menu } from 'react-native-paper';
-import { TagText } from './TagsSelector/TagText';
-
-export type Tag = {
-  id?: TagItem['id'];
-  data: TagItem['data'];
-};
+import { useSelectedDeck } from './languageDeck/useSelectedDeck';
+import { Tag, TagsMenu } from './TagsSelector/TagMenu';
 
 type Props = {
-  selectedTags: TagItem[];
-  existingTags: TagItem[];
-  onChange?: (tags: Tag[]) => Promise<any>;
+  value: TagItem[];
+  onChange?: (tags: TagItem[]) => Promise<any>;
 };
 
-export const TagsSelector: FC<Props> = ({ selectedTags, existingTags }) => {
-  const [visible, setVisible] = useState(false);
-  const [newTags, setNewTags] = useState<Tag[]>([]);
-  const [newSelectedTags, setNewSelectedTags] = useState<Tag[]>([]);
+const isTagItem = (tag: Tag): tag is TagItem => {
+  return tag.id !== undefined;
+};
 
-  const openMenu = () => {
-    setNewTags([]);
-    setNewSelectedTags([]);
-    setVisible(true);
-  };
-  const closeMenu = () => {
-    setVisible(false);
-  };
+export const TagsSelector: FC<Props> = ({ value, onChange }) => {
+  const { addTags, deck } = useSelectedDeck();
+  const [isSaving, setIsSaving] = useState(false);
 
-  const addNewTag = (title: string) => {
-    const newTag: Tag = {
-      data: {
-        title,
-      },
-    };
-    setNewTags([...newTags, newTag]);
-    setNewSelectedTags([...newSelectedTags, newTag]);
-  };
+  console.log('deck tags', deck.tags);
 
-  const isNewTagSelected = (tag: Tag): boolean => newSelectedTags.includes(tag);
+  const handleTagMenuChange = async (tags: Tag[]) => {
+    setIsSaving(true);
 
-  const newTagPressed = (tag: Tag) => () => {
-    if (isNewTagSelected(tag)) {
-      setNewSelectedTags(newSelectedTags.filter((t) => t !== tag));
-    } else {
-      setNewSelectedTags([...newSelectedTags, tag]);
+    const newTags = tags
+      .filter((tag) => tag.id === undefined)
+      .map((tag) => tag.data);
+
+    const addTagsResult = await addTags(newTags);
+
+    if (addTagsResult.success === false) {
+      setIsSaving(false);
+      return;
     }
+
+    if (onChange) {
+      await onChange([...tags.filter(isTagItem), ...addTagsResult.value]);
+    }
+
+    setIsSaving(false);
   };
 
   return (
-    <>
-      <Menu
-        visible={visible}
-        onDismiss={closeMenu}
-        anchor={<IconButton onPress={openMenu} icon="tag-plus-outline" />}
-      >
-        {newTags.map((tag, index) => (
-          <List.Item
-            key={index}
-            title={tag.data.title}
-            onPress={newTagPressed(tag)}
-            right={() => (
-              <List.Icon
-                icon="check"
-                style={{
-                  opacity: isNewTagSelected(tag) ? 1 : 0,
-                }}
-              />
-            )}
-          />
-        ))}
-        {(newTags.length > 0 || existingTags.length > 0) && <Divider />}
-        <View
-          style={{
-            minWidth: 300,
-            padding: 12,
-          }}
-        >
-          <TagText
-            onSubmit={addNewTag}
-            autoFocus={existingTags.length === 0 && newTags.length === 0}
-          />
-        </View>
-      </Menu>
-    </>
+    <TagsMenu
+      value={value}
+      existingTags={deck.tags ?? []}
+      onChange={handleTagMenuChange}
+      disabled={isSaving}
+    />
   );
 };

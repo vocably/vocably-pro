@@ -70,7 +70,7 @@ type DashboardScreen = FC<{
 }>;
 
 export const DashboardScreen: DashboardScreen = ({ navigation }) => {
-  const { deck, reload, status, remove } = useSelectedDeck();
+  const { deck, reload, status, remove, clearTags } = useSelectedDeck();
   const { refreshLanguages } = useContext(LanguagesContext);
   const cards = deck.cards.sort(byDate);
   const theme = useTheme();
@@ -190,10 +190,10 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
             </Text>
           )}
           <TagsSelector
-            selectedTags={selectedTags}
-            existingTags={[]}
-            onChange={async (tags) => console.log(tags)}
+            value={selectedTags}
+            onChange={async (tags) => setSelectedTags(tags)}
           />
+          <Button onPress={() => clearTags()}>Clear tags</Button>
         </View>
       )}
       <SwipeListView<CardItem>
