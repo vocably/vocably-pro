@@ -193,7 +193,14 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
             value={selectedTags}
             onChange={async (tags) => setSelectedTags(tags)}
           />
-          <Button onPress={() => clearTags()}>Clear tags</Button>
+          <Button
+            onPress={() => {
+              setSelectedTags([]);
+              clearTags();
+            }}
+          >
+            Clear tags
+          </Button>
         </View>
       )}
       <SwipeListView<CardItem>

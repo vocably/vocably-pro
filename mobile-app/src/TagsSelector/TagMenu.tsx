@@ -77,6 +77,12 @@ export const TagsMenu: FC<Props> = ({
       <Menu
         visible={visible}
         onDismiss={closeMenu}
+        style={{
+          width: 300,
+        }}
+        contentStyle={{
+          width: 300,
+        }}
         anchor={
           <IconButton
             onPress={openMenu}
