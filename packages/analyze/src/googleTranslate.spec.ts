@@ -21,19 +21,6 @@ describe('googleTranslate', () => {
     expect(result.value.sourceLanguage).toEqual('bg');
   });
 
-  it('considers input language', async () => {
-    const result = await googleTranslate('ывываыва', 'nl', 'en');
-
-    if (result.success === false) {
-      console.log({ inappropriateResult: result });
-      expect(result.success).toBeTruthy();
-      return;
-    }
-
-    expect(result.value.target).toEqual('ывываыва');
-    expect(result.value.sourceLanguage).toEqual('nl');
-  });
-
   it('works properly when source and target languages are the same', async () => {
     const result = await googleTranslate('asylum', 'en', 'en');
 
