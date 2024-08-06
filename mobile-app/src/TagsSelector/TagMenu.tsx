@@ -1,12 +1,18 @@
 import { TagItem } from '@vocably/model';
 import React, { FC, useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { Divider, IconButton, List, Menu } from 'react-native-paper';
+import { Pressable, View } from 'react-native';
+import { Divider, IconButton, Menu, Text, useTheme } from 'react-native-paper';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TagText } from './TagText';
 
 export type Tag = {
   id?: TagItem['id'];
   data: TagItem['data'];
+};
+
+const isExistingTag = (tag: Tag): tag is TagItem => {
+  return !!tag.id;
 };
 
 type Props = {
@@ -15,6 +21,8 @@ type Props = {
   onChange?: (tags: Tag[]) => Promise<any>;
   disabled?: boolean;
 };
+
+const SWIPE_MENU_BUTTON_SIZE = 50;
 
 export const TagsMenu: FC<Props> = ({
   value,
@@ -26,6 +34,7 @@ export const TagsMenu: FC<Props> = ({
   const [newTags, setNewTags] = useState<Tag[]>([]);
   const [newSelectedTags, setNewSelectedTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<TagItem[]>([]);
+  const theme = useTheme();
 
   useEffect(() => {
     setSelectedTags(value);
@@ -51,24 +60,35 @@ export const TagsMenu: FC<Props> = ({
     setNewSelectedTags([...newSelectedTags, newTag]);
   };
 
-  const isNewTagSelected = (tag: Tag): boolean => newSelectedTags.includes(tag);
+  const isSelectedTag = (tag: Tag): boolean => {
+    if (isExistingTag(tag)) {
+      return selectedTags.some((t) => t.id === tag.id);
+    }
+
+    return newSelectedTags.includes(tag);
+  };
 
   const newTagPressed = (tag: Tag) => () => {
-    if (isNewTagSelected(tag)) {
+    if (isSelectedTag(tag)) {
       setNewSelectedTags(newSelectedTags.filter((t) => t !== tag));
     } else {
       setNewSelectedTags([...newSelectedTags, tag]);
     }
   };
 
-  const isSelectedTag = (tag: TagItem): boolean =>
-    selectedTags.some((t) => t.id === tag.id);
-
   const existingTagPressed = (tag: TagItem) => () => {
     if (isSelectedTag(tag)) {
       setSelectedTags(selectedTags.filter((t) => t.id !== tag.id));
     } else {
       setSelectedTags([...selectedTags, tag]);
+    }
+  };
+
+  const tagPressed = (tag: Tag) => () => {
+    if (isExistingTag(tag)) {
+      existingTagPressed(tag);
+    } else {
+      newTagPressed(tag);
     }
   };
 
@@ -91,36 +111,92 @@ export const TagsMenu: FC<Props> = ({
           />
         }
       >
-        {existingTags.map((tag) => (
-          <List.Item
-            key={tag.id}
-            title={tag.data.title}
-            right={() => (
-              <List.Icon
-                icon="check"
+        <SwipeListView<Tag>
+          style={{}}
+          data={[...existingTags, ...newTags]}
+          keyExtractor={(item, index) => item.id ?? index.toString()}
+          renderItem={(data) => (
+            <Pressable
+              onPress={() => console.log('pressed', data)}
+              style={{
+                backgroundColor: theme.colors.elevation.level2,
+                // This is to prevent the swipe menu
+                // from flashing occasionally
+                borderWidth: 1,
+                borderColor: 'transparent',
+                padding: 12,
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <Text
                 style={{
-                  opacity: isSelectedTag(tag) ? 1 : 0,
+                  fontSize: 18,
+                  borderStyle: 'solid',
+                  borderColor: '#0f0',
+                  borderWidth: 1,
                 }}
+              >
+                {data.item.data.title}
+              </Text>
+              <Icon name="check" />
+            </Pressable>
+          )}
+          renderHiddenItem={(data) => (
+            <Pressable
+              onPress={tagPressed(data.item)}
+              style={{
+                flex: 1,
+                alignSelf: 'flex-end',
+                display: 'flex',
+                borderWidth: 1,
+                borderColor: '$ff0',
+                borderStyle: 'solid',
+                backgroundColor: theme.colors.error,
+                width: SWIPE_MENU_BUTTON_SIZE,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Icon
+                name="delete-outline"
+                size={24}
+                color={theme.colors.onSecondary}
               />
-            )}
-            onPress={existingTagPressed(tag)}
-          />
-        ))}
-        {newTags.map((tag, index) => (
-          <List.Item
-            key={index}
-            title={tag.data.title}
-            onPress={newTagPressed(tag)}
-            right={() => (
-              <List.Icon
-                icon="check"
-                style={{
-                  opacity: isNewTagSelected(tag) ? 1 : 0,
-                }}
-              />
-            )}
-          />
-        ))}
+            </Pressable>
+          )}
+          rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
+        />
+        {/*{existingTags.map((tag) => (*/}
+        {/*  <List.Item*/}
+        {/*    key={tag.id}*/}
+        {/*    title={tag.data.title}*/}
+        {/*    right={() => (*/}
+        {/*      <List.Icon*/}
+        {/*        icon="check"*/}
+        {/*        style={{*/}
+        {/*          opacity: isSelectedTag(tag) ? 1 : 0,*/}
+        {/*        }}*/}
+        {/*      />*/}
+        {/*    )}*/}
+        {/*    onPress={existingTagPressed(tag)}*/}
+        {/*  />*/}
+        {/*))}*/}
+        {/*{newTags.map((tag, index) => (*/}
+        {/*  <List.Item*/}
+        {/*    key={index}*/}
+        {/*    title={tag.data.title}*/}
+        {/*    onPress={newTagPressed(tag)}*/}
+        {/*    right={() => (*/}
+        {/*      <List.Icon*/}
+        {/*        icon="check"*/}
+        {/*        style={{*/}
+        {/*          opacity: isNewTagSelected(tag) ? 1 : 0,*/}
+        {/*        }}*/}
+        {/*      />*/}
+        {/*    )}*/}
+        {/*  />*/}
+        {/*))}*/}
         {(newTags.length > 0 || existingTags.length > 0) && <Divider />}
         <View
           style={{

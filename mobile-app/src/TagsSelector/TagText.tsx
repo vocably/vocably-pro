@@ -17,6 +17,8 @@ export const TagText: FC<Props> = ({ onSubmit, autoFocus = false }) => {
     setValue('');
   };
 
+  const canSave = value.trim() !== '';
+
   return (
     <View
       style={{
@@ -63,12 +65,14 @@ export const TagText: FC<Props> = ({ onSubmit, autoFocus = false }) => {
       )}
       <IconButton
         icon="check"
-        disabled={value.trim() === ''}
+        disabled={!canSave}
         onPress={submit}
         iconColor={theme.colors.primary}
         style={{
+          opacity: canSave ? 1 : 0,
           marginVertical: 4,
           marginRight: 4,
+          marginLeft: 0,
           backgroundColor: 'transparent',
         }}
       />
