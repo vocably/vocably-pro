@@ -68,7 +68,7 @@ export const TagsMenu: FC<Props> = ({
     return newSelectedTags.includes(tag);
   };
 
-  const newTagPressed = (tag: Tag) => () => {
+  const newTagPressed = (tag: Tag) => {
     if (isSelectedTag(tag)) {
       setNewSelectedTags(newSelectedTags.filter((t) => t !== tag));
     } else {
@@ -76,7 +76,7 @@ export const TagsMenu: FC<Props> = ({
     }
   };
 
-  const existingTagPressed = (tag: TagItem) => () => {
+  const existingTagPressed = (tag: TagItem) => {
     if (isSelectedTag(tag)) {
       setSelectedTags(selectedTags.filter((t) => t.id !== tag.id));
     } else {
@@ -117,7 +117,7 @@ export const TagsMenu: FC<Props> = ({
           keyExtractor={(item, index) => item.id ?? index.toString()}
           renderItem={(data) => (
             <Pressable
-              onPress={() => console.log('pressed', data)}
+              onPress={tagPressed(data.item)}
               style={{
                 backgroundColor: theme.colors.elevation.level2,
                 // This is to prevent the swipe menu
@@ -126,20 +126,25 @@ export const TagsMenu: FC<Props> = ({
                 borderColor: 'transparent',
                 padding: 12,
                 display: 'flex',
-                flexDirection: 'column',
+                flexDirection: 'row',
               }}
             >
               <Text
                 style={{
                   fontSize: 18,
-                  borderStyle: 'solid',
-                  borderColor: '#0f0',
-                  borderWidth: 1,
+                  marginRight: 6,
                 }}
               >
                 {data.item.data.title}
               </Text>
-              <Icon name="check" />
+              <Icon
+                name="check"
+                size={18}
+                color={theme.colors.onBackground}
+                style={{
+                  opacity: isSelectedTag(data.item) ? 1 : 0,
+                }}
+              />
             </Pressable>
           )}
           renderHiddenItem={(data) => (
@@ -167,36 +172,6 @@ export const TagsMenu: FC<Props> = ({
           )}
           rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
         />
-        {/*{existingTags.map((tag) => (*/}
-        {/*  <List.Item*/}
-        {/*    key={tag.id}*/}
-        {/*    title={tag.data.title}*/}
-        {/*    right={() => (*/}
-        {/*      <List.Icon*/}
-        {/*        icon="check"*/}
-        {/*        style={{*/}
-        {/*          opacity: isSelectedTag(tag) ? 1 : 0,*/}
-        {/*        }}*/}
-        {/*      />*/}
-        {/*    )}*/}
-        {/*    onPress={existingTagPressed(tag)}*/}
-        {/*  />*/}
-        {/*))}*/}
-        {/*{newTags.map((tag, index) => (*/}
-        {/*  <List.Item*/}
-        {/*    key={index}*/}
-        {/*    title={tag.data.title}*/}
-        {/*    onPress={newTagPressed(tag)}*/}
-        {/*    right={() => (*/}
-        {/*      <List.Icon*/}
-        {/*        icon="check"*/}
-        {/*        style={{*/}
-        {/*          opacity: isNewTagSelected(tag) ? 1 : 0,*/}
-        {/*        }}*/}
-        {/*      />*/}
-        {/*    )}*/}
-        {/*  />*/}
-        {/*))}*/}
         {(newTags.length > 0 || existingTags.length > 0) && <Divider />}
         <View
           style={{
