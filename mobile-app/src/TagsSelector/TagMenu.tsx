@@ -92,6 +92,15 @@ export const TagsMenu: FC<Props> = ({
     }
   };
 
+  const deleteTagPressed = (tag: Tag) => () => {
+    if (!isExistingTag(tag)) {
+      setNewTags(newTags.filter((t) => t !== tag));
+      setNewSelectedTags(newSelectedTags.filter((t) => t !== tag));
+
+      return;
+    }
+  };
+
   return (
     <>
       <Menu
@@ -149,7 +158,7 @@ export const TagsMenu: FC<Props> = ({
           )}
           renderHiddenItem={(data) => (
             <Pressable
-              onPress={tagPressed(data.item)}
+              onPress={deleteTagPressed(data.item)}
               style={{
                 flex: 1,
                 alignSelf: 'flex-end',
