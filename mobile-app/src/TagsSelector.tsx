@@ -15,7 +15,7 @@ const isTagItem = (tag: Tag): tag is TagItem => {
 };
 
 export const TagsSelector: FC<Props> = ({ value, onChange }) => {
-  const { addTags, deck } = useSelectedDeck();
+  const { addTags, deck, removeTag } = useSelectedDeck();
   const [isSaving, setIsSaving] = useState(false);
   const theme = useTheme();
 
@@ -51,6 +51,7 @@ export const TagsSelector: FC<Props> = ({ value, onChange }) => {
       <TagsMenu
         value={value}
         existingTags={deck.tags ?? []}
+        removeTag={removeTag}
         onChange={handleTagMenuChange}
         disabled={isSaving}
       />

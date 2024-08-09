@@ -25,6 +25,7 @@ export type Deck = {
   reload: () => Promise<Result<true>>;
   addTags: (tags: Tag[]) => Promise<Result<TagItem[]>>;
   clearTags: () => Promise<Result<true>>;
+  removeTag: (id: string) => Promise<Result<true>>;
 };
 
 export const defaultDeckValue: LanguageDeck = {
@@ -153,6 +154,54 @@ export const useLanguageDeck = (language: string): Deck => {
     });
   }, [language]);
 
+  const removeTag = useCallback(
+    async (id: string): Promise<Result<true>> => {
+      return loadLanguageDeck(language).then(async (loadResult) => {
+        if (loadResult.success === false) {
+          return loadResult;
+        }
+
+        const newDeck: LanguageDeck = {
+          ...loadResult.value,
+          cards: loadResult.value.cards.map((card) => {
+            if (!card.data.tags) {
+              return card;
+            }
+
+            return {
+              ...card,
+              data: {
+                ...card.data,
+                tags: card.data.tags.filter((cardTagId) => cardTagId !== id),
+              },
+            };
+          }),
+          tags: (loadResult.value.tags ?? []).filter(
+            (tagItem) => tagItem.id !== id
+          ),
+        };
+
+        const saveResult = await saveLanguageDeck(newDeck);
+
+        if (saveResult.success === false) {
+          return saveResult;
+        }
+
+        storeDeck({
+          ...deck,
+          deck: newDeck,
+          status: 'loaded',
+        });
+
+        return {
+          success: true,
+          value: true,
+        };
+      });
+    },
+    [language]
+  );
+
   const update = useCallback(
     (id: string, data: Partial<SrsCard>): Promise<Result<Item<SrsCard>>> =>
       loadLanguageDeck(language).then(async (loadResult) => {
@@ -263,6 +312,7 @@ export const useLanguageDeck = (language: string): Deck => {
     status: deck.status,
     deck: deck.deck,
     addTags,
+    removeTag,
     clearTags,
   };
 };

@@ -1,7 +1,14 @@
-import { TagItem } from '@vocably/model';
+import { Result, TagItem } from '@vocably/model';
 import React, { FC, useEffect, useState } from 'react';
-import { Pressable, View } from 'react-native';
-import { Divider, IconButton, Menu, Text, useTheme } from 'react-native-paper';
+import { Alert, Pressable, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Divider,
+  IconButton,
+  Menu,
+  Text,
+  useTheme,
+} from 'react-native-paper';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TagText } from './TagText';
@@ -18,6 +25,7 @@ const isExistingTag = (tag: Tag): tag is TagItem => {
 type Props = {
   value: TagItem[];
   existingTags: TagItem[];
+  removeTag: (id: string) => Promise<Result<true>>;
   onChange?: (tags: Tag[]) => Promise<any>;
   disabled?: boolean;
 };
@@ -27,6 +35,7 @@ const SWIPE_MENU_BUTTON_SIZE = 50;
 export const TagsMenu: FC<Props> = ({
   value,
   existingTags,
+  removeTag,
   disabled = false,
   onChange,
 }) => {
@@ -34,6 +43,7 @@ export const TagsMenu: FC<Props> = ({
   const [newTags, setNewTags] = useState<Tag[]>([]);
   const [newSelectedTags, setNewSelectedTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<TagItem[]>([]);
+  const [isRemovingTagId, setIsRemovingTagId] = useState<string | null>(null);
   const theme = useTheme();
 
   useEffect(() => {
@@ -92,13 +102,23 @@ export const TagsMenu: FC<Props> = ({
     }
   };
 
-  const deleteTagPressed = (tag: Tag) => () => {
+  const deleteTagPressed = (tag: Tag) => async () => {
     if (!isExistingTag(tag)) {
       setNewTags(newTags.filter((t) => t !== tag));
       setNewSelectedTags(newSelectedTags.filter((t) => t !== tag));
 
       return;
     }
+
+    setIsRemovingTagId(tag.id);
+    const removeResult = await removeTag(tag.id);
+    if (removeResult.success === false) {
+      Alert.alert(
+        'An error occurred while removing the tag. Please try again.'
+      );
+    }
+    setSelectedTags(selectedTags.filter((t) => t.id !== tag.id));
+    setIsRemovingTagId(null);
   };
 
   return (
@@ -159,6 +179,7 @@ export const TagsMenu: FC<Props> = ({
           renderHiddenItem={(data) => (
             <Pressable
               onPress={deleteTagPressed(data.item)}
+              disabled={isRemovingTagId !== null}
               style={{
                 flex: 1,
                 alignSelf: 'flex-end',
@@ -172,11 +193,15 @@ export const TagsMenu: FC<Props> = ({
                 justifyContent: 'center',
               }}
             >
-              <Icon
-                name="delete-outline"
-                size={24}
-                color={theme.colors.onSecondary}
-              />
+              {isRemovingTagId === data.item.id ? (
+                <ActivityIndicator size={24} color={theme.colors.onSecondary} />
+              ) : (
+                <Icon
+                  name="delete-outline"
+                  size={24}
+                  color={theme.colors.onSecondary}
+                />
+              )}
             </Pressable>
           )}
           rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
