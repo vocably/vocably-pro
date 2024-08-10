@@ -11,6 +11,7 @@ import {
 } from 'react-native-paper';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { iconButtonOpacity } from '../stupidConstants';
 import { TagText } from './TagText';
 
 export type Tag = {
@@ -138,7 +139,9 @@ export const TagsMenu: FC<Props> = ({
           <IconButton
             onPress={openMenu}
             iconColor={theme.colors.onBackground}
-            style={{ opacity: 0.5 }}
+            style={{
+              opacity: iconButtonOpacity,
+            }}
             icon="tag-plus"
             disabled={disabled}
             loading={isLoading}
