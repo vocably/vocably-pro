@@ -1,7 +1,7 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import { NavigationProp } from '@react-navigation/native';
-import { byDate, CardItem } from '@vocably/model';
-import { FC, useCallback, useContext, useState } from 'react';
+import { byDate, CardItem, TagItem } from '@vocably/model';
+import React, { FC, useCallback, useContext, useState } from 'react';
 import {
   Alert,
   ListRenderItemInfo,
@@ -23,6 +23,7 @@ import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { Loader } from './loaders/Loader';
 import { mainPadding } from './styles';
+import { TagsSelector } from './TagsSelector';
 
 const SWIPE_MENU_BUTTON_SIZE = 100;
 
@@ -64,7 +65,7 @@ type DashboardScreen = FC<{
 }>;
 
 export const DashboardScreen: DashboardScreen = ({ navigation }) => {
-  const { deck, reload, status, remove } = useSelectedDeck();
+  const { deck, reload, status, remove, update } = useSelectedDeck();
   const { refreshLanguages } = useContext(LanguagesContext);
   const cards = deck.cards.sort(byDate);
   const theme = useTheme();
@@ -96,6 +97,15 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
     [remove]
   );
 
+  const onTagsChange = useCallback(
+    (id: string) => async (tags: TagItem[]) => {
+      await update(id, {
+        tags,
+      });
+    },
+    [update]
+  );
+
   const renderCard = (data: ListRenderItemInfo<CardItem>) => (
     <Pressable
       onPress={() => navigation.navigate('EditCard', { card: data.item })}
@@ -105,9 +115,17 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
         // from flashing occasionally
         borderWidth: 1,
         borderColor: 'transparent',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      <CardListItem card={data.item.data} />
+      <CardListItem card={data.item.data} style={{ flex: 1 }} />
+      <TagsSelector
+        value={data.item.data.tags}
+        onChange={onTagsChange(data.item.id)}
+      />
     </Pressable>
   );
 
