@@ -73,27 +73,38 @@ export const CardListItem: CardListItem = ({
           <CardExample example={card.example} />
         </View>
       )}
-      {card.tags.map((tag) => (
+      {card.tags.length > 0 && (
         <View
-          key={tag.id}
           style={{
-            padding: 6,
-            borderRadius: 50,
-            backgroundColor: theme.colors.outlineVariant,
-            marginRight: 6,
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            gap: 8,
           }}
         >
-          <Text
-            style={{
-              minWidth: 16,
-              textAlign: 'center',
-              color: theme.colors.onPrimary,
-            }}
-          >
-            {tag.data.title}
-          </Text>
+          {card.tags.map((tag) => (
+            <View
+              key={tag.id}
+              style={{
+                padding: 6,
+                borderRadius: 50,
+                backgroundColor: theme.colors.outlineVariant,
+              }}
+            >
+              <Text
+                style={{
+                  minWidth: 16,
+                  textAlign: 'center',
+                  color: theme.colors.onPrimary,
+                }}
+              >
+                {tag.data.title}
+              </Text>
+            </View>
+          ))}
         </View>
-      ))}
+      )}
     </View>
   );
 };

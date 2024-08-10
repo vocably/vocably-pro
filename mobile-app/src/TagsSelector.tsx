@@ -1,7 +1,5 @@
 import { TagItem } from '@vocably/model';
 import React, { FC, useState } from 'react';
-import { View } from 'react-native';
-import { useTheme } from 'react-native-paper';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { Tag, TagsMenu } from './TagsSelector/TagMenu';
 
@@ -17,7 +15,6 @@ const isTagItem = (tag: Tag): tag is TagItem => {
 export const TagsSelector: FC<Props> = ({ value, onChange }) => {
   const { addTags, deck, removeTag } = useSelectedDeck();
   const [isSaving, setIsSaving] = useState(false);
-  const theme = useTheme();
 
   const handleTagMenuChange = async (tags: Tag[]) => {
     setIsSaving(true);
@@ -41,20 +38,12 @@ export const TagsSelector: FC<Props> = ({ value, onChange }) => {
   };
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '100%',
-      }}
-    >
-      <TagsMenu
-        value={value}
-        existingTags={deck.tags ?? []}
-        removeTag={removeTag}
-        onChange={handleTagMenuChange}
-        disabled={isSaving}
-      />
-    </View>
+    <TagsMenu
+      value={value}
+      existingTags={deck.tags ?? []}
+      removeTag={removeTag}
+      onChange={handleTagMenuChange}
+      disabled={isSaving}
+    />
   );
 };

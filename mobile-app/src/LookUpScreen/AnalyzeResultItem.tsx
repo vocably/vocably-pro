@@ -3,6 +3,7 @@ import React, { FC, useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
 import { CardListItem } from '../CardListItem';
+import { TagsSelector } from '../TagsSelector';
 import { AssociatedCard } from './associateCards';
 
 const styles = StyleSheet.create({
@@ -16,12 +17,14 @@ const styles = StyleSheet.create({
 type AnalyzeResultItem = FC<{
   onAdd: (card: AssociatedCard) => Promise<Result<CardItem>>;
   onRemove: (card: AssociatedCard) => Promise<Result<true>>;
+  onUpdate: (card: AssociatedCard) => Promise<Result<true>>;
   item: AssociatedCard;
 }>;
 
 export const AnalyzeResultItem: AnalyzeResultItem = ({
   onAdd,
   onRemove,
+  onUpdate,
   item,
 }) => {
   const theme = useTheme();
@@ -39,6 +42,20 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
   return (
     <View style={styles.container}>
       <CardListItem card={item.card} style={{ flex: 1 }} showExamples={true} />
+      {item.id && (
+        <TagsSelector
+          value={item.card.tags}
+          onChange={(tags) =>
+            onUpdate({
+              ...item,
+              card: {
+                ...item.card,
+                tags,
+              },
+            })
+          }
+        />
+      )}
       <IconButton
         icon={!item.id ? 'plus-circle' : 'minus-circle'}
         iconColor={!item.id ? theme.colors.primary : theme.colors.error}

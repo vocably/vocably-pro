@@ -11,6 +11,7 @@ type AnalyzeResult = FC<{
   cards: CardItem[];
   onAdd: (card: AssociatedCard) => Promise<Result<CardItem>>;
   onRemove: (card: AssociatedCard) => Promise<Result<true>>;
+  onUpdate: (card: AssociatedCard) => Promise<Result<true>>;
   style?: StyleProp<ViewStyle>;
 }>;
 
@@ -20,6 +21,7 @@ export const Analyze: AnalyzeResult = ({
   cards,
   onAdd,
   onRemove,
+  onUpdate,
 }) => {
   const associatedCards = associateCards(makeCards(analysis), cards);
 
@@ -28,7 +30,12 @@ export const Analyze: AnalyzeResult = ({
       style={style}
       data={associatedCards}
       renderItem={({ item }) => (
-        <AnalyzeResultItem onAdd={onAdd} onRemove={onRemove} item={item} />
+        <AnalyzeResultItem
+          onAdd={onAdd}
+          onRemove={onRemove}
+          onUpdate={onUpdate}
+          item={item}
+        />
       )}
       ItemSeparatorComponent={Separator}
       nestedScrollEnabled={true}

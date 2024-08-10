@@ -1,6 +1,6 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import { NavigationProp } from '@react-navigation/native';
-import { byDate, CardItem, TagItem } from '@vocably/model';
+import { byDate, CardItem } from '@vocably/model';
 import { FC, useCallback, useContext, useState } from 'react';
 import {
   Alert,
@@ -23,7 +23,6 @@ import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { Loader } from './loaders/Loader';
 import { mainPadding } from './styles';
-import { TagsSelector } from './TagsSelector';
 
 const SWIPE_MENU_BUTTON_SIZE = 100;
 
@@ -65,7 +64,7 @@ type DashboardScreen = FC<{
 }>;
 
 export const DashboardScreen: DashboardScreen = ({ navigation }) => {
-  const { deck, reload, status, remove, clearTags } = useSelectedDeck();
+  const { deck, reload, status, remove } = useSelectedDeck();
   const { refreshLanguages } = useContext(LanguagesContext);
   const cards = deck.cards.sort(byDate);
   const theme = useTheme();
@@ -147,8 +146,6 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
     </View>
   );
 
-  const [selectedTags, setSelectedTags] = useState<TagItem[]>([]);
-
   if (deck.cards.length === 0 && status === 'loading') {
     return <Loader>Loading cards...</Loader>;
   }
@@ -184,18 +181,6 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
               internet and try again later.
             </Text>
           )}
-          <TagsSelector
-            value={selectedTags}
-            onChange={async (tags) => setSelectedTags(tags)}
-          />
-          <Button
-            onPress={() => {
-              setSelectedTags([]);
-              clearTags();
-            }}
-          >
-            Clear tags
-          </Button>
         </View>
       )}
       <SwipeListView<CardItem>

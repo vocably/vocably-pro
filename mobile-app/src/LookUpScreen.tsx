@@ -181,6 +181,29 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
     [deck, languages]
   );
 
+  const onUpdate = useCallback(
+    async (card: AssociatedCard): Promise<Result<true>> => {
+      if (!card.id) {
+        return {
+          success: true,
+          value: true,
+        };
+      }
+
+      const updateResult = await deck.update(card.id, card.card);
+
+      if (updateResult.success === false) {
+        return updateResult;
+      }
+
+      return {
+        success: true,
+        value: true,
+      };
+    },
+    [deck]
+  );
+
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.colors.background }]}
@@ -228,6 +251,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
           cards={deck.deck.cards}
           onAdd={onAdd}
           onRemove={onRemove}
+          onUpdate={onUpdate}
         />
       )}
     </SafeAreaView>
