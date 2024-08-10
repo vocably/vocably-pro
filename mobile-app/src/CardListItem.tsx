@@ -73,6 +73,27 @@ export const CardListItem: CardListItem = ({
           <CardExample example={card.example} />
         </View>
       )}
+      {card.tags.map((tag) => (
+        <View
+          key={tag.id}
+          style={{
+            padding: 6,
+            borderRadius: 50,
+            backgroundColor: theme.colors.outlineVariant,
+            marginRight: 6,
+          }}
+        >
+          <Text
+            style={{
+              minWidth: 16,
+              textAlign: 'center',
+              color: theme.colors.onPrimary,
+            }}
+          >
+            {tag.data.title}
+          </Text>
+        </View>
+      ))}
     </View>
   );
 };

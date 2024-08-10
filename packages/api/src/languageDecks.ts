@@ -1,4 +1,5 @@
 import { LanguageDeck, Result } from '@vocably/model';
+import { deserializeDeck, serializeDeck } from '@vocably/model-operations';
 import { XMLParser } from 'fast-xml-parser';
 import { request } from './restClient';
 
@@ -10,7 +11,7 @@ export const saveLanguageDeck = async (
   try {
     return await request(`/languages/${languageDeck.language}`, {
       method: 'PUT',
-      body: JSON.stringify(languageDeck),
+      body: JSON.stringify(serializeDeck(languageDeck)),
     });
   } catch (e) {
     return {
@@ -40,11 +41,15 @@ export const loadLanguageDeck = async (
         value: {
           language,
           cards: [],
+          tags: [],
         },
       };
     }
 
-    return result;
+    return {
+      ...result,
+      value: deserializeDeck(result.value),
+    };
   } catch (e) {
     return {
       success: false,

@@ -1,7 +1,7 @@
 import { TagItem } from '@vocably/model';
 import React, { FC, useState } from 'react';
 import { View } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { Tag, TagsMenu } from './TagsSelector/TagMenu';
 
@@ -55,27 +55,6 @@ export const TagsSelector: FC<Props> = ({ value, onChange }) => {
         onChange={handleTagMenuChange}
         disabled={isSaving}
       />
-      {value.map((tag) => (
-        <View
-          key={tag.id}
-          style={{
-            padding: 6,
-            borderRadius: 50,
-            backgroundColor: theme.colors.outlineVariant,
-            marginRight: 6,
-          }}
-        >
-          <Text
-            style={{
-              minWidth: 16,
-              textAlign: 'center',
-              color: theme.colors.onPrimary,
-            }}
-          >
-            {tag.data.title}
-          </Text>
-        </View>
-      ))}
     </View>
   );
 };

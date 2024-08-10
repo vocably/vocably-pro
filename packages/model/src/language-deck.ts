@@ -25,7 +25,7 @@ export type Card = {
   definition: string;
   translation: string;
   partOfSpeech: string;
-  tags?: string[];
+  tags: TagItem[];
 };
 
 export type SrsCard = Card & SrsItem;
@@ -40,7 +40,7 @@ export type CardItem = {
 export type LanguageDeck = {
   language: string;
   cards: CardItem[];
-  tags?: TagItem[];
+  tags: TagItem[];
 };
 
 export const byDate = (a: CardItem, b: CardItem): number => {

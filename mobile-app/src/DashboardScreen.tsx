@@ -4,7 +4,6 @@ import { byDate, CardItem, TagItem } from '@vocably/model';
 import { FC, useCallback, useContext, useState } from 'react';
 import {
   Alert,
-  ListRenderItem,
   ListRenderItemInfo,
   Pressable,
   StyleSheet,
@@ -60,10 +59,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-const renderItem: ListRenderItem<CardItem> = ({ item }) => (
-  <CardListItem card={item.data} />
-);
 
 type DashboardScreen = FC<{
   navigation: NavigationProp<any>;

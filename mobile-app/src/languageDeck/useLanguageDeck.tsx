@@ -31,6 +31,7 @@ export type Deck = {
 export const defaultDeckValue: LanguageDeck = {
   language: '',
   cards: [],
+  tags: [],
 };
 
 export const useLanguageDeck = (language: string): Deck => {
@@ -40,6 +41,7 @@ export const useLanguageDeck = (language: string): Deck => {
     deck: {
       language,
       cards: [],
+      tags: [],
     },
   };
 
@@ -172,7 +174,7 @@ export const useLanguageDeck = (language: string): Deck => {
               ...card,
               data: {
                 ...card.data,
-                tags: card.data.tags.filter((cardTagId) => cardTagId !== id),
+                tags: card.data.tags.filter((tag) => tag.id !== id),
               },
             };
           }),
