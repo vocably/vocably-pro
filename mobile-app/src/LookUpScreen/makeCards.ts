@@ -11,6 +11,7 @@ export const makeCards = (analysis: Analysis): Card[] => {
       example: join(item.examples ?? []),
       translation: item.translation,
       partOfSpeech: item.partOfSpeech ?? '',
+      tags: [],
     }));
   }
 
@@ -21,6 +22,7 @@ export const makeCards = (analysis: Analysis): Card[] => {
       translation: analysis.translation.target,
       definition: '',
       partOfSpeech: '',
+      tags: [],
     },
   ];
 };
