@@ -44,6 +44,7 @@ export const TagsSelector: FC<Props> = ({ value, onChange }) => {
       removeTag={removeTag}
       onChange={handleTagMenuChange}
       disabled={isSaving}
+      isLoading={isSaving}
     />
   );
 };

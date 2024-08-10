@@ -28,6 +28,7 @@ type Props = {
   removeTag: (id: string) => Promise<Result<true>>;
   onChange?: (tags: Tag[]) => Promise<any>;
   disabled?: boolean;
+  isLoading?: boolean;
 };
 
 const SWIPE_MENU_BUTTON_SIZE = 50;
@@ -37,6 +38,7 @@ export const TagsMenu: FC<Props> = ({
   existingTags,
   removeTag,
   disabled = false,
+  isLoading = false,
   onChange,
 }) => {
   const [visible, setVisible] = useState(false);
@@ -137,6 +139,7 @@ export const TagsMenu: FC<Props> = ({
             onPress={openMenu}
             icon="tag-plus-outline"
             disabled={disabled}
+            loading={isLoading}
           />
         }
       >
