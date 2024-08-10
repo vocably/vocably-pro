@@ -1,5 +1,6 @@
-import { CardItem, LanguageDeck, TagItem } from '@vocably/model';
+import { CardItem, LanguageDeck } from '@vocably/model';
 import { omit } from 'lodash-es';
+import { buildTagMap } from './buildTagMap';
 
 export type SerializedLanguageDeck = Omit<LanguageDeck, 'cards' | 'tags'> & {
   cards: Array<
@@ -29,13 +30,7 @@ export const serializeDeck = (deck: LanguageDeck): SerializedLanguageDeck => {
 export const deserializeDeck = (
   serializedDeck: SerializedLanguageDeck
 ): LanguageDeck => {
-  const tagMap = (serializedDeck.tags ?? []).reduce(
-    (acc, tag) => ({
-      ...acc,
-      [tag.id]: tag,
-    }),
-    {} as Record<string, TagItem>
-  );
+  const tagMap = buildTagMap(serializedDeck.tags ?? []);
 
   return {
     ...serializedDeck,

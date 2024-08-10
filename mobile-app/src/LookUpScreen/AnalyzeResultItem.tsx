@@ -1,4 +1,4 @@
-import { CardItem, Result } from '@vocably/model';
+import { CardItem, Result, TagItem } from '@vocably/model';
 import React, { FC, useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
@@ -17,14 +17,14 @@ const styles = StyleSheet.create({
 type AnalyzeResultItem = FC<{
   onAdd: (card: AssociatedCard) => Promise<Result<CardItem>>;
   onRemove: (card: AssociatedCard) => Promise<Result<true>>;
-  onUpdate: (card: AssociatedCard) => Promise<Result<true>>;
+  onTagsChange: (id: string, tags: TagItem[]) => Promise<Result<true>>;
   item: AssociatedCard;
 }>;
 
 export const AnalyzeResultItem: AnalyzeResultItem = ({
   onAdd,
   onRemove,
-  onUpdate,
+  onTagsChange,
   item,
 }) => {
   const theme = useTheme();
@@ -45,14 +45,8 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
       {item.id && (
         <TagsSelector
           value={item.card.tags}
-          onChange={(tags) =>
-            onUpdate({
-              ...item,
-              card: {
-                ...item.card,
-                tags,
-              },
-            })
+          onChange={async (tags) =>
+            item.id && (await onTagsChange(item.id, tags))
           }
         />
       )}

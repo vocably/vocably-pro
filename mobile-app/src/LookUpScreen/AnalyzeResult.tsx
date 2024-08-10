@@ -1,4 +1,4 @@
-import { Analysis, CardItem, Result } from '@vocably/model';
+import { Analysis, CardItem, Result, TagItem } from '@vocably/model';
 import React, { FC } from 'react';
 import { FlatList, StyleProp, ViewStyle } from 'react-native';
 import { Separator } from '../CardListItem';
@@ -11,7 +11,7 @@ type AnalyzeResult = FC<{
   cards: CardItem[];
   onAdd: (card: AssociatedCard) => Promise<Result<CardItem>>;
   onRemove: (card: AssociatedCard) => Promise<Result<true>>;
-  onUpdate: (card: AssociatedCard) => Promise<Result<true>>;
+  onTagsChange: (id: string, tags: TagItem[]) => Promise<Result<true>>;
   style?: StyleProp<ViewStyle>;
 }>;
 
@@ -21,7 +21,7 @@ export const Analyze: AnalyzeResult = ({
   cards,
   onAdd,
   onRemove,
-  onUpdate,
+  onTagsChange,
 }) => {
   const associatedCards = associateCards(makeCards(analysis), cards);
 
@@ -33,7 +33,7 @@ export const Analyze: AnalyzeResult = ({
         <AnalyzeResultItem
           onAdd={onAdd}
           onRemove={onRemove}
-          onUpdate={onUpdate}
+          onTagsChange={onTagsChange}
           item={item}
         />
       )}
