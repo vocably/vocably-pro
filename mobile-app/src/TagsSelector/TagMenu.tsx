@@ -137,7 +137,9 @@ export const TagsMenu: FC<Props> = ({
         anchor={
           <IconButton
             onPress={openMenu}
-            icon="tag-plus-outline"
+            iconColor={theme.colors.onBackground}
+            style={{ opacity: 0.5 }}
+            icon="tag-plus"
             disabled={disabled}
             loading={isLoading}
           />
