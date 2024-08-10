@@ -89,14 +89,16 @@ export const CardListItem: CardListItem = ({
               style={{
                 padding: 6,
                 borderRadius: 50,
-                backgroundColor: theme.colors.outlineVariant,
+                borderWidth: 1,
+                borderStyle: 'solid',
+                borderColor: theme.colors.outlineVariant,
               }}
             >
               <Text
                 style={{
                   minWidth: 16,
                   textAlign: 'center',
-                  color: theme.colors.onPrimary,
+                  color: theme.colors.outlineVariant,
                 }}
               >
                 {tag.data.title}
