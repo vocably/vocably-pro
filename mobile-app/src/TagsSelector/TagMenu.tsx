@@ -33,6 +33,9 @@ type Props = {
   disabled?: boolean;
   isLoading?: boolean;
   icon?: string;
+  iconColor?: string;
+  iconOpacity?: number;
+  pressedIconOpacity?: number;
 };
 
 const SWIPE_MENU_BUTTON_SIZE = 50;
@@ -44,6 +47,9 @@ export const TagsMenu: FC<Props> = ({
   disabled = false,
   isLoading = false,
   icon = 'tag-plus',
+  iconColor,
+  iconOpacity = iconButtonOpacity,
+  pressedIconOpacity = pressedIconButtonOpacity,
   onChange,
 }) => {
   const [visible, setVisible] = useState(false);
@@ -143,16 +149,17 @@ export const TagsMenu: FC<Props> = ({
           <Pressable
             style={({ pressed }) => [
               {
-                opacity: pressed ? pressedIconButtonOpacity : iconButtonOpacity,
+                opacity: pressed ? pressedIconOpacity : iconOpacity,
                 padding: 8,
               },
             ]}
             hitSlop={20}
             onPress={openMenu}
+            disabled={disabled}
           >
             <Icon
               name={icon}
-              color={theme.colors.onBackground}
+              color={iconColor ?? theme.colors.onBackground}
               style={{ fontSize: 22 }}
             />
           </Pressable>

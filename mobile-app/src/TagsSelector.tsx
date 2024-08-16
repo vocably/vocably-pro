@@ -7,6 +7,9 @@ type Props = {
   value: TagItem[];
   onChange?: (tags: TagItem[]) => Promise<any>;
   icon?: string;
+  iconColor?: string;
+  iconOpacity?: number;
+  pressedIconOpacity?: number;
 };
 
 const isTagItem = (tag: Tag): tag is TagItem => {
@@ -17,6 +20,9 @@ export const TagsSelector: FC<Props> = ({
   value,
   onChange,
   icon = 'tag-plus',
+  iconOpacity,
+  pressedIconOpacity,
+  iconColor,
 }) => {
   const { addTags, deck, removeTag } = useSelectedDeck();
   const [isSaving, setIsSaving] = useState(false);
@@ -50,7 +56,10 @@ export const TagsSelector: FC<Props> = ({
       onChange={handleTagMenuChange}
       disabled={isSaving}
       isLoading={isSaving}
+      iconOpacity={iconOpacity}
+      pressedIconOpacity={pressedIconOpacity}
       icon={icon}
+      iconColor={iconColor}
     />
   );
 };

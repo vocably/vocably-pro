@@ -209,7 +209,13 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
                 top: 0,
               }}
             >
-              <TagsSelector value={[]} icon="tag" />
+              <TagsSelector
+                value={[]}
+                icon="tag"
+                iconColor={theme.colors.onPrimary}
+                iconOpacity={1}
+                pressedIconOpacity={0.8}
+              />
             </View>
           </View>
           {!netInfo.isInternetReachable && (
