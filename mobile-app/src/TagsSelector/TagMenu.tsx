@@ -95,7 +95,7 @@ export const TagsMenu: FC<Props> = ({
     if (isSelectedTag(tag)) {
       setNewSelectedTags(newSelectedTags.filter((t) => t !== tag));
     } else {
-      setNewSelectedTags([...newSelectedTags, tag]);
+      setNewSelectedTags([tag, ...newSelectedTags]);
     }
   };
 
@@ -176,11 +176,11 @@ export const TagsMenu: FC<Props> = ({
             autoFocus={existingTags.length === 0 && newTags.length === 0}
           />
         </View>
-        {(newTags.length > 0 || existingTags.length > 0) && <Divider />}
         <SwipeListView<Tag>
           style={{}}
           data={[...newTags, ...existingTags]}
-          keyExtractor={(item, index) => item.id ?? index.toString()}
+          keyExtractor={(item, index) => item.id ?? item.data.title}
+          ItemSeparatorComponent={Divider}
           renderItem={(data) => (
             <Pressable
               onPress={tagPressed(data.item)}
