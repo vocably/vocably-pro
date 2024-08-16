@@ -26,6 +26,7 @@ const isExistingTag = (tag: Tag): tag is TagItem => {
 };
 
 type Props = {
+  isAllowedToAdd?: boolean;
   value: TagItem[];
   existingTags: TagItem[];
   removeTag: (id: string) => Promise<Result<true>>;
@@ -45,12 +46,12 @@ export const TagsMenu: FC<Props> = ({
   existingTags,
   removeTag,
   disabled = false,
-  isLoading = false,
   icon = 'tag-plus',
   iconColor,
   iconOpacity = iconButtonOpacity,
   pressedIconOpacity = pressedIconButtonOpacity,
   onChange,
+  isAllowedToAdd = true,
 }) => {
   const [visible, setVisible] = useState(false);
   const [newTags, setNewTags] = useState<Tag[]>([]);
@@ -168,81 +169,87 @@ export const TagsMenu: FC<Props> = ({
         <View
           style={{
             minWidth: 300,
-            padding: 12,
           }}
         >
-          <TagText
-            onSubmit={addNewTag}
-            autoFocus={existingTags.length === 0 && newTags.length === 0}
-          />
-        </View>
-        <SwipeListView<Tag>
-          style={{}}
-          data={[...newTags, ...existingTags]}
-          keyExtractor={(item, index) => item.id ?? item.data.title}
-          ItemSeparatorComponent={Divider}
-          renderItem={(data) => (
-            <Pressable
-              onPress={tagPressed(data.item)}
-              style={{
-                backgroundColor: theme.colors.elevation.level2,
-                // This is to prevent the swipe menu
-                // from flashing occasionally
-                borderWidth: 1,
-                borderColor: 'transparent',
-                padding: 12,
-                display: 'flex',
-                flexDirection: 'row',
-              }}
-            >
-              <Text
+          {isAllowedToAdd && (
+            <View style={{ padding: 12 }}>
+              <TagText
+                onSubmit={addNewTag}
+                autoFocus={existingTags.length === 0 && newTags.length === 0}
+              />
+            </View>
+          )}
+          <SwipeListView<Tag>
+            style={{}}
+            data={[...newTags, ...existingTags]}
+            keyExtractor={(item, index) => item.id ?? item.data.title}
+            ItemSeparatorComponent={Divider}
+            renderItem={(data) => (
+              <Pressable
+                onPress={tagPressed(data.item)}
                 style={{
-                  fontSize: 18,
-                  marginRight: 6,
+                  backgroundColor: theme.colors.elevation.level2,
+                  // This is to prevent the swipe menu
+                  // from flashing occasionally
+                  borderWidth: 1,
+                  borderColor: 'transparent',
+                  padding: 12,
+                  display: 'flex',
+                  flexDirection: 'row',
                 }}
               >
-                {data.item.data.title}
-              </Text>
-              <Icon
-                name="check"
-                size={18}
-                color={theme.colors.onBackground}
-                style={{
-                  opacity: isSelectedTag(data.item) ? 1 : 0,
-                }}
-              />
-            </Pressable>
-          )}
-          renderHiddenItem={(data) => (
-            <Pressable
-              onPress={deleteTagPressed(data.item)}
-              disabled={isRemovingTagId !== null}
-              style={{
-                flex: 1,
-                alignSelf: 'flex-end',
-                display: 'flex',
-                borderWidth: 1,
-                borderColor: '$ff0',
-                borderStyle: 'solid',
-                backgroundColor: theme.colors.error,
-                width: SWIPE_MENU_BUTTON_SIZE,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              {isRemovingTagId === data.item.id ? (
-                <ActivityIndicator size={24} color={theme.colors.onSecondary} />
-              ) : (
+                <Text
+                  style={{
+                    fontSize: 18,
+                    marginRight: 6,
+                  }}
+                >
+                  {data.item.data.title}
+                </Text>
                 <Icon
-                  name="delete-outline"
-                  size={24}
-                  color={theme.colors.onSecondary}
+                  name="check"
+                  size={18}
+                  color={theme.colors.onBackground}
+                  style={{
+                    opacity: isSelectedTag(data.item) ? 1 : 0,
+                  }}
                 />
-              )}
-            </Pressable>
-          )}
-          rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
-        />
+              </Pressable>
+            )}
+            renderHiddenItem={(data) => (
+              <Pressable
+                onPress={deleteTagPressed(data.item)}
+                disabled={isRemovingTagId !== null}
+                style={{
+                  flex: 1,
+                  alignSelf: 'flex-end',
+                  display: 'flex',
+                  borderWidth: 1,
+                  borderColor: '$ff0',
+                  borderStyle: 'solid',
+                  backgroundColor: theme.colors.error,
+                  width: SWIPE_MENU_BUTTON_SIZE,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {isRemovingTagId === data.item.id ? (
+                  <ActivityIndicator
+                    size={24}
+                    color={theme.colors.onSecondary}
+                  />
+                ) : (
+                  <Icon
+                    name="delete-outline"
+                    size={24}
+                    color={theme.colors.onSecondary}
+                  />
+                )}
+              </Pressable>
+            )}
+            rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
+          />
+        </View>
       </Menu>
     </>
   );

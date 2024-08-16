@@ -215,6 +215,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
                 iconColor={theme.colors.onPrimary}
                 iconOpacity={1}
                 pressedIconOpacity={0.8}
+                isAllowedToAdd={false}
               />
             </View>
           </View>

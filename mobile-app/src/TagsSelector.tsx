@@ -10,6 +10,7 @@ type Props = {
   iconColor?: string;
   iconOpacity?: number;
   pressedIconOpacity?: number;
+  isAllowedToAdd?: boolean;
 };
 
 const isTagItem = (tag: Tag): tag is TagItem => {
@@ -23,6 +24,7 @@ export const TagsSelector: FC<Props> = ({
   iconOpacity,
   pressedIconOpacity,
   iconColor,
+  isAllowedToAdd,
 }) => {
   const { addTags, deck, removeTag } = useSelectedDeck();
   const [isSaving, setIsSaving] = useState(false);
@@ -62,6 +64,7 @@ export const TagsSelector: FC<Props> = ({
       pressedIconOpacity={pressedIconOpacity}
       icon={icon}
       iconColor={iconColor}
+      isAllowedToAdd={isAllowedToAdd}
     />
   );
 };
