@@ -207,7 +207,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
               onPress={() => navigation.navigate('Study')}
               disabled={!netInfo.isInternetReachable}
             >
-              Practice
+              Practice{selectedTags.length > 0 ? ' selected tags' : ''}
             </Button>
             <View
               style={{
@@ -236,7 +236,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
                 marginBottom: 8,
               }}
             >
-              <Text>Filter: </Text>
+              <Text>Selected tags: </Text>
               {selectedTags.map((tag) => (
                 <Chip
                   mode="outlined"
