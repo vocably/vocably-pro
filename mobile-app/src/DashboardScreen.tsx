@@ -13,6 +13,7 @@ import {
   ActivityIndicator,
   Badge,
   Button,
+  Chip,
   Text,
   useTheme,
 } from 'react-native-paper';
@@ -65,7 +66,15 @@ type DashboardScreen = FC<{
 }>;
 
 export const DashboardScreen: DashboardScreen = ({ navigation }) => {
-  const { deck, reload, status, remove, update } = useSelectedDeck();
+  const {
+    deck,
+    reload,
+    status,
+    remove,
+    update,
+    selectedTags,
+    setSelectedTagIds,
+  } = useSelectedDeck();
   const { refreshLanguages } = useContext(LanguagesContext);
   const cards = deck.cards.sort(byDate);
   const theme = useTheme();
@@ -187,12 +196,10 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
           <View
             style={{
               position: 'relative',
+              marginBottom: 8,
             }}
           >
             <Button
-              style={{
-                marginBottom: 8,
-              }}
               labelStyle={{
                 fontSize: 18,
               }}
@@ -210,7 +217,8 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
               }}
             >
               <TagsSelector
-                value={[]}
+                value={selectedTags}
+                onChange={(tags) => setSelectedTagIds(tags.map((t) => t.id))}
                 icon="tag"
                 iconColor={theme.colors.onPrimary}
                 iconOpacity={1}
@@ -219,6 +227,33 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
               />
             </View>
           </View>
+          {selectedTags.length > 0 && (
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: 8,
+                alignItems: 'center',
+                marginBottom: 8,
+              }}
+            >
+              <Text>Filter: </Text>
+              {selectedTags.map((tag) => (
+                <Chip
+                  mode="outlined"
+                  selectedColor={theme.colors.outlineVariant}
+                  onClose={() =>
+                    setSelectedTagIds(
+                      selectedTags
+                        .filter((selectedTag) => selectedTag.id !== tag.id)
+                        .map((t) => t.id)
+                    )
+                  }
+                >
+                  {tag.data.title}
+                </Chip>
+              ))}
+            </View>
+          )}
           {!netInfo.isInternetReachable && (
             <Text style={{ textAlign: 'left', color: theme.colors.secondary }}>
               <Icon name="connection" /> Practice mode isn't available right now

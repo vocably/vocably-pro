@@ -1,7 +1,7 @@
 import { Card, CardItem, isGoogleTTSLanguage } from '@vocably/model';
 import React, { FC } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
-import { Divider, Text, useTheme } from 'react-native-paper';
+import { Chip, Divider, Text, useTheme } from 'react-native-paper';
 import { CardDefinition } from './CardDefinition';
 import { CardExample } from './CardExample';
 import { PlaySound } from './PlaySound';
@@ -82,26 +82,9 @@ export const CardListItem: CardListItem = ({
           }}
         >
           {card.tags.map((tag) => (
-            <View
-              key={tag.id}
-              style={{
-                padding: 6,
-                borderRadius: 50,
-                borderWidth: 1,
-                borderStyle: 'solid',
-                borderColor: theme.colors.outlineVariant,
-              }}
-            >
-              <Text
-                style={{
-                  minWidth: 16,
-                  textAlign: 'center',
-                  color: theme.colors.outlineVariant,
-                }}
-              >
-                {tag.data.title}
-              </Text>
-            </View>
+            <Chip selectedColor={theme.colors.outlineVariant} mode="outlined">
+              {tag.data.title}
+            </Chip>
           ))}
         </View>
       )}

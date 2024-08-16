@@ -9,8 +9,10 @@ import {
   Tag,
   TagItem,
 } from '@vocably/model';
+import { buildTagMap } from '@vocably/model-operations';
 import { createSrsItem } from '@vocably/srs';
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { getItem, setItem } from '../asyncAppStorage';
 import {
   LanguageContainerDeck,
   LanguagesContext,
@@ -26,16 +28,31 @@ export type Deck = {
   addTags: (tags: Tag[]) => Promise<Result<TagItem[]>>;
   clearTags: () => Promise<Result<true>>;
   removeTag: (id: string) => Promise<Result<true>>;
+  selectedTags: TagItem[];
+  setSelectedTagIds: (ids: string[]) => Promise<any>;
 };
 
-export const defaultDeckValue: LanguageDeck = {
-  language: '',
-  cards: [],
-  tags: [],
+const cacheSelectedTagIds = (language: string, existingIds: string[]) => {
+  return setItem(`selectedItems-${language}`, JSON.stringify(existingIds));
+};
+
+const loadSelectedTagIds = async (language: string): Promise<string[]> => {
+  try {
+    return JSON.parse((await getItem(`selectedItems-${language}`)) ?? '[]');
+  } catch (e) {
+    console.error(
+      `Unable to get or parse storage item data with the key selectedItems-${language}`,
+      e
+    );
+    return [];
+  }
 };
 
 export const useLanguageDeck = (language: string): Deck => {
+  const [selectedTagsState, setSelectedTagsState] = useState<TagItem[]>([]);
+
   const { decks, storeDeck, addLanguage } = useContext(LanguagesContext);
+
   const deck = decks[language] ?? {
     status: 'initial',
     deck: {
@@ -262,12 +279,30 @@ export const useLanguageDeck = (language: string): Deck => {
     [language]
   );
 
-  const reload = useCallback((): Promise<Result<true>> => {
+  const setSelectedTagIds = useCallback(
+    async (ids: string[]) => {
+      const tagMap = buildTagMap(deck.deck.tags);
+      const existingTags = ids
+        .filter((id) => tagMap[id] !== undefined)
+        .map((id) => tagMap[id]);
+      setSelectedTagsState(existingTags);
+      if (!language) {
+        return;
+      }
+      await cacheSelectedTagIds(
+        language,
+        existingTags.map((t) => t.id)
+      );
+    },
+    [language, setSelectedTagsState, deck]
+  );
+
+  const reload = useCallback(async (): Promise<Result<true>> => {
     if (language === '') {
-      return Promise.resolve({
+      return {
         success: true,
         value: true,
-      });
+      };
     }
 
     if (deck.status === 'initial') {
@@ -277,7 +312,7 @@ export const useLanguageDeck = (language: string): Deck => {
       });
     }
 
-    return loadLanguageDeck(language).then((result) => {
+    return loadLanguageDeck(language).then(async (result) => {
       if (result.success === false) {
         storeDeck({
           ...deck,
@@ -291,12 +326,18 @@ export const useLanguageDeck = (language: string): Deck => {
         deck: result.value,
       });
 
+      const tagMap = buildTagMap(result.value.tags);
+      const selectedTags = (await loadSelectedTagIds(language))
+        .filter((id) => !!tagMap[id])
+        .map((id) => tagMap[id]);
+      setSelectedTagsState(selectedTags);
+
       return {
         success: true,
         value: true,
       };
     });
-  }, [language, storeDeck, decks, deck]);
+  }, [language, storeDeck, decks, deck, setSelectedTagsState]);
 
   useEffect(() => {
     if (!language) {
@@ -316,5 +357,7 @@ export const useLanguageDeck = (language: string): Deck => {
     addTags,
     removeTag,
     clearTags,
+    selectedTags: selectedTagsState,
+    setSelectedTagIds,
   };
 };
