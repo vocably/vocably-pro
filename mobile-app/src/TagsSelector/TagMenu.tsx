@@ -79,8 +79,8 @@ export const TagsMenu: FC<Props> = ({
         title,
       },
     };
-    setNewTags([...newTags, newTag]);
-    setNewSelectedTags([...newSelectedTags, newTag]);
+    setNewTags([newTag, ...newTags]);
+    setNewSelectedTags([newTag, ...newSelectedTags]);
   };
 
   const isSelectedTag = (tag: Tag): boolean => {
@@ -165,9 +165,21 @@ export const TagsMenu: FC<Props> = ({
           </Pressable>
         }
       >
+        <View
+          style={{
+            minWidth: 300,
+            padding: 12,
+          }}
+        >
+          <TagText
+            onSubmit={addNewTag}
+            autoFocus={existingTags.length === 0 && newTags.length === 0}
+          />
+        </View>
+        {(newTags.length > 0 || existingTags.length > 0) && <Divider />}
         <SwipeListView<Tag>
           style={{}}
-          data={[...existingTags, ...newTags]}
+          data={[...newTags, ...existingTags]}
           keyExtractor={(item, index) => item.id ?? index.toString()}
           renderItem={(data) => (
             <Pressable
@@ -231,18 +243,6 @@ export const TagsMenu: FC<Props> = ({
           )}
           rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
         />
-        {(newTags.length > 0 || existingTags.length > 0) && <Divider />}
-        <View
-          style={{
-            minWidth: 300,
-            padding: 12,
-          }}
-        >
-          <TagText
-            onSubmit={addNewTag}
-            autoFocus={existingTags.length === 0 && newTags.length === 0}
-          />
-        </View>
       </Menu>
     </>
   );

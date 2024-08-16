@@ -48,10 +48,12 @@ export const TagsSelector: FC<Props> = ({
     setIsSaving(false);
   };
 
+  const existingTags = deck.tags.sort((a, b) => b.created - a.created);
+
   return (
     <TagsMenu
       value={value}
-      existingTags={deck.tags ?? []}
+      existingTags={existingTags ?? []}
       removeTag={removeTag}
       onChange={handleTagMenuChange}
       disabled={isSaving}
