@@ -5,7 +5,6 @@ import { Divider, Text, useTheme } from 'react-native-paper';
 import { CardDefinition } from './CardDefinition';
 import { CardExample } from './CardExample';
 import { PlaySound } from './PlaySound';
-import { mainPadding } from './styles';
 
 type CardListItem = FC<{
   card: Card;
@@ -24,7 +23,6 @@ export const CardListItem: CardListItem = ({
       style={[
         style,
         {
-          paddingHorizontal: mainPadding,
           paddingVertical: 16,
         },
       ]}

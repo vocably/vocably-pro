@@ -3,6 +3,7 @@ import React, { FC, useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
 import { CardListItem } from '../CardListItem';
+import { mainPadding } from '../styles';
 import { TagsSelector } from '../TagsSelector';
 import { AssociatedCard } from './associateCards';
 
@@ -11,6 +12,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    paddingHorizontal: mainPadding,
   },
 });
 

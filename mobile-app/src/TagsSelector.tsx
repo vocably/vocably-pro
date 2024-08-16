@@ -6,13 +6,18 @@ import { Tag, TagsMenu } from './TagsSelector/TagMenu';
 type Props = {
   value: TagItem[];
   onChange?: (tags: TagItem[]) => Promise<any>;
+  icon?: string;
 };
 
 const isTagItem = (tag: Tag): tag is TagItem => {
   return tag.id !== undefined;
 };
 
-export const TagsSelector: FC<Props> = ({ value, onChange }) => {
+export const TagsSelector: FC<Props> = ({
+  value,
+  onChange,
+  icon = 'tag-plus',
+}) => {
   const { addTags, deck, removeTag } = useSelectedDeck();
   const [isSaving, setIsSaving] = useState(false);
 
@@ -45,6 +50,7 @@ export const TagsSelector: FC<Props> = ({ value, onChange }) => {
       onChange={handleTagMenuChange}
       disabled={isSaving}
       isLoading={isSaving}
+      icon={icon}
     />
   );
 };

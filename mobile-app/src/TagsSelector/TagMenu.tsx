@@ -4,14 +4,16 @@ import { Alert, Pressable, View } from 'react-native';
 import {
   ActivityIndicator,
   Divider,
-  IconButton,
   Menu,
   Text,
   useTheme,
 } from 'react-native-paper';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { iconButtonOpacity } from '../stupidConstants';
+import {
+  iconButtonOpacity,
+  pressedIconButtonOpacity,
+} from '../stupidConstants';
 import { TagText } from './TagText';
 
 export type Tag = {
@@ -30,6 +32,7 @@ type Props = {
   onChange?: (tags: Tag[]) => Promise<any>;
   disabled?: boolean;
   isLoading?: boolean;
+  icon?: string;
 };
 
 const SWIPE_MENU_BUTTON_SIZE = 50;
@@ -40,6 +43,7 @@ export const TagsMenu: FC<Props> = ({
   removeTag,
   disabled = false,
   isLoading = false,
+  icon = 'tag-plus',
   onChange,
 }) => {
   const [visible, setVisible] = useState(false);
@@ -136,16 +140,22 @@ export const TagsMenu: FC<Props> = ({
           width: 300,
         }}
         anchor={
-          <IconButton
+          <Pressable
+            style={({ pressed }) => [
+              {
+                opacity: pressed ? pressedIconButtonOpacity : iconButtonOpacity,
+                padding: 8,
+              },
+            ]}
+            hitSlop={20}
             onPress={openMenu}
-            iconColor={theme.colors.onBackground}
-            style={{
-              opacity: iconButtonOpacity,
-            }}
-            icon="tag-plus"
-            disabled={disabled}
-            loading={isLoading}
-          />
+          >
+            <Icon
+              name={icon}
+              color={theme.colors.onBackground}
+              style={{ fontSize: 22 }}
+            />
+          </Pressable>
         }
       >
         <SwipeListView<Tag>

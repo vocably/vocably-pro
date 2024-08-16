@@ -119,6 +119,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingHorizontal: mainPadding,
       }}
     >
       <CardListItem card={data.item.data} style={{ flex: 1 }} />
@@ -178,20 +179,39 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
       }}
     >
       {!isEmpty && (
-        <View style={{ paddingHorizontal: mainPadding }}>
-          <Button
+        <View
+          style={{
+            paddingHorizontal: mainPadding,
+          }}
+        >
+          <View
             style={{
-              marginBottom: 8,
+              position: 'relative',
             }}
-            labelStyle={{
-              fontSize: 18,
-            }}
-            mode={'contained'}
-            onPress={() => navigation.navigate('Study')}
-            disabled={!netInfo.isInternetReachable}
           >
-            Practice
-          </Button>
+            <Button
+              style={{
+                marginBottom: 8,
+              }}
+              labelStyle={{
+                fontSize: 18,
+              }}
+              mode={'contained'}
+              onPress={() => navigation.navigate('Study')}
+              disabled={!netInfo.isInternetReachable}
+            >
+              Practice
+            </Button>
+            <View
+              style={{
+                position: 'absolute',
+                right: 0,
+                top: 0,
+              }}
+            >
+              <TagsSelector value={[]} icon="tag" />
+            </View>
+          </View>
           {!netInfo.isInternetReachable && (
             <Text style={{ textAlign: 'left', color: theme.colors.secondary }}>
               <Icon name="connection" /> Practice mode isn't available right now
