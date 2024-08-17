@@ -85,6 +85,8 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
   const [toBeDeletedId, setToBeDeletedId] = useState<string | null>(null);
   const [editPanelHeight, setEditPanelHeight] = useState(100);
 
+  console.log('selectedTags', selectedTags);
+
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     await refreshLanguages();

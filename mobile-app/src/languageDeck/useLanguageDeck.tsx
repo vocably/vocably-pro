@@ -50,8 +50,6 @@ const loadSelectedTagIds = async (language: string): Promise<string[]> => {
 };
 
 export const useLanguageDeck = (language: string): Deck => {
-  const [selectedTagsState, setSelectedTagsState] = useState<TagItem[]>([]);
-
   const { decks, storeDeck, addLanguage } = useContext(LanguagesContext);
 
   const deck = decks[language] ?? {
@@ -61,6 +59,7 @@ export const useLanguageDeck = (language: string): Deck => {
       cards: [],
       tags: [],
     },
+    selectedTags: [],
   };
 
   const [filteredCards, setFilteredCards] = useState<Deck['filteredCards']>([]);
@@ -284,20 +283,23 @@ export const useLanguageDeck = (language: string): Deck => {
 
   const setSelectedTagIds = useCallback(
     async (ids: string[]) => {
-      const tagMap = buildTagMap(deck.deck.tags);
-      const existingTags = ids
-        .filter((id) => tagMap[id] !== undefined)
-        .map((id) => tagMap[id]);
-      setSelectedTagsState(existingTags);
       if (!language) {
         return;
       }
+
+      const tagMap = buildTagMap(deck.deck.tags);
+      const selectedTags = ids
+        .filter((id) => tagMap[id] !== undefined)
+        .map((id) => tagMap[id]);
+
+      storeDeck({ ...deck, selectedTags });
+
       await cacheSelectedTagIds(
         language,
-        existingTags.map((t) => t.id)
+        selectedTags.map((t) => t.id)
       );
     },
-    [language, setSelectedTagsState, deck]
+    [language, storeDeck, deck]
   );
 
   const reload = useCallback(async (): Promise<Result<true>> => {
@@ -324,23 +326,23 @@ export const useLanguageDeck = (language: string): Deck => {
         return result;
       }
 
-      storeDeck({
-        status: 'loaded',
-        deck: result.value,
-      });
-
       const tagMap = buildTagMap(result.value.tags);
       const selectedTags = (await loadSelectedTagIds(language))
         .filter((id) => !!tagMap[id])
         .map((id) => tagMap[id]);
-      setSelectedTagsState(selectedTags);
+
+      storeDeck({
+        status: 'loaded',
+        deck: result.value,
+        selectedTags,
+      });
 
       return {
         success: true,
         value: true,
       };
     });
-  }, [language, storeDeck, decks, deck, setSelectedTagsState]);
+  }, [language, storeDeck, decks, deck]);
 
   useEffect(() => {
     if (!language) {
@@ -351,18 +353,18 @@ export const useLanguageDeck = (language: string): Deck => {
   }, [language]);
 
   useEffect(() => {
-    if (selectedTagsState.length === 0) {
+    if (deck.selectedTags.length === 0) {
       setFilteredCards(deck.deck.cards);
       return;
     }
 
-    const tagMap = buildTagMap(selectedTagsState);
+    const tagMap = buildTagMap(deck.selectedTags);
     setFilteredCards(
       deck.deck.cards.filter((card) =>
         card.data.tags.some((cardTag) => !!tagMap[cardTag.id])
       )
     );
-  }, [setFilteredCards, deck.deck.cards, selectedTagsState]);
+  }, [setFilteredCards, deck.deck.cards, deck.selectedTags]);
 
   return {
     add,
@@ -374,7 +376,7 @@ export const useLanguageDeck = (language: string): Deck => {
     addTags,
     removeTag,
     clearTags,
-    selectedTags: selectedTagsState,
+    selectedTags: deck.selectedTags,
     setSelectedTagIds,
     filteredCards,
   };
