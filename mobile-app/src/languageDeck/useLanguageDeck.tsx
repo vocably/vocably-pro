@@ -28,6 +28,7 @@ export type Deck = {
   addTags: (tags: Tag[]) => Promise<Result<TagItem[]>>;
   clearTags: () => Promise<Result<true>>;
   removeTag: (id: string) => Promise<Result<true>>;
+  filteredCards: LanguageContainerDeck['deck']['cards'];
   selectedTags: TagItem[];
   setSelectedTagIds: (ids: string[]) => Promise<any>;
 };
@@ -61,6 +62,8 @@ export const useLanguageDeck = (language: string): Deck => {
       tags: [],
     },
   };
+
+  const [filteredCards, setFilteredCards] = useState<Deck['filteredCards']>([]);
 
   const add = useCallback(
     (card: Card): Promise<Result<CardItem>> =>
@@ -347,6 +350,20 @@ export const useLanguageDeck = (language: string): Deck => {
     reload().then();
   }, [language]);
 
+  useEffect(() => {
+    if (selectedTagsState.length === 0) {
+      setFilteredCards(deck.deck.cards);
+      return;
+    }
+
+    const tagMap = buildTagMap(selectedTagsState);
+    setFilteredCards(
+      deck.deck.cards.filter((card) =>
+        card.data.tags.some((cardTag) => !!tagMap[cardTag.id])
+      )
+    );
+  }, [setFilteredCards, deck.deck.cards, selectedTagsState]);
+
   return {
     add,
     update,
@@ -359,5 +376,6 @@ export const useLanguageDeck = (language: string): Deck => {
     clearTags,
     selectedTags: selectedTagsState,
     setSelectedTagIds,
+    filteredCards,
   };
 };

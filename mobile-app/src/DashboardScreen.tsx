@@ -1,7 +1,7 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import { NavigationProp } from '@react-navigation/native';
 import { byDate, CardItem, TagItem } from '@vocably/model';
-import React, { FC, useCallback, useContext, useState } from 'react';
+import React, { FC, useCallback, useContext, useMemo, useState } from 'react';
 import {
   Alert,
   ListRenderItemInfo,
@@ -74,9 +74,10 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
     update,
     selectedTags,
     setSelectedTagIds,
+    filteredCards,
   } = useSelectedDeck();
   const { refreshLanguages } = useContext(LanguagesContext);
-  const cards = deck.cards.sort(byDate);
+  const cards = useMemo(() => filteredCards.sort(byDate), [filteredCards]);
   const theme = useTheme();
   const netInfo = useNetInfo();
 
@@ -205,7 +206,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
               }}
               mode={'contained'}
               onPress={() => navigation.navigate('Study')}
-              disabled={!netInfo.isInternetReachable}
+              disabled={cards.length === 0 || !netInfo.isInternetReachable}
             >
               Practice{selectedTags.length > 0 ? ' selected tags' : ''}
             </Button>
@@ -274,7 +275,25 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
         renderHiddenItem={renderSwipeMenu}
         rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
         contentContainerStyle={isEmpty && styles.emptyContentContainer}
-        ListEmptyComponent={<Text>Card list is empty.</Text>}
+        ListEmptyComponent={
+          <View style={{ paddingHorizontal: mainPadding }}>
+            {selectedTags.length === 0 && <Text>Card list is empty.</Text>}
+            {selectedTags.length === 1 && (
+              <Text>
+                You don't yet have cards marked with the{' '}
+                <Text style={{ fontWeight: 'bold' }}>
+                  {selectedTags[0].data.title}
+                </Text>{' '}
+                tag.
+              </Text>
+            )}
+            {selectedTags.length > 1 && (
+              <Text>
+                You don't yet have cards marked with the selected tags.
+              </Text>
+            )}
+          </View>
+        }
         ListHeaderComponentStyle={{
           paddingHorizontal: mainPadding,
         }}
@@ -293,7 +312,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
             color: theme.colors.onSecondary,
           }}
         >
-          {deck.cards.length}
+          {cards.length}
         </Badge>
       </View>
     </View>
