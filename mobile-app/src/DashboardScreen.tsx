@@ -85,8 +85,6 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
   const [toBeDeletedId, setToBeDeletedId] = useState<string | null>(null);
   const [editPanelHeight, setEditPanelHeight] = useState(100);
 
-  console.log('selectedTags', selectedTags);
-
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     await refreshLanguages();
@@ -212,23 +210,25 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
             >
               Practice{selectedTags.length > 0 ? ' selected tags' : ''}
             </Button>
-            <View
-              style={{
-                position: 'absolute',
-                right: 0,
-                top: 0,
-              }}
-            >
-              <TagsSelector
-                value={selectedTags}
-                onChange={(tags) => setSelectedTagIds(tags.map((t) => t.id))}
-                icon="tag"
-                iconColor={theme.colors.onPrimary}
-                iconOpacity={1}
-                pressedIconOpacity={0.8}
-                isAllowedToAdd={false}
-              />
-            </View>
+            {deck.tags.length > 0 && (
+              <View
+                style={{
+                  position: 'absolute',
+                  right: 0,
+                  top: 0,
+                }}
+              >
+                <TagsSelector
+                  value={selectedTags}
+                  onChange={(tags) => setSelectedTagIds(tags.map((t) => t.id))}
+                  icon="tag"
+                  iconColor={theme.colors.onPrimary}
+                  iconOpacity={1}
+                  pressedIconOpacity={0.8}
+                  isAllowedToAdd={false}
+                />
+              </View>
+            )}
           </View>
           {selectedTags.length > 0 && (
             <View
