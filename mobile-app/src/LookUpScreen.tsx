@@ -262,6 +262,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
           onAdd={onAdd}
           onRemove={onRemove}
           onTagsChange={onTagsChange}
+          deck={deck}
         />
       )}
     </SafeAreaView>
