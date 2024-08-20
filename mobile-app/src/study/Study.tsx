@@ -31,8 +31,6 @@ export const Study: Study = ({ onExit, autoPlay }) => {
     }
   }, [filteredCards, cardsStudied]);
 
-  console.log(cards);
-
   const onGrade = useCallback(
     (score: SrsScore) => {
       if (cards === undefined) {

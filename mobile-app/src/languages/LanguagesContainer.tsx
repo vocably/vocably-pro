@@ -62,6 +62,7 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
 
   const storeDeck = useCallback(
     (deck: LanguageContainerDeck) => {
+      console.log('store deck');
       setDecks({
         ...decks,
         [deck.deck.language]: deck,
@@ -143,7 +144,7 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
     status,
     languages,
     decks,
-    storeDeck: storeDeck,
+    storeDeck,
     deleteLanguage,
     selectedLanguage: selectedLanguage,
     selectLanguage,

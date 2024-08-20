@@ -11,7 +11,7 @@ import {
 } from '@vocably/model';
 import { buildTagMap } from '@vocably/model-operations';
 import { createSrsItem } from '@vocably/srs';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo } from 'react';
 import { getItem, setItem } from '../asyncAppStorage';
 import {
   LanguageContainerDeck,
@@ -61,8 +61,6 @@ export const useLanguageDeck = (language: string): Deck => {
     },
     selectedTags: [],
   };
-
-  const [filteredCards, setFilteredCards] = useState<Deck['filteredCards']>([]);
 
   const add = useCallback(
     (card: Card): Promise<Result<CardItem>> =>
@@ -351,19 +349,16 @@ export const useLanguageDeck = (language: string): Deck => {
     reload().then();
   }, [language]);
 
-  useEffect(() => {
+  const filteredCards = useMemo(() => {
     if (deck.selectedTags.length === 0) {
-      setFilteredCards(deck.deck.cards);
-      return;
+      return deck.deck.cards;
     }
 
     const tagMap = buildTagMap(deck.selectedTags);
-    setFilteredCards(
-      deck.deck.cards.filter((card) =>
-        card.data.tags.some((cardTag) => !!tagMap[cardTag.id])
-      )
+    return deck.deck.cards.filter((card) =>
+      card.data.tags.some((cardTag) => !!tagMap[cardTag.id])
     );
-  }, [setFilteredCards, deck.deck.cards, deck.selectedTags]);
+  }, [deck.deck.cards, deck.selectedTags]);
 
   return {
     add,
