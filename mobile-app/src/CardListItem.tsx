@@ -82,7 +82,11 @@ export const CardListItem: CardListItem = ({
           }}
         >
           {card.tags.map((tag) => (
-            <Chip selectedColor={theme.colors.outlineVariant} mode="outlined">
+            <Chip
+              key={tag.id}
+              selectedColor={theme.colors.outlineVariant}
+              mode="outlined"
+            >
               {tag.data.title}
             </Chip>
           ))}
