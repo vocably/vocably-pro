@@ -316,7 +316,6 @@ export const useLanguageDeck = (language: string): Deck => {
         status: 'loading',
       });
     }
-
     return loadLanguageDeck(language).then(async (result) => {
       if (result.success === false) {
         storeDeck({
@@ -342,7 +341,7 @@ export const useLanguageDeck = (language: string): Deck => {
         value: true,
       };
     });
-  }, [language, storeDeck, decks, deck]);
+  }, [language, storeDeck, deck]);
 
   useEffect(() => {
     if (!language) {

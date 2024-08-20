@@ -1,6 +1,6 @@
 import { TagItem } from '@vocably/model';
 import React, { FC, useState } from 'react';
-import { useSelectedDeck } from './languageDeck/useSelectedDeck';
+import { Deck } from './languageDeck/useLanguageDeck';
 import { Tag, TagsMenu } from './TagsSelector/TagMenu';
 
 type Props = {
@@ -11,6 +11,7 @@ type Props = {
   iconOpacity?: number;
   pressedIconOpacity?: number;
   isAllowedToAdd?: boolean;
+  deck: Deck;
 };
 
 const isTagItem = (tag: Tag): tag is TagItem => {
@@ -25,8 +26,8 @@ export const TagsSelector: FC<Props> = ({
   pressedIconOpacity,
   iconColor,
   isAllowedToAdd,
+  deck: { addTags, deck, removeTag },
 }) => {
-  const { addTags, deck, removeTag } = useSelectedDeck();
   const [isSaving, setIsSaving] = useState(false);
 
   const handleTagMenuChange = async (tags: Tag[]) => {

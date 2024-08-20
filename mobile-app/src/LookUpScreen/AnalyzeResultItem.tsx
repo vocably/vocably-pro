@@ -3,6 +3,7 @@ import React, { FC, useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
 import { CardListItem } from '../CardListItem';
+import { Deck } from '../languageDeck/useLanguageDeck';
 import { mainPadding } from '../styles';
 import { TagsSelector } from '../TagsSelector';
 import { AssociatedCard } from './associateCards';
@@ -21,6 +22,7 @@ type AnalyzeResultItem = FC<{
   onRemove: (card: AssociatedCard) => Promise<Result<true>>;
   onTagsChange: (id: string, tags: TagItem[]) => Promise<Result<true>>;
   item: AssociatedCard;
+  deck: Deck;
 }>;
 
 export const AnalyzeResultItem: AnalyzeResultItem = ({
@@ -28,6 +30,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
   onRemove,
   onTagsChange,
   item,
+  deck,
 }) => {
   const theme = useTheme();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -50,6 +53,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
           onChange={async (tags) =>
             item.id && (await onTagsChange(item.id, tags))
           }
+          deck={deck}
         />
       )}
       <IconButton

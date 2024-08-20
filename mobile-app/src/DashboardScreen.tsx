@@ -66,6 +66,7 @@ type DashboardScreen = FC<{
 }>;
 
 export const DashboardScreen: DashboardScreen = ({ navigation }) => {
+  const selectedDeck = useSelectedDeck();
   const {
     deck,
     reload,
@@ -75,7 +76,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
     selectedTags,
     setSelectedTagIds,
     filteredCards,
-  } = useSelectedDeck();
+  } = selectedDeck;
   const { refreshLanguages } = useContext(LanguagesContext);
   const cards = useMemo(() => filteredCards.sort(byDate), [filteredCards]);
   const theme = useTheme();
@@ -136,6 +137,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
       <TagsSelector
         value={data.item.data.tags}
         onChange={onTagsChange(data.item.id)}
+        deck={selectedDeck}
       />
     </Pressable>
   );
@@ -226,6 +228,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
                   iconOpacity={1}
                   pressedIconOpacity={0.8}
                   isAllowedToAdd={false}
+                  deck={selectedDeck}
                 />
               </View>
             )}
