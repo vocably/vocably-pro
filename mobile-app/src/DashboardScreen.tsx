@@ -245,6 +245,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
               <Text>Selected tags: </Text>
               {selectedTags.map((tag) => (
                 <Chip
+                  key={tag.id}
                   mode="outlined"
                   selectedColor={theme.colors.outlineVariant}
                   onClose={() =>
