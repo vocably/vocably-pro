@@ -13,7 +13,7 @@ export const TagText: FC<Props> = ({ onSubmit, autoFocus = false }) => {
   const theme = useTheme();
 
   const submit = () => {
-    onSubmit && onSubmit(value);
+    value && onSubmit && onSubmit(value);
     setValue('');
   };
 
@@ -50,19 +50,8 @@ export const TagText: FC<Props> = ({ onSubmit, autoFocus = false }) => {
         onChangeText={setValue}
         returnKeyType={'done'}
         onSubmitEditing={submit}
+        clearButtonMode="always"
       />
-      {value && (
-        <IconButton
-          icon={'close-circle'}
-          iconColor={theme.colors.outlineVariant}
-          onPress={() => setValue('')}
-          style={{
-            marginVertical: 4,
-            marginHorizontal: 0,
-            backgroundColor: 'transparent',
-          }}
-        />
-      )}
       <IconButton
         icon="check"
         disabled={!canSave}
