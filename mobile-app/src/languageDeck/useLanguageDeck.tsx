@@ -140,7 +140,7 @@ export const useLanguageDeck = (language: string): Deck => {
         };
       });
     },
-    [language]
+    [language, deck]
   );
 
   const clearTags = useCallback(async (): Promise<Result<true>> => {
@@ -171,7 +171,7 @@ export const useLanguageDeck = (language: string): Deck => {
         value: true,
       };
     });
-  }, [language]);
+  }, [language, deck]);
 
   const removeTag = useCallback(
     async (id: string): Promise<Result<true>> => {
@@ -206,10 +206,18 @@ export const useLanguageDeck = (language: string): Deck => {
           return saveResult;
         }
 
+        const selectedTags = deck.selectedTags.filter((t) => t.id !== id);
+
+        await cacheSelectedTagIds(
+          language,
+          selectedTags.map((t) => t.id)
+        );
+
         storeDeck({
           ...deck,
           deck: newDeck,
           status: 'loaded',
+          selectedTags,
         });
 
         return {
@@ -218,7 +226,7 @@ export const useLanguageDeck = (language: string): Deck => {
         };
       });
     },
-    [language]
+    [language, deck]
   );
 
   const update = useCallback(
@@ -247,7 +255,7 @@ export const useLanguageDeck = (language: string): Deck => {
 
         return updateResult;
       }),
-    [language]
+    [language, deck]
   );
 
   const remove = useCallback(
@@ -276,7 +284,7 @@ export const useLanguageDeck = (language: string): Deck => {
 
         return deleteResult;
       }),
-    [language]
+    [language, deck]
   );
 
   const setSelectedTagIds = useCallback(
