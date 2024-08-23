@@ -10,10 +10,7 @@ import {
 } from 'react-native-paper';
 import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  iconButtonOpacity,
-  pressedIconButtonOpacity,
-} from '../stupidConstants';
+import { TagMenuAnchor, TagMenuAnchorProps } from './TagMenuAnchor';
 import { TagText } from './TagText';
 
 export type Tag = {
@@ -34,13 +31,10 @@ type Props = {
     id: string,
     data: Partial<Tag['data']>
   ) => Promise<Result<TagItem>>;
+  renderAnchor: TagMenuAnchorProps['renderAnchor'];
   onChange?: (tags: Tag[]) => Promise<any>;
   disabled?: boolean;
   isLoading?: boolean;
-  icon?: string;
-  iconColor?: string;
-  iconOpacity?: number;
-  pressedIconOpacity?: number;
 };
 
 const SWIPE_MENU_BUTTON_SIZE = 50;
@@ -53,12 +47,9 @@ export const TagsMenu: FC<Props> = ({
   removeTag,
   updateTag,
   disabled = false,
-  icon = 'tag-plus',
-  iconColor,
-  iconOpacity = iconButtonOpacity,
-  pressedIconOpacity = pressedIconButtonOpacity,
   onChange,
   isAllowedToAdd = true,
+  renderAnchor,
 }) => {
   const [visible, setVisible] = useState(false);
   const [newTags, setNewTags] = useState<Tag[]>([]);
@@ -233,23 +224,11 @@ export const TagsMenu: FC<Props> = ({
           width: 300,
         }}
         anchor={
-          <Pressable
-            style={({ pressed }) => [
-              {
-                opacity: pressed ? pressedIconOpacity : iconOpacity,
-                padding: 8,
-              },
-            ]}
-            hitSlop={20}
-            onPress={openMenu}
+          <TagMenuAnchor
+            renderAnchor={renderAnchor}
+            openMenu={openMenu}
             disabled={disabled}
-          >
-            <Icon
-              name={icon}
-              color={iconColor ?? theme.colors.onBackground}
-              style={{ fontSize: 22 }}
-            />
-          </Pressable>
+          />
         }
       >
         <View

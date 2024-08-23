@@ -2,14 +2,12 @@ import { TagItem } from '@vocably/model';
 import React, { FC, useState } from 'react';
 import { Deck } from './languageDeck/useLanguageDeck';
 import { Tag, TagsMenu } from './TagsSelector/TagMenu';
+import { TagMenuAnchorProps } from './TagsSelector/TagMenuAnchor';
 
 type Props = {
   value: TagItem[];
+  renderAnchor: TagMenuAnchorProps['renderAnchor'];
   onChange?: (tags: TagItem[]) => Promise<any>;
-  icon?: string;
-  iconColor?: string;
-  iconOpacity?: number;
-  pressedIconOpacity?: number;
   isAllowedToAdd?: boolean;
   deck: Deck;
 };
@@ -20,11 +18,8 @@ const isTagItem = (tag: Tag): tag is TagItem => {
 
 export const TagsSelector: FC<Props> = ({
   value,
+  renderAnchor,
   onChange,
-  icon = 'tag-plus',
-  iconOpacity,
-  pressedIconOpacity,
-  iconColor,
   isAllowedToAdd,
   deck: { addTags, deck, removeTag, updateTag },
 }) => {
@@ -62,11 +57,8 @@ export const TagsSelector: FC<Props> = ({
       onChange={handleTagMenuChange}
       disabled={isSaving}
       isLoading={isSaving}
-      iconOpacity={iconOpacity}
-      pressedIconOpacity={pressedIconOpacity}
-      icon={icon}
-      iconColor={iconColor}
       isAllowedToAdd={isAllowedToAdd}
+      renderAnchor={renderAnchor}
     />
   );
 };

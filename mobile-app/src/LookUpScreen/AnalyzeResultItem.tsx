@@ -1,9 +1,14 @@
 import { CardItem, Result, TagItem } from '@vocably/model';
 import React, { FC, useCallback, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem } from '../CardListItem';
 import { Deck } from '../languageDeck/useLanguageDeck';
+import {
+  iconButtonOpacity,
+  pressedIconButtonOpacity,
+} from '../stupidConstants';
 import { mainPadding } from '../styles';
 import { TagsSelector } from '../TagsSelector';
 import { AssociatedCard } from './associateCards';
@@ -54,6 +59,27 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
             item.id && (await onTagsChange(item.id, tags))
           }
           deck={deck}
+          renderAnchor={({ openMenu, disabled }) => (
+            <Pressable
+              style={({ pressed }) => [
+                {
+                  opacity: pressed
+                    ? pressedIconButtonOpacity
+                    : iconButtonOpacity,
+                  padding: 8,
+                },
+              ]}
+              hitSlop={20}
+              onPress={openMenu}
+              disabled={disabled}
+            >
+              <Icon
+                name={'tag-plus'}
+                color={theme.colors.onBackground}
+                style={{ fontSize: 22 }}
+              />
+            </Pressable>
+          )}
         />
       )}
       <IconButton

@@ -23,6 +23,7 @@ import { CardListItem, keyExtractor, Separator } from './CardListItem';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { Loader } from './loaders/Loader';
+import { iconButtonOpacity, pressedIconButtonOpacity } from './stupidConstants';
 import { mainPadding } from './styles';
 import { TagsSelector } from './TagsSelector';
 
@@ -138,6 +139,25 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
         value={data.item.data.tags}
         onChange={onTagsChange(data.item.id)}
         deck={selectedDeck}
+        renderAnchor={({ openMenu, disabled }) => (
+          <Pressable
+            style={({ pressed }) => [
+              {
+                opacity: pressed ? pressedIconButtonOpacity : iconButtonOpacity,
+                padding: 8,
+              },
+            ]}
+            hitSlop={20}
+            onPress={openMenu}
+            disabled={disabled}
+          >
+            <Icon
+              name={'tag-plus'}
+              color={theme.colors.onBackground}
+              style={{ fontSize: 22 }}
+            />
+          </Pressable>
+        )}
       />
     </Pressable>
   );
@@ -229,6 +249,25 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
                   pressedIconOpacity={0.8}
                   isAllowedToAdd={false}
                   deck={selectedDeck}
+                  renderAnchor={({ openMenu, disabled }) => (
+                    <Pressable
+                      style={({ pressed }) => [
+                        {
+                          opacity: pressed ? 0.8 : 1,
+                          padding: 8,
+                        },
+                      ]}
+                      hitSlop={20}
+                      onPress={openMenu}
+                      disabled={disabled}
+                    >
+                      <Icon
+                        name={'tag'}
+                        color={theme.colors.onPrimary}
+                        style={{ fontSize: 22 }}
+                      />
+                    </Pressable>
+                  )}
                 />
               </View>
             )}
