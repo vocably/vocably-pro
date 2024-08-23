@@ -1,5 +1,5 @@
 import { Result, TagItem } from '@vocably/model';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, Pressable, View } from 'react-native';
 import {
   ActivityIndicator,
@@ -8,7 +8,7 @@ import {
   Text,
   useTheme,
 } from 'react-native-paper';
-import { SwipeListView } from 'react-native-swipe-list-view';
+import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   iconButtonOpacity,
@@ -40,6 +40,8 @@ type Props = {
 };
 
 const SWIPE_MENU_BUTTON_SIZE = 50;
+
+export const extractKey = (tag: Tag) => tag.id ?? tag.data.title;
 
 export const TagsMenu: FC<Props> = ({
   value,
@@ -135,6 +137,53 @@ export const TagsMenu: FC<Props> = ({
     setIsRemovingTagId(null);
   };
 
+  const updateNewTag = useCallback(
+    (tagToUpdate: Tag, newData: Partial<Tag['data']>) => {
+      const newTag = {
+        ...tagToUpdate,
+        data: {
+          ...tagToUpdate.data,
+          ...newData,
+        },
+      };
+
+      setNewTags((newTags) =>
+        newTags.map((tag) => (tag === tagToUpdate ? newTag : tag))
+      );
+      setNewSelectedTags((newSelectedTags) =>
+        newSelectedTags.map((tag) => (tag === tagToUpdate ? newTag : tag))
+      );
+    },
+    [setNewTags, setNewSelectedTags]
+  );
+
+  const editTagPressed = (tag: Tag, row: SwipeRow<Tag> | undefined) => () => {
+    row && row.closeRow();
+    Alert.prompt(
+      'Edit Tag',
+      'Enter the new tag name',
+      [
+        { text: 'Cancel', style: 'destructive' },
+        {
+          text: 'Save',
+          onPress: (title) => {
+            if (!title) {
+              return;
+            }
+
+            if (!tag.id) {
+              updateNewTag(tag, {
+                title,
+              });
+            }
+          },
+        },
+      ],
+      'plain-text',
+      tag.data.title
+    );
+  };
+
   return (
     <>
       <Menu
@@ -182,7 +231,7 @@ export const TagsMenu: FC<Props> = ({
           <SwipeListView<Tag>
             style={{}}
             data={[...newTags, ...existingTags]}
-            keyExtractor={(item, index) => item.id ?? item.data.title}
+            keyExtractor={extractKey}
             ItemSeparatorComponent={Divider}
             renderItem={(data) => (
               <Pressable
@@ -216,37 +265,64 @@ export const TagsMenu: FC<Props> = ({
                 />
               </Pressable>
             )}
-            renderHiddenItem={(data) => (
-              <Pressable
-                onPress={deleteTagPressed(data.item)}
-                disabled={isRemovingTagId !== null}
+            renderHiddenItem={(data, rowMap) => (
+              <View
                 style={{
                   flex: 1,
-                  alignSelf: 'flex-end',
                   display: 'flex',
-                  borderWidth: 1,
-                  borderColor: '$ff0',
-                  borderStyle: 'solid',
-                  backgroundColor: theme.colors.error,
-                  width: SWIPE_MENU_BUTTON_SIZE,
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  flexDirection: 'row',
                 }}
               >
-                {isRemovingTagId === data.item.id ? (
-                  <ActivityIndicator
-                    size={24}
-                    color={theme.colors.onSecondary}
-                  />
-                ) : (
+                <Pressable
+                  onPress={deleteTagPressed(data.item)}
+                  disabled={isRemovingTagId !== null}
+                  style={{
+                    height: SWIPE_MENU_BUTTON_SIZE,
+                    display: 'flex',
+                    backgroundColor: theme.colors.error,
+                    width: SWIPE_MENU_BUTTON_SIZE,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {isRemovingTagId === data.item.id ? (
+                    <ActivityIndicator
+                      size={24}
+                      color={theme.colors.onSecondary}
+                    />
+                  ) : (
+                    <Icon
+                      name="delete-outline"
+                      size={24}
+                      color={theme.colors.onSecondary}
+                    />
+                  )}
+                </Pressable>
+                <Pressable
+                  onPress={editTagPressed(
+                    data.item,
+                    rowMap[extractKey(data.item)]
+                  )}
+                  disabled={isRemovingTagId !== null}
+                  style={{
+                    height: SWIPE_MENU_BUTTON_SIZE,
+                    marginLeft: 'auto',
+                    display: 'flex',
+                    backgroundColor: theme.colors.primary,
+                    width: SWIPE_MENU_BUTTON_SIZE,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
                   <Icon
-                    name="delete-outline"
+                    name="file-edit-outline"
                     size={24}
                     color={theme.colors.onSecondary}
                   />
-                )}
-              </Pressable>
+                </Pressable>
+              </View>
             )}
+            leftOpenValue={SWIPE_MENU_BUTTON_SIZE}
             rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
           />
         </View>
