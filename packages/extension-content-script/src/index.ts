@@ -2,6 +2,7 @@ import { defineCustomElements } from '@vocably/extension-content-ui/loader';
 import '@webcomponents/custom-elements';
 import { map, merge, Subject, take, timer } from 'rxjs';
 import { api, ApiConfigOptions, configureApi } from './api';
+import { browser } from './browser';
 import { createButton, destroyButton } from './button';
 import {
   configureContentScript,
@@ -12,7 +13,7 @@ import { contextLanguages } from './contextLanguages';
 import { detectLanguage } from './detectLanguage';
 import { getContext } from './getContext';
 import { getText } from './getText';
-import { createPopup } from './popup';
+import { createPopup, destroyAllPopups } from './popup';
 import { getGlobalRect } from './position';
 import { isValidSelection } from './selection';
 import { initYoutube, InitYouTubeOptions } from './youtube';
@@ -103,13 +104,32 @@ const onMouseUp = async (event: MouseEvent) => {
   merge(doubleClick$.pipe(map(() => true)), timer(50).pipe(map(() => false)))
     .pipe(take(1))
     .subscribe(async (doubleClick) => {
-      if (!doubleClick) {
-        await createButton(selection, event);
+      if (doubleClick) {
+        return;
       }
+
+      const settings = await api.getSettings();
+      // This is the attempt to make the "Double click" functionality
+      // work in Lemur browser on Android.
+      // The mouse event is not trusted in Lemur on Android.
+      if (
+        event.isTrusted === false &&
+        browser.getOS().name === 'Android' &&
+        settings.showOnDoubleClick
+      ) {
+        destroyAllPopups();
+        await autoShow({ isTouchscreen: true })();
+      }
+
+      await createButton(selection, event);
     });
 };
 
-const onDoubleCLick = async (event: MouseEvent) => {
+type AutoShowOptions = {
+  isTouchscreen: boolean;
+};
+
+const autoShow = (options: AutoShowOptions) => async () => {
   const settings = await api.getSettings();
   if (!settings.showOnDoubleClick) {
     return;
@@ -133,7 +153,7 @@ const onDoubleCLick = async (event: MouseEvent) => {
     text: getText(selection),
     context: context,
     globalRect: getGlobalRect(selection.getRangeAt(0).getBoundingClientRect()),
-    isTouchscreen: false,
+    isTouchscreen: options.isTouchscreen,
   });
 };
 
@@ -175,7 +195,7 @@ export const registerContentScript = async (
   document.addEventListener('mouseup', onMouseUp);
   document.addEventListener('mousedown', onMouseDown);
 
-  document.addEventListener('dblclick', onDoubleCLick);
+  document.addEventListener('dblclick', autoShow({ isTouchscreen: false }));
 
   enableSelectionChangeDetection();
 };

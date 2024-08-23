@@ -1,12 +1,10 @@
-import * as Bowser from 'bowser';
+import { browser } from './browser';
 
 type ExtensionPlatform = {
   url: string;
   name: string;
   platform: 'chromeExtension' | 'safariExtension';
 };
-
-export const browser = Bowser.getParser(window.navigator.userAgent);
 
 export const detectExtensionPlatform = (): ExtensionPlatform => {
   return browser.satisfies({
