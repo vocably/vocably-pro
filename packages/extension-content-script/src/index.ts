@@ -13,7 +13,7 @@ import { contextLanguages } from './contextLanguages';
 import { detectLanguage } from './detectLanguage';
 import { getContext } from './getContext';
 import { getText } from './getText';
-import { createPopup } from './popup';
+import { createPopup, destroyAllPopups } from './popup';
 import { getGlobalRect } from './position';
 import { isValidSelection } from './selection';
 import { initYoutube, InitYouTubeOptions } from './youtube';
@@ -117,6 +117,7 @@ const onMouseUp = async (event: MouseEvent) => {
         browser.getOS().name === 'Android' &&
         settings.showOnDoubleClick
       ) {
+        destroyAllPopups();
         await autoShow({ isTouchscreen: true })();
       }
 
