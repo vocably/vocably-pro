@@ -240,6 +240,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
                 gap: 8,
                 alignItems: 'center',
                 marginBottom: 8,
+                flexWrap: 'wrap',
               }}
             >
               <Text>Selected tags: </Text>
