@@ -30,6 +30,10 @@ type Props = {
   value: TagItem[];
   existingTags: TagItem[];
   removeTag: (id: string) => Promise<Result<true>>;
+  updateTag: (
+    id: string,
+    data: Partial<Tag['data']>
+  ) => Promise<Result<TagItem>>;
   onChange?: (tags: Tag[]) => Promise<any>;
   disabled?: boolean;
   isLoading?: boolean;
@@ -47,6 +51,7 @@ export const TagsMenu: FC<Props> = ({
   value,
   existingTags,
   removeTag,
+  updateTag,
   disabled = false,
   icon = 'tag-plus',
   iconColor,
@@ -157,7 +162,30 @@ export const TagsMenu: FC<Props> = ({
     [setNewTags, setNewSelectedTags]
   );
 
-  const editTagPressed = (tag: Tag, row: SwipeRow<Tag> | undefined) => () => {
+  const updateExistingTag = useCallback(
+    async (id: string, data: Partial<Tag['data']>): Promise<any> => {
+      const result = await updateTag(id, data);
+      if (result.success === false) {
+        Alert.alert(
+          'An error occurred while update the tag. Please try again.'
+        );
+        return;
+      }
+
+      setSelectedTags((selectedTags) =>
+        selectedTags.map((selectedTag) => {
+          if (selectedTag.id === result.value.id) {
+            return result.value;
+          }
+
+          return selectedTag;
+        })
+      );
+    },
+    []
+  );
+
+  const editTagPressed = (tag: Tag, row: SwipeRow<Tag> | undefined) => {
     row && row.closeRow();
     Alert.prompt(
       'Edit Tag',
@@ -166,7 +194,7 @@ export const TagsMenu: FC<Props> = ({
         { text: 'Cancel', style: 'destructive' },
         {
           text: 'Save',
-          onPress: (title) => {
+          onPress: async (title) => {
             if (!title) {
               return;
             }
@@ -175,7 +203,13 @@ export const TagsMenu: FC<Props> = ({
               updateNewTag(tag, {
                 title,
               });
+
+              return;
             }
+
+            await updateExistingTag(tag.id, {
+              title,
+            });
           },
         },
       ],
@@ -299,10 +333,9 @@ export const TagsMenu: FC<Props> = ({
                   )}
                 </Pressable>
                 <Pressable
-                  onPress={editTagPressed(
-                    data.item,
-                    rowMap[extractKey(data.item)]
-                  )}
+                  onPress={() => {
+                    editTagPressed(data.item, rowMap[extractKey(data.item)]);
+                  }}
                   disabled={isRemovingTagId !== null}
                   style={{
                     height: SWIPE_MENU_BUTTON_SIZE,

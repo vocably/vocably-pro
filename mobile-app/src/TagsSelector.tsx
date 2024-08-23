@@ -26,7 +26,7 @@ export const TagsSelector: FC<Props> = ({
   pressedIconOpacity,
   iconColor,
   isAllowedToAdd,
-  deck: { addTags, deck, removeTag },
+  deck: { addTags, deck, removeTag, updateTag },
 }) => {
   const [isSaving, setIsSaving] = useState(false);
 
@@ -58,6 +58,7 @@ export const TagsSelector: FC<Props> = ({
       value={value}
       existingTags={existingTags ?? []}
       removeTag={removeTag}
+      updateTag={updateTag}
       onChange={handleTagMenuChange}
       disabled={isSaving}
       isLoading={isSaving}
