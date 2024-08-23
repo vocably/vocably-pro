@@ -65,6 +65,7 @@ export const TagsMenu: FC<Props> = ({
   const [newSelectedTags, setNewSelectedTags] = useState<Tag[]>([]);
   const [selectedTags, setSelectedTags] = useState<TagItem[]>([]);
   const [isRemovingTagId, setIsRemovingTagId] = useState<string | null>(null);
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
   const theme = useTheme();
 
   useEffect(() => {
@@ -164,7 +165,9 @@ export const TagsMenu: FC<Props> = ({
 
   const updateExistingTag = useCallback(
     async (id: string, data: Partial<Tag['data']>): Promise<any> => {
+      setUpdatingId(id);
       const result = await updateTag(id, data);
+      setUpdatingId(null);
       if (result.success === false) {
         Alert.alert(
           'An error occurred while update the tag. Please try again.'
@@ -182,7 +185,7 @@ export const TagsMenu: FC<Props> = ({
         })
       );
     },
-    []
+    [setSelectedTags, updateTag, setUpdatingId]
   );
 
   const editTagPressed = (tag: Tag, row: SwipeRow<Tag> | undefined) => {
@@ -295,6 +298,14 @@ export const TagsMenu: FC<Props> = ({
                   color={theme.colors.onBackground}
                   style={{
                     opacity: isSelectedTag(data.item) ? 1 : 0,
+                  }}
+                />
+                <ActivityIndicator
+                  size={18}
+                  color={theme.colors.onBackground}
+                  style={{
+                    marginLeft: 8,
+                    opacity: data.item.id === updatingId ? 1 : 0,
                   }}
                 />
               </Pressable>
