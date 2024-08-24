@@ -21,7 +21,7 @@ export const MainMenu: MainMenu = () => {
     <View style={styles.container}>
       <View style={{ width: '100%', gap: 8 }}>
         <Text style={{ fontWeight: 'bold' }}>Group cards?</Text>
-        <Text>Swipe existing cards left.</Text>
+        <Text>Swipe existing cards right.</Text>
         <Text>
           Or press the <Icon name={'tag-plus'} size={16} /> icon on a newly
           added card.
@@ -30,7 +30,7 @@ export const MainMenu: MainMenu = () => {
           When at least one tag is created, press the{' '}
           <Icon name={'tag'} size={16} /> icon on a Practice button.
         </Text>
-        <Text>Soon will be available in the browser extension.</Text>
+        <Text>Soon this will be available in the browser extension.</Text>
       </View>
       <Divider style={{ marginVertical: 12, width: '100%' }} />
       <Text style={{ marginBottom: 12 }}>
