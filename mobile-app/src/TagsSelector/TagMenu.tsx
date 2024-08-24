@@ -346,7 +346,7 @@ export const TagsMenu: FC<Props> = ({
                   <Icon
                     name="file-edit-outline"
                     size={24}
-                    color={theme.colors.onSecondary}
+                    color={theme.colors.onPrimary}
                   />
                 </Pressable>
               </View>
