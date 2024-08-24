@@ -41,6 +41,8 @@ type Props = {
 
 const SWIPE_MENU_BUTTON_SIZE = 50;
 
+const MENU_WIDTH = 250;
+
 export const extractKey = (tag: Tag) => tag.id ?? tag.data.title;
 
 export const TagsMenu: FC<Props> = ({
@@ -193,10 +195,10 @@ export const TagsMenu: FC<Props> = ({
         visible={visible}
         onDismiss={closeMenu}
         style={{
-          width: 300,
+          width: MENU_WIDTH,
         }}
         contentStyle={{
-          width: 300,
+          width: MENU_WIDTH,
         }}
         anchor={
           <TagMenuAnchor
@@ -208,7 +210,7 @@ export const TagsMenu: FC<Props> = ({
       >
         <View
           style={{
-            minWidth: 300,
+            minWidth: MENU_WIDTH,
           }}
         >
           {isAllowedToAdd && (
@@ -315,6 +317,8 @@ export const TagsMenu: FC<Props> = ({
                   flex: 1,
                   display: 'flex',
                   flexDirection: 'row',
+                  // Otherwise, Android displays it poorly on close
+                  opacity: visible ? 1 : 0,
                 }}
               >
                 <Pressable
