@@ -1,4 +1,4 @@
-import { Card, CardItem, isGoogleTTSLanguage } from '@vocably/model';
+import { Card, isGoogleTTSLanguage } from '@vocably/model';
 import React, { FC } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { Chip, Divider, Text, useTheme } from 'react-native-paper';
@@ -97,5 +97,3 @@ export const CardListItem: CardListItem = ({
 };
 
 export const Separator: FC = () => <Divider />;
-
-export const keyExtractor: (item: CardItem) => string = (item) => item.id;

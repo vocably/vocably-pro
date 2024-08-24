@@ -2,13 +2,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import { NavigationProp } from '@react-navigation/native';
 import { byDate, CardItem, TagItem } from '@vocably/model';
 import React, { FC, useCallback, useContext, useMemo, useState } from 'react';
-import {
-  Alert,
-  ListRenderItemInfo,
-  Pressable,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import {
   ActivityIndicator,
   Badge,
@@ -19,7 +13,7 @@ import {
 } from 'react-native-paper';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { CardListItem, keyExtractor, Separator } from './CardListItem';
+import { CardListItem, Separator } from './CardListItem';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { Loader } from './loaders/Loader';
@@ -61,11 +55,16 @@ const styles = StyleSheet.create({
   },
 });
 
-type DashboardScreen = FC<{
-  navigation: NavigationProp<any>;
-}>;
+export const keyExtractor: (item: CardItem) => string = (item) =>
+  // The tags thingy is needed to forcefully recalculate the height
+  // of the row so left and right swipe buttons look nice
+  item.id + item.data.tags.map((tag) => tag.id).join('');
 
-export const DashboardScreen: DashboardScreen = ({ navigation }) => {
+type Props = {
+  navigation: NavigationProp<any>;
+};
+
+export const DashboardScreen: FC<Props> = ({ navigation }) => {
   const selectedDeck = useSelectedDeck();
   const {
     deck,
@@ -109,107 +108,12 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
   );
 
   const onTagsChange = useCallback(
-    (id: string) => async (tags: TagItem[]) => {
+    async (id: string, tags: TagItem[]) => {
       await update(id, {
         tags,
       });
     },
     [update]
-  );
-
-  const renderCard = (data: ListRenderItemInfo<CardItem>) => (
-    <Pressable
-      onPress={() => navigation.navigate('EditCard', { card: data.item })}
-      style={{
-        backgroundColor: theme.colors.background,
-        // This is to prevent the swipe menu
-        // from flashing occasionally
-        borderWidth: 1,
-        borderColor: 'transparent',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: mainPadding,
-      }}
-    >
-      <CardListItem card={data.item.data} style={{ flex: 1 }} />
-    </Pressable>
-  );
-
-  const renderSwipeMenu = (data: ListRenderItemInfo<CardItem>) => (
-    <View
-      style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'row',
-        height: '100%',
-        // This is to prevent the swipe menu
-        // from flashing occasionally
-        borderWidth: 1,
-        borderColor: 'transparent',
-      }}
-    >
-      <Pressable
-        onPress={() => deleteCard(data.item.id)}
-        disabled={toBeDeletedId === data.item.id}
-        style={({ pressed }) => [
-          {
-            backgroundColor: theme.colors.error,
-            width: SWIPE_MENU_BUTTON_SIZE,
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-            opacity: pressed ? 0.8 : 1,
-          },
-        ]}
-      >
-        {toBeDeletedId === data.item.id ? (
-          <ActivityIndicator size={32} color={theme.colors.onSecondary} />
-        ) : (
-          <Icon
-            name="delete-outline"
-            size={32}
-            color={theme.colors.onSecondary}
-          />
-        )}
-      </Pressable>
-
-      <View
-        style={{
-          marginLeft: 'auto',
-        }}
-      >
-        <TagsSelector
-          value={data.item.data.tags}
-          onChange={onTagsChange(data.item.id)}
-          deck={selectedDeck}
-          renderAnchor={({ openMenu, disabled }) => (
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  backgroundColor: theme.colors.primary,
-                  width: SWIPE_MENU_BUTTON_SIZE,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                  opacity: pressed ? 0.8 : 1,
-                },
-              ]}
-              hitSlop={20}
-              onPress={openMenu}
-              disabled={disabled}
-            >
-              <Icon
-                name={'tag-plus'}
-                color={theme.colors.onPrimary}
-                style={{ fontSize: 22 }}
-              />
-            </Pressable>
-          )}
-        />
-      </View>
-    </View>
   );
 
   if (deck.cards.length === 0 && status === 'loading') {
@@ -328,8 +232,105 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
         data={cards}
         ItemSeparatorComponent={Separator}
         keyExtractor={keyExtractor}
-        renderItem={renderCard}
-        renderHiddenItem={renderSwipeMenu}
+        renderItem={({ item }) => (
+          <Pressable
+            onPress={() => navigation.navigate('EditCard', { card: item })}
+            style={{
+              backgroundColor: theme.colors.background,
+              // This is to prevent the swipe menu
+              // from flashing occasionally
+              borderWidth: 1,
+              borderColor: 'transparent',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingHorizontal: mainPadding,
+            }}
+          >
+            <CardListItem card={item.data} style={{ flex: 1 }} />
+          </Pressable>
+        )}
+        renderHiddenItem={(data, rowMap) => (
+          <View
+            style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'row',
+              height: '100%',
+              // This is to prevent the swipe menu
+              // from flashing occasionally
+              borderWidth: 1,
+              borderColor: 'transparent',
+            }}
+          >
+            <Pressable
+              onPress={() => deleteCard(data.item.id)}
+              disabled={toBeDeletedId === data.item.id}
+              style={({ pressed }) => [
+                {
+                  backgroundColor: theme.colors.error,
+                  width: SWIPE_MENU_BUTTON_SIZE,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100%',
+                  opacity: pressed ? 0.8 : 1,
+                },
+              ]}
+            >
+              {toBeDeletedId === data.item.id ? (
+                <ActivityIndicator size={32} color={theme.colors.onSecondary} />
+              ) : (
+                <Icon
+                  name="delete-outline"
+                  size={32}
+                  color={theme.colors.onSecondary}
+                />
+              )}
+            </Pressable>
+
+            <View
+              style={{
+                marginLeft: 'auto',
+              }}
+            >
+              <TagsSelector
+                value={data.item.data.tags}
+                onChange={async (tags) => {
+                  // We need to close the row and wait so the item
+                  // gets properly refreshed after tags are set
+                  rowMap[keyExtractor(data.item)].closeRow();
+                  await new Promise((resolve) => setTimeout(resolve, 100));
+                  await onTagsChange(data.item.id, tags);
+                }}
+                deck={selectedDeck}
+                renderAnchor={({ openMenu, disabled }) => (
+                  <Pressable
+                    style={({ pressed }) => [
+                      {
+                        backgroundColor: theme.colors.primary,
+                        width: SWIPE_MENU_BUTTON_SIZE,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '100%',
+                        opacity: pressed ? 0.8 : 1,
+                      },
+                    ]}
+                    hitSlop={20}
+                    onPress={openMenu}
+                    disabled={disabled}
+                  >
+                    <Icon
+                      name={'tag-plus'}
+                      color={theme.colors.onPrimary}
+                      style={{ fontSize: 22 }}
+                    />
+                  </Pressable>
+                )}
+              />
+            </View>
+          </View>
+        )}
         leftOpenValue={SWIPE_MENU_BUTTON_SIZE}
         rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
         contentContainerStyle={isEmpty && styles.emptyContentContainer}
