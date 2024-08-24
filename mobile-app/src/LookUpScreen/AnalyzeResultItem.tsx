@@ -5,10 +5,6 @@ import { IconButton, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem } from '../CardListItem';
 import { Deck } from '../languageDeck/useLanguageDeck';
-import {
-  iconButtonOpacity,
-  pressedIconButtonOpacity,
-} from '../stupidConstants';
 import { mainPadding } from '../styles';
 import { TagsSelector } from '../TagsSelector';
 import { AssociatedCard } from './associateCards';
@@ -63,9 +59,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
             <Pressable
               style={({ pressed }) => [
                 {
-                  opacity: pressed
-                    ? pressedIconButtonOpacity
-                    : iconButtonOpacity,
+                  opacity: pressed ? 0.8 : 1,
                   padding: 8,
                 },
               ]}
@@ -75,7 +69,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
             >
               <Icon
                 name={'tag-plus'}
-                color={theme.colors.onBackground}
+                color={theme.colors.primary}
                 style={{ fontSize: 22 }}
               />
             </Pressable>
