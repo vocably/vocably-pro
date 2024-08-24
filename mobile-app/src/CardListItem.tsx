@@ -32,36 +32,62 @@ export const CardListItem: CardListItem = ({
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'baseline',
-          flexWrap: 'nowrap',
+          flexWrap: 'wrap',
+          overflow: 'hidden',
+          width: '100%',
         }}
       >
-        {isGoogleTTSLanguage(card.language) && (
-          <View
-            style={{ paddingTop: 6, alignSelf: 'flex-start', marginRight: 6 }}
-          >
-            <PlaySound text={card.source} language={card.language} size={22} />
-          </View>
-        )}
         <View
           style={{
             flexDirection: 'row',
-            flexWrap: 'wrap',
+            flexWrap: 'nowrap',
             alignItems: 'baseline',
           }}
         >
-          <Text
+          {isGoogleTTSLanguage(card.language) && (
+            <View
+              style={{
+                paddingTop: 6,
+                alignSelf: 'flex-start',
+                marginRight: 6,
+              }}
+            >
+              <PlaySound
+                text={card.source}
+                language={card.language}
+                size={22}
+              />
+            </View>
+          )}
+          <View
             style={{
-              fontSize: 24,
-              color: theme.colors.secondary,
-              marginRight: 8,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              alignItems: 'baseline',
             }}
           >
-            {card.source}
-          </Text>
+            <Text
+              style={{
+                fontSize: 24,
+                color: theme.colors.secondary,
+                marginRight: 8,
+              }}
+            >
+              {card.source}
+            </Text>
+          </View>
 
-          {card.ipa && <Text style={{ marginRight: 8 }}>[{card.ipa}]</Text>}
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              alignItems: 'baseline',
+            }}
+          >
+            {card.ipa && <Text style={{ marginRight: 8 }}>[{card.ipa}]</Text>}
 
-          {card.partOfSpeech && <Text>{card.partOfSpeech}</Text>}
+            {card.partOfSpeech && <Text>{card.partOfSpeech}</Text>}
+          </View>
         </View>
       </View>
       <CardDefinition card={card} />
