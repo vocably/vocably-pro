@@ -246,7 +246,6 @@ export const TagsMenu: FC<Props> = ({
             </View>
           )}
           <SwipeListView<Tag>
-            style={{}}
             data={[...newTags, ...existingTags]}
             keyExtractor={extractKey}
             ItemSeparatorComponent={Divider}
