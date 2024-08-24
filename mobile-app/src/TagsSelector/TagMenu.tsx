@@ -322,34 +322,10 @@ export const TagsMenu: FC<Props> = ({
                 }}
               >
                 <Pressable
-                  onPress={() => {
-                    editTagPressed(data.item, rowMap[extractKey(data.item)]);
-                  }}
-                  disabled={isRemovingTagId !== null}
-                  style={({ pressed }) => [
-                    {
-                      height: SWIPE_MENU_BUTTON_SIZE,
-                      display: 'flex',
-                      backgroundColor: theme.colors.primary,
-                      width: SWIPE_MENU_BUTTON_SIZE,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      opacity: pressed ? swipeListButtonPressOpacity : 1,
-                    },
-                  ]}
-                >
-                  <Icon
-                    name="file-edit-outline"
-                    size={24}
-                    color={theme.colors.onPrimary}
-                  />
-                </Pressable>
-                <Pressable
                   onPress={deleteTagPressed(data.item)}
                   disabled={isRemovingTagId !== null}
                   style={({ pressed }) => [
                     {
-                      marginLeft: 'auto',
                       height: SWIPE_MENU_BUTTON_SIZE,
                       display: 'flex',
                       backgroundColor: theme.colors.error,
@@ -372,6 +348,30 @@ export const TagsMenu: FC<Props> = ({
                       color={theme.colors.onSecondary}
                     />
                   )}
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    editTagPressed(data.item, rowMap[extractKey(data.item)]);
+                  }}
+                  disabled={isRemovingTagId !== null}
+                  style={({ pressed }) => [
+                    {
+                      marginLeft: 'auto',
+                      height: SWIPE_MENU_BUTTON_SIZE,
+                      display: 'flex',
+                      backgroundColor: theme.colors.primary,
+                      width: SWIPE_MENU_BUTTON_SIZE,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      opacity: pressed ? swipeListButtonPressOpacity : 1,
+                    },
+                  ]}
+                >
+                  <Icon
+                    name="file-edit-outline"
+                    size={24}
+                    color={theme.colors.onPrimary}
+                  />
                 </Pressable>
               </View>
             )}

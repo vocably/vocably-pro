@@ -21,7 +21,7 @@ export const MainMenu: MainMenu = () => {
     <View style={styles.container}>
       <View style={{ width: '100%', gap: 8 }}>
         <Text style={{ fontWeight: 'bold' }}>Group cards?</Text>
-        <Text>Swipe existing cards right.</Text>
+        <Text>Swipe any existing card left.</Text>
         <Text>
           Or press the <Icon name={'tag-plus'} size={16} /> icon on a newly
           added card.

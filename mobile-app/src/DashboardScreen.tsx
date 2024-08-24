@@ -268,47 +268,11 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               overflow: 'hidden',
             }}
           >
-            <TagsSelector
-              value={data.item.data.tags}
-              onChange={async (tags) => {
-                // We need to close the row and wait so the item
-                // gets properly refreshed after tags are set
-                rowMap[keyExtractor(data.item)].closeRow();
-                await new Promise((resolve) => setTimeout(resolve, 100));
-                await onTagsChange(data.item.id, tags);
-              }}
-              deck={selectedDeck}
-              renderAnchor={({ openMenu, disabled }) => (
-                <Pressable
-                  style={({ pressed }) => [
-                    {
-                      backgroundColor: theme.colors.primary,
-                      width: SWIPE_MENU_BUTTON_SIZE,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: '100%',
-                      opacity: pressed ? swipeListButtonPressOpacity : 1,
-                    },
-                  ]}
-                  hitSlop={20}
-                  onPress={openMenu}
-                  disabled={disabled}
-                >
-                  <Icon
-                    name={'tag-plus'}
-                    color={theme.colors.onPrimary}
-                    style={{ fontSize: 22 }}
-                  />
-                </Pressable>
-              )}
-            />
-
             <Pressable
               onPress={() => deleteCard(data.item.id)}
               disabled={toBeDeletedId === data.item.id}
               style={({ pressed }) => [
                 {
-                  marginLeft: 'auto',
                   backgroundColor: theme.colors.error,
                   width: SWIPE_MENU_BUTTON_SIZE,
                   alignItems: 'center',
@@ -328,6 +292,47 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                 />
               )}
             </Pressable>
+
+            <View
+              style={{
+                marginLeft: 'auto',
+              }}
+            >
+              <TagsSelector
+                value={data.item.data.tags}
+                onChange={async (tags) => {
+                  // We need to close the row and wait so the item
+                  // gets properly refreshed after tags are set
+                  rowMap[keyExtractor(data.item)].closeRow();
+                  await new Promise((resolve) => setTimeout(resolve, 100));
+                  await onTagsChange(data.item.id, tags);
+                }}
+                deck={selectedDeck}
+                renderAnchor={({ openMenu, disabled }) => (
+                  <Pressable
+                    style={({ pressed }) => [
+                      {
+                        backgroundColor: theme.colors.primary,
+                        width: SWIPE_MENU_BUTTON_SIZE,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '100%',
+                        opacity: pressed ? swipeListButtonPressOpacity : 1,
+                      },
+                    ]}
+                    hitSlop={20}
+                    onPress={openMenu}
+                    disabled={disabled}
+                  >
+                    <Icon
+                      name={'tag-plus'}
+                      color={theme.colors.onPrimary}
+                      style={{ fontSize: 22 }}
+                    />
+                  </Pressable>
+                )}
+              />
+            </View>
           </View>
         )}
         leftOpenValue={SWIPE_MENU_BUTTON_SIZE}
