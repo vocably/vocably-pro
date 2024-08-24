@@ -43,14 +43,8 @@ export const CardListItem: CardListItem = ({
             alignItems: 'baseline',
           }}
         >
-          <Text
-            style={{
-              fontSize: 24,
-              color: theme.colors.secondary,
-              marginRight: 8,
-            }}
-          >
-            {isGoogleTTSLanguage(card.language) && (
+          {isGoogleTTSLanguage(card.language) && (
+            <View style={{ alignSelf: 'flex-start', paddingTop: 6 }}>
               <PlaySound
                 text={card.source}
                 language={card.language}
@@ -59,8 +53,20 @@ export const CardListItem: CardListItem = ({
                   marginRight: 4,
                 }}
               />
-            )}
-            {card.source}
+            </View>
+          )}
+          <Text
+            style={{
+              fontSize: 24,
+              color: theme.colors.secondary,
+              marginRight: 8,
+            }}
+          >
+            <Text
+              style={{ color: theme.colors.secondary, verticalAlign: 'bottom' }}
+            >
+              {card.source}
+            </Text>
           </Text>
 
           {card.ipa && <Text style={{ marginRight: 8 }}>[{card.ipa}]</Text>}
