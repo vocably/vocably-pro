@@ -33,61 +33,39 @@ export const CardListItem: CardListItem = ({
           flexDirection: 'row',
           alignItems: 'baseline',
           flexWrap: 'wrap',
-          overflow: 'hidden',
           width: '100%',
         }}
       >
         <View
           style={{
             flexDirection: 'row',
-            flexWrap: 'nowrap',
+            flexWrap: 'wrap',
             alignItems: 'baseline',
           }}
         >
-          {isGoogleTTSLanguage(card.language) && (
-            <View
-              style={{
-                paddingTop: 6,
-                alignSelf: 'flex-start',
-                marginRight: 6,
-              }}
-            >
+          <Text
+            style={{
+              fontSize: 24,
+              color: theme.colors.secondary,
+              marginRight: 8,
+            }}
+          >
+            {isGoogleTTSLanguage(card.language) && (
               <PlaySound
                 text={card.source}
                 language={card.language}
                 size={22}
+                style={{
+                  marginRight: 4,
+                }}
               />
-            </View>
-          )}
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              alignItems: 'baseline',
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 24,
-                color: theme.colors.secondary,
-                marginRight: 8,
-              }}
-            >
-              {card.source}
-            </Text>
-          </View>
+            )}
+            {card.source}
+          </Text>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'nowrap',
-              alignItems: 'baseline',
-            }}
-          >
-            {card.ipa && <Text style={{ marginRight: 8 }}>[{card.ipa}]</Text>}
+          {card.ipa && <Text style={{ marginRight: 8 }}>[{card.ipa}]</Text>}
 
-            {card.partOfSpeech && <Text>{card.partOfSpeech}</Text>}
-          </View>
+          {card.partOfSpeech && <Text>{card.partOfSpeech}</Text>}
         </View>
       </View>
       <CardDefinition card={card} />
