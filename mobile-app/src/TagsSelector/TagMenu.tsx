@@ -261,6 +261,7 @@ export const TagsMenu: FC<Props> = ({
                   padding: 12,
                   display: 'flex',
                   flexDirection: 'row',
+                  alignItems: 'center',
                 }}
               >
                 <Text

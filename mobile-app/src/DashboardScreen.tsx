@@ -200,20 +200,22 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
             >
               <Text>Selected tags: </Text>
               {selectedTags.map((tag) => (
-                <Chip
-                  key={tag.id}
-                  mode="outlined"
-                  selectedColor={theme.colors.outlineVariant}
-                  onClose={() =>
-                    setSelectedTagIds(
-                      selectedTags
-                        .filter((selectedTag) => selectedTag.id !== tag.id)
-                        .map((t) => t.id)
-                    )
-                  }
-                >
-                  {tag.data.title}
-                </Chip>
+                // Wrap the chip in view to fix the close button on Android
+                <View key={tag.id}>
+                  <Chip
+                    mode="outlined"
+                    selectedColor={theme.colors.outlineVariant}
+                    onClose={() =>
+                      setSelectedTagIds(
+                        selectedTags
+                          .filter((selectedTag) => selectedTag.id !== tag.id)
+                          .map((t) => t.id)
+                      )
+                    }
+                  >
+                    {tag.data.title}
+                  </Chip>
+                </View>
               ))}
             </View>
           )}
