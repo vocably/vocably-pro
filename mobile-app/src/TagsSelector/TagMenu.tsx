@@ -10,6 +10,7 @@ import {
 } from 'react-native-paper';
 import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { swipeListButtonPressOpacity } from '../stupidConstants';
 import { TagMenuAnchor, TagMenuAnchorProps } from './TagMenuAnchor';
 import { TagText } from './TagText';
 
@@ -300,14 +301,17 @@ export const TagsMenu: FC<Props> = ({
                 <Pressable
                   onPress={deleteTagPressed(data.item)}
                   disabled={isRemovingTagId !== null}
-                  style={{
-                    height: SWIPE_MENU_BUTTON_SIZE,
-                    display: 'flex',
-                    backgroundColor: theme.colors.error,
-                    width: SWIPE_MENU_BUTTON_SIZE,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
+                  style={({ pressed }) => [
+                    {
+                      height: SWIPE_MENU_BUTTON_SIZE,
+                      display: 'flex',
+                      backgroundColor: theme.colors.error,
+                      width: SWIPE_MENU_BUTTON_SIZE,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      opacity: pressed ? swipeListButtonPressOpacity : 1,
+                    },
+                  ]}
                 >
                   {isRemovingTagId === data.item.id ? (
                     <ActivityIndicator
@@ -327,15 +331,18 @@ export const TagsMenu: FC<Props> = ({
                     editTagPressed(data.item, rowMap[extractKey(data.item)]);
                   }}
                   disabled={isRemovingTagId !== null}
-                  style={{
-                    height: SWIPE_MENU_BUTTON_SIZE,
-                    marginLeft: 'auto',
-                    display: 'flex',
-                    backgroundColor: theme.colors.primary,
-                    width: SWIPE_MENU_BUTTON_SIZE,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
+                  style={({ pressed }) => [
+                    {
+                      height: SWIPE_MENU_BUTTON_SIZE,
+                      marginLeft: 'auto',
+                      display: 'flex',
+                      backgroundColor: theme.colors.primary,
+                      width: SWIPE_MENU_BUTTON_SIZE,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      opacity: pressed ? swipeListButtonPressOpacity : 1,
+                    },
+                  ]}
                 >
                   <Icon
                     name="file-edit-outline"

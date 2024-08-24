@@ -17,6 +17,7 @@ import { CardListItem, Separator } from './CardListItem';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { Loader } from './loaders/Loader';
+import { swipeListButtonPressOpacity } from './stupidConstants';
 import { mainPadding } from './styles';
 import { TagsSelector } from './TagsSelector';
 
@@ -274,7 +275,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   height: '100%',
-                  opacity: pressed ? 0.8 : 1,
+                  opacity: pressed ? swipeListButtonPressOpacity : 1,
                 },
               ]}
             >
@@ -313,7 +314,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         height: '100%',
-                        opacity: pressed ? 0.8 : 1,
+                        opacity: pressed ? swipeListButtonPressOpacity : 1,
                       },
                     ]}
                     hitSlop={20}
