@@ -4,6 +4,7 @@ import { Alert, Pressable, View } from 'react-native';
 import {
   ActivityIndicator,
   Divider,
+  IconButton,
   Menu,
   Text,
   useTheme,
@@ -58,6 +59,7 @@ export const TagsMenu: FC<Props> = ({
   const [selectedTags, setSelectedTags] = useState<TagItem[]>([]);
   const [isRemovingTagId, setIsRemovingTagId] = useState<string | null>(null);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [editTag, setEditTag] = useState<Tag | null>(null);
   const theme = useTheme();
 
   useEffect(() => {
@@ -182,35 +184,7 @@ export const TagsMenu: FC<Props> = ({
 
   const editTagPressed = (tag: Tag, row: SwipeRow<Tag> | undefined) => {
     row && row.closeRow();
-    Alert.prompt(
-      'Edit Tag',
-      'Enter the new tag name',
-      [
-        { text: 'Cancel', style: 'destructive' },
-        {
-          text: 'Save',
-          onPress: async (title) => {
-            if (!title) {
-              return;
-            }
-
-            if (!tag.id) {
-              updateNewTag(tag, {
-                title,
-              });
-
-              return;
-            }
-
-            await updateExistingTag(tag.id, {
-              title,
-            });
-          },
-        },
-      ],
-      'plain-text',
-      tag.data.title
-    );
+    setEditTag(tag);
   };
 
   return (
@@ -249,46 +223,91 @@ export const TagsMenu: FC<Props> = ({
             data={[...newTags, ...existingTags]}
             keyExtractor={extractKey}
             ItemSeparatorComponent={Divider}
-            renderItem={(data) => (
-              <Pressable
-                onPress={tagPressed(data.item)}
-                style={{
-                  backgroundColor: theme.colors.elevation.level2,
-                  // This is to prevent the swipe menu
-                  // from flashing occasionally
-                  borderWidth: 1,
-                  borderColor: 'transparent',
-                  padding: 12,
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    marginRight: 6,
-                  }}
-                >
-                  {data.item.data.title}
-                </Text>
-                <Icon
-                  name="check"
-                  size={18}
-                  color={theme.colors.onBackground}
-                  style={{
-                    opacity: isSelectedTag(data.item) ? 1 : 0,
-                  }}
-                />
-                <ActivityIndicator
-                  size={18}
-                  color={theme.colors.onBackground}
-                  style={{
-                    marginLeft: 8,
-                    opacity: data.item.id === updatingId ? 1 : 0,
-                  }}
-                />
-              </Pressable>
+            renderItem={({ item: tag }) => (
+              <>
+                {editTag === tag && (
+                  <View
+                    style={{
+                      backgroundColor: theme.colors.elevation.level2,
+                      padding: 12,
+                      flexDirection: 'row',
+                    }}
+                  >
+                    <TagText
+                      value={tag.data.title}
+                      autoFocus={true}
+                      onSubmit={async (title) => {
+                        setEditTag(null);
+
+                        if (!title) {
+                          return;
+                        }
+
+                        if (!tag.id) {
+                          updateNewTag(tag, {
+                            title,
+                          });
+
+                          return;
+                        }
+
+                        await updateExistingTag(tag.id, {
+                          title,
+                        });
+                      }}
+                    ></TagText>
+                    <IconButton
+                      icon={'close'}
+                      iconColor={theme.colors.error}
+                      onPress={() => setEditTag(null)}
+                      style={{
+                        backgroundColor: 'transparent',
+                      }}
+                    />
+                  </View>
+                )}
+                {editTag !== tag && (
+                  <Pressable
+                    onPress={tagPressed(tag)}
+                    style={{
+                      backgroundColor: theme.colors.elevation.level2,
+                      // This is to prevent the swipe menu
+                      // from flashing occasionally
+                      borderWidth: 1,
+                      borderColor: 'transparent',
+                      padding: 12,
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        marginRight: 6,
+                      }}
+                    >
+                      {tag.data.title}
+                    </Text>
+                    <Icon
+                      name="check"
+                      size={18}
+                      color={theme.colors.onBackground}
+                      style={{
+                        opacity: isSelectedTag(tag) ? 1 : 0,
+                      }}
+                    />
+                    <ActivityIndicator
+                      size={18}
+                      color={theme.colors.onBackground}
+                      style={{
+                        marginLeft: 8,
+                        opacity: tag.id === updatingId ? 1 : 0,
+                      }}
+                    />
+                  </Pressable>
+                )}
+              </>
             )}
             renderHiddenItem={(data, rowMap) => (
               <View

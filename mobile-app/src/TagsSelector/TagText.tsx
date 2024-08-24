@@ -3,12 +3,17 @@ import { TextInput, View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
 
 type Props = {
+  value?: string;
   autoFocus?: boolean;
   onSubmit?: (value: string) => any;
 };
 
-export const TagText: FC<Props> = ({ onSubmit, autoFocus = false }) => {
-  const [value, setValue] = useState('');
+export const TagText: FC<Props> = ({
+  value: initialValue = '',
+  onSubmit,
+  autoFocus = false,
+}) => {
+  const [value, setValue] = useState(initialValue);
   const [isFocused, setIsFocused] = useState(false);
   const theme = useTheme();
 
@@ -22,7 +27,7 @@ export const TagText: FC<Props> = ({ onSubmit, autoFocus = false }) => {
   return (
     <View
       style={{
-        width: '100%',
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         borderStyle: 'solid',
@@ -50,7 +55,6 @@ export const TagText: FC<Props> = ({ onSubmit, autoFocus = false }) => {
         onChangeText={setValue}
         returnKeyType={'done'}
         onSubmitEditing={submit}
-        clearButtonMode="always"
       />
       <IconButton
         icon="check"
