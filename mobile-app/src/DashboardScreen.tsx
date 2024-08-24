@@ -23,7 +23,6 @@ import { CardListItem, keyExtractor, Separator } from './CardListItem';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { Loader } from './loaders/Loader';
-import { iconButtonOpacity, pressedIconButtonOpacity } from './stupidConstants';
 import { mainPadding } from './styles';
 import { TagsSelector } from './TagsSelector';
 
@@ -135,37 +134,15 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
       }}
     >
       <CardListItem card={data.item.data} style={{ flex: 1 }} />
-      <TagsSelector
-        value={data.item.data.tags}
-        onChange={onTagsChange(data.item.id)}
-        deck={selectedDeck}
-        renderAnchor={({ openMenu, disabled }) => (
-          <Pressable
-            style={({ pressed }) => [
-              {
-                opacity: pressed ? pressedIconButtonOpacity : iconButtonOpacity,
-                padding: 8,
-              },
-            ]}
-            hitSlop={20}
-            onPress={openMenu}
-            disabled={disabled}
-          >
-            <Icon
-              name={'tag-plus'}
-              color={theme.colors.onBackground}
-              style={{ fontSize: 22 }}
-            />
-          </Pressable>
-        )}
-      />
     </Pressable>
   );
 
   const renderSwipeMenu = (data: ListRenderItemInfo<CardItem>) => (
     <View
       style={{
-        alignSelf: 'flex-end',
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'row',
         height: '100%',
         // This is to prevent the swipe menu
         // from flashing occasionally
@@ -176,13 +153,16 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
       <Pressable
         onPress={() => deleteCard(data.item.id)}
         disabled={toBeDeletedId === data.item.id}
-        style={{
-          backgroundColor: theme.colors.error,
-          width: SWIPE_MENU_BUTTON_SIZE,
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-        }}
+        style={({ pressed }) => [
+          {
+            backgroundColor: theme.colors.error,
+            width: SWIPE_MENU_BUTTON_SIZE,
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            opacity: pressed ? 0.8 : 1,
+          },
+        ]}
       >
         {toBeDeletedId === data.item.id ? (
           <ActivityIndicator size={32} color={theme.colors.onSecondary} />
@@ -194,6 +174,41 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
           />
         )}
       </Pressable>
+
+      <View
+        style={{
+          marginLeft: 'auto',
+        }}
+      >
+        <TagsSelector
+          value={data.item.data.tags}
+          onChange={onTagsChange(data.item.id)}
+          deck={selectedDeck}
+          renderAnchor={({ openMenu, disabled }) => (
+            <Pressable
+              style={({ pressed }) => [
+                {
+                  backgroundColor: theme.colors.primary,
+                  width: SWIPE_MENU_BUTTON_SIZE,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100%',
+                  opacity: pressed ? 0.8 : 1,
+                },
+              ]}
+              hitSlop={20}
+              onPress={openMenu}
+              disabled={disabled}
+            >
+              <Icon
+                name={'tag-plus'}
+                color={theme.colors.onPrimary}
+                style={{ fontSize: 22 }}
+              />
+            </Pressable>
+          )}
+        />
+      </View>
     </View>
   );
 
@@ -243,10 +258,6 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
                 <TagsSelector
                   value={selectedTags}
                   onChange={(tags) => setSelectedTagIds(tags.map((t) => t.id))}
-                  icon="tag"
-                  iconColor={theme.colors.onPrimary}
-                  iconOpacity={1}
-                  pressedIconOpacity={0.8}
                   isAllowedToAdd={false}
                   deck={selectedDeck}
                   renderAnchor={({ openMenu, disabled }) => (
@@ -319,6 +330,7 @@ export const DashboardScreen: DashboardScreen = ({ navigation }) => {
         keyExtractor={keyExtractor}
         renderItem={renderCard}
         renderHiddenItem={renderSwipeMenu}
+        leftOpenValue={SWIPE_MENU_BUTTON_SIZE}
         rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
         contentContainerStyle={isEmpty && styles.emptyContentContainer}
         ListEmptyComponent={
