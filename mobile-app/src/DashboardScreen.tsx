@@ -260,11 +260,12 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               flex: 1,
               display: 'flex',
               flexDirection: 'row',
-              height: '100%',
               // This is to prevent the swipe menu
               // from flashing occasionally
-              borderWidth: 1,
+              borderWidth: 2,
               borderColor: 'transparent',
+              borderStyle: 'solid',
+              overflow: 'hidden',
             }}
           >
             <TagsSelector

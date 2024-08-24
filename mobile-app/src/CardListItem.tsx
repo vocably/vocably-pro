@@ -106,4 +106,4 @@ export const CardListItem: CardListItem = ({
   );
 };
 
-export const Separator: FC = () => <Divider />;
+export const Separator: FC = () => <Divider style={{ zIndex: 1 }} />;
