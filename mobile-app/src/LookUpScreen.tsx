@@ -79,6 +79,12 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
     }
   }, [intentData]);
 
+  useEffect(() => {
+    if (lookUpText === '') {
+      setLookupResult(undefined);
+    }
+  }, [lookUpText]);
+
   const lookUp = useCallback(async () => {
     if (isAnalyzing) {
       return;
