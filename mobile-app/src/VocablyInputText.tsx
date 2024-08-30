@@ -1,15 +1,17 @@
 import { FC, useState } from 'react';
 import { TextInput, View } from 'react-native';
-import { IconButton, useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 
 type Props = {
   value?: string;
   autoFocus?: boolean;
+  onChange?: (value: string) => any;
   onSubmit?: (value: string) => any;
 };
 
-export const TagText: FC<Props> = ({
+export const VocablyInputText: FC<Props> = ({
   value: initialValue = '',
+  onChange,
   onSubmit,
   autoFocus = false,
 }) => {
@@ -18,11 +20,13 @@ export const TagText: FC<Props> = ({
   const theme = useTheme();
 
   const submit = () => {
-    value && onSubmit && onSubmit(value);
-    setValue('');
+    onSubmit && onSubmit(value);
   };
 
-  const canSave = value.trim() !== '';
+  const change = (value: string) => {
+    setValue(value);
+    onChange && onChange(value);
+  };
 
   return (
     <View
@@ -35,6 +39,7 @@ export const TagText: FC<Props> = ({
           ? theme.colors.primary
           : theme.colors.outlineVariant,
         borderRadius: 8,
+        height: 48,
       }}
     >
       <TextInput
@@ -51,22 +56,9 @@ export const TagText: FC<Props> = ({
         onBlur={() => setIsFocused(false)}
         value={value}
         autoCapitalize={'none'}
-        onChangeText={setValue}
+        onChangeText={change}
         returnKeyType={'done'}
         onSubmitEditing={submit}
-      />
-      <IconButton
-        icon="check"
-        disabled={!canSave}
-        onPress={submit}
-        iconColor={theme.colors.primary}
-        style={{
-          opacity: canSave ? 1 : 0,
-          marginVertical: 4,
-          marginRight: 4,
-          marginLeft: 0,
-          backgroundColor: 'transparent',
-        }}
       />
     </View>
   );

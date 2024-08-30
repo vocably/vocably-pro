@@ -3,17 +3,19 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, Pressable, View } from 'react-native';
 import {
   ActivityIndicator,
+  Button,
+  Dialog,
   Divider,
-  IconButton,
   Menu,
+  Portal,
   Text,
   useTheme,
 } from 'react-native-paper';
 import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { swipeListButtonPressOpacity } from '../stupidConstants';
+import { VocablyInputText } from '../VocablyInputText';
 import { TagMenuAnchor, TagMenuAnchorProps } from './TagMenuAnchor';
-import { TagText } from './TagText';
 
 export type Tag = {
   id?: TagItem['id'];
@@ -79,6 +81,10 @@ export const TagsMenu: FC<Props> = ({
   };
 
   const addNewTag = (title: string) => {
+    if (title === '') {
+      return;
+    }
+
     const newTag: Tag = {
       data: {
         title,
@@ -184,10 +190,23 @@ export const TagsMenu: FC<Props> = ({
     [setSelectedTags, updateTag, setUpdatingId]
   );
 
+  const [isTagFormVisible, setShowTagForm] = useState(false);
+  const [tagFormValue, setTagFormValue] = useState('');
+
+  const displayCreateModal = () => {
+    setTagFormValue('');
+    setEditTag(null);
+    setShowTagForm(true);
+  };
+
   const editTagPressed = (tag: Tag, row: SwipeRow<Tag> | undefined) => {
     row && row.closeRow();
     setEditTag(tag);
+    setTagFormValue(tag.data.title);
+    setShowTagForm(true);
   };
+
+  const tags = [...newTags, ...existingTags];
 
   return (
     <>
@@ -214,102 +233,57 @@ export const TagsMenu: FC<Props> = ({
           }}
         >
           {isAllowedToAdd && (
-            <View style={{ padding: 12 }}>
-              <TagText
-                onSubmit={addNewTag}
-                autoFocus={existingTags.length === 0 && newTags.length === 0}
-              />
-            </View>
+            <Menu.Item
+              leadingIcon={'tag-plus'}
+              onPress={() => displayCreateModal()}
+              title="Add new tag"
+            />
           )}
+          {isAllowedToAdd && tags.length > 0 && <Divider />}
           <SwipeListView<Tag>
-            data={[...newTags, ...existingTags]}
+            data={tags}
             keyExtractor={extractKey}
             ItemSeparatorComponent={Divider}
             renderItem={({ item: tag }) => (
-              <>
-                {editTag === tag && (
-                  <View
-                    style={{
-                      backgroundColor: theme.colors.elevation.level2,
-                      padding: 12,
-                      flexDirection: 'row',
-                    }}
-                  >
-                    <TagText
-                      value={tag.data.title}
-                      autoFocus={true}
-                      onSubmit={async (title) => {
-                        setEditTag(null);
-
-                        if (!title) {
-                          return;
-                        }
-
-                        if (!tag.id) {
-                          updateNewTag(tag, {
-                            title,
-                          });
-
-                          return;
-                        }
-
-                        await updateExistingTag(tag.id, {
-                          title,
-                        });
-                      }}
-                    ></TagText>
-                    <IconButton
-                      icon={'close'}
-                      iconColor={theme.colors.error}
-                      onPress={() => setEditTag(null)}
-                      style={{
-                        backgroundColor: 'transparent',
-                      }}
-                    />
-                  </View>
-                )}
-                {editTag !== tag && (
-                  <Pressable
-                    onPress={tagPressed(tag)}
-                    style={{
-                      backgroundColor: theme.colors.elevation.level2,
-                      // This is to prevent the swipe menu
-                      // from flashing occasionally
-                      borderWidth: 1,
-                      borderColor: 'transparent',
-                      padding: 12,
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        marginRight: 6,
-                      }}
-                    >
-                      {tag.data.title}
-                    </Text>
-                    <Icon
-                      name="check"
-                      size={18}
-                      color={theme.colors.onBackground}
-                      style={{
-                        opacity: isSelectedTag(tag) ? 1 : 0,
-                      }}
-                    />
-                    <ActivityIndicator
-                      size={18}
-                      color={theme.colors.onBackground}
-                      style={{
-                        marginLeft: 8,
-                        opacity: tag.id === updatingId ? 1 : 0,
-                      }}
-                    />
-                  </Pressable>
-                )}
-              </>
+              <Pressable
+                onPress={tagPressed(tag)}
+                style={{
+                  backgroundColor: theme.colors.elevation.level2,
+                  // This is to prevent the swipe menu
+                  // from flashing occasionally
+                  borderWidth: 1,
+                  borderColor: 'transparent',
+                  padding: 12,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    marginRight: 6,
+                  }}
+                >
+                  {tag.data.title}
+                </Text>
+                <Icon
+                  name="check"
+                  size={18}
+                  color={theme.colors.onBackground}
+                  style={{
+                    opacity: isSelectedTag(tag) ? 1 : 0,
+                  }}
+                />
+                <ActivityIndicator
+                  size={18}
+                  color={theme.colors.onBackground}
+                  style={{
+                    marginLeft: 8,
+                    opacity: tag.id === updatingId ? 1 : 0,
+                  }}
+                />
+              </Pressable>
             )}
             renderHiddenItem={(data, rowMap) => (
               <View
@@ -379,6 +353,67 @@ export const TagsMenu: FC<Props> = ({
             rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
           />
         </View>
+        {isTagFormVisible && (
+          <Portal>
+            <Dialog
+              visible={true}
+              onDismiss={() => setShowTagForm(false)}
+              style={{
+                width: 400,
+                alignSelf: 'center',
+              }}
+            >
+              <Dialog.Title>
+                {editTag === null
+                  ? `Add new tag`
+                  : `Edit ${editTag.data.title}`}
+              </Dialog.Title>
+              <Dialog.Content>
+                <VocablyInputText
+                  value={tagFormValue}
+                  onChange={(value) => setTagFormValue(value)}
+                  onSubmit={(title) => {
+                    addNewTag(title);
+                    setShowTagForm(false);
+                  }}
+                  autoFocus={true}
+                />
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button onPress={() => setShowTagForm(false)}>Cancel</Button>
+                <Button
+                  onPress={() => {
+                    const title = tagFormValue.trim();
+                    setShowTagForm(false);
+
+                    if (title === '') {
+                      return;
+                    }
+
+                    if (editTag === null) {
+                      addNewTag(title);
+                    } else if (editTag.id === undefined) {
+                      updateNewTag(editTag, {
+                        title,
+                      });
+                    } else {
+                      updateExistingTag(editTag.id, {
+                        title,
+                      }).then();
+                    }
+                  }}
+                  mode="contained"
+                  style={{
+                    minWidth: 114,
+                  }}
+                  disabled={tagFormValue.trim().length === 0}
+                >
+                  {editTag === null ? 'Add' : 'Save'}
+                </Button>
+              </Dialog.Actions>
+            </Dialog>
+          </Portal>
+        )}
       </Menu>
     </>
   );
