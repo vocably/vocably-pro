@@ -359,7 +359,7 @@ export const TagsMenu: FC<Props> = ({
               visible={true}
               onDismiss={() => setShowTagForm(false)}
               style={{
-                width: 400,
+                width: 300,
                 alignSelf: 'center',
               }}
             >
