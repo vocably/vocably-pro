@@ -314,7 +314,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                   // We need to close the row and wait so the item
                   // gets properly refreshed after tags are set
                   rowMap[keyExtractor(data.item)].closeRow();
-                  await new Promise((resolve) => setTimeout(resolve, 100));
+                  await new Promise((resolve) => setTimeout(resolve, 300));
                   await onTagsChange(data.item, tags);
                 }}
                 deck={selectedDeck}
