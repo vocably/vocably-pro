@@ -232,6 +232,21 @@ export const TagsMenu: FC<Props> = ({
             minWidth: MENU_WIDTH,
           }}
         >
+          {isAllowedToAdd && tags.length === 0 && (
+            <>
+              <View
+                style={{
+                  padding: 12,
+                }}
+              >
+                <Text>
+                  Tags are like groups, or folders, but better. Press "Add new
+                  tag" to create a new tag.
+                </Text>
+              </View>
+              <Divider />
+            </>
+          )}
           {isAllowedToAdd && (
             <Menu.Item
               leadingIcon={'tag-plus'}
