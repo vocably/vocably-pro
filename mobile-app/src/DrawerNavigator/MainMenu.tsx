@@ -22,8 +22,9 @@ export const MainMenu: MainMenu = () => {
     <View style={styles.container}>
       <View style={{ width: '100%', gap: 8 }}>
         <Text style={{ fontWeight: 'bold' }}>
-          Would you like to group cards in folders?
+          Would you like to group cards?
         </Text>
+        <Text>It can be done with tags:</Text>
         <Text>
           Swipe any existing card left and press{' '}
           <Icon name={'tag-plus'} size={16} /> button.
