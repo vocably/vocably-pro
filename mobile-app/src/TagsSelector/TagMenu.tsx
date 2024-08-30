@@ -376,6 +376,7 @@ export const TagsMenu: FC<Props> = ({
               style={{
                 width: 300,
                 alignSelf: 'center',
+                marginBottom: 200,
               }}
             >
               <Dialog.Title>
