@@ -10,7 +10,7 @@ export const AccountMenu: AccountMenu = () => {
   const onDelete = useCallback(() => {
     Alert.alert(
       'Account Deletion',
-      'Are you sure you want to delete your account? This operation can not be undone.',
+      'Are you sure you want to delete your account? This operation cannot be undone.',
       [
         {
           text: 'Delete',
