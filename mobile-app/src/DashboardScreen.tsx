@@ -85,6 +85,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const [toBeDeletedId, setToBeDeletedId] = useState<string | null>(null);
   const [editPanelHeight, setEditPanelHeight] = useState(100);
+  const [savingTagsForId, setSavingTagsForId] = useState<string | null>(null);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -109,10 +110,15 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
   );
 
   const onTagsChange = useCallback(
-    async (id: string, tags: TagItem[]) => {
-      await update(id, {
-        tags,
+    async (cardItem: CardItem, newTags: TagItem[]) => {
+      if (cardItem.data.tags.length === 0 && newTags.length === 0) {
+        return;
+      }
+      setSavingTagsForId(cardItem.id);
+      await update(cardItem.id, {
+        tags: newTags,
       });
+      setSavingTagsForId(null);
     },
     [update]
   );
@@ -251,7 +257,11 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               paddingHorizontal: mainPadding,
             }}
           >
-            <CardListItem card={item.data} style={{ flex: 1 }} />
+            <CardListItem
+              savingTagsInProgress={savingTagsForId === item.id}
+              card={item.data}
+              style={{ flex: 1 }}
+            />
           </Pressable>
         )}
         renderHiddenItem={(data, rowMap) => (
@@ -305,7 +315,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                   // gets properly refreshed after tags are set
                   rowMap[keyExtractor(data.item)].closeRow();
                   await new Promise((resolve) => setTimeout(resolve, 100));
-                  await onTagsChange(data.item.id, tags);
+                  await onTagsChange(data.item, tags);
                 }}
                 deck={selectedDeck}
                 renderAnchor={({ openMenu, disabled }) => (

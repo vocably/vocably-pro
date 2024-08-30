@@ -1,7 +1,13 @@
 import { Card, isGoogleTTSLanguage } from '@vocably/model';
 import React, { FC } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
-import { Chip, Divider, Text, useTheme } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Chip,
+  Divider,
+  Text,
+  useTheme,
+} from 'react-native-paper';
 import { CardDefinition } from './CardDefinition';
 import { CardExample } from './CardExample';
 import { PlaySound } from './PlaySound';
@@ -10,12 +16,14 @@ type CardListItem = FC<{
   card: Card;
   style?: StyleProp<ViewStyle>;
   showExamples?: boolean;
+  savingTagsInProgress?: boolean;
 }>;
 
 export const CardListItem: CardListItem = ({
   card,
   style,
   showExamples = false,
+  savingTagsInProgress = false,
 }) => {
   const theme = useTheme();
   return (
@@ -81,7 +89,7 @@ export const CardListItem: CardListItem = ({
           <CardExample example={card.example} />
         </View>
       )}
-      {card.tags.length > 0 && (
+      {(card.tags.length > 0 || savingTagsInProgress) && (
         <View
           style={{
             marginTop: 8,
@@ -89,6 +97,7 @@ export const CardListItem: CardListItem = ({
             flexDirection: 'row',
             flexWrap: 'wrap',
             gap: 8,
+            minHeight: 34,
           }}
         >
           {card.tags.map((tag) => (
@@ -100,6 +109,9 @@ export const CardListItem: CardListItem = ({
               {tag.data.title}
             </Chip>
           ))}
+          {savingTagsInProgress && (
+            <ActivityIndicator color={theme.colors.onBackground} />
+          )}
         </View>
       )}
     </View>

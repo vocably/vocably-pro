@@ -45,15 +45,30 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
     setIsProcessing(false);
   }, [setIsProcessing, onAdd, onRemove]);
 
+  const [isSavingTags, setIsSavingTags] = useState(false);
+
   return (
     <View style={styles.container}>
-      <CardListItem card={item.card} style={{ flex: 1 }} showExamples={true} />
+      <CardListItem
+        card={item.card}
+        style={{ flex: 1 }}
+        showExamples={true}
+        savingTagsInProgress={isSavingTags}
+      />
       {item.id && (
         <TagsSelector
           value={item.card.tags}
-          onChange={async (tags) =>
-            item.id && (await onTagsChange(item.id, tags))
-          }
+          onChange={async (tags) => {
+            if (!item.id) {
+              return;
+            }
+            if (item.card.tags.length === 0 && tags.length === 0) {
+              return;
+            }
+            setIsSavingTags(true);
+            await onTagsChange(item.id, tags);
+            setIsSavingTags(false);
+          }}
           deck={deck}
           renderAnchor={({ openMenu, disabled }) => (
             <Pressable
