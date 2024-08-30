@@ -241,7 +241,7 @@ export const TagsMenu: FC<Props> = ({
               >
                 <Text>
                   Tags are like groups, or folders, but better. Press "Add new
-                  tag" to create a new tag.
+                  tag" to begin.
                 </Text>
               </View>
               <Divider />
