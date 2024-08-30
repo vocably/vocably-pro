@@ -97,7 +97,7 @@ export const CardListItem: CardListItem = ({
             flexDirection: 'row',
             flexWrap: 'wrap',
             gap: 8,
-            minHeight: 34,
+            minHeight: 36,
           }}
         >
           {card.tags.map((tag) => (
