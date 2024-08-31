@@ -29,7 +29,7 @@ type AnalyzeResultItem = FC<{
 export const AnalyzeResultItem: AnalyzeResultItem = ({
   onAdd,
   onRemove,
-  onTagsChange,
+  onTagsChange: onTagsChangePropFunction,
   item,
   deck,
 }) => {
@@ -47,6 +47,18 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
 
   const [isSavingTags, setIsSavingTags] = useState(false);
 
+  const onTagsChange = async (newTags: TagItem[]) => {
+    if (!item.id) {
+      return;
+    }
+    if (item.card.tags.length === 0 && newTags.length === 0) {
+      return;
+    }
+    setIsSavingTags(true);
+    await onTagsChangePropFunction(item.id, newTags);
+    setIsSavingTags(false);
+  };
+
   return (
     <View style={styles.container}>
       <CardListItem
@@ -54,21 +66,12 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
         style={{ flex: 1 }}
         showExamples={true}
         savingTagsInProgress={isSavingTags}
+        onTagsChange={onTagsChange}
       />
       {item.id && (
         <TagsSelector
           value={item.card.tags}
-          onChange={async (tags) => {
-            if (!item.id) {
-              return;
-            }
-            if (item.card.tags.length === 0 && tags.length === 0) {
-              return;
-            }
-            setIsSavingTags(true);
-            await onTagsChange(item.id, tags);
-            setIsSavingTags(false);
-          }}
+          onChange={onTagsChange}
           deck={deck}
           renderAnchor={({ openMenu, disabled }) => (
             <Pressable

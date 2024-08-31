@@ -110,7 +110,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
   );
 
   const onTagsChange = useCallback(
-    async (cardItem: CardItem, newTags: TagItem[]) => {
+    (cardItem: CardItem) => async (newTags: TagItem[]) => {
       if (cardItem.data.tags.length === 0 && newTags.length === 0) {
         return;
       }
@@ -261,6 +261,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               savingTagsInProgress={savingTagsForId === item.id}
               card={item.data}
               style={{ flex: 1 }}
+              onTagsChange={onTagsChange(item)}
             />
           </Pressable>
         )}
@@ -315,7 +316,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                   // gets properly refreshed after tags are set
                   rowMap[keyExtractor(data.item)].closeRow();
                   await new Promise((resolve) => setTimeout(resolve, 400));
-                  await onTagsChange(data.item, tags);
+                  await onTagsChange(data.item)(tags);
                 }}
                 deck={selectedDeck}
                 renderAnchor={({ openMenu, disabled }) => (

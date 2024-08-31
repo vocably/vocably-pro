@@ -1,4 +1,4 @@
-import { Card, isGoogleTTSLanguage } from '@vocably/model';
+import { Card, isGoogleTTSLanguage, TagItem } from '@vocably/model';
 import React, { FC } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import {
@@ -17,6 +17,7 @@ type CardListItem = FC<{
   style?: StyleProp<ViewStyle>;
   showExamples?: boolean;
   savingTagsInProgress?: boolean;
+  onTagsChange?: (tags: TagItem[]) => Promise<any>;
 }>;
 
 export const CardListItem: CardListItem = ({
@@ -24,8 +25,14 @@ export const CardListItem: CardListItem = ({
   style,
   showExamples = false,
   savingTagsInProgress = false,
+  onTagsChange = () => null,
 }) => {
   const theme = useTheme();
+
+  const onTagClose = (tagToRemove: TagItem) => () => {
+    onTagsChange(card.tags.filter((t) => t.id !== tagToRemove.id));
+  };
+
   return (
     <View
       style={[
@@ -105,6 +112,7 @@ export const CardListItem: CardListItem = ({
               key={tag.id}
               selectedColor={theme.colors.outlineVariant}
               mode="outlined"
+              onClose={onTagClose(tag)}
             >
               {tag.data.title}
             </Chip>
