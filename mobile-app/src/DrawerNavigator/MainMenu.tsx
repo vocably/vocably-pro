@@ -36,7 +36,7 @@ export const MainMenu: MainMenu = () => {
         </Text>
         <Text>
           When at least one tag is created, press the{' '}
-          <Icon name={'tag'} size={16} /> icon on the Practice button. To
+          <Icon name={'tag'} size={16} /> icon on the Practice button to
           practice a selected tag or a group of selected tags.
         </Text>
         <Text>
