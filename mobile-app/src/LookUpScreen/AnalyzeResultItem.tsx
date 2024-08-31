@@ -1,22 +1,12 @@
 import { CardItem, Result, TagItem } from '@vocably/model';
 import React, { FC, useCallback, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem } from '../CardListItem';
 import { Deck } from '../languageDeck/useLanguageDeck';
 import { mainPadding } from '../styles';
 import { TagsSelector } from '../TagsSelector';
 import { AssociatedCard } from './associateCards';
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: mainPadding,
-  },
-});
 
 type AnalyzeResultItem = FC<{
   onAdd: (card: AssociatedCard) => Promise<Result<CardItem>>;
@@ -60,7 +50,14 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        paddingHorizontal: mainPadding,
+      }}
+    >
       <CardListItem
         card={item.card}
         style={{ flex: 1 }}
@@ -68,38 +65,34 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
         savingTagsInProgress={isSavingTags}
         onTagsChange={onTagsChange}
       />
-      {item.id && (
-        <TagsSelector
-          value={item.card.tags}
-          onChange={onTagsChange}
-          deck={deck}
-          renderAnchor={({ openMenu, disabled }) => (
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  opacity: pressed ? 0.8 : 1,
-                  padding: 8,
-                },
-              ]}
-              hitSlop={20}
-              onPress={openMenu}
-              disabled={disabled}
-            >
-              <Icon
-                name={'tag-plus'}
-                color={theme.colors.primary}
-                style={{ fontSize: 22 }}
-              />
-            </Pressable>
-          )}
+      <View
+        style={{
+          alignItems: 'center',
+          marginTop: 8,
+        }}
+      >
+        <IconButton
+          icon={!item.id ? 'plus-circle' : 'minus-circle'}
+          iconColor={!item.id ? theme.colors.primary : theme.colors.error}
+          onPress={toggleCard}
+          disabled={isProcessing}
         />
-      )}
-      <IconButton
-        icon={!item.id ? 'plus-circle' : 'minus-circle'}
-        iconColor={!item.id ? theme.colors.primary : theme.colors.error}
-        onPress={toggleCard}
-        disabled={isProcessing}
-      />
+        {item.id && (
+          <TagsSelector
+            value={item.card.tags}
+            onChange={onTagsChange}
+            deck={deck}
+            renderAnchor={({ openMenu, disabled }) => (
+              <IconButton
+                icon={'tag-plus'}
+                iconColor={theme.colors.primary}
+                onPress={openMenu}
+                disabled={disabled}
+              />
+            )}
+          />
+        )}
+      </View>
     </View>
   );
 };
