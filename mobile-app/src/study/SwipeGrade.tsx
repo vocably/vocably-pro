@@ -33,6 +33,10 @@ export const SwipeGrade: FC<{
   const theme = useTheme();
 
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+
+  const sufficientHorizontalDisplacement = Math.min(windowWidth / 4, 108);
+  const sufficientVerticalDisplacement = Math.min(windowHeight / 5, 108);
+
   const pan = useRef(new Animated.ValueXY()).current;
   const movementRef = useRef<null | 'horizontal' | 'vertical'>(null);
   const weakVisibility = useRef(new Animated.Value(0)).current;
@@ -70,12 +74,15 @@ export const SwipeGrade: FC<{
         if (movementRef.current === 'horizontal') {
           if (gestureState.dx > 0) {
             strongVisibility.setValue(
-              Math.min(1, gestureState.dx / (windowWidth / 4))
+              Math.min(1, gestureState.dx / sufficientHorizontalDisplacement)
             );
             weakVisibility.setValue(0);
           } else {
             weakVisibility.setValue(
-              Math.min(1, Math.abs(gestureState.dx) / (windowWidth / 4))
+              Math.min(
+                1,
+                Math.abs(gestureState.dx) / sufficientHorizontalDisplacement
+              )
             );
             strongVisibility.setValue(0);
           }
@@ -86,7 +93,7 @@ export const SwipeGrade: FC<{
           });
         } else if (movementRef.current === 'vertical' && gestureState.dy > 0) {
           mediumVisibility.setValue(
-            Math.min(1, gestureState.dy / (windowHeight / 5))
+            Math.min(1, gestureState.dy / sufficientVerticalDisplacement)
           );
 
           pan.setValue({
