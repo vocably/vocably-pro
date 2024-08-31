@@ -13,6 +13,7 @@ describe('createCards', () => {
           definition: 'делать',
           translation: '',
           partOfSpeech: '',
+          tags: [],
           ...createSrsItem(),
         },
         {
@@ -21,6 +22,7 @@ describe('createCards', () => {
           definition: 'плавать',
           translation: '',
           partOfSpeech: '',
+          tags: [],
           ...createSrsItem(),
         },
       ]);
@@ -44,6 +46,16 @@ describe('createCards', () => {
             definition: 'делать',
             translation: '',
             partOfSpeech: '',
+            tags: [
+              {
+                id: 'tag1',
+                data: {
+                  title: 'Tag 1',
+                },
+                created: 123,
+                updated: 123,
+              },
+            ],
             ...createSrsItem(),
           },
         },
@@ -56,12 +68,13 @@ describe('createCards', () => {
             definition: 'плавать',
             translation: '',
             partOfSpeech: '',
+            tags: [],
             ...createSrsItem(),
           },
         },
       ];
 
-      const doId = collection[0].id;
+      const doItem = collection[0];
       const cardItems = getCardCandidates(collection, [
         {
           language: 'en',
@@ -69,6 +82,7 @@ describe('createCards', () => {
           definition: 'бороться',
           translation: '',
           partOfSpeech: '',
+          tags: [],
           ...createSrsItem(),
         },
         {
@@ -77,13 +91,15 @@ describe('createCards', () => {
           definition: 'делать',
           translation: '',
           partOfSpeech: '',
+          tags: [],
           ...createSrsItem(),
         },
       ]);
 
       expect(cardItems[0].data.source).toEqual('fight');
       // @ts-ignore
-      expect(cardItems[1].id).toEqual(doId);
+      expect(cardItems[1].id).toEqual(doItem.id);
+      expect(cardItems[1].data.tags).toEqual(doItem.data.tags);
     });
 
     it('considers parts of speech when adding card candidates', () => {
@@ -97,6 +113,16 @@ describe('createCards', () => {
             definition: 'onprettig, onaangenaam',
             partOfSpeech: 'adjective',
             translation: '',
+            tags: [
+              {
+                id: 'tag1',
+                data: {
+                  title: 'Tag 1',
+                },
+                created: 123,
+                updated: 123,
+              },
+            ],
             ...createSrsItem(),
           },
         },
@@ -109,6 +135,16 @@ describe('createCards', () => {
             definition: 'in de richting van',
             partOfSpeech: 'preposition',
             translation: '',
+            tags: [
+              {
+                id: 'tag1',
+                data: {
+                  title: 'Tag 1',
+                },
+                created: 123,
+                updated: 123,
+              },
+            ],
             ...createSrsItem(),
           },
         },
@@ -121,6 +157,7 @@ describe('createCards', () => {
           definition: 'zoals',
           partOfSpeech: 'conjunction',
           translation: '',
+          tags: [],
           ...createSrsItem(),
         },
       ]);
@@ -138,6 +175,16 @@ describe('createCards', () => {
           partOfSpeech: 'adjective',
           definition: 'als je er bij bent',
           translation: 'present',
+          tags: [
+            {
+              id: 'tag1',
+              data: {
+                title: 'Tag 1',
+              },
+              created: 123,
+              updated: 123,
+            },
+          ],
           ...createSrsItem(),
         },
       ];
@@ -148,6 +195,7 @@ describe('createCards', () => {
         partOfSpeech: 'verb',
         definition: `koppelwerkwoord dat aangeeft dat iets in een bepaalde toestand komt, begint te zijn of in de toekomst zal zijn`,
         translation: 'become',
+        tags: [],
         ...createSrsItem(),
       };
 
@@ -165,6 +213,16 @@ describe('createCards', () => {
           partOfSpeech: 'verb',
           definition: 'moeite doen (voor iets of iemand)',
           translation: 'to stake',
+          tags: [
+            {
+              id: 'tag1',
+              data: {
+                title: 'Tag 1',
+              },
+              created: 123,
+              updated: 123,
+            },
+          ],
           ...createSrsItem(),
         },
         {
@@ -173,6 +231,16 @@ describe('createCards', () => {
           partOfSpeech: 'adjective',
           definition: 'als je er bij bent',
           translation: 'present',
+          tags: [
+            {
+              id: 'tag1',
+              data: {
+                title: 'Tag 1',
+              },
+              created: 123,
+              updated: 123,
+            },
+          ],
           ...createSrsItem(),
         },
       ];
@@ -184,6 +252,7 @@ describe('createCards', () => {
         definition: `* iets ergens in plaatsen
 * (iemand) inschakelen (bij iets)`,
         translation: 'become',
+        tags: [],
         ...createSrsItem(),
       };
 
