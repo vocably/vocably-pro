@@ -42,8 +42,8 @@ type Props = {
 };
 
 const SWIPE_MENU_BUTTON_SIZE = 50;
-
 const MENU_WIDTH = 250;
+const ITEM_FONT_SIZE = 18;
 
 export const extractKey = (tag: Tag) => tag.id ?? tag.data.title;
 
@@ -252,6 +252,9 @@ export const TagsMenu: FC<Props> = ({
               leadingIcon={'tag-plus'}
               onPress={() => displayCreateModal()}
               title="Add new tag"
+              titleStyle={{
+                fontSize: ITEM_FONT_SIZE,
+              }}
             />
           )}
           {isAllowedToAdd && tags.length > 0 && <Divider />}
@@ -264,19 +267,19 @@ export const TagsMenu: FC<Props> = ({
                 onPress={tagPressed(tag)}
                 style={{
                   backgroundColor: theme.colors.elevation.level2,
-                  // This is to prevent the swipe menu
-                  // from flashing occasionally
-                  borderWidth: 1,
-                  borderColor: 'transparent',
                   padding: 12,
                   display: 'flex',
                   flexDirection: 'row',
                   alignItems: 'center',
+                  // This is to prevent the swipe menu
+                  // from flashing occasionally
+                  borderWidth: 1,
+                  borderColor: 'transparent',
                 }}
               >
                 <Text
                   style={{
-                    fontSize: 18,
+                    fontSize: ITEM_FONT_SIZE,
                     marginRight: 6,
                   }}
                 >
@@ -367,6 +370,23 @@ export const TagsMenu: FC<Props> = ({
             leftOpenValue={SWIPE_MENU_BUTTON_SIZE}
             rightOpenValue={-SWIPE_MENU_BUTTON_SIZE}
           />
+          {tags.length === 1 && (
+            <>
+              <Divider />
+              <View
+                style={{
+                  padding: 12,
+                  gap: 12,
+                }}
+              >
+                <Text>Tap the tag to check or uncheck it.</Text>
+                <Text>Swipe left to edit the tag.</Text>
+                <Text>
+                  Swipe right to delete the tag. Your cards will not be deleted.
+                </Text>
+              </View>
+            </>
+          )}
         </View>
         {isTagFormVisible && (
           <Portal>
