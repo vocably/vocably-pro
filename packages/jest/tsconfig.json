@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "dist/esm",
+    "outDir": "./dist/esm",
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "node",
@@ -9,6 +9,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["src/index.ts", "jest.d.ts"],
+  "include": ["src/index.ts"],
   "exclude": ["node_modules"]
 }
