@@ -1,9 +1,8 @@
 import { CardItem } from '@vocably/model';
 import { grade, slice, SrsScore } from '@vocably/srs';
-import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
-import { useLanguageDeck } from '../languageDeck/useLanguageDeck';
-import { LanguagesContext } from '../languages/LanguagesContainer';
+import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { Loader } from '../loaders/Loader';
 import { useNumberOfRepetitions } from '../RequestFeedback/useNumberOfRepetitions';
 import { Card } from './Card';
@@ -18,20 +17,19 @@ type Study = FC<{
 }>;
 
 export const Study: Study = ({ onExit, autoPlay }) => {
-  const { selectedLanguage } = useContext(LanguagesContext);
-  const { status, deck, update } = useLanguageDeck(selectedLanguage);
+  const { status, update, filteredCards } = useSelectedDeck();
   const [cards, setCards] = useState<CardItem[]>();
   const [cardsStudied, setCardsStudied] = useState(0);
   const [numberOfRepetitions, setNumberOfRepetitions] =
     useNumberOfRepetitions();
 
-  const totalCardsToStudy = Math.min(maxCardsToStudy, deck.cards.length);
+  const totalCardsToStudy = Math.min(maxCardsToStudy, filteredCards.length);
 
   useEffect(() => {
     if (cardsStudied === 0) {
-      setCards(slice(new Date(), maxCardsToStudy, deck.cards));
+      setCards(slice(new Date(), maxCardsToStudy, filteredCards));
     }
-  }, [deck.cards, cardsStudied]);
+  }, [filteredCards, cardsStudied]);
 
   const onGrade = useCallback(
     (score: SrsScore) => {

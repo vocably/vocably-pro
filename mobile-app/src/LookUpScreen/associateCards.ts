@@ -1,13 +1,13 @@
 import { Card, CardItem } from '@vocably/model';
 import { byCard } from '@vocably/model-operations';
 
-export const getAssociatedId = (
+export const getAssociatedCardItem = (
   card: Card,
   existingCards: CardItem[]
-): string | null => {
+): CardItem | null => {
   const existingCard = existingCards.find(byCard(card));
   if (existingCard) {
-    return existingCard.id;
+    return existingCard;
   }
 
   return null;
@@ -22,8 +22,14 @@ export const associateCards = (
   cards: Card[],
   existingCards: CardItem[]
 ): AssociatedCard[] => {
-  return cards.map((card) => ({
-    id: getAssociatedId(card, existingCards),
-    card,
-  }));
+  return cards.map((card) => {
+    const associatedCardItem = getAssociatedCardItem(card, existingCards);
+    return {
+      id: associatedCardItem?.id ?? null,
+      card: {
+        ...card,
+        tags: associatedCardItem?.data.tags ?? [],
+      },
+    };
+  });
 };

@@ -11,6 +11,7 @@ import { Alert, Pressable, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import Sound from 'react-native-sound';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { iconButtonOpacity, pressedIconButtonOpacity } from './stupidConstants';
 
 type PlaySound = FC<{
   text: string;
@@ -71,7 +72,7 @@ export const PlaySound: PlaySound = forwardRef(
         hitSlop={20}
         style={({ pressed }) => [
           {
-            opacity: pressed ? 0.25 : 0.5,
+            opacity: pressed ? pressedIconButtonOpacity : iconButtonOpacity,
             // Make play sound stand out and hitSlop working
             zIndex: 1,
           },

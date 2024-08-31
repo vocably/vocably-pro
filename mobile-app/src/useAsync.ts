@@ -38,7 +38,7 @@ export const useAsync = <T>(
           error,
         });
       });
-  }, [load]);
+  }, []);
 
   const update = useCallback(
     async (newValue: T) => {
