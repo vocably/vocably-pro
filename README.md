@@ -1,6 +1,6 @@
 # Vocably: an app that helps to become fluent in a foreign language
 
-[![It ain't easy](https://img.shields.io/badge/Because_learning_languages_is_not_easy-sorry-blue)](https://vocably.pro)
+[![It ain't easy](https://img.shields.io/badge/Learning_languages_is_not_easy-sorry-blue)](https://vocably.pro)
 
 ## You have to learn 6,000 words to start using language comfortably.
 
