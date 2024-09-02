@@ -4,7 +4,7 @@
 
 ## You have to learn 6,000 words to start using language comfortably.
 
-Even if you are a very dedicated person who learns five new words daily, it will take you years to remember them.
+Even if you are a very dedicated student who learns five new words daily, it will take you years to remember them.
 
 ### How are you going to discover and learn these many words?
 
