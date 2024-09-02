@@ -1,18 +1,30 @@
-# Vocably: Pro Language Flashcards
+# Vocably: an app that helps to become fluent in a foreign language
+
+And it will not be easy, sorry.
 
 https://vocably.pro
 
-The problem: I almost always forget the word I translated.
+## You have to learn 6,000 words to start using language comfortably.
 
-The solution:
+Even if you are a very dedicated person who learns five new words daily, it will take years to remember them.
 
-1. Select any text I don't know (supports Chrome, Safari, iOS Safari, Android, and YouTube on Desktop).
-1. Translate it + Create flashcards of the best possible quality.
-1. Revise the flashcards on the mobile app.
+### How are you going to discover and learn these many words?
 
-Vocably is an integration of ChatGPT Translate, proper language dictionary ([if you are lucky](https://vocably.pro/#:~:text=Vocably%20works%20exceptionally%20well%20for,Traditional%20Chinese%2C%20and%20Simplified%20Chinese.)), and a flashcards app.
+Vocably has the answer to this question: you should start using the language in your life:
 
-## Translate and create flashcards anywhere
+- Google in your target language
+- Consult with AI in your target language
+- Read news in your target language
+
+Vocably will help you translate any word you see on your screen and then help you learn this word with one of the most efficient and scientifically proven methods — spaced repetition.
+
+## How it works
+
+1. Select any word (or phrase) you don't understand (supports Chrome, Safari, iOS Safari, Android, and YouTube on Desktop).
+1. Translate it + Add it to your collection.
+1. Learn the words from your collection
+
+## Translate anywhere
 
 For that, Vocably exists in multiple forms:
 
@@ -20,15 +32,7 @@ For that, Vocably exists in multiple forms:
 - Mobile application for [iOS](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757) and [Android](https://play.google.com/store/apps/details?id=com.vocablypro)
 - [Web application](https://app.vocably.pro)
 
-## How it works
-
-The video is a bit outdated because Vocably came way further.
-
-Now you can:
-
-1. Select and translate words right from any Android app.
-1. The browser extension now works in iOS Safari.
-1. iOS select -> translate -> create flashcards from any app in coming soon.
+## How I use Vocably
 
 [![How I use Vocably](assets/how-i-use-vocably.png?raw=true)](https://youtu.be/UwNog9yKCeA)
 
