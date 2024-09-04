@@ -2,11 +2,15 @@
 
 [![It ain't easy](https://img.shields.io/badge/Learning_languages_is_not_easy-sorry-blue)](https://vocably.pro)
 
-## You have to learn 6,000 words to start using language comfortably.
+## You must learn 6,000 words to use language comfortably and 12,000 to sound like an adult
 
-Even if you are a very dedicated student who learns five new words daily, it will take you years to remember them.
+It will take years, even if you are a dedicated student who learns five new words daily.
 
-### How are you going to discover and learn these many words?
+There is no magic pill that will insert those words into your head.
+
+That's why language learning takes so much time, and methods that promise fast results lie.
+
+### How are you going to find and learn these many words?
 
 Vocably has the answer to this question: you should start using the language in your life:
 
