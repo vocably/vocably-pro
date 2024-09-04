@@ -5,6 +5,10 @@ import { Text, useTheme } from 'react-native-paper';
 
 type AccountMenu = FC<{}>;
 
+const logOut = async () => {
+  await Auth.signOut();
+};
+
 export const AccountMenu: AccountMenu = () => {
   const theme = useTheme();
   const onDelete = useCallback(() => {
@@ -38,7 +42,7 @@ export const AccountMenu: AccountMenu = () => {
       <View
         style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
       >
-        <Text onPress={() => Auth.signOut()}>Sign out</Text>
+        <Text onPress={() => logOut()}>Sign out</Text>
       </View>
       <View
         style={{
