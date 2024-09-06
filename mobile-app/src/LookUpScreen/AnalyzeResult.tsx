@@ -41,6 +41,7 @@ export const Analyze: AnalyzeResult = ({
           deck={deck}
         />
       )}
+      keyExtractor={(item) => `${item.card.source}${item.card.partOfSpeech}`}
       ItemSeparatorComponent={Separator}
       nestedScrollEnabled={true}
     />

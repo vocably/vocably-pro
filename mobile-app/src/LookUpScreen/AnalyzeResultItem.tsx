@@ -73,6 +73,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
       >
         <IconButton
           icon={!item.id ? 'plus-circle' : 'minus-circle'}
+          animated={true}
           iconColor={!item.id ? theme.colors.primary : theme.colors.error}
           onPress={toggleCard}
           disabled={isProcessing}
