@@ -59,14 +59,13 @@ export const Study: Study = ({ onExit, autoPlay }) => {
 
       const followingCards = cards.slice(1);
       setCards(followingCards);
+      setCardsStudied((cardsStudied) => cardsStudied + 1);
 
       if (followingCards.length === 0) {
         if (numberOfRepetitions !== undefined) {
           setNumberOfRepetitions(numberOfRepetitions + 1);
         }
       }
-
-      setCardsStudied(cardsStudied + 1);
     },
     [cards, numberOfRepetitions]
   );

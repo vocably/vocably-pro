@@ -122,7 +122,7 @@ export const SwipeGrade: FC<{
         }
 
         if (Date.now() - movementStartRef.current < 100) {
-          const fastReleaseAnimationDuration = 10;
+          const fastReleaseAnimationDuration = 20;
           if (
             (weakVisibility as any)._value > 0 &&
             Math.abs(gestureState.dx) >= minimalQuickDisplacement
