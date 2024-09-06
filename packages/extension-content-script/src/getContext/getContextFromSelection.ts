@@ -49,11 +49,11 @@ const getNextSibling = (node: Node | null): Node | null => {
 };
 
 const parseBackward = (
-  node: Node,
+  node: Node | null,
   context: string,
   startOffset?: number
 ): string => {
-  if (!node.textContent) {
+  if (!node || !node.textContent) {
     return context;
   }
 

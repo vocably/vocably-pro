@@ -176,5 +176,5 @@ document
 (window as any).putCaptions = () => {
   document.querySelector(
     '.ytp-caption-segment'
-  ).innerHTML = `...These orbits, these arcs`;
+  ).innerHTML = `These orbits, these arcs\n...something`;
 };
