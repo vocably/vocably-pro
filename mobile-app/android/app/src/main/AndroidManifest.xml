@@ -23,7 +23,7 @@
       android:noHistory="true"
       android:name=".ShareActivity"
       android:configChanges="orientation"
-      android:screenOrientation="portrait"
+      android:screenOrientation="behind"
       android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.PROCESS_TEXT" />
