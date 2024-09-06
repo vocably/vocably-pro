@@ -34,8 +34,8 @@ export const SwipeGrade: FC<{
 
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
-  const sufficientHorizontalDisplacement = Math.min(windowWidth / 4, 108);
-  const sufficientVerticalDisplacement = Math.min(windowHeight / 5, 108);
+  const sufficientHorizontalDisplacement = Math.min(windowWidth / 4, 18);
+  const sufficientVerticalDisplacement = Math.min(windowHeight / 5, 18);
 
   const pan = useRef(new Animated.ValueXY()).current;
   const movementRef = useRef<null | 'horizontal' | 'vertical'>(null);
@@ -118,10 +118,12 @@ export const SwipeGrade: FC<{
           return;
         }
 
-        pan.setValue({
-          x: 0,
-          y: 0,
-        });
+        Animated.spring(pan, {
+          toValue: { x: 0, y: 0 },
+          bounciness: 12,
+          speed: 48,
+          useNativeDriver: false,
+        }).start();
 
         weakVisibility.setValue(0);
         mediumVisibility.setValue(0);
