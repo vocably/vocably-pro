@@ -34,11 +34,13 @@ export const SwipeGrade: FC<{
 
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
-  const sufficientHorizontalDisplacement = Math.min(windowWidth / 4, 18);
-  const sufficientVerticalDisplacement = Math.min(windowHeight / 5, 18);
+  const sufficientHorizontalDisplacement = Math.min(windowWidth / 4, 110);
+  const sufficientVerticalDisplacement = Math.min(windowHeight / 5, 110);
+  const minimalQuickDisplacement = 10;
 
   const pan = useRef(new Animated.ValueXY()).current;
   const movementRef = useRef<null | 'horizontal' | 'vertical'>(null);
+  const movementStartRef = useRef<number>(0);
   const weakVisibility = useRef(new Animated.Value(0)).current;
   const mediumVisibility = useRef(new Animated.Value(0)).current;
   const strongVisibility = useRef(new Animated.Value(0)).current;
@@ -49,6 +51,7 @@ export const SwipeGrade: FC<{
         return Math.abs(gestureState.dx) >= 5 || Math.abs(gestureState.dy) >= 5;
       },
       onPanResponderGrant: () => {
+        movementStartRef.current = Date.now();
         pan.setOffset({
           // @ts-ignore
           x: pan.x._value,
@@ -102,7 +105,7 @@ export const SwipeGrade: FC<{
           });
         }
       },
-      onPanResponderRelease: () => {
+      onPanResponderRelease: async (_, gestureState) => {
         if ((weakVisibility as any)._value === 1) {
           onGrade(0);
           return;
@@ -116,6 +119,51 @@ export const SwipeGrade: FC<{
         if ((strongVisibility as any)._value === 1) {
           onGrade(5);
           return;
+        }
+
+        if (Date.now() - movementStartRef.current < 100) {
+          const fastReleaseAnimationDuration = 10;
+          if (
+            (weakVisibility as any)._value > 0 &&
+            Math.abs(gestureState.dx) >= minimalQuickDisplacement
+          ) {
+            Animated.timing(weakVisibility, {
+              toValue: 1,
+              duration: fastReleaseAnimationDuration,
+              useNativeDriver: false,
+            }).start(() => {
+              onGrade(0);
+            });
+            return;
+          }
+
+          if (
+            (mediumVisibility as any)._value > 0 &&
+            Math.abs(gestureState.dy) >= minimalQuickDisplacement
+          ) {
+            Animated.timing(mediumVisibility, {
+              toValue: 1,
+              duration: fastReleaseAnimationDuration,
+              useNativeDriver: false,
+            }).start(() => {
+              onGrade(3);
+            });
+            return;
+          }
+
+          if (
+            (strongVisibility as any)._value > 0 &&
+            Math.abs(gestureState.dx) >= minimalQuickDisplacement
+          ) {
+            Animated.timing(strongVisibility, {
+              toValue: 1,
+              duration: fastReleaseAnimationDuration,
+              useNativeDriver: false,
+            }).start(() => {
+              onGrade(5);
+            });
+            return;
+          }
         }
 
         Animated.spring(pan, {
