@@ -20,6 +20,11 @@
   --scrollbar-track: 6px;
   --scrollbar-gutter: calc((var(--padding-x) - var(--scrollbar-track)) / 2);
 
+  // iOS > 14 does not show scrollbar
+  @supports (-webkit-touch-callout: none) {
+    --scrollbar-track: 0px;
+  }
+
   display: inline-block;
   padding: calc(var(--shadow-spread) - var(--shadow-v-offset))
     var(--shadow-spread) calc(var(--shadow-spread) + var(--shadow-v-offset));
