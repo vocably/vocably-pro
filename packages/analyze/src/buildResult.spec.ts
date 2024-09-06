@@ -193,6 +193,23 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[1].source).toContain('regel');
   });
 
+  it('selects only one transcription', async () => {
+    const result = await buildResult({
+      source: 'hilarious',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+    });
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    console.log(inspect(result));
+    expect(result.value.translation).toBeDefined();
+    expect(result.value.items[0].ipa).toEqual('hɪˈlɛəriəs');
+  });
+
   it('should use word dictionary', async () => {
     const result = await buildResult({
       source: 'etymology',

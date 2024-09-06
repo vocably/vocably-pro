@@ -21,7 +21,7 @@ expect.extend({
     const receivedArray = received.split(',').map((s) => s.trim());
     const expectedArray = expected.split(',').map((s) => s.trim());
 
-    const pass = difference(received, expected).length === 0;
+    const pass = difference(receivedArray, expectedArray).length === 0;
 
     return {
       pass,
