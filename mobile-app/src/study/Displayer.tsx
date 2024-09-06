@@ -15,13 +15,13 @@ export const Displayer: Displayer = ({ children }) => {
   useEffect(() => {
     Animated.timing(scaleAnimation, {
       toValue: 1,
-      duration: 50,
+      duration: 150,
       useNativeDriver: true,
     }).start();
 
     Animated.timing(opacityAnimation, {
       toValue: 1,
-      duration: 50,
+      duration: 150,
       useNativeDriver: true,
     }).start();
   }, []);
