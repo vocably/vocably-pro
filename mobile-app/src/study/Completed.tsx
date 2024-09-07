@@ -31,7 +31,11 @@ export const Completed: Completed = ({
           size={128}
           color={theme.colors.primary}
         ></Icon>
-        <Button style={{ marginTop: 24 }} onPress={onStudyAgain}>
+        <Button
+          style={{ marginTop: 24 }}
+          onPress={onStudyAgain}
+          mode="outlined"
+        >
           Take one more round
         </Button>
         <RequestFeedback numberOfRepetitions={numberOfRepetitions} />
