@@ -1,14 +1,16 @@
-# Vocably: an app that helps to become fluent in a foreign language
+# Become Fluent in a Foreign Language
 
-[![It ain't easy](https://img.shields.io/badge/Learning_languages_is_not_easy-sorry-blue)](https://vocably.pro)
+[![It ain't easy](https://img.shields.io/badge/Though,_it_is_not_easy-sorry-blue)](https://vocably.pro)
 
 ## You must learn 6,000 words to use language comfortably and 12,000 to sound like an adult
 
 It will take years, even if you are a dedicated student who learns five new words daily.
 
-There is no magic pill that will insert those words into your head.
+There is no magic pill that inserts those words into your head.
 
-That's why language learning takes so much time, and methods that promise fast results lie.
+That's why language learning takes so much time.
+
+Methods that promise fast results lie. Learning thousands of words is not fast.
 
 ### How are you going to find and learn these many words?
 
