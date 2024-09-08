@@ -145,7 +145,7 @@ export class VocablyTranslation {
                   {showDirect && (
                     <div class="vocably-mb-12">
                       <div class="vocably-small vocably-muted vocably-mb-4">
-                        ChatGPT 3.5 thinks that{' '}
+                        ChatGPT thinks that{' '}
                       </div>
                       <span class="vocably-emphasized">
                         {isGoogleTTSLanguage(
