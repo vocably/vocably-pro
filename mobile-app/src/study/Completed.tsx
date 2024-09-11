@@ -78,9 +78,7 @@ export const Completed: Completed = ({
             {motivationalQuote}
           </Text>
         )}
-        <Button onPress={onStudyAgain} mode="outlined">
-          Take one more round
-        </Button>
+        <Button onPress={onStudyAgain}>Take one more round</Button>
         <RequestFeedback
           numberOfRepetitions={numberOfRepetitions}
           style={{

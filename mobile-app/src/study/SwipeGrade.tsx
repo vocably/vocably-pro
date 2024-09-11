@@ -38,34 +38,46 @@ export const SwipeGrade: FC<{
   const sufficientVerticalDisplacement = Math.min(windowHeight / 5, 110);
   const minimalQuickDisplacement = 10;
 
-  const pan = useRef(new Animated.ValueXY()).current;
+  const pan = useRef(
+    new Animated.ValueXY(undefined, {
+      useNativeDriver: true,
+    })
+  ).current;
   const movementRef = useRef<null | 'horizontal' | 'vertical'>(null);
   const movementStartRef = useRef<number>(0);
-  const weakVisibility = useRef(new Animated.Value(0)).current;
-  const mediumVisibility = useRef(new Animated.Value(0)).current;
-  const strongVisibility = useRef(new Animated.Value(0)).current;
+  const weakVisibility = useRef(
+    new Animated.Value(0, {
+      useNativeDriver: true,
+    })
+  ).current;
+  const mediumVisibility = useRef(
+    new Animated.Value(0, {
+      useNativeDriver: true,
+    })
+  ).current;
+  const strongVisibility = useRef(
+    new Animated.Value(0, {
+      useNativeDriver: true,
+    })
+  ).current;
 
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
-        return Math.abs(gestureState.dx) >= 5 || Math.abs(gestureState.dy) >= 5;
+        return Math.abs(gestureState.dx) >= 8 || Math.abs(gestureState.dy) >= 8;
       },
       onPanResponderGrant: () => {
         movementStartRef.current = Date.now();
         pan.setOffset({
-          // @ts-ignore
-          x: pan.x._value,
-          // @ts-ignore
-          y: pan.y._value,
+          x: 0,
+          y: 0,
         });
       },
       onPanResponderMove: (evt, gestureState) => {
         if (movementRef.current === null) {
-          if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
+          if (Math.abs(gestureState.dx * 2) > Math.abs(gestureState.dy)) {
             movementRef.current = 'horizontal';
-          }
-
-          if (gestureState.dy > 5) {
+          } else if (gestureState.dy > 5) {
             movementRef.current = 'vertical';
           }
         }
@@ -130,7 +142,7 @@ export const SwipeGrade: FC<{
             Animated.timing(weakVisibility, {
               toValue: 1,
               duration: fastReleaseAnimationDuration,
-              useNativeDriver: false,
+              useNativeDriver: true,
             }).start(() => {
               onGrade(0);
             });
@@ -144,7 +156,7 @@ export const SwipeGrade: FC<{
             Animated.timing(mediumVisibility, {
               toValue: 1,
               duration: fastReleaseAnimationDuration,
-              useNativeDriver: false,
+              useNativeDriver: true,
             }).start(() => {
               onGrade(3);
             });
@@ -158,7 +170,7 @@ export const SwipeGrade: FC<{
             Animated.timing(strongVisibility, {
               toValue: 1,
               duration: fastReleaseAnimationDuration,
-              useNativeDriver: false,
+              useNativeDriver: true,
             }).start(() => {
               onGrade(5);
             });
@@ -170,7 +182,7 @@ export const SwipeGrade: FC<{
           toValue: { x: 0, y: 0 },
           bounciness: 12,
           speed: 48,
-          useNativeDriver: false,
+          useNativeDriver: true,
         }).start();
 
         weakVisibility.setValue(0);
