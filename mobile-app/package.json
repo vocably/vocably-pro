@@ -12,14 +12,14 @@
     "deploy-ios-dev": "npm run setup-safari-extension-dev && (cd ios && fastlane ios build && fastlane ios beta)",
     "deploy-ios-prod": "npm run setup-safari-extension-prod && (npm run setup-prod-env && cd ios && fastlane ios build && npm run setup-dev-env && fastlane ios beta) && npm run setup-safari-extension-dev",
     "deploy-android": "(npm run setup-prod-env && cd android && fastlane android beta && npm run setup-dev-env)",
-    "mobile-app": "npm start",
     "list-devices": "xcrun simctl list devices",
     "setup-prod-env": "cp .env.prod .env.local",
     "setup-dev-env": "rm -f .env.local",
     "copy-ios-extension": "cp -a ../packages/ios-extension/dist/. ios/Vocably\\ for\\ Safari/Resources",
     "setup-safari-extension-dev": "npm run build-dev --prefix ../packages/ios-extension && npm run copy-ios-extension",
     "setup-safari-extension-prod": "npm run build-prod --prefix ../packages/ios-extension && npm run copy-ios-extension",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "mobile-app": "npm start"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.21.0",
@@ -47,6 +47,7 @@
     "react-native-sound": "0.11.2",
     "react-native-swipe-list-view": "3.2.9",
     "react-native-vector-icons": "10.0.3",
+    "react-native-version-number": "^0.3.6",
     "rxjs": "^7.8.1"
   },
   "devDependencies": {

@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import VersionNumber from 'react-native-version-number';
 import { AccountMenu } from './AccountMenu';
 import { MainMenu } from './MainMenu';
 
@@ -44,6 +45,14 @@ export const DrawerContent: DrawerContent = () => {
       </View>
       {menu === 'main' && <MainMenu />}
       {menu === 'account' && <AccountMenu />}
+      <Text>
+        Version:{' '}
+        {`${VersionNumber.appVersion}${
+          (VersionNumber.buildVersion !== VersionNumber.appVersion &&
+            ` (${VersionNumber.buildVersion})`) ||
+          ``
+        }`}
+      </Text>
     </View>
   );
 };
