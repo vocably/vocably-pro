@@ -8,9 +8,9 @@ import {
 import { createStackNavigator } from '@react-navigation/stack';
 import { View } from 'react-native';
 import { MD3Theme, useTheme } from 'react-native-paper';
-import { MainMenu, MenuMainProps } from './MainMenu';
 import { AccountScreen } from './MainMenu/AccountScreen';
 import { HowToGroupCardsScreen } from './MainMenu/HowToGroupCardsScreen';
+import { MainMenu, MenuMainProps } from './MainMenu/MainMenu';
 import { MainMenuHeader } from './MainMenu/MainMenuHeader';
 
 const Stack = createStackNavigator();
