@@ -1,12 +1,12 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DrawerContent } from './DrawerNavigator/DrawerContent';
+import { DrawerMenuStack } from './DrawerMenuStack';
 import { TabsNavigator } from './TabsNavigator';
 
 const Drawer = createDrawerNavigator();
 
 export const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator drawerContent={() => <DrawerContent />}>
+    <Drawer.Navigator drawerContent={() => <DrawerMenuStack />}>
       <Drawer.Screen
         name="TabsNavigator"
         component={TabsNavigator}
