@@ -2,12 +2,14 @@ import { Auth } from '@aws-amplify/auth';
 import { FC, useCallback } from 'react';
 import { Alert, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Props = {};
 
 export const AccountScreen: FC<Props> = () => {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
+
   const onDelete = useCallback(() => {
     Alert.alert(
       'Account Deletion',
@@ -29,12 +31,13 @@ export const AccountScreen: FC<Props> = () => {
   }, []);
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
         alignItems: 'flex-start',
         justifyContent: 'center',
-        padding: 16,
+        paddingLeft: insets.left,
+        paddingBottom: insets.bottom,
       }}
     >
       <View
@@ -43,6 +46,7 @@ export const AccountScreen: FC<Props> = () => {
           alignItems: 'center',
           justifyContent: 'center',
           width: '100%',
+          paddingHorizontal: 16,
         }}
       >
         <Button
@@ -64,6 +68,6 @@ export const AccountScreen: FC<Props> = () => {
           Delete your account
         </Button>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };

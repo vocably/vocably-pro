@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { FC } from 'react';
 import { View } from 'react-native';
 import { Button, Divider, List, Text, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import VersionNumber from 'react-native-version-number';
 
@@ -13,12 +13,17 @@ export type MenuMainProps = {
 export const MainMenu: FC<MenuMainProps> = ({ parentNavigator }) => {
   const theme = useTheme();
   const navigator = useNavigation();
+  const insets = useSafeAreaInsets();
+
   return (
-    <SafeAreaView
+    <View
       style={{
         display: 'flex',
         justifyContent: 'center',
         height: '100%',
+        paddingLeft: insets.left,
+        paddingTop: insets.top,
+        paddingBottom: insets.bottom,
       }}
     >
       <View
@@ -82,21 +87,23 @@ export const MainMenu: FC<MenuMainProps> = ({ parentNavigator }) => {
         </View>
       </View>
 
-      <View
-        style={{
-          paddingHorizontal: 16,
-          marginBottom: 16,
-        }}
-      >
-        <Text>
-          Version:{' '}
-          {`${VersionNumber.appVersion}${
-            (VersionNumber.buildVersion !== VersionNumber.appVersion &&
-              ` (${VersionNumber.buildVersion})`) ||
-            ``
-          }`}
-        </Text>
-      </View>
-    </SafeAreaView>
+      {VersionNumber.appVersion && (
+        <View
+          style={{
+            paddingHorizontal: 16,
+            marginBottom: 16,
+          }}
+        >
+          <Text>
+            Version:{' '}
+            {`${VersionNumber.appVersion}${
+              (VersionNumber.buildVersion !== VersionNumber.appVersion &&
+                ` (${VersionNumber.buildVersion})`) ||
+              ``
+            }`}
+          </Text>
+        </View>
+      )}
+    </View>
   );
 };

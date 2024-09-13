@@ -6,6 +6,7 @@ import { NavigationContainer } from './NavigationContainer';
 import { ThemeProvider } from './ThemeProvider';
 // @ts-ignore
 import { API_BASE_URL, API_CARDS_BUCKET, API_REGION } from '@env';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { UserMetadataContainer } from './UserMetadataContainer';
 
 configureApi({
@@ -21,7 +22,9 @@ const App = () => {
         <Login>
           <UserMetadataContainer>
             <LanguagesContainer>
-              <NavigationContainer />
+              <SafeAreaProvider>
+                <NavigationContainer />
+              </SafeAreaProvider>
             </LanguagesContainer>
           </UserMetadataContainer>
         </Login>

@@ -11,6 +11,7 @@ import {
   Text,
   useTheme,
 } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem, Separator } from './CardListItem';
@@ -32,19 +33,6 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     alignItems: 'center',
-  },
-  editPanel: {
-    paddingLeft: mainPadding,
-    paddingRight: mainPadding,
-    paddingTop: 12,
-    paddingBottom: 12,
-    position: 'absolute',
-    display: 'flex',
-    bottom: 0,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   swipeList: {
     width: '100%',
@@ -86,6 +74,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
   const [toBeDeletedId, setToBeDeletedId] = useState<string | null>(null);
   const [editPanelHeight, setEditPanelHeight] = useState(100);
   const [savingTagsForId, setSavingTagsForId] = useState<string | null>(null);
+  const insets = useSafeAreaInsets();
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -134,6 +123,8 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
       style={{
         flex: 1,
         paddingBottom: editPanelHeight,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
       }}
     >
       {!isEmpty && (
@@ -372,22 +363,39 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
           paddingHorizontal: mainPadding,
         }}
       />
-      <View
-        style={[styles.editPanel]}
-        onLayout={(e) => setEditPanelHeight(e.nativeEvent.layout.height)}
-      >
-        <Button compact={true} onPress={() => navigation.navigate('EditDeck')}>
-          Edit deck
-        </Button>
-        <Badge
+      <View style={{ position: 'relative' }}>
+        <View
           style={{
-            alignSelf: 'center',
-            backgroundColor: theme.colors.secondary,
-            color: theme.colors.onSecondary,
+            paddingLeft: mainPadding,
+            paddingRight: mainPadding,
+            paddingTop: 12,
+            paddingBottom: 12,
+            position: 'absolute',
+            display: 'flex',
+            bottom: 0,
+            width: '100%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
+          onLayout={(e) => setEditPanelHeight(e.nativeEvent.layout.height)}
         >
-          {cards.length}
-        </Badge>
+          <Button
+            compact={true}
+            onPress={() => navigation.navigate('EditDeck')}
+          >
+            Edit deck
+          </Button>
+          <Badge
+            style={{
+              alignSelf: 'center',
+              backgroundColor: theme.colors.secondary,
+              color: theme.colors.onSecondary,
+            }}
+          >
+            {cards.length}
+          </Badge>
+        </View>
       </View>
     </View>
   );
