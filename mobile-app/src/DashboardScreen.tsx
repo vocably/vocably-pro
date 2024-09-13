@@ -363,39 +363,35 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
           paddingHorizontal: mainPadding,
         }}
       />
-      <View style={{ position: 'relative' }}>
-        <View
+      <View
+        style={{
+          paddingLeft: mainPadding,
+          paddingRight: mainPadding,
+          paddingTop: 12,
+          paddingBottom: 12,
+          position: 'absolute',
+          display: 'flex',
+          bottom: 0,
+          width: '100%',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          left: insets.left,
+        }}
+        onLayout={(e) => setEditPanelHeight(e.nativeEvent.layout.height)}
+      >
+        <Button compact={true} onPress={() => navigation.navigate('EditDeck')}>
+          Edit deck
+        </Button>
+        <Badge
           style={{
-            paddingLeft: mainPadding,
-            paddingRight: mainPadding,
-            paddingTop: 12,
-            paddingBottom: 12,
-            position: 'absolute',
-            display: 'flex',
-            bottom: 0,
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
+            alignSelf: 'center',
+            backgroundColor: theme.colors.secondary,
+            color: theme.colors.onSecondary,
           }}
-          onLayout={(e) => setEditPanelHeight(e.nativeEvent.layout.height)}
         >
-          <Button
-            compact={true}
-            onPress={() => navigation.navigate('EditDeck')}
-          >
-            Edit deck
-          </Button>
-          <Badge
-            style={{
-              alignSelf: 'center',
-              backgroundColor: theme.colors.secondary,
-              color: theme.colors.onSecondary,
-            }}
-          >
-            {cards.length}
-          </Badge>
-        </View>
+          {cards.length}
+        </Badge>
       </View>
     </View>
   );

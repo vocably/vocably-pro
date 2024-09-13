@@ -39,7 +39,7 @@ export const FeedbackModal: FC<Props> = ({ navigation }) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <ScrollView>
+    <ScrollView automaticallyAdjustKeyboardInsets={true}>
       <View
         style={{
           flex: 1,
@@ -48,19 +48,20 @@ export const FeedbackModal: FC<Props> = ({ navigation }) => {
           paddingVertical: 32,
           paddingLeft: insets.left + 32,
           paddingRight: insets.right + 32,
+          gap: 16,
         }}
       >
-        <Text style={{ marginBottom: 16 }}>
+        <Text>
           Are you missing any crucial features? Do you have questions, or would
           you like to share your opinion about Vocably? I would love to hear
           from you!
         </Text>
-        <Text style={{ marginBottom: 16 }}>
+        <Text>
           I respond to every user. Usually, it takes me a couple of days to
           reply.
         </Text>
         {userEmail && (
-          <Text style={{ marginBottom: 16 }}>
+          <Text>
             I will respond to you at your email address{' '}
             <Text style={{ fontWeight: 'bold' }}>{userEmail}</Text>.
             {userEmail.includes('privaterelay') && (
@@ -73,14 +74,20 @@ export const FeedbackModal: FC<Props> = ({ navigation }) => {
           </Text>
         )}
         <VocablyTextInput
-          style={{ marginBottom: 16 }}
           multiline
           placeholder={'Please type your message here...'}
           inputStyle={{ height: 128 }}
           onChangeText={setText}
           value={text}
         />
-        <View style={{ marginBottom: 16 }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: 16,
+            justifyContent: 'flex-end',
+          }}
+        >
+          <Button onPress={() => navigation.goBack()}>Close</Button>
           <Button
             mode={'contained'}
             disabled={text.trim() === '' || isSending}
@@ -88,11 +95,6 @@ export const FeedbackModal: FC<Props> = ({ navigation }) => {
             loading={isSending}
           >
             Send
-          </Button>
-        </View>
-        <View>
-          <Button mode={'outlined'} onPress={() => navigation.goBack()}>
-            Close
           </Button>
         </View>
       </View>

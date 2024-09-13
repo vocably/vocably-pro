@@ -4,7 +4,7 @@ import { useTheme } from 'react-native-paper';
 
 type VocablyTextInput = FC<
   TextInputProps & {
-    style: ViewStyle;
+    style?: ViewStyle;
     inputStyle?: TextInputProps['style'];
   }
 >;
@@ -51,7 +51,13 @@ export const VocablyTextInput: VocablyTextInput = ({
       ]}
     >
       <TextInput
-        style={[{ color: theme.colors.secondary }, inputStyle]}
+        style={[
+          {
+            color: theme.colors.secondary,
+            textAlignVertical: 'top',
+          },
+          inputStyle,
+        ]}
         placeholderTextColor={theme.colors.outlineVariant}
         {...textInputProps}
         onFocus={onFocusReloaded}
