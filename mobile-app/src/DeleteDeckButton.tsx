@@ -1,18 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
 import { FC, useCallback, useContext, useState } from 'react';
 import { Alert } from 'react-native';
-import { Button, Dialog, Portal, Text } from 'react-native-paper';
+import { Button, Dialog, Portal, Text, useTheme } from 'react-native-paper';
 import { dialogAlign } from './dialogAlign';
 import { LanguagesContext } from './languages/LanguagesContainer';
 
-type EditDeckMenu = FC<{}>;
-
-export const EditDeckMenu: EditDeckMenu = () => {
+export const DeleteDeckButton: FC = () => {
   const [isAboutToDelete, setIsAboutToDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const { selectedLanguage, deleteLanguage, languages } =
     useContext(LanguagesContext);
   const navigation = useNavigation();
+  const theme = useTheme();
 
   const deleteAfterConfirmation = useCallback(async () => {
     setIsDeleting(true);
@@ -41,6 +40,10 @@ export const EditDeckMenu: EditDeckMenu = () => {
         }}
         icon={'delete'}
         mode="outlined"
+        textColor={theme.colors.error}
+        style={{
+          borderColor: theme.colors.error,
+        }}
       >
         Delete This Deck
       </Button>
