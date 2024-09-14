@@ -11,16 +11,16 @@ import { SwipeGrade } from './SwipeGrade';
 
 const maxCardsToStudy = 10;
 
-type Study = FC<{
+type Props = {
   onExit: () => void;
   autoPlay: boolean;
-}>;
+};
 
-export const Study: Study = ({ onExit, autoPlay }) => {
+export const Study: FC<Props> = ({ onExit, autoPlay }) => {
   const { status, update, filteredCards } = useSelectedDeck();
   const [cards, setCards] = useState<CardItem[]>();
   const [cardsStudied, setCardsStudied] = useState(0);
-  const [numberOfRepetitions, setNumberOfRepetitions] =
+  const [numberOfRepetitions, increaseNumberOfRepetitions] =
     useNumberOfRepetitions();
 
   const totalCardsToStudy = Math.min(maxCardsToStudy, filteredCards.length);
@@ -62,12 +62,10 @@ export const Study: Study = ({ onExit, autoPlay }) => {
       setCardsStudied((cardsStudied) => cardsStudied + 1);
 
       if (followingCards.length === 0) {
-        if (numberOfRepetitions !== undefined) {
-          setNumberOfRepetitions(numberOfRepetitions + 1);
-        }
+        increaseNumberOfRepetitions();
       }
     },
-    [cards, numberOfRepetitions]
+    [cards, increaseNumberOfRepetitions]
   );
 
   if (status === 'loading') {
@@ -94,7 +92,11 @@ export const Study: Study = ({ onExit, autoPlay }) => {
         ))}
       {totalCardsToStudy === cardsStudied && (
         <Completed
-          numberOfRepetitions={numberOfRepetitions}
+          numberOfRepetitions={
+            numberOfRepetitions.status === 'loaded'
+              ? numberOfRepetitions.value
+              : 0
+          }
           onStudyAgain={() => setCardsStudied(0)}
         ></Completed>
       )}
