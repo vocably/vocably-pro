@@ -44,4 +44,8 @@ For that, Vocably exists in multiple forms:
 
 This is published under the [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) license.
 
-You can share and adapt it, but you may not use it for commercial purposes.
+You can share and adapt it but may not use it commercially without the author's permission.
+
+Some pieces of Vocably are released under the MIT license https://github.com/vocably
+
+If you'd like to use some module of this project, feel free to contact me.
