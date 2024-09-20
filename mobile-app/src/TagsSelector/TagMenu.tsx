@@ -13,6 +13,7 @@ import {
 } from 'react-native-paper';
 import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Sentry } from '../BetterSentry';
 import { swipeListButtonPressOpacity } from '../stupidConstants';
 import { VocablyInputText } from '../VocablyInputText';
 import { TagMenuAnchor, TagMenuAnchorProps } from './TagMenuAnchor';
@@ -92,6 +93,8 @@ export const TagsMenu: FC<Props> = ({
     };
     setNewTags([newTag, ...newTags]);
     setNewSelectedTags([newTag, ...newSelectedTags]);
+
+    Sentry.captureMessage('A new tag added (but not saved).');
   };
 
   const isSelectedTag = (tag: Tag): boolean => {
@@ -127,6 +130,8 @@ export const TagsMenu: FC<Props> = ({
   };
 
   const deleteTagPressed = (tag: Tag) => async () => {
+    Sentry.captureMessage('Tag deleted.');
+
     if (!isExistingTag(tag)) {
       setNewTags(newTags.filter((t) => t !== tag));
       setNewSelectedTags(newSelectedTags.filter((t) => t !== tag));

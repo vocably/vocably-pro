@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/react-native';
 import { GoogleTTSLanguage } from '@vocably/model';
 import React, {
   FC,
@@ -12,6 +11,7 @@ import { Alert, Pressable, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import Sound from 'react-native-sound';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Sentry } from './BetterSentry';
 import { iconButtonOpacity, pressedIconButtonOpacity } from './stupidConstants';
 
 type PlaySound = FC<{

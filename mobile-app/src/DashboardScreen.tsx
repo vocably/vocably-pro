@@ -14,6 +14,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Sentry } from './BetterSentry';
 import { CardListItem, Separator } from './CardListItem';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
@@ -159,7 +160,10 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               >
                 <TagsSelector
                   value={selectedTags}
-                  onChange={(tags) => setSelectedTagIds(tags.map((t) => t.id))}
+                  onChange={async (tags) => {
+                    await setSelectedTagIds(tags.map((t) => t.id));
+                    Sentry.captureMessage('Tags for practice selected.');
+                  }}
                   isAllowedToAdd={false}
                   deck={selectedDeck}
                   renderAnchor={({ openMenu, disabled }) => (
