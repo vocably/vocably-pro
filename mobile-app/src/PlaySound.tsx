@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react-native';
 import { GoogleTTSLanguage } from '@vocably/model';
 import React, {
   FC,
@@ -40,6 +41,9 @@ export const PlaySound: PlaySound = forwardRef(
               setLoadedAudio(audio);
             }
             if (error) {
+              Sentry.captureException(
+                new Error(`Error while playing sound: ${JSON.stringify(error)}`)
+              );
               setIsPlaying(false);
               Alert.alert(
                 'Error: The sound could not be played',

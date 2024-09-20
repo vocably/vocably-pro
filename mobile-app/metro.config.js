@@ -1,6 +1,10 @@
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 const path = require('path');
 
+const {
+  createSentryMetroSerializer,
+} = require('@sentry/react-native/dist/js/tools/sentryMetroSerializer');
+
 const sharedPackages = [
   'api',
   'model',
@@ -32,7 +36,12 @@ const config = {
     extraNodeModules,
     nodeModulesPaths: [path.resolve(__dirname, 'node_modules')],
   },
+
   watchFolders: sharedPackages.map(buildSharedPackagePath),
+
+  serializer: {
+    customSerializer: createSentryMetroSerializer(),
+  },
 };
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config);
