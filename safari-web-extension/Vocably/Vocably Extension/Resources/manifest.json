@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Vocably: Pro Language Flashcards",
   "description": "Translate and create flashcards on any website or YouTube. Learn the flashcards on mobile.",
-  "version": "1.308.2",
+  "version": "1.340.0",
 
   "icons": {
     "16": "images/icon-16x16.png",
@@ -24,13 +24,13 @@
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "js": ["content-script.js"],
+      "js": ["content-script.js", "play-audio.js"],
       "exclude_matches": [],
       "all_frames": true
     }
   ],
 
-  "permissions": ["storage"],
+  "permissions": ["storage", "offscreen"],
 
   "externally_connectable": {
     "matches": ["https://*.vocably.pro/*"]
