@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { AddCardPayload, AudioPronunciationPayload, GoogleLanguage, GoogleTTSLanguage, RateInteractionPayload, RemoveCardPayload, Result, TranslationCard, TranslationCards } from "@vocably/model";
+import { AddCardPayload, AudioPronunciationPayload, GoogleLanguage, GoogleTTSLanguage, RateInteractionPayload, RemoveCardPayload, Result, TagItem, TranslationCard, TranslationCards } from "@vocably/model";
 export namespace Components {
     interface VocablyAddCardHint {
     }
@@ -31,6 +31,8 @@ export namespace Components {
     }
     interface VocablyIconArrowRight {
     }
+    interface VocablyIconCheck {
+    }
     interface VocablyIconError {
     }
     interface VocablyIconPlayCircle {
@@ -38,6 +40,10 @@ export namespace Components {
     interface VocablyIconRemove {
     }
     interface VocablyIconSpin {
+    }
+    interface VocablyIconTag {
+    }
+    interface VocablyIconTagEdit {
     }
     interface VocablyIconVolumeMedium {
     }
@@ -69,6 +75,12 @@ export namespace Components {
     }
     interface VocablySubscribe {
         "trial": boolean;
+    }
+    interface VocablyTagsMenu {
+        "deleteTag": (tag: TagItem) => Promise<Result<unknown>>;
+        "existingItems": TagItem[];
+        "saveTag": (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
+        "selectedItems": string[];
     }
     interface VocablyTranslation {
         "askForRating": boolean;
@@ -117,6 +129,10 @@ export interface VocablySignInCustomEvent<T> extends CustomEvent<T> {
 export interface VocablySubscribeCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLVocablySubscribeElement;
+}
+export interface VocablyTagsMenuCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLVocablyTagsMenuElement;
 }
 export interface VocablyTranslationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -177,6 +193,12 @@ declare global {
         prototype: HTMLVocablyIconArrowRightElement;
         new (): HTMLVocablyIconArrowRightElement;
     };
+    interface HTMLVocablyIconCheckElement extends Components.VocablyIconCheck, HTMLStencilElement {
+    }
+    var HTMLVocablyIconCheckElement: {
+        prototype: HTMLVocablyIconCheckElement;
+        new (): HTMLVocablyIconCheckElement;
+    };
     interface HTMLVocablyIconErrorElement extends Components.VocablyIconError, HTMLStencilElement {
     }
     var HTMLVocablyIconErrorElement: {
@@ -200,6 +222,18 @@ declare global {
     var HTMLVocablyIconSpinElement: {
         prototype: HTMLVocablyIconSpinElement;
         new (): HTMLVocablyIconSpinElement;
+    };
+    interface HTMLVocablyIconTagElement extends Components.VocablyIconTag, HTMLStencilElement {
+    }
+    var HTMLVocablyIconTagElement: {
+        prototype: HTMLVocablyIconTagElement;
+        new (): HTMLVocablyIconTagElement;
+    };
+    interface HTMLVocablyIconTagEditElement extends Components.VocablyIconTagEdit, HTMLStencilElement {
+    }
+    var HTMLVocablyIconTagEditElement: {
+        prototype: HTMLVocablyIconTagEditElement;
+        new (): HTMLVocablyIconTagEditElement;
     };
     interface HTMLVocablyIconVolumeMediumElement extends Components.VocablyIconVolumeMedium, HTMLStencilElement {
     }
@@ -261,6 +295,12 @@ declare global {
         prototype: HTMLVocablySubscribeElement;
         new (): HTMLVocablySubscribeElement;
     };
+    interface HTMLVocablyTagsMenuElement extends Components.VocablyTagsMenu, HTMLStencilElement {
+    }
+    var HTMLVocablyTagsMenuElement: {
+        prototype: HTMLVocablyTagsMenuElement;
+        new (): HTMLVocablyTagsMenuElement;
+    };
     interface HTMLVocablyTranslationElement extends Components.VocablyTranslation, HTMLStencilElement {
     }
     var HTMLVocablyTranslationElement: {
@@ -277,10 +317,13 @@ declare global {
         "vocably-first-translation-congratulation": HTMLVocablyFirstTranslationCongratulationElement;
         "vocably-icon-add": HTMLVocablyIconAddElement;
         "vocably-icon-arrow-right": HTMLVocablyIconArrowRightElement;
+        "vocably-icon-check": HTMLVocablyIconCheckElement;
         "vocably-icon-error": HTMLVocablyIconErrorElement;
         "vocably-icon-play-circle": HTMLVocablyIconPlayCircleElement;
         "vocably-icon-remove": HTMLVocablyIconRemoveElement;
         "vocably-icon-spin": HTMLVocablyIconSpinElement;
+        "vocably-icon-tag": HTMLVocablyIconTagElement;
+        "vocably-icon-tag-edit": HTMLVocablyIconTagEditElement;
         "vocably-icon-volume-medium": HTMLVocablyIconVolumeMediumElement;
         "vocably-language": HTMLVocablyLanguageElement;
         "vocably-logo": HTMLVocablyLogoElement;
@@ -291,6 +334,7 @@ declare global {
         "vocably-sign-in": HTMLVocablySignInElement;
         "vocably-spinner": HTMLVocablySpinnerElement;
         "vocably-subscribe": HTMLVocablySubscribeElement;
+        "vocably-tags-menu": HTMLVocablyTagsMenuElement;
         "vocably-translation": HTMLVocablyTranslationElement;
     }
 }
@@ -321,6 +365,8 @@ declare namespace LocalJSX {
     }
     interface VocablyIconArrowRight {
     }
+    interface VocablyIconCheck {
+    }
     interface VocablyIconError {
     }
     interface VocablyIconPlayCircle {
@@ -328,6 +374,10 @@ declare namespace LocalJSX {
     interface VocablyIconRemove {
     }
     interface VocablyIconSpin {
+    }
+    interface VocablyIconTag {
+    }
+    interface VocablyIconTagEdit {
     }
     interface VocablyIconVolumeMedium {
     }
@@ -367,6 +417,15 @@ declare namespace LocalJSX {
         "onConfirm"?: (event: VocablySubscribeCustomEvent<any>) => void;
         "trial"?: boolean;
     }
+    interface VocablyTagsMenu {
+        "deleteTag"?: (tag: TagItem) => Promise<Result<unknown>>;
+        "existingItems"?: TagItem[];
+        "onAddClick"?: (event: VocablyTagsMenuCustomEvent<void>) => void;
+        "onEditClick"?: (event: VocablyTagsMenuCustomEvent<TagItem>) => void;
+        "onTagClick"?: (event: VocablyTagsMenuCustomEvent<TagItem>) => void;
+        "saveTag"?: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
+        "selectedItems"?: string[];
+    }
     interface VocablyTranslation {
         "askForRating"?: boolean;
         "canCongratulate"?: boolean;
@@ -400,10 +459,13 @@ declare namespace LocalJSX {
         "vocably-first-translation-congratulation": VocablyFirstTranslationCongratulation;
         "vocably-icon-add": VocablyIconAdd;
         "vocably-icon-arrow-right": VocablyIconArrowRight;
+        "vocably-icon-check": VocablyIconCheck;
         "vocably-icon-error": VocablyIconError;
         "vocably-icon-play-circle": VocablyIconPlayCircle;
         "vocably-icon-remove": VocablyIconRemove;
         "vocably-icon-spin": VocablyIconSpin;
+        "vocably-icon-tag": VocablyIconTag;
+        "vocably-icon-tag-edit": VocablyIconTagEdit;
         "vocably-icon-volume-medium": VocablyIconVolumeMedium;
         "vocably-language": VocablyLanguage;
         "vocably-logo": VocablyLogo;
@@ -414,6 +476,7 @@ declare namespace LocalJSX {
         "vocably-sign-in": VocablySignIn;
         "vocably-spinner": VocablySpinner;
         "vocably-subscribe": VocablySubscribe;
+        "vocably-tags-menu": VocablyTagsMenu;
         "vocably-translation": VocablyTranslation;
     }
 }
@@ -430,10 +493,13 @@ declare module "@stencil/core" {
             "vocably-first-translation-congratulation": LocalJSX.VocablyFirstTranslationCongratulation & JSXBase.HTMLAttributes<HTMLVocablyFirstTranslationCongratulationElement>;
             "vocably-icon-add": LocalJSX.VocablyIconAdd & JSXBase.HTMLAttributes<HTMLVocablyIconAddElement>;
             "vocably-icon-arrow-right": LocalJSX.VocablyIconArrowRight & JSXBase.HTMLAttributes<HTMLVocablyIconArrowRightElement>;
+            "vocably-icon-check": LocalJSX.VocablyIconCheck & JSXBase.HTMLAttributes<HTMLVocablyIconCheckElement>;
             "vocably-icon-error": LocalJSX.VocablyIconError & JSXBase.HTMLAttributes<HTMLVocablyIconErrorElement>;
             "vocably-icon-play-circle": LocalJSX.VocablyIconPlayCircle & JSXBase.HTMLAttributes<HTMLVocablyIconPlayCircleElement>;
             "vocably-icon-remove": LocalJSX.VocablyIconRemove & JSXBase.HTMLAttributes<HTMLVocablyIconRemoveElement>;
             "vocably-icon-spin": LocalJSX.VocablyIconSpin & JSXBase.HTMLAttributes<HTMLVocablyIconSpinElement>;
+            "vocably-icon-tag": LocalJSX.VocablyIconTag & JSXBase.HTMLAttributes<HTMLVocablyIconTagElement>;
+            "vocably-icon-tag-edit": LocalJSX.VocablyIconTagEdit & JSXBase.HTMLAttributes<HTMLVocablyIconTagEditElement>;
             "vocably-icon-volume-medium": LocalJSX.VocablyIconVolumeMedium & JSXBase.HTMLAttributes<HTMLVocablyIconVolumeMediumElement>;
             "vocably-language": LocalJSX.VocablyLanguage & JSXBase.HTMLAttributes<HTMLVocablyLanguageElement>;
             "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
@@ -444,6 +510,7 @@ declare module "@stencil/core" {
             "vocably-sign-in": LocalJSX.VocablySignIn & JSXBase.HTMLAttributes<HTMLVocablySignInElement>;
             "vocably-spinner": LocalJSX.VocablySpinner & JSXBase.HTMLAttributes<HTMLVocablySpinnerElement>;
             "vocably-subscribe": LocalJSX.VocablySubscribe & JSXBase.HTMLAttributes<HTMLVocablySubscribeElement>;
+            "vocably-tags-menu": LocalJSX.VocablyTagsMenu & JSXBase.HTMLAttributes<HTMLVocablyTagsMenuElement>;
             "vocably-translation": LocalJSX.VocablyTranslation & JSXBase.HTMLAttributes<HTMLVocablyTranslationElement>;
         }
     }

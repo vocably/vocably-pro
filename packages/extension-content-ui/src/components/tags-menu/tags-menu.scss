@@ -1,0 +1,71 @@
+@import '../../styles/component';
+
+:host {
+  --shadow-spread: 10px;
+  --shadow-v-offset: 4px;
+
+  @include base-font();
+  display: inline-block;
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
+
+  background-color: $v-light-color-body-bg;
+  max-height: calc(100vh / 2.2);
+  padding: $v-border-radius 0;
+  border-radius: $v-border-radius;
+  box-shadow: 0 var(--shadow-v-offset) var(--shadow-spread) rgba(0, 0, 0, 0.6);
+  overflow-y: auto;
+}
+
+menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    border-top: 0.5px solid $v-light-color-border;
+    &:first-child {
+      border-top: none;
+    }
+
+    display: flex;
+
+    &:hover {
+      background-color: $v-light-color-hover-bg;
+    }
+  }
+
+  button {
+    display: block;
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    text-align: left;
+    cursor: pointer;
+    background-color: transparent;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: $v-light-color-hover-bg;
+    }
+
+    &:active {
+      background-color: $v-light-color-active-bg;
+    }
+
+    &.edit {
+      text-align: center;
+    }
+  }
+}
+
+.check {
+  vertical-align: text-bottom;
+  margin-left: 12px;
+  visibility: hidden;
+
+  &.visible {
+    visibility: visible !important;
+  }
+}
