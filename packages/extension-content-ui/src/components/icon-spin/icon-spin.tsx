@@ -2,7 +2,7 @@ import { Component, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-icon-spin',
-  styleUrl: 'vocably-icon-spin.scss',
+  styleUrl: 'icon-spin.scss',
   shadow: true,
 })
 export class VocablyIconSpin {

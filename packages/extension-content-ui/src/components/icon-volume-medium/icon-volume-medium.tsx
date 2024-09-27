@@ -2,7 +2,7 @@ import { Component, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-icon-volume-medium',
-  styleUrl: 'vocably-icon-volume-medium.scss',
+  styleUrl: 'icon-volume-medium.scss',
   shadow: true,
 })
 export class VocablyIconVolumeMedium {

@@ -3,7 +3,7 @@ import { languageList } from '@vocably/model';
 
 @Component({
   tag: 'vocably-language',
-  styleUrl: 'vocably-language.scss',
+  styleUrl: 'language.scss',
   shadow: true,
 })
 export class VocablyLanguage {

@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-add-card-hint',
-  styleUrl: 'vocably-add-card-hint.scss',
+  styleUrl: 'add-card-hint.scss',
   shadow: true,
 })
 export class VocablyAddCardHint {

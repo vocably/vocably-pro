@@ -7,7 +7,7 @@ import {
 
 @Component({
   tag: 'vocably-play-sound',
-  styleUrl: 'vocably-play-sound.scss',
+  styleUrl: 'play-sound.scss',
   shadow: true,
 })
 export class VocablyPlaySound {

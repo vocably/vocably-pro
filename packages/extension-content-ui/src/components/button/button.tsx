@@ -2,7 +2,7 @@ import { Component, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-button',
-  styleUrl: 'vocably-button.scss',
+  styleUrl: 'button.scss',
   shadow: true,
 })
 export class VocablyButton {

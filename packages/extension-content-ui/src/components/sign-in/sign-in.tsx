@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-sign-in',
-  styleUrl: 'vocably-sign-in.scss',
+  styleUrl: 'sign-in.scss',
   shadow: true,
 })
 export class VocablySignIn {

@@ -2,7 +2,7 @@ import { Component, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-first-translation-congratulation',
-  styleUrl: 'vocably-first-translation-congratulation.scss',
+  styleUrl: 'first-translation-congratulation.scss',
   shadow: true,
 })
 export class VocablyFirstTranslationCongratulation {

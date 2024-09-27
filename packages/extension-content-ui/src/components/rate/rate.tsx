@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 
 @Component({
   tag: 'vocably-rate',
-  styleUrl: 'vocably-rate.scss',
+  styleUrl: 'rate.scss',
   shadow: false,
 })
 export class VocablyRate {

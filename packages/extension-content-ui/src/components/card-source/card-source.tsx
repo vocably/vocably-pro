@@ -8,7 +8,7 @@ import {
 
 @Component({
   tag: 'vocably-card-source',
-  styleUrl: 'vocably-card-source.scss',
+  styleUrl: 'card-source.scss',
   shadow: false,
 })
 export class VocablyCardSource {

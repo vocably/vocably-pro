@@ -2,7 +2,7 @@ import { Component, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-icon-play-circle',
-  styleUrl: 'vocably-icon-play-circle.scss',
+  styleUrl: 'icon-play-circle.scss',
   shadow: true,
 })
 export class VocablyIconPlayCircle {

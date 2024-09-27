@@ -4,7 +4,7 @@ import { explode } from '@vocably/sulna';
 
 @Component({
   tag: 'vocably-card-definitions',
-  styleUrl: 'vocably-card-definitions.scss',
+  styleUrl: 'card-definitions.scss',
   shadow: false,
 })
 export class VocablyCardDefinitions {

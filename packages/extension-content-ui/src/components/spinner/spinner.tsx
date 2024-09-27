@@ -2,7 +2,7 @@ import { Component, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-spinner',
-  styleUrl: 'vocably-spinner.scss',
+  styleUrl: 'spinner.scss',
   shadow: true,
 })
 export class VocablySpinner {

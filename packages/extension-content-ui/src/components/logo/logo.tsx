@@ -2,7 +2,7 @@ import { Component, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-logo',
-  styleUrl: 'vocably-logo.scss',
+  styleUrl: 'logo.scss',
   shadow: true,
 })
 export class VocablyLogo {

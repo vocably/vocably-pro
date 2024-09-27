@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 
 @Component({
   tag: 'vocably-subscribe',
-  styleUrl: 'vocably-subscribe.scss',
+  styleUrl: 'subscribe.scss',
   shadow: true,
 })
 export class VocablySubscribe {

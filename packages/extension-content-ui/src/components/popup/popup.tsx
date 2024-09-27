@@ -9,7 +9,7 @@ import {
 
 @Component({
   tag: 'vocably-popup',
-  styleUrl: 'vocably-popup.scss',
+  styleUrl: 'popup.scss',
   shadow: true,
 })
 export class VocablyPopup {

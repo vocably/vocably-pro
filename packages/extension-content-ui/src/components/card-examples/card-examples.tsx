@@ -3,7 +3,7 @@ import { explode } from '@vocably/sulna';
 
 @Component({
   tag: 'vocably-card-examples',
-  styleUrl: 'vocably-card-examples.scss',
+  styleUrl: 'card-examples.scss',
   shadow: false,
 })
 export class VocablyCardExamples {

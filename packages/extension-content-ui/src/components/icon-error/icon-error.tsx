@@ -2,7 +2,7 @@ import { Component, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-icon-error',
-  styleUrl: 'vocably-icon-error.scss',
+  styleUrl: 'icon-error.scss',
   shadow: true,
 })
 export class VocablyIconError {

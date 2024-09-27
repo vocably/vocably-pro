@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-close-button',
-  styleUrl: 'vocably-close-button.scss',
+  styleUrl: 'close-button.scss',
   shadow: false,
 })
 export class VocablyCloseButton {

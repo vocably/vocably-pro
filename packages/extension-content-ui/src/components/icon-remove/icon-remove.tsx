@@ -2,7 +2,7 @@ import { Component, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'vocably-icon-remove',
-  styleUrl: 'vocably-icon-remove.scss',
+  styleUrl: 'icon-remove.scss',
   shadow: true,
 })
 export class VocablyIconRemove {

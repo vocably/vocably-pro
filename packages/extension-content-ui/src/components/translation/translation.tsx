@@ -29,7 +29,7 @@ import { sortLanguages } from './sortLanguages';
 
 @Component({
   tag: 'vocably-translation',
-  styleUrl: 'vocably-translation.scss',
+  styleUrl: 'translation.scss',
   shadow: true,
 })
 export class VocablyTranslation {
