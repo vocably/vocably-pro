@@ -20,7 +20,7 @@ export const TagsSelector: FC<Props> = ({
   value,
   renderAnchor,
   onChange,
-  isAllowedToAdd,
+  isAllowedToAdd = true,
   deck: { addTags, deck, removeTag, updateTag },
 }) => {
   const [isSaving, setIsSaving] = useState(false);
