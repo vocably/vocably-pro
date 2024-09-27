@@ -59,6 +59,7 @@ export const TagsSelector: FC<Props> = ({
       isLoading={isSaving}
       isAllowedToAdd={isAllowedToAdd}
       renderAnchor={renderAnchor}
+      triggerChangeOnSelect={!isAllowedToAdd}
     />
   );
 };

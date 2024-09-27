@@ -37,6 +37,7 @@ type Props = {
     data: Partial<Tag['data']>
   ) => Promise<Result<TagItem>>;
   renderAnchor: TagMenuAnchorProps['renderAnchor'];
+  triggerChangeOnSelect?: boolean;
   onChange?: (tags: Tag[]) => Promise<any>;
   disabled?: boolean;
   isLoading?: boolean;
@@ -57,6 +58,7 @@ export const TagsMenu: FC<Props> = ({
   onChange,
   isAllowedToAdd = true,
   renderAnchor,
+  triggerChangeOnSelect = false,
 }) => {
   const [visible, setVisible] = useState(false);
   const [newTags, setNewTags] = useState<Tag[]>([]);
@@ -114,10 +116,14 @@ export const TagsMenu: FC<Props> = ({
   };
 
   const existingTagPressed = (tag: TagItem) => {
-    if (isSelectedTag(tag)) {
-      setSelectedTags(selectedTags.filter((t) => t.id !== tag.id));
-    } else {
-      setSelectedTags([...selectedTags, tag]);
+    const tags = isSelectedTag(tag)
+      ? selectedTags.filter((t) => t.id !== tag.id)
+      : [...selectedTags, tag];
+
+    setSelectedTags(tags);
+
+    if (triggerChangeOnSelect && onChange) {
+      onChange(tags);
     }
   };
 
