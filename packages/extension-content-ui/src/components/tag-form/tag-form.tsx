@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
-import { TagItem } from '@vocably/model';
+import { Result, TagItem } from '@vocably/model';
 
 @Component({
   tag: 'vocably-tag-form',
@@ -7,13 +7,14 @@ import { TagItem } from '@vocably/model';
   shadow: true,
 })
 export class VocablyTagsMenu {
-  @Event() saveClick: EventEmitter<TagItem['data']>;
-  @Event() cancelClick: EventEmitter<void>;
-  @Event() deleteClick: EventEmitter<void>;
+  @Event() hide: EventEmitter<void>;
 
   @Prop() tagItem: TagItem | null = null;
+  @Prop() saveTag?: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
+  @Prop() deleteTag?: (tag: TagItem) => Promise<Result<unknown>>;
 
   @State() title: string = '';
+  @State() saving = false;
 
   textInput!: HTMLInputElement;
 
@@ -25,13 +26,71 @@ export class VocablyTagsMenu {
   }
 
   isDisabled() {
-    return this.title.trim().length === 0;
+    return this.saving || this.title.trim().length === 0;
   }
 
-  onSubmit() {
-    this.saveClick.emit({
-      title: this.textInput.value.trim(),
+  async onSubmit() {
+    if (this.isDisabled()) {
+      return;
+    }
+
+    if (!this.saveTag) {
+      this.hide.emit();
+      return;
+    }
+
+    this.saving = true;
+
+    const result = await this.saveTag({
+      ...this.tagItem,
+      data: {
+        ...this.tagItem?.data,
+        title: this.title.trim(),
+      },
     });
+
+    if (result.success === false) {
+      alert(
+        [
+          'An error occurred during the attempt to save the tag.',
+          'Please try again later.',
+        ].join('\n')
+      );
+
+      this.saving = false;
+      return;
+    }
+
+    this.hide.emit();
+  }
+
+  async onDelete() {
+    if (this.isDisabled()) {
+      return;
+    }
+
+    if (!this.deleteTag || !this.tagItem) {
+      this.hide.emit();
+      return;
+    }
+
+    this.saving = true;
+
+    const result = await this.deleteTag(this.tagItem);
+
+    if (result.success === false) {
+      alert(
+        [
+          'An error occurred during the attempt to delete the tag.',
+          'Please try again later.',
+        ].join('\n')
+      );
+
+      this.saving = false;
+      return;
+    }
+
+    this.hide.emit();
   }
 
   onInputChange() {
@@ -62,6 +121,7 @@ export class VocablyTagsMenu {
           {this.tagItem && (
             <button
               class="delete"
+              disabled={this.isDisabled()}
               onClick={() => {
                 const yesPlease = window.confirm(
                   [
@@ -71,24 +131,25 @@ export class VocablyTagsMenu {
                 );
 
                 if (yesPlease) {
-                  this.deleteClick.emit();
+                  this.onDelete();
                 }
               }}
             >
               Delete
             </button>
           )}
-          <button
-            type="button"
-            class="cancel"
-            onClick={() => this.cancelClick.emit()}
-          >
+          <button type="button" class="cancel" onClick={() => this.hide.emit()}>
             Cancel
           </button>
           <button type="submit" class="submit" disabled={this.isDisabled()}>
             Save
           </button>
         </div>
+        {this.saving && (
+          <div class="loader">
+            <vocably-spinner></vocably-spinner>
+          </div>
+        )}
       </form>
     );
   }

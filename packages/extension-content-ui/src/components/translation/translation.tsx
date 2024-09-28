@@ -21,6 +21,7 @@ import {
   RateInteractionPayload,
   RemoveCardPayload,
   Result,
+  TagItem,
   TranslationCard,
   TranslationCards,
 } from '@vocably/model';
@@ -49,6 +50,8 @@ export class VocablyTranslation {
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
   @Prop() extensionPlatform: { name: string; url: string };
+  @Prop() saveTag: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
+  @Prop() deleteTag: (tag: TagItem) => Promise<Result<unknown>>;
 
   @Event() ratingInteraction: EventEmitter<RateInteractionPayload>;
 
@@ -104,6 +107,8 @@ export class VocablyTranslation {
     tagsMenu.style.opacity = '0';
     tagsMenu.style.transform = `translate(-100%, 0)`;
     tagsMenu.style.transition = `opacity 0.2s ease-in-out`;
+    tagsMenu.saveTag = this.saveTag;
+    tagsMenu.deleteTag = this.deleteTag;
 
     if (callerPosition.top * 2 > window.innerHeight) {
       tagsMenu.style.bottom = `${

@@ -22,6 +22,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
 }
 
 h1 {
@@ -61,4 +62,16 @@ input[type='text'] {
   @include button();
   flex: 0;
   min-width: 140px;
+}
+
+.loader {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: $v-light-color-body-bg;
+  opacity: 0.6;
 }

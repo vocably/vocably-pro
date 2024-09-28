@@ -21,6 +21,28 @@
     </style>
 
     <script type="text/javascript">
+      const saveTag = (item) =>
+        new Promise((resolve) =>
+          setTimeout(() => {
+            resolve({
+              status: true,
+              value: {
+                ...item,
+              },
+            });
+          }, 1000)
+        );
+
+      const deleteTag = () =>
+        new Promise((resolve) =>
+          setTimeout(() => {
+            resolve({
+              status: true,
+              value: null,
+            });
+          }, 1000)
+        );
+
       const simpletonTranslationResult = {
         success: true,
         value: {
@@ -166,6 +188,8 @@
         );
         translationWithTagMenu.existingLanguages = ['en', 'nl'];
         translationWithTagMenu.result = successfulTranslationResult;
+        translationWithTagMenu.saveTag = saveTag;
+        translationWithTagMenu.deleteTag = deleteTag;
       </script>
 
       <p>

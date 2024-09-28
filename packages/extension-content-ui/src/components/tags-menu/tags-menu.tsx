@@ -63,7 +63,12 @@ export class VocablyTagsMenu {
       tagForm.tagItem = item;
     }
 
-    tagForm.addEventListener('cancelClick', () => {
+    console.log(this.saveTag);
+
+    tagForm.saveTag = this.saveTag;
+    tagForm.deleteTag = this.deleteTag;
+
+    tagForm.addEventListener('hide', () => {
       this.hideTagForm();
     });
 

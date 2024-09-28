@@ -79,6 +79,8 @@ export namespace Components {
         "trial": boolean;
     }
     interface VocablyTagForm {
+        "deleteTag"?: (tag: TagItem) => Promise<Result<unknown>>;
+        "saveTag"?: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
         "tagItem": TagItem | null;
     }
     interface VocablyTagsMenu {
@@ -90,6 +92,7 @@ export namespace Components {
     interface VocablyTranslation {
         "askForRating": boolean;
         "canCongratulate": boolean;
+        "deleteTag": (tag: TagItem) => Promise<Result<unknown>>;
         "existingSourceLanguages": GoogleLanguage[];
         "existingTargetLanguages": GoogleLanguage[];
         "extensionPlatform": { name: string; url: string };
@@ -102,6 +105,7 @@ export namespace Components {
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
         "result": Result<TranslationCards> | null;
+        "saveTag": (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
         "showSaveHint": boolean;
         "sourceLanguage": string;
         "targetLanguage": string;
@@ -443,9 +447,9 @@ declare namespace LocalJSX {
         "trial"?: boolean;
     }
     interface VocablyTagForm {
-        "onCancelClick"?: (event: VocablyTagFormCustomEvent<void>) => void;
-        "onDeleteClick"?: (event: VocablyTagFormCustomEvent<void>) => void;
-        "onSaveClick"?: (event: VocablyTagFormCustomEvent<TagItem['data']>) => void;
+        "deleteTag"?: (tag: TagItem) => Promise<Result<unknown>>;
+        "onHide"?: (event: VocablyTagFormCustomEvent<void>) => void;
+        "saveTag"?: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
         "tagItem"?: TagItem | null;
     }
     interface VocablyTagsMenu {
@@ -458,6 +462,7 @@ declare namespace LocalJSX {
     interface VocablyTranslation {
         "askForRating"?: boolean;
         "canCongratulate"?: boolean;
+        "deleteTag"?: (tag: TagItem) => Promise<Result<unknown>>;
         "existingSourceLanguages"?: GoogleLanguage[];
         "existingTargetLanguages"?: GoogleLanguage[];
         "extensionPlatform"?: { name: string; url: string };
@@ -474,6 +479,7 @@ declare namespace LocalJSX {
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
         "result"?: Result<TranslationCards> | null;
+        "saveTag"?: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
         "showSaveHint"?: boolean;
         "sourceLanguage"?: string;
         "targetLanguage"?: string;
