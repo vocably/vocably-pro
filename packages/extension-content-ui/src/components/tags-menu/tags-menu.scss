@@ -6,6 +6,8 @@
   --shadow-spread: 10px;
   --shadow-v-offset: 4px;
 
+  --padding: 12px;
+
   @include base-font();
   display: inline-block;
   // Reddit sets visibility: hidden for custom elements
@@ -29,14 +31,21 @@ menu {
 
   li {
     border-top: 0.5px solid $v-light-color-border;
+    padding: var(--padding);
+    min-width: 300px;
+
     &:first-child {
       border-top: none;
     }
 
     display: flex;
 
-    &:hover {
-      background-color: $v-light-color-hover-bg;
+    &.clickable {
+      padding: 0;
+
+      &:hover {
+        background-color: $v-light-color-hover-bg;
+      }
     }
   }
 
@@ -44,8 +53,9 @@ menu {
     display: block;
     border: none;
     width: 100%;
+    font-size: 100%;
     box-sizing: border-box;
-    padding: 12px;
+    padding: var(--padding);
     text-align: left;
     cursor: pointer;
     background-color: transparent;

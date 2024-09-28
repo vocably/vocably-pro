@@ -20,12 +20,22 @@ export class VocablyTagsMenu {
     return (
       <Host>
         <menu>
-          <li>
-            <button onClick={() => this.addClick.emit()}>Add new item</button>
+          {this.existingItems.length === 0 && (
+            <li>
+              Tags are like groups, or folders, but better.
+              <br />
+              Press "Add new tag" to begin.
+            </li>
+          )}
+          <li class="clickable">
+            <button onClick={() => this.addClick.emit()}>Add new tag</button>
           </li>
           {this.existingItems.map((item) => (
-            <li>
-              <button onClick={() => this.tagClick.emit(item)}>
+            <li class="clickable">
+              <button
+                onClick={() => this.tagClick.emit(item)}
+                style={{ flex: '1' }}
+              >
                 {item.data.title}{' '}
                 <vocably-icon-check
                   class={{
@@ -34,7 +44,11 @@ export class VocablyTagsMenu {
                   }}
                 ></vocably-icon-check>
               </button>
-              <button class="edit" onClick={() => this.editClick.emit(item)}>
+              <button
+                class="edit"
+                style={{ flex: '0' }}
+                onClick={() => this.editClick.emit(item)}
+              >
                 <vocably-icon-tag-edit></vocably-icon-tag-edit>
               </button>
             </li>

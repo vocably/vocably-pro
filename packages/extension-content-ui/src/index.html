@@ -143,15 +143,17 @@
         ></vocably-popup>
       </div>
 
-      <div class="mb-3">
-        <script type="text/javascript">
-          const translationWithTagMenu = document.getElementById(
-            'translationWithTagMenu'
-          );
-          translationWithTagMenu.existingLanguages = ['en', 'nl'];
-          translationWithTagMenu.result = successfulTranslationResult;
-        </script>
-      </div>
+      <script type="text/javascript">
+        const translationWithTagMenu = document.getElementById(
+          'translationWithTagMenu'
+        );
+        translationWithTagMenu.existingLanguages = ['en', 'nl'];
+        translationWithTagMenu.result = successfulTranslationResult;
+      </script>
+
+      <p>
+        <vocably-tags-menu></vocably-tags-menu>
+      </p>
 
       <p>
         <vocably-tags-menu id="menu"></vocably-tags-menu>
@@ -159,18 +161,18 @@
         <script>
           const menu = document.getElementById('menu');
           menu.existingItems = [
-            { id: '1', data: { title: 'Lesson 1' } },
-            { id: '2', data: { title: 'Lesson 2 ' } },
-            { id: '3', data: { title: 'Lesson 3 ' } },
-            { id: '4', data: { title: 'Lesson 4 ' } },
-            { id: '5', data: { title: 'Lesson 5 ' } },
-            { id: '6', data: { title: 'Lesson 6 ' } },
-            { id: '7', data: { title: 'Lesson 7 ' } },
-            { id: '8', data: { title: 'Lesson 8 ' } },
-            { id: '9', data: { title: 'Lesson 9 ' } },
-            { id: '10', data: { title: 'Lesson 10 ' } },
-            { id: '11', data: { title: 'Lesson 11 ' } },
-            { id: '12', data: { title: 'Lesson 12 ' } },
+            { id: '1', data: { title: 'Luke Skywalker' } },
+            { id: '2', data: { title: 'Darth Vader' } },
+            { id: '3', data: { title: 'Leia Organa' } },
+            { id: '4', data: { title: 'Han Solo' } },
+            { id: '5', data: { title: 'Yoda' } },
+            { id: '6', data: { title: 'Obi-Wan Kenobi' } },
+            { id: '7', data: { title: 'Palpatine' } },
+            { id: '8', data: { title: 'Chewbacca' } },
+            { id: '9', data: { title: 'Boba Fett' } },
+            { id: '10', data: { title: 'Padmé Amidala' } },
+            { id: '11', data: { title: 'Anakin Skywalker' } },
+            { id: '12', data: { title: 'Mace Windu' } },
           ];
           menu.selectedItems = ['2', '3', '4'];
 
