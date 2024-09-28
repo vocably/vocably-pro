@@ -5,7 +5,7 @@ import { Component, h } from '@stencil/core';
   styleUrl: 'icon-check.scss',
   shadow: true,
 })
-export class VocablyIconRemove {
+export class VocablyIconCheck {
   render() {
     return (
       <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

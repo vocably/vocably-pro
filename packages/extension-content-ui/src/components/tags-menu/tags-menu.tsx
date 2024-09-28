@@ -21,7 +21,7 @@ export class VocablyTagsMenu {
       <Host>
         <menu>
           {this.existingItems.length === 0 && (
-            <li>
+            <li class="info">
               Tags are like groups, or folders, but better.
               <br />
               Press "Add new tag" to begin.
@@ -45,8 +45,9 @@ export class VocablyTagsMenu {
                 ></vocably-icon-check>
               </button>
               <button
+                title={'Edit Tag'}
                 class="edit"
-                style={{ flex: '0' }}
+                style={{ flex: '0', textAlign: 'center' }}
                 onClick={() => this.editClick.emit(item)}
               >
                 <vocably-icon-tag-edit></vocably-icon-tag-edit>

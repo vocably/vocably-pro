@@ -47,6 +47,8 @@ export namespace Components {
     }
     interface VocablyIconVolumeMedium {
     }
+    interface VocablyIconWindowClose {
+    }
     interface VocablyLanguage {
         "sourceLanguage": string;
         "targetLanguage": string;
@@ -241,6 +243,12 @@ declare global {
         prototype: HTMLVocablyIconVolumeMediumElement;
         new (): HTMLVocablyIconVolumeMediumElement;
     };
+    interface HTMLVocablyIconWindowCloseElement extends Components.VocablyIconWindowClose, HTMLStencilElement {
+    }
+    var HTMLVocablyIconWindowCloseElement: {
+        prototype: HTMLVocablyIconWindowCloseElement;
+        new (): HTMLVocablyIconWindowCloseElement;
+    };
     interface HTMLVocablyLanguageElement extends Components.VocablyLanguage, HTMLStencilElement {
     }
     var HTMLVocablyLanguageElement: {
@@ -325,6 +333,7 @@ declare global {
         "vocably-icon-tag": HTMLVocablyIconTagElement;
         "vocably-icon-tag-edit": HTMLVocablyIconTagEditElement;
         "vocably-icon-volume-medium": HTMLVocablyIconVolumeMediumElement;
+        "vocably-icon-window-close": HTMLVocablyIconWindowCloseElement;
         "vocably-language": HTMLVocablyLanguageElement;
         "vocably-logo": HTMLVocablyLogoElement;
         "vocably-mobile-button": HTMLVocablyMobileButtonElement;
@@ -380,6 +389,8 @@ declare namespace LocalJSX {
     interface VocablyIconTagEdit {
     }
     interface VocablyIconVolumeMedium {
+    }
+    interface VocablyIconWindowClose {
     }
     interface VocablyLanguage {
         "onConfirm"?: (event: VocablyLanguageCustomEvent<{
@@ -467,6 +478,7 @@ declare namespace LocalJSX {
         "vocably-icon-tag": VocablyIconTag;
         "vocably-icon-tag-edit": VocablyIconTagEdit;
         "vocably-icon-volume-medium": VocablyIconVolumeMedium;
+        "vocably-icon-window-close": VocablyIconWindowClose;
         "vocably-language": VocablyLanguage;
         "vocably-logo": VocablyLogo;
         "vocably-mobile-button": VocablyMobileButton;
@@ -501,6 +513,7 @@ declare module "@stencil/core" {
             "vocably-icon-tag": LocalJSX.VocablyIconTag & JSXBase.HTMLAttributes<HTMLVocablyIconTagElement>;
             "vocably-icon-tag-edit": LocalJSX.VocablyIconTagEdit & JSXBase.HTMLAttributes<HTMLVocablyIconTagEditElement>;
             "vocably-icon-volume-medium": LocalJSX.VocablyIconVolumeMedium & JSXBase.HTMLAttributes<HTMLVocablyIconVolumeMediumElement>;
+            "vocably-icon-window-close": LocalJSX.VocablyIconWindowClose & JSXBase.HTMLAttributes<HTMLVocablyIconWindowCloseElement>;
             "vocably-language": LocalJSX.VocablyLanguage & JSXBase.HTMLAttributes<HTMLVocablyLanguageElement>;
             "vocably-logo": LocalJSX.VocablyLogo & JSXBase.HTMLAttributes<HTMLVocablyLogoElement>;
             "vocably-mobile-button": LocalJSX.VocablyMobileButton & JSXBase.HTMLAttributes<HTMLVocablyMobileButtonElement>;
