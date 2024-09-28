@@ -77,7 +77,7 @@ export class VocablyTranslation {
     playSoundElement.play();
   }
 
-  private tagsMenuBackdrop: HTMLElement | null = null;
+  private overlay: HTMLElement | null = null;
   private tagsMenu: HTMLElement | null = null;
 
   private showTagMenu(caller: HTMLElement) {
@@ -85,28 +85,21 @@ export class VocablyTranslation {
       return;
     }
 
-    if (this.tagsMenuBackdrop) {
-      this.tagsMenuBackdrop.remove();
+    if (this.overlay) {
+      this.overlay.remove();
     }
 
     if (this.tagsMenu) {
       this.tagsMenu.remove();
     }
 
-    const tagsMenuBackdrop = document.createElement('div');
-    tagsMenuBackdrop.style.position = 'absolute';
-    tagsMenuBackdrop.style.inset = '0px';
-    tagsMenuBackdrop.style.height = `${document.body.clientHeight}px`;
-
     const tagsMenu = document.createElement('vocably-tags-menu');
     tagsMenu.existingItems = this.result.value.tags;
-    tagsMenu.style.position = 'absolute';
 
     const callerPosition = caller.getBoundingClientRect();
+    tagsMenu.style.position = 'absolute';
     tagsMenu.style.left = `${window.scrollX + callerPosition.right}px`;
-    tagsMenu.style.opacity = '0';
     tagsMenu.style.transform = `translate(-100%, 0)`;
-    tagsMenu.style.transition = `opacity 0.2s ease-in-out`;
     tagsMenu.saveTag = this.saveTag;
     tagsMenu.deleteTag = this.deleteTag;
 
@@ -118,26 +111,12 @@ export class VocablyTranslation {
       tagsMenu.style.top = `${window.scrollY + callerPosition.top}px`;
     }
 
-    tagsMenuBackdrop.addEventListener('click', () => {
-      this.tagsMenu = null;
-      this.tagsMenuBackdrop = null;
+    const overlay = document.createElement('vocably-overlay');
+    overlay.style.setProperty('--backdropOpacity', '0');
+    overlay.appendChild(tagsMenu);
+    window.document.body.appendChild(overlay);
 
-      tagsMenu && (tagsMenu.style.opacity = '0');
-      tagsMenuBackdrop && tagsMenuBackdrop.remove();
-
-      setTimeout(() => {
-        tagsMenu && tagsMenu.remove();
-      }, 200);
-    });
-
-    window.document.body.appendChild(tagsMenuBackdrop);
-    window.document.body.appendChild(tagsMenu);
-
-    setTimeout(() => {
-      tagsMenu.style.opacity = '1';
-    }, 0);
-
-    this.tagsMenuBackdrop = tagsMenuBackdrop;
+    this.overlay = overlay;
     this.tagsMenu = tagsMenu;
   }
 

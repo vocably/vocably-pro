@@ -14,56 +14,30 @@ export class VocablyTagsMenu {
   @Prop() saveTag: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
   @Prop() deleteTag: (tag: TagItem) => Promise<Result<unknown>>;
 
-  private tagFormBackdrop: HTMLElement | null = null;
+  private overlayElement: HTMLVocablyOverlayElement | null = null;
   private tagForm: HTMLVocablyTagFormElement | null = null;
 
   hideTagForm() {
-    const tagForm = this.tagForm;
-    const backdrop = this.tagFormBackdrop;
-
-    tagForm && (tagForm.style.opacity = '0');
-    backdrop && (backdrop.style.opacity = '0');
-
-    setTimeout(() => {
-      tagForm && tagForm.remove();
-      backdrop && backdrop.remove();
-    }, 200);
+    const overlay = this.overlayElement;
+    overlay && overlay.hide();
   }
 
   displayTagForm(item?: TagItem) {
-    this.tagFormBackdrop && this.tagFormBackdrop.remove();
+    this.overlayElement && this.overlayElement.remove();
     this.tagForm && this.tagForm.remove();
 
-    const backdrop = document.createElement('div');
-    backdrop.style.position = 'fixed';
-    backdrop.style.left = '0px';
-    backdrop.style.top = '0px';
-    backdrop.style.width = '100vw';
-    backdrop.style.height = '100vh';
-    backdrop.style.background = 'rgb(0, 0, 0)';
-    backdrop.style.transition = 'opacity 0.2s ease-in-out';
-    backdrop.style.opacity = '0';
-
-    backdrop.addEventListener('click', () => {
-      this.hideTagForm();
-    });
-
-    this.tagFormBackdrop = backdrop;
-    document.body.appendChild(backdrop);
+    const overlay = document.createElement('vocably-overlay');
+    overlay.style.setProperty('--opacity', '0.3');
 
     const tagForm = document.createElement('vocably-tag-form');
     tagForm.style.position = 'fixed';
     tagForm.style.left = '50vw';
     tagForm.style.top = '50vh';
     tagForm.style.transform = 'translate(-50%, -50%)';
-    tagForm.style.transition = 'opacity 0.2s ease-in-out';
-    tagForm.style.opacity = '0';
 
     if (item) {
       tagForm.tagItem = item;
     }
-
-    console.log(this.saveTag);
 
     tagForm.saveTag = this.saveTag;
     tagForm.deleteTag = this.deleteTag;
@@ -72,13 +46,11 @@ export class VocablyTagsMenu {
       this.hideTagForm();
     });
 
-    this.tagForm = tagForm;
-    document.body.appendChild(tagForm);
+    overlay.appendChild(tagForm);
+    document.body.appendChild(overlay);
 
-    setTimeout(() => {
-      backdrop.style.opacity = '0.2';
-      tagForm.style.opacity = '1';
-    }, 0);
+    this.overlayElement = overlay;
+    this.tagForm = tagForm;
   }
   render() {
     return (
