@@ -1,8 +1,6 @@
 @import '../../styles/component';
 
 :host {
-  --opacity: 1;
-
   --shadow-spread: 10px;
   --shadow-v-offset: 4px;
 
@@ -21,9 +19,6 @@
   border-radius: $v-border-radius;
   box-shadow: 0 var(--shadow-v-offset) var(--shadow-spread) rgba(0, 0, 0, 0.6);
   overflow-y: auto;
-
-  opacity: var(--opacity);
-  transition: opacity 0.2s ease-out;
 }
 
 menu {

@@ -100,10 +100,10 @@ export class VocablyTranslation {
     tagsMenu.style.position = 'absolute';
 
     const callerPosition = caller.getBoundingClientRect();
-    console.log(callerPosition);
-    tagsMenu.style.right = `${
-      window.innerWidth - window.scrollX - callerPosition.right
-    }px`;
+    tagsMenu.style.left = `${window.scrollX + callerPosition.right}px`;
+    tagsMenu.style.opacity = '0';
+    tagsMenu.style.transform = `translate(-100%, 0)`;
+    tagsMenu.style.transition = `opacity 0.2s ease-in-out`;
 
     if (callerPosition.top * 2 > window.innerHeight) {
       tagsMenu.style.bottom = `${
@@ -117,7 +117,7 @@ export class VocablyTranslation {
       this.tagsMenu = null;
       this.tagsMenuBackdrop = null;
 
-      tagsMenu && tagsMenu.style.setProperty('--opacity', '0');
+      tagsMenu && (tagsMenu.style.opacity = '0');
       tagsMenuBackdrop && tagsMenuBackdrop.remove();
 
       setTimeout(() => {
@@ -127,6 +127,10 @@ export class VocablyTranslation {
 
     window.document.body.appendChild(tagsMenuBackdrop);
     window.document.body.appendChild(tagsMenu);
+
+    setTimeout(() => {
+      tagsMenu.style.opacity = '1';
+    }, 0);
 
     this.tagsMenuBackdrop = tagsMenuBackdrop;
     this.tagsMenu = tagsMenu;
