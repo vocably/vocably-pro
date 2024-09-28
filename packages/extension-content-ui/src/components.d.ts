@@ -451,8 +451,6 @@ declare namespace LocalJSX {
     interface VocablyTagsMenu {
         "deleteTag"?: (tag: TagItem) => Promise<Result<unknown>>;
         "existingItems"?: TagItem[];
-        "onAddClick"?: (event: VocablyTagsMenuCustomEvent<void>) => void;
-        "onEditClick"?: (event: VocablyTagsMenuCustomEvent<TagItem>) => void;
         "onTagClick"?: (event: VocablyTagsMenuCustomEvent<TagItem>) => void;
         "saveTag"?: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
         "selectedItems"?: string[];
