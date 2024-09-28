@@ -1,0 +1,64 @@
+@import '../../styles/component';
+
+:host {
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
+  --shadow-spread: 10px;
+  --shadow-v-offset: 4px;
+
+  @include base-font();
+
+  display: inline-block;
+
+  background-color: $v-light-color-body-bg;
+  padding: 24px;
+  border-radius: $v-border-radius * 2;
+  box-shadow: 0 var(--shadow-v-offset) var(--shadow-spread) rgba(0, 0, 0, 0.6);
+
+  width: 390px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+h1 {
+  font-size: 24px;
+  padding: 0;
+  margin: 0;
+  font-weight: normal;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+input[type='text'] {
+  @include input-text(8px, 8px);
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.delete {
+  @include link();
+  @include danger-link();
+  margin-right: auto;
+}
+
+.cancel {
+  @include link();
+}
+
+.submit {
+  @include button();
+  flex: 0;
+  min-width: 140px;
+}

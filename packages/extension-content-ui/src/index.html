@@ -132,6 +132,23 @@
       <h1>Menu</h1>
 
       <div class="mb-3">
+        <vocably-tag-form id="editTagForm"></vocably-tag-form>
+        <script>
+          const editTagForm = document.getElementById('editTagForm');
+          editTagForm.tagItem = {
+            id: '1',
+            data: {
+              title: 'Luke Skywalker',
+            },
+          };
+        </script>
+      </div>
+
+      <div class="mb-3">
+        <vocably-tag-form></vocably-tag-form>
+      </div>
+
+      <div class="mb-3">
         <vocably-popup
           ><vocably-translation
             phrase="gemaakt"

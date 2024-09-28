@@ -7,10 +7,21 @@
   background: none #{$important};
   border: none #{$important};
   border-radius: 0 #{$important};
+  cursor: pointer;
 
   &:hover,
   &:focus,
   &:active {
     color: $v-light-color-active !important;
+  }
+}
+
+@mixin danger-link {
+  color: $v-light-color-danger !important;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $v-light-color-danger-active !important;
   }
 }
