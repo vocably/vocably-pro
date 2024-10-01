@@ -59,6 +59,7 @@ export namespace Components {
     interface VocablyMobileButton {
     }
     interface VocablyOverlay {
+        "closeKeyCode": string[];
         "hide": () => Promise<void>;
     }
     interface VocablyPlaySound {
@@ -434,6 +435,7 @@ declare namespace LocalJSX {
     interface VocablyMobileButton {
     }
     interface VocablyOverlay {
+        "closeKeyCode"?: string[];
     }
     interface VocablyPlaySound {
         "language"?: GoogleTTSLanguage;
