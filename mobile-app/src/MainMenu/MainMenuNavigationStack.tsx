@@ -8,10 +8,11 @@ import {
 import { createStackNavigator } from '@react-navigation/stack';
 import { View } from 'react-native';
 import { MD3Theme, useTheme } from 'react-native-paper';
-import { AccountScreen } from './MainMenu/AccountScreen';
-import { HowToGroupCardsScreen } from './MainMenu/HowToGroupCardsScreen';
-import { MainMenu, MenuMainProps } from './MainMenu/MainMenu';
-import { MainMenuHeader } from './MainMenu/MainMenuHeader';
+import { AccountScreen } from './AccountScreen';
+import { HowToGroupCardsScreen } from './HowToGroupCardsScreen';
+import { MainMenu, MenuMainProps } from './MainMenu';
+import { MainMenuHeader } from './MainMenuHeader';
+import { PracticeSettingsScreen } from './PracticeSettingsScreen';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +20,7 @@ const menuComponent =
   (mainMenuProps: MenuMainProps) => (navigationProps: any) =>
     <MainMenu {...mainMenuProps} {...navigationProps} />;
 
-export const DrawerMenuStack: FC = () => {
+export const MainMenuNavigationStack: FC = () => {
   const navigation = useNavigation();
   const theme = useTheme() as Theme & MD3Theme;
   return (
@@ -55,6 +56,15 @@ export const DrawerMenuStack: FC = () => {
             }}
             name="HowToGroupCards"
             component={HowToGroupCardsScreen}
+          />
+
+          <Stack.Screen
+            options={{
+              header: MainMenuHeader,
+              title: 'Practice Settings',
+            }}
+            name="PracticeSettings"
+            component={PracticeSettingsScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>
