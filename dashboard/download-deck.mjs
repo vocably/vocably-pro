@@ -1,5 +1,6 @@
 import { exec } from 'child_process';
 import { config } from 'dotenv-flow';
+import { writeFileSync } from 'fs';
 import { inspect, promisify } from 'node:util';
 import 'zx/globals';
 
@@ -20,6 +21,18 @@ const cards = deck.cards
     created: new Date(card.created),
     updated: card.updated && new Date(card.updated),
   }));
+
+writeFileSync(
+  `deck.json`,
+  JSON.stringify(
+    {
+      ...deck,
+      cards,
+    },
+    null,
+    '  '
+  )
+);
 
 console.log('cards', inspect(cards, { depth: null }));
 
