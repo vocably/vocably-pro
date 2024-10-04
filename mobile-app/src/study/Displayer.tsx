@@ -40,11 +40,18 @@ export const Displayer = forwardRef<DisplayerRef, Props>(
       hide: () =>
         new Promise((resolve) => {
           Animated.parallel([
-            Animated.timing(scaleAnimation, {
-              toValue: 0.7,
-              duration: 350,
-              useNativeDriver: true,
-            }),
+            Animated.sequence([
+              Animated.timing(scaleAnimation, {
+                toValue: 1.1,
+                duration: 100,
+                useNativeDriver: true,
+              }),
+              Animated.timing(scaleAnimation, {
+                toValue: 0.7,
+                duration: 250,
+                useNativeDriver: true,
+              }),
+            ]),
 
             Animated.timing(opacityAnimation, {
               toValue: 0,

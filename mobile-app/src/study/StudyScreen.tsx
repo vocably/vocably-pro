@@ -6,6 +6,10 @@ import {
   getAutoPlayFromStorage,
   saveAutoPlayToStorage,
 } from '../autoPlayState';
+import {
+  getMultiChoiceEnabled,
+  getRandomizerEnabled,
+} from '../MainMenu/PracticeSettingsScreen';
 import { useAsync } from '../useAsync';
 import { Study } from './Study';
 
@@ -20,6 +24,17 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
     getAutoPlayFromStorage,
     saveAutoPlayToStorage
   );
+
+  const [isMultiChoiceEnabledResult] = useAsync(getMultiChoiceEnabled);
+  const [isRandomizerEnabled] = useAsync(getRandomizerEnabled);
+
+  if (
+    isMultiChoiceEnabledResult.status !== 'loaded' ||
+    isRandomizerEnabled.status !== 'loaded' ||
+    autoPlayState.status !== 'loaded'
+  ) {
+    return <></>;
+  }
 
   return (
     <View
@@ -57,12 +72,12 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
           </Button>
         </View>
       </View>
-      {autoPlayState.status === 'loaded' && (
-        <Study
-          onExit={() => navigation.goBack()}
-          autoPlay={autoPlayState.value}
-        ></Study>
-      )}
+      <Study
+        onExit={() => navigation.goBack()}
+        autoPlay={autoPlayState.value}
+        isRandomizerEnabled={isRandomizerEnabled.value}
+        isMultiChoiceEnabled={isMultiChoiceEnabledResult.value}
+      ></Study>
     </View>
   );
 };

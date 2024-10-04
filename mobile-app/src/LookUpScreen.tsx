@@ -67,7 +67,10 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const [lookUpResult, setLookupResult] =
     useState<Awaited<ReturnType<typeof analyze>>>();
   const theme = useTheme();
-  const deck = useLanguageDeck(translationPreset.sourceLanguage);
+  const deck = useLanguageDeck({
+    language: translationPreset.sourceLanguage,
+    autoReload: true,
+  });
   const languages = useContext(LanguagesContext);
   const intentData = useShareIntentData();
 
