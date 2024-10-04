@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import { ScrollView, View } from 'react-native';
-import { Checkbox, Text, useTheme } from 'react-native-paper';
+import { Linking, ScrollView, View } from 'react-native';
+import { Checkbox, Divider, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getItem, setItem } from '../asyncAppStorage';
 import { useAsync } from '../useAsync';
 
@@ -27,19 +28,49 @@ export const PracticeSettingsScreen: FC<Props> = () => {
     <ScrollView
       contentContainerStyle={{
         flex: 1,
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'center',
-        paddingLeft: insets.left,
-        paddingBottom: insets.bottom,
       }}
     >
       <View
         style={{
-          flex: 1,
+          paddingLeft: insets.left + 16,
+          paddingRight: 8,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 18,
+          }}
+          onPress={() => Linking.openURL('https://vocably.pro/srs.html')}
+        >
+          <Text
+            style={{
+              textDecorationLine: 'underline',
+              color: theme.colors.primary,
+            }}
+          >
+            How Vocably decides which cards to show during the practice session.
+          </Text>
+          {''}
+          <Text
+            style={{
+              color: theme.colors.primary,
+              fontSize: 16,
+            }}
+          >
+            {' '}
+            <Icon name="open-in-new" />
+          </Text>
+        </Text>
+      </View>
+      <Divider style={{ width: '100%', marginVertical: 16 }} />
+      <View
+        style={{
           alignItems: 'center',
           justifyContent: 'center',
-          width: '100%',
-          paddingHorizontal: 16,
+          paddingLeft: insets.left + 8,
+          paddingRight: 8,
           gap: 8,
         }}
       >
