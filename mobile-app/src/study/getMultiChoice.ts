@@ -6,6 +6,15 @@ const posMap = {
   adverb: ['adjective', 'adverb'],
 };
 
+const areSynonyms = (a: CardItem, b: CardItem): boolean => {
+  const aTranslations = a.data.translation.toLowerCase().split(', ');
+  const bTranslations = b.data.translation.toLowerCase().split(', ');
+
+  return aTranslations.some((aTranslation) =>
+    bTranslations.includes(aTranslation)
+  );
+};
+
 export const getMultiChoice = (
   card: CardItem,
   collection: CardItem[]
@@ -18,15 +27,17 @@ export const getMultiChoice = (
     card.data.partOfSpeech,
   ]);
 
-  const candidates = collection
-    .filter((collectionItem) => {
-      if (collectionItem.id === card.id) {
-        return false;
-      }
+  const candidates = collection.filter((collectionItem) => {
+    if (collectionItem.id === card.id) {
+      return false;
+    }
 
-      return allowedPartsOfSpeech.includes(collectionItem.data.partOfSpeech);
-    })
-    .sort();
+    if (areSynonyms(card, collectionItem)) {
+      return false;
+    }
+
+    return allowedPartsOfSpeech.includes(collectionItem.data.partOfSpeech);
+  });
 
   if (candidates.length < 3) {
     return [];
