@@ -8,6 +8,7 @@ import { SwipeGrade } from './SwipeGrade';
 
 type Props = {
   autoPlay: boolean;
+  isMultiChoiceEnabled: boolean;
   card: CardItem;
   onGrade: (score: SrsScore) => void;
   existingCards: CardItem[];
@@ -15,11 +16,15 @@ type Props = {
 
 export const Grade: FC<Props> = ({
   card,
+  isMultiChoiceEnabled,
   existingCards,
   autoPlay,
   onGrade,
 }) => {
-  const multiChoice = getMultiChoice(card, existingCards);
+  const multiChoice =
+    isMultiChoiceEnabled && card.data.repetition === 0
+      ? getMultiChoice(card, existingCards)
+      : [];
 
   return (
     <>

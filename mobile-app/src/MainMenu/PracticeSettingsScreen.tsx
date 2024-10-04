@@ -6,7 +6,7 @@ import { getItem, setItem } from '../asyncAppStorage';
 import { useAsync } from '../useAsync';
 
 const MULTI_CHOICE_ENABLED_KEY = 'isMultiChoiceEnabled';
-const getMultiChoiceEnabled = () =>
+export const getMultiChoiceEnabled = () =>
   getItem(MULTI_CHOICE_ENABLED_KEY).then((res) => res === 'true');
 
 const setMultiChoiceEnabled = (isEnabled: boolean) =>

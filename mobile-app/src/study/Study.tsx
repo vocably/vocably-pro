@@ -4,7 +4,9 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { Loader } from '../loaders/Loader';
+import { getMultiChoiceEnabled } from '../MainMenu/PracticeSettingsScreen';
 import { useNumberOfRepetitions } from '../RequestFeedback/useNumberOfRepetitions';
+import { useAsync } from '../useAsync';
 import { Completed } from './Completed';
 import { Grade } from './Grade';
 
@@ -28,6 +30,8 @@ export const Study: FC<Props> = ({ onExit, autoPlay }) => {
     useNumberOfRepetitions();
 
   const totalCardsToStudy = Math.min(maxCardsToStudy, filteredCards.length);
+
+  const [isMultiChoiceEnabledResult] = useAsync(getMultiChoiceEnabled);
 
   useEffect(() => {
     if (cardsStudied === 0) {
@@ -94,6 +98,11 @@ export const Study: FC<Props> = ({ onExit, autoPlay }) => {
           .map((card) => (
             <Grade
               key={card.id}
+              isMultiChoiceEnabled={
+                isMultiChoiceEnabledResult.status === 'loaded'
+                  ? isMultiChoiceEnabledResult.value
+                  : false
+              }
               card={card}
               onGrade={onGrade}
               autoPlay={autoPlay}
