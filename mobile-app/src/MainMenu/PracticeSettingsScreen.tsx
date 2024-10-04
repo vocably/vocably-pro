@@ -4,6 +4,7 @@ import { Checkbox, Divider, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getItem, setItem } from '../asyncAppStorage';
+import { Sentry } from '../BetterSentry';
 import { useAsync } from '../useAsync';
 
 const MULTI_CHOICE_ENABLED_KEY = 'isMultiChoiceEnabled';
@@ -23,6 +24,17 @@ export const PracticeSettingsScreen: FC<Props> = () => {
     getMultiChoiceEnabled,
     setMultiChoiceEnabled
   );
+
+  const onMultiChoicePress = () => {
+    if (isMultiChoiceEnabledResult.status === 'loaded') {
+      mutateMultiChoiceEnabled(!isMultiChoiceEnabledResult.value);
+      if (!isMultiChoiceEnabledResult.value) {
+        Sentry.captureMessage(`Multi choice enabled`);
+      } else {
+        Sentry.captureMessage(`Multi choice disabled`);
+      }
+    }
+  };
 
   return (
     <ScrollView
@@ -82,10 +94,8 @@ export const PracticeSettingsScreen: FC<Props> = () => {
               status={
                 isMultiChoiceEnabledResult.value ? 'checked' : 'unchecked'
               }
-              onPress={() =>
-                mutateMultiChoiceEnabled(!isMultiChoiceEnabledResult.value)
-              }
-              label="Enable Multi-choice Answers"
+              onPress={onMultiChoicePress}
+              label="Enable Multi-choice Questions"
               labelStyle={{
                 textAlign: 'left',
               }}
