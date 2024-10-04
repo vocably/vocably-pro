@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { FC } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Button, Divider, List, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -16,11 +16,11 @@ export const MainMenu: FC<MenuMainProps> = ({ parentNavigator }) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <View
-      style={{
+    <ScrollView
+      contentContainerStyle={{
         display: 'flex',
         justifyContent: 'center',
-        height: '100%',
+        minHeight: '100%',
         paddingLeft: insets.left,
         paddingTop: insets.top,
         paddingBottom: insets.bottom,
@@ -52,6 +52,21 @@ export const MainMenu: FC<MenuMainProps> = ({ parentNavigator }) => {
             color: theme.colors.onBackground,
           }}
           onPress={() => navigator.navigate('HowToGroupCards')}
+          right={() => (
+            <Icon
+              name="menu-right"
+              size={24}
+              color={theme.colors.onBackground}
+            />
+          )}
+        ></List.Item>
+        <Divider />
+        <List.Item
+          title="Practice Settings"
+          onPress={() => navigator.navigate('PracticeSettings')}
+          titleStyle={{
+            color: theme.colors.onBackground,
+          }}
           right={() => (
             <Icon
               name="menu-right"
@@ -104,6 +119,6 @@ export const MainMenu: FC<MenuMainProps> = ({ parentNavigator }) => {
           </Text>
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };

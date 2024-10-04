@@ -4,10 +4,11 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { Loader } from '../loaders/Loader';
+import { getMultiChoiceEnabled } from '../MainMenu/PracticeSettingsScreen';
 import { useNumberOfRepetitions } from '../RequestFeedback/useNumberOfRepetitions';
-import { Card } from './Card';
+import { useAsync } from '../useAsync';
 import { Completed } from './Completed';
-import { SwipeGrade } from './SwipeGrade';
+import { Grade } from './Grade';
 
 const maxCardsToStudy = 10;
 
@@ -17,13 +18,20 @@ type Props = {
 };
 
 export const Study: FC<Props> = ({ onExit, autoPlay }) => {
-  const { status, update, filteredCards } = useSelectedDeck();
+  const {
+    status,
+    update,
+    filteredCards,
+    deck: { cards: allCards },
+  } = useSelectedDeck();
   const [cards, setCards] = useState<CardItem[]>();
   const [cardsStudied, setCardsStudied] = useState(0);
   const [numberOfRepetitions, increaseNumberOfRepetitions] =
     useNumberOfRepetitions();
 
   const totalCardsToStudy = Math.min(maxCardsToStudy, filteredCards.length);
+
+  const [isMultiChoiceEnabledResult] = useAsync(getMultiChoiceEnabled);
 
   useEffect(() => {
     if (cardsStudied === 0) {
@@ -85,11 +93,22 @@ export const Study: FC<Props> = ({ onExit, autoPlay }) => {
       }}
     >
       {cards.length > 0 &&
-        cards.slice(0, 1).map((card) => (
-          <SwipeGrade onGrade={onGrade} key={card.id}>
-            <Card autoPlay={autoPlay} card={card} />
-          </SwipeGrade>
-        ))}
+        cards
+          .slice(0, 1)
+          .map((card) => (
+            <Grade
+              key={card.id}
+              isMultiChoiceEnabled={
+                isMultiChoiceEnabledResult.status === 'loaded'
+                  ? isMultiChoiceEnabledResult.value
+                  : false
+              }
+              card={card}
+              onGrade={onGrade}
+              autoPlay={autoPlay}
+              existingCards={allCards}
+            />
+          ))}
       {totalCardsToStudy === cardsStudied && (
         <Completed
           numberOfRepetitions={

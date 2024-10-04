@@ -13,15 +13,14 @@ const deck = JSON.parse(
   (await execute(`aws s3 cp s3://vocably-prod-cards/${key} -`)).stdout || '""'
 );
 
-console.log(
-  inspect(
-    deck.cards
-      .sort((a, b) => b.created - a.created)
-      .map((card) => ({
-        ...card,
-        created: new Date(card.created),
-        updated: card.updated && new Date(card.updated),
-      })),
-    { depth: null }
-  )
-);
+const cards = deck.cards
+  .sort((a, b) => b.created - a.created)
+  .map((card) => ({
+    ...card,
+    created: new Date(card.created),
+    updated: card.updated && new Date(card.updated),
+  }));
+
+console.log('cards', inspect(cards, { depth: null }));
+
+console.log('# of cards', cards.length);
