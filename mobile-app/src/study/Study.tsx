@@ -9,13 +9,12 @@ import { useNumberOfRepetitions } from '../RequestFeedback/useNumberOfRepetition
 import { Completed } from './Completed';
 import { Grade } from './Grade';
 
-const maxCardsToStudy = 10;
-
 type Props = {
   onExit: () => void;
   autoPlay: boolean;
   isRandomizerEnabled: boolean;
   isMultiChoiceEnabled: boolean;
+  maximumCardsPerSession: number;
 };
 
 export const Study: FC<Props> = ({
@@ -23,6 +22,7 @@ export const Study: FC<Props> = ({
   autoPlay,
   isRandomizerEnabled,
   isMultiChoiceEnabled,
+  maximumCardsPerSession,
 }) => {
   const {
     status,
@@ -37,15 +37,17 @@ export const Study: FC<Props> = ({
   const [numberOfRepetitions, increaseNumberOfRepetitions] =
     useNumberOfRepetitions();
 
-  const totalCardsToStudy = Math.min(maxCardsToStudy, filteredCards.length);
+  const totalCardsToStudy = Math.min(
+    maximumCardsPerSession,
+    filteredCards.length
+  );
 
   useEffect(() => {
-    console.log('status', status);
     if (cardsStudied === 0) {
       if (isRandomizerEnabled) {
-        setCards(shuffle(filteredCards).slice(0, maxCardsToStudy));
+        setCards(shuffle(filteredCards).slice(0, maximumCardsPerSession));
       } else {
-        setCards(slice(new Date(), maxCardsToStudy, filteredCards));
+        setCards(slice(new Date(), maximumCardsPerSession, filteredCards));
       }
     }
   }, [status, filteredCards, cardsStudied, isRandomizerEnabled]);

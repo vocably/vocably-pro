@@ -6,7 +6,12 @@ const Drawer = createDrawerNavigator();
 
 export const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator drawerContent={() => <MainMenuNavigationStack />}>
+    <Drawer.Navigator
+      drawerContent={() => <MainMenuNavigationStack />}
+      screenOptions={{
+        swipeEdgeWidth: 0,
+      }}
+    >
       <Drawer.Screen
         name="TabsNavigator"
         component={TabsNavigator}

@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { Slider } from '@miblanchard/react-native-slider';
+import { FC, useState } from 'react';
 import { Linking, ScrollView, View } from 'react-native';
 import { Checkbox, Divider, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -8,19 +9,26 @@ import { Sentry } from '../BetterSentry';
 import { useAsync } from '../useAsync';
 
 const MULTI_CHOICE_ENABLED_KEY = 'isMultiChoiceEnabled';
+const RANDOMIZER_ENABLED_KEY = 'isRandomizerEnabled';
+const MAXIMUM_CARDS_PER_SESSION_KEY = 'maximumCardsPerSession';
+
 export const getMultiChoiceEnabled = () =>
   getItem(MULTI_CHOICE_ENABLED_KEY).then((res) => res === 'true');
 
 const setMultiChoiceEnabled = (isEnabled: boolean) =>
   setItem(MULTI_CHOICE_ENABLED_KEY, isEnabled ? 'true' : 'false');
 
-const RANDOMIZER_ENABLED_KEY = 'isRandomizerEnabled';
-
 export const getRandomizerEnabled = () =>
   getItem(RANDOMIZER_ENABLED_KEY).then((res) => res === 'true');
 
 const setRandomizerEnabled = (isEnabled: boolean) =>
   setItem(RANDOMIZER_ENABLED_KEY, isEnabled ? 'true' : 'false');
+
+export const getMaximumCardsPerSession = () =>
+  getItem(MAXIMUM_CARDS_PER_SESSION_KEY).then((res) => Number(res ?? 10));
+
+export const setMaximumCardsPerSession = (cardsPerSession: number) =>
+  setItem(MAXIMUM_CARDS_PER_SESSION_KEY, cardsPerSession.toString());
 
 type Props = {};
 
@@ -36,6 +44,11 @@ export const PracticeSettingsScreen: FC<Props> = () => {
   const [isRandomizerEnabled, mutateIsRandomizerEnabled] = useAsync(
     getRandomizerEnabled,
     setRandomizerEnabled
+  );
+
+  const [maximumCardsPerSession, mutateMaximumCardsPerSession] = useAsync(
+    getMaximumCardsPerSession,
+    setMaximumCardsPerSession
   );
 
   const onMultiChoicePress = () => {
@@ -62,6 +75,8 @@ export const PracticeSettingsScreen: FC<Props> = () => {
       Sentry.captureMessage(`Randomizer disabled`);
     }
   };
+
+  const [sliderValue, setSliderValue] = useState(10);
 
   return (
     <ScrollView
@@ -106,6 +121,39 @@ export const PracticeSettingsScreen: FC<Props> = () => {
             </Text>
           </View>
         </>
+      )}
+      <Divider style={{ width: '100%', marginVertical: 16 }} />
+      <View
+        style={{
+          paddingLeft: insets.left + 16,
+          paddingRight: 8,
+          width: '100%',
+          gap: 8,
+        }}
+      >
+        <Text>Maximum cards per practice session:</Text>
+      </View>
+      {maximumCardsPerSession.status === 'loaded' && (
+        <View
+          style={{
+            width: '100%',
+            paddingLeft: insets.left + 16,
+            paddingRight: 16,
+          }}
+        >
+          <Slider
+            minimumValue={5}
+            maximumValue={40}
+            step={1}
+            minimumTrackTintColor={theme.colors.primary}
+            thumbTintColor={theme.colors.primary}
+            value={maximumCardsPerSession.value}
+            onValueChange={(value) => {
+              mutateMaximumCardsPerSession(value[0]);
+            }}
+          ></Slider>
+          <Text>{maximumCardsPerSession.value}</Text>
+        </View>
       )}
       <Divider style={{ width: '100%', marginVertical: 16 }} />
       {isRandomizerEnabled.status === 'loaded' && (

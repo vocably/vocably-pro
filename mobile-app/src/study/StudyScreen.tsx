@@ -7,6 +7,7 @@ import {
   saveAutoPlayToStorage,
 } from '../autoPlayState';
 import {
+  getMaximumCardsPerSession,
   getMultiChoiceEnabled,
   getRandomizerEnabled,
 } from '../MainMenu/PracticeSettingsScreen';
@@ -26,12 +27,14 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
   );
 
   const [isMultiChoiceEnabledResult] = useAsync(getMultiChoiceEnabled);
-  const [isRandomizerEnabled] = useAsync(getRandomizerEnabled);
+  const [isRandomizerEnabledResult] = useAsync(getRandomizerEnabled);
+  const [maximumCardsPerSessionResult] = useAsync(getMaximumCardsPerSession);
 
   if (
     isMultiChoiceEnabledResult.status !== 'loaded' ||
-    isRandomizerEnabled.status !== 'loaded' ||
-    autoPlayState.status !== 'loaded'
+    isRandomizerEnabledResult.status !== 'loaded' ||
+    autoPlayState.status !== 'loaded' ||
+    maximumCardsPerSessionResult.status !== 'loaded'
   ) {
     return <></>;
   }
@@ -75,8 +78,9 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
       <Study
         onExit={() => navigation.goBack()}
         autoPlay={autoPlayState.value}
-        isRandomizerEnabled={isRandomizerEnabled.value}
+        isRandomizerEnabled={isRandomizerEnabledResult.value}
         isMultiChoiceEnabled={isMultiChoiceEnabledResult.value}
+        maximumCardsPerSession={maximumCardsPerSessionResult.value}
       ></Study>
     </View>
   );

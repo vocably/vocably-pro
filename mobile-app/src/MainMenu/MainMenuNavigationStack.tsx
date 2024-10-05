@@ -31,7 +31,11 @@ export const MainMenuNavigationStack: FC = () => {
       }}
     >
       <NavigationContainer independent={true} theme={theme}>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            gestureEnabled: false,
+          }}
+        >
           <Stack.Screen
             name="MainMenu"
             options={{
