@@ -118,7 +118,7 @@ export const Study: FC<Props> = ({
               existingCards={allCards}
             />
           ))}
-      {totalCardsToStudy === cardsStudied && (
+      {cards.length === 0 && (
         <Completed
           numberOfRepetitions={
             numberOfRepetitions.status === 'loaded'
