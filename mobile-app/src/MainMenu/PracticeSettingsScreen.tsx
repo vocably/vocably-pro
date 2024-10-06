@@ -1,5 +1,5 @@
 import { Slider } from '@miblanchard/react-native-slider';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Linking, ScrollView, View } from 'react-native';
 import { Checkbox, Divider, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,6 +11,7 @@ import { useAsync } from '../useAsync';
 const MULTI_CHOICE_ENABLED_KEY = 'isMultiChoiceEnabled';
 const RANDOMIZER_ENABLED_KEY = 'isRandomizerEnabled';
 const MAXIMUM_CARDS_PER_SESSION_KEY = 'maximumCardsPerSession';
+const PREFER_MULTI_CHOICE = 'preferMultiChoiceOptions';
 
 export const getMultiChoiceEnabled = () =>
   getItem(MULTI_CHOICE_ENABLED_KEY).then((res) => res === 'true');
@@ -29,6 +30,12 @@ export const getMaximumCardsPerSession = () =>
 
 export const setMaximumCardsPerSession = (cardsPerSession: number) =>
   setItem(MAXIMUM_CARDS_PER_SESSION_KEY, cardsPerSession.toString());
+
+export const getPreferMultiChoiceEnabled = () =>
+  getItem(PREFER_MULTI_CHOICE).then((res) => res === 'true');
+
+const setPreferMultiChoiceEnabled = (preferMultiCHoice: boolean) =>
+  setItem(PREFER_MULTI_CHOICE, preferMultiCHoice ? 'true' : 'false');
 
 type Props = {};
 
@@ -49,6 +56,11 @@ export const PracticeSettingsScreen: FC<Props> = () => {
   const [maximumCardsPerSession, mutateMaximumCardsPerSession] = useAsync(
     getMaximumCardsPerSession,
     setMaximumCardsPerSession
+  );
+
+  const [preferMultiChoiceResult, mutatePreferMultiChoice] = useAsync(
+    getPreferMultiChoiceEnabled,
+    setPreferMultiChoiceEnabled
   );
 
   const onMultiChoicePress = () => {
@@ -76,52 +88,100 @@ export const PracticeSettingsScreen: FC<Props> = () => {
     }
   };
 
-  const [sliderValue, setSliderValue] = useState(10);
+  const onPreferMultiChoicePress = () => {
+    if (preferMultiChoiceResult.status !== 'loaded') {
+      return;
+    }
+    mutatePreferMultiChoice(!preferMultiChoiceResult.value);
+    if (!preferMultiChoiceResult.value) {
+      Sentry.captureMessage(`Prefer multi choice enabled`);
+    } else {
+      Sentry.captureMessage(`Prefer multi choice disabled`);
+    }
+  };
 
   return (
     <ScrollView
       contentContainerStyle={{
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        paddingTop: insets.top,
+        paddingBottom: insets.bottom,
       }}
     >
-      {isMultiChoiceEnabledResult.status === 'loaded' && (
-        <>
-          <Checkbox.Item
-            mode="android"
-            position="leading"
-            status={isMultiChoiceEnabledResult.value ? 'checked' : 'unchecked'}
-            onPress={onMultiChoicePress}
-            label="Show multi-choice questions"
-            labelStyle={{
-              textAlign: 'left',
-              lineHeight: 16,
-            }}
-            style={{
-              width: '100%',
-            }}
-          />
+      {isMultiChoiceEnabledResult.status === 'loaded' &&
+        preferMultiChoiceResult.status === 'loaded' && (
+          <>
+            <Checkbox.Item
+              mode="android"
+              position="leading"
+              status={
+                isMultiChoiceEnabledResult.value ? 'checked' : 'unchecked'
+              }
+              onPress={onMultiChoicePress}
+              label="Show multi-choice questions"
+              labelStyle={{
+                textAlign: 'left',
+                lineHeight: 16,
+              }}
+              style={{
+                width: '100%',
+              }}
+            />
 
-          <View
-            style={{
-              paddingLeft: insets.left + 16,
-              paddingRight: 8,
-              width: '100%',
-              gap: 8,
-            }}
-          >
-            <Text>
-              The multi-choice questions are shown only for new cards and the
-              cards that were swiped left.
-            </Text>
-            <Text>
-              The more cards you have in your collection, the better your
-              multiple-choice options will be.
-            </Text>
-          </View>
-        </>
-      )}
+            <View
+              style={{
+                paddingLeft: insets.left + 16,
+                paddingRight: 8,
+                width: '100%',
+                gap: 8,
+              }}
+            >
+              <Text>
+                The multi-choice questions are shown only for new cards and the
+                cards that were swiped left.
+              </Text>
+              <Text>
+                The more cards you have in your collection, the better your
+                multiple-choice options will be.
+              </Text>
+            </View>
+
+            {isMultiChoiceEnabledResult.value && (
+              <>
+                <Checkbox.Item
+                  mode="android"
+                  position="leading"
+                  status={
+                    preferMultiChoiceResult.value ? 'checked' : 'unchecked'
+                  }
+                  onPress={onPreferMultiChoicePress}
+                  label="Enforce multi choice questions"
+                  labelStyle={{
+                    textAlign: 'left',
+                    lineHeight: 16,
+                  }}
+                  style={{
+                    width: '100%',
+                  }}
+                />
+                <View
+                  style={{
+                    paddingLeft: insets.left + 16,
+                    paddingRight: 8,
+                    width: '100%',
+                    gap: 8,
+                  }}
+                >
+                  <Text>
+                    This option makes Vocably to show only multi-choice
+                    questions.
+                  </Text>
+                </View>
+              </>
+            )}
+          </>
+        )}
       <Divider style={{ width: '100%', marginVertical: 16 }} />
       <View
         style={{

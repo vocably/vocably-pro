@@ -14,6 +14,7 @@ type Props = {
   autoPlay: boolean;
   isRandomizerEnabled: boolean;
   isMultiChoiceEnabled: boolean;
+  preferMultiChoiceEnabled: boolean;
   maximumCardsPerSession: number;
 };
 
@@ -22,6 +23,7 @@ export const Study: FC<Props> = ({
   autoPlay,
   isRandomizerEnabled,
   isMultiChoiceEnabled,
+  preferMultiChoiceEnabled,
   maximumCardsPerSession,
 }) => {
   const {
@@ -112,6 +114,7 @@ export const Study: FC<Props> = ({
             <Grade
               key={card.id}
               isMultiChoiceEnabled={isMultiChoiceEnabled}
+              preferMultiChoiceEnabled={preferMultiChoiceEnabled}
               card={card}
               onGrade={onGrade}
               autoPlay={autoPlay}
