@@ -4,6 +4,7 @@ import { browserEnv } from './browserEnv';
 const defaultSettings: ExtensionSettings = {
   showOnDoubleClick: false,
   autoPlay: false,
+  hideSelectionButton: false,
 };
 
 export const getSettings = async (): Promise<ExtensionSettings> => {
