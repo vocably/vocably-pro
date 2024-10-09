@@ -30,7 +30,7 @@
     }
   ],
 
-  "permissions": ["storage", "offscreen"{{ process.env.EXTRA_PERMISSIONS }}],
+  "permissions": ["storage", "offscreen", "contextMenus"{{ process.env.EXTRA_PERMISSIONS }}],
 
   "externally_connectable": {
     "matches": [{{ process.env.EXTERNALLY_CONNECTABLE_MATCHES }}]

@@ -150,6 +150,10 @@ registerContentScript({
 
           autoPlay: (document.getElementById('playSound') as HTMLInputElement)
             .checked,
+
+          hideSelectionButton: (
+            document.getElementById('hideSelectionButton') as HTMLInputElement
+          ).checked,
         });
       }),
   },

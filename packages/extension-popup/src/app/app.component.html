@@ -31,6 +31,22 @@
         Automatically play audio pronunciation.
       </label>
     </p>
+
+    <p class="mb-1">
+      <label>
+        <input
+          type="checkbox"
+          [checked]="settings.hideSelectionButton"
+          (change)="
+            setSettings({
+              hideSelectionButton: !settings.hideSelectionButton
+            })
+          "
+        />
+        Don't show the Vocably button when text is selected (use the right-click
+        context menu instead).
+      </label>
+    </p>
   </ng-container>
 
   <div>
