@@ -50,7 +50,12 @@ const loadSelectedTagIds = async (language: string): Promise<string[]> => {
   }
 };
 
-export const useLanguageDeck = (language: string): Deck => {
+type Options = {
+  language: string;
+  autoReload: boolean;
+};
+
+export const useLanguageDeck = ({ language, autoReload }: Options): Deck => {
   const { decks, storeDeck, addLanguage } = useContext(LanguagesContext);
 
   const deck = decks[language] ?? {
@@ -417,12 +422,12 @@ export const useLanguageDeck = (language: string): Deck => {
   }, [language, storeDeck, deck]);
 
   useEffect(() => {
-    if (!language) {
+    if (!autoReload || !language) {
       return;
     }
 
     reload().then();
-  }, [language]);
+  }, [autoReload, language]);
 
   const filteredCards = useMemo(() => {
     if (deck.selectedTags.length === 0) {

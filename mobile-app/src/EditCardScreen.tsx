@@ -24,7 +24,9 @@ type EditCardScreen = FC<{
 }>;
 
 export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
-  const { update } = useSelectedDeck();
+  const { update } = useSelectedDeck({
+    autoReload: false,
+  });
 
   const { card } = route.params as EditCardParams;
   const [cardData, setCardData] = useState({ ...card.data });

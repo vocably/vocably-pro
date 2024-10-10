@@ -1,35 +1,58 @@
 import { CardItem } from '@vocably/model';
 import { grade, slice, SrsScore } from '@vocably/srs';
+import { shuffle } from 'lodash-es';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { Loader } from '../loaders/Loader';
 import { useNumberOfRepetitions } from '../RequestFeedback/useNumberOfRepetitions';
-import { Card } from './Card';
 import { Completed } from './Completed';
-import { SwipeGrade } from './SwipeGrade';
-
-const maxCardsToStudy = 10;
+import { Grade } from './Grade';
 
 type Props = {
   onExit: () => void;
   autoPlay: boolean;
+  isRandomizerEnabled: boolean;
+  isMultiChoiceEnabled: boolean;
+  preferMultiChoiceEnabled: boolean;
+  maximumCardsPerSession: number;
 };
 
-export const Study: FC<Props> = ({ onExit, autoPlay }) => {
-  const { status, update, filteredCards } = useSelectedDeck();
+export const Study: FC<Props> = ({
+  onExit,
+  autoPlay,
+  isRandomizerEnabled,
+  isMultiChoiceEnabled,
+  preferMultiChoiceEnabled,
+  maximumCardsPerSession,
+}) => {
+  const {
+    status,
+    update,
+    filteredCards,
+    deck: { cards: allCards },
+  } = useSelectedDeck({
+    autoReload: false,
+  });
   const [cards, setCards] = useState<CardItem[]>();
   const [cardsStudied, setCardsStudied] = useState(0);
   const [numberOfRepetitions, increaseNumberOfRepetitions] =
     useNumberOfRepetitions();
 
-  const totalCardsToStudy = Math.min(maxCardsToStudy, filteredCards.length);
+  const totalCardsToStudy = Math.min(
+    maximumCardsPerSession,
+    filteredCards.length
+  );
 
   useEffect(() => {
     if (cardsStudied === 0) {
-      setCards(slice(new Date(), maxCardsToStudy, filteredCards));
+      if (isRandomizerEnabled) {
+        setCards(shuffle(filteredCards).slice(0, maximumCardsPerSession));
+      } else {
+        setCards(slice(new Date(), maximumCardsPerSession, filteredCards));
+      }
     }
-  }, [filteredCards, cardsStudied]);
+  }, [status, filteredCards, cardsStudied, isRandomizerEnabled]);
 
   const onGrade = useCallback(
     (score: SrsScore) => {
@@ -85,12 +108,20 @@ export const Study: FC<Props> = ({ onExit, autoPlay }) => {
       }}
     >
       {cards.length > 0 &&
-        cards.slice(0, 1).map((card) => (
-          <SwipeGrade onGrade={onGrade} key={card.id}>
-            <Card autoPlay={autoPlay} card={card} />
-          </SwipeGrade>
-        ))}
-      {totalCardsToStudy === cardsStudied && (
+        cards
+          .slice(0, 1)
+          .map((card) => (
+            <Grade
+              key={card.id}
+              isMultiChoiceEnabled={isMultiChoiceEnabled}
+              preferMultiChoiceEnabled={preferMultiChoiceEnabled}
+              card={card}
+              onGrade={onGrade}
+              autoPlay={autoPlay}
+              existingCards={allCards}
+            />
+          ))}
+      {cards.length === 0 && (
         <Completed
           numberOfRepetitions={
             numberOfRepetitions.status === 'loaded'

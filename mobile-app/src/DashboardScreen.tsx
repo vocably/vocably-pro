@@ -55,7 +55,9 @@ type Props = {
 };
 
 export const DashboardScreen: FC<Props> = ({ navigation }) => {
-  const selectedDeck = useSelectedDeck();
+  const selectedDeck = useSelectedDeck({
+    autoReload: true,
+  });
   const {
     deck,
     reload,

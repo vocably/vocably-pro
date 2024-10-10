@@ -3,6 +3,7 @@ import '@webcomponents/custom-elements';
 import { map, merge, Subject, take, timer } from 'rxjs';
 import { api, ApiConfigOptions, configureApi } from './api';
 import { browser } from './browser';
+import { browserEnv } from './browserEnv';
 import { createButton, destroyButton } from './button';
 import {
   configureContentScript,
@@ -118,10 +119,12 @@ const onMouseUp = async (event: MouseEvent) => {
         settings.showOnDoubleClick
       ) {
         destroyAllOverlays();
-        await autoShow({ isTouchscreen: true })();
+        await showOnDbClick({ isTouchscreen: true })();
       }
 
-      await createButton(selection, event);
+      if (!settings.hideSelectionButton) {
+        await createButton(selection, event);
+      }
     });
 };
 
@@ -129,7 +132,7 @@ type AutoShowOptions = {
   isTouchscreen: boolean;
 };
 
-const autoShow = (options: AutoShowOptions) => async () => {
+const showOnDbClick = (options: AutoShowOptions) => async () => {
   const settings = await api.getSettings();
   if (!settings.showOnDoubleClick) {
     return;
@@ -137,6 +140,10 @@ const autoShow = (options: AutoShowOptions) => async () => {
 
   doubleClick$.next();
 
+  await showPopup(options);
+};
+
+const showPopup = async (options: AutoShowOptions) => {
   const selection = window.getSelection();
   if (!isValidSelection(selection)) {
     return;
@@ -195,7 +202,16 @@ export const registerContentScript = async (
   document.addEventListener('mouseup', onMouseUp);
   document.addEventListener('mousedown', onMouseDown);
 
-  document.addEventListener('dblclick', autoShow({ isTouchscreen: false }));
+  document.addEventListener(
+    'dblclick',
+    showOnDbClick({ isTouchscreen: false })
+  );
+
+  browserEnv.runtime.onMessage.addListener((request) => {
+    if (request && request.action === 'contextMenuTranslateClicked') {
+      showPopup({ isTouchscreen: false });
+    }
+  });
 
   enableSelectionChangeDetection();
 };
