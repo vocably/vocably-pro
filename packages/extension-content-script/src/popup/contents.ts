@@ -112,6 +112,11 @@ export const setContents = async ({
         });
     };
 
+    translation.attachTag = api.attachTag;
+    translation.detachTag = api.detachTag;
+    translation.deleteTag = api.deleteTag;
+    translation.updateTag = api.updateTag;
+
     translation.addEventListener(
       'changeSourceLanguage',
       ({ detail: sourceLanguage }: CustomEvent) => {

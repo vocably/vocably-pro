@@ -22,6 +22,30 @@ export type AddCardPayload = {
   card: DetachedCardItem;
 };
 
+export type TagCandidate = TagItem | Pick<TagItem, 'data'>;
+
+export type AttachTagPayload = {
+  translationCards: TranslationCards;
+  cardId: string;
+  tag: TagCandidate;
+};
+
+export type DetachTagPayload = {
+  translationCards: TranslationCards;
+  cardId: string;
+  tag: TagItem;
+};
+
+export type UpdateTagPayload = {
+  translationCards: TranslationCards;
+  tag: TagItem;
+};
+
+export type DeleteTagPayload = {
+  translationCards: TranslationCards;
+  tag: TagItem;
+};
+
 export const isCardItem = (
   item: CardItem | DetachedCardItem
 ): item is CardItem => {

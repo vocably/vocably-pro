@@ -201,6 +201,7 @@ export const registerServiceWorker = (
         cards,
         source: analysisResult.value.source,
         translation: analysisResult.value.translation,
+        tags: loadLanguageDeckResult.value.tags,
       };
 
       addLanguage(value.translation.sourceLanguage);

@@ -1,8 +1,28 @@
-import { isEqual } from 'lodash-es';
+import { isItem } from '@vocably/crud';
+import { TagItem } from '@vocably/model';
+import { cloneDeep, isEqual } from 'lodash-es';
 import { registerContentScript } from '../src';
 import { configureContentScript } from '../src/configuration';
 
 let isUserKnowsHowToAdd = false;
+
+let tags: TagItem[] = [
+  {
+    id: '1',
+    created: 123,
+    data: {
+      title: 'Lesson 1',
+    },
+  },
+  {
+    id: '2',
+    created: 234,
+    data: {
+      title: 'Lesson 2',
+    },
+  },
+];
+
 registerContentScript({
   api: {
     appBaseUrl: 'http://localhost:8030',
@@ -52,6 +72,8 @@ registerContentScript({
           if (payload.sourceLanguage) {
             result.value.translation.sourceLanguage = payload.sourceLanguage;
           }
+
+          result.value.tags = tags;
 
           resolve(result);
         }, parseInt((document.getElementById('delay') as HTMLInputElement).value));
@@ -156,6 +178,113 @@ registerContentScript({
           ).checked,
         });
       }),
+
+    attachTag: (payload) =>
+      new Promise((resolve) => {
+        const translationCards = cloneDeep(payload.translationCards);
+        setTimeout(() => {
+          let tag: TagItem;
+          if (isItem(payload.tag)) {
+            tag = payload.tag;
+          } else {
+            tag = {
+              id: Math.random().toString(),
+              data: payload.tag.data,
+              created: +new Date(),
+            };
+
+            tags = [...tags, tag];
+            translationCards.tags = tags;
+          }
+
+          translationCards.cards = translationCards.cards.map(
+            (translationCard) => {
+              return {
+                ...translationCard,
+                data: {
+                  ...translationCard.data,
+                  tags: translationCard.data.tags.map((cardTag) =>
+                    cardTag.id === tag.id ? tag : cardTag
+                  ),
+                },
+              };
+            }
+          );
+
+          const card = translationCards.cards.find(
+            (candidate) => isItem(candidate) && candidate.id == payload.cardId
+          );
+
+          if (card) {
+            card.data.tags.push(tag);
+          }
+
+          return resolve({
+            success: true,
+            value: translationCards,
+          });
+        }, 1000);
+      }),
+    detachTag: (payload) =>
+      new Promise((resolve) => {
+        const translationCards = cloneDeep(payload.translationCards);
+        setTimeout(() => {
+          const card = translationCards.cards.find(
+            (translationCard) =>
+              isItem(translationCard) && translationCard.id === payload.cardId
+          );
+
+          if (card) {
+            card.data.tags = card.data.tags.filter(
+              (cardTag) => cardTag.id !== payload.tag.id
+            );
+          }
+
+          resolve({
+            success: true,
+            value: translationCards,
+          });
+        }, 1000);
+      }),
+    updateTag: (payload) =>
+      new Promise((resolve) =>
+        setTimeout(() => {
+          const translationCards = cloneDeep(payload.translationCards);
+          tags = tags.map((tag) =>
+            tag.id !== payload.tag.id ? tag : payload.tag
+          );
+          translationCards.tags = tags;
+          translationCards.cards.forEach((card) => {
+            card.data.tags = card.data.tags.map((cardTag) =>
+              cardTag.id !== payload.tag.id ? cardTag : payload.tag
+            );
+          });
+
+          resolve({
+            success: true,
+            value: translationCards,
+          });
+        }, 1000)
+      ),
+    deleteTag: (payload) =>
+      new Promise((resolve) =>
+        setTimeout(() => {
+          const translationCards = cloneDeep(payload.translationCards);
+          tags = tags.filter((t) => t.id !== payload.tag.id);
+          translationCards.tags = tags;
+
+          translationCards.cards.forEach((card) => {
+            card.data.tags = card.data.tags.filter(
+              (cardTag) => cardTag.id !== payload.tag.id
+            );
+          });
+
+          resolve({
+            success: true,
+            value: translationCards,
+          });
+        }, 1000)
+      ),
   },
   youTube: {
     ytHosts: ['localhost:8020'],

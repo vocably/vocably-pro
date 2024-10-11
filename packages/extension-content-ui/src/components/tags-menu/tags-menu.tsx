@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
-import { Result, TagItem } from '@vocably/model';
+import { Result, TagCandidate, TagItem } from '@vocably/model';
 
 @Component({
   tag: 'vocably-tags-menu',
@@ -11,7 +11,9 @@ export class VocablyTagsMenu {
 
   @Prop() selectedItems: string[] = [];
   @Prop() existingItems: TagItem[] = [];
-  @Prop() saveTag: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
+  @Prop() attachTag: (tag: TagItem) => Promise<Result<unknown>>;
+  @Prop() detachTag: (tag: TagItem) => Promise<Result<unknown>>;
+  @Prop() saveTag: (tag: TagCandidate) => Promise<Result<unknown>>;
   @Prop() deleteTag: (tag: TagItem) => Promise<Result<unknown>>;
 
   private overlayElement: HTMLVocablyOverlayElement | null = null;

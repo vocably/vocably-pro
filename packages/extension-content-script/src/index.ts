@@ -207,7 +207,7 @@ export const registerContentScript = async (
     showOnDbClick({ isTouchscreen: false })
   );
 
-  browserEnv.runtime.onMessage.addListener((request) => {
+  browserEnv.runtime?.onMessage?.addListener((request) => {
     if (request && request.action === 'contextMenuTranslateClicked') {
       showPopup({ isTouchscreen: false });
     }

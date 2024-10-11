@@ -93,3 +93,7 @@ export const makeRestore =
       value: true,
     };
   };
+
+export const isItem = <T>(value: any): value is Item<T> => {
+  return value['id'] && value['created'] && value['data'];
+};

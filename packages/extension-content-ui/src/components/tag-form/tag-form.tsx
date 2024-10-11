@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
-import { Result, TagItem } from '@vocably/model';
+import { Result, TagCandidate, TagItem } from '@vocably/model';
 
 @Component({
   tag: 'vocably-tag-form',
@@ -10,7 +10,7 @@ export class VocablyTagsMenu {
   @Event() hide: EventEmitter<void>;
 
   @Prop() tagItem: TagItem | null = null;
-  @Prop() saveTag?: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
+  @Prop() saveTag?: (tag: TagCandidate) => Promise<Result<unknown>>;
   @Prop() deleteTag?: (tag: TagItem) => Promise<Result<unknown>>;
 
   @State() title: string = '';

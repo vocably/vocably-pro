@@ -10,9 +10,13 @@ import {
   Prop,
   State,
 } from '@stencil/core';
+import { isItem } from '@vocably/crud';
 import {
   AddCardPayload,
+  AttachTagPayload,
   AudioPronunciationPayload,
+  DeleteTagPayload,
+  DetachTagPayload,
   GoogleLanguage,
   isCardItem,
   isDetachedCardItem,
@@ -21,10 +25,13 @@ import {
   RateInteractionPayload,
   RemoveCardPayload,
   Result,
+  TagCandidate,
   TagItem,
   TranslationCard,
   TranslationCards,
+  UpdateTagPayload,
 } from '@vocably/model';
+import { getSelectedTagIds } from './getSelectedTagIds';
 import { isDirectNecessary } from './isDirectNecessary';
 import { sortLanguages } from './sortLanguages';
 
@@ -50,8 +57,18 @@ export class VocablyTranslation {
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
   @Prop() extensionPlatform: { name: string; url: string };
-  @Prop() saveTag: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
-  @Prop() deleteTag: (tag: TagItem) => Promise<Result<unknown>>;
+  @Prop() attachTag: (
+    data: AttachTagPayload
+  ) => Promise<Result<TranslationCards>>;
+  @Prop() detachTag: (
+    data: DetachTagPayload
+  ) => Promise<Result<TranslationCards>>;
+  @Prop() updateTag: (
+    data: UpdateTagPayload
+  ) => Promise<Result<TranslationCards>>;
+  @Prop() deleteTag: (
+    data: DeleteTagPayload
+  ) => Promise<Result<TranslationCards>>;
 
   @Event() ratingInteraction: EventEmitter<RateInteractionPayload>;
 
@@ -80,7 +97,7 @@ export class VocablyTranslation {
   private overlay: HTMLElement | null = null;
   private tagsMenu: HTMLElement | null = null;
 
-  private showTagMenu(caller: HTMLElement) {
+  private showTagMenu(caller: HTMLElement, cardId: string) {
     if (this.result === null || !this.result.success) {
       return;
     }
@@ -95,13 +112,116 @@ export class VocablyTranslation {
 
     const tagsMenu = document.createElement('vocably-tags-menu');
     tagsMenu.existingItems = this.result.value.tags;
+    tagsMenu.selectedItems = getSelectedTagIds(this.result.value, cardId);
 
     const callerPosition = caller.getBoundingClientRect();
     tagsMenu.style.position = 'absolute';
     tagsMenu.style.left = `${window.scrollX + callerPosition.right}px`;
     tagsMenu.style.transform = `translate(-100%, 0)`;
-    tagsMenu.saveTag = this.saveTag;
-    tagsMenu.deleteTag = this.deleteTag;
+
+    tagsMenu.saveTag = async (tag: TagCandidate): Promise<Result<any>> => {
+      if (!this.result || !this.result.success) {
+        return {
+          success: false,
+          errorCode: 'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+          reason:
+            'Unable to save tag because the result is empty or erroneous.',
+        };
+      }
+
+      const result = await (isItem(tag)
+        ? this.updateTag({
+            tag,
+            translationCards: this.result.value,
+          })
+        : this.attachTag({
+            cardId,
+            tag,
+            translationCards: this.result.value,
+          }));
+
+      if (result.success) {
+        this.result = result;
+        tagsMenu.existingItems = result.value.tags;
+        tagsMenu.selectedItems = getSelectedTagIds(result.value, cardId);
+      }
+
+      return result;
+    };
+
+    tagsMenu.deleteTag = async (tag: TagItem): Promise<Result<unknown>> => {
+      if (!this.result || !this.result.success) {
+        return {
+          success: false,
+          errorCode: 'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+          reason:
+            'Unable to delete tag because the result is empty or erroneous.',
+        };
+      }
+
+      const result = await this.deleteTag({
+        tag,
+        translationCards: this.result.value,
+      });
+
+      if (result.success) {
+        this.result = result;
+        tagsMenu.existingItems = result.value.tags;
+        tagsMenu.selectedItems = getSelectedTagIds(result.value, cardId);
+      }
+
+      return result;
+    };
+
+    tagsMenu.attachTag = async (tag: TagItem): Promise<Result<unknown>> => {
+      if (!this.result || !this.result.success) {
+        return {
+          success: false,
+          errorCode: 'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+          reason:
+            'Unable to attach tag because the result is empty or erroneous.',
+        };
+      }
+
+      const result = await this.attachTag({
+        translationCards: this.result.value,
+        tag,
+        cardId,
+      });
+
+      if (result.success) {
+        this.result = result;
+        tagsMenu.existingItems = result.value.tags;
+        tagsMenu.selectedItems = getSelectedTagIds(result.value, cardId);
+      }
+
+      return result;
+    };
+
+    tagsMenu.detachTag = async (tag: TagItem): Promise<Result<unknown>> => {
+      if (!this.result || !this.result.success) {
+        return {
+          success: false,
+          errorCode: 'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+          reason:
+            'Unable to detach tag because the result is empty or erroneous.',
+        };
+      }
+
+      const result = await this.detachTag({
+        translationCards: this.result.value,
+        tag,
+        cardId,
+      });
+
+      if (result.success) {
+        this.result = result;
+        tagsMenu.existingItems = result.value.tags;
+        tagsMenu.selectedItems = getSelectedTagIds(result.value, cardId);
+      }
+
+      return result;
+    };
 
     if (callerPosition.top * 2 > window.innerHeight) {
       tagsMenu.style.bottom = `${
@@ -262,7 +382,10 @@ export class VocablyTranslation {
                                   disabled={this.isUpdating !== null}
                                   onClick={(e) =>
                                     e.target &&
-                                    this.showTagMenu(e.target as HTMLElement)
+                                    this.showTagMenu(
+                                      e.target as HTMLElement,
+                                      card.id
+                                    )
                                   }
                                 >
                                   {this.isUpdating !== card && (

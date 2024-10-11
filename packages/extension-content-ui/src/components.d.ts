@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { AddCardPayload, AudioPronunciationPayload, GoogleLanguage, GoogleTTSLanguage, RateInteractionPayload, RemoveCardPayload, Result, TagItem, TranslationCard, TranslationCards } from "@vocably/model";
+import { AddCardPayload, AttachTagPayload, AudioPronunciationPayload, DeleteTagPayload, DetachTagPayload, GoogleLanguage, GoogleTTSLanguage, RateInteractionPayload, RemoveCardPayload, Result, TagCandidate, TagItem, TranslationCard, TranslationCards, UpdateTagPayload } from "@vocably/model";
 export namespace Components {
     interface VocablyAddCardHint {
     }
@@ -84,19 +84,29 @@ export namespace Components {
     }
     interface VocablyTagForm {
         "deleteTag"?: (tag: TagItem) => Promise<Result<unknown>>;
-        "saveTag"?: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
+        "saveTag"?: (tag: TagCandidate) => Promise<Result<unknown>>;
         "tagItem": TagItem | null;
     }
     interface VocablyTagsMenu {
+        "attachTag": (tag: TagItem) => Promise<Result<unknown>>;
         "deleteTag": (tag: TagItem) => Promise<Result<unknown>>;
+        "detachTag": (tag: TagItem) => Promise<Result<unknown>>;
         "existingItems": TagItem[];
-        "saveTag": (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
+        "saveTag": (tag: TagCandidate) => Promise<Result<unknown>>;
         "selectedItems": string[];
     }
     interface VocablyTranslation {
         "askForRating": boolean;
+        "attachTag": (
+    data: AttachTagPayload
+  ) => Promise<Result<TranslationCards>>;
         "canCongratulate": boolean;
-        "deleteTag": (tag: TagItem) => Promise<Result<unknown>>;
+        "deleteTag": (
+    data: DeleteTagPayload
+  ) => Promise<Result<TranslationCards>>;
+        "detachTag": (
+    data: DetachTagPayload
+  ) => Promise<Result<TranslationCards>>;
         "existingSourceLanguages": GoogleLanguage[];
         "existingTargetLanguages": GoogleLanguage[];
         "extensionPlatform": { name: string; url: string };
@@ -109,10 +119,12 @@ export namespace Components {
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
         "result": Result<TranslationCards> | null;
-        "saveTag": (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
         "showSaveHint": boolean;
         "sourceLanguage": string;
         "targetLanguage": string;
+        "updateTag": (
+    data: UpdateTagPayload
+  ) => Promise<Result<TranslationCards>>;
     }
 }
 export interface VocablyAddCardHintCustomEvent<T> extends CustomEvent<T> {
@@ -463,20 +475,30 @@ declare namespace LocalJSX {
     interface VocablyTagForm {
         "deleteTag"?: (tag: TagItem) => Promise<Result<unknown>>;
         "onHide"?: (event: VocablyTagFormCustomEvent<void>) => void;
-        "saveTag"?: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
+        "saveTag"?: (tag: TagCandidate) => Promise<Result<unknown>>;
         "tagItem"?: TagItem | null;
     }
     interface VocablyTagsMenu {
+        "attachTag"?: (tag: TagItem) => Promise<Result<unknown>>;
         "deleteTag"?: (tag: TagItem) => Promise<Result<unknown>>;
+        "detachTag"?: (tag: TagItem) => Promise<Result<unknown>>;
         "existingItems"?: TagItem[];
         "onTagClick"?: (event: VocablyTagsMenuCustomEvent<TagItem>) => void;
-        "saveTag"?: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
+        "saveTag"?: (tag: TagCandidate) => Promise<Result<unknown>>;
         "selectedItems"?: string[];
     }
     interface VocablyTranslation {
         "askForRating"?: boolean;
+        "attachTag"?: (
+    data: AttachTagPayload
+  ) => Promise<Result<TranslationCards>>;
         "canCongratulate"?: boolean;
-        "deleteTag"?: (tag: TagItem) => Promise<Result<unknown>>;
+        "deleteTag"?: (
+    data: DeleteTagPayload
+  ) => Promise<Result<TranslationCards>>;
+        "detachTag"?: (
+    data: DetachTagPayload
+  ) => Promise<Result<TranslationCards>>;
         "existingSourceLanguages"?: GoogleLanguage[];
         "existingTargetLanguages"?: GoogleLanguage[];
         "extensionPlatform"?: { name: string; url: string };
@@ -493,10 +515,12 @@ declare namespace LocalJSX {
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
         "result"?: Result<TranslationCards> | null;
-        "saveTag"?: (tag: Pick<TagItem, 'data'>) => Promise<Result<TagItem>>;
         "showSaveHint"?: boolean;
         "sourceLanguage"?: string;
         "targetLanguage"?: string;
+        "updateTag"?: (
+    data: UpdateTagPayload
+  ) => Promise<Result<TranslationCards>>;
     }
     interface IntrinsicElements {
         "vocably-add-card-hint": VocablyAddCardHint;
