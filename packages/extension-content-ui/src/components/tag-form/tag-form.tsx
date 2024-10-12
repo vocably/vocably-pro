@@ -122,6 +122,7 @@ export class VocablyTagsMenu {
             <button
               class="delete"
               disabled={this.isDisabled()}
+              type="button"
               onClick={() => {
                 const yesPlease = window.confirm(
                   [
