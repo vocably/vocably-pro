@@ -100,36 +100,41 @@ export class VocablyTagsMenu {
               Add new tag
             </button>
           </li>
-          {this.existingItems.map((tagItem) => (
-            <li class="clickable">
-              <button onClick={this.onTagClick(tagItem)} style={{ flex: '1' }}>
-                {tagItem.data.title}{' '}
-                <span class="icon">
-                  {this.savingTag !== tagItem &&
-                    this.selectedItems.includes(tagItem.id) && (
-                      <vocably-icon-check class="check"></vocably-icon-check>
+          {this.existingItems
+            .sort((a, b) => b.created - a.created)
+            .map((tagItem) => (
+              <li class="clickable">
+                <button
+                  onClick={this.onTagClick(tagItem)}
+                  style={{ flex: '1' }}
+                >
+                  {tagItem.data.title}{' '}
+                  <span class="icon">
+                    {this.savingTag !== tagItem &&
+                      this.selectedItems.includes(tagItem.id) && (
+                        <vocably-icon-check class="check"></vocably-icon-check>
+                      )}
+                    {this.savingTag === tagItem && (
+                      <vocably-icon-spin class="spinner"></vocably-icon-spin>
                     )}
-                  {this.savingTag === tagItem && (
-                    <vocably-icon-spin class="spinner"></vocably-icon-spin>
-                  )}
-                </span>
-              </button>
-              <button
-                title={'Edit Tag'}
-                class="edit"
-                style={{ flex: '0', textAlign: 'center' }}
-                onClick={() => {
-                  if (this.disabled) {
-                    return false;
-                  }
+                  </span>
+                </button>
+                <button
+                  title={'Edit Tag'}
+                  class="edit"
+                  style={{ flex: '0', textAlign: 'center' }}
+                  onClick={() => {
+                    if (this.disabled) {
+                      return false;
+                    }
 
-                  this.displayTagForm(tagItem);
-                }}
-              >
-                <vocably-icon-tag-edit></vocably-icon-tag-edit>
-              </button>
-            </li>
-          ))}
+                    this.displayTagForm(tagItem);
+                  }}
+                >
+                  <vocably-icon-tag-edit></vocably-icon-tag-edit>
+                </button>
+              </li>
+            ))}
         </menu>
       </Host>
     );
