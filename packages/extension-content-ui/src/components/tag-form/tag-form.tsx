@@ -129,10 +129,7 @@ export class VocablyTagsMenu {
                 type="button"
                 onClick={() => {
                   const yesPlease = window.confirm(
-                    [
-                      'Delete this tag?',
-                      'Cards associated with the tag will not be deleted.',
-                    ].join('\n')
+                    ['Delete this tag?', 'No cards will be deleted.'].join('\n')
                   );
 
                   if (yesPlease) {
