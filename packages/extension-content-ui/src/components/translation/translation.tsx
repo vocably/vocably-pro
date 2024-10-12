@@ -262,7 +262,7 @@ export class VocablyTranslation {
     this.tagsMenu = tagsMenu;
   }
 
-  private removeTagClick = (card: CardItem, tag: TagItem) => async () => {
+  private detachTagClick = (card: CardItem, tag: TagItem) => async () => {
     if (!this.result || !this.result.success) {
       return false;
     }
@@ -281,8 +281,9 @@ export class VocablyTranslation {
       tag,
     };
 
-    const result = await this.deleteTag({
+    const result = await this.detachTag({
       translationCards: this.result.value,
+      cardId: card.id,
       tag: tag,
     });
 
@@ -521,16 +522,22 @@ export class VocablyTranslation {
                             {isItem(card) && card.data.tags.length > 0 && (
                               <div
                                 class="vocably-mt-12"
-                                style={{ display: 'flex', gap: '6px' }}
+                                style={{
+                                  display: 'flex',
+                                  gap: '6px',
+                                  flexWrap: 'wrap',
+                                }}
                               >
                                 {card.data.tags.map((tagItem) => (
                                   <div class="vocably-tag">
                                     {tagItem.data.title}
 
                                     <button
+                                      type="button"
                                       class="vocably-tag-remove-button"
+                                      aria-label="Remove this tag from the card"
                                       title="Remove this tag from the card"
-                                      onClick={this.removeTagClick(
+                                      onClick={this.detachTagClick(
                                         card,
                                         tagItem
                                       )}

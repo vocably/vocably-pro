@@ -99,59 +99,68 @@ export class VocablyTagsMenu {
 
   render() {
     return (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          this.onSubmit();
-          return false;
-        }}
-      >
-        <h1>
-          {this.tagItem ? `Edit ${this.tagItem.data.title}` : `Add New Tag`}
-        </h1>
-        <label>
-          <input
-            type="text"
-            onKeyUp={this.onInputChange.bind(this)}
-            onChange={this.onInputChange.bind(this)}
-            ref={(el) => (this.textInput = el as HTMLInputElement)}
-          />
-        </label>
-        <div class="buttons">
-          {this.tagItem && (
-            <button
-              class="delete"
-              disabled={this.isDisabled()}
-              type="button"
-              onClick={() => {
-                const yesPlease = window.confirm(
-                  [
-                    'Delete this tag?',
-                    'Cards associated with the tag will not be deleted.',
-                  ].join('\n')
-                );
+      <div class="tag-form">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            this.onSubmit();
+            return false;
+          }}
+        >
+          <label>
+            <h1>
+              {this.tagItem
+                ? `New name for ${this.tagItem.data.title}:`
+                : `New tag name:`}
+            </h1>
+            <input
+              type="text"
+              placeholder="New tag"
+              onKeyUp={this.onInputChange.bind(this)}
+              onChange={this.onInputChange.bind(this)}
+              ref={(el) => (this.textInput = el as HTMLInputElement)}
+            />
+          </label>
+          <div class="buttons">
+            {this.tagItem && (
+              <button
+                class="delete"
+                disabled={this.isDisabled()}
+                type="button"
+                onClick={() => {
+                  const yesPlease = window.confirm(
+                    [
+                      'Delete this tag?',
+                      'Cards associated with the tag will not be deleted.',
+                    ].join('\n')
+                  );
 
-                if (yesPlease) {
-                  this.onDelete();
-                }
-              }}
+                  if (yesPlease) {
+                    this.onDelete();
+                  }
+                }}
+              >
+                Delete
+              </button>
+            )}
+            <button
+              type="button"
+              class="cancel"
+              onClick={() => this.hide.emit()}
             >
-              Delete
+              Cancel
             </button>
-          )}
-          <button type="button" class="cancel" onClick={() => this.hide.emit()}>
-            Cancel
-          </button>
-          <button type="submit" class="submit" disabled={this.isDisabled()}>
-            Save
-          </button>
-        </div>
-        {this.saving && (
-          <div class="loader">
-            <vocably-spinner></vocably-spinner>
+            <button type="submit" class="submit" disabled={this.isDisabled()}>
+              Save
+            </button>
           </div>
-        )}
-      </form>
+          {this.saving && (
+            <div class="loader">
+              <vocably-spinner></vocably-spinner>
+            </div>
+          )}
+        </form>
+      </div>
     );
   }
 }

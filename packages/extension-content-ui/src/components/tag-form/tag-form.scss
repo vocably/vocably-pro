@@ -5,7 +5,9 @@
   visibility: visible !important;
   --shadow-spread: 10px;
   --shadow-v-offset: 4px;
+}
 
+.tag-form {
   @include base-font();
 
   display: inline-block;
@@ -60,6 +62,7 @@ input[type='text'] {
 
 .submit {
   @include button();
+  margin: 0;
   flex: 0;
   min-width: 140px;
 }

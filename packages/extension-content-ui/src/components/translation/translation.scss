@@ -290,6 +290,7 @@ vocably-play-sound {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 
 .vocably-tag-remove-button {
@@ -299,7 +300,7 @@ vocably-play-sound {
 
   vertical-align: middle;
   height: $height;
-  opacity: 0.5;
+  opacity: 0.3;
   transition: opacity 300ms;
   transform: scale(80%);
 
