@@ -16,6 +16,7 @@
   padding: 24px;
   border-radius: $v-border-radius * 2;
   box-shadow: 0 var(--shadow-v-offset) var(--shadow-spread) rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
 
   width: clamp(340px, 90vw, 390px);
 }
