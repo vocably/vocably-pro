@@ -91,6 +91,7 @@ export namespace Components {
         "attachTag": (tag: TagItem) => Promise<Result<unknown>>;
         "deleteTag": (tag: TagItem) => Promise<Result<unknown>>;
         "detachTag": (tag: TagItem) => Promise<Result<unknown>>;
+        "disabled": boolean;
         "existingItems": TagItem[];
         "saveTag": (tag: TagCandidate) => Promise<Result<unknown>>;
         "selectedItems": string[];
@@ -107,6 +108,7 @@ export namespace Components {
         "detachTag": (
     data: DetachTagPayload
   ) => Promise<Result<TranslationCards>>;
+        "disabled": boolean;
         "existingSourceLanguages": GoogleLanguage[];
         "existingTargetLanguages": GoogleLanguage[];
         "extensionPlatform": { name: string; url: string };
@@ -158,10 +160,6 @@ export interface VocablySubscribeCustomEvent<T> extends CustomEvent<T> {
 export interface VocablyTagFormCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLVocablyTagFormElement;
-}
-export interface VocablyTagsMenuCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLVocablyTagsMenuElement;
 }
 export interface VocablyTranslationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -482,8 +480,8 @@ declare namespace LocalJSX {
         "attachTag"?: (tag: TagItem) => Promise<Result<unknown>>;
         "deleteTag"?: (tag: TagItem) => Promise<Result<unknown>>;
         "detachTag"?: (tag: TagItem) => Promise<Result<unknown>>;
+        "disabled"?: boolean;
         "existingItems"?: TagItem[];
-        "onTagClick"?: (event: VocablyTagsMenuCustomEvent<TagItem>) => void;
         "saveTag"?: (tag: TagCandidate) => Promise<Result<unknown>>;
         "selectedItems"?: string[];
     }
@@ -499,6 +497,7 @@ declare namespace LocalJSX {
         "detachTag"?: (
     data: DetachTagPayload
   ) => Promise<Result<TranslationCards>>;
+        "disabled"?: boolean;
         "existingSourceLanguages"?: GoogleLanguage[];
         "existingTargetLanguages"?: GoogleLanguage[];
         "extensionPlatform"?: { name: string; url: string };

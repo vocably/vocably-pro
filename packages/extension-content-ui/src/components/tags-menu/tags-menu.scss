@@ -73,12 +73,14 @@ menu {
   }
 }
 
-.check {
-  vertical-align: text-bottom;
+.icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: bottom;
   margin-left: 12px;
-  visibility: hidden;
+}
 
-  &.visible {
-    visibility: visible !important;
-  }
+.spinner {
+  --size: 18px;
 }

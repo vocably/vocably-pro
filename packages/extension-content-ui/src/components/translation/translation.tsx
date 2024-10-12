@@ -15,6 +15,7 @@ import {
   AddCardPayload,
   AttachTagPayload,
   AudioPronunciationPayload,
+  CardItem,
   DeleteTagPayload,
   DetachTagPayload,
   GoogleLanguage,
@@ -69,6 +70,7 @@ export class VocablyTranslation {
   @Prop() deleteTag: (
     data: DeleteTagPayload
   ) => Promise<Result<TranslationCards>>;
+  @Prop({ mutable: true }) disabled = false;
 
   @Event() ratingInteraction: EventEmitter<RateInteractionPayload>;
 
@@ -79,6 +81,10 @@ export class VocablyTranslation {
 
   @State() saveCardClicked = false;
   @State() addedItemIndex = -1;
+  @State() removing: {
+    card: CardItem;
+    tag: TagItem;
+  } | null = null;
 
   @Element() el: HTMLElement;
 
@@ -129,6 +135,8 @@ export class VocablyTranslation {
         };
       }
 
+      this.disabled = true;
+
       const result = await (isItem(tag)
         ? this.updateTag({
             tag,
@@ -139,6 +147,8 @@ export class VocablyTranslation {
             tag,
             translationCards: this.result.value,
           }));
+
+      this.disabled = false;
 
       if (result.success) {
         this.result = result;
@@ -159,10 +169,14 @@ export class VocablyTranslation {
         };
       }
 
+      this.disabled = true;
+
       const result = await this.deleteTag({
         tag,
         translationCards: this.result.value,
       });
+
+      this.disabled = false;
 
       if (result.success) {
         this.result = result;
@@ -183,11 +197,15 @@ export class VocablyTranslation {
         };
       }
 
+      this.disabled = true;
+
       const result = await this.attachTag({
         translationCards: this.result.value,
         tag,
         cardId,
       });
+
+      this.disabled = false;
 
       if (result.success) {
         this.result = result;
@@ -208,11 +226,15 @@ export class VocablyTranslation {
         };
       }
 
+      this.disabled = true;
+
       const result = await this.detachTag({
         translationCards: this.result.value,
         tag,
         cardId,
       });
+
+      this.disabled = false;
 
       if (result.success) {
         this.result = result;
@@ -240,13 +262,45 @@ export class VocablyTranslation {
     this.tagsMenu = tagsMenu;
   }
 
+  private removeTagClick = (card: CardItem, tag: TagItem) => async () => {
+    if (!this.result || !this.result.success) {
+      return false;
+    }
+
+    if (!this.deleteTag) {
+      return false;
+    }
+
+    if (this.disabled) {
+      return false;
+    }
+
+    this.disabled = true;
+    this.removing = {
+      card,
+      tag,
+    };
+
+    const result = await this.deleteTag({
+      translationCards: this.result.value,
+      tag: tag,
+    });
+
+    this.disabled = false;
+    this.removing = null;
+
+    if (result.success) {
+      this.result = result;
+    }
+  };
+
   private askForRatingContainer: HTMLDivElement;
 
   render() {
     const sourceLanguageSelector = this.result && this.result.success && (
       <select
         class="vocably-input-select"
-        disabled={this.loading}
+        disabled={this.loading || this.disabled}
         onChange={(event) =>
           this.changeSourceLanguage.emit(
             (event.target as HTMLSelectElement).value
@@ -266,7 +320,7 @@ export class VocablyTranslation {
     const targetLanguageSelector = this.result && this.result.success && (
       <select
         class="vocably-input-select"
-        disabled={this.loading}
+        disabled={this.loading || this.disabled}
         onChange={(event) =>
           this.changeTargetLanguage.emit(
             (event.target as HTMLSelectElement).value
@@ -330,12 +384,16 @@ export class VocablyTranslation {
                       means <i>{this.result.value.translation.target}</i>
                     </div>
                   )}
-                  <div class="vocably-save-hint-container">
+                  <div
+                    class="vocably-cards-container"
+                    style={{ position: 'relative' }}
+                  >
                     {this.showSaveHint && (
                       <vocably-add-card-hint
                         class={{
-                          'vocably-save-hint': true,
-                          'vocably-save-hint-hidden': this.saveCardClicked,
+                          'vocably-cards-save-hint': true,
+                          'vocably-cards-save-hint-hidden':
+                            this.saveCardClicked,
                         }}
                       ></vocably-add-card-hint>
                     )}
@@ -357,6 +415,10 @@ export class VocablyTranslation {
                                   title="Remove card"
                                   disabled={this.isUpdating !== null}
                                   onClick={() => {
+                                    if (this.disabled) {
+                                      return false;
+                                    }
+
                                     this.saveCardClicked = true;
                                     if (this.addedItemIndex === itemIndex) {
                                       this.addedItemIndex = -1;
@@ -380,13 +442,17 @@ export class VocablyTranslation {
                                   class="vocably-card-action-button"
                                   title="Edit tags"
                                   disabled={this.isUpdating !== null}
-                                  onClick={(e) =>
+                                  onClick={(e) => {
+                                    if (this.disabled) {
+                                      return;
+                                    }
+
                                     e.target &&
-                                    this.showTagMenu(
-                                      e.target as HTMLElement,
-                                      card.id
-                                    )
-                                  }
+                                      this.showTagMenu(
+                                        e.target as HTMLElement,
+                                        card.id
+                                      );
+                                  }}
                                 >
                                   {this.isUpdating !== card && (
                                     <vocably-icon-tag></vocably-icon-tag>
@@ -400,6 +466,10 @@ export class VocablyTranslation {
                                 title="Add card"
                                 disabled={this.isUpdating !== null}
                                 onClick={() => {
+                                  if (this.disabled) {
+                                    return false;
+                                  }
+
                                   this.saveCardClicked = true;
                                   if (this.addedItemIndex === -1) {
                                     this.addedItemIndex = itemIndex;
@@ -446,6 +516,38 @@ export class VocablyTranslation {
                                 <vocably-card-examples
                                   example={card.data.example}
                                 ></vocably-card-examples>
+                              </div>
+                            )}
+                            {isItem(card) && card.data.tags.length > 0 && (
+                              <div
+                                class="vocably-mt-12"
+                                style={{ display: 'flex', gap: '6px' }}
+                              >
+                                {card.data.tags.map((tagItem) => (
+                                  <div class="vocably-tag">
+                                    {tagItem.data.title}
+
+                                    <button
+                                      class="vocably-tag-remove-button"
+                                      title="Remove this tag from the card"
+                                      onClick={this.removeTagClick(
+                                        card,
+                                        tagItem
+                                      )}
+                                    >
+                                      {this.removing &&
+                                        this.removing.card === card &&
+                                        this.removing.tag === tagItem && (
+                                          <vocably-icon-spin></vocably-icon-spin>
+                                        )}
+                                      {(!this.removing ||
+                                        this.removing.card !== card ||
+                                        this.removing.tag !== tagItem) && (
+                                        <vocably-icon-remove class="vocably-tag-remove-button-icon"></vocably-icon-remove>
+                                      )}
+                                    </button>
+                                  </div>
+                                ))}
                               </div>
                             )}
                           </div>

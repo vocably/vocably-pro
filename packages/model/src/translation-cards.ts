@@ -1,7 +1,13 @@
 import { Translation } from './analysis';
 import { CardItem, TagItem } from './language-deck';
 
-export type DetachedCardItem = Pick<CardItem, 'data'>;
+export type DetachedCard = Omit<
+  CardItem['data'],
+  'eFactor' | 'dueDate' | 'repetition' | 'interval'
+>;
+export type DetachedCardItem = {
+  data: DetachedCard;
+};
 
 export type TranslationCard = CardItem | DetachedCardItem;
 

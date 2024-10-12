@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
+import { Component, h, Host, Prop, State } from '@stencil/core';
 import { Result, TagCandidate, TagItem } from '@vocably/model';
 
 @Component({
@@ -7,14 +7,15 @@ import { Result, TagCandidate, TagItem } from '@vocably/model';
   shadow: true,
 })
 export class VocablyTagsMenu {
-  @Event() tagClick: EventEmitter<TagItem>;
-
+  @Prop() disabled = false;
   @Prop() selectedItems: string[] = [];
   @Prop() existingItems: TagItem[] = [];
   @Prop() attachTag: (tag: TagItem) => Promise<Result<unknown>>;
   @Prop() detachTag: (tag: TagItem) => Promise<Result<unknown>>;
   @Prop() saveTag: (tag: TagCandidate) => Promise<Result<unknown>>;
   @Prop() deleteTag: (tag: TagItem) => Promise<Result<unknown>>;
+
+  @State() savingTag: TagItem | null = null;
 
   private overlayElement: HTMLVocablyOverlayElement | null = null;
   private tagForm: HTMLVocablyTagFormElement | null = null;
@@ -23,6 +24,27 @@ export class VocablyTagsMenu {
     const overlay = this.overlayElement;
     overlay && overlay.hide();
   }
+
+  private onTagClick = (tagItem: TagItem) => async () => {
+    if (this.disabled) {
+      return;
+    }
+
+    this.disabled = true;
+    this.savingTag = tagItem;
+
+    const result = await (this.selectedItems.includes(tagItem.id)
+      ? this.detachTag(tagItem)
+      : this.attachTag(tagItem));
+
+    this.disabled = false;
+    this.savingTag = null;
+
+    if (result.success === false) {
+      alert('Unable to complete the tag operation. Please try again.');
+      return;
+    }
+  };
 
   displayTagForm(item?: TagItem) {
     this.overlayElement && this.overlayElement.remove();
@@ -66,27 +88,43 @@ export class VocablyTagsMenu {
             </li>
           )}
           <li class="clickable">
-            <button onClick={() => this.displayTagForm()}>Add new tag</button>
+            <button
+              onClick={() => {
+                if (this.disabled) {
+                  return false;
+                }
+
+                this.displayTagForm();
+              }}
+            >
+              Add new tag
+            </button>
           </li>
-          {this.existingItems.map((item) => (
+          {this.existingItems.map((tagItem) => (
             <li class="clickable">
-              <button
-                onClick={() => this.tagClick.emit(item)}
-                style={{ flex: '1' }}
-              >
-                {item.data.title}{' '}
-                <vocably-icon-check
-                  class={{
-                    check: true,
-                    visible: this.selectedItems.includes(item.id),
-                  }}
-                ></vocably-icon-check>
+              <button onClick={this.onTagClick(tagItem)} style={{ flex: '1' }}>
+                {tagItem.data.title}{' '}
+                <span class="icon">
+                  {this.savingTag !== tagItem &&
+                    this.selectedItems.includes(tagItem.id) && (
+                      <vocably-icon-check class="check"></vocably-icon-check>
+                    )}
+                  {this.savingTag === tagItem && (
+                    <vocably-icon-spin class="spinner"></vocably-icon-spin>
+                  )}
+                </span>
               </button>
               <button
                 title={'Edit Tag'}
                 class="edit"
                 style={{ flex: '0', textAlign: 'center' }}
-                onClick={() => this.displayTagForm(item)}
+                onClick={() => {
+                  if (this.disabled) {
+                    return false;
+                  }
+
+                  this.displayTagForm(tagItem);
+                }}
               >
                 <vocably-icon-tag-edit></vocably-icon-tag-edit>
               </button>

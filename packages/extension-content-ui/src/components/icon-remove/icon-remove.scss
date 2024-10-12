@@ -1,11 +1,12 @@
 @import '../../styles/variables';
 
 :host {
-  --logo-color: #{$v-light-color-emphasize};
+  --color: #{$v-light-color-danger};
+  --size: 24px;
 
   display: inline-block;
-  width: 24px;
-  height: 24px;
+  width: var(--size);
+  height: var(--size);
 
   // Reddit sets visibility: hidden for custom elements
   visibility: visible !important;
@@ -15,5 +16,5 @@
   height: 100%;
   width: auto;
 
-  fill: $v-light-color-danger;
+  fill: var(--color);
 }
