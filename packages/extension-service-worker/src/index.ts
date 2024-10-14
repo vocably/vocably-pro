@@ -55,8 +55,9 @@ import {
   mapUserAttributes,
   Result,
 } from '@vocably/model';
+import { buildTagMap } from '@vocably/model-operations';
 import { createSrsItem } from '@vocably/srs';
-import { get, isEqual } from 'lodash-es';
+import { get, isEqual, uniq } from 'lodash-es';
 import {
   getAskForRatingCounter,
   resetAskForRatingCounter,
@@ -66,6 +67,7 @@ import { browserEnv, hasOffscreen } from './browserEnv';
 import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
+import { getLastUsedTagsIds, saveLastUsedTagsIds } from './lastUsedTagsIds';
 import { getLocationLanguage, storeLocationLanguage } from './locationLanguage';
 import { getLanguagePair } from './selectedLanguage/languagePairs';
 import {
@@ -269,9 +271,19 @@ export const registerServiceWorker = (
       return sendResponse(getLanguageDeckResult);
     }
 
+    const tagMap = buildTagMap(getLanguageDeckResult.value.tags);
+    const lastUsedTagsIds = await getLastUsedTagsIds();
+
+    const tags = uniq(lastUsedTagsIds)
+      .filter((tagId) => tagMap[tagId])
+      .map((tagId) => tagMap[tagId]);
+
+    await saveLastUsedTagsIds(tags.map((t) => t.id));
+
     const addedCard = makeCreate(getLanguageDeckResult.value.cards)({
       ...createSrsItem(),
       ...payload.card.data,
+      tags,
     });
 
     const saveLanguageDeckResult = await saveLanguageDeck(
@@ -555,6 +567,8 @@ export const registerServiceWorker = (
       card.data.tags.push(tagItem);
     }
 
+    await saveLastUsedTagsIds(card.data.tags.map((t) => t.id));
+
     const saveResult = await saveLanguageDeck(languageDeckResult.value);
 
     if (saveResult.success === false) {
@@ -613,6 +627,8 @@ export const registerServiceWorker = (
     }
 
     card.data.tags = card.data.tags.filter((t) => t.id !== payload.tag.id);
+
+    await saveLastUsedTagsIds(card.data.tags.map((t) => t.id));
 
     const saveResult = await saveLanguageDeck(languageDeckResult.value);
 
