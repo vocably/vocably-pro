@@ -5,12 +5,15 @@ $v-small-font: 90%;
 
 // Light
 $v-light-color-body-bg: rgb(255, 255, 255);
+$v-light-color-hover-bg: rgba(230, 230, 230, 0.5);
+$v-light-color-active-bg: rgba(230, 230, 230, 0.2);
 $v-light-color-body-bg-rgb: 255, 255, 255;
 $v-light-color-body-bg-transparent: rgba(255, 255, 255, 0);
 $v-light-color-primary: #0050ff;
 $v-light-color-primary-rgb: 0, 80, 255;
 $v-light-color-active: #0047e3;
 $v-light-color-danger: #ff5e5e;
+$v-light-color-danger-active: #e13a3a;
 $v-light-color-body: #6a6a6a;
 $v-light-color-muted: #bababa;
 $v-light-color-body-rgb: 106, 106, 106;
@@ -24,6 +27,7 @@ $v-light-btn-color: #ffffff;
 $v-light-btn-bg: $v-light-color-primary;
 $v-light-btn-hover-bg: $v-light-color-active;
 $v-light-btn-active-bg: $v-light-color-active;
+$v-light-btn-disabled-bg: $v-light-color-muted;
 $v-light-btn-active-shadow: inset 0px 0px 15px rgba(3, 36, 108, 0.4);
 $v-light-btn-box-shadow: 0 $v-btn-shadow-v-offset $v-btn-shadow-spread
   rgba(0, 80, 255, 0.25);

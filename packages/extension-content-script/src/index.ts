@@ -14,7 +14,7 @@ import { contextLanguages } from './contextLanguages';
 import { detectLanguage } from './detectLanguage';
 import { getContext } from './getContext';
 import { getText } from './getText';
-import { createPopup, destroyAllPopups } from './popup';
+import { createPopup, destroyAllOverlays } from './popup';
 import { getGlobalRect } from './position';
 import { isValidSelection } from './selection';
 import { initYoutube, InitYouTubeOptions } from './youtube';
@@ -118,7 +118,7 @@ const onMouseUp = async (event: MouseEvent) => {
         browser.getOS().name === 'Android' &&
         settings.showOnDoubleClick
       ) {
-        destroyAllPopups();
+        destroyAllOverlays();
         await showOnDbClick({ isTouchscreen: true })();
       }
 
@@ -207,7 +207,7 @@ export const registerContentScript = async (
     showOnDbClick({ isTouchscreen: false })
   );
 
-  browserEnv.runtime.onMessage.addListener((request) => {
+  browserEnv.runtime?.onMessage?.addListener((request) => {
     if (request && request.action === 'contextMenuTranslateClicked') {
       showPopup({ isTouchscreen: false });
     }

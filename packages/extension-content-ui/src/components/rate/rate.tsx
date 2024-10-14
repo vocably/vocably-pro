@@ -21,6 +21,7 @@ export class VocablyRate {
         <div class="vocably-mt-12">Vocably is 100% free and open-source.</div>
         <div class="vocably-mt-12">
           Your positive review on {this.platform.name} would help other users to
+          <br />
           discover this project.
         </div>
         <div class="vocably-mt-12">

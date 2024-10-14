@@ -2,8 +2,11 @@ import {
   addCard,
   analyze,
   askForRating,
+  attachTag,
   canPlayOffScreen,
   cleanUp,
+  deleteTag,
+  detachTag,
   getAudioPronunciation,
   getInternalProxyLanguage,
   getInternalSourceLanguage,
@@ -23,6 +26,7 @@ import {
   setInternalProxyLanguage,
   setInternalSourceLanguage,
   setUserKnowsHowToAdd,
+  updateTag,
 } from '@vocably/extension-messages';
 
 export const api = {
@@ -51,6 +55,10 @@ export const api = {
   getLocationLanguage,
   saveLocationLanguage,
   getSettings,
+  attachTag,
+  detachTag,
+  updateTag,
+  deleteTag,
 };
 
 export type ApiConfigOptions = Partial<typeof api>;

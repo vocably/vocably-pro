@@ -10,6 +10,8 @@ $section-margin: 8px;
   @include base-font();
   // Reddit sets visibility: hidden for custom elements
   visibility: visible !important;
+  max-width: min(90vw, 600px);
+  display: inline-block;
 
   li {
     margin: 0;
@@ -115,11 +117,7 @@ $section-margin: 8px;
   }
 }
 
-.vocably-save-hint-container {
-  position: relative;
-}
-
-.vocably-save-hint {
+.vocably-cards-save-hint {
   position: absolute;
   width: 165px;
   top: 6px;
@@ -129,7 +127,7 @@ $section-margin: 8px;
   transition: opacity 200ms ease-in-out;
 }
 
-.vocably-save-hint.vocably-save-hint-hidden {
+.vocably-cards-save-hint.vocably-cards-save-hint-hidden {
   opacity: 0;
 }
 
@@ -284,4 +282,36 @@ vocably-play-sound {
 .vocably-link-button {
   @include unstyled();
   @include link(!important);
+}
+
+.vocably-tag {
+  border: $internal-border;
+  border-radius: math.div($v-border-radius, 2);
+  background-color: $v-light-color-contrast;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.vocably-tag-remove-button {
+  $height: 24px;
+
+  @include unstyled();
+
+  vertical-align: middle;
+  height: $height;
+  opacity: 0.3;
+  transition: opacity 300ms;
+  transform: scale(80%);
+
+  .vocably-tag-remove-button-icon {
+    --color: #{$v-light-color-muted};
+    --size: #{$height};
+  }
+
+  &:hover {
+    opacity: 1;
+  }
 }

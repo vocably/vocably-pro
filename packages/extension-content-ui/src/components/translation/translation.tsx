@@ -10,9 +10,14 @@ import {
   Prop,
   State,
 } from '@stencil/core';
+import { isItem } from '@vocably/crud';
 import {
   AddCardPayload,
+  AttachTagPayload,
   AudioPronunciationPayload,
+  CardItem,
+  DeleteTagPayload,
+  DetachTagPayload,
   GoogleLanguage,
   isCardItem,
   isDetachedCardItem,
@@ -21,9 +26,13 @@ import {
   RateInteractionPayload,
   RemoveCardPayload,
   Result,
+  TagCandidate,
+  TagItem,
   TranslationCard,
   TranslationCards,
+  UpdateTagPayload,
 } from '@vocably/model';
+import { getSelectedTagIds } from './getSelectedTagIds';
 import { isDirectNecessary } from './isDirectNecessary';
 import { sortLanguages } from './sortLanguages';
 
@@ -49,6 +58,19 @@ export class VocablyTranslation {
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
   @Prop() extensionPlatform: { name: string; url: string };
+  @Prop() attachTag: (
+    data: AttachTagPayload
+  ) => Promise<Result<TranslationCards>>;
+  @Prop() detachTag: (
+    data: DetachTagPayload
+  ) => Promise<Result<TranslationCards>>;
+  @Prop() updateTag: (
+    data: UpdateTagPayload
+  ) => Promise<Result<TranslationCards>>;
+  @Prop() deleteTag: (
+    data: DeleteTagPayload
+  ) => Promise<Result<TranslationCards>>;
+  @Prop({ mutable: true }) disabled = false;
 
   @Event() ratingInteraction: EventEmitter<RateInteractionPayload>;
 
@@ -59,6 +81,10 @@ export class VocablyTranslation {
 
   @State() saveCardClicked = false;
   @State() addedItemIndex = -1;
+  @State() removing: {
+    card: CardItem;
+    tag: TagItem;
+  } | null = null;
 
   @Element() el: HTMLElement;
 
@@ -74,13 +100,208 @@ export class VocablyTranslation {
     playSoundElement.play();
   }
 
+  private overlay: HTMLElement | null = null;
+  private tagsMenu: HTMLElement | null = null;
+
+  private showTagMenu(caller: HTMLElement, cardId: string) {
+    if (this.result === null || !this.result.success) {
+      return;
+    }
+
+    if (this.overlay) {
+      this.overlay.remove();
+    }
+
+    if (this.tagsMenu) {
+      this.tagsMenu.remove();
+    }
+
+    const tagsMenu = document.createElement('vocably-tags-menu');
+    tagsMenu.existingItems = this.result.value.tags;
+    tagsMenu.selectedItems = getSelectedTagIds(this.result.value, cardId);
+
+    const callerPosition = caller.getBoundingClientRect();
+    tagsMenu.style.position = 'absolute';
+    tagsMenu.style.left = `${window.scrollX + callerPosition.right}px`;
+    tagsMenu.style.transform = `translate(-100%, 0)`;
+
+    tagsMenu.saveTag = async (tag: TagCandidate): Promise<Result<any>> => {
+      if (!this.result || !this.result.success) {
+        return {
+          success: false,
+          errorCode: 'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+          reason:
+            'Unable to save tag because the result is empty or erroneous.',
+        };
+      }
+
+      this.disabled = true;
+
+      const result = await (isItem(tag)
+        ? this.updateTag({
+            tag,
+            translationCards: this.result.value,
+          })
+        : this.attachTag({
+            cardId,
+            tag,
+            translationCards: this.result.value,
+          }));
+
+      this.disabled = false;
+
+      if (result.success) {
+        this.result = result;
+        tagsMenu.existingItems = result.value.tags;
+        tagsMenu.selectedItems = getSelectedTagIds(result.value, cardId);
+      }
+
+      return result;
+    };
+
+    tagsMenu.deleteTag = async (tag: TagItem): Promise<Result<unknown>> => {
+      if (!this.result || !this.result.success) {
+        return {
+          success: false,
+          errorCode: 'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+          reason:
+            'Unable to delete tag because the result is empty or erroneous.',
+        };
+      }
+
+      this.disabled = true;
+
+      const result = await this.deleteTag({
+        tag,
+        translationCards: this.result.value,
+      });
+
+      this.disabled = false;
+
+      if (result.success) {
+        this.result = result;
+        tagsMenu.existingItems = result.value.tags;
+        tagsMenu.selectedItems = getSelectedTagIds(result.value, cardId);
+      }
+
+      return result;
+    };
+
+    tagsMenu.attachTag = async (tag: TagItem): Promise<Result<unknown>> => {
+      if (!this.result || !this.result.success) {
+        return {
+          success: false,
+          errorCode: 'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+          reason:
+            'Unable to attach tag because the result is empty or erroneous.',
+        };
+      }
+
+      this.disabled = true;
+
+      const result = await this.attachTag({
+        translationCards: this.result.value,
+        tag,
+        cardId,
+      });
+
+      this.disabled = false;
+
+      if (result.success) {
+        this.result = result;
+        tagsMenu.existingItems = result.value.tags;
+        tagsMenu.selectedItems = getSelectedTagIds(result.value, cardId);
+      }
+
+      return result;
+    };
+
+    tagsMenu.detachTag = async (tag: TagItem): Promise<Result<unknown>> => {
+      if (!this.result || !this.result.success) {
+        return {
+          success: false,
+          errorCode: 'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+          reason:
+            'Unable to detach tag because the result is empty or erroneous.',
+        };
+      }
+
+      this.disabled = true;
+
+      const result = await this.detachTag({
+        translationCards: this.result.value,
+        tag,
+        cardId,
+      });
+
+      this.disabled = false;
+
+      if (result.success) {
+        this.result = result;
+        tagsMenu.existingItems = result.value.tags;
+        tagsMenu.selectedItems = getSelectedTagIds(result.value, cardId);
+      }
+
+      return result;
+    };
+
+    if (callerPosition.top * 2 > window.innerHeight) {
+      tagsMenu.style.bottom = `${
+        window.innerHeight - window.scrollY - callerPosition.bottom
+      }px`;
+    } else {
+      tagsMenu.style.top = `${window.scrollY + callerPosition.top}px`;
+    }
+
+    const overlay = document.createElement('vocably-overlay');
+    overlay.style.setProperty('--backdropOpacity', '0');
+    overlay.appendChild(tagsMenu);
+    window.document.body.appendChild(overlay);
+
+    this.overlay = overlay;
+    this.tagsMenu = tagsMenu;
+  }
+
+  private detachTagClick = (card: CardItem, tag: TagItem) => async () => {
+    if (!this.result || !this.result.success) {
+      return false;
+    }
+
+    if (!this.deleteTag) {
+      return false;
+    }
+
+    if (this.disabled) {
+      return false;
+    }
+
+    this.disabled = true;
+    this.removing = {
+      card,
+      tag,
+    };
+
+    const result = await this.detachTag({
+      translationCards: this.result.value,
+      cardId: card.id,
+      tag: tag,
+    });
+
+    this.disabled = false;
+    this.removing = null;
+
+    if (result.success) {
+      this.result = result;
+    }
+  };
+
   private askForRatingContainer: HTMLDivElement;
 
   render() {
     const sourceLanguageSelector = this.result && this.result.success && (
       <select
         class="vocably-input-select"
-        disabled={this.loading}
+        disabled={this.loading || this.disabled}
         onChange={(event) =>
           this.changeSourceLanguage.emit(
             (event.target as HTMLSelectElement).value
@@ -100,7 +321,7 @@ export class VocablyTranslation {
     const targetLanguageSelector = this.result && this.result.success && (
       <select
         class="vocably-input-select"
-        disabled={this.loading}
+        disabled={this.loading || this.disabled}
         onChange={(event) =>
           this.changeTargetLanguage.emit(
             (event.target as HTMLSelectElement).value
@@ -164,12 +385,16 @@ export class VocablyTranslation {
                       means <i>{this.result.value.translation.target}</i>
                     </div>
                   )}
-                  <div class="vocably-save-hint-container">
+                  <div
+                    class="vocably-cards-container"
+                    style={{ position: 'relative' }}
+                  >
                     {this.showSaveHint && (
                       <vocably-add-card-hint
                         class={{
-                          'vocably-save-hint': true,
-                          'vocably-save-hint-hidden': this.saveCardClicked,
+                          'vocably-cards-save-hint': true,
+                          'vocably-cards-save-hint-hidden':
+                            this.saveCardClicked,
                         }}
                       ></vocably-add-card-hint>
                     )}
@@ -179,29 +404,62 @@ export class VocablyTranslation {
                         <div data-test="card" class="vocably-card">
                           <div class="vocably-card-action">
                             {isCardItem(card) && (
-                              <button
-                                class="vocably-card-action-button"
-                                title="Remove card"
-                                disabled={this.isUpdating !== null}
-                                onClick={() => {
-                                  this.saveCardClicked = true;
-                                  if (this.addedItemIndex === itemIndex) {
-                                    this.addedItemIndex = -1;
-                                  }
-                                  this.result.success === true &&
-                                    this.removeCard.emit({
-                                      translationCards: this.result.value,
-                                      card,
-                                    });
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  gap: '8px',
                                 }}
                               >
-                                {this.isUpdating === card && (
-                                  <vocably-icon-spin></vocably-icon-spin>
-                                )}
-                                {this.isUpdating !== card && (
-                                  <vocably-icon-remove></vocably-icon-remove>
-                                )}
-                              </button>
+                                <button
+                                  class="vocably-card-action-button"
+                                  title="Remove card"
+                                  disabled={this.isUpdating !== null}
+                                  onClick={() => {
+                                    if (this.disabled) {
+                                      return false;
+                                    }
+
+                                    this.saveCardClicked = true;
+                                    if (this.addedItemIndex === itemIndex) {
+                                      this.addedItemIndex = -1;
+                                    }
+                                    this.result.success === true &&
+                                      this.removeCard.emit({
+                                        translationCards: this.result.value,
+                                        card,
+                                      });
+                                  }}
+                                >
+                                  {this.isUpdating === card && (
+                                    <vocably-icon-spin></vocably-icon-spin>
+                                  )}
+                                  {this.isUpdating !== card && (
+                                    <vocably-icon-remove></vocably-icon-remove>
+                                  )}
+                                </button>
+
+                                <button
+                                  class="vocably-card-action-button"
+                                  title="Edit tags"
+                                  disabled={this.isUpdating !== null}
+                                  onClick={(e) => {
+                                    if (this.disabled) {
+                                      return;
+                                    }
+
+                                    e.target &&
+                                      this.showTagMenu(
+                                        e.target as HTMLElement,
+                                        card.id
+                                      );
+                                  }}
+                                >
+                                  {this.isUpdating !== card && (
+                                    <vocably-icon-tag></vocably-icon-tag>
+                                  )}
+                                </button>
+                              </div>
                             )}
                             {isDetachedCardItem(card) && (
                               <button
@@ -209,6 +467,10 @@ export class VocablyTranslation {
                                 title="Add card"
                                 disabled={this.isUpdating !== null}
                                 onClick={() => {
+                                  if (this.disabled) {
+                                    return false;
+                                  }
+
                                   this.saveCardClicked = true;
                                   if (this.addedItemIndex === -1) {
                                     this.addedItemIndex = itemIndex;
@@ -255,6 +517,44 @@ export class VocablyTranslation {
                                 <vocably-card-examples
                                   example={card.data.example}
                                 ></vocably-card-examples>
+                              </div>
+                            )}
+                            {isItem(card) && card.data.tags.length > 0 && (
+                              <div
+                                class="vocably-mt-12"
+                                style={{
+                                  display: 'flex',
+                                  gap: '6px',
+                                  flexWrap: 'wrap',
+                                }}
+                              >
+                                {card.data.tags.map((tagItem) => (
+                                  <div class="vocably-tag">
+                                    {tagItem.data.title}
+
+                                    <button
+                                      type="button"
+                                      class="vocably-tag-remove-button"
+                                      aria-label="Remove this tag from the card"
+                                      title="Remove this tag from the card"
+                                      onClick={this.detachTagClick(
+                                        card,
+                                        tagItem
+                                      )}
+                                    >
+                                      {this.removing &&
+                                        this.removing.card === card &&
+                                        this.removing.tag === tagItem && (
+                                          <vocably-icon-spin></vocably-icon-spin>
+                                        )}
+                                      {(!this.removing ||
+                                        this.removing.card !== card ||
+                                        this.removing.tag !== tagItem) && (
+                                        <vocably-icon-remove class="vocably-tag-remove-button-icon"></vocably-icon-remove>
+                                      )}
+                                    </button>
+                                  </div>
+                                ))}
                               </div>
                             )}
                           </div>
