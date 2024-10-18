@@ -1,9 +1,9 @@
 import { CardItem } from '@vocably/model';
 import { SrsScore } from '@vocably/srs';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { Card } from './Card';
 import { getMultiChoice } from './getMultiChoice';
-import { MultiChoiceBack } from './MultiChoiceBack';
+import { MultiChoice } from './MultiChoice';
 import { SwipeGrade } from './SwipeGrade';
 
 type Props = {
@@ -37,7 +37,7 @@ export const Grade: FC<Props> = ({
         </SwipeGrade>
       )}
       {multiChoice.length > 0 && (
-        <MultiChoiceBack
+        <MultiChoice
           key={card.id}
           autoPlay={autoPlay}
           card={card}

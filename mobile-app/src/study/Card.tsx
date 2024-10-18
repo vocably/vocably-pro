@@ -90,7 +90,7 @@ export const Card: FC<Props> = ({ card, autoPlay }) => {
   const isReverse = card.data.reverse;
 
   return (
-    <Displayer>
+    <Displayer style={{ flex: 1 }}>
       <TouchableWithoutFeedback
         onPress={() => (isFlipped ? flipToFront() : flipToBack())}
       >

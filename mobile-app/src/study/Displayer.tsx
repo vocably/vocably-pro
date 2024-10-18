@@ -5,7 +5,7 @@ import React, {
   useImperativeHandle,
   useRef,
 } from 'react';
-import { Animated } from 'react-native';
+import { Animated, StyleProp, ViewStyle } from 'react-native';
 
 export type DisplayerRef = {
   hide: () => Promise<any>;
@@ -13,10 +13,11 @@ export type DisplayerRef = {
 
 type Props = {
   children: ReactNode;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const Displayer = forwardRef<DisplayerRef, Props>(
-  ({ children }, ref) => {
+  ({ children, style }, ref) => {
     const scaleAnimation = useRef(new Animated.Value(0.5)).current;
     const opacityAnimation = useRef(new Animated.Value(0)).current;
 
@@ -64,12 +65,14 @@ export const Displayer = forwardRef<DisplayerRef, Props>(
 
     return (
       <Animated.View
-        style={{
-          opacity: opacityAnimation,
-          transform: [{ scale: scaleAnimation }],
-          width: '100%',
-          flex: 1,
-        }}
+        style={[
+          {
+            opacity: opacityAnimation,
+            transform: [{ scale: scaleAnimation }],
+            width: '100%',
+          },
+          style,
+        ]}
       >
         {children}
       </Animated.View>
