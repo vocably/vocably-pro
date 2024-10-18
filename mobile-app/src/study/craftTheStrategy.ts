@@ -64,7 +64,7 @@ export const craftTheStrategy = ({
 
   const multiChoiceItems = getMultiChoice(card, allCards);
 
-  if (multiChoiceItems === []) {
+  if (multiChoiceItems === null) {
     const { currentState } = spreadStrategy(card.data.state, swipeStrategy);
     return {
       strategy: swipeStrategy,
@@ -91,7 +91,7 @@ export const craftTheStrategy = ({
           currentState.s === 'mf' || currentState.s === 'mb'
             ? currentState.s
             : 'mf',
-        multiChoice: multiChoiceItems as [CardItem, CardItem, ...CardItem[]],
+        multiChoice: multiChoiceItems,
       },
     };
   }

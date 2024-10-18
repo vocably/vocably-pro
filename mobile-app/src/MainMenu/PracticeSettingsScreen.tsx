@@ -138,8 +138,8 @@ export const PracticeSettingsScreen: FC<Props> = () => {
               }}
             >
               <Text>
-                The multi-choice questions are shown only for new cards and the
-                cards that were swiped left.
+                The multiple-choice questions are displayed only when you have
+                enough cards.
               </Text>
               <Text>
                 The more cards you have in your collection, the better your
