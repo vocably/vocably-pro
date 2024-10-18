@@ -30,7 +30,6 @@ export const HowToGroupCards: FC<Props> = () => {
         Swipe any tag in the list to edit or delete it. Your cards will not be
         deleted.
       </Text>
-      <Text>Soon this will be available in the browser extension.</Text>
     </View>
   );
 };
