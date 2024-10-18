@@ -5,6 +5,8 @@ import { Button, Divider, List, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import VersionNumber from 'react-native-version-number';
+// @ts-ignore
+import { ENV_SUFFIX } from '@env';
 
 export type MenuMainProps = {
   parentNavigator: any;
@@ -116,6 +118,7 @@ export const MainMenu: FC<MenuMainProps> = ({ parentNavigator }) => {
                 ` (${VersionNumber.buildVersion})`) ||
               ``
             }`}
+            {ENV_SUFFIX ?? ''}
           </Text>
         </View>
       )}
