@@ -59,7 +59,7 @@ export const Completed: Completed = ({
   }, []);
 
   return (
-    <Displayer>
+    <Displayer style={{ flex: 1 }}>
       <View
         style={{
           flex: 1,

@@ -18,9 +18,9 @@ const areSynonyms = (a: CardItem, b: CardItem): boolean => {
 export const getMultiChoice = (
   card: CardItem,
   collection: CardItem[]
-): CardItem[] => {
+): [CardItem, CardItem, ...CardItem[]] | null => {
   if (!card.data.partOfSpeech) {
-    return [];
+    return null;
   }
 
   const allowedPartsOfSpeech: string[] = get(posMap, card.data.partOfSpeech, [
@@ -40,8 +40,8 @@ export const getMultiChoice = (
   });
 
   if (candidates.length < 3) {
-    return [];
+    return null;
   }
 
-  return shuffle(candidates).slice(0, 3);
+  return shuffle(candidates).slice(0, 3) as [CardItem, CardItem, ...CardItem[]];
 };

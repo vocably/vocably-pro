@@ -49,6 +49,7 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
       style={{
         backgroundColor: theme.colors.background,
         height: '100%',
+        paddingTop: 70,
       }}
     >
       <View

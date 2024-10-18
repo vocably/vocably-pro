@@ -30,11 +30,20 @@ export class StudyPageComponent implements OnInit, OnDestroy {
   }
 
   onGrade(gradeResult: GradeResult) {
+    // Keep the current state because web app does not support strategies yet
+    const currentState = gradeResult.cardItem.data.state;
+    const item = grade(gradeResult.cardItem.data, gradeResult.score, [
+      {
+        step: 'sf',
+        allowedFailures: null,
+      },
+    ]);
+    if (currentState) {
+      item.state = currentState;
+    }
+
     this.deckService
-      .update(
-        gradeResult.cardItem.id,
-        grade(gradeResult.cardItem.data, gradeResult.score)
-      )
+      .update(gradeResult.cardItem.id, item)
       .pipe(takeUntil(this.destroy$))
       .subscribe();
   }

@@ -7,6 +7,7 @@ import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { Loader } from '../loaders/Loader';
 import { useNumberOfRepetitions } from '../RequestFeedback/useNumberOfRepetitions';
 import { Completed } from './Completed';
+import { craftTheStrategy } from './craftTheStrategy';
 import { Grade } from './Grade';
 
 type Props = {
@@ -64,21 +65,30 @@ export const Study: FC<Props> = ({
         return;
       }
 
-      update(cards[0].id, grade(cards[0].data, score)).then((result) => {
-        if (result.success === false) {
-          Alert.alert(
-            `Error: Card update failed`,
-            // `Oops! Unable to continue practice session due to a technical issue. Please try again later or contact support for assistance.`,
-            `Oops! Unable to continue practice session due to a technical issue. Please try again later.`,
-            [
-              {
-                text: 'Exit practice session',
-                onPress: onExit,
-              },
-            ]
-          );
-        }
+      const { strategy } = craftTheStrategy({
+        isMultiChoiceEnabled,
+        preferMultiChoiceEnabled,
+        card: cards[0],
+        allCards,
       });
+
+      update(cards[0].id, grade(cards[0].data, score, strategy)).then(
+        (result) => {
+          if (result.success === false) {
+            Alert.alert(
+              `Error: Card update failed`,
+              // `Oops! Unable to continue practice session due to a technical issue. Please try again later or contact support for assistance.`,
+              `Oops! Unable to continue practice session due to a technical issue. Please try again later.`,
+              [
+                {
+                  text: 'Exit practice session',
+                  onPress: onExit,
+                },
+              ]
+            );
+          }
+        }
+      );
 
       const followingCards = cards.slice(1);
       setCards(followingCards);
