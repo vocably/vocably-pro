@@ -13,6 +13,7 @@ type Props = {
   card: CardItem;
   onGrade: (score: SrsScore) => void;
   alternatives: CardItem[];
+  direction: 'front' | 'back';
 };
 
 export const MultiChoice: FC<Props> = ({
@@ -20,6 +21,7 @@ export const MultiChoice: FC<Props> = ({
   onGrade,
   alternatives,
   autoPlay,
+  direction,
 }) => {
   const theme = useTheme();
 
@@ -63,7 +65,7 @@ export const MultiChoice: FC<Props> = ({
       }}
     >
       <Displayer ref={displayerRef} style={{ padding: 16 }}>
-        {card.data.reverse && (
+        {direction === 'back' && (
           <>
             <Text style={{ fontSize: 24, marginBottom: 12 }}>
               Select the correct answer for the{' '}
@@ -85,7 +87,7 @@ export const MultiChoice: FC<Props> = ({
             </View>
           </>
         )}
-        {!card.data.reverse && (
+        {direction === 'front' && (
           <>
             <CardFront card={card} autoPlay={autoPlay} />
           </>
@@ -144,7 +146,7 @@ export const MultiChoice: FC<Props> = ({
                     : theme.colors.primary,
                 }}
               >
-                {card.data.reverse
+                {direction === 'back'
                   ? answerCard.data.source
                   : answerCard.data.translation || answerCard.data.definition}
               </Text>

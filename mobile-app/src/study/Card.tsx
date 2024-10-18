@@ -40,9 +40,10 @@ const styles = StyleSheet.create({
 type Props = {
   autoPlay: boolean;
   card: CardItem;
+  direction: 'front' | 'back';
 };
 
-export const Card: FC<Props> = ({ card, autoPlay }) => {
+export const Card: FC<Props> = ({ card, autoPlay, direction }) => {
   const flipAnimation = useRef(new Animated.Value(0)).current;
   const flipToFrontStyle = {
     transform: [
@@ -87,7 +88,7 @@ export const Card: FC<Props> = ({ card, autoPlay }) => {
     }).start();
   }, [Animated, flipAnimation, setIsFlipped, setHasChecked]);
 
-  const isReverse = card.data.reverse;
+  const isReverse = direction === 'back';
 
   return (
     <Displayer style={{ flex: 1 }}>

@@ -18,7 +18,7 @@ const areSynonyms = (a: CardItem, b: CardItem): boolean => {
 export const getMultiChoice = (
   card: CardItem,
   collection: CardItem[]
-): CardItem[] => {
+): [] | [CardItem, CardItem, ...CardItem[]] => {
   if (!card.data.partOfSpeech) {
     return [];
   }
@@ -43,5 +43,5 @@ export const getMultiChoice = (
     return [];
   }
 
-  return shuffle(candidates).slice(0, 3);
+  return shuffle(candidates).slice(0, 3) as [CardItem, CardItem, ...CardItem[]];
 };

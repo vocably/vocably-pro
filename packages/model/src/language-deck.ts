@@ -9,12 +9,33 @@ export type TagItem = {
   data: Tag;
 };
 
+export type StrategyStep = {
+  step: 'sf' | 'sb' | 'mf' | 'mb';
+  allowedFailures: number | null;
+};
+
+export type StudyStrategy = [StrategyStep, ...StrategyStep[]];
+
+/**
+ * "s" is the "step" of a strategy
+ * sf == swipe front
+ * sb == swipe back
+ * mf == multi-choice front
+ * mb == multi-choice back
+ *
+ * "f" number of failed attempts in a row
+ */
+export type SrsItemState = {
+  s: StrategyStep['step'];
+  f: number;
+};
+
 export type SrsItem = {
   interval: number;
   repetition: number;
   eFactor: number;
   dueDate: number;
-  reverse?: boolean;
+  state?: SrsItemState;
 };
 
 export type Card = {
