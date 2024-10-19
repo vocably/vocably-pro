@@ -34,6 +34,12 @@ export class TemplatePageTitleStrategy extends TitleStrategy {
   }
 }
 
+// The bellow mumbo-jumbo the attempt to prevent
+// occasional 404 page for existing routes
+const decksModule = import('./decks/decks.module');
+const welcomeModule = import('./welcome/welcome.module');
+const staticPagesModule = import('./static-pages/static-pages.module');
+
 const routes: Routes = [
   {
     path: '',
@@ -42,22 +48,17 @@ const routes: Routes = [
   },
   {
     path: 'deck',
-    loadChildren: () =>
-      import('./decks/decks.module').then((m) => m.DecksModule),
+    loadChildren: () => decksModule.then((m) => m.DecksModule),
     canActivate: [CognitoAuthGuard],
   },
   {
     path: 'welcome',
-    loadChildren: () =>
-      import('./welcome/welcome.module').then((m) => m.WelcomeModule),
+    loadChildren: () => welcomeModule.then((m) => m.WelcomeModule),
     canActivate: [CognitoAuthGuard],
   },
   {
     path: 'page',
-    loadChildren: () =>
-      import('./static-pages/static-pages.module').then(
-        (m) => m.StaticPagesModule
-      ),
+    loadChildren: () => staticPagesModule.then((m) => m.StaticPagesModule),
   },
   {
     path: 'sign-in',
