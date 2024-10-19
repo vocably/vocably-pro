@@ -1,5 +1,6 @@
 @import '@vocably/styles/mixins/unstyled';
 @import '@vocably/styles/mixins/link';
+@import '@vocably/styles/mixins/button';
 
 .container {
   padding: 1rem;
@@ -9,6 +10,10 @@
 .link {
   @include unstyled();
   @include link();
+}
+
+.button {
+  @include button();
 }
 
 .qr-code {

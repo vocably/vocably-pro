@@ -1,6 +1,7 @@
 import {
   ExtensionSettings,
   getSettings,
+  isLoggedIn,
   setSettings,
 } from '@vocably/extension-messages';
 import { merge } from 'lodash-es';
@@ -21,8 +22,11 @@ const mockSetSettings: typeof setSettings = async (newSettings) => {
   return settings;
 };
 
+const mockIsLoggedIn: typeof isLoggedIn = async () => false;
+
 export const environment = merge(environmentLocal, {
   production: false,
   getSettings: mockGetSettings,
   setSettings: mockSetSettings,
+  isLoggedIn: mockIsLoggedIn,
 });

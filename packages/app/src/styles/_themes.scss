@@ -1,8 +1,4 @@
-@mixin theme-variables($theme) {
-  @each $variable, $value in $theme {
-    --#{$variable}: #{$value};
-  }
-}
+@import '@vocably/styles/mixins/theme';
 
 :root {
   @include theme-variables($dark-theme);

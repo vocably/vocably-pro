@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ExtensionSettings } from '@vocably/extension-messages';
 import { ReplaySubject } from 'rxjs';
 import { environment } from '../environments/environment';
+import { isUserLoggedIn$ } from '../isUserLoggedIn';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,9 @@ export class AppComponent implements OnInit {
   showQRCode = false;
 
   settings$ = new ReplaySubject<ExtensionSettings>();
+  isLoggedIn$ = isUserLoggedIn$;
+
+  loginUrl = `${environment.appBaseUrl}/hands-free`;
 
   ngOnInit() {
     environment.getSettings().then((settings) => {

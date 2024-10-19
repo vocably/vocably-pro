@@ -1,8 +1,13 @@
-@import '~@vocably/styles/variables';
-@import '~@vocably/styles/mixins/underline';
-@import '~@vocably/styles/mixins/link';
+@import '@vocably/styles/variables';
+@import '@vocably/styles/mixins/underline';
+@import '@vocably/styles/mixins/link';
+@import '@vocably/styles/mixins/theme';
 
 $body-color: $v-light-color-body;
+
+:root {
+  @include theme-variables($light-theme);
+}
 
 body {
   color: $body-color;

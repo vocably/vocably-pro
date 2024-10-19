@@ -1,11 +1,16 @@
-@import '~@vocably/styles/variables';
+@import './unstyled';
+@import '../_variables.scss';
+
+button.unstyled {
+  @include unstyled();
+}
 
 $button-bottom-margin: ($v-btn-shadow-spread + $v-btn-shadow-v-offset);
 
 @mixin button-pristine {
   display: inline-block;
   background: var(--button-bg);
-  color: var(--emphasize-color);
+  color: var(--button-color) !important;
   border: none;
   font: inherit;
   font-weight: 500;
@@ -31,5 +36,34 @@ $button-bottom-margin: ($v-btn-shadow-spread + $v-btn-shadow-v-offset);
 
 @mixin button-hover() {
   background: var(--button-active-bg);
-  color: var(--emphasize-color);
+  color: var(--button-color);
+}
+
+@mixin button() {
+  @include button-pristine();
+
+  &.block {
+    @include button-block();
+  }
+
+  &.outline {
+    background: none;
+    border: 1px solid var(--button-bg);
+    color: var(--button-bg);
+  }
+
+  &:hover:not(disabled, .disabled),
+  &:focus:not(disabled, .disabled) {
+    @include button-hover();
+  }
+
+  &:active:not(disabled, .disabled) {
+    @include button-active();
+  }
+
+  &[disabled],
+  &.disabled {
+    filter: grayscale(80%);
+    cursor: auto;
+  }
 }
