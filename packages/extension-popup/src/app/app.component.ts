@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   isLoggedIn$ = isUserLoggedIn$;
   needsOnboarding$ = needsOnboarding$;
 
-  loginUrl = `${environment.appBaseUrl}/hands-free`;
+  loginUrl = `${environment.appBaseUrl}/page/welcome`;
   welcomeUrl = `${environment.appBaseUrl}/welcome`;
 
   ngOnInit() {
