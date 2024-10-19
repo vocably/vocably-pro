@@ -81,9 +81,11 @@ html {
   @include mat.all-component-themes($mat-vocably-light-theme);
 }
 
-html.dark {
-  @include theme-variables($dark-theme);
-  @include mat.all-component-themes($mat-vocably-dark-theme);
+@media (prefers-color-scheme: dark) {
+  html {
+    @include theme-variables($dark-theme);
+    @include mat.all-component-themes($mat-vocably-dark-theme);
+  }
 }
 
 $vocably-body-font: mat.define-typography-level(
