@@ -38,4 +38,17 @@
   &:active {
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
   }
+
+  animation-duration: 0.5s;
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
