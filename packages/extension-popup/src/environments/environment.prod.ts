@@ -1,4 +1,5 @@
 import {
+  getInternalSourceLanguage,
   getSettings,
   isLoggedIn,
   setSettings,
@@ -11,4 +12,5 @@ export const environment = merge(environmentLocal, {
   getSettings: getSettings,
   setSettings: setSettings,
   isLoggedIn: isLoggedIn,
+  getInternalSourceLanguage: getInternalSourceLanguage,
 });

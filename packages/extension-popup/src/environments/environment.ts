@@ -1,5 +1,6 @@
 import {
   ExtensionSettings,
+  getInternalSourceLanguage,
   getSettings,
   isLoggedIn,
   setSettings,
@@ -22,11 +23,16 @@ const mockSetSettings: typeof setSettings = async (newSettings) => {
   return settings;
 };
 
-const mockIsLoggedIn: typeof isLoggedIn = async () => false;
+const mockIsLoggedIn: typeof isLoggedIn = async () => true;
+
+const mockGetInternalSourceLanguage: typeof getInternalSourceLanguage =
+  // @ts-ignore
+  async () => null;
 
 export const environment = merge(environmentLocal, {
   production: false,
   getSettings: mockGetSettings,
   setSettings: mockSetSettings,
   isLoggedIn: mockIsLoggedIn,
+  getInternalSourceLanguage: mockGetInternalSourceLanguage,
 });

@@ -3,6 +3,7 @@ import { ExtensionSettings } from '@vocably/extension-messages';
 import { ReplaySubject } from 'rxjs';
 import { environment } from '../environments/environment';
 import { isUserLoggedIn$ } from '../isUserLoggedIn';
+import { needsOnboarding$ } from '../needsOnboarding';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +16,10 @@ export class AppComponent implements OnInit {
 
   settings$ = new ReplaySubject<ExtensionSettings>();
   isLoggedIn$ = isUserLoggedIn$;
+  needsOnboarding$ = needsOnboarding$;
 
   loginUrl = `${environment.appBaseUrl}/hands-free`;
+  welcomeUrl = `${environment.appBaseUrl}/welcome`;
 
   ngOnInit() {
     environment.getSettings().then((settings) => {
