@@ -21,7 +21,7 @@ $v-light-color-muted: #bababa;
 $v-light-color-body-rgb: 106, 106, 106;
 $v-light-color-emphasize: #000000;
 $v-light-color-contrast: #fbfbfb;
-$v-light-color-contrast-2: #ffffff;
+$v-light-color-contrast-2: #fcfcfc;
 $v-light-color-border: #bababa;
 $v-light-color-border-muted: #e6e6e6;
 
@@ -60,6 +60,7 @@ $v-dark-btn-box-shadow: 0 $v-btn-shadow-v-offset $v-btn-shadow-spread
 
 $dark-theme: (
   primary-color: $v-dark-color-primary,
+  on-primari-color: #fff,
   primary-rgb: $v-dark-color-primary-rgb,
   active-color: $v-dark-color-active,
   danger-color: $v-dark-color-danger,
@@ -69,6 +70,7 @@ $dark-theme: (
   text-color: $v-dark-color-body,
   text-muted: $v-gray-600,
   contrast-bg: $v-dark-color-contrast,
+  contrast-bg-hover: lighten($v-dark-color-contrast-2, 5%),
   border-color: $v-dark-color-border,
 
   button-bg: $v-dark-color-primary,
@@ -88,10 +90,12 @@ $dark-theme: (
   toast-color: $v-gray-200,
 
   product-card-shadow-color: rgba(0, 0, 0, 0.69),
+  highlight-blend-mode: color-dodge,
 );
 
 $light-theme: (
   primary-color: $v-light-color-primary,
+  on-primari-color: #fff,
   primary-rgb: $v-light-color-primary-rgb,
   active-color: $v-light-color-active,
   danger-color: $v-light-color-danger,
@@ -101,6 +105,7 @@ $light-theme: (
   text-color: $v-light-color-body,
   text-muted: $v-gray-600,
   contrast-bg: $v-light-color-contrast,
+  contrast-bg-hover: darken($v-light-color-contrast, 5%),
   border-color: $v-light-color-border,
 
   button-bg: $v-light-color-primary,
@@ -120,4 +125,5 @@ $light-theme: (
   toast-color: $v-gray-200,
 
   product-card-shadow-color: rgba(0, 0, 0, 0.69),
+  highlight-blend-mode: multiply,
 );

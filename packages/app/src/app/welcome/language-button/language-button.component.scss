@@ -1,8 +1,8 @@
 @import '../../../styles/variables';
 
 .select-button {
-  --backround: var(--form-background-color);
-  --hover-background: var(--form-background-color-focus);
+  --backround: var(--contrast-bg);
+  --hover-background: var(--contrast-bg-hover);
   --color: var(--emphasize-color);
   --border-color: var(--form-border-color);
 
