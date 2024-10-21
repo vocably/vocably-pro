@@ -1,8 +1,11 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+
 @import '@vocably/styles/mixins/theme';
+@import '@vocably/styles/variables';
+@import './material-palette-generator';
 
 :root {
-  @include theme-variables($dark-theme);
-
   // Both screen width and screen height will be overridden in
   --screen-width-px: 1024;
   --screen-height-px: 768;
@@ -32,3 +35,88 @@ body {
   color: var(--text-color);
   background: var(--body-bg);
 }
+
+$mat-vocably-primary-palette: mat.define-palette(mat.$grey-palette);
+$mat-vocably-light-accent-palette: mat.define-palette(
+  generatePalette($v-light-color-primary),
+  A200,
+  A100,
+  A400
+);
+$mat-vocably-dark-accent-palette: mat.define-palette(
+  generatePalette($v-dark-color-primary),
+  A200,
+  A100,
+  A400
+);
+$mat-vocably-light-warn-palette: mat.define-palette(
+  generatePalette($v-light-color-danger)
+);
+$mat-vocably-dark-warn-palette: mat.define-palette(
+  generatePalette($v-dark-color-danger)
+);
+
+$mat-vocably-light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $mat-vocably-primary-palette,
+      accent: $mat-vocably-light-accent-palette,
+      warn: $mat-vocably-light-warn-palette,
+    ),
+  )
+);
+
+$mat-vocably-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $mat-vocably-primary-palette,
+      accent: $mat-vocably-dark-accent-palette,
+      warn: $mat-vocably-dark-warn-palette,
+    ),
+  )
+);
+
+html {
+  @include theme-variables($light-theme);
+  @include mat.all-component-themes($mat-vocably-light-theme);
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    @include theme-variables($dark-theme);
+    @include mat.all-component-themes($mat-vocably-dark-theme);
+  }
+}
+
+$vocably-body-font: mat.define-typography-level(
+  $font-family: Roboto,
+  $font-weight: 300,
+  $font-size: 1rem,
+  $line-height: 1.5,
+  $letter-spacing: normal,
+);
+
+$vocably-typography-config: mat.define-typography-config(
+  $body-1: $vocably-body-font,
+  $body-2: $vocably-body-font,
+  $title:
+    mat.define-typography-level(
+      $font-family: Ruda,
+      $font-weight: 500,
+      $font-size: 1.1rem,
+    ),
+  $headline:
+    mat.define-typography-level(
+      $font-family: Ruda,
+      $font-weight: 500,
+      $font-size: 2rem,
+    ),
+  $display-1:
+    mat.define-typography-level(
+      $font-family: Ruda,
+      $font-weight: 500,
+      $font-size: 2.5rem,
+    ),
+);
+
+@include mat.core($vocably-typography-config);

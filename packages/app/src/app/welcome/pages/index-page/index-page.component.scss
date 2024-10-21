@@ -42,13 +42,13 @@
 .select-button {
   --backround: var(--form-background-color);
   --hover-background: var(--form-background-color-focus);
-  --color: var(--button-color);
+  --color: var(--emphasize-color);
   --border-color: var(--form-border-color);
 
   &.checked {
     --backround: var(--button-bg);
     --hover-background: var(--button-bg-hover);
-    --color: var(--button-color);
+    --color: var(--emphasize-color);
     --border-color: transparent;
   }
 

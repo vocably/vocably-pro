@@ -13,6 +13,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { LanguageModule } from '../language/language.module';
+import { AppQrCodeComponent } from './app-qr-code/app-qr-code.component';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { ExpansionComponent } from './expansion/expansion.component';
 import { GoogleIconComponent } from './google-icon/google-icon.component';
@@ -34,6 +35,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     LanguageInputComponent,
     LanguageIconComponent,
     ExpansionComponent,
+    AppQrCodeComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +63,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     LanguageInputComponent,
     LanguageIconComponent,
     ExpansionComponent,
+    AppQrCodeComponent,
   ],
 })
 export class ComponentsModule {}
