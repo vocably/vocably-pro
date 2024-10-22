@@ -12,16 +12,17 @@
     "deploy-ios-dev": "npm run setup-safari-extension-dev && (cd ios && fastlane ios build && fastlane ios beta)",
     "deploy-ios-prod": "npm run setup-safari-extension-prod && (npm run setup-prod-env && cd ios && fastlane ios build && npm run setup-dev-env && fastlane ios beta) && npm run setup-safari-extension-dev",
     "deploy-android": "(npm run setup-prod-env && cd android && fastlane android beta && npm run setup-dev-env)",
-    "mobile-app": "npm start",
     "list-devices": "xcrun simctl list devices",
-    "setup-prod-env": "cp .env.prod .env.local",
-    "setup-dev-env": "rm -f .env.local",
+    "setup-prod-env": "cp .env.prod .env",
+    "setup-dev-env": "cp .env.dev .env",
     "copy-ios-extension": "cp -a ../packages/ios-extension/dist/. ios/Vocably\\ for\\ Safari/Resources",
     "setup-safari-extension-dev": "npm run build-dev --prefix ../packages/ios-extension && npm run copy-ios-extension",
     "setup-safari-extension-prod": "npm run build-prod --prefix ../packages/ios-extension && npm run copy-ios-extension",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "mobile-app": "npm start"
   },
   "dependencies": {
+    "@miblanchard/react-native-slider": "^2.6.0",
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-native-community/netinfo": "11.3.1",
     "@react-native-masked-view/masked-view": "0.3.1",
@@ -29,6 +30,7 @@
     "@react-navigation/material-bottom-tabs": "6.2.28",
     "@react-navigation/native": "6.1.17",
     "@react-navigation/stack": "^6.3.17",
+    "@sentry/react-native": "5.33.0",
     "@shopify/flash-list": "1.6.4",
     "amazon-cognito-identity-js": "6.3.12",
     "aws-amplify": "5.3.18",
@@ -39,7 +41,7 @@
     "react-native-get-random-values": "1.11.0",
     "react-native-inappbrowser-reborn": "3.7.0",
     "react-native-linear-gradient": "2.8.3",
-    "react-native-paper": "5.12.3",
+    "react-native-paper": "5.12.5",
     "react-native-reanimated": "3.9.0",
     "react-native-safe-area-context": "4.10.1",
     "react-native-screens": "3.31.1",
@@ -47,6 +49,7 @@
     "react-native-sound": "0.11.2",
     "react-native-swipe-list-view": "3.2.9",
     "react-native-vector-icons": "10.0.3",
+    "react-native-version-number": "^0.3.6",
     "rxjs": "^7.8.1"
   },
   "devDependencies": {

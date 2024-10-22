@@ -1,0 +1,5 @@
+@mixin theme-variables($theme) {
+  @each $variable, $value in $theme {
+    --#{$variable}: #{$value};
+  }
+}

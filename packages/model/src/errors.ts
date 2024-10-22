@@ -40,6 +40,7 @@ export const Errors = [
   'EXTENSION_OFFSCREEN_DOES_NOT_EXIST',
   'UNABLE_TO_PLAY_AUDIO_DATA_URL',
   'JSON_PARSE_ERROR',
+  'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];

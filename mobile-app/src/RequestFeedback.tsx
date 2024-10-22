@@ -11,15 +11,12 @@ import { RequestFeedbackForm } from './RequestFeedback/Form';
 import { isOkayToAsk } from './RequestFeedback/isOkayToAsk';
 import { UserMetadataContext } from './UserMetadataContainer';
 
-type RequestFeedback = FC<{
+type Props = {
   style?: StyleProp<ViewStyle>;
   numberOfRepetitions?: number;
-}>;
+};
 
-export const RequestFeedback: RequestFeedback = ({
-  style,
-  numberOfRepetitions,
-}) => {
+export const RequestFeedback: FC<Props> = ({ style, numberOfRepetitions }) => {
   const askForReviewMaxHeight = useSharedValue(0);
   const askForReviewOpacity = useSharedValue(0);
 
@@ -46,7 +43,7 @@ export const RequestFeedback: RequestFeedback = ({
         askForReviewOpacity.value = withTiming(1);
       }
     });
-  }, [numberOfRepetitions]);
+  }, []);
 
   const onRequestFeedbackAction = useCallback(
     (choice: RateInteractionPayload) => {

@@ -1,12 +1,17 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DrawerContent } from './DrawerNavigator/DrawerContent';
+import { MainMenuNavigationStack } from './MainMenu/MainMenuNavigationStack';
 import { TabsNavigator } from './TabsNavigator';
 
 const Drawer = createDrawerNavigator();
 
 export const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator drawerContent={() => <DrawerContent />}>
+    <Drawer.Navigator
+      drawerContent={() => <MainMenuNavigationStack />}
+      screenOptions={{
+        swipeEdgeWidth: 0,
+      }}
+    >
       <Drawer.Screen
         name="TabsNavigator"
         component={TabsNavigator}

@@ -11,6 +11,8 @@ import { Alert, Pressable, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import Sound from 'react-native-sound';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Sentry } from './BetterSentry';
+import { iconButtonOpacity, pressedIconButtonOpacity } from './stupidConstants';
 
 type PlaySound = FC<{
   text: string;
@@ -29,24 +31,30 @@ export const PlaySound: PlaySound = forwardRef(
     const playSound = useCallback(() => {
       Sound.setCategory('Playback');
 
+      const soundUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(
+        text
+      )}&tl=${language}&client=tw-ob`;
+
       const audio =
         loadedAudio ??
-        new Sound(
-          `https://translate.google.com/translate_tts?ie=UTF-8&q=${text}&tl=${language}&client=tw-ob`,
-          '',
-          (error) => {
-            if (error === null) {
-              setLoadedAudio(audio);
-            }
-            if (error) {
-              setIsPlaying(false);
-              Alert.alert(
-                'Error: The sound could not be played',
-                `Something went wrong during the sound playback. The sound playback is a new feature, and it might have problems. Could you please try to play the sound one more time?`
-              );
-            }
+        new Sound(soundUrl, '', (error) => {
+          if (error === null) {
+            setLoadedAudio(audio);
           }
-        );
+          if (error) {
+            Sentry.captureException(new Error(`Play sound error`), {
+              extra: {
+                soundUrl,
+                error: JSON.stringify(error),
+              },
+            });
+            setIsPlaying(false);
+            Alert.alert(
+              'Error: The pronunciation could not be played',
+              `Something went wrong during the pronunciation playback.\n\nCould you please try again?`
+            );
+          }
+        });
 
       setIsPlaying(true);
     }, [text, language, setIsPlaying, setLoadedAudio, loadedAudio]);
@@ -71,7 +79,7 @@ export const PlaySound: PlaySound = forwardRef(
         hitSlop={20}
         style={({ pressed }) => [
           {
-            opacity: pressed ? 0.25 : 0.5,
+            opacity: pressed ? pressedIconButtonOpacity : iconButtonOpacity,
             // Make play sound stand out and hitSlop working
             zIndex: 1,
           },

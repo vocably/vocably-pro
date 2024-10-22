@@ -12,7 +12,7 @@ import {
 } from './styling';
 
 type PopupStackItem = {
-  popup: HTMLElement;
+  overlay: HTMLVocablyOverlayElement;
   resizeObserver: ResizeObserver;
   tearDownContents: TearDown;
 };
@@ -80,11 +80,6 @@ type PopupOptions = {
 export const createPopup = async (options: PopupOptions) => {
   const popup = document.createElement('vocably-popup');
   applyInitialStyles(popup);
-  document.body.appendChild(popup);
-
-  popup.addEventListener('close', () => {
-    destroyPopup(popup);
-  });
 
   const { autoPlay } = await api.getSettings();
 
@@ -109,78 +104,42 @@ export const createPopup = async (options: PopupOptions) => {
   });
   resizeObserver.observe(popup);
 
-  popupStack.push({ popup, resizeObserver, tearDownContents });
-  setTimeout(() => addGlobalEventListeners(), 100);
+  const overlay = document.createElement('vocably-overlay');
+  overlay.style.setProperty('--backdropOpacity', '0');
+  overlay.closeKeyCode = ['Escape', 'Space'];
+  overlay.appendChild(popup);
+
+  overlay.addEventListener('close', () => {
+    destroyOverlay(overlay);
+  });
+
+  document.body.appendChild(overlay);
+
+  popupStack.push({ overlay, resizeObserver, tearDownContents });
 };
 
-export const destroyPopup = (popupToDestroy: HTMLElement) => {
+export const destroyOverlay = (overlayToDestroy: HTMLVocablyOverlayElement) => {
   const stackItemIndex = popupStack.findIndex(
-    (item) => item.popup === popupToDestroy
+    (item) => item.overlay === overlayToDestroy
   );
 
   if (stackItemIndex === -1) {
     return;
   }
 
-  const { popup, resizeObserver, tearDownContents } =
+  const { overlay, resizeObserver, tearDownContents } =
     popupStack[stackItemIndex];
 
   tearDownContents();
-  resizeObserver.unobserve(popup);
+  resizeObserver.unobserve(overlay);
   resizeObserver.disconnect();
-  popup.remove();
+  overlay.hide();
 
   popupStack.splice(stackItemIndex, 1);
 };
 
-export const destroyAllPopups = () => {
+export const destroyAllOverlays = () => {
   while (popupStack.length > 0) {
-    destroyPopup(popupStack[0].popup);
-  }
-
-  removeGlobalEventListeners();
-};
-
-const addGlobalEventListeners = () => {
-  if (popupStack.length > 1) {
-    return;
-  }
-
-  document.addEventListener('click', destroyOnGlobalClick);
-  document.addEventListener('keydown', destroyOnSpace);
-};
-
-const removeGlobalEventListeners = () => {
-  document.removeEventListener('keydown', destroyOnSpace);
-  document.removeEventListener('click', destroyOnGlobalClick);
-};
-
-const destroyOnSpace = (e: KeyboardEvent) => {
-  if (e.code === 'Space') {
-    destroyAllPopups();
-  }
-};
-
-const isPopupElement = (verifiedElement: HTMLElement): boolean => {
-  if (verifiedElement.tagName === 'VOCABLY-POPUP') {
-    return true;
-  }
-
-  if (verifiedElement.parentElement) {
-    return isPopupElement(verifiedElement.parentElement);
-  }
-
-  return false;
-};
-
-const destroyOnGlobalClick = (e: MouseEvent) => {
-  if (!e.target) {
-    return;
-  }
-
-  const isClickOnPopup = isPopupElement(e.target as HTMLElement);
-
-  if (!isClickOnPopup) {
-    destroyAllPopups();
+    destroyOverlay(popupStack[0].overlay);
   }
 };

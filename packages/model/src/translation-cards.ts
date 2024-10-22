@@ -1,7 +1,13 @@
 import { Translation } from './analysis';
-import { CardItem } from './language-deck';
+import { CardItem, TagItem } from './language-deck';
 
-export type DetachedCardItem = Pick<CardItem, 'data'>;
+export type DetachedCard = Omit<
+  CardItem['data'],
+  'eFactor' | 'dueDate' | 'repetition' | 'interval'
+>;
+export type DetachedCardItem = {
+  data: DetachedCard;
+};
 
 export type TranslationCard = CardItem | DetachedCardItem;
 
@@ -9,6 +15,7 @@ export type TranslationCards = {
   source: string;
   translation: Translation;
   cards: TranslationCard[];
+  tags: TagItem[];
 };
 
 export type RemoveCardPayload = {
@@ -19,6 +26,30 @@ export type RemoveCardPayload = {
 export type AddCardPayload = {
   translationCards: TranslationCards;
   card: DetachedCardItem;
+};
+
+export type TagCandidate = TagItem | Pick<TagItem, 'data'>;
+
+export type AttachTagPayload = {
+  translationCards: TranslationCards;
+  cardId: string;
+  tag: TagCandidate;
+};
+
+export type DetachTagPayload = {
+  translationCards: TranslationCards;
+  cardId: string;
+  tag: TagItem;
+};
+
+export type UpdateTagPayload = {
+  translationCards: TranslationCards;
+  tag: TagItem;
+};
+
+export type DeleteTagPayload = {
+  translationCards: TranslationCards;
+  tag: TagItem;
 };
 
 export const isCardItem = (

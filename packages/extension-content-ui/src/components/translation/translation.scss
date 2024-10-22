@@ -1,0 +1,317 @@
+@use 'sass:math';
+@import '../../styles/component';
+
+$input-padding-x: 14px;
+$input-padding-y: 10px;
+
+$section-margin: 8px;
+
+:host {
+  @include base-font();
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
+  max-width: min(90vw, 600px);
+  display: inline-block;
+
+  li {
+    margin: 0;
+  }
+}
+
+.vocably-mb-4 {
+  margin-bottom: 4px;
+}
+
+.vocably-mb-6 {
+  margin-bottom: 6px;
+}
+
+.vocably-mt-12 {
+  margin-top: 12px;
+}
+
+.vocably-mb-12 {
+  margin-bottom: 12px;
+}
+
+.vocably-text-right {
+  text-align: right;
+}
+
+.vocably-text-link,
+.vocably-text-link:active,
+.vocably-text-link:visited {
+  color: $v-light-color-body !important;
+  text-decoration: underline !important;
+}
+
+.vocably-text-link:hover {
+  color: $v-light-color-emphasize !important;
+}
+
+.vocably-emphasized {
+  color: $v-light-color-emphasize;
+  font-weight: bold;
+}
+
+.vocably-small {
+  font-size: $base-font-size * 0.9;
+}
+
+.vocably-muted {
+  color: $v-light-color-muted;
+}
+
+.vocably-translation {
+  display: flex;
+  align-items: stretch;
+  gap: $section-margin;
+
+  @media screen and (max-width: 600px) {
+    & {
+      flex-direction: column;
+    }
+  }
+
+  .vocably-translation-section {
+    padding-left: $input-padding-x;
+  }
+
+  .vocably-invisible-space {
+    display: inline-block;
+    width: 0;
+    font-size: 0;
+  }
+}
+
+.vocably-error {
+  color: $v-light-color-danger;
+}
+
+.vocably-loading-container {
+  position: relative;
+}
+
+.vocably-reload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  opacity: 0.5;
+}
+
+@keyframes vocably-floating {
+  0% {
+    transform: translate(0, -2px);
+  }
+  50% {
+    transform: translate(1px, 2px);
+  }
+  100% {
+    transform: translate(0, -2px);
+  }
+}
+
+.vocably-cards-save-hint {
+  position: absolute;
+  width: 165px;
+  top: 6px;
+  right: 40px;
+  animation: vocably-floating 3s ease-in-out infinite;
+  opacity: 1;
+  transition: opacity 200ms ease-in-out;
+}
+
+.vocably-cards-save-hint.vocably-cards-save-hint-hidden {
+  opacity: 0;
+}
+
+$container-padding: $input-padding-y $input-padding-x $input-padding-y
+  $input-padding-x;
+
+.vocably-cards {
+  border: $internal-border;
+  border-radius: $v-border-radius;
+  background-color: $v-light-color-contrast;
+  margin-left: -$input-padding-x;
+  margin-bottom: 1px;
+
+  .vocably-card {
+    position: relative;
+    padding: $container-padding;
+    border-top: $internal-border;
+
+    .vocably-safe-action-area {
+      padding-right: 34px;
+    }
+
+    &:first-child {
+      border-top: none;
+    }
+
+    .vocably-card-hint-displayed {
+      padding-right: 200px;
+    }
+
+    .vocably-card-action {
+      $size: 24px;
+      position: absolute;
+      right: $input-padding-x;
+      top: $input-padding-y;
+      min-width: $size;
+      height: $size;
+      line-height: $size;
+      text-align: center;
+    }
+
+    .vocably-card-action-button {
+      padding: 0;
+      margin: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      min-width: auto;
+      box-shadow: none;
+
+      opacity: 0.1;
+      transition: opacity 200ms;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      & > * {
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+vocably-play-sound {
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  margin-right: 4px;
+}
+
+.vocably-rate-container {
+  transition: all 1s ease-in-out;
+  max-height: 500px;
+  opacity: 1;
+  box-sizing: border-box;
+
+  &.vocably-rate-container-hidden {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+.vocably-rate-padding {
+  padding: $container-padding;
+}
+
+.vocably-direct-translation {
+  display: flex;
+  flex-direction: row;
+}
+
+.vocably-added-congratulation {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+
+  &.vocably-added-congratulation-visible {
+    max-height: 500px;
+  }
+}
+
+.vocably-added-congratulation-content {
+  padding-top: 12px;
+}
+
+.vocably-added-congratulation-content-1 {
+  padding: 12px;
+  background: white;
+}
+
+.vocably-list {
+  list-style: outside;
+  padding: 0;
+  margin: 0 0 0 $base-font-size;
+}
+
+.vocably-italic {
+  font-style: italic;
+}
+
+.vocably-language-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  margin-left: -$input-padding-x;
+  width: calc(100% + #{$input-padding-x});
+
+  .vocably-language-wrapper {
+    width: 46%;
+
+    .vocably-input-select {
+      width: 100%;
+    }
+  }
+}
+
+.vocably-input-select {
+  @include select($input-padding-x, $input-padding-y);
+}
+
+.vocably-button {
+  @include button();
+  @include inline-button();
+}
+
+.vocably-link-button {
+  @include unstyled();
+  @include link(!important);
+}
+
+.vocably-tag {
+  border: $internal-border;
+  border-radius: math.div($v-border-radius, 2);
+  background-color: $v-light-color-contrast;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.vocably-tag-remove-button {
+  $height: 24px;
+
+  @include unstyled();
+
+  vertical-align: middle;
+  height: $height;
+  opacity: 0.3;
+  transition: opacity 300ms;
+  transform: scale(80%);
+
+  .vocably-tag-remove-button-icon {
+    --color: #{$v-light-color-muted};
+    --size: #{$height};
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}

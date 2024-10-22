@@ -1,0 +1,54 @@
+//@use 'sass:math';
+@import '../../styles/component';
+
+:host {
+  display: block;
+
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
+}
+
+.button {
+  $size: 21px;
+  $icon-size: $size * 0.9;
+
+  display: flex;
+  border-radius: 5px;
+  width: $size;
+  height: $size;
+  line-height: $size;
+  background-color: #fff;
+  padding: 3px;
+  cursor: pointer;
+  box-sizing: content-box;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+  transition: box-shadow 0.1s;
+
+  .svg {
+    height: $icon-size;
+  }
+
+  &:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.9);
+  }
+
+  &:active {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
+  }
+
+  animation-duration: 0.3s;
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

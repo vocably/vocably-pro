@@ -33,32 +33,51 @@ export const SwipeGrade: FC<{
   const theme = useTheme();
 
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
-  const pan = useRef(new Animated.ValueXY()).current;
+
+  const sufficientHorizontalDisplacement = Math.min(windowWidth / 4, 110);
+  const sufficientVerticalDisplacement = Math.min(windowHeight / 5, 110);
+  const minimalQuickDisplacement = 10;
+
+  const pan = useRef(
+    new Animated.ValueXY(undefined, {
+      useNativeDriver: true,
+    })
+  ).current;
   const movementRef = useRef<null | 'horizontal' | 'vertical'>(null);
-  const weakVisibility = useRef(new Animated.Value(0)).current;
-  const mediumVisibility = useRef(new Animated.Value(0)).current;
-  const strongVisibility = useRef(new Animated.Value(0)).current;
+  const movementStartRef = useRef<number>(0);
+  const weakVisibility = useRef(
+    new Animated.Value(0, {
+      useNativeDriver: true,
+    })
+  ).current;
+  const mediumVisibility = useRef(
+    new Animated.Value(0, {
+      useNativeDriver: true,
+    })
+  ).current;
+  const strongVisibility = useRef(
+    new Animated.Value(0, {
+      useNativeDriver: true,
+    })
+  ).current;
 
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
-        return Math.abs(gestureState.dx) >= 5 || Math.abs(gestureState.dy) >= 5;
+        return Math.abs(gestureState.dx) >= 8 || Math.abs(gestureState.dy) >= 8;
       },
       onPanResponderGrant: () => {
+        movementStartRef.current = Date.now();
         pan.setOffset({
-          // @ts-ignore
-          x: pan.x._value,
-          // @ts-ignore
-          y: pan.y._value,
+          x: 0,
+          y: 0,
         });
       },
       onPanResponderMove: (evt, gestureState) => {
         if (movementRef.current === null) {
-          if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
+          if (Math.abs(gestureState.dx * 2) > Math.abs(gestureState.dy)) {
             movementRef.current = 'horizontal';
-          }
-
-          if (gestureState.dy > 5) {
+          } else if (gestureState.dy > 5) {
             movementRef.current = 'vertical';
           }
         }
@@ -70,12 +89,15 @@ export const SwipeGrade: FC<{
         if (movementRef.current === 'horizontal') {
           if (gestureState.dx > 0) {
             strongVisibility.setValue(
-              Math.min(1, gestureState.dx / (windowWidth / 4))
+              Math.min(1, gestureState.dx / sufficientHorizontalDisplacement)
             );
             weakVisibility.setValue(0);
           } else {
             weakVisibility.setValue(
-              Math.min(1, Math.abs(gestureState.dx) / (windowWidth / 4))
+              Math.min(
+                1,
+                Math.abs(gestureState.dx) / sufficientHorizontalDisplacement
+              )
             );
             strongVisibility.setValue(0);
           }
@@ -86,7 +108,7 @@ export const SwipeGrade: FC<{
           });
         } else if (movementRef.current === 'vertical' && gestureState.dy > 0) {
           mediumVisibility.setValue(
-            Math.min(1, gestureState.dy / (windowHeight / 5))
+            Math.min(1, gestureState.dy / sufficientVerticalDisplacement)
           );
 
           pan.setValue({
@@ -95,7 +117,7 @@ export const SwipeGrade: FC<{
           });
         }
       },
-      onPanResponderRelease: () => {
+      onPanResponderRelease: async (_, gestureState) => {
         if ((weakVisibility as any)._value === 1) {
           onGrade(0);
           return;
@@ -111,10 +133,57 @@ export const SwipeGrade: FC<{
           return;
         }
 
-        pan.setValue({
-          x: 0,
-          y: 0,
-        });
+        if (Date.now() - movementStartRef.current < 100) {
+          const fastReleaseAnimationDuration = 20;
+          if (
+            (weakVisibility as any)._value > 0 &&
+            Math.abs(gestureState.dx) >= minimalQuickDisplacement
+          ) {
+            Animated.timing(weakVisibility, {
+              toValue: 1,
+              duration: fastReleaseAnimationDuration,
+              useNativeDriver: true,
+            }).start(() => {
+              onGrade(0);
+            });
+            return;
+          }
+
+          if (
+            (mediumVisibility as any)._value > 0 &&
+            Math.abs(gestureState.dy) >= minimalQuickDisplacement
+          ) {
+            Animated.timing(mediumVisibility, {
+              toValue: 1,
+              duration: fastReleaseAnimationDuration,
+              useNativeDriver: true,
+            }).start(() => {
+              onGrade(3);
+            });
+            return;
+          }
+
+          if (
+            (strongVisibility as any)._value > 0 &&
+            Math.abs(gestureState.dx) >= minimalQuickDisplacement
+          ) {
+            Animated.timing(strongVisibility, {
+              toValue: 1,
+              duration: fastReleaseAnimationDuration,
+              useNativeDriver: true,
+            }).start(() => {
+              onGrade(5);
+            });
+            return;
+          }
+        }
+
+        Animated.spring(pan, {
+          toValue: { x: 0, y: 0 },
+          bounciness: 12,
+          speed: 48,
+          useNativeDriver: true,
+        }).start();
 
         weakVisibility.setValue(0);
         mediumVisibility.setValue(0);

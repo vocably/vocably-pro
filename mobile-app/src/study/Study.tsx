@@ -1,37 +1,59 @@
 import { CardItem } from '@vocably/model';
 import { grade, slice, SrsScore } from '@vocably/srs';
-import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+import { shuffle } from 'lodash-es';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
-import { useLanguageDeck } from '../languageDeck/useLanguageDeck';
-import { LanguagesContext } from '../languages/LanguagesContainer';
+import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { Loader } from '../loaders/Loader';
 import { useNumberOfRepetitions } from '../RequestFeedback/useNumberOfRepetitions';
-import { Card } from './Card';
 import { Completed } from './Completed';
-import { SwipeGrade } from './SwipeGrade';
+import { craftTheStrategy } from './craftTheStrategy';
+import { Grade } from './Grade';
 
-const maxCardsToStudy = 10;
-
-type Study = FC<{
+type Props = {
   onExit: () => void;
   autoPlay: boolean;
-}>;
+  isRandomizerEnabled: boolean;
+  isMultiChoiceEnabled: boolean;
+  preferMultiChoiceEnabled: boolean;
+  maximumCardsPerSession: number;
+};
 
-export const Study: Study = ({ onExit, autoPlay }) => {
-  const { selectedLanguage } = useContext(LanguagesContext);
-  const { status, deck, update } = useLanguageDeck(selectedLanguage);
+export const Study: FC<Props> = ({
+  onExit,
+  autoPlay,
+  isRandomizerEnabled,
+  isMultiChoiceEnabled,
+  preferMultiChoiceEnabled,
+  maximumCardsPerSession,
+}) => {
+  const {
+    status,
+    update,
+    filteredCards,
+    deck: { cards: allCards },
+  } = useSelectedDeck({
+    autoReload: false,
+  });
   const [cards, setCards] = useState<CardItem[]>();
   const [cardsStudied, setCardsStudied] = useState(0);
-  const [numberOfRepetitions, setNumberOfRepetitions] =
+  const [numberOfRepetitions, increaseNumberOfRepetitions] =
     useNumberOfRepetitions();
 
-  const totalCardsToStudy = Math.min(maxCardsToStudy, deck.cards.length);
+  const totalCardsToStudy = Math.min(
+    maximumCardsPerSession,
+    filteredCards.length
+  );
 
   useEffect(() => {
     if (cardsStudied === 0) {
-      setCards(slice(new Date(), maxCardsToStudy, deck.cards));
+      if (isRandomizerEnabled) {
+        setCards(shuffle(filteredCards).slice(0, maximumCardsPerSession));
+      } else {
+        setCards(slice(new Date(), maximumCardsPerSession, filteredCards));
+      }
     }
-  }, [deck.cards, cardsStudied]);
+  }, [status, filteredCards, cardsStudied, isRandomizerEnabled]);
 
   const onGrade = useCallback(
     (score: SrsScore) => {
@@ -43,34 +65,40 @@ export const Study: Study = ({ onExit, autoPlay }) => {
         return;
       }
 
-      update(cards[0].id, grade(cards[0].data, score)).then((result) => {
-        if (result.success === false) {
-          Alert.alert(
-            `Error: Card update failed`,
-            // `Oops! Unable to continue practice session due to a technical issue. Please try again later or contact support for assistance.`,
-            `Oops! Unable to continue practice session due to a technical issue. Please try again later.`,
-            [
-              {
-                text: 'Exit practice session',
-                onPress: onExit,
-              },
-            ]
-          );
-        }
+      const { strategy } = craftTheStrategy({
+        isMultiChoiceEnabled,
+        preferMultiChoiceEnabled,
+        card: cards[0],
+        allCards,
       });
+
+      update(cards[0].id, grade(cards[0].data, score, strategy)).then(
+        (result) => {
+          if (result.success === false) {
+            Alert.alert(
+              `Error: Card update failed`,
+              // `Oops! Unable to continue practice session due to a technical issue. Please try again later or contact support for assistance.`,
+              `Oops! Unable to continue practice session due to a technical issue. Please try again later.`,
+              [
+                {
+                  text: 'Exit practice session',
+                  onPress: onExit,
+                },
+              ]
+            );
+          }
+        }
+      );
 
       const followingCards = cards.slice(1);
       setCards(followingCards);
+      setCardsStudied((cardsStudied) => cardsStudied + 1);
 
       if (followingCards.length === 0) {
-        if (numberOfRepetitions !== undefined) {
-          setNumberOfRepetitions(numberOfRepetitions + 1);
-        }
+        increaseNumberOfRepetitions();
       }
-
-      setCardsStudied(cardsStudied + 1);
     },
-    [cards, numberOfRepetitions]
+    [cards, increaseNumberOfRepetitions]
   );
 
   if (status === 'loading') {
@@ -90,14 +118,26 @@ export const Study: Study = ({ onExit, autoPlay }) => {
       }}
     >
       {cards.length > 0 &&
-        cards.slice(0, 1).map((card) => (
-          <SwipeGrade onGrade={onGrade} key={card.id}>
-            <Card autoPlay={autoPlay} card={card} />
-          </SwipeGrade>
-        ))}
-      {totalCardsToStudy === cardsStudied && (
+        cards
+          .slice(0, 1)
+          .map((card) => (
+            <Grade
+              key={card.id}
+              isMultiChoiceEnabled={isMultiChoiceEnabled}
+              preferMultiChoiceEnabled={preferMultiChoiceEnabled}
+              card={card}
+              onGrade={onGrade}
+              autoPlay={autoPlay}
+              existingCards={allCards}
+            />
+          ))}
+      {cards.length === 0 && (
         <Completed
-          numberOfRepetitions={numberOfRepetitions}
+          numberOfRepetitions={
+            numberOfRepetitions.status === 'loaded'
+              ? numberOfRepetitions.value
+              : 0
+          }
           onStudyAgain={() => setCardsStudied(0)}
         ></Completed>
       )}

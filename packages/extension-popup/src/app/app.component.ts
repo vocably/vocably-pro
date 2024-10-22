@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ExtensionSettings } from '@vocably/extension-messages';
 import { ReplaySubject } from 'rxjs';
 import { environment } from '../environments/environment';
+import { isUserLoggedIn$ } from '../isUserLoggedIn';
+import { needsOnboarding$ } from '../needsOnboarding';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,11 @@ export class AppComponent implements OnInit {
   showQRCode = false;
 
   settings$ = new ReplaySubject<ExtensionSettings>();
+  isLoggedIn$ = isUserLoggedIn$;
+  needsOnboarding$ = needsOnboarding$;
+
+  loginUrl = `${environment.appBaseUrl}/page/welcome`;
+  welcomeUrl = `${environment.appBaseUrl}/welcome`;
 
   ngOnInit() {
     environment.getSettings().then((settings) => {

@@ -3,16 +3,11 @@ import { CardItem } from '@vocably/model';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, TextInput, useTheme } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { mainPadding } from './styles';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'flex-start',
-    padding: mainPadding,
-  },
   inputItem: {
     marginBottom: 24,
     textAlign: 'auto',
@@ -29,11 +24,15 @@ type EditCardScreen = FC<{
 }>;
 
 export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
-  const { update } = useSelectedDeck();
+  const { update } = useSelectedDeck({
+    autoReload: false,
+  });
 
   const { card } = route.params as EditCardParams;
   const [cardData, setCardData] = useState({ ...card.data });
   const [isUpdating, setIsUpdating] = useState(false);
+
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     setCardData({ ...card.data });
@@ -63,14 +62,21 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
 
   const theme = useTheme();
   return (
-    <ScrollView automaticallyAdjustKeyboardInsets={true}>
+    <ScrollView
+      automaticallyAdjustKeyboardInsets={true}
+      contentContainerStyle={{
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
+        paddingBottom: insets.bottom,
+      }}
+    >
       <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: theme.colors.background,
-          },
-        ]}
+        style={{
+          flex: 1,
+          alignItems: 'stretch',
+          justifyContent: 'flex-start',
+          padding: mainPadding,
+        }}
       >
         <TextInput
           style={styles.inputItem}

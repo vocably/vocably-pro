@@ -1,0 +1,25 @@
+//@use 'sass:math';
+@import '../../styles/component';
+
+:host {
+  --backdropOpacity: 0.4;
+
+  display: block;
+  position: absolute;
+  z-index: 2147483647;
+  inset: 0;
+
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
+
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    opacity: 0;
+    background: black;
+  }
+
+  .overlay {
+    opacity: 0;
+  }
+}

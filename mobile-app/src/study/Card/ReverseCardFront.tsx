@@ -26,12 +26,14 @@ export const ReverseCardFront: FC<{ card: CardItem; hasChecked: boolean }> = ({
     <View>
       <Text style={{ fontSize: 24, marginBottom: 12 }}>
         Guess the{' '}
-        {(
+        {card.data.partOfSpeech ? (
           <Text style={{ color: theme.colors.secondary }}>
             {card.data.partOfSpeech}
           </Text>
-        ) ?? 'word'}
-        :
+        ) : (
+          'meaning'
+        )}
+        {':'}
       </Text>
       <CardDefinition
         card={card.data}

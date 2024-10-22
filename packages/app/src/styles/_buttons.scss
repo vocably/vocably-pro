@@ -1,37 +1,12 @@
 @import '@vocably/styles/mixins/unstyled';
-@import './mixins/button';
+@import '@vocably/styles/mixins/button';
 
 button.unstyled {
   @include unstyled();
 }
 
 .button {
-  @include button-pristine();
-
-  &.block {
-    @include button-block();
-  }
-
-  &.outline {
-    background: none;
-    border: 1px solid var(--button-bg);
-    color: var(--button-bg);
-  }
-
-  &:hover:not(disabled, .disabled),
-  &:focus:not(disabled, .disabled) {
-    @include button-hover();
-  }
-
-  &:active:not(disabled, .disabled) {
-    @include button-active();
-  }
-
-  &[disabled],
-  &.disabled {
-    filter: grayscale(80%);
-    cursor: auto;
-  }
+  @include button();
 }
 
 .align-with-button {

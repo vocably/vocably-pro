@@ -1,5 +1,5 @@
 import { deleteLanguageDeck, listLanguages } from '@vocably/api';
-import { LanguageDeck } from '@vocably/model';
+import { LanguageDeck, TagItem } from '@vocably/model';
 import React, {
   createContext,
   FC,
@@ -17,6 +17,7 @@ const selectedLanguageStorageKey = 'selected-language';
 export type LanguageContainerDeck = {
   status: 'initial' | 'loading' | 'loaded' | 'error';
   deck: LanguageDeck;
+  selectedTags: TagItem[];
 };
 
 type DecksCollection = Record<string, LanguageContainerDeck>;
@@ -142,7 +143,7 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
     status,
     languages,
     decks,
-    storeDeck: storeDeck,
+    storeDeck,
     deleteLanguage,
     selectedLanguage: selectedLanguage,
     selectLanguage,

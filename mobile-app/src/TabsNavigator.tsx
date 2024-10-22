@@ -1,6 +1,5 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useContext } from 'react';
-import { useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DeckStack } from './DeckStack';
 import { LanguagesContext } from './languages/LanguagesContainer';
@@ -11,8 +10,6 @@ const Tabs = createMaterialBottomTabNavigator();
 
 export const TabsNavigator = () => {
   const { selectedLanguage } = useContext(LanguagesContext);
-  const theme = useTheme();
-
   return (
     <Tabs.Navigator>
       <Tabs.Screen

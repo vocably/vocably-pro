@@ -31,14 +31,18 @@
     rgba(0, 80, 255, 0.25);
   text-decoration: none !important;
 
-  &:hover,
-  &:focus {
+  &:hover:not([disabled]),
+  &:focus:not([disabled]) {
     background: $v-light-btn-hover-bg;
   }
 
-  &:active {
+  &:active:not([disabled]) {
     background: $v-light-btn-active-bg;
     box-shadow: $v-light-btn-active-shadow;
+  }
+
+  &[disabled] {
+    background: $v-light-btn-disabled-bg;
   }
 }
 
@@ -48,21 +52,34 @@
   width: auto;
 }
 
-@mixin select($input-padding-x, $input-padding-y) {
+@mixin input($input-padding-x, $input-padding-y) {
   color: $v-light-color-body !important;
   font-size: $base-font-size * 0.9 !important;
   padding: $input-padding-y $input-padding-x !important;
   border: $internal-border !important;
   border-radius: $v-border-radius !important;
-  appearance: none !important;
-  background: $v-light-color-contrast
-    url('data:image/svg+xml;utf8,<svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 5 6 1 1" stroke="rgb(109, 109, 109)" stroke-width=".5" stroke-miterlimit="10" stroke-linecap="round"/></svg>')
-    no-repeat !important;
-  background-position: right $input-padding-x top 50% !important;
+  background-color: $v-light-color-contrast;
   outline: none !important;
   height: auto !important;
   line-height: inherit !important;
   box-shadow: none !important;
   box-sizing: border-box !important;
   width: 100% !important;
+}
+
+@mixin input-text($input-padding-x, $input-padding-y) {
+  @include input($input-padding-x, $input-padding-y);
+
+  &:focus {
+    background-color: $v-light-color-contrast-2;
+  }
+}
+
+@mixin select($input-padding-x, $input-padding-y) {
+  @include input($input-padding-x, $input-padding-y);
+  appearance: none !important;
+  background: $v-light-color-contrast
+    url('data:image/svg+xml;utf8,<svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 5 6 1 1" stroke="rgb(109, 109, 109)" stroke-width=".5" stroke-miterlimit="10" stroke-linecap="round"/></svg>')
+    no-repeat !important;
+  background-position: right $input-padding-x top 50% !important;
 }

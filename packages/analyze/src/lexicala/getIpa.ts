@@ -10,5 +10,9 @@ export const getIpa = (
     return pinyin ? pinyin?.text : '';
   }
 
-  return item.headword.pronunciation?.value ?? '';
+  if (!item.headword.pronunciation?.value) {
+    return '';
+  }
+
+  return item.headword.pronunciation?.value.split(', ')[0];
 };

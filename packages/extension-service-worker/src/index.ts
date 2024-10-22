@@ -7,13 +7,16 @@ import {
   playSound,
   saveLanguageDeck,
 } from '@vocably/api';
-import { makeCreate, makeDelete } from '@vocably/crud';
+import { isItem, makeCreate, makeDelete, makeUpdate } from '@vocably/crud';
 import {
   onAddCardRequest,
   onAnalyzeRequest,
   onAskForRating,
+  onAttachTag,
   onCanPlayOffScreen,
   onCleanUpRequest,
+  onDeleteTag,
+  onDetachTag,
   onGetAudioPronunciation,
   onGetInternalProxyLanuage,
   onGetInternalSourceLanguage,
@@ -39,6 +42,7 @@ import {
   onSetSettingsRequest,
   onSetSourceLanguage,
   onSetUserKnowsHowToAdd,
+  onUpdateTag,
   playAudioPronunciationOffscreen,
 } from '@vocably/extension-messages';
 import {
@@ -51,7 +55,9 @@ import {
   mapUserAttributes,
   Result,
 } from '@vocably/model';
-import { get, isEqual } from 'lodash-es';
+import { buildTagMap } from '@vocably/model-operations';
+import { createSrsItem } from '@vocably/srs';
+import { get, isEqual, uniq } from 'lodash-es';
 import {
   getAskForRatingCounter,
   resetAskForRatingCounter,
@@ -61,6 +67,7 @@ import { browserEnv, hasOffscreen } from './browserEnv';
 import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
+import { getLastUsedTagsIds, saveLastUsedTagsIds } from './lastUsedTagsIds';
 import { getLocationLanguage, storeLocationLanguage } from './locationLanguage';
 import { getLanguagePair } from './selectedLanguage/languagePairs';
 import {
@@ -201,6 +208,7 @@ export const registerServiceWorker = (
         cards,
         source: analysisResult.value.source,
         translation: analysisResult.value.translation,
+        tags: loadLanguageDeckResult.value.tags,
       };
 
       addLanguage(value.translation.sourceLanguage);
@@ -263,9 +271,20 @@ export const registerServiceWorker = (
       return sendResponse(getLanguageDeckResult);
     }
 
-    const addedCard = makeCreate(getLanguageDeckResult.value.cards)(
-      payload.card.data
-    );
+    const tagMap = buildTagMap(getLanguageDeckResult.value.tags);
+    const lastUsedTagsIds = await getLastUsedTagsIds();
+
+    const tags = uniq(lastUsedTagsIds)
+      .filter((tagId) => tagMap[tagId])
+      .map((tagId) => tagMap[tagId]);
+
+    await saveLastUsedTagsIds(tags.map((t) => t.id));
+
+    const addedCard = makeCreate(getLanguageDeckResult.value.cards)({
+      ...createSrsItem(),
+      ...payload.card.data,
+      tags,
+    });
 
     const saveLanguageDeckResult = await saveLanguageDeck(
       getLanguageDeckResult.value
@@ -504,5 +523,232 @@ export const registerServiceWorker = (
     return sendResponse(await playAudioPronunciationOffscreen(payload));
   });
 
-  console.info('The service worker has been registered');
+  onAttachTag(async (sendResponse, payload) => {
+    const languageDeckResult = await loadLanguageDeck(
+      payload.translationCards.translation.sourceLanguage
+    );
+
+    if (languageDeckResult.success === false) {
+      return sendResponse(languageDeckResult);
+    }
+
+    const tagCandidate = payload.tag;
+    const tagItem = isItem(tagCandidate)
+      ? languageDeckResult.value.tags.find((t) => t.id === tagCandidate.id)
+      : makeCreate(languageDeckResult.value.tags)(tagCandidate.data);
+
+    if (tagItem === undefined) {
+      return sendResponse({
+        success: false,
+        errorCode: 'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+        reason: `Unable to find tag in the collection`,
+        extra: {
+          payload,
+        },
+      });
+    }
+
+    const card = languageDeckResult.value.cards.find(
+      (c) => c.id === payload.cardId
+    );
+
+    if (card === undefined) {
+      return sendResponse({
+        success: false,
+        errorCode: 'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+        reason: `Unable to find card with ID ${payload.cardId}`,
+        extra: {
+          payload,
+        },
+      });
+    }
+
+    if (!card.data.tags.some((t) => t.id === tagItem.id)) {
+      card.data.tags.push(tagItem);
+    }
+
+    await saveLastUsedTagsIds(card.data.tags.map((t) => t.id));
+
+    const saveResult = await saveLanguageDeck(languageDeckResult.value);
+
+    if (saveResult.success === false) {
+      return sendResponse(saveResult);
+    }
+
+    return sendResponse({
+      success: true,
+      value: {
+        ...payload.translationCards,
+        tags: languageDeckResult.value.tags,
+        cards: payload.translationCards.cards.map((c) => {
+          if (!isItem(c)) {
+            return c;
+          }
+
+          if (c.id !== payload.cardId) {
+            return c;
+          }
+
+          return {
+            ...c,
+            ...card,
+            data: {
+              ...c.data,
+              ...card.data,
+            },
+          };
+        }),
+      },
+    });
+  });
+
+  onDetachTag(async (sendResponse, payload) => {
+    const languageDeckResult = await loadLanguageDeck(
+      payload.translationCards.translation.sourceLanguage
+    );
+
+    if (languageDeckResult.success === false) {
+      return sendResponse(languageDeckResult);
+    }
+
+    const card = languageDeckResult.value.cards.find(
+      (c) => c.id === payload.cardId
+    );
+
+    if (card === undefined) {
+      return sendResponse({
+        success: false,
+        errorCode: 'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+        reason: `Unable to find card with ID ${payload.cardId}`,
+        extra: {
+          payload,
+        },
+      });
+    }
+
+    card.data.tags = card.data.tags.filter((t) => t.id !== payload.tag.id);
+
+    await saveLastUsedTagsIds(card.data.tags.map((t) => t.id));
+
+    const saveResult = await saveLanguageDeck(languageDeckResult.value);
+
+    if (saveResult.success === false) {
+      return sendResponse(saveResult);
+    }
+
+    return sendResponse({
+      success: true,
+      value: {
+        ...payload.translationCards,
+        tags: languageDeckResult.value.tags,
+        cards: payload.translationCards.cards.map((c) => {
+          if (!isItem(c)) {
+            return c;
+          }
+
+          if (c.id !== payload.cardId) {
+            return c;
+          }
+
+          return {
+            ...c,
+            ...card,
+            data: {
+              ...c.data,
+              ...card.data,
+            },
+          };
+        }),
+      },
+    });
+  });
+
+  onUpdateTag(async (sendResponse, payload) => {
+    const languageDeckResult = await loadLanguageDeck(
+      payload.translationCards.translation.sourceLanguage
+    );
+
+    if (languageDeckResult.success === false) {
+      return sendResponse(languageDeckResult);
+    }
+
+    const updateResult = makeUpdate(languageDeckResult.value.tags)(
+      payload.tag.id,
+      payload.tag.data
+    );
+
+    if (updateResult.success === false) {
+      return sendResponse(updateResult);
+    }
+
+    const saveResult = await saveLanguageDeck(languageDeckResult.value);
+
+    if (saveResult.success === false) {
+      return sendResponse(saveResult);
+    }
+
+    return sendResponse({
+      success: true,
+      value: {
+        ...payload.translationCards,
+        tags: languageDeckResult.value.tags,
+        cards: payload.translationCards.cards.map((c) => {
+          return {
+            ...c,
+            data: {
+              ...c.data,
+              tags: c.data.tags.map((t) =>
+                t.id === updateResult.value.id ? updateResult.value : t
+              ),
+            },
+          };
+        }),
+      },
+    });
+  });
+
+  onDeleteTag(async (sendResponse, payload) => {
+    const languageDeckResult = await loadLanguageDeck(
+      payload.translationCards.translation.sourceLanguage
+    );
+
+    if (languageDeckResult.success === false) {
+      return sendResponse(languageDeckResult);
+    }
+
+    const deleteResult = makeDelete(languageDeckResult.value.tags)(
+      payload.tag.id
+    );
+
+    if (deleteResult.success === false) {
+      return sendResponse(deleteResult);
+    }
+
+    languageDeckResult.value.cards.forEach((card) => {
+      card.data.tags = card.data.tags.filter((t) => t.id !== payload.tag.id);
+    });
+
+    const saveResult = await saveLanguageDeck(languageDeckResult.value);
+
+    if (saveResult.success === false) {
+      return sendResponse(saveResult);
+    }
+
+    return sendResponse({
+      success: true,
+      value: {
+        ...payload.translationCards,
+        tags: languageDeckResult.value.tags,
+        cards: payload.translationCards.cards.map((c) => {
+          return {
+            ...c,
+            data: {
+              ...c.data,
+              tags: c.data.tags.filter((t) => t.id !== payload.tag.id),
+            },
+          };
+        }),
+      },
+    });
+  });
 };

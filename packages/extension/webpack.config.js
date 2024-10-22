@@ -40,6 +40,18 @@ const prodConfig = {
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
+    new webpack.BannerPlugin(
+      [
+        'Hello to whoever is reading this! I think you are cool 🤜🤛',
+        '',
+        `I did not obfuscate the code to help you better understand it.`,
+        `However, I don't know how to disable minification of web components (StencilJS).`,
+        `Sorry, I didn't look too hard!`,
+        `The code of the entire project is available at:`,
+        `https://github.com/vocably/vocably-pro`,
+        '',
+      ].join('\n')
+    ),
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
     }),
@@ -71,6 +83,9 @@ const prodConfig = {
     hints: false,
   },
   devtool: 'inline-source-map',
+  optimization: {
+    minimize: false,
+  },
 };
 
 const devConfig = {

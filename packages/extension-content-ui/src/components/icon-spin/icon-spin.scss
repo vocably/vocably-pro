@@ -1,0 +1,33 @@
+@import '../../styles/variables';
+
+:host {
+  --size: 24px;
+
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
+}
+
+.svg {
+  width: var(--size);
+  height: var(--size);
+}
+
+.spinner_VpEe {
+  animation: spinner_vXu6 1.2s cubic-bezier(0.52, 0.6, 0.25, 0.99) infinite;
+}
+.spinner_eahp {
+  animation-delay: 0.4s;
+}
+.spinner_f7Y2 {
+  animation-delay: 0.8s;
+}
+@keyframes spinner_vXu6 {
+  0% {
+    r: 0;
+    opacity: 1;
+  }
+  100% {
+    r: 11px;
+    opacity: 0;
+  }
+}

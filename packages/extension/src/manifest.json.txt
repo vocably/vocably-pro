@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "{{ process.env.NAME }}: Pro Language Flashcards",
-  "description": "Translate and create flashcards on any website or YouTube. Learn the flashcards on mobile.",
+  "name": "{{ process.env.NAME }}: Language Flashcards",
+  "description": "Translate and create flashcards on any website or YouTube. Study the flashcards on your mobile device.",
   "version": "{{ process.env.VERSION }}",
 
   "icons": {
@@ -30,7 +30,7 @@
     }
   ],
 
-  "permissions": ["storage", "offscreen"{{ process.env.EXTRA_PERMISSIONS }}],
+  "permissions": ["storage", "offscreen", "contextMenus"{{ process.env.EXTRA_PERMISSIONS }}],
 
   "externally_connectable": {
     "matches": [{{ process.env.EXTERNALLY_CONNECTABLE_MATCHES }}]

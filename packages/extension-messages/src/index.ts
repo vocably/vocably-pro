@@ -1,14 +1,18 @@
 import { createExternalMessage, createMessage } from '@vocably/hermes';
 import {
   AddCardPayload,
+  AttachTagPayload,
   AudioPronunciationPayload,
   AudioPronunciationResponse,
+  DeleteTagPayload,
+  DetachTagPayload,
   DirectAnalyzePayload,
   GoogleLanguage,
   RateInteractionPayload,
   RemoveCardPayload,
   Result,
   TranslationCards,
+  UpdateTagPayload,
 } from '@vocably/model';
 
 const createScope =
@@ -26,6 +30,7 @@ export const [isLoggedIn, onIsLoggedInRequest] = createScopedMessage<
 export type ExtensionSettings = {
   showOnDoubleClick: boolean;
   autoPlay: boolean;
+  hideSelectionButton: boolean;
 };
 
 export const [getSettings, onGetSettingsRequest] = createScopedMessage<
@@ -167,3 +172,23 @@ export const [canPlayOffScreen, onCanPlayOffScreen] = createScopedMessage<
   void,
   boolean
 >('canPlayOffScreen');
+
+export const [attachTag, onAttachTag] = createScopedMessage<
+  AttachTagPayload,
+  Result<TranslationCards>
+>('attachTag');
+
+export const [detachTag, onDetachTag] = createScopedMessage<
+  DetachTagPayload,
+  Result<TranslationCards>
+>('detachTag');
+
+export const [updateTag, onUpdateTag] = createScopedMessage<
+  UpdateTagPayload,
+  Result<TranslationCards>
+>('updateTag');
+
+export const [deleteTag, onDeleteTag] = createScopedMessage<
+  DeleteTagPayload,
+  Result<TranslationCards>
+>('deleteTag');

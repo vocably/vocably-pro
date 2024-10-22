@@ -1,11 +1,20 @@
-import { Auth } from '@aws-amplify/auth';
+import { Auth, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 import React, { FC, ReactNode, useContext } from 'react';
 import { Linking, View } from 'react-native';
 import { Button, Text, useTheme } from 'react-native-paper';
 import { Loader } from '../loaders/Loader';
+import { mobilePlatform } from '../mobilePlatform';
+import { urlOpenerOptions } from '../urlOpener';
 import { AuthContext } from './AuthContext';
 
 const signIn = () => Auth.federatedSignIn();
+
+const signInWithAnIdioticCognitoFlow = async () => {
+  urlOpenerOptions.ephemeralWebSession = true;
+  await Auth.federatedSignIn({
+    provider: CognitoHostedUIIdentityProvider.Google,
+  });
+};
 
 export const Login: FC<{
   children?: ReactNode;
@@ -56,6 +65,17 @@ export const Login: FC<{
         </Text>
         .
       </Text>
+      {mobilePlatform === 'ios' && (
+        <Text
+          onPress={() => signInWithAnIdioticCognitoFlow()}
+          style={{
+            color: theme.colors.primary,
+            marginTop: 12,
+          }}
+        >
+          I want to sign in with another Google Account.
+        </Text>
+      )}
     </View>
   );
 };

@@ -6,7 +6,9 @@ import {
   GoogleLanguage,
   languageList,
   Result,
+  TagItem,
 } from '@vocably/model';
+import { buildTagMap } from '@vocably/model-operations';
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 import {
   Alert,
@@ -26,6 +28,7 @@ import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPreset } from './LookUpScreen/TranslationPreset';
 import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
 import { useShareIntentData } from './ShareIntent/useShareIntentData';
+import { useLastUsedTagIds } from './useLastUsedTagIds';
 
 const padding = 16;
 
@@ -64,21 +67,26 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   const [lookUpResult, setLookupResult] =
     useState<Awaited<ReturnType<typeof analyze>>>();
   const theme = useTheme();
-  const deck = useLanguageDeck(translationPreset.sourceLanguage);
+  const deck = useLanguageDeck({
+    language: translationPreset.sourceLanguage,
+    autoReload: true,
+  });
   const languages = useContext(LanguagesContext);
   const intentData = useShareIntentData();
 
-  useEffect(() => {
-    if (lookUpText === '') {
-      setLookupResult(undefined);
-    }
-  }, [lookUpText]);
+  const [lastUsedTagIds, setLastUsedTagIds] = useLastUsedTagIds();
 
   useEffect(() => {
     if (intentData) {
       setLookUpText(intentData);
     }
   }, [intentData]);
+
+  useEffect(() => {
+    if (lookUpText === '') {
+      setLookupResult(undefined);
+    }
+  }, [lookUpText]);
 
   const lookUp = useCallback(async () => {
     if (isAnalyzing) {
@@ -137,7 +145,21 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
         }
       }
 
-      const addResult = await deck.add(card.card);
+      let tags = card.card.tags;
+      if (lastUsedTagIds.status === 'loaded') {
+        const tagMap = buildTagMap(deck.deck.tags);
+        const lastUsedTags = lastUsedTagIds.value
+          .filter((tagId) => !tags.some((t) => t.id === tagId))
+          .filter((tagId) => tagMap[tagId])
+          .map((tagId) => tagMap[tagId] as TagItem);
+
+        tags = [...tags, ...lastUsedTags];
+      }
+
+      const addResult = await deck.add({
+        ...card.card,
+        tags,
+      });
 
       if (addResult.success === false) {
         Alert.alert(
@@ -179,6 +201,26 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
       return removeResult;
     },
     [deck, languages]
+  );
+
+  const onTagsChange = useCallback(
+    async (id: string, tags: TagItem[]): Promise<Result<true>> => {
+      const updateResult = await deck.update(id, {
+        tags,
+      });
+
+      if (updateResult.success === false) {
+        return updateResult;
+      }
+
+      await setLastUsedTagIds(tags.map((t) => t.id));
+
+      return {
+        success: true,
+        value: true,
+      };
+    },
+    [deck]
   );
 
   return (
@@ -228,6 +270,8 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
           cards={deck.deck.cards}
           onAdd={onAdd}
           onRemove={onRemove}
+          onTagsChange={onTagsChange}
+          deck={deck}
         />
       )}
     </SafeAreaView>

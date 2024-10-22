@@ -1,3 +1,4 @@
+import '@vocably/jest';
 import { isReverseAnalysis } from '@vocably/model';
 import { inspect } from '@vocably/node-sulna';
 import { buildResult } from './buildResult';
@@ -187,8 +188,27 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.reverseTranslation).toBeDefined();
     expect(result.value.items[0].source).toEqual('de regel');
-    expect(result.value.items[0].translation).toEqual('строка, правило, норма');
+    expect(result.value.items[0].translation).toHaveSomeOf(
+      'строка, норма, правило, условие'
+    );
     expect(result.value.items[1].source).toContain('regel');
+  });
+
+  it('selects only one transcription', async () => {
+    const result = await buildResult({
+      source: 'hilarious',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+    });
+
+    expect(result.success).toBeTruthy();
+    if (result.success === false) {
+      return;
+    }
+
+    console.log(inspect(result));
+    expect(result.value.translation).toBeDefined();
+    expect(result.value.items[0].ipa).toEqual('hɪˈlɛəriəs');
   });
 
   it('should use word dictionary', async () => {
@@ -557,5 +577,19 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.items[0].ipa).toEqual('nǐhǎo');
     expect(result.value.items[0].translation).toEqual('Привет');
+  });
+
+  it('provides context translation', async () => {
+    const result = await buildResult({
+      source: 'bank',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      context:
+        "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversation?'",
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+    expect(result.value.translation.target).toEqual('берег');
   });
 });

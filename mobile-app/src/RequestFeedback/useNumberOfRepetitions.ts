@@ -1,46 +1,38 @@
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import * as asyncAppStorage from '../asyncAppStorage';
-import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
-import { ASK_FOR_REVIEW_AFTER } from './isOkayToAsk';
+import { useAsync } from '../useAsync';
 
 const numberOfRepetitionsKey = 'numberOfRepetitions';
 
-let storedNumberOfRepetitions: number | null | undefined = undefined;
+const retrieveNumberOfRepetitions = (): Promise<number> =>
+  asyncAppStorage
+    .getItem(numberOfRepetitionsKey)
+    .then((receivedNumberOfRepetitions) => {
+      if (receivedNumberOfRepetitions !== undefined) {
+        return parseInt(receivedNumberOfRepetitions, 10);
+      } else {
+        return 0;
+      }
+    })
+    .catch(() => 0);
 
-asyncAppStorage
-  .getItem(numberOfRepetitionsKey)
-  .then((receivedNumberOfRepetitions) => {
-    if (receivedNumberOfRepetitions !== undefined) {
-      storedNumberOfRepetitions = parseInt(receivedNumberOfRepetitions, 10);
-    } else {
-      storedNumberOfRepetitions = null;
-    }
-  });
+const storeNumberOfRepetitions = (numberOfRepetitions: number) =>
+  asyncAppStorage.setItem(
+    numberOfRepetitionsKey,
+    numberOfRepetitions.toString()
+  );
 
 export const useNumberOfRepetitions = () => {
-  const [numberOfRepetitions, setNumberOfRepetitions] = useState<number>();
+  const [numberOfRepetitionsResult, setNumberOfRepetitions] = useAsync(
+    retrieveNumberOfRepetitions,
+    storeNumberOfRepetitions
+  );
 
-  const { status, deck } = useSelectedDeck();
-
-  useEffect(() => {
-    if (status === 'loaded' && storedNumberOfRepetitions === null) {
-      setNumberOfRepetitions(
-        deck.cards.length > 10 ? ASK_FOR_REVIEW_AFTER - 1 : 0
-      );
-    } else {
-      setNumberOfRepetitions(storedNumberOfRepetitions ?? 0);
+  const increase = useCallback(() => {
+    if (numberOfRepetitionsResult.status === 'loaded') {
+      setNumberOfRepetitions(numberOfRepetitionsResult.value + 1);
     }
-  }, [status]);
+  }, [numberOfRepetitionsResult, setNumberOfRepetitions]);
 
-  useEffect(() => {
-    if (numberOfRepetitions !== undefined) {
-      storedNumberOfRepetitions = numberOfRepetitions;
-      asyncAppStorage.setItem(
-        numberOfRepetitionsKey,
-        numberOfRepetitions.toString()
-      );
-    }
-  }, [numberOfRepetitions]);
-
-  return [numberOfRepetitions, setNumberOfRepetitions];
+  return [numberOfRepetitionsResult, increase];
 };

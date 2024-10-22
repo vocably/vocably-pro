@@ -4,6 +4,7 @@ import { rootDir } from './helpers/dirs.mjs';
 cd(rootDir);
 
 const packages = [
+  'jest',
   'sulna',
   'node-sulna',
   'model',

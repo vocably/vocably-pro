@@ -67,6 +67,7 @@ export const createTranslationCards = (
         definition: '',
         translation: analysis.translation.target,
         partOfSpeech: '',
+        tags: [],
         ...srsItem,
       },
     ]);
@@ -84,6 +85,7 @@ export const createTranslationCards = (
           definition: join(analysisItem.definitions),
           translation: analysisItem.translation,
           partOfSpeech: analysisItem.partOfSpeech ?? '',
+          tags: [],
           ...srsItem,
         };
       })

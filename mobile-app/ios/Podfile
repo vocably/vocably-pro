@@ -53,7 +53,11 @@ target 'VocablyPro' do
     )
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+        if target.name == 'Sentry'
+          config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'YES'
+        else
+          config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+        end
       end
     end
   end

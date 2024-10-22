@@ -1,0 +1,144 @@
+@import '../../styles/component';
+
+:host {
+  @include base-font();
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
+
+  --max-height: 48vh;
+  --max-width: 100vw;
+  --background-rgb: 255, 255, 255;
+  --header-height: 19px;
+  --header-padding-top: 11px;
+  --header-padding-bottom: 20px;
+  --header-decay-length: 10px;
+  --padding-x: 20px;
+  --border-radius: #{$v-border-radius * 2};
+  --padding-bottom: 20px;
+  --shadow-spread: 10px;
+  --shadow-v-offset: 4px;
+  --scrollbar-track: 6px;
+  --scrollbar-gutter: calc((var(--padding-x) - var(--scrollbar-track)) / 2);
+
+  // iOS > 14 does not show scrollbar
+  @supports (-webkit-touch-callout: none) {
+    --scrollbar-track: 0px;
+  }
+
+  display: inline-block;
+  padding: calc(var(--shadow-spread) - var(--shadow-v-offset))
+    var(--shadow-spread) calc(var(--shadow-spread) + var(--shadow-v-offset));
+
+  // This fixes the problem that happens when  the page's
+  // `body.style.textAlign` is set to `center`
+  text-align: left;
+
+  .popup {
+    background: rgb(var(--background-rgb));
+    box-shadow: 0 var(--shadow-v-offset) var(--shadow-spread) rgba(0, 0, 0, 0.6);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    position: relative;
+    padding-top: calc(var(--header-height) + var(--header-padding-top));
+    padding-right: var(--scrollbar-gutter);
+    padding-bottom: 1px;
+    padding-left: 0;
+  }
+
+  .header {
+    position: absolute;
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1) var(--header-decay-length)
+    );
+    left: 0;
+    right: 0;
+    top: 0;
+    height: var(--header-height);
+    border-radius: var(--border-radius) 0 0 0;
+    display: flex;
+    align-items: center;
+    padding: var(--header-padding-top) 0 var(--header-padding-bottom)
+      var(--padding-x);
+    margin-right: var(--padding-x);
+
+    .logo {
+      height: var(--header-height);
+    }
+
+    .close {
+      border: none;
+      padding: 0;
+      background: none;
+      text-align: center;
+      cursor: pointer;
+      margin-left: auto;
+      position: relative;
+      right: -$close-button-padding;
+    }
+  }
+
+  .footer {
+    position: absolute;
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--padding-bottom);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    pointer-events: none;
+  }
+
+  .body {
+    --padding-right: calc(
+      var(--padding-x) - var(--scrollbar-track) - var(--scrollbar-gutter)
+    );
+
+    min-width: 140px;
+    overflow: auto;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    max-height: calc(
+      var(--max-height) - var(--header-padding-top) - var(--header-padding-top) -
+        var(--header-padding-bottom) - var(--padding-bottom) -
+        var(--shadow-spread) * 2
+    );
+    max-width: calc(var(--max-width) - var(--padding-right) - var(--padding-x));
+    scrollbar-gutter: stable;
+    padding-top: var(--header-padding-bottom);
+    padding-left: var(--padding-x);
+    padding-right: var(--padding-right);
+    padding-bottom: var(--padding-bottom);
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: var(--scrollbar-track);
+      height: var(--scrollbar-track);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: $scroll-color;
+      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .content-wrapper {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+  }
+
+  .content-unlimited {
+    width: 80vw;
+  }
+
+  .content {
+    display: inline-block;
+  }
+}

@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     flex: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 24,
     paddingBottom: gradientHeight - 30,
   },
   element: {
@@ -45,12 +44,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export type RequestFeedbackForm = FC<{
+export type Props = {
   style?: StyleProp<ViewStyle>;
   onAction?: (choice: RateInteractionPayload) => void;
-}>;
+};
 
-export const RequestFeedbackForm: RequestFeedbackForm = ({
+export const RequestFeedbackForm: FC<Props> = ({
   style,
   onAction = () => {},
 }) => {
@@ -60,7 +59,7 @@ export const RequestFeedbackForm: RequestFeedbackForm = ({
     <View style={[styles.container]}>
       <ScrollView contentContainerStyle={[styles.scrollContainer, style]}>
         <View>
-          <Text style={{ fontWeight: 'bold' }}>You can help this project.</Text>
+          <Text style={{ fontWeight: 'bold' }}>By the way,</Text>
         </View>
         <View style={styles.element}>
           <Text>Vocably is 100% free and open-source.</Text>
