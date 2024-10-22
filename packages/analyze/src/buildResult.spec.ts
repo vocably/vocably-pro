@@ -113,7 +113,9 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.items.length).toEqual(4);
     expect(result.value.items[0].source).toEqual('de regeling');
-    expect(result.value.items[0].translation).toEqual('регулирование');
+    expect(result.value.items[0].translation).toHaveSomeOf(
+      'регулирование, соглашение'
+    );
   });
 
   it('trims article before analyzing', async () => {
@@ -251,12 +253,10 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.items.length).toEqual(2);
-    expect(
-      ['уловка', 'трюк', 'фокус', 'обманывать'].filter((word) =>
-        result.value.items[0].translation.includes(word)
-      ).length
-    ).toBeGreaterThan(1);
-    expect(result.value.items[1].translation).toEqual('обманывать');
+    expect(result.value.items[0].translation).toHaveSomeOf(
+      'трюк, прием, уловка, фокус'
+    );
+    expect(result.value.items[1].translation).toHaveSomeOf('обмануть');
   });
 
   it('properly translates dutch to non-article languages', async () => {
@@ -389,7 +389,7 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    expect(result.value.translation.target).toEqual('поздно');
+    expect(result.value.translation.target).toEqual('опоздать');
   });
 
   it('learn the language by using it', async () => {
@@ -407,7 +407,7 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    expect(result.value.translation.target).toContain('Учить');
+    expect(result.value.translation.target).toContain('учите');
   });
 
   it('serbian', async () => {
@@ -487,7 +487,9 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].translation).toEqual('кравець');
 
     expect(result.value.items[1].partOfSpeech).toEqual('verb');
-    expect(result.value.items[1].translation).toContain('пристосовувати');
+    expect(result.value.items[1].translation).toHaveSomeOf(
+      'пристосувати, стилізувати, шити'
+    );
   });
 
   it('properly joins farsi definitions', async () => {
@@ -505,8 +507,7 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.items[0].partOfSpeech).toEqual('noun');
-    expect(result.value.items[0].translation).toContain('خواهر');
-    expect(result.value.items[0].translation).toContain('، ');
+    expect(result.value.items[0].translation).toEqual('خواهر');
   });
 
   it('provides lexicala examples', async () => {
@@ -576,7 +577,7 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.items[0].ipa).toEqual('nǐhǎo');
-    expect(result.value.items[0].translation).toEqual('Привет');
+    expect(result.value.items[0].translation).toEqual('привет');
   });
 
   it('provides context translation', async () => {

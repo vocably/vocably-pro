@@ -48,7 +48,7 @@ describe('translateFromContext', () => {
     expect(translationResult.success).toEqual(true);
     // @ts-ignore
     expect(translationResult.value.target).toEqual(
-      'книга, которую читала ее сестра'
+      'книга, которую читала её сестра'
     );
   }, 60_000);
 

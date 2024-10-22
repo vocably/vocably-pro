@@ -1,6 +1,6 @@
 import { ChatGPTLanguage, languageList, Result } from '@vocably/model';
 import { tokenize } from '@vocably/sulna';
-import { chatGptRequest, CHAT_GPT_3_5 } from './chatGptRequest';
+import { chatGptRequest, GPT_4O_MINI } from './chatGptRequest';
 import { enrichSource } from './translateDefinitions/enrichSource';
 
 type ChatGptResponse = {
@@ -49,17 +49,22 @@ export const translateDefinitions = async ({
   );
 
   const prompt = [
-    `Translate the following ${safeSourceLanguage} ${partOfSpeech} into ${safeTargetLanguage}:`,
-    `${enrichSource(safeSource, partOfSpeech, sourceLanguage)}`,
-    `The translations should be in ${safeTargetLanguage} and consider the followiing definitions:`,
-    safeDefinitions.join('\n'),
+    `Translate the ${safeSourceLanguage} ${partOfSpeech} "${enrichSource(
+      safeSource,
+      partOfSpeech,
+      sourceLanguage
+    )}" into ${safeTargetLanguage}`,
+    `The translations should be one word in ${safeTargetLanguage} and consider only the following definitions:`,
+    `[`,
+    safeDefinitions.map((def) => `  "${def}"`).join(',\n'),
+    `]`,
     ``,
     `Respond in JSON, as in example: {"translations": ${JSON.stringify(
       translationsExamples
     )}`,
   ].join('\n');
 
-  const result = await chatGptRequest({ prompt, model: CHAT_GPT_3_5 });
+  const result = await chatGptRequest({ prompt, model: GPT_4O_MINI });
 
   if (result.success === false) {
     return result;
