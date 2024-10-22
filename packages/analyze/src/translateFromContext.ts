@@ -99,7 +99,7 @@ const createPrompt = (payload: Payload): string => {
   const isOnwWord = isOneWord(source);
 
   return [
-    `Translate the ${languageList[payload.sourceLanguage]} word`,
+    `Translate the ${languageList[payload.sourceLanguage]} word/phrase`,
     source,
     `that appears in the context of sentence:`,
     context,

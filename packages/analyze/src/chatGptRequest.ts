@@ -22,6 +22,9 @@ export const chatGptRequest = async ({
     openai.chat.completions.create({
       messages: [{ role: 'user', content: prompt }],
       model: model,
+      response_format: {
+        type: 'json_object',
+      },
       temperature: 0,
       top_p: 0,
     }),
