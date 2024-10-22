@@ -10,7 +10,7 @@ $button-bottom-margin: ($v-btn-shadow-spread + $v-btn-shadow-v-offset);
 @mixin button-pristine {
   display: inline-block;
   background: var(--button-bg);
-  color: var(--button-color) !important;
+  color: var(--button-color);
   border: none;
   font: inherit;
   font-weight: 500;

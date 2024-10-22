@@ -7,10 +7,11 @@
       <ng-container *ngIf="isInstalled === false">
         <div>
           <p>
-            It seems like you don't have
-            the&nbsp;browser&nbsp;extension&nbsp;installed&nbsp;yet.
+            It looks like you don't have the browser extension installed or
+            enabled.
           </p>
-          Please install or enable the browser extension and try again.
+          Please install or enable the browser extension and give it another
+          try.
         </div>
         <div *ngIf="browserType !== 'normal'" style="margin-top: 1rem">
           <app-expansion label="But I have it installed">

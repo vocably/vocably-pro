@@ -3,7 +3,7 @@
 
 @mixin link($important: '') {
   @include underline($important);
-  color: $v-light-color-primary !important;
+  color: $v-light-color-primary #{$important};
   background: none #{$important};
   border: none #{$important};
   border-radius: 0 #{$important};
@@ -12,16 +12,16 @@
   &:hover,
   &:focus,
   &:active {
-    color: $v-light-color-active !important;
+    color: $v-light-color-active #{$important};
   }
 }
 
-@mixin danger-link {
-  color: $v-light-color-danger !important;
+@mixin danger-link($important: '') {
+  color: $v-light-color-danger #{$important};
 
   &:hover,
   &:focus,
   &:active {
-    color: $v-light-color-danger-active !important;
+    color: $v-light-color-danger-active #{$important};
   }
 }
