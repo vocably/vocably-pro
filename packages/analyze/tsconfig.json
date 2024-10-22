@@ -9,6 +9,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["src/index.ts", "src/jest.d.ts"],
+  "include": ["@vocably/jest"],
   "exclude": ["node_modules"]
 }

@@ -1,3 +1,4 @@
+import '@vocably/jest';
 import { googleTranslate } from './googleTranslate';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 

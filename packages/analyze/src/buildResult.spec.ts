@@ -1,3 +1,4 @@
+import '@vocably/jest';
 import { isReverseAnalysis } from '@vocably/model';
 import { inspect } from '@vocably/node-sulna';
 import { buildResult } from './buildResult';
