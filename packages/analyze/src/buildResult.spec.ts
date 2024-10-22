@@ -254,7 +254,7 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.items.length).toEqual(2);
     expect(result.value.items[0].translation).toHaveSomeOf(
-      'трюк, прием, фокус'
+      'трюк, прием, уловка, фокус'
     );
     expect(result.value.items[1].translation).toHaveSomeOf('обмануть');
   });
