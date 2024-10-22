@@ -7,7 +7,7 @@ import {
   Translation,
 } from '@vocably/model';
 import { tokenize } from '@vocably/sulna';
-import { chatGptRequest, CHAT_GPT_4O_MINI } from './chatGptRequest';
+import { chatGptRequest, GPT_4O_MINI } from './chatGptRequest';
 import { isOneWord } from './isOneWord';
 
 type Payload = {
@@ -59,7 +59,7 @@ export const translateFromContext = async (
   const prompt = createPrompt(payload);
   const responseResult = await chatGptRequest({
     prompt,
-    model: CHAT_GPT_4O_MINI,
+    model: GPT_4O_MINI,
   });
 
   if (!responseResult.success) {

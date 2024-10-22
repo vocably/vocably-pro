@@ -3,9 +3,9 @@ import { get } from 'lodash';
 import { getOpenAiClient } from './openAiClient';
 import { parseJson } from './parseJson';
 
-export const CHAT_GPT_4O_MINI = 'gpt-4o-mini';
+export const GPT_4O_MINI = 'gpt-4o-mini';
 
-type OpenAiModel = typeof CHAT_GPT_4O_MINI;
+type OpenAiModel = typeof GPT_4O_MINI;
 
 type Options = {
   prompt: string;
