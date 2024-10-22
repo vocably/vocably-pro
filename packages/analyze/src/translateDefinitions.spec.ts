@@ -1,3 +1,4 @@
+import '@vocably/jest';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 import { translateDefinitions } from './translateDefinitions';
 
@@ -65,7 +66,7 @@ describe('translateDefinitions', () => {
     });
     expect(translationResult.success).toEqual(true);
     // @ts-ignore
-    expect(translationResult.value).toEqual(['source', 'spring', 'origin']);
+    expect(translationResult.value).toEqual(['spring', 'source', 'origin']);
   }, 60_000);
 
   it('de bron to ru', async () => {
@@ -86,10 +87,6 @@ describe('translateDefinitions', () => {
     expect(translationResult.value.length).toEqual(2);
     // @ts-ignore
     expect(translationResult.value[0]).toEqual('источник');
-    expect(
-      ['месторождение', 'рудник'].some((word) =>
-        translationResult.value[1].includes(word)
-      )
-    ).toBeTruthy();
+    expect(translationResult.value[1]).toHaveSomeOf('месторождение, рудник');
   }, 60_000);
 });
