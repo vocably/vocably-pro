@@ -3,12 +3,9 @@ resource "aws_lambda_function" "analyze" {
   function_name    = "vocably-${terraform.workspace}-analyze"
   role             = aws_iam_role.lambda_execution.arn
   handler          = "analyze.analyze"
-  source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
+  source_code_hash = data.archive_file.backend_build.output_base64sha256
   runtime          = "nodejs18.x"
   timeout          = 10
-  triggers = {
-    redeployment = filesha1(data.archive_file.backend_build.output_path),
-  }
 }
 
 resource "aws_lambda_permission" "analyze" {

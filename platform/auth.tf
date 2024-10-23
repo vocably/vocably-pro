@@ -89,11 +89,8 @@ resource "aws_lambda_function" "auth_post_confirmation" {
   function_name    = "vocably-${terraform.workspace}-auth-post_confirmation"
   role             = aws_iam_role.auth_post_confirmation_lambda_execution.arn
   handler          = "auth-post-confirmation.authPostConfirmation"
-  source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
+  source_code_hash = data.archive_file.auth_lambdas_build.output_base64sha256
   runtime          = "nodejs18.x"
-  triggers = {
-    redeployment = filesha1(data.archive_file.auth_lambdas_build.output_path),
-  }
 }
 
 resource "aws_lambda_permission" "auth_post_confirmation" {

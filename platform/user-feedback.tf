@@ -84,11 +84,8 @@ resource "aws_lambda_function" "user_feedback" {
   function_name    = "vocably-${terraform.workspace}-user-feedback"
   role             = aws_iam_role.user_feedback_lambda_execution.arn
   handler          = "user-feedback.userFeedback"
-  source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
+  source_code_hash = data.archive_file.backend_build.output_base64sha256
   runtime          = "nodejs18.x"
-  triggers = {
-    redeployment = filesha1(data.archive_file.backend_build.output_path),
-  }
 }
 
 resource "aws_lambda_permission" "user_feedback" {
