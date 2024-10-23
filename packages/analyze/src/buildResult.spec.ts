@@ -3,6 +3,7 @@ import { isReverseAnalysis } from '@vocably/model';
 import { inspect } from '@vocably/node-sulna';
 import { buildResult } from './buildResult';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
+import assert = require('node:assert');
 
 configureTestAnalyzer();
 
@@ -592,5 +593,41 @@ describe('integration check for translate lambda', () => {
       throw 'Unexpected result';
     }
     expect(result.value.translation.target).toEqual('берег');
+  });
+
+  it('sort: by part of speech', async () => {
+    const result = await buildResult({
+      source: 'peeped',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      context:
+        "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversation?'",
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    expect(result.value.items[0].source).toEqual('peeped');
+    expect(result.value.items[0].partOfSpeech).toEqual('verb');
+    expect(result.value.items[1].source).toEqual('peep');
+    expect(result.value.items[1].partOfSpeech).toEqual('verb');
+  });
+
+  it('sorts: put conversation before the conversion', async () => {
+    const result = await buildResult({
+      source: 'conversations',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      context:
+        "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversation?'",
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    expect(result.value.items[0].source).toEqual('conversations');
+    expect(result.value.items[0].partOfSpeech).toEqual('noun');
+    expect(result.value.items[1].source).toEqual('conversation');
+    expect(result.value.items[1].partOfSpeech).toEqual('noun');
   });
 });

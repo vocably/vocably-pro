@@ -15,6 +15,7 @@ import { lexicalaSearchResultToAnalysisItem } from './lexicala/lexicalaSearchRes
 import { normalizeHeadword } from './lexicala/normalizeHeadword';
 import { lexicalaItemHasDefinitionOrCanBeTranslated } from './lexicalaItemHasDefinitionOrCanBeTranslated';
 import { prependTranslation } from './prependTranslation';
+import { sortByRelevance } from './sortByRelevance';
 import { translate } from './translate';
 import { translationToAnalysisItem } from './translationToAnalyzeItem';
 import { wordDictionary } from './word-dictionary';
@@ -136,7 +137,9 @@ export const buildDirectResult = async (
               .filter(lexicalaItemHasDefinitionOrCanBeTranslated(translation))
               .map(lexicalaSearchResultToAnalysisItem(translation))
           )
-        ).reduce(combineItems, []),
+        )
+          .reduce(combineItems, [])
+          .sort(sortByRelevance(translation)),
         translation
       ),
     },
