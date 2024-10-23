@@ -60,7 +60,8 @@ data "archive_file" "backend_build" {
 }
 
 resource "aws_api_gateway_rest_api" "rest_api" {
-  name = "vocably-${terraform.workspace}-app-api"
+  name                     = "vocably-${terraform.workspace}-app-api"
+  minimum_compression_size = "0"
 }
 
 resource "aws_api_gateway_authorizer" "rest_api_cognito" {
