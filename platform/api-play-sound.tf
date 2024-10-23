@@ -56,6 +56,9 @@ resource "aws_lambda_function" "play_sound" {
   handler          = "play-sound.playSound"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
   runtime          = "nodejs18.x"
+  triggers = {
+    redeployment = filesha1(data.archive_file.backend_build.output_path),
+  }
 }
 
 resource "aws_lambda_permission" "play_sound" {

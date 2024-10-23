@@ -97,6 +97,9 @@ resource "aws_lambda_function" "cards_backupper" {
   runtime          = "nodejs18.x"
   timeout          = 300
   memory_size      = 256
+  triggers = {
+    redeployment = filesha1(data.archive_file.backend_build.output_path),
+  }
 }
 
 resource "aws_cloudwatch_log_group" "cards_backupper" {

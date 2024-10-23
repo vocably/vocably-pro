@@ -98,6 +98,9 @@ resource "aws_lambda_function" "save_email" {
   handler          = "saveEmail.saveEmail"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
   runtime          = "nodejs18.x"
+  triggers = {
+    redeployment = filesha1(data.archive_file.www_backend_build.output_path),
+  }
 }
 
 resource "aws_cloudwatch_log_group" "save_email" {

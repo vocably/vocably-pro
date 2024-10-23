@@ -94,6 +94,9 @@ resource "aws_lambda_function" "subscription_canceller" {
   handler          = "subscription-canceller.subscriptionCanceller"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
   runtime          = "nodejs18.x"
+  triggers = {
+    redeployment = filesha1(data.archive_file.backend_build.output_path),
+  }
 }
 
 resource "aws_cloudwatch_log_group" "subscription_canceller" {

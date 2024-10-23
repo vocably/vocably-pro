@@ -91,6 +91,9 @@ resource "aws_lambda_function" "auth_post_confirmation" {
   handler          = "auth-post-confirmation.authPostConfirmation"
   source_code_hash = "data.archive_file.lambda_zip.output_base64sha256"
   runtime          = "nodejs18.x"
+  triggers = {
+    redeployment = filesha1(data.archive_file.auth_lambdas_build.output_path),
+  }
 }
 
 resource "aws_lambda_permission" "auth_post_confirmation" {
