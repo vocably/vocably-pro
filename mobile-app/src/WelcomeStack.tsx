@@ -15,7 +15,7 @@ export const WelcomeStack = () => {
       <Stack.Screen
         name={'Welcome'}
         component={WelcomeScreen}
-        options={{ title: 'VocablyPro' }}
+        options={{ title: 'Welcome' }}
       />
     </Stack.Navigator>
   );
