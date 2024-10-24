@@ -4,7 +4,7 @@ import { FC, useCallback, useState } from 'react';
 import { Alert, Platform, ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useUserEmail } from './auth/getEmail';
+import { useUserEmail } from './auth/useUserEmail';
 import { VocablyTextInput } from './VocablyTextInput';
 
 type Props = {

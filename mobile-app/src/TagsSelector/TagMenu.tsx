@@ -1,4 +1,5 @@
 import { Result, TagItem } from '@vocably/model';
+import { usePostHog } from 'posthog-react-native';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, Pressable, View } from 'react-native';
 import {
@@ -13,7 +14,6 @@ import {
 } from 'react-native-paper';
 import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Sentry } from '../BetterSentry';
 import { swipeListButtonPressOpacity } from '../stupidConstants';
 import { VocablyInputText } from '../VocablyInputText';
 import { TagMenuAnchor, TagMenuAnchorProps } from './TagMenuAnchor';
@@ -68,6 +68,7 @@ export const TagsMenu: FC<Props> = ({
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [editTag, setEditTag] = useState<Tag | null>(null);
   const theme = useTheme();
+  const postHog = usePostHog();
 
   useEffect(() => {
     setSelectedTags(value);
@@ -96,7 +97,7 @@ export const TagsMenu: FC<Props> = ({
     setNewTags([newTag, ...newTags]);
     setNewSelectedTags([newTag, ...newSelectedTags]);
 
-    Sentry.captureMessage('A new tag added (but not saved).');
+    postHog.capture('A new tag added (but not saved)');
   };
 
   const isSelectedTag = (tag: Tag): boolean => {
@@ -136,7 +137,7 @@ export const TagsMenu: FC<Props> = ({
   };
 
   const deleteTagPressed = (tag: Tag) => async () => {
-    Sentry.captureMessage('Tag deleted.');
+    postHog.capture('Tag deleted');
 
     if (!isExistingTag(tag)) {
       setNewTags(newTags.filter((t) => t !== tag));

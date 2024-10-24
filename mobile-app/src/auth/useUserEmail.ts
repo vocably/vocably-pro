@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
+import { getUserEmail } from './getUserEmail';
 
 export const useUserEmail = (): string | false => {
   const [userEmail, setUserEmail] = useState<string | false>(false);
@@ -10,22 +11,8 @@ export const useUserEmail = (): string | false => {
       return;
     }
 
-    authStatus.user.getUserAttributes((error, attributes) => {
-      if (!attributes) {
-        setUserEmail(false);
-        return;
-      }
-
-      const emailAttribute = attributes.find(
-        (attr) => attr.getName() === 'email'
-      );
-
-      if (!emailAttribute) {
-        setUserEmail(false);
-        return;
-      }
-
-      setUserEmail(emailAttribute.getValue());
+    getUserEmail(authStatus.user).then((userEmail) => {
+      setUserEmail(userEmail ?? false);
     });
   }, [authStatus, setUserEmail]);
 

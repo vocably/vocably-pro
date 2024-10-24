@@ -1,11 +1,11 @@
 import { Slider } from '@miblanchard/react-native-slider';
+import { usePostHog } from 'posthog-react-native';
 import { FC } from 'react';
 import { Linking, ScrollView, View } from 'react-native';
 import { Checkbox, Divider, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getItem, setItem } from '../asyncAppStorage';
-import { Sentry } from '../BetterSentry';
 import { useAsync } from '../useAsync';
 
 const MULTI_CHOICE_ENABLED_KEY = 'isMultiChoiceEnabled';
@@ -63,15 +63,17 @@ export const PracticeSettingsScreen: FC<Props> = () => {
     setPreferMultiChoiceEnabled
   );
 
+  const postHog = usePostHog();
+
   const onMultiChoicePress = () => {
     if (isMultiChoiceEnabledResult.status !== 'loaded') {
       return;
     }
     mutateMultiChoiceEnabled(!isMultiChoiceEnabledResult.value);
     if (!isMultiChoiceEnabledResult.value) {
-      Sentry.captureMessage(`Multi choice enabled`);
+      postHog.capture(`Multi choice enabled`);
     } else {
-      Sentry.captureMessage(`Multi choice disabled`);
+      postHog.capture(`Multi choice disabled`);
     }
   };
 
@@ -82,9 +84,9 @@ export const PracticeSettingsScreen: FC<Props> = () => {
 
     mutateIsRandomizerEnabled(!isRandomizerEnabled.value);
     if (!isRandomizerEnabled.value) {
-      Sentry.captureMessage(`Randomizer enabled`);
+      postHog.capture(`Randomizer enabled`);
     } else {
-      Sentry.captureMessage(`Randomizer disabled`);
+      postHog.capture(`Randomizer disabled`);
     }
   };
 
@@ -94,9 +96,9 @@ export const PracticeSettingsScreen: FC<Props> = () => {
     }
     mutatePreferMultiChoice(!preferMultiChoiceResult.value);
     if (!preferMultiChoiceResult.value) {
-      Sentry.captureMessage(`Prefer multi choice enabled`);
+      postHog.capture(`Prefer multi choice enabled`);
     } else {
-      Sentry.captureMessage(`Prefer multi choice disabled`);
+      postHog.capture(`Prefer multi choice disabled`);
     }
   };
 

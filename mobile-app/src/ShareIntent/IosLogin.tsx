@@ -1,13 +1,11 @@
-import React, { FC, ReactNode, useContext } from 'react';
+import React, { FC, PropsWithChildren, useContext } from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { ShareMenuReactView } from 'react-native-share-menu';
 import { AuthContext } from '../auth/AuthContext';
 import { Loader } from '../loaders/Loader';
 
-export const Login: FC<{
-  children?: ReactNode;
-}> = ({ children }) => {
+export const IosLogin: FC<PropsWithChildren> = ({ children }) => {
   const authStatus = useContext(AuthContext);
 
   if (authStatus.status === 'undefined') {

@@ -8,6 +8,8 @@ import { ThemeProvider } from './ThemeProvider';
 import { API_BASE_URL, API_CARDS_BUCKET, API_REGION } from '@env';
 import * as Sentry from '@sentry/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { PostHogProvider } from './PostHogProvider';
+import { RootModalStack } from './RootModalStack';
 import { UserMetadataContainer } from './UserMetadataContainer';
 
 Sentry.init({
@@ -23,17 +25,21 @@ configureApi({
 const App = () => {
   return (
     <ThemeProvider>
-      <AuthContainer>
-        <Login>
-          <UserMetadataContainer>
-            <LanguagesContainer>
-              <SafeAreaProvider>
-                <NavigationContainer />
-              </SafeAreaProvider>
-            </LanguagesContainer>
-          </UserMetadataContainer>
-        </Login>
-      </AuthContainer>
+      <NavigationContainer>
+        <PostHogProvider>
+          <AuthContainer>
+            <Login>
+              <UserMetadataContainer>
+                <LanguagesContainer>
+                  <SafeAreaProvider>
+                    <RootModalStack />
+                  </SafeAreaProvider>
+                </LanguagesContainer>
+              </UserMetadataContainer>
+            </Login>
+          </AuthContainer>
+        </PostHogProvider>
+      </NavigationContainer>
     </ThemeProvider>
   );
 };

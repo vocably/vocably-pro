@@ -37,7 +37,7 @@ export const AuthContainer: FC<{
 
       if (event === 'signIn') {
         Auth.currentAuthenticatedUser()
-          .then((user) => {
+          .then(async (user) => {
             setAuthStatus({
               status: 'logged-in',
               user,
@@ -52,7 +52,7 @@ export const AuthContainer: FC<{
         return;
       }
     });
-  }, [setAuthStatus]);
+  }, []);
 
   return (
     <AuthContext.Provider value={authStatus}>{children}</AuthContext.Provider>

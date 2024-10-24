@@ -1,6 +1,7 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import { NavigationProp } from '@react-navigation/native';
 import { byDate, CardItem, TagItem } from '@vocably/model';
+import { usePostHog } from 'posthog-react-native';
 import React, { FC, useCallback, useContext, useMemo, useState } from 'react';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import {
@@ -14,7 +15,6 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Sentry } from './BetterSentry';
 import { CardListItem, Separator } from './CardListItem';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
@@ -115,6 +115,8 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
     [update]
   );
 
+  const postHog = usePostHog();
+
   if (deck.cards.length === 0 && status === 'loading') {
     return <Loader>Loading cards...</Loader>;
   }
@@ -164,7 +166,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                   value={selectedTags}
                   onChange={async (tags) => {
                     await setSelectedTagIds(tags.map((t) => t.id));
-                    Sentry.captureMessage('Tags for practice selected.');
+                    postHog.capture('Tags for practice selected');
                   }}
                   isAllowedToAdd={false}
                   deck={selectedDeck}
