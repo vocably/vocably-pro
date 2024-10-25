@@ -5,7 +5,7 @@ import { LanguagePairs } from './useLanguagePairs';
 
 export const useTranslationPreset = (): [
   preset: Preset,
-  languagePairs: LanguagePairs | null,
+  languagePairs: LanguagePairs,
   setPreset: (preset: Preset) => Promise<void>
 ] => {
   const contextProps = useContext(TranslationPresetContext);

@@ -27,7 +27,7 @@ export type Preset = {
 
 export type TranslationPresetContextProps = {
   preset: Preset;
-  languagePairs: LanguagePairs | null;
+  languagePairs: LanguagePairs;
   setPreset: (preset: Preset) => Promise<void>;
 };
 
@@ -101,7 +101,7 @@ export const TranslationPresetContainer: FC<PropsWithChildren> = ({
     <TranslationPresetContext.Provider
       value={{
         preset,
-        languagePairs,
+        languagePairs: languagePairs ?? {},
         setPreset,
       }}
     >

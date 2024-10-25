@@ -1,10 +1,10 @@
 import { NavigationProp } from '@react-navigation/native';
-import { GoogleLanguage, languageList } from '@vocably/model';
 import React, { FC, useCallback, useContext, useState } from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { SourceLanguageButton } from './SourceLanguageButton';
+import { TargetLanguageButton } from './TargetLanguageButton';
 import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 
 type Props = {
@@ -53,13 +53,13 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
         >
           What language do you speak?
         </Text>
-        <Button mode="outlined" style={{ width: '60%' }}>
-          {
-            languageList[
-              translationPreset.translationLanguage as GoogleLanguage
-            ]
-          }
-        </Button>
+        <TargetLanguageButton
+          navigation={navigation}
+          preset={translationPreset}
+          onChange={setTranslationPreset}
+          languagePairs={languagePairs}
+          style={{ width: '60%' }}
+        />
       </View>
       <Divider style={{ width: '100%' }} />
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>

@@ -1,10 +1,11 @@
 import { NavigationProp } from '@react-navigation/native';
-import { GoogleLanguage, languageList } from '@vocably/model';
 import { FC, useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, IconButton, Text, useTheme } from 'react-native-paper';
+import { IconButton, Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SourceLanguageButton } from '../SourceLanguageButton';
+import { TargetLanguageButton } from '../TargetLanguageButton';
+import { Preset } from '../TranslationPreset/TranslationPresetContainer';
 import { LanguagePairs } from '../TranslationPreset/useLanguagePairs';
 
 const styles = StyleSheet.create({
@@ -15,49 +16,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export type Preset = {
-  sourceLanguage: string;
-  translationLanguage: string;
-  isReverse: boolean;
-};
-
-type TranslationPresetForm = FC<{
+type Props = {
   navigation: NavigationProp<any>;
   preset: Preset;
   onChange: (preset: Preset) => void;
   languagePairs: LanguagePairs;
-}>;
+};
 
-export const TranslationPreset: TranslationPresetForm = ({
+export const TranslationPresetForm: FC<Props> = ({
   navigation,
   preset,
   onChange,
   languagePairs,
 }) => {
   const theme = useTheme();
-
-  const onTranslationSelection = useCallback(
-    (translationLanguage: string) => {
-      onChange({
-        ...preset,
-        translationLanguage,
-      });
-    },
-    [preset]
-  );
-
-  const selectTranslationLanguage = useCallback(() => {
-    navigation.navigate('LanguageSelector', {
-      title: 'Translation',
-      // @ts-ignore
-      preferred: languagePairs[preset.sourceLanguage]
-        ? // @ts-ignore
-          languagePairs[preset.sourceLanguage].availableLanguages
-        : [],
-      selected: preset.translationLanguage,
-      onSelect: onTranslationSelection,
-    });
-  }, [preset, onTranslationSelection]);
 
   const clickReverse = useCallback(() => {
     onChange({
@@ -85,9 +57,12 @@ export const TranslationPreset: TranslationPresetForm = ({
           ></IconButton>
         </View>
         <View style={{ flex: 2 }}>
-          <Button mode="outlined" onPress={selectTranslationLanguage}>
-            {languageList[preset.translationLanguage as GoogleLanguage]}
-          </Button>
+          <TargetLanguageButton
+            navigation={navigation}
+            preset={preset}
+            onChange={onChange}
+            languagePairs={languagePairs}
+          />
         </View>
       </View>
       {!preset.sourceLanguage && (
