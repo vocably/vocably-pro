@@ -1,11 +1,11 @@
 import { NavigationProp } from '@react-navigation/native';
 import { GoogleLanguage, languageList } from '@vocably/model';
-import { FC, useCallback, useContext } from 'react';
+import { FC, useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, IconButton, Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { LanguagesContext } from '../languages/LanguagesContainer';
-import { LanguagePairs } from './useLanguagePairs';
+import { SourceLanguageButton } from '../SourceLanguageButton';
+import { LanguagePairs } from '../TranslationPreset/useLanguagePairs';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,46 +21,20 @@ export type Preset = {
   isReverse: boolean;
 };
 
-type TranslationPreset = FC<{
+type TranslationPresetForm = FC<{
   navigation: NavigationProp<any>;
   preset: Preset;
   onChange: (preset: Preset) => void;
   languagePairs: LanguagePairs;
 }>;
 
-export const TranslationPreset: TranslationPreset = ({
+export const TranslationPreset: TranslationPresetForm = ({
   navigation,
   preset,
   onChange,
   languagePairs,
 }) => {
-  const { languages } = useContext(LanguagesContext);
   const theme = useTheme();
-
-  const onSourceSelection = useCallback(
-    (sourceLanguage: string) => {
-      onChange({
-        ...preset,
-        sourceLanguage,
-        // @ts-ignore
-        translationLanguage: languagePairs[sourceLanguage]
-          ? // @ts-ignore
-            languagePairs[sourceLanguage].translationLanguage
-          : preset.translationLanguage,
-      });
-    },
-    [preset, onChange]
-  );
-
-  const selectSourceLanguage = useCallback(() => {
-    navigation.navigate('LanguageSelector', {
-      title: 'Source',
-      selected: preset.sourceLanguage,
-      preferred: languages,
-      preferredTitle: 'Your Decks',
-      onSelect: onSourceSelection,
-    });
-  }, [preset, languages, onSourceSelection]);
 
   const onTranslationSelection = useCallback(
     (translationLanguage: string) => {
@@ -96,11 +70,12 @@ export const TranslationPreset: TranslationPreset = ({
     <View>
       <View style={styles.container}>
         <View style={{ flex: 2 }}>
-          <Button mode={'contained'} onPress={selectSourceLanguage}>
-            {preset.sourceLanguage
-              ? languageList[preset.sourceLanguage as GoogleLanguage]
-              : 'Target language'}
-          </Button>
+          <SourceLanguageButton
+            navigation={navigation}
+            preset={preset}
+            onChange={onChange}
+            languagePairs={languagePairs}
+          />
         </View>
         <View style={{ flex: 1, alignItems: 'center' }}>
           <IconButton

@@ -24,7 +24,7 @@ export const createLanguageList = ({
 
   if (selected && languageList[selected as GoogleLanguage]) {
     data.push({
-      title: 'Current',
+      title: 'Selected',
       data: [
         {
           key: selected,

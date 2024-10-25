@@ -1,5 +1,5 @@
 import { isGoogleLanguage } from '@vocably/model';
-import { Preset } from './TranslationPreset';
+import { Preset } from '../LookUpScreen/TranslationPresetForm';
 import { LanguagePairs } from './useLanguagePairs';
 
 export const updateLanguagePairs = (

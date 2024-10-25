@@ -25,9 +25,9 @@ import { InlineLoader } from './loaders/InlineLoader';
 import { Analyze } from './LookUpScreen/AnalyzeResult';
 import { AssociatedCard } from './LookUpScreen/associateCards';
 import { SearchInput } from './LookUpScreen/SearchInput';
-import { TranslationPreset } from './LookUpScreen/TranslationPreset';
-import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
+import { TranslationPreset } from './LookUpScreen/TranslationPresetForm';
 import { useShareIntentData } from './ShareIntent/useShareIntentData';
+import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 import { useLastUsedTagIds } from './useLastUsedTagIds';
 
 const padding = 16;

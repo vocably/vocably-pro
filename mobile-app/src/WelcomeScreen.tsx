@@ -1,14 +1,23 @@
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
+import { GoogleLanguage, languageList } from '@vocably/model';
 import React, { FC, useCallback, useContext, useState } from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import { LanguagesContext } from './languages/LanguagesContainer';
+import { SourceLanguageButton } from './SourceLanguageButton';
+import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 
-export const WelcomeScreen: FC = () => {
+type Props = {
+  navigation: NavigationProp<any>;
+};
+
+export const WelcomeScreen: FC<Props> = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const theme = useTheme();
   const { refreshLanguages } = useContext(LanguagesContext);
-  const navigation = useNavigation();
+
+  const [translationPreset, languagePairs, setTranslationPreset] =
+    useTranslationPreset();
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -30,11 +39,6 @@ export const WelcomeScreen: FC = () => {
       }
     >
       <Text style={{ textAlign: 'center', fontSize: 20 }}>
-        Vocably is a combination of a dictionary and flashcards. This app helps
-        you translate, save, and learn new words and phrases.
-      </Text>
-
-      <Text style={{ textAlign: 'center', fontSize: 20 }}>
         To get started, please answer the following questions:
       </Text>
 
@@ -50,7 +54,11 @@ export const WelcomeScreen: FC = () => {
           What language do you speak?
         </Text>
         <Button mode="outlined" style={{ width: '60%' }}>
-          English
+          {
+            languageList[
+              translationPreset.translationLanguage as GoogleLanguage
+            ]
+          }
         </Button>
       </View>
       <Divider style={{ width: '100%' }} />
@@ -65,9 +73,14 @@ export const WelcomeScreen: FC = () => {
         >
           What language do you study?
         </Text>
-        <Button mode="contained" style={{ width: '60%' }}>
-          Dutch
-        </Button>
+        <SourceLanguageButton
+          navigation={navigation}
+          preset={translationPreset}
+          onChange={setTranslationPreset}
+          languagePairs={languagePairs}
+          emptyText="Select"
+          style={{ width: '60%' }}
+        />
       </View>
       <View>
         <Text>
