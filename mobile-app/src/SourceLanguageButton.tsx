@@ -21,7 +21,7 @@ export const SourceLanguageButton: FC<Props> = ({
   preset,
   onChange,
   languagePairs,
-  emptyText = 'Target language',
+  emptyText = 'Study language',
   style,
 }) => {
   const { languages: existingDeckLanguages } = useContext(LanguagesContext);
