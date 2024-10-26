@@ -1,7 +1,14 @@
 import { NavigationProp } from '@react-navigation/native';
+import { GoogleLanguage, languageList } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
-import { RefreshControl, ScrollView, View } from 'react-native';
+import {
+  Linking,
+  Platform,
+  RefreshControl,
+  ScrollView,
+  View,
+} from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getItem, setItem } from './asyncAppStorage';
@@ -12,6 +19,8 @@ import { Displayer, DisplayerRef } from './study/Displayer';
 import { TargetLanguageButton } from './TargetLanguageButton';
 import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 import { useAsync } from './useAsync';
+
+const isIos = Platform.OS === 'ios';
 
 type Props = {
   navigation: NavigationProp<any>;
@@ -98,6 +107,9 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
   useEffect(() => {
     postHog.capture('Welcome');
   }, []);
+
+  const isTranslate =
+    translationPreset.sourceLanguage !== translationPreset.translationLanguage;
 
   return (
     <ScrollView
@@ -211,16 +223,53 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
         </Displayer>
       )}
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'faq' && (
-        <Displayer>
-          <Text style={{ textAlign: 'center', fontSize: 18 }}>
-            Now, try to{' '}
+        <Displayer style={{ gap: 16 }}>
+          <Text style={{ fontSize: 18 }}>
+            Vocably helps you {isTranslate ? 'translate' : 'look up'} and learn
+            new words and phrases with ease.
+          </Text>
+          <Text style={{ fontSize: 18 }}>
+            Each time you {isTranslate ? 'translate' : 'look up'} a word,
+            Vocably creates a custom flashcard to save and study later.
+          </Text>
+          <Text style={{ fontSize: 18 }}>Features:</Text>
+          <Text style={{ fontSize: 18 }}>
+            •{' '}
             <Text
               style={{ color: theme.colors.primary }}
               onPress={() => navigation.navigate('LookUp')}
             >
-              look up
+              Look up
             </Text>{' '}
-            an unfamiliar word and add it to your collection.
+            words and phrases
+            {isTranslate &&
+              ` in ${
+                languageList[translationPreset.sourceLanguage as GoogleLanguage]
+              } and ${
+                languageList[
+                  translationPreset.translationLanguage as GoogleLanguage
+                ]
+              }`}
+          </Text>
+          <Text style={{ fontSize: 18 }}>
+            • Share highlighted words or phrases from any app
+          </Text>
+          {isIos && (
+            <Text style={{ fontSize: 18 }}>
+              • Use the{' '}
+              <Text
+                style={{ color: theme.colors.primary }}
+                onPress={() => Linking.openURL('https://vocably.pro/srs.html')}
+              >
+                Mobile Safari Extension
+              </Text>{' '}
+              to create flashcards while browsing
+            </Text>
+          )}
+
+          <Text style={{ fontSize: 18 }}>
+            Use the Chrome or Safari desktop extension to add words to your
+            collection while browsing on your computer.
           </Text>
         </Displayer>
       )}
