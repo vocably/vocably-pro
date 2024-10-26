@@ -129,30 +129,9 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'form' && (
         <Displayer style={{ gap: 16 }} ref={onboardingDisplayerRef}>
           <Text style={{ textAlign: 'center', fontSize: 24, marginBottom: 24 }}>
-            To get started, please answer the following questions:
+            To get started, please answer these questions:
           </Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-            <Text
-              style={{
-                fontSize: 18,
-                flex: 1,
-                textAlign: 'right',
-                color: theme.colors.onBackground,
-              }}
-            >
-              What language do you speak?
-            </Text>
-            <View style={{ width: '60%' }}>
-              <TargetLanguageButton
-                navigation={navigation}
-                preset={translationPreset}
-                onChange={setTranslationPreset}
-                languagePairs={languagePairs}
-              />
-            </View>
-          </View>
-          <Divider style={{ width: '100%' }} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
             <Text
               style={{
@@ -179,24 +158,67 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
               You can study multiple languages. For now, let's pick one.
             </Text>
           </View>
-          <Divider style={{ width: '100%' }} />
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-            <Text
-              style={{
-                fontSize: 18,
-                flex: 1,
-                textAlign: 'right',
-                color: theme.colors.onBackground,
-              }}
+          <View
+            style={{
+              gap: 16,
+              opacity: translationPreset.sourceLanguage ? 1 : 0,
+            }}
+          >
+            <Divider style={{ width: '100%' }} />
+            <View
+              style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}
             >
-              What is your level?
-            </Text>
-            <View style={{ width: '60%' }}>
-              <Select
-                options={languageLevels}
-                value={level.status === 'loaded' ? level.value : ''}
-                onChange={setLevel}
-              />
+              <Text
+                style={{
+                  fontSize: 18,
+                  flex: 1,
+                  textAlign: 'right',
+                  color: theme.colors.onBackground,
+                }}
+              >
+                What language do you speak?
+              </Text>
+              <View style={{ width: '60%' }}>
+                <TargetLanguageButton
+                  navigation={navigation}
+                  preset={translationPreset}
+                  onChange={setTranslationPreset}
+                  languagePairs={languagePairs}
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={{
+              gap: 16,
+              opacity:
+                translationPreset.sourceLanguage &&
+                translationPreset.translationLanguage
+                  ? 1
+                  : 0,
+            }}
+          >
+            <Divider style={{ width: '100%' }} />
+            <View
+              style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  flex: 1,
+                  textAlign: 'right',
+                  color: theme.colors.onBackground,
+                }}
+              >
+                What is your level?
+              </Text>
+              <View style={{ width: '60%' }}>
+                <Select
+                  options={languageLevels}
+                  value={level.status === 'loaded' ? level.value : ''}
+                  onChange={setLevel}
+                />
+              </View>
             </View>
           </View>
           <View style={{ marginTop: 25, opacity: isNextButtonVisible ? 1 : 0 }}>
@@ -225,12 +247,14 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'faq' && (
         <Displayer style={{ gap: 16 }}>
           <Text style={{ fontSize: 18 }}>
-            Vocably helps you {isTranslate ? 'translate' : 'look up'} and learn
-            new words and phrases with ease.
+            Vocably is designed to help you{' '}
+            {isTranslate ? 'translate' : 'look up'} words and phrases right when
+            you need them.
           </Text>
+
           <Text style={{ fontSize: 18 }}>
             Each time you {isTranslate ? 'translate' : 'look up'} a word,
-            Vocably creates a custom flashcard to save and study later.
+            Vocably creates custom flashcards to save and study later.
           </Text>
           <Text style={{ fontSize: 18 }}>Features:</Text>
           <Text style={{ fontSize: 18 }}>
@@ -250,13 +274,17 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
                   translationPreset.translationLanguage as GoogleLanguage
                 ]
               }`}
+            .
           </Text>
           <Text style={{ fontSize: 18 }}>
-            • Share highlighted words or phrases from any app
+            • When you see a new{' '}
+            {languageList[translationPreset.sourceLanguage as GoogleLanguage]}{' '}
+            word in any app, select it and share with Vocably for definitions
+            and translations.
           </Text>
           {isIos && (
             <Text style={{ fontSize: 18 }}>
-              • Use the{' '}
+              • Enable the{' '}
               <Text
                 style={{ color: theme.colors.primary }}
                 onPress={() =>
@@ -267,12 +295,12 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
               >
                 Mobile Safari Extension
               </Text>{' '}
-              to create flashcards while browsing on your mobile device.
+              for accurate AI translations while browsing on your mobile device.
             </Text>
           )}
 
           <Text style={{ fontSize: 18 }}>
-            Use the{' '}
+            • On your computer — use the{' '}
             <Text
               style={{ color: theme.colors.primary }}
               onPress={() =>
@@ -292,8 +320,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
             >
               Safari
             </Text>{' '}
-            desktop extension to add words to your collection while browsing on
-            your computer.
+            extensions with AI-powered word matching.
           </Text>
         </Displayer>
       )}
