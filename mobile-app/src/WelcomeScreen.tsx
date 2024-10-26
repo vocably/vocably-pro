@@ -176,7 +176,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
           </View>
           <View>
             <Text>
-              You can study multiple languages. For now, let's pick the one.
+              You can study multiple languages. For now, let's pick one.
             </Text>
           </View>
           <Divider style={{ width: '100%' }} />
@@ -259,17 +259,41 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
               • Use the{' '}
               <Text
                 style={{ color: theme.colors.primary }}
-                onPress={() => Linking.openURL('https://vocably.pro/srs.html')}
+                onPress={() =>
+                  Linking.openURL(
+                    'https://vocably.pro/ios-safari-extension.html'
+                  )
+                }
               >
                 Mobile Safari Extension
               </Text>{' '}
-              to create flashcards while browsing
+              to create flashcards while browsing on your mobile device.
             </Text>
           )}
 
           <Text style={{ fontSize: 18 }}>
-            Use the Chrome or Safari desktop extension to add words to your
-            collection while browsing on your computer.
+            Use the{' '}
+            <Text
+              style={{ color: theme.colors.primary }}
+              onPress={() =>
+                Linking.openURL(
+                  'https://chromewebstore.google.com/detail/vocably-pro-language-flas/baocigmmhhdemijfjnjdidbkfgpgogmb'
+                )
+              }
+            >
+              Chrome
+            </Text>{' '}
+            or{' '}
+            <Text
+              style={{ color: theme.colors.primary }}
+              onPress={() =>
+                Linking.openURL('https://apps.apple.com/app/id6464076425')
+              }
+            >
+              Safari
+            </Text>{' '}
+            desktop extension to add words to your collection while browsing on
+            your computer.
           </Text>
         </Displayer>
       )}
