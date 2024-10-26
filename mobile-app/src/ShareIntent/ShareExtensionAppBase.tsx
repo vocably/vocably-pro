@@ -10,6 +10,7 @@ import { LanguageSelectorModal } from '../LanguageSelectorModal';
 import { NavigationContainer } from '../NavigationContainer';
 import { PostHogProvider } from '../PostHogProvider';
 import { ThemeProvider } from '../ThemeProvider';
+import { TranslationPresetContainer } from '../TranslationPreset/TranslationPresetContainer';
 import { AnimatedLookUpScreen } from './AnimatedLookUpScreen';
 import { Login } from './Login';
 import { Viewport } from './Viewport';
@@ -29,41 +30,43 @@ export const ShareIntentAppBase: FC<Props> = ({ os }) => {
             <AuthContainer>
               <Login os={os}>
                 <LanguagesContainer>
-                  <SafeAreaProvider>
-                    <Stack.Navigator>
-                      <Stack.Screen
-                        name="Vocably"
-                        component={AnimatedLookUpScreen}
-                        options={{
-                          headerShown: true,
-                          presentation: 'card',
-                          headerTitleAlign: 'center',
-                          headerTitle: () => (
-                            <Text style={{ fontSize: 20 }}>Vocably</Text>
-                          ),
-                          headerRight: () => (
-                            <Button
-                              onPress={() =>
-                                Platform.OS === 'ios'
-                                  ? ShareMenuReactView.dismissExtension()
-                                  : BackHandler.exitApp()
-                              }
-                            >
-                              Done
-                            </Button>
-                          ),
-                        }}
-                      />
-                      <Stack.Screen
-                        name="LanguageSelector"
-                        component={LanguageSelectorModal}
-                        options={{
-                          headerShown: false,
-                          presentation: 'transparentModal',
-                        }}
-                      />
-                    </Stack.Navigator>
-                  </SafeAreaProvider>
+                  <TranslationPresetContainer>
+                    <SafeAreaProvider>
+                      <Stack.Navigator>
+                        <Stack.Screen
+                          name="Vocably"
+                          component={AnimatedLookUpScreen}
+                          options={{
+                            headerShown: true,
+                            presentation: 'card',
+                            headerTitleAlign: 'center',
+                            headerTitle: () => (
+                              <Text style={{ fontSize: 20 }}>Vocably</Text>
+                            ),
+                            headerRight: () => (
+                              <Button
+                                onPress={() =>
+                                  Platform.OS === 'ios'
+                                    ? ShareMenuReactView.dismissExtension()
+                                    : BackHandler.exitApp()
+                                }
+                              >
+                                Done
+                              </Button>
+                            ),
+                          }}
+                        />
+                        <Stack.Screen
+                          name="LanguageSelector"
+                          component={LanguageSelectorModal}
+                          options={{
+                            headerShown: false,
+                            presentation: 'transparentModal',
+                          }}
+                        />
+                      </Stack.Navigator>
+                    </SafeAreaProvider>
+                  </TranslationPresetContainer>
                 </LanguagesContainer>
               </Login>
             </AuthContainer>
