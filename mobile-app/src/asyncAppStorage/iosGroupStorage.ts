@@ -37,6 +37,7 @@ if (Platform.OS === 'ios') {
 
   updateValues$.pipe(debounceTime(500)).subscribe(async () => {
     const allValues = await firstValueFrom(allValues$);
+    console.log(allValues);
     await SharedGroupPreferences.setItem(
       appGroupStorageKey,
       JSON.stringify(allValues),
@@ -69,4 +70,9 @@ export const clear = async (keys: string[]): Promise<void> => {
   keys.forEach((key) => delete allValues[key]);
   allValues$.next(allValues);
   updateValues$.next();
+};
+
+export const clearAll = async () => {
+  const allValues = await getAllValues();
+  await clear(Object.keys(allValues));
 };

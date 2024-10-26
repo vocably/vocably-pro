@@ -33,3 +33,12 @@ export const clear = async (keys: string[]): Promise<void> => {
 
   return AsyncStorage.multiRemove(keys);
 };
+
+export const clearAll = async (): Promise<void> => {
+  if (Platform.OS === 'ios') {
+    return iosGroupStorage.clearAll();
+  }
+
+  const allKeys = await AsyncStorage.getAllKeys();
+  await AsyncStorage.multiRemove(allKeys);
+};

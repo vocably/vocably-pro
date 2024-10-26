@@ -6,7 +6,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import VersionNumber from 'react-native-version-number';
 // @ts-ignore
-import { ENV_SUFFIX } from '@env';
+import { ENV_SUFFIX, SHOW_CLEAR_STORAGE_BUTTON } from '@env';
+import { clearAll } from '../asyncAppStorage';
 
 export type MenuMainProps = {
   parentNavigator: any;
@@ -109,8 +110,19 @@ export const MainMenu: FC<MenuMainProps> = ({ parentNavigator }) => {
           style={{
             paddingHorizontal: 16,
             marginBottom: 16,
+            gap: 16,
           }}
         >
+          {SHOW_CLEAR_STORAGE_BUTTON === 'true' && (
+            <Button
+              mode="outlined"
+              textColor={theme.colors.error}
+              style={{ borderColor: theme.colors.error }}
+              onPress={() => clearAll()}
+            >
+              Clear storage data
+            </Button>
+          )}
           <Text>
             Version:{' '}
             {`${VersionNumber.appVersion}${
