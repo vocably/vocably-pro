@@ -10,6 +10,7 @@ import * as Sentry from '@sentry/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PostHogProvider } from './PostHogProvider';
 import { RootModalStack } from './RootModalStack';
+import { TranslationPresetContainer } from './TranslationPreset/TranslationPresetContainer';
 import { UserMetadataContainer } from './UserMetadataContainer';
 
 Sentry.init({
@@ -31,9 +32,11 @@ const App = () => {
             <Login>
               <UserMetadataContainer>
                 <LanguagesContainer>
-                  <SafeAreaProvider>
-                    <RootModalStack />
-                  </SafeAreaProvider>
+                  <TranslationPresetContainer>
+                    <SafeAreaProvider>
+                      <RootModalStack />
+                    </SafeAreaProvider>
+                  </TranslationPresetContainer>
                 </LanguagesContainer>
               </UserMetadataContainer>
             </Login>

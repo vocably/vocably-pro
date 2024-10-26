@@ -25,9 +25,9 @@ import { InlineLoader } from './loaders/InlineLoader';
 import { Analyze } from './LookUpScreen/AnalyzeResult';
 import { AssociatedCard } from './LookUpScreen/associateCards';
 import { SearchInput } from './LookUpScreen/SearchInput';
-import { TranslationPreset } from './LookUpScreen/TranslationPreset';
-import { useTranslationPreset } from './LookUpScreen/useTranslationPreset';
+import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
 import { useShareIntentData } from './ShareIntent/useShareIntentData';
+import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 import { useLastUsedTagIds } from './useLastUsedTagIds';
 
 const padding = 16;
@@ -228,7 +228,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
       <View style={styles.languageToolbar}>
-        <TranslationPreset
+        <TranslationPresetForm
           navigation={navigation}
           languagePairs={languagePairs}
           preset={translationPreset}

@@ -33,3 +33,14 @@ export const clear = async (keys: string[]): Promise<void> => {
 
   return AsyncStorage.multiRemove(keys);
 };
+
+export const clearAll = async (): Promise<void> => {
+  if (Platform.OS === 'ios') {
+    return iosGroupStorage.clearAll();
+  }
+
+  const allKeys = (await AsyncStorage.getAllKeys()).filter(
+    (key) => key !== 'auth' && !key.includes('posthog')
+  );
+  await AsyncStorage.multiRemove(allKeys);
+};

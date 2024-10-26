@@ -70,3 +70,10 @@ export const clear = async (keys: string[]): Promise<void> => {
   allValues$.next(allValues);
   updateValues$.next();
 };
+
+export const clearAll = async () => {
+  const allKeys = Object.keys(await getAllValues()).filter(
+    (key) => key !== 'auth' && !key.includes('posthog')
+  );
+  await clear(allKeys);
+};
