@@ -30,7 +30,7 @@ export const TargetLanguageButton: FC<Props> = ({
 
   const selectTranslationLanguage = () => {
     navigation.navigate('LanguageSelector', {
-      title: 'Translation',
+      title: 'Language I can speak well',
       // @ts-ignore
       preferred: languagePairs[preset.sourceLanguage]
         ? // @ts-ignore

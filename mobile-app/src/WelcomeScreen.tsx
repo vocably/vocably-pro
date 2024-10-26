@@ -1,8 +1,9 @@
 import { NavigationProp } from '@react-navigation/native';
 import React, { FC, useCallback, useContext, useState } from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
-import { Button, Divider, Text, useTheme } from 'react-native-paper';
+import { Divider, Text, useTheme } from 'react-native-paper';
 import { LanguagesContext } from './languages/LanguagesContainer';
+import { Select, SelectOption } from './Select';
 import { SourceLanguageButton } from './SourceLanguageButton';
 import { TargetLanguageButton } from './TargetLanguageButton';
 import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
@@ -11,10 +12,30 @@ type Props = {
   navigation: NavigationProp<any>;
 };
 
+const languageLevels: SelectOption[] = [
+  {
+    value: 'beginner',
+    label: 'Beginner (A1-A2)',
+  },
+  {
+    value: 'intermediate',
+    label: 'Intermediate (B1-B2)',
+  },
+  {
+    value: 'advanced',
+    label: 'Advanced (C1-C2)',
+  },
+  {
+    value: 'not-sure',
+    label: "I'm not sure",
+  },
+];
+
 export const WelcomeScreen: FC<Props> = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const theme = useTheme();
   const { refreshLanguages } = useContext(LanguagesContext);
+  const [level, setLevel] = useState<string>('');
 
   const [translationPreset, languagePairs, setTranslationPreset] =
     useTranslationPreset();
@@ -99,9 +120,12 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
         >
           What is your level?
         </Text>
-        <Button mode="outlined" style={{ width: '60%' }}>
-          Beginner (A2)
-        </Button>
+        <Select
+          options={languageLevels}
+          value={level}
+          onChange={setLevel}
+          anchorContainerStyle={{ width: '60%' }}
+        />
       </View>
       {/*<Text style={{ textAlign: 'center', fontSize: 18 }}>*/}
       {/*  To get started, try to{' '}*/}
