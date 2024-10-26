@@ -40,7 +40,7 @@ export const clearAll = async (): Promise<void> => {
   }
 
   const allKeys = (await AsyncStorage.getAllKeys()).filter(
-    (key) => key !== 'auth'
+    (key) => key !== 'auth' && !key.includes('posthog')
   );
   await AsyncStorage.multiRemove(allKeys);
 };

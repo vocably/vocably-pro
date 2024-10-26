@@ -1,4 +1,5 @@
 import { NavigationProp } from '@react-navigation/native';
+import { usePostHog } from 'posthog-react-native';
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
@@ -73,6 +74,8 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
     });
   };
 
+  const postHog = usePostHog();
+
   const [isScrolled, setIsScrolled] = useState(false);
 
   const isNextButtonVisible =
@@ -91,6 +94,10 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
       scrollViewRef.current.scrollToEnd({ animated: true });
     }
   }, [translationPreset, level, isScrolled]);
+
+  useEffect(() => {
+    postHog.capture('Welcome');
+  }, []);
 
   return (
     <ScrollView
@@ -188,6 +195,14 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
                   (await onboardingDisplayerRef.current.hide());
 
                 setOnboardingStep('faq');
+                postHog.capture('Welcome form submitted');
+                postHog.capture('$set', {
+                  $set: {
+                    studyLanguage: translationPreset.sourceLanguage,
+                    nativeLanguage: translationPreset.translationLanguage,
+                    level: level.status === 'loaded' && level.value,
+                  },
+                });
               }}
             >
               Next
