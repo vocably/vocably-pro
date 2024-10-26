@@ -39,6 +39,8 @@ export const clearAll = async (): Promise<void> => {
     return iosGroupStorage.clearAll();
   }
 
-  const allKeys = await AsyncStorage.getAllKeys();
+  const allKeys = (await AsyncStorage.getAllKeys()).filter(
+    (key) => key !== 'auth'
+  );
   await AsyncStorage.multiRemove(allKeys);
 };

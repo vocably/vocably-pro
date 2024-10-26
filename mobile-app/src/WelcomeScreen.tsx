@@ -1,13 +1,13 @@
 import { NavigationProp } from '@react-navigation/native';
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useEffect, useRef, useState } from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
-import { Divider, Text, useTheme } from 'react-native-paper';
+import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getItem, setItem } from './asyncAppStorage';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { Select, SelectOption } from './Select';
 import { SourceLanguageButton } from './SourceLanguageButton';
-import { Displayer } from './study/Displayer';
+import { Displayer, DisplayerRef } from './study/Displayer';
 import { TargetLanguageButton } from './TargetLanguageButton';
 import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 import { useAsync } from './useAsync';
@@ -39,15 +39,33 @@ const getLevelFromStorage = () =>
   getItem('languageLevel').then((value) => value ?? '');
 const setLevelToStorage = (level: string) => setItem('languageLevel', level);
 
+type OnboardingStep = 'form' | 'faq';
+const getOnboardingStepFromStorage = (): Promise<OnboardingStep> =>
+  getItem('onboardingStep').then((value) => {
+    if (value === 'faq') {
+      return 'faq';
+    }
+
+    return 'form';
+  });
+
+const setOnboardingStepToStorage = (onboardingStep: OnboardingStep) =>
+  setItem('onboardingStep', onboardingStep);
+
 export const WelcomeScreen: FC<Props> = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const theme = useTheme();
   const { refreshLanguages } = useContext(LanguagesContext);
   const [level, setLevel] = useAsync(getLevelFromStorage, setLevelToStorage);
+  const [onboardingStep, setOnboardingStep] = useAsync(
+    getOnboardingStepFromStorage,
+    setOnboardingStepToStorage
+  );
   const [translationPreset, languagePairs, setTranslationPreset] =
     useTranslationPreset();
   const insets = useSafeAreaInsets();
-
+  const onboardingDisplayerRef = useRef<DisplayerRef>(null);
+  const scrollViewRef = useRef<ScrollView>(null);
   const onRefresh = () => {
     setRefreshing(true);
     refreshLanguages().then(() => {
@@ -55,14 +73,28 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
     });
   };
 
-  const isOnboardingFormVisible =
-    !translationPreset.translationLanguage ||
-    !translationPreset.sourceLanguage ||
-    level.status !== 'loaded' ||
-    !level.value;
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const isNextButtonVisible =
+    translationPreset.translationLanguage &&
+    translationPreset.sourceLanguage &&
+    level.status === 'loaded' &&
+    level.value;
+
+  useEffect(() => {
+    if (
+      !isScrolled &&
+      isNextButtonVisible &&
+      scrollViewRef.current &&
+      onboardingDisplayerRef.current
+    ) {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+    }
+  }, [translationPreset, level, isScrolled]);
 
   return (
     <ScrollView
+      ref={scrollViewRef}
       contentContainerStyle={{
         alignItems: 'center',
         justifyContent: 'center',
@@ -75,8 +107,8 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      {isOnboardingFormVisible && (
-        <Displayer style={{ gap: 16 }}>
+      {onboardingStep.status === 'loaded' && onboardingStep.value === 'form' && (
+        <Displayer style={{ gap: 16 }} ref={onboardingDisplayerRef}>
           <Text style={{ textAlign: 'center', fontSize: 24, marginBottom: 24 }}>
             To get started, please answer the following questions:
           </Text>
@@ -148,9 +180,22 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
               />
             </View>
           </View>
+          <View style={{ marginTop: 25, opacity: isNextButtonVisible ? 1 : 0 }}>
+            <Button
+              mode="contained"
+              onPress={async () => {
+                onboardingDisplayerRef.current &&
+                  (await onboardingDisplayerRef.current.hide());
+
+                setOnboardingStep('faq');
+              }}
+            >
+              Next
+            </Button>
+          </View>
         </Displayer>
       )}
-      {!isOnboardingFormVisible && (
+      {onboardingStep.status === 'loaded' && onboardingStep.value === 'faq' && (
         <Displayer>
           <Text style={{ textAlign: 'center', fontSize: 18 }}>
             Now, try to{' '}

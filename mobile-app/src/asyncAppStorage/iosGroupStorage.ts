@@ -73,6 +73,8 @@ export const clear = async (keys: string[]): Promise<void> => {
 };
 
 export const clearAll = async () => {
-  const allValues = await getAllValues();
-  await clear(Object.keys(allValues));
+  const allKeys = Object.keys(await getAllValues()).filter(
+    (key) => key !== 'auth'
+  );
+  await clear(allKeys);
 };
