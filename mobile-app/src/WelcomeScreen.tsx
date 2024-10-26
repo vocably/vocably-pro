@@ -58,7 +58,8 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
   const isOnboardingFormVisible =
     !translationPreset.translationLanguage ||
     !translationPreset.sourceLanguage ||
-    !level;
+    level.status !== 'loaded' ||
+    !level.value;
 
   return (
     <ScrollView
@@ -84,41 +85,43 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
             <Text
               style={{
                 fontSize: 18,
-                width: '40%',
+                flex: 1,
                 textAlign: 'right',
                 color: theme.colors.onBackground,
               }}
             >
               What language do you speak?
             </Text>
-            <TargetLanguageButton
-              navigation={navigation}
-              preset={translationPreset}
-              onChange={setTranslationPreset}
-              languagePairs={languagePairs}
-              style={{ width: '60%' }}
-            />
+            <View style={{ width: '60%' }}>
+              <TargetLanguageButton
+                navigation={navigation}
+                preset={translationPreset}
+                onChange={setTranslationPreset}
+                languagePairs={languagePairs}
+              />
+            </View>
           </View>
           <Divider style={{ width: '100%' }} />
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
             <Text
               style={{
                 fontSize: 18,
-                width: '40%',
+                flex: 1,
                 textAlign: 'right',
                 color: theme.colors.onBackground,
               }}
             >
               What language do you study?
             </Text>
-            <SourceLanguageButton
-              navigation={navigation}
-              preset={translationPreset}
-              onChange={setTranslationPreset}
-              languagePairs={languagePairs}
-              emptyText="Select"
-              style={{ width: '60%' }}
-            />
+            <View style={{ width: '60%' }}>
+              <SourceLanguageButton
+                navigation={navigation}
+                preset={translationPreset}
+                onChange={setTranslationPreset}
+                languagePairs={languagePairs}
+                emptyText="Select"
+              />
+            </View>
           </View>
           <View>
             <Text>
@@ -130,19 +133,20 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
             <Text
               style={{
                 fontSize: 18,
-                width: '40%',
+                flex: 1,
                 textAlign: 'right',
                 color: theme.colors.onBackground,
               }}
             >
               What is your level?
             </Text>
-            <Select
-              options={languageLevels}
-              value={level.status === 'loaded' ? level.value : ''}
-              onChange={setLevel}
-              anchorContainerStyle={{ width: '60%' }}
-            />
+            <View style={{ width: '60%' }}>
+              <Select
+                options={languageLevels}
+                value={level.status === 'loaded' ? level.value : ''}
+                onChange={setLevel}
+              />
+            </View>
           </View>
         </Displayer>
       )}
