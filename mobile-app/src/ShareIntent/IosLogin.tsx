@@ -28,7 +28,7 @@ export const IosLogin: FC<PropsWithChildren> = ({ children }) => {
         variant="bodyLarge"
         style={{ marginBottom: 15, textAlign: 'center' }}
       >
-        Open App to sign in and try the VocablyPro experience.
+        Open App to sign in and try the Vocably experience.
       </Text>
       <Button
         mode="contained"

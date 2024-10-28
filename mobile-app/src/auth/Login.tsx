@@ -39,7 +39,7 @@ export const Login: FC<{
       }}
     >
       <Text variant="bodyLarge" style={{ marginBottom: 15 }}>
-        Sign in to try the VocablyPro experience.
+        Sign in to try the Vocably experience.
       </Text>
       <Button mode="contained" onPress={signIn} style={{ marginBottom: 20 }}>
         Sign in or Create an account
