@@ -51,6 +51,7 @@ export const TranslationPresetForm: FC<Props> = ({
         </View>
         <View style={{ flex: 1, alignItems: 'center' }}>
           <IconButton
+            animated={true}
             icon={preset.isReverse ? 'arrow-left' : 'arrow-right'}
             onPress={clickReverse}
             mode="contained"

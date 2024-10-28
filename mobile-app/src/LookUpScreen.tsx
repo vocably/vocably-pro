@@ -17,8 +17,9 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { InlineLoader } from './loaders/InlineLoader';
@@ -223,6 +224,18 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
     [deck]
   );
 
+  const setTranslationDirection = (isReverse: boolean) => {
+    setTranslationPreset({
+      ...translationPreset,
+      isReverse,
+    });
+  };
+
+  const canTranslate =
+    translationPreset.sourceLanguage &&
+    translationPreset.translationLanguage &&
+    translationPreset.sourceLanguage !== translationPreset.translationLanguage;
+
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.colors.background }]}
@@ -255,7 +268,86 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
       </View>
       {!isAnalyzing && !lookUpResult && (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <View style={{ flex: 1, width: '100%' }}></View>
+          <View
+            style={{
+              flex: 1,
+              width: '100%',
+              paddingHorizontal: padding,
+              paddingVertical: padding,
+              gap: 16,
+            }}
+          >
+            {canTranslate && !translationPreset.isReverse && (
+              <View>
+                <Text>
+                  Want to search for the right{' '}
+                  {
+                    languageList[
+                      translationPreset.sourceLanguage as GoogleLanguage
+                    ]
+                  }{' '}
+                  word or phrase in{' '}
+                  {
+                    languageList[
+                      translationPreset.translationLanguage as GoogleLanguage
+                    ]
+                  }
+                  ? Just enable Reverse Translation mode by clicking this
+                  button:{' '}
+                  <Text
+                    style={{
+                      backgroundColor: theme.colors.inversePrimary,
+                    }}
+                    onPress={() => setTranslationDirection(true)}
+                  >
+                    <Icon
+                      size={14}
+                      color={theme.colors.primary}
+                      name="arrow-right"
+                    ></Icon>
+                  </Text>
+                </Text>
+              </View>
+            )}
+
+            {canTranslate && translationPreset.isReverse && (
+              <View style={{ gap: 8 }}>
+                <View>
+                  <Text>Reverse Translation mode is on.</Text>
+                </View>
+                <View>
+                  <Text>
+                    Type any text in{' '}
+                    {
+                      languageList[
+                        translationPreset.translationLanguage as GoogleLanguage
+                      ]
+                    }
+                    , and Vocably will create the correct{' '}
+                    {
+                      languageList[
+                        translationPreset.sourceLanguage as GoogleLanguage
+                      ]
+                    }{' '}
+                    card. To search in Dutch, simply disable Reverse Translation
+                    mode by clicking this button:{' '}
+                    <Text
+                      style={{
+                        backgroundColor: theme.colors.inversePrimary,
+                      }}
+                      onPress={() => setTranslationDirection(false)}
+                    >
+                      <Icon
+                        size={14}
+                        color={theme.colors.primary}
+                        name="arrow-left"
+                      ></Icon>
+                    </Text>
+                  </Text>
+                </View>
+              </View>
+            )}
+          </View>
         </TouchableWithoutFeedback>
       )}
       {isAnalyzing && (
