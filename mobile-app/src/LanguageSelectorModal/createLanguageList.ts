@@ -50,9 +50,11 @@ export const createLanguageList = ({
 
   data.push({
     title: 'Available',
-    data: Object.entries(languageList)
-      .map(([key, label]) => ({ key, label, selected: false }))
-      .filter(({ key }) => key !== selected && !preferred.includes(key)),
+    data: Object.entries(languageList).map(([key, label]) => ({
+      key,
+      label,
+      selected: false,
+    })),
   });
 
   return data;

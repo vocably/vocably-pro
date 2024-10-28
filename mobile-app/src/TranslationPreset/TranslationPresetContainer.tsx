@@ -6,18 +6,9 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { NativeModules, Platform } from 'react-native';
 import { updateLanguagePairs } from './languagePairs';
 import { LanguagePairs, useLanguagePairs } from './useLanguagePairs';
 import { useSelectedLanguage } from './useSelectedLanguage';
-
-const deviceLocale =
-  Platform.OS === 'ios'
-    ? NativeModules.SettingsManager.settings.AppleLanguages[0] ||
-      NativeModules.SettingsManager.settings.AppleLocale
-    : NativeModules.I18nManager.localeIdentifier;
-
-const deviceLanguage = deviceLocale.substring(0, 2);
 
 export type Preset = {
   sourceLanguage: string;
@@ -49,7 +40,7 @@ export const TranslationPresetContainer: FC<PropsWithChildren> = ({
   const [languagePairs, saveLanguagePairs] = useLanguagePairs();
   const [preset, setPresetState] = useState<Preset>({
     sourceLanguage: selectedLanguage,
-    translationLanguage: deviceLanguage,
+    translationLanguage: '',
     isReverse: false,
   });
 

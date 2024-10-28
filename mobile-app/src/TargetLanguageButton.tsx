@@ -1,10 +1,18 @@
 import { NavigationProp } from '@react-navigation/native';
 import { GoogleLanguage, languageList } from '@vocably/model';
 import { FC } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { NativeModules, Platform, StyleProp, ViewStyle } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Preset } from './TranslationPreset/TranslationPresetContainer';
 import { LanguagePairs } from './TranslationPreset/useLanguagePairs';
+
+const deviceLocale =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLanguages[0] ||
+      NativeModules.SettingsManager.settings.AppleLocale
+    : NativeModules.I18nManager.localeIdentifier;
+
+const deviceLanguage = deviceLocale.substring(0, 2);
 
 type Props = {
   navigation: NavigationProp<any>;
@@ -28,14 +36,28 @@ export const TargetLanguageButton: FC<Props> = ({
     });
   };
 
+  // @ts-ignore
+  const preferredLanguages = languagePairs[preset.translationLanguage]
+    ? // @ts-ignore
+      languagePairs[preset.translationLanguage].availableLanguages
+    : // @ts-ignore
+    languageList[deviceLanguage]
+    ? [deviceLanguage]
+    : [];
+
+  // @ts-ignore
+  const preferredLanguagesTitle =
+    // @ts-ignore
+    !preset.translationLanguage && languageList[deviceLanguage]
+      ? 'Device Language'
+      : 'Preferred';
+
   const selectTranslationLanguage = () => {
     navigation.navigate('LanguageSelector', {
       title: 'Language I can speak well',
       // @ts-ignore
-      preferred: languagePairs[preset.sourceLanguage]
-        ? // @ts-ignore
-          languagePairs[preset.sourceLanguage].availableLanguages
-        : [],
+      preferred: preferredLanguages,
+      preferredTitle: preferredLanguagesTitle,
       selected: preset.translationLanguage,
       onSelect: onTranslationSelection,
     });
@@ -43,7 +65,9 @@ export const TargetLanguageButton: FC<Props> = ({
 
   return (
     <Button style={style} mode="outlined" onPress={selectTranslationLanguage}>
-      {languageList[preset.translationLanguage as GoogleLanguage]}
+      {preset.translationLanguage
+        ? languageList[preset.translationLanguage as GoogleLanguage]
+        : 'Select'}
     </Button>
   );
 };
