@@ -18,6 +18,7 @@ import {
   View,
 } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
@@ -278,7 +279,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
             }}
           >
             {canTranslate && !translationPreset.isReverse && (
-              <View>
+              <Animated.View entering={FadeIn} exiting={FadeOut}>
                 <Text>
                   Want to search for the right{' '}
                   {
@@ -307,11 +308,15 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
                     ></Icon>
                   </Text>
                 </Text>
-              </View>
+              </Animated.View>
             )}
 
             {canTranslate && translationPreset.isReverse && (
-              <View style={{ gap: 8 }}>
+              <Animated.View
+                entering={FadeIn}
+                exiting={FadeOut}
+                style={{ gap: 8 }}
+              >
                 <View>
                   <Text>Reverse Translation mode is on.</Text>
                 </View>
@@ -345,7 +350,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
                     </Text>
                   </Text>
                 </View>
-              </View>
+              </Animated.View>
             )}
           </View>
         </TouchableWithoutFeedback>
