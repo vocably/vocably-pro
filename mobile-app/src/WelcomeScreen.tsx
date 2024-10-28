@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getItem, setItem } from './asyncAppStorage';
 import { LanguagesContext } from './languages/LanguagesContainer';
@@ -158,90 +159,101 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
               You can study multiple languages. For now, let's pick one.
             </Text>
           </View>
-          <View
-            style={{
-              gap: 16,
-              opacity: translationPreset.sourceLanguage ? 1 : 0,
-            }}
-          >
-            <Divider style={{ width: '100%' }} />
-            <View
-              style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}
-            >
-              <Text
-                style={{
-                  fontSize: 18,
-                  flex: 1,
-                  textAlign: 'right',
-                  color: theme.colors.onBackground,
-                }}
-              >
-                What language do you speak?
-              </Text>
-              <View style={{ width: '60%' }}>
-                <TargetLanguageButton
-                  navigation={navigation}
-                  preset={translationPreset}
-                  onChange={setTranslationPreset}
-                  languagePairs={languagePairs}
-                />
-              </View>
-            </View>
-          </View>
-          <View
-            style={{
-              gap: 16,
-              opacity:
-                translationPreset.sourceLanguage &&
-                translationPreset.translationLanguage
-                  ? 1
-                  : 0,
-            }}
-          >
-            <Divider style={{ width: '100%' }} />
-            <View
-              style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}
-            >
-              <Text
-                style={{
-                  fontSize: 18,
-                  flex: 1,
-                  textAlign: 'right',
-                  color: theme.colors.onBackground,
-                }}
-              >
-                What is your level?
-              </Text>
-              <View style={{ width: '60%' }}>
-                <Select
-                  options={languageLevels}
-                  value={level.status === 'loaded' ? level.value : ''}
-                  onChange={setLevel}
-                />
-              </View>
-            </View>
-          </View>
-          <View style={{ marginTop: 25, opacity: isNextButtonVisible ? 1 : 0 }}>
-            <Button
-              mode="contained"
-              onPress={async () => {
-                onboardingDisplayerRef.current &&
-                  (await onboardingDisplayerRef.current.hide());
-
-                setOnboardingStep('faq');
-                postHog.capture('Welcome form submitted');
-                postHog.capture('$set', {
-                  $set: {
-                    studyLanguage: translationPreset.sourceLanguage,
-                    nativeLanguage: translationPreset.translationLanguage,
-                    level: level.status === 'loaded' && level.value,
-                  },
-                });
+          {translationPreset.sourceLanguage && (
+            <Animated.View
+              entering={FadeInDown}
+              style={{
+                gap: 16,
               }}
             >
-              Next
-            </Button>
-          </View>
+              <Divider style={{ width: '100%' }} />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 16,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    flex: 1,
+                    textAlign: 'right',
+                    color: theme.colors.onBackground,
+                  }}
+                >
+                  What language do you speak?
+                </Text>
+                <View style={{ width: '60%' }}>
+                  <TargetLanguageButton
+                    navigation={navigation}
+                    preset={translationPreset}
+                    onChange={setTranslationPreset}
+                    languagePairs={languagePairs}
+                  />
+                </View>
+              </View>
+            </Animated.View>
+          )}
+          {translationPreset.sourceLanguage &&
+            translationPreset.translationLanguage && (
+              <Animated.View
+                entering={FadeInDown}
+                style={{
+                  gap: 16,
+                }}
+              >
+                <Divider style={{ width: '100%' }} />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 16,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      flex: 1,
+                      textAlign: 'right',
+                      color: theme.colors.onBackground,
+                    }}
+                  >
+                    What is your level?
+                  </Text>
+                  <View style={{ width: '60%' }}>
+                    <Select
+                      options={languageLevels}
+                      value={level.status === 'loaded' ? level.value : ''}
+                      onChange={setLevel}
+                    />
+                  </View>
+                </View>
+              </Animated.View>
+            )}
+          {isNextButtonVisible && (
+            <Animated.View entering={FadeInDown} style={{ marginTop: 25 }}>
+              <Button
+                mode="contained"
+                onPress={async () => {
+                  onboardingDisplayerRef.current &&
+                    (await onboardingDisplayerRef.current.hide());
+
+                  setOnboardingStep('faq');
+                  postHog.capture('Welcome form submitted');
+                  postHog.capture('$set', {
+                    $set: {
+                      studyLanguage: translationPreset.sourceLanguage,
+                      nativeLanguage: translationPreset.translationLanguage,
+                      level: level.status === 'loaded' && level.value,
+                    },
+                  });
+                }}
+              >
+                Next
+              </Button>
+            </Animated.View>
+          )}
         </Displayer>
       )}
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'faq' && (
