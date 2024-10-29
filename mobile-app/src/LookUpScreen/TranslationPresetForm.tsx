@@ -81,6 +81,22 @@ export const TranslationPresetForm: FC<Props> = ({
           </Text>
         </View>
       )}
+      {preset.sourceLanguage && !preset.translationLanguage && (
+        <View
+          style={{
+            marginRight: 48,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <Text style={{ color: theme.colors.secondary }}>
+            Select the language you speak fluently.
+          </Text>
+          <Icon name="arrow-up-thin" size={48} color={theme.colors.secondary} />
+        </View>
+      )}
     </View>
   );
 };
