@@ -240,7 +240,12 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
                     (await onboardingDisplayerRef.current.hide());
 
                   setOnboardingStep('faq');
-                  scrollViewRef.current && scrollViewRef.current.scrollTo(0);
+                  scrollViewRef.current &&
+                    scrollViewRef.current.scrollTo({
+                      x: 0,
+                      y: 0,
+                      animated: true,
+                    });
                   postHog.capture('Welcome form submitted');
                   postHog.capture('$set', {
                     $set: {
