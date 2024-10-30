@@ -29,7 +29,7 @@ export const useLanguagePairs = (): [
 
   useEffect(() => {
     asyncAppStorage.getItem('languagePairs').then((languagePairs) => {
-      setLanguagePairs(languagePairs ? JSON.parse(languagePairs) : null);
+      setLanguagePairs(languagePairs ? JSON.parse(languagePairs) : {});
     });
   }, [setLanguagePairs]);
 

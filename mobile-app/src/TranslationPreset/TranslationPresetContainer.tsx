@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { updateLanguagePairs } from './languagePairs';
 import { LanguagePairs, useLanguagePairs } from './useLanguagePairs';
-import { useSelectedLanguage } from './useSelectedLanguage';
+import { useTranslationPresetSelectedLanguage } from './useTranslationPresetSelectedLanguage';
 
 export type Preset = {
   sourceLanguage: string;
@@ -36,7 +36,8 @@ export const TranslationPresetContext =
 export const TranslationPresetContainer: FC<PropsWithChildren> = ({
   children,
 }) => {
-  const [selectedLanguage, saveSelectedLanguage] = useSelectedLanguage();
+  const [selectedLanguage, saveSelectedLanguage] =
+    useTranslationPresetSelectedLanguage();
   const [languagePairs, saveLanguagePairs] = useLanguagePairs();
   const [preset, setPresetState] = useState<Preset>({
     sourceLanguage: selectedLanguage,

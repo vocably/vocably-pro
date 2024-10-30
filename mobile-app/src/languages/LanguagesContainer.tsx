@@ -12,7 +12,7 @@ import * as asyncAppStorage from '../asyncAppStorage';
 import { Error } from '../Error';
 import { Loader } from '../loaders/Loader';
 
-const selectedLanguageStorageKey = 'selected-language';
+const selectedLanguageStorageKey = 'languagesContainerSelectedLanguage';
 
 export type LanguageContainerDeck = {
   status: 'initial' | 'loading' | 'loaded' | 'error';
