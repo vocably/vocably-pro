@@ -294,7 +294,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
                     ]
                   }
                   ? Just enable Reverse Translation mode by clicking this
-                  button:{' '}
+                  {'\u00A0'}button:{'\u00A0'}
                   <Text
                     style={{
                       backgroundColor: theme.colors.inversePrimary,
@@ -335,7 +335,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
                       ]
                     }{' '}
                     card. To search in Dutch, simply disable Reverse Translation
-                    mode by clicking this button:{' '}
+                    mode by clicking this{'\u00A0'}button:{'\u00A0'}
                     <Text
                       style={{
                         backgroundColor: theme.colors.inversePrimary,

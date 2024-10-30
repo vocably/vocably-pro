@@ -41,7 +41,7 @@ export const TranslationPresetForm: FC<Props> = ({
   return (
     <View>
       <View style={styles.container}>
-        <View style={{ flex: 2 }}>
+        <View style={{ flex: 1 }}>
           <SourceLanguageButton
             navigation={navigation}
             preset={preset}
@@ -49,7 +49,7 @@ export const TranslationPresetForm: FC<Props> = ({
             languagePairs={languagePairs}
           />
         </View>
-        <View style={{ flex: 1, alignItems: 'center' }}>
+        <View style={{ alignItems: 'center', width: 65 }}>
           <IconButton
             animated={true}
             icon={preset.isReverse ? 'arrow-left' : 'arrow-right'}
@@ -57,7 +57,7 @@ export const TranslationPresetForm: FC<Props> = ({
             mode="contained"
           ></IconButton>
         </View>
-        <View style={{ flex: 2 }}>
+        <View style={{ flex: 1 }}>
           <TargetLanguageButton
             navigation={navigation}
             preset={preset}

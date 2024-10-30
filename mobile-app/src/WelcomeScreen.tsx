@@ -128,12 +128,21 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
       }
     >
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'form' && (
-        <Displayer style={{ gap: 16 }} ref={onboardingDisplayerRef}>
+        <Displayer
+          style={{ gap: 16, maxWidth: 600 }}
+          ref={onboardingDisplayerRef}
+        >
           <Text style={{ textAlign: 'center', fontSize: 24, marginBottom: 24 }}>
             To get started, please answer these questions:
           </Text>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 16,
+            }}
+          >
             <Text
               style={{
                 fontSize: 18,
@@ -154,7 +163,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
               />
             </View>
           </View>
-          <View>
+          <View style={{ alignItems: 'flex-end' }}>
             <Text>
               You can study multiple languages. For now, let's pick one.
             </Text>
@@ -263,7 +272,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
         </Displayer>
       )}
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'faq' && (
-        <Displayer style={{ gap: 16 }}>
+        <Displayer style={{ gap: 16, maxWidth: 600 }}>
           <Text style={{ fontSize: 18 }}>
             Vocably is designed to help you{' '}
             {isTranslate ? 'translate' : 'look up'} words and phrases right when

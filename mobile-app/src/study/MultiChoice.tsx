@@ -64,7 +64,7 @@ export const MultiChoice: FC<Props> = ({
         justifyContent: 'center',
       }}
     >
-      <Displayer ref={displayerRef} style={{ padding: 16 }}>
+      <Displayer ref={displayerRef} style={{ padding: 16, maxWidth: 700 }}>
         {direction === 'back' && (
           <>
             <Text style={{ fontSize: 24, marginBottom: 12 }}>
