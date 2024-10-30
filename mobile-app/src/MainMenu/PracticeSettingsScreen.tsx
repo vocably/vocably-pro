@@ -14,7 +14,7 @@ const MAXIMUM_CARDS_PER_SESSION_KEY = 'maximumCardsPerSession';
 const PREFER_MULTI_CHOICE = 'preferMultiChoiceOptions';
 
 export const getMultiChoiceEnabled = () =>
-  getItem(MULTI_CHOICE_ENABLED_KEY).then((res) => res === 'true');
+  getItem(MULTI_CHOICE_ENABLED_KEY).then((res) => res !== 'false');
 
 const setMultiChoiceEnabled = (isEnabled: boolean) =>
   setItem(MULTI_CHOICE_ENABLED_KEY, isEnabled ? 'true' : 'false');
