@@ -275,9 +275,22 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
               width: '100%',
               paddingHorizontal: padding,
               paddingVertical: padding,
-              gap: 16,
+              gap: 8,
             }}
           >
+            {canTranslate && (
+              <View>
+                <Text>
+                  The cards will be saved to your{' '}
+                  {
+                    languageList[
+                      translationPreset.sourceLanguage as GoogleLanguage
+                    ]
+                  }{' '}
+                  deck.
+                </Text>
+              </View>
+            )}
             {canTranslate && !translationPreset.isReverse && (
               <Animated.View entering={FadeIn} exiting={FadeOut}>
                 <Text>
