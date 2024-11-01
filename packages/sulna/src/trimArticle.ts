@@ -4,7 +4,7 @@ type TrimArticleResult = {
 };
 
 const trimRegexes: Partial<Record<string, RegExp>> = {
-  nl: /^(de|het)\s/i,
+  nl: /^(de|het|de.het|het.de)\s/i,
   de: /^(der|die|das)\s/i,
 };
 

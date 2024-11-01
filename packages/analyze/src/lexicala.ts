@@ -32,13 +32,15 @@ export type LexicalaSearchResultItem = {
   }[];
 };
 
+export type LexicalaOverriddenParams = {
+  morph?: 'true' | 'false';
+  analyzed?: 'true' | 'false';
+};
+
 export const lexicala = async (
   language: LexicalaLanguage,
   text: string,
-  overriddenParams: {
-    morph?: 'true' | 'false';
-    analyzed?: 'true' | 'false';
-  } = {}
+  overriddenParams: LexicalaOverriddenParams = {}
 ): Promise<Result<LexicalaSearchResultItem[]>> => {
   try {
     const requestOptions = {

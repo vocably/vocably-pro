@@ -7,9 +7,10 @@ import {
 import { trimArticle } from '@vocably/sulna';
 import { buildDirectJapaneseResult } from './buildDirectResult/buildDirectJapaneseResult';
 import { combineItems } from './combineItems';
+import { filterOutByPartOfSpeech } from './filterOutByPartOfSpeech';
 import { fitsTheSize } from './fitsTheSize';
 import { isOneWord } from './isOneWord';
-import { lexicala } from './lexicala';
+import { lexicala, LexicalaOverriddenParams } from './lexicala';
 import { languageToLexicalaLanguage } from './lexicala/lexicalaLanguageMapper';
 import { lexicalaSearchResultToAnalysisItem } from './lexicala/lexicalaSearchResultToAnalysisItem';
 import { normalizeHeadword } from './lexicala/normalizeHeadword';
@@ -21,9 +22,15 @@ import { translationToAnalysisItem } from './translationToAnalyzeItem';
 import { wordDictionary } from './word-dictionary';
 import { wordDictionaryResultToAnalysisItems } from './wordDictionaryResultToItems';
 
-export const buildDirectResult = async (
-  payload: DirectAnalyzePayload
-): Promise<Result<DirectAnalysis>> => {
+type Options = {
+  payload: DirectAnalyzePayload;
+  lexicalaParams?: LexicalaOverriddenParams;
+};
+
+export const buildDirectResult = async ({
+  payload,
+  lexicalaParams,
+}: Options): Promise<Result<DirectAnalysis>> => {
   const translationResult = await translate(payload);
 
   if (translationResult.success === false) {
@@ -72,7 +79,7 @@ export const buildDirectResult = async (
   }
 
   const results = await Promise.all([
-    lexicala(lexicalaLanguage, trimmedArticle.source),
+    lexicala(lexicalaLanguage, trimmedArticle.source, lexicalaParams),
     lexicalaLanguage === 'en' ? wordDictionary(trimmedArticle.source) : null,
   ]);
 
@@ -89,6 +96,7 @@ export const buildDirectResult = async (
         value: {
           source: payload.source,
           translation: translationResult.value,
+          items: prependTranslation([], translationResult.value),
         },
       };
     }
@@ -100,6 +108,7 @@ export const buildDirectResult = async (
         value: {
           source: payload.source,
           translation: translationResult.value,
+          items: prependTranslation([], translationResult.value),
         },
       };
     }
@@ -131,11 +140,15 @@ export const buildDirectResult = async (
       items: prependTranslation(
         (
           await Promise.all(
-            lexicalaResult.value
-              .map(normalizeHeadword(payload.source))
-              .filter(fitsTheSize(payload.source))
-              .filter(lexicalaItemHasDefinitionOrCanBeTranslated(translation))
-              .map(lexicalaSearchResultToAnalysisItem(translation))
+            filterOutByPartOfSpeech(
+              lexicalaResult.value
+                .map(normalizeHeadword(payload.source))
+                .filter(fitsTheSize(payload.source))
+                .filter(
+                  lexicalaItemHasDefinitionOrCanBeTranslated(translation)
+                ),
+              payload.partOfSpeech
+            ).map(lexicalaSearchResultToAnalysisItem(translation))
           )
         )
           .reduce(combineItems, [])

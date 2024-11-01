@@ -10,12 +10,27 @@ type Payload = {
   source: string;
   targetLanguage: GoogleLanguage;
   sourceLanguage?: GoogleLanguage;
+  target?: string;
   context?: string;
+  partOfSpeech?: string;
 };
 
 export const translate = async (
   payload: Payload
 ): Promise<Result<Translation>> => {
+  if (payload.source && payload.target) {
+    return {
+      success: true,
+      value: {
+        source: payload.source,
+        target: payload.target,
+        sourceLanguage: payload.sourceLanguage,
+        targetLanguage: payload.targetLanguage,
+        partOfSpeech: payload.partOfSpeech,
+      },
+    };
+  }
+
   if (!isContextPayload(payload) || !itMakesSense(payload)) {
     return googleTranslate(
       payload.source,

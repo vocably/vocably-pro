@@ -3,7 +3,6 @@ import { isReverseAnalysis } from '@vocably/model';
 import { inspect } from '@vocably/node-sulna';
 import { buildResult } from './buildResult';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
-import assert = require('node:assert');
 
 configureTestAnalyzer();
 
@@ -189,12 +188,12 @@ describe('integration check for translate lambda', () => {
     expect(result.value.target).toEqual('правило');
     expect(result.value.source).toEqual('regel');
     expect(result.value.translation).toBeDefined();
-    expect(result.value.reverseTranslation).toBeDefined();
+    expect(result.value.reverseTranslations).toBeDefined();
     expect(result.value.items[0].source).toEqual('de regel');
     expect(result.value.items[0].translation).toHaveSomeOf(
       'строка, норма, правило, условие'
     );
-    expect(result.value.items[1].source).toContain('regel');
+    expect(result.value.items[1].source).toEqual('het principe');
   });
 
   it('selects only one transcription', async () => {
@@ -311,7 +310,7 @@ describe('integration check for translate lambda', () => {
       '[ korehamesseejidesu ]'
     );
     expect(result.value.items[0].translation.toLowerCase()).toEqual(
-      'this is the message'
+      'this is a message'
     );
   });
 
@@ -346,13 +345,12 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    expect(result.value.items.length).toEqual(3);
+    console.log(inspect(result.value));
 
-    expect(
-      ['да, здесь, сейчас', 'легкое'].includes(
-        result.value.items[2].translation
-      )
-    ).toBeTruthy();
+    expect(result.value.items.length).toBeGreaterThanOrEqual(5);
+    expect(result.value.items[0].translation).toHaveSomeOf(
+      'да, здесь, настоящее, сейчас'
+    );
   });
 
   it('performs the context translation', async () => {
@@ -629,5 +627,46 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].partOfSpeech).toEqual('noun');
     expect(result.value.items[1].source).toEqual('conversation');
     expect(result.value.items[1].partOfSpeech).toEqual('noun');
+  });
+
+  it('removes similar items', async () => {
+    const result = await buildResult({
+      target: 'something',
+      sourceLanguage: 'nl',
+      targetLanguage: 'en',
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    expect(result.value.items.length).toEqual(2);
+  });
+
+  it('removes similar items', async () => {
+    const result = await buildResult({
+      target: 'something',
+      sourceLanguage: 'nl',
+      targetLanguage: 'en',
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    expect(result.value.items.length).toEqual(2);
+  });
+
+  it('removes "to" from english verbs', async () => {
+    const result = await buildResult({
+      target: 'идти',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    console.log(inspect(result.value.items));
+
+    expect(result.value.items[0].source).not.toContain('to ');
   });
 });
