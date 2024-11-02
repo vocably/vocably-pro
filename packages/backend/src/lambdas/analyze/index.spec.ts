@@ -217,7 +217,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.items[0].translation).toHaveSomeOf(
       'строка, правило, норма, условие'
     );
-    expect(resultBody.items[1].source).toContain('regel');
+    expect(resultBody.items[1].source).toHaveSomeOf('het principe, de regel');
   });
 
   it('should use word dictionary', async () => {

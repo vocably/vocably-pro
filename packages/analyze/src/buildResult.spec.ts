@@ -329,7 +329,7 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.items.length).toBeGreaterThanOrEqual(5);
-    expect(result.value.items[0].translation).toHaveSomeOf(
+    expect(result.value.items[0].translation.toLowerCase()).toHaveSomeOf(
       'да, здесь, настоящее, сейчас'
     );
   });

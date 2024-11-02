@@ -39,8 +39,9 @@ export const buildDirectResult = async ({
 
   const translation: Translation = {
     ...translationResult.value,
+    partOfSpeech: translationResult.value.partOfSpeech ?? payload.partOfSpeech,
     sourceLanguage:
-      payload.sourceLanguage ?? translationResult.value.sourceLanguage,
+      translationResult.value.sourceLanguage ?? payload.sourceLanguage,
   };
 
   if (translation.sourceLanguage === 'ja') {
@@ -72,7 +73,7 @@ export const buildDirectResult = async ({
       success: true,
       value: {
         source: payload.source,
-        translation: translationResult.value,
+        translation: translation,
         items: [translationToAnalysisItem(translation)],
       },
     };
@@ -95,8 +96,8 @@ export const buildDirectResult = async ({
         success: true,
         value: {
           source: payload.source,
-          translation: translationResult.value,
-          items: prependTranslation([], translationResult.value),
+          translation: translation,
+          items: prependTranslation([], translation),
         },
       };
     }
@@ -107,8 +108,8 @@ export const buildDirectResult = async ({
         success: true,
         value: {
           source: payload.source,
-          translation: translationResult.value,
-          items: prependTranslation([], translationResult.value),
+          translation: translation,
+          items: prependTranslation([], translation),
         },
       };
     }
@@ -117,7 +118,7 @@ export const buildDirectResult = async ({
       success: true,
       value: {
         source: payload.source,
-        translation: translationResult.value,
+        translation: translation,
         items: prependTranslation(
           await Promise.all(
             wordDictionaryResultToAnalysisItems({
@@ -136,7 +137,7 @@ export const buildDirectResult = async ({
     success: true,
     value: {
       source: payload.source,
-      translation: translationResult.value,
+      translation: translation,
       items: prependTranslation(
         (
           await Promise.all(
