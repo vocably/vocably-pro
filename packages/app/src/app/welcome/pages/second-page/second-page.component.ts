@@ -6,6 +6,7 @@ import {
   setSourceLanguage,
 } from '@vocably/extension-messages';
 import { GoogleLanguage, isGoogleLanguage } from '@vocably/model';
+import posthog from 'posthog-js';
 import {
   catchError,
   filter,
@@ -59,6 +60,13 @@ export class SecondPageComponent implements OnInit, OnDestroy {
           await setProxyLanguage(extensionId, params['targetLanguage']);
           this.sourceLanguage = params['sourceLanguage'];
           this.targetLanguage = params['targetLanguage'];
+
+          posthog.capture('$set', {
+            $set: {
+              studyLanguage: this.sourceLanguage,
+              nativeLanguage: this.targetLanguage,
+            },
+          });
         }),
         switchMap((params): Observable<string> => {
           const exampleExists = [

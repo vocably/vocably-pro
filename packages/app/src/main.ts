@@ -5,10 +5,16 @@ import { Auth } from '@aws-amplify/auth';
 import * as Sentry from '@sentry/angular';
 import { BrowserTracing } from '@sentry/tracing';
 import { configureApi } from '@vocably/api';
+import posthog from 'posthog-js';
 import { maintainAppSize } from './app-size';
 import { AppModule } from './app/app.module';
 import { authConfig } from './auth-config';
 import { environment } from './environments/environment';
+
+posthog.init('phc_vke56i7RTlBbFYHZHsoH7VhgWi2DwvKtEzusfcFemgT', {
+  api_host: 'https://us.i.posthog.com',
+  person_profiles: 'identified_only',
+});
 
 Sentry.init({
   environment: environment.sentryEnvironment,

@@ -1,11 +1,14 @@
 import { Injectable, NgModule } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import {
+  NavigationEnd,
+  Router,
   RouterModule,
   RouterStateSnapshot,
   Routes,
   TitleStrategy,
 } from '@angular/router';
+import posthog from 'posthog-js';
 import { AuthModule } from './auth/auth.module';
 import { CognitoAuthGuard } from './auth/cognito-auth.guard';
 import { HandsFreePageComponent } from './auth/pages/hands-free-page/hands-free-page.component';
@@ -96,4 +99,12 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [{ provide: TitleStrategy, useClass: TemplatePageTitleStrategy }],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        posthog.capture('$pageview');
+      }
+    });
+  }
+}

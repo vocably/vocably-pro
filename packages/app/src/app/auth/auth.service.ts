@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Auth, CognitoUser } from '@aws-amplify/auth';
 import { mapUserAttributes, UserData } from '@vocably/model';
 import { get } from 'lodash-es';
+import posthog from 'posthog-js';
 import {
   catchError,
   from,
@@ -65,9 +66,11 @@ export class AuthService {
       .pipe(catchError(() => of(false)))
       .subscribe((userOrFalse) => {
         this.isLoggedIn$.next(userOrFalse !== false);
-        if (userOrFalse !== false) {
-          this.currentUser$.next(userOrFalse);
+        if (userOrFalse === false) {
+          return;
         }
+
+        this.currentUser$.next(userOrFalse);
       });
 
     const refreshUserData$ = this.fetchUserData$.pipe(
@@ -78,6 +81,12 @@ export class AuthService {
 
     this.refreshUserData$.pipe(switchMap(() => refreshUserData$)).subscribe();
     refreshUserData$.subscribe();
+
+    this.userData$.subscribe((userData) => {
+      posthog.identify(userData.sub, {
+        email: userData.email,
+      });
+    });
   }
 
   async signIn() {
