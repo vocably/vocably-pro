@@ -9,7 +9,7 @@ import { WelcomeStack } from './WelcomeStack';
 const Tabs = createMaterialBottomTabNavigator();
 
 export const TabsNavigator = () => {
-  const { selectedLanguage } = useContext(LanguagesContext);
+  const { languages } = useContext(LanguagesContext);
   return (
     <Tabs.Navigator>
       <Tabs.Screen
@@ -20,7 +20,7 @@ export const TabsNavigator = () => {
             <Icon name="card-multiple-outline" color={color} size={24} />
           ),
         }}
-        component={selectedLanguage === '' ? WelcomeStack : DeckStack}
+        component={languages.length === 0 ? WelcomeStack : DeckStack}
       />
       <Tabs.Screen
         name="LookUp"
