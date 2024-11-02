@@ -27,39 +27,41 @@ const getSession = async (
   });
 };
 
-export const getUserEmail = (
+export const getFlatAttributes = (
   user: CognitoUser | any
-): Promise<string | null> => {
+): Promise<Record<string, string>> => {
   return new Promise(async (resolve) => {
     if (!isCognitoUser(user)) {
-      return resolve(null);
+      return resolve({});
     }
 
     const sessionResult = await getSession(user);
 
     if (sessionResult.success === false) {
-      resolve(null);
+      resolve({});
       return;
     }
 
     user.getUserAttributes((error, attributes) => {
       if (error) {
-        return resolve(null);
+        return resolve({});
       }
 
       if (!attributes) {
-        return resolve(null);
+        return resolve({});
       }
 
-      const emailAttribute = attributes.find(
-        (attr) => attr.getName() === 'email'
+      const flatAttributes: Record<string, string> = attributes.reduce(
+        (acc, attribute) => {
+          return {
+            ...acc,
+            [attribute.getName()]: attribute.getValue(),
+          };
+        },
+        {}
       );
 
-      if (!emailAttribute) {
-        return resolve(null);
-      }
-
-      return resolve(emailAttribute.getValue());
+      return resolve(flatAttributes);
     });
   });
 };

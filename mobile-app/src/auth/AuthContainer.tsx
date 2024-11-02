@@ -1,8 +1,10 @@
 import { Auth } from '@aws-amplify/auth';
 import { Hub } from 'aws-amplify';
+import { usePostHog } from 'posthog-react-native';
 import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { awsConfig } from '../aws-config';
 import { AuthContext, AuthStatus } from './AuthContext';
+import { getFlatAttributes } from './getFlatAttributes';
 
 Auth.configure(awsConfig);
 
@@ -12,6 +14,28 @@ export const AuthContainer: FC<{
   const [authStatus, setAuthStatus] = useState<AuthStatus>({
     status: 'undefined',
   });
+
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    if (authStatus.status !== 'logged-in') {
+      return;
+    }
+
+    getFlatAttributes(authStatus.user).then((attributes) => {
+      if (!attributes) {
+        return;
+      }
+
+      if (!attributes['sub'] || !attributes['email']) {
+        return;
+      }
+
+      posthog.identify(attributes['sub'], {
+        email: attributes['email'],
+      });
+    });
+  }, [authStatus]);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
