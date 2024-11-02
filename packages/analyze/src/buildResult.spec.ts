@@ -1,6 +1,5 @@
 import '@vocably/jest';
 import { isReverseAnalysis } from '@vocably/model';
-import { inspect } from '@vocably/node-sulna';
 import { buildResult } from './buildResult';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 
@@ -17,7 +16,6 @@ describe('integration check for translate lambda', () => {
       source: 'dankjewel',
       targetLanguage: 'en',
     });
-    console.log(inspect(result));
     expect(result.success).toEqual(true);
   });
 
@@ -27,7 +25,6 @@ describe('integration check for translate lambda', () => {
       sourceLanguage: 'lt',
       targetLanguage: 'en',
     });
-    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -43,7 +40,6 @@ describe('integration check for translate lambda', () => {
       source: 'asylum',
       targetLanguage: 'en',
     });
-    console.log({ result });
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -62,7 +58,6 @@ describe('integration check for translate lambda', () => {
       sourceLanguage: 'nl',
       targetLanguage: 'en',
     });
-    console.log({ result });
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -81,7 +76,6 @@ describe('integration check for translate lambda', () => {
       sourceLanguage: 'de',
       targetLanguage: 'en',
     });
-    console.log({ result });
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -102,7 +96,6 @@ describe('integration check for translate lambda', () => {
       sourceLanguage: 'nl',
       targetLanguage: 'ru',
     });
-    console.log({ result });
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -124,7 +117,6 @@ describe('integration check for translate lambda', () => {
       sourceLanguage: 'nl',
       targetLanguage: 'ru',
     });
-    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -146,7 +138,6 @@ describe('integration check for translate lambda', () => {
       sourceLanguage: 'nl',
       targetLanguage: 'en',
     });
-    console.log({ result });
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -184,7 +175,6 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    console.log(inspect(result));
     expect(result.value.target).toEqual('правило');
     expect(result.value.source).toEqual('regel');
     expect(result.value.translation).toBeDefined();
@@ -208,7 +198,6 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    console.log(inspect(result));
     expect(result.value.translation).toBeDefined();
     expect(result.value.items[0].ipa).toEqual('hɪˈlɛəriəs');
   });
@@ -219,7 +208,6 @@ describe('integration check for translate lambda', () => {
       sourceLanguage: 'en',
       targetLanguage: 'ru',
     });
-    console.log(inspect(result));
     expect(result.success).toBeTruthy();
   });
 
@@ -229,7 +217,6 @@ describe('integration check for translate lambda', () => {
       sourceLanguage: 'en',
       targetLanguage: 'en',
     });
-    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -245,7 +232,6 @@ describe('integration check for translate lambda', () => {
       sourceLanguage: 'en',
       targetLanguage: 'ru',
     });
-    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -265,7 +251,6 @@ describe('integration check for translate lambda', () => {
       sourceLanguage: 'nl',
       targetLanguage: 'ru',
     });
-    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -303,8 +288,6 @@ describe('integration check for translate lambda', () => {
     if (result.success === false) {
       return;
     }
-
-    console.log(inspect(result.value));
 
     expect(result.value.items[0].definitions[0]).toEqual(
       '[ korehamesseejidesu ]'
@@ -345,8 +328,6 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    console.log(inspect(result.value));
-
     expect(result.value.items.length).toBeGreaterThanOrEqual(5);
     expect(result.value.items[0].translation).toHaveSomeOf(
       'да, здесь, настоящее, сейчас'
@@ -361,8 +342,6 @@ describe('integration check for translate lambda', () => {
       context:
         "Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, 'and what is the use of a book,' thought Alice 'without pictures or conversation?'",
     });
-
-    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -381,8 +360,6 @@ describe('integration check for translate lambda', () => {
       context: `There was nothing so very remarkable in that; nor did Alice think it so very much out of the way to hear the Rabbit say to itself, “Oh dear! Oh dear! I shall be late!” (when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit actually took a watch out of its waistcoat-pocket, and looked at it, and then hurried on, Alice started to her feet, for it flashed across her mind that she had never before seen a rabbit with either a waistcoat-pocket, or a watch to take out of it, and burning with curiosity, she ran across the field after it, and fortunately was just in time to see it pop down a large rabbit-hole under the hedge.'`,
     });
 
-    console.log(inspect(result));
-
     expect(result.success).toBeTruthy();
     if (result.success === false) {
       return;
@@ -399,8 +376,6 @@ describe('integration check for translate lambda', () => {
       context: `Learn the language by using it'`,
     });
 
-    console.log(inspect(result));
-
     expect(result.success).toBeTruthy();
     if (result.success === false) {
       return;
@@ -416,8 +391,6 @@ describe('integration check for translate lambda', () => {
       source: 'одржала',
       context: `НОВИ САД – Етно певачица Даница Црногорчевић одржала је у среду концерт на Великој сцени Српског народног позоришта, саопштио је`,
     });
-
-    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -437,8 +410,6 @@ describe('integration check for translate lambda', () => {
       context: `ЂУРЂЕВ УПОЗОРИО Ако се настави демографска катаклизма, уз грађански рат који нам спремају, Срба у Србији више неће бити!`,
     });
 
-    console.log(inspect(result));
-
     expect(result.success).toBeTruthy();
     if (result.success === false) {
       return;
@@ -453,8 +424,6 @@ describe('integration check for translate lambda', () => {
       targetLanguage: 'ru',
       source: 'tailor',
     });
-
-    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -474,8 +443,6 @@ describe('integration check for translate lambda', () => {
       targetLanguage: 'uk',
       source: 'tailor',
     });
-
-    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -498,8 +465,6 @@ describe('integration check for translate lambda', () => {
       source: 'sister',
     });
 
-    console.log(inspect(result));
-
     expect(result.success).toBeTruthy();
     if (result.success === false) {
       return;
@@ -515,8 +480,6 @@ describe('integration check for translate lambda', () => {
       targetLanguage: 'ru',
       source: 'sister',
     });
-
-    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -534,8 +497,6 @@ describe('integration check for translate lambda', () => {
       source: 'sister',
     });
 
-    console.log(inspect(result));
-
     expect(result.success).toBeTruthy();
     if (result.success === false) {
       return;
@@ -551,8 +512,6 @@ describe('integration check for translate lambda', () => {
       source: 'etymology',
     });
 
-    console.log(inspect(result));
-
     expect(result.success).toBeTruthy();
     if (result.success === false) {
       return;
@@ -567,8 +526,6 @@ describe('integration check for translate lambda', () => {
       targetLanguage: 'ru',
       source: '你好',
     });
-
-    console.log(inspect(result));
 
     expect(result.success).toBeTruthy();
     if (result.success === false) {
@@ -664,8 +621,6 @@ describe('integration check for translate lambda', () => {
     if (result.success === false) {
       throw 'Unexpected result';
     }
-
-    console.log(inspect(result.value.items));
 
     expect(result.value.items[0].source).not.toContain('to ');
   });
