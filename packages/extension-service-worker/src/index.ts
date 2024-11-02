@@ -58,6 +58,7 @@ import {
 import { buildTagMap } from '@vocably/model-operations';
 import { createSrsItem } from '@vocably/srs';
 import { get, isEqual, uniq } from 'lodash-es';
+import posthog from 'posthog-js';
 import {
   getAskForRatingCounter,
   resetAskForRatingCounter,
@@ -66,6 +67,7 @@ import {
 import { browserEnv, hasOffscreen } from './browserEnv';
 import { createTranslationCards } from './createTranslationCards';
 import './fixAuth';
+import { getUserAttributes } from './getUserAttributes';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
 import { getLastUsedTagsIds, saveLastUsedTagsIds } from './lastUsedTagsIds';
 import { getLocationLanguage, storeLocationLanguage } from './locationLanguage';
@@ -92,16 +94,33 @@ type RegisterServiceWorkerOptions = {
 export const registerServiceWorker = (
   registerServiceWorkerOptions: RegisterServiceWorkerOptions
 ) => {
+  posthog.init('phc_vke56i7RTlBbFYHZHsoH7VhgWi2DwvKtEzusfcFemgT', {
+    api_host: 'https://us.i.posthog.com',
+    person_profiles: 'identified_only',
+  });
+
   Auth.configure(registerServiceWorkerOptions.auth);
   configureApi(registerServiceWorkerOptions.api);
 
   onIsLoggedInRequest(async (sendResponse) => {
-    console.info('Login check has been requested.');
     const isLoggedIn = await Auth.currentSession()
       .then(() => true)
       .catch(() => false);
 
-    console.info(`The user is ${isLoggedIn ? 'logged in' : 'not logged in'}.`);
+    if (posthog._isIdentified()) {
+      return;
+    }
+
+    getUserAttributes().then((result) => {
+      if (!result.success) {
+        return;
+      }
+
+      posthog.identify(result.value.sub, {
+        email: result.value.email,
+      });
+    });
+
     return sendResponse(isLoggedIn);
   });
 
@@ -163,6 +182,8 @@ export const registerServiceWorker = (
   };
 
   onAnalyzeRequest(async (sendResponse, payload) => {
+    posthog.capture('analyze_requested', payload);
+
     if (payload.sourceLanguage) {
       await setSourceLanguage(payload.sourceLanguage);
     }
