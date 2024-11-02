@@ -9,6 +9,7 @@ import {
   TagItem,
 } from '@vocably/model';
 import { buildTagMap } from '@vocably/model-operations';
+import { usePostHog } from 'posthog-react-native';
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
 import {
   Alert,
@@ -75,6 +76,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   });
   const languages = useContext(LanguagesContext);
   const intentData = useShareIntentData();
+  const posthog = usePostHog();
 
   const [lastUsedTagIds, setLastUsedTagIds] = useLastUsedTagIds();
 
@@ -119,6 +121,8 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
 
     setLookupResult(lookupResult);
     setIsAnalyzing(false);
+
+    posthog.capture('lookup', payload);
   }, [translationPreset, lookUpText, setIsAnalyzing, isAnalyzing, deck]);
 
   useEffect(() => {

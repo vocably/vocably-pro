@@ -1,4 +1,5 @@
 import { RateInteractionPayload } from '@vocably/model';
+import { usePostHog } from 'posthog-react-native';
 import React, { FC, useCallback, useContext, useEffect } from 'react';
 import { Linking, StyleProp, ViewStyle } from 'react-native';
 import Animated, {
@@ -29,6 +30,8 @@ export const RequestFeedback: FC<Props> = ({ style, numberOfRepetitions }) => {
     };
   });
 
+  const posthog = usePostHog();
+
   useEffect(() => {
     if (!numberOfRepetitions) {
       return;
@@ -39,6 +42,7 @@ export const RequestFeedback: FC<Props> = ({ style, numberOfRepetitions }) => {
       numberOfRepetitions,
     }).then((isOkay) => {
       if (isOkay) {
+        posthog.capture('feedback-requested');
         askForReviewMaxHeight.value = 1000;
         askForReviewOpacity.value = withTiming(1);
       }
@@ -47,6 +51,10 @@ export const RequestFeedback: FC<Props> = ({ style, numberOfRepetitions }) => {
 
   const onRequestFeedbackAction = useCallback(
     (choice: RateInteractionPayload) => {
+      posthog.capture('feedback-responded', {
+        choice,
+      });
+
       if (choice === 'later' || choice === 'never') {
         askForReviewOpacity.value = withTiming(0);
         askForReviewMaxHeight.value = withTiming(0);

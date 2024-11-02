@@ -1,6 +1,7 @@
 import { CardItem } from '@vocably/model';
 import { grade, slice, SrsScore } from '@vocably/srs';
 import { shuffle } from 'lodash-es';
+import { usePostHog } from 'posthog-react-native';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
@@ -31,7 +32,7 @@ export const Study: FC<Props> = ({
     status,
     update,
     filteredCards,
-    deck: { cards: allCards },
+    deck: { language, cards: allCards },
   } = useSelectedDeck({
     autoReload: false,
   });
@@ -100,6 +101,18 @@ export const Study: FC<Props> = ({
     },
     [cards, increaseNumberOfRepetitions]
   );
+
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    posthog.capture('study_started', {
+      isRandomizerEnabled,
+      isMultiChoiceEnabled,
+      preferMultiChoiceEnabled,
+      maximumCardsPerSession,
+      language,
+    });
+  }, [posthog]);
 
   if (status === 'loading') {
     return <Loader>Loading cards...</Loader>;

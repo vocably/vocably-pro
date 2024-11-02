@@ -1,4 +1,5 @@
 import { sample } from 'lodash-es';
+import { usePostHog } from 'posthog-react-native';
 import React, { FC, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
@@ -56,6 +57,12 @@ export const Completed: Completed = ({
     }
 
     setMotivationalQuote(sample(motivationalQuotes) as string);
+  }, []);
+
+  const posthog = usePostHog();
+
+  useEffect(() => {
+    posthog.capture('study_completed');
   }, []);
 
   return (
