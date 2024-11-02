@@ -55,7 +55,9 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
         alignItems: 'flex-start',
         justifyContent: 'center',
         flexDirection: 'row',
-        paddingHorizontal: mainPadding,
+        paddingLeft: mainPadding,
+        // Align ⊕ button with the 🔎
+        paddingRight: 16,
       }}
     >
       <CardListItem
@@ -67,7 +69,6 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
       />
       <View
         style={{
-          alignItems: 'center',
           marginTop: 8,
         }}
       >
