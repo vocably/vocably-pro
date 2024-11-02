@@ -1,4 +1,4 @@
-import { AnalysisItem, Translation } from '@vocably/model';
+import { AnalysisItem, Translation, ValidAnalysisItems } from '@vocably/model';
 import { trimArticle } from '@vocably/sulna';
 import { joinStrings } from './joinStrings';
 import { translationToAnalysisItem } from './translationToAnalyzeItem';
@@ -33,22 +33,26 @@ const translationsAreMatched =
 export const prependTranslation = (
   analysisItems: AnalysisItem[],
   translation: Translation
-): AnalysisItem[] => {
+): ValidAnalysisItems => {
   const similarSources = analysisItems.filter(sourcesAreMatched(translation));
   const similarTranslations = similarSources.filter(
     translationsAreMatched(translation)
   );
 
-  if (similarTranslations.length === 1 && similarSources.length === 1) {
-    return analysisItems;
+  if (
+    similarTranslations.length === 1 &&
+    similarSources.length === 1 &&
+    analysisItems.length > 0
+  ) {
+    return [analysisItems[0], ...analysisItems.slice(1)];
   }
 
-  if (similarSources.length > 1) {
-    return analysisItems;
+  if (similarSources.length > 1 && analysisItems.length > 0) {
+    return [analysisItems[0], ...analysisItems.slice(1)];
   }
 
-  if (similarSources.length === 1) {
-    return analysisItems.map((item) => {
+  if (similarSources.length === 1 && analysisItems.length > 0) {
+    const remappedItems = analysisItems.map((item) => {
       if (item === similarSources[0]) {
         return {
           ...item,
@@ -61,6 +65,8 @@ export const prependTranslation = (
 
       return item;
     });
+
+    return [remappedItems[0], ...remappedItems.slice(1)];
   }
 
   return [translationToAnalysisItem(translation), ...analysisItems];

@@ -10,8 +10,10 @@ export type Translation = {
 
 export type DirectAnalyzePayload = {
   source: string;
+  target?: string;
   sourceLanguage?: GoogleLanguage;
   targetLanguage: GoogleLanguage;
+  partOfSpeech?: string;
   context?: string;
 };
 
@@ -40,19 +42,21 @@ export type AnalysisItem = {
   partOfSpeech?: string;
 };
 
+export type ValidAnalysisItems = [AnalysisItem, ...AnalysisItem[]];
+
 export type DirectAnalysis = {
   source: string;
   translation: Translation;
-  items?: AnalysisItem[];
+  items: ValidAnalysisItems;
 };
 
 export type ReverseAnalysis = DirectAnalysis & {
   target: string;
-  reverseTranslation: Translation;
+  reverseTranslations: Translation[];
 };
 
 export type Analysis = DirectAnalysis | ReverseAnalysis;
 
 export const isReverseAnalysis = (o: any): o is ReverseAnalysis => {
-  return !(!o || !o.target || !o.reverseTranslation);
+  return !(!o || !o.target || !o.reverseTranslations);
 };

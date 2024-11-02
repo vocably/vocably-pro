@@ -11,7 +11,7 @@ export const buildResult = async (
   payload: AnalyzePayload
 ): Promise<Result<Analysis>> => {
   if (isDirectAnalyzePayload(payload)) {
-    return buildDirectResult(payload);
+    return buildDirectResult({ payload });
   } else {
     return buildReverseResult(payload);
   }

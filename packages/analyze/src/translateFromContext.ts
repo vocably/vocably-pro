@@ -56,7 +56,25 @@ export const itMakesSense = (p: Payload): boolean => {
 export const translateFromContext = async (
   payload: Payload
 ): Promise<Result<Translation>> => {
-  const prompt = createPrompt(payload);
+  const source = truncateText(payload.source, 10);
+  const context = truncateText(payload.context, 50);
+
+  const isOnwWord = isOneWord(source);
+
+  const prompt = [
+    `Translate the ${languageList[payload.sourceLanguage]} word/phrase`,
+    source,
+    `that appears in the context of sentence:`,
+    context,
+    `from ${languageList[payload.sourceLanguage]} to ${
+      languageList[payload.targetLanguage]
+    }.`,
+    '',
+    `Respond in JSON, as in example: {"target": "the translated word"${
+      isOnwWord && ', "partOfSpeech": "noun"'
+    }}`,
+  ].join('\n');
+
   const responseResult = await chatGptRequest({
     prompt,
     model: GPT_4O_MINI,
@@ -88,27 +106,6 @@ export const translateFromContext = async (
   };
 };
 
-const truncateText = (text: string, maxTokens = 100): string => {
+export const truncateText = (text: string, maxTokens = 100): string => {
   return tokenize(text).slice(0, maxTokens).join(' ');
-};
-
-const createPrompt = (payload: Payload): string => {
-  const source = truncateText(payload.source, 10);
-  const context = truncateText(payload.context, 50);
-
-  const isOnwWord = isOneWord(source);
-
-  return [
-    `Translate the ${languageList[payload.sourceLanguage]} word/phrase`,
-    source,
-    `that appears in the context of sentence:`,
-    context,
-    `from ${languageList[payload.sourceLanguage]} to ${
-      languageList[payload.targetLanguage]
-    }.`,
-    '',
-    `Respond in JSON, as in example: {"target": "the translated word"${
-      isOnwWord && ', "partOfSpeech": "noun"'
-    }}`,
-  ].join('\n');
 };
