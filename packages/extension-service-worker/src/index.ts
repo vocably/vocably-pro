@@ -107,19 +107,17 @@ export const registerServiceWorker = (
       .then(() => true)
       .catch(() => false);
 
-    if (posthog._isIdentified()) {
-      return;
-    }
+    if (!posthog._isIdentified()) {
+      getUserAttributes().then((result) => {
+        if (!result.success) {
+          return;
+        }
 
-    getUserAttributes().then((result) => {
-      if (!result.success) {
-        return;
-      }
-
-      posthog.identify(result.value.sub, {
-        email: result.value.email,
+        posthog.identify(result.value.sub, {
+          email: result.value.email,
+        });
       });
-    });
+    }
 
     return sendResponse(isLoggedIn);
   });
