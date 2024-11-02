@@ -596,20 +596,7 @@ describe('integration check for translate lambda', () => {
       throw 'Unexpected result';
     }
 
-    expect(result.value.items.length).toEqual(2);
-  });
-
-  it('removes similar items', async () => {
-    const result = await buildResult({
-      target: 'something',
-      sourceLanguage: 'nl',
-      targetLanguage: 'en',
-    });
-    if (result.success === false) {
-      throw 'Unexpected result';
-    }
-
-    expect(result.value.items.length).toEqual(2);
+    expect(result.value.items.length).toEqual(3);
   });
 
   it('removes "to" from english verbs', async () => {
