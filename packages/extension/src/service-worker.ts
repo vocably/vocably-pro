@@ -38,6 +38,4 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   }
 });
 
-chrome.runtime.setUninstallURL(
-  'https://docs.google.com/forms/d/e/1FAIpQLSdMurLCVSOO6hfA9dOKvvqm260ZPDe9JKp8iNe8xwf0gbNyvQ/viewform?usp=sf_link'
-);
+chrome.runtime.setUninstallURL('https://app.vocably.pro/page/uninstall');
