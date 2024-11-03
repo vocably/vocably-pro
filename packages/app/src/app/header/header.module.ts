@@ -20,6 +20,6 @@ import { LogoComponent } from './logo/logo.component';
     MatIconModule,
     MatDividerModule,
   ],
-  exports: [HeaderComponent],
+  exports: [HeaderComponent, LogoComponent],
 })
 export class HeaderModule {}
