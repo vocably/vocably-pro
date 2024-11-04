@@ -90,7 +90,7 @@ $dark-theme: (
   toast-color: $v-gray-200,
 
   product-card-shadow-color: rgba(0, 0, 0, 0.69),
-  highlight-blend-mode: color-dodge,
+  highlight-color: #6689b0,
 );
 
 $light-theme: (
@@ -125,5 +125,5 @@ $light-theme: (
   toast-color: $v-gray-200,
 
   product-card-shadow-color: rgba(0, 0, 0, 0.69),
-  highlight-blend-mode: multiply,
+  highlight-color: #b4d7ff,
 );

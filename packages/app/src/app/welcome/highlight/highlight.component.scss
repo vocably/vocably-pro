@@ -12,10 +12,10 @@
     top: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--primary-color);
-    mix-blend-mode: var(--highlight-blend-mode);
+    background-color: var(--highlight-color);
     transition: width 2s;
     pointer-events: none;
+    z-index: -1;
 
     animation: highlight 4s forwards;
   }
