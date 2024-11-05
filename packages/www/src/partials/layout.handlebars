@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
     <title>Vocably{{#if title}} - {{title}}{{/if}}</title>
     <meta name="description" content="Translate and create high-quality flashcards from any words or phrases you see in your browser (including mobile) or in real life (with the mobile app)." />
     <meta property="og:type" content="website" />
@@ -15,6 +16,7 @@
     <meta property="og:url" content="{{htmlWebpackPlugin.options.environment.baseUrl}}{{url}}" />
     <meta property="og:image" content="{{htmlWebpackPlugin.options.environment.baseUrl}}/assets/og-image.png" />
     <link rel="canonical" href="{{htmlWebpackPlugin.options.canonicalHref}}" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js" async></script>
     <base href="/" />
   </head>
   <body id="page-top" class="d-flex flex-column h-100">
@@ -29,6 +31,7 @@
       })(window, document, "dataLayer", "{{ htmlWebpackPlugin.options.environment.piwikId }}");
     </script>
     <main class="flex-shrink-0 mb-5">
+      {{#unless hideLogo}}
       <div class="py-5 text-center">
         <a href="/#page-top"><img
           src="assets/logo.svg"
@@ -36,6 +39,7 @@
           class="nav-logo"
         /></a>
       </div>
+      {{/unless}}
 
       {{> @partial-block }}
     </main>

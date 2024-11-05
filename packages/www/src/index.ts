@@ -1,5 +1,6 @@
 import * as Bowser from 'bowser';
 import './bootstrap.scss';
+import './last-iphone';
 import './styles.scss';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
