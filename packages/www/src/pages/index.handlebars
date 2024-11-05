@@ -3,49 +3,66 @@
   url='/'
   hideLogo=true
 }}
-  <div class="container-fluid p-5">
-    <header class="mb-4 py-4">
-      <img src="assets/black-logo.svg" style="height: 2rem;" alt="Vocably Logo" />
-    </header>
-    <div class="row align-items-center">
-      <div class="col-5 h3 hero-text">
-        A powerful combination of<br />
-        a high-quality dictionary<br />
-        and flashcards.
+  <div class="hero-container">
+<!--    <header class="mb-4 py-4">-->
+<!--      <img src="assets/black-logo.svg" style="height: 2rem;" alt="Vocably Logo" />-->
+<!--    </header>-->
+    <div class="headline d-flex flex-column align-items-md-end justify-content-center z-1 ps-4 ps-md-0">
+      <div class="p-4 py-md-0 me-md-5">
+        <div class="mb-3">
+          <img src="assets/black-logo.svg" style="height: 1.5rem;" alt="Vocably Logo" />
+        </div>
+        <div class="headline-text">
+          A powerful combination&nbsp;of<br class="d-none d-md-block" />
+          a high-quality dictionary<br class="d-none d-md-block" />
+          and flashcards.
+        </div>
       </div>
-      <div class="col-7">
-        <swiper-container slides-per-view="1.1" space-between="20">
-          <swiper-slide>
-            <div class="hero-slide vh-lg-auto vh-80">
-              <div class="row">
-                <div class="col-xl-6 order-xl-1 fs-5 mb-4">
-                  <div>Instant, AI-powered translations on any site.</div>
-                  <div class="mt-4">Save your translations as top-quality flashcards.</div>
-                </div>
-                <div class="col-xl-6 order-xl-0">
-                  <div class="chrome-popup">
-                    <img class="image-shadow chrome-popup-popup" alt="Chrome popup example" src="assets/hero/chrome-popup.png" />
-                    <div class="chrome-popup-text mt-2"><img alt="Chrome popup text example" src="assets/hero/chrome-text.png" /></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    </div>
+    <div class="slides z-0 ps-4 ps-md-0">
+      <div class="vertical-center">
+        <swiper-container id="swiper" init="false" slides-per-view="auto">
+          <swiper-slide class="hero-slide">
+            Slide 1
           </swiper-slide>
-          <swiper-slide>
-            <div class="hero-slide">
-              <div class="row align-items-center">
-                <div class="col-3">
-                  <last-iphone style="width: 100%;" class="image-shadow">
-                    <img src="assets/hero/study.png" alt="Example of a quiz" />
-                  </last-iphone>
-                </div>
-                <div class="col-9 display-6" style="font-size: 2.2rem">
-                  Master your language flashcards with interactive quizzes and questions on the mobile app.
-                </div>
-              </div>
-            </div>
+          <swiper-slide class="hero-slide">
+            Slide 2
+          </swiper-slide>
+          <swiper-slide class="hero-slide">
+            Slide 3
           </swiper-slide>
         </swiper-container>
+
+        <div class="text-end mt-4 me-4">
+          <button id="swiper-prev" class="navigation-button"><i class="bi bi-arrow-left"></i></button>
+          <button id="swiper-next"  class="navigation-button"><i class="bi bi-arrow-right"></i></button>
+        </div>
+
+        <script>
+          const swiperEl= document.getElementById('swiper');
+          const swiperParams = {
+            spaceBetween: 20,
+            slidesPerView: 'auto',
+            slidesOffsetAfter: 32,
+            breakpoints: {
+              768: {
+                slidesOffsetBefore: 200,
+              }
+            },
+            navigation: {
+              nextEl: document.getElementById('swiper-next'),
+              prevEl: document.getElementById('swiper-prev'),
+            }
+          };
+
+          // now we need to assign all parameters to Swiper element
+          Object.assign(swiperEl, swiperParams);
+
+          // and now initialize it
+          setTimeout(() => {
+            swiperEl.initialize();
+          }, 100);
+        </script>
       </div>
     </div>
   </div>
