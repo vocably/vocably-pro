@@ -198,6 +198,11 @@ $hero-overlap: 200px;
   z-index: 0;
   border-radius: 3rem;
   font-weight: 300;
+  filter: drop-shadow(0px 0px 12px rgb(0, 80, 255));
+
+  &.cta-button-non-safari {
+    filter: none;
+  }
 }
 .cta-button::after {
   content: '';
@@ -211,8 +216,8 @@ $hero-overlap: 200px;
   border-radius: 3rem;
   transition: background-color 0.3s ease-in-out;
 }
-/* glow */
-.cta-button::before {
+
+.cta-button-non-safari::before {
   content: '';
   background: linear-gradient(
     45deg,
@@ -248,8 +253,8 @@ $hero-overlap: 200px;
   }
 }
 
-.cta-button:hover::before,
-.cta-button:focus::before {
+.cta-button-non-safari:hover::before,
+.cta-button-non-safari:focus::before {
   top: -6px;
   left: -6px;
   width: calc(100% + 12px);

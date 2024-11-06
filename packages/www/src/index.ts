@@ -52,3 +52,9 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   // @ts-ignore
   return new bootstrap.Tooltip(tooltipTriggerEl);
 });
+
+if (!browser.satisfies({ safari: '>=0' })) {
+  document
+    .querySelectorAll('.cta-button')
+    .forEach((button) => button.classList.add('cta-button-non-safari'));
+}
