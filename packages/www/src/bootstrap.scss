@@ -181,9 +181,13 @@ $hero-overlap: 200px;
   width: 50px;
   height: 50px;
   border: none;
+  color: #333;
 }
 
-/* button */
+.navigation-button:disabled {
+  color: #ccc;
+}
+
 .cta-button {
   padding: 15px 40px;
   border: none;
@@ -205,6 +209,7 @@ $hero-overlap: 200px;
   left: 0;
   top: 0;
   border-radius: 3rem;
+  transition: background-color 0.3s ease-in-out;
 }
 /* glow */
 .cta-button::before {
@@ -243,9 +248,19 @@ $hero-overlap: 200px;
   }
 }
 
-.cta-button:hover::before {
+.cta-button:hover::before,
+.cta-button:focus::before {
   top: -6px;
   left: -6px;
   width: calc(100% + 12px);
   height: calc(100% + 12px);
+}
+
+.cta-button:focus-visible::after {
+  outline: 2px solid white;
+  background-color: #444;
+}
+
+.cta-button:active::after {
+  background-color: #444;
 }
