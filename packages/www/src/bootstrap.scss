@@ -47,7 +47,7 @@ dl {
   margin-bottom: 4rem !important;
 }
 
-$hero-bg-color-byte: 245;
+$hero-bg-color-byte: 250;
 
 $hero-overlap: 200px;
 
@@ -124,12 +124,9 @@ $hero-overlap: 200px;
     $hero-bg-color-byte,
     $hero-bg-color-byte
   );
-  padding: 2rem;
   border-radius: 2rem;
 
   display: flex;
-  align-items: center;
-  justify-content: center;
 
   width: 260px;
   height: 480px;
@@ -274,8 +271,9 @@ $hero-overlap: 200px;
 
 .hfs-1 {
   font-size: 20px;
-
+  font-weight: 400;
   @media (min-width: map.get($grid-breakpoints, 'xxl')) {
     font-size: 24px;
+    font-weight: 300;
   }
 }
