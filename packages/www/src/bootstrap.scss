@@ -49,37 +49,6 @@ dl {
 
 $hero-bg-color-byte: 245;
 
-.chrome-popup {
-  text-align: center;
-
-  img {
-    width: 100%;
-  }
-
-  .chrome-popup-popup {
-  }
-
-  .chrome-popup-text {
-    position: relative;
-
-    &::after {
-      content: ' ';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      background: linear-gradient(
-        to top,
-        rgba($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte, 1)
-          20%,
-        rgba($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte, 0)
-          80%
-      );
-    }
-  }
-}
-
 $hero-overlap: 200px;
 
 .hero-container {
@@ -140,7 +109,7 @@ $hero-overlap: 200px;
     .vertical-center {
       position: relative;
       top: 50%;
-      transform: translateY(calc(-50% + 30px));
+      transform: translateY(calc(-50% + 68px));
     }
   }
 
@@ -268,4 +237,45 @@ $hero-overlap: 200px;
 
 .cta-button:active::after {
   background-color: #444;
+}
+
+// Slides
+
+.chrome-popup {
+  text-align: center;
+
+  img {
+    width: 100%;
+  }
+
+  .chrome-popup-popup {
+  }
+
+  .chrome-popup-text {
+    position: relative;
+
+    &::after {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(
+        to top,
+        rgba($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte, 1)
+          20%,
+        rgba($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte, 0)
+          80%
+      );
+    }
+  }
+}
+
+.hfs-1 {
+  font-size: 20px;
+
+  @media (min-width: map.get($grid-breakpoints, 'xxl')) {
+    font-size: 24px;
+  }
 }
