@@ -17,6 +17,37 @@
         <div class="mt-4 d-none d-md-block">
           <div class="w-75">
             <button class="cta-button d-block w-100">Set up. It's free.</button>
+            <div class="text-center mt-3 text-muted small">
+              Supports
+              <a
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Google Chrome"
+                class="link-secondary"
+                href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
+              ><i class="bi bi-browser-chrome"></i></a>
+              <a
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Safari (including Safari Mobile)"
+                class="link-secondary"
+                href="https://apps.apple.com/app/id6464076425"
+              ><i class="bi bi-browser-safari"></i></a>
+              <a
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="iOS"
+                class="link-secondary"
+                href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757"
+              ><i class="bi bi-apple"></i></a>
+              <a
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Android"
+                class="link-secondary"
+                href="https://play.google.com/store/apps/details?id=com.vocablypro"
+              ><i class="bi bi-android2"></i></a>
+            </div>
           </div>
         </div>
       </div>
@@ -40,18 +71,27 @@
           </swiper-slide>
           <swiper-slide class="hero-slide p-4 p-xxl-5 pb-0">
             <div class="row align-items-center">
-              <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4">
+              <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
                 Master your  words with interactive quizzes and questions.
               </div>
               <div class="col-xxl-6 order-xxl-0">
-                <last-iphone style="height: 350px;">
+                <latest-iphone mode="dark" style="height: 350px; display: block;">
                   <img src="assets/hero/study.png" />
-                </last-iphone>
+                </latest-iphone>
               </div>
             </div>
           </swiper-slide>
-          <swiper-slide class="hero-slide">
-            Slide 3
+          <swiper-slide class="hero-slide p-4 p-xxl-5 pb-0">
+            <div class="row align-items-center">
+              <div class="col-xxl-6 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-5">
+                Don’t know the right word? Search for it in your native language.
+              </div>
+              <div class="col-xxl-6">
+                <latest-iphone style="height: 350px; display: block;">
+                  <img src="assets/hero/reverse-translation.png" />
+                </latest-iphone>
+              </div>
+            </div>
           </swiper-slide>
         </swiper-container>
 
@@ -62,6 +102,38 @@
 
         <div class="mt-4 d-md-none pe-4">
           <button class="cta-button d-block w-100">Set up. It's free.</button>
+
+          <div class="text-center mt-3 text-muted small">
+            Supports
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Google Chrome"
+              class="link-secondary"
+              href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
+            ><i class="bi bi-browser-chrome"></i></a>
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Safari (including Safari Mobile)"
+              class="link-secondary"
+              href="https://apps.apple.com/app/id6464076425"
+            ><i class="bi bi-browser-safari"></i></a>
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="iOS"
+              class="link-secondary"
+              href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757"
+            ><i class="bi bi-apple"></i></a>
+            <a
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Android"
+              class="link-secondary"
+              href="https://play.google.com/store/apps/details?id=com.vocablypro"
+            ><i class="bi bi-android2"></i></a>
+          </div>
         </div>
 
         <script>
@@ -85,9 +157,7 @@
           Object.assign(swiperEl, swiperParams);
 
           // and now initialize it
-          setTimeout(() => {
-            swiperEl.initialize();
-          }, 100);
+          swiperEl.initialize();
         </script>
       </div>
     </div>

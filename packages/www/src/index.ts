@@ -1,6 +1,6 @@
 import * as Bowser from 'bowser';
 import './bootstrap.scss';
-import './last-iphone';
+import './latest-iphone';
 import './styles.scss';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
@@ -48,7 +48,8 @@ if (
 var tooltipTriggerList = [].slice.call(
   document.querySelectorAll('[data-bs-toggle="tooltip"]')
 );
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+
+tooltipTriggerList.map(function (tooltipTriggerEl) {
   // @ts-ignore
   return new bootstrap.Tooltip(tooltipTriggerEl);
 });
