@@ -148,6 +148,7 @@ $hero-overlap: 200px;
   height: 50px;
   border: none;
   color: #333;
+  background-color: #eee;
 }
 
 .navigation-button:disabled {
@@ -276,4 +277,8 @@ $hero-overlap: 200px;
     font-size: 24px;
     font-weight: 300;
   }
+}
+
+.container-md {
+  max-width: map.get($container-max-widths, 'md');
 }
