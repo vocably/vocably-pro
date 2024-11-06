@@ -8,14 +8,19 @@
 <!--      <img src="assets/black-logo.svg" style="height: 2rem;" alt="Vocably Logo" />-->
 <!--    </header>-->
     <div class="headline d-flex flex-column align-items-md-end justify-content-center z-1 ps-4 ps-md-0">
-      <div class="p-4 py-md-0 me-md-5">
+      <div class="p-4 py-md-0 me-md-5" style="pointer-events: all">
         <div class="mb-3">
           <img src="assets/black-logo.svg" style="height: 1.5rem;" alt="Vocably Logo" />
         </div>
         <div class="headline-text">
           A powerful combination&nbsp;of<br class="d-none d-md-block" />
-          a high-quality dictionary<br class="d-none d-md-block" />
+          a <span class="text-nowrap">high-quality</span> dictionary<br class="d-none d-md-block" />
           and flashcards.
+        </div>
+        <div class="mt-4 d-none d-md-block">
+          <div class="w-75">
+            <button class="cta-button d-block w-100">Set up. It's free.</button>
+          </div>
         </div>
       </div>
     </div>
@@ -33,7 +38,7 @@
           </swiper-slide>
         </swiper-container>
 
-        <div class="text-end mt-4 me-4">
+        <div class="text-end mt-4 me-5">
           <button id="swiper-prev" class="navigation-button"><i class="bi bi-arrow-left"></i></button>
           <button id="swiper-next"  class="navigation-button"><i class="bi bi-arrow-right"></i></button>
         </div>
