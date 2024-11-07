@@ -1,0 +1,28 @@
+module.exports = {
+  templateOptions: {
+    languages: [
+      { code: 'en', name: 'English' },
+      { code: 'es', name: 'Spanish' },
+      { code: 'fr', name: 'French' },
+      { code: 'de', name: 'German' },
+      { code: 'it', name: 'Italian' },
+      { code: 'pt', name: 'Portuguese' },
+      { code: 'nl', name: 'Dutch' },
+      { code: 'ja', name: 'Japanese' },
+      { code: 'ar', name: 'Arabic' },
+      { code: 'cs', name: 'Czech' },
+      { code: 'dk', name: 'Danish' },
+      { code: 'el', name: 'Greek' },
+      { code: 'he', name: 'Hebrew' },
+      { code: 'hi', name: 'Hindi' },
+      { code: 'ko', name: 'Korean' },
+      { code: 'no', name: 'Norwegian' },
+      { code: 'pl', name: 'Polish' },
+      { code: 'ru', name: 'Russian' },
+      { code: 'sv', name: 'Swedish' },
+      { code: 'th', name: 'Thai' },
+      { code: 'tr', name: 'Turkish' },
+      { code: 'zh', name: 'Chinese' },
+    ],
+  },
+};

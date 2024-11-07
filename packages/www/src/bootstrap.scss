@@ -282,3 +282,47 @@ $hero-overlap: 200px;
 .container-md {
   max-width: map.get($container-max-widths, 'md');
 }
+
+.container-lg {
+  max-width: map.get($container-max-widths, 'lg');
+}
+
+$languages-bg-r: 80;
+$languages-bg-g: 135;
+$languages-bg-b: 255;
+
+.languages-container {
+  background-color: rgb($languages-bg-r, $languages-bg-g, $languages-bg-b);
+  color: white;
+  padding: 96px 24px;
+}
+
+.languages-swiper {
+  --swiper-theme-color: white;
+  --swiper-navigation-sides-offset: 0px;
+
+  &::part(button-next) {
+    background: linear-gradient(
+      to right,
+      rgba($languages-bg-r, $languages-bg-g, $languages-bg-b, 0) 0,
+      rgba($languages-bg-r, $languages-bg-g, $languages-bg-b, 1) 50%
+    );
+  }
+
+  &::part(button-prev) {
+    background: linear-gradient(
+      to left,
+      rgba($languages-bg-r, $languages-bg-g, $languages-bg-b, 0) 0,
+      rgba($languages-bg-r, $languages-bg-g, $languages-bg-b, 1) 50%
+    );
+  }
+}
+
+.language-slide {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  pointer-events: none;
+}

@@ -100,7 +100,7 @@
           <button id="swiper-next"  class="navigation-button"><i class="bi bi-arrow-right"></i></button>
         </div>
 
-        <div class="mt-4 d-md-none pe-4">
+        <div class="mt-4 d-md-none pe-4 mb-5">
           <button class="cta-button d-block w-100">Set up. It's free.</button>
 
           <div class="text-center mt-3 text-muted small">
@@ -160,6 +160,19 @@
           swiperEl.initialize();
         </script>
       </div>
+    </div>
+  </div>
+
+  <div class="languages-container">
+    <div class="container-lg text-center">
+      <swiper-container class="languages-swiper" slides-per-view="auto" space-between="20" navigation="true" slides-offset-before="40" slides-offset-after="40" slides-per-group="2">
+        {{#each htmlWebpackPlugin.options.environment.languages}}
+          <swiper-slide class="language-slide">
+            <img alt="{{ this.name }} flag" class="flag" src="assets/language-flags/{{this.code}}.svg" />
+            <span class="language">{{this.name}}</span>
+          </swiper-slide>
+        {{/each}}
+      </swiper-container>
     </div>
   </div>
 
