@@ -333,14 +333,15 @@ $languages-bg-b: 254;
   padding: 96px 32px;
   background: linear-gradient(
     180deg,
-    rgba($languages-bg-r, $languages-bg-g, $languages-bg-b, 0.9) 0%,
+    rgba($languages-bg-r, $languages-bg-g, $languages-bg-b, 0.8) 0%,
     rgba(255, 255, 255, 1) 75%
   );
 
   a {
     display: block;
-    width: 120px;
+    width: min(14vw, 96px);
     text-align: center;
+    font-size: 0.9rem;
 
     img {
       filter: grayscale(1);
