@@ -53,7 +53,7 @@
     <div class="slides z-0 ps-4 ps-md-0">
       <div class="vertical-center">
         <swiper-container id="swiper" init="false" slides-per-view="auto">
-          <swiper-slide class="hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5">
+          <swiper-slide id="slide-extension-translations" class="hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5">
             <div class="row">
               <div class="col-xxl-5 order-xxl-1 mb-4 hfs-1">
                 <div>Instant, <span class="text-nowrap">AI-powered</span> translations on any site.</div>
@@ -67,19 +67,29 @@
               </div>
             </div>
           </swiper-slide>
-          <swiper-slide class="hero-slide p-4 p-xxl-5 pb-0">
+          <swiper-slide id="slide-quizzes" class="hero-slide p-4 p-xxl-5 pb-0">
             <div class="row align-items-center">
               <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
                 Master your  words with interactive quizzes and questions.
               </div>
               <div class="col-xxl-6 order-xxl-0">
                 <latest-iphone mode="dark" style="height: 350px; display: block;">
-                  <img src="assets/hero/study.png" />
+                  <img src="assets/hero/study.png" alt="Study on your mobile" />
                 </latest-iphone>
               </div>
             </div>
           </swiper-slide>
-          <swiper-slide class="hero-slide p-4 p-xxl-5 pb-0">
+          <swiper-slide id="slide-youtube" class="hero-slide pt-4 ps-4 pe-4 p-xxl-5 pb-0 youtube">
+            <div class="row align-items-center">
+              <div class="col-xxl-3 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
+                Look up words directly on YouTube.
+              </div>
+              <div class="col-xxl-9 order-xxl-0">
+                <img src="assets/hero/youtube.png" class="image-shadow" alt="Look up on YouTube" />
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide id="slide-reverse" class="hero-slide p-4 p-xxl-5 pb-0">
             <div class="row align-items-center">
               <div class="col-xxl-6 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-5">
                 Don’t know the right word? Search for it in your native language.
