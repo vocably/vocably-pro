@@ -162,7 +162,6 @@ $hero-overlap: 200px;
     @media (max-width: map.get($grid-breakpoints, 'xxl')) {
       width: 200%;
       position: relative;
-      left: -24px;
       filter: none;
     }
   }
