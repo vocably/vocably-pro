@@ -55,7 +55,7 @@ $hero-overlap: 200px;
   position: relative;
 
   @media (min-width: map.get($grid-breakpoints, 'md')) {
-    height: 95vh;
+    height: 80vh;
   }
 }
 
@@ -289,17 +289,16 @@ $hero-overlap: 200px;
   max-width: map.get($container-max-widths, 'lg');
 }
 
-$languages-bg-r: 41;
-$languages-bg-g: 164;
-$languages-bg-b: 254;
+$languages-bg-r: 255;
+$languages-bg-g: 255;
+$languages-bg-b: 255;
 
 .languages-container {
   background-color: rgb($languages-bg-r, $languages-bg-g, $languages-bg-b);
-  color: white;
-  padding: 96px 16px;
+  color: #333;
 
   .languages-swiper {
-    --swiper-theme-color: white;
+    --swiper-theme-color: #333;
     --swiper-navigation-sides-offset: 0px;
 
     &::part(button-next) {
@@ -326,27 +325,24 @@ $languages-bg-b: 254;
     justify-content: center;
     gap: 4px;
     pointer-events: none;
+    font-size: 1rem;
   }
 }
 
 .platforms {
-  padding: 96px 32px;
-  background: linear-gradient(
-    210deg,
-    rgba(144, 238, 144, 0.4) 0%,
-    rgba(144, 238, 144, 0.9) 100%
-  );
-
   a {
     display: block;
-    width: min(14vw, 96px);
+    width: 1.5rem;
     text-align: center;
-    font-size: 0.9rem;
 
     img {
       filter: brightness(1) grayscale(1);
       width: 100%;
       transition: all 0.3s ease-in-out;
+    }
+
+    span {
+      display: none;
     }
 
     &.android {

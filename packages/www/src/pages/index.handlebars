@@ -17,36 +17,34 @@
         <div class="mt-4 d-none d-md-block">
           <div class="w-75">
             <button class="cta-button d-block w-100">Set up. It's free.</button>
-            <div class="text-center mt-3 text-muted small">
-              Supports
-              <a
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                title="Google Chrome"
-                class="link-secondary"
-                href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
-              ><i class="bi bi-browser-chrome"></i></a>
-              <a
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                title="Safari (including Safari Mobile)"
-                class="link-secondary"
-                href="https://apps.apple.com/app/id6464076425"
-              ><i class="bi bi-browser-safari"></i></a>
-              <a
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                title="iOS"
-                class="link-secondary"
-                href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757"
-              ><i class="bi bi-apple"></i></a>
-              <a
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                title="Android"
-                class="link-secondary"
-                href="https://play.google.com/store/apps/details?id=com.vocablypro"
-              ><i class="bi bi-android2"></i></a>
+            <div class="mt-2 d-flex flex-direction-row align-items-center justify-content-center gap-2">
+              <span class="small">Supports</span>
+              <ul class="platforms list-unstyled d-inline-flex align-items-start justify-content-center gap-2 align-middle m-0">
+                <li>
+                  <a href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb" target="_blank">
+                    <img src="assets/chrome.svg" alt="Chrome Logo" />
+                    <span>Chrome</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://apps.apple.com/app/id6464076425" target="_blank">
+                    <img src="assets/safari.svg" alt="Safari Logo" />
+                    <span>Safari</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://play.google.com/store/apps/details?id=com.vocablypro" class="android" target="_blank">
+                    <img src="assets/android.svg" alt="Android Logo" />
+                    <span>Android</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757" target="_blank">
+                    <img src="assets/apple.svg" alt="Apple Logo" />
+                    <span>iOS</span>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -103,36 +101,34 @@
         <div class="mt-4 d-md-none pe-4 mb-5">
           <button class="cta-button d-block w-100">Set up. It's free.</button>
 
-          <div class="text-center mt-3 text-muted small">
-            Supports
-            <a
-              data-bs-toggle="tooltip"
-              data-bs-placement="bottom"
-              title="Google Chrome"
-              class="link-secondary"
-              href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
-            ><i class="bi bi-browser-chrome"></i></a>
-            <a
-              data-bs-toggle="tooltip"
-              data-bs-placement="bottom"
-              title="Safari (including Safari Mobile)"
-              class="link-secondary"
-              href="https://apps.apple.com/app/id6464076425"
-            ><i class="bi bi-browser-safari"></i></a>
-            <a
-              data-bs-toggle="tooltip"
-              data-bs-placement="bottom"
-              title="iOS"
-              class="link-secondary"
-              href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757"
-            ><i class="bi bi-apple"></i></a>
-            <a
-              data-bs-toggle="tooltip"
-              data-bs-placement="bottom"
-              title="Android"
-              class="link-secondary"
-              href="https://play.google.com/store/apps/details?id=com.vocablypro"
-            ><i class="bi bi-android2"></i></a>
+          <div class="d-flex align-items-center justify-content-center mt-3 mb-2 text-muted small gap-2">
+            <span>Supports</span>
+            <ul class="platforms list-unstyled d-inline-flex align-items-start justify-content-center gap-2 m-0">
+              <li>
+                <a href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb" target="_blank">
+                  <img src="assets/chrome.svg" alt="Chrome Logo" />
+                  <span>Chrome</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://apps.apple.com/app/id6464076425" target="_blank">
+                  <img src="assets/safari.svg" alt="Safari Logo" />
+                  <span>Safari</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://play.google.com/store/apps/details?id=com.vocablypro" class="android" target="_blank">
+                  <img src="assets/android.svg" alt="Android Logo" />
+                  <span>Android</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757" target="_blank">
+                  <img src="assets/apple.svg" alt="Apple Logo" />
+                  <span>iOS</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -163,7 +159,7 @@
     </div>
   </div>
 
-  <div class="languages-container">
+  <div class="languages-container mb-5 px-3 mt-md-5">
     <div class="container-lg text-center">
       <swiper-container class="languages-swiper" slides-per-view="auto" space-between="20" navigation="true" slides-offset-before="40" slides-offset-after="40" slides-per-group="2">
         {{#each htmlWebpackPlugin.options.environment.languages}}
@@ -173,38 +169,6 @@
           </swiper-slide>
         {{/each}}
       </swiper-container>
-    </div>
-  </div>
-
-  <div class="platforms">
-    <div class="container-lg text-center">
-      <h1 class="h5 gradient-headline">Available when you need it</h1>
-      <ul class="list-unstyled d-flex align-items-start justify-content-center gap-3 gap-md-4">
-        <li>
-          <a href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb" target="_blank">
-            <img src="assets/chrome.svg" alt="Chrome Logo" />
-            <span>Chrome</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://apps.apple.com/app/id6464076425" target="_blank">
-            <img src="assets/safari.svg" alt="Safari Logo" />
-            <span>Safari</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://play.google.com/store/apps/details?id=com.vocablypro" class="android" target="_blank">
-            <img src="assets/android.svg" alt="Android Logo" />
-            <span>Android</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757" target="_blank">
-            <img src="assets/apple.svg" alt="Apple Logo" />
-            <span>iOS</span>
-          </a>
-        </li>
-      </ul>
     </div>
   </div>
 
