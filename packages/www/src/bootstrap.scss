@@ -154,6 +154,18 @@ $hero-overlap: 200px;
     rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte) 60%,
     #eee
   );
+
+  img {
+    width: 100%;
+    filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.4));
+
+    @media (max-width: map.get($grid-breakpoints, 'xxl')) {
+      width: 200%;
+      position: relative;
+      left: -24px;
+      filter: none;
+    }
+  }
 }
 
 #slide-reverse {
@@ -181,18 +193,6 @@ $hero-overlap: 200px;
 
   .image-shadow {
     filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.4));
-  }
-
-  &.youtube {
-    img {
-      width: 100%;
-
-      @media (max-width: map.get($grid-breakpoints, 'xxl')) {
-        width: 200%;
-        position: relative;
-        left: -24px;
-      }
-    }
   }
 }
 
@@ -379,6 +379,7 @@ $languages-bg-b: 255;
     gap: 4px;
     pointer-events: none;
     font-size: 1rem;
+    line-height: 2.5rem;
   }
 }
 
