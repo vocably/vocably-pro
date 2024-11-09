@@ -70,6 +70,9 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
       <View
         style={{
           marginTop: 8,
+          marginRight: 8,
+          // To prevent jumping
+          height: 87,
         }}
       >
         <IconButton
@@ -78,6 +81,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
           iconColor={!item.id ? theme.colors.primary : theme.colors.error}
           onPress={toggleCard}
           disabled={isProcessing}
+          style={{ margin: 0 }}
         />
         {item.id && (
           <TagsSelector
@@ -90,6 +94,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
                 iconColor={theme.colors.primary}
                 onPress={openMenu}
                 disabled={disabled}
+                style={{ margin: 0 }}
               />
             )}
           />

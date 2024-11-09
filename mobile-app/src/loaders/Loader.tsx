@@ -21,7 +21,10 @@ export const Loader: FC<Loader> = ({ children }) => {
         style={{ marginBottom: 20 }}
         size={25}
       ></ActivityIndicator>
-      <Text variant="bodyLarge" style={{ marginBottom: 15 }}>
+      <Text
+        variant="bodyLarge"
+        style={{ width: '100%', marginBottom: 15, textAlign: 'center' }}
+      >
         {children}
       </Text>
     </View>

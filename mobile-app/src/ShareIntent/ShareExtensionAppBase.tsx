@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { FC } from 'react';
-import { BackHandler, Platform } from 'react-native';
+import { BackHandler, Platform, StatusBar } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ShareMenuReactView } from 'react-native-share-menu';
@@ -24,6 +24,7 @@ type Props = {
 export const ShareIntentAppBase: FC<Props> = ({ os }) => {
   return (
     <ThemeProvider>
+      <StatusBar hidden />
       <Viewport os={os}>
         <NavigationContainer>
           <PostHogProvider>

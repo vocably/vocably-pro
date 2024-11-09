@@ -1,4 +1,5 @@
 import * as Bowser from 'bowser';
+import './android';
 import './bootstrap.scss';
 import './iphone';
 import './styles.scss';
