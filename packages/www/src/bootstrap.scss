@@ -176,6 +176,15 @@ $hero-overlap: 200px;
   );
 }
 
+#android-lookup {
+  background: linear-gradient(
+    235deg,
+    rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte),
+    rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte) 60%,
+    #eee
+  );
+}
+
 .hero-slide {
   border-radius: 2rem;
   overflow: hidden;

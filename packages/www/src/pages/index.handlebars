@@ -58,11 +58,137 @@
               <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
                 Look up from any app
               </div>
+              <style>
+                .lookup-animation {
+                  height: 350px;
+                  display: block;
+                  position: relative;
+                }
+
+                .lookup-animation-scene-init {
+                  width: 100%;
+                }
+
+                .lookup-animation-scene {
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  height: 100%;
+                  opacity: 0;
+                  transition: all 0.5s ease-in-out;
+                }
+
+                .animation-scene-visible {
+                  opacity: 1;
+                }
+
+                .popup {
+                  top: 50px;
+                }
+
+                .popup.animation-scene-visible {
+                  top: 0;
+                }
+
+                .three-dots-click {
+                  content: ' ';
+                  position: absolute;
+                  left: 80.3926546500804%;
+                  top: 50.4418401790116%;
+                  width: 1.8rem;
+                  height: 1.8rem;
+                  background: #373737;
+                  border-radius: 50%;
+                  transform: translate(-50%, -50%);
+                  opacity: 0;
+                  transition: all 0.05s ease-in-out;
+                }
+
+                .three-dots-click.visible {
+                  opacity: 0.5;
+                }
+
+                .translate-with-vocably {
+                  background: #373737;
+                  content: ' ';
+                  position: absolute;
+                  left: 44.8506389100449%;
+                  top: 43.0462320324648%;
+                  width: 41.4656850300415%;
+                  height: 5.1200364091478%;
+                  opacity: 0;
+                  transition: all 0.2s ease-in-out;
+                }
+
+                .translate-with-vocably.visible {
+                  opacity: 0.5;
+                }
+              </style>
               <div class="col-xxl-6 order-xxl-0">
-                <pixel-9-pro mode="dark" style="height: 350px; display: block;">
-                  <img src="assets/hero/study.png" width="100%" alt="Study on your mobile" />
+                <pixel-9-pro id="lookup-animation" class="lookup-animation">
+                  <img id="lookup-animation-01"
+                       class="lookup-animation-scene-init"
+                       src="assets/hero/android-lookup-01.png"
+                       alt="Share"
+                  />
+                  <img id="lookup-animation-02"
+                       class="lookup-animation-scene"
+                       src="assets/hero/android-lookup-02.png"
+                       alt="Share"
+                  />
+                  <div id="three-dots-click" class="three-dots-click"></div>
+                  <img id="lookup-animation-03"
+                       class="lookup-animation-scene"
+                       src="assets/hero/android-lookup-03.png"
+                       alt="Share"
+                  />
+                  <div id="translate-with-vocably" class="translate-with-vocably"></div>
+                  <img id="lookup-animation-04"
+                       class="lookup-animation-scene popup"
+                       src="assets/hero/android-lookup-04.png"
+                       alt="Share"
+                  />
                 </pixel-9-pro>
               </div>
+              <script>
+                async function androidLookUpAnimation() {
+                  const lookupAnimation = document.getElementById('lookup-animation');
+
+                  const img1 = document.getElementById('lookup-animation-01');
+                  const img2 = document.getElementById('lookup-animation-02');
+                  const threeDotsClick = document.getElementById('three-dots-click');
+                  const img3 = document.getElementById('lookup-animation-03');
+                  const translateWithVocably = document.getElementById('translate-with-vocably');
+                  const img4 = document.getElementById('lookup-animation-04');
+
+                  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+                  const visible = 'animation-scene-visible';
+
+                  while(true) {
+                    await delay(1500);
+                    img2.classList.add(visible);
+                    await delay(800);
+                    threeDotsClick.classList.add('visible');
+                    await delay(200);
+                    threeDotsClick.classList.remove('visible');
+                    await delay(200);
+                    img2.classList.remove(visible);
+                    img3.classList.add(visible);
+                    await delay(800);
+                    translateWithVocably.classList.add('visible');
+                    await delay(200);
+                    translateWithVocably.classList.remove('visible');
+                    await delay(200);
+                    img3.classList.remove(visible)
+                    img4.classList.add(visible);
+                    translateWithVocably.classList.remove('visible');
+                    await delay(3000);
+                    img4.classList.remove(visible);
+                  }
+                }
+
+                androidLookUpAnimation();
+              </script>
             </div>
           </swiper-slide>
           <swiper-slide id="slide-extension-translations" class="hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5">
