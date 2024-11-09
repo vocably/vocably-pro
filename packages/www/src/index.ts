@@ -10,7 +10,17 @@ const isIos = browser.is('ios');
 
 document.querySelectorAll('.hide-android').forEach((el) => {
   if (isAndroid) {
-    el.classList.add('d-none');
+    el.remove();
+  } else {
+    el.classList.remove('hide-android');
+  }
+});
+
+document.querySelectorAll('.show-android').forEach((el) => {
+  if (!isAndroid) {
+    el.remove();
+  } else {
+    el.classList.remove('show-android');
   }
 });
 

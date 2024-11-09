@@ -3,6 +3,15 @@
   url='/'
   hideLogo=true
 }}
+  <style>
+    .show-android {
+      visibility: hidden;
+    }
+
+    .hide-android {
+      visibility: hidden;
+    }
+  </style>
   <div class="hero-container">
     <div class="headline d-flex flex-column align-items-md-end justify-content-center z-1 ps-4 ps-md-0">
       <div class="p-4 py-md-0 me-md-5" style="pointer-events: all">
@@ -16,7 +25,7 @@
         </div>
         <div class="mt-4 d-none d-md-block">
           <div class="w-75">
-            <button class="cta-button d-block w-100">Set up. It's free.</button>
+            <button class="cta-button d-block w-100">Install. It's free.</button>
             <div class="mt-2 d-flex flex-direction-row align-items-center justify-content-center gap-2">
               <span class="small">Supports</span>
               <ul class="platforms list-unstyled d-inline-flex align-items-start justify-content-center gap-2 align-middle m-0">
@@ -53,7 +62,9 @@
     <div class="slides z-0 ps-4 ps-md-0">
       <div class="vertical-center">
         <swiper-container id="swiper" init="false" slides-per-view="auto">
-          <swiper-slide id="android-lookup" class="hero-slide p-4 p-xxl-5 pb-0">
+          <swiper-slide
+              class="android-lookup show-android hero-slide p-4 p-xxl-5 pb-0"
+          >
             <div class="row align-items-center">
               <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
                 Translate and create top-quality word-cards directly from any app on your device.
@@ -191,7 +202,9 @@
               </script>
             </div>
           </swiper-slide>
-          <swiper-slide id="slide-extension-translations" class="hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5">
+          <swiper-slide
+            class="slide-extension-translations hide-android hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5"
+          >
             <div class="row">
               <div class="col-xxl-5 order-xxl-1 mb-4 hfs-1">
                 <div>Instant, <span class="text-nowrap">AI-powered</span> translations on any site.</div>
@@ -205,19 +218,26 @@
               </div>
             </div>
           </swiper-slide>
-          <swiper-slide id="slide-quizzes" class="hero-slide p-4 p-xxl-5 pb-0">
+          <swiper-slide
+            class="slide-quizzes hero-slide p-4 p-xxl-5 pb-0"
+          >
             <div class="row align-items-center">
               <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
                 Master your  words with interactive quizzes and questions.
               </div>
               <div class="col-xxl-6 order-xxl-0">
-                <iphone-16-max mode="dark" style="height: 350px; display: block;">
+                <iphone-16-max class="hide-android" mode="dark" style="height: 350px; display: block;">
                   <img src="assets/hero/study.png" width="100%" alt="Study on your mobile" />
                 </iphone-16-max>
+                <pixel-9-pro class="show-android" mode="light" style="margin-top: 24px; height: 350px; display: block;">
+                  <img src="assets/hero/study-android.png" width="100%" alt="Study on your mobile" />
+                </pixel-9-pro>
               </div>
             </div>
           </swiper-slide>
-          <swiper-slide id="slide-youtube" class="hero-slide pt-4 ps-4 pe-4 p-xxl-5 pb-0 youtube">
+          <swiper-slide
+            class="slide-youtube hide-android hero-slide pt-4 ps-4 pe-4 p-xxl-5 pb-0"
+          >
             <div class="row align-items-center">
               <div class="col-xxl-3 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
                 Look up words directly on YouTube.
@@ -227,15 +247,35 @@
               </div>
             </div>
           </swiper-slide>
-          <swiper-slide id="slide-reverse" class="hero-slide p-4 p-xxl-5 pb-0">
+          <swiper-slide
+            class="slide-reverse hero-slide p-4 p-xxl-5 pb-0"
+          >
             <div class="row align-items-center">
               <div class="col-xxl-6 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-5">
                 Don’t know the right word? Search for it in your native language.
               </div>
               <div class="col-xxl-6">
-                <iphone-16-max style="height: 350px; display: block;">
+                <iphone-16-max class="hide-android" style="height: 350px; display: block;">
                   <img src="assets/hero/reverse-translation.png" width="100%" />
                 </iphone-16-max>
+                <pixel-9-pro class="show-android" mode="light" style="margin-top: 24px; height: 350px; display: block;">
+                  <img src="assets/hero/reverse-translation.png" width="100%" alt="Study on your mobile" />
+                </pixel-9-pro>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide
+            class="slide-extension-translations show-android hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5"
+          >
+            <div class="row">
+              <div class="col-xxl-5 order-xxl-1 mb-4 hfs-1">
+                <div>Available as a browser extension for Desktop Chrome and Safari.</div>
+              </div>
+              <div class="col-xxl-7 order-xxl-0">
+                <div class="chrome-popup">
+                  <img class="image-shadow chrome-popup-popup" alt="Chrome popup example" src="assets/hero/chrome-popup.png" />
+                  <div class="chrome-popup-text mt-2"><img alt="Chrome popup text example" src="assets/hero/chrome-text.png" /></div>
+                </div>
               </div>
             </div>
           </swiper-slide>
@@ -247,7 +287,7 @@
         </div>
 
         <div class="mt-4 d-md-none pe-4 mb-5">
-          <button class="cta-button d-block w-100">Set up. It's free.</button>
+          <button class="cta-button d-block w-100">Install. It's free.</button>
 
           <div class="d-flex align-items-center justify-content-center mt-3 mb-2 text-muted small gap-2">
             <span>Supports</span>

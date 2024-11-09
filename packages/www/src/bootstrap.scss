@@ -62,6 +62,7 @@ $hero-overlap: 200px;
 .gradient-headline {
   background: linear-gradient(#555, #222, #555);
   background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -120,7 +121,7 @@ $hero-overlap: 200px;
   }
 }
 
-#slide-extension-translations {
+.slide-extension-translations {
   @media (min-width: map.get($grid-breakpoints, 'xxl')) {
     background: linear-gradient(
       to right,
@@ -138,7 +139,7 @@ $hero-overlap: 200px;
   );
 }
 
-#slide-quizzes {
+.slide-quizzes {
   background: linear-gradient(
     108deg,
     rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte),
@@ -147,7 +148,7 @@ $hero-overlap: 200px;
   );
 }
 
-#slide-youtube {
+.slide-youtube {
   background: linear-gradient(
     180deg,
     rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte),
@@ -167,7 +168,7 @@ $hero-overlap: 200px;
   }
 }
 
-#slide-reverse {
+.slide-reverse {
   background: linear-gradient(
     47deg,
     rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte),
@@ -176,7 +177,7 @@ $hero-overlap: 200px;
   );
 }
 
-#android-lookup {
+.android-lookup {
   background: linear-gradient(
     235deg,
     rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte),
