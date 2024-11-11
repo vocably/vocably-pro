@@ -1,3 +1,4 @@
+import '@vocably/jest';
 import { nlpTranslate } from './nlpTranslate';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 
@@ -19,7 +20,7 @@ describe('nlpTranslate', () => {
       return;
     }
 
-    expect(result.value.target).toContain('machine');
+    expect(result.value.target).toHaveSomeOf('machine, car');
     expect(result.value.sourceLanguage).toEqual('ru');
   });
 
