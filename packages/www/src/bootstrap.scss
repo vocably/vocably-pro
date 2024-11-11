@@ -1,12 +1,35 @@
+@use 'sass:map';
+
 @import '~@vocably/styles/variables';
 @import './styles/variables.scss';
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';
 
-$container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 720px,
-  xl: 720px,
-  xxl: 720px,
+$display-font-sizes: (
+  1: 5rem,
+  2: 4.5rem,
+  3: 4rem,
+  4: 3.5rem,
+  5: 3rem,
+  6: 2.5rem,
+  7: 2rem,
+  8: 1.2rem,
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    'font-size':
+      map-merge(
+        map-get($utilities, 'font-size'),
+        (
+          responsive: true,
+        )
+      ),
+  )
 );
 
 $headings-margin-bottom: 2rem;
@@ -22,4 +45,23 @@ dl {
 
 .mb-5 {
   margin-bottom: 4rem !important;
+}
+
+$hero-bg-color-byte: 250;
+
+.hfs-1 {
+  font-size: 20px;
+  font-weight: 400;
+  @media (min-width: map.get($grid-breakpoints, 'xxl')) {
+    font-size: 24px;
+    font-weight: 300;
+  }
+}
+
+.container-md {
+  max-width: map.get($container-max-widths, 'md');
+}
+
+.container-lg {
+  max-width: map.get($container-max-widths, 'lg');
 }

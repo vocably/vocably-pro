@@ -4,6 +4,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const WebpackWatchPlugin = require('webpack-watch-files-plugin').default;
 const { environment } = require('./environment');
 const glob = require('glob');
+const { templateOptions } = require('./template-options');
 
 const pagesDir = `./src/pages`;
 const handlebarsExtension = `handlebars`;
@@ -70,7 +71,10 @@ module.exports = (env) => {
           canonicalHref: canonicalHref,
           inject: true,
           favicon: './src/favicon.ico',
-          environment,
+          environment: {
+            ...environment,
+            ...templateOptions,
+          },
         });
       }),
       new MiniCssExtractPlugin({

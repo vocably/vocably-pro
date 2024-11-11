@@ -1,207 +1,905 @@
 {{#> layout
-  title='Translate once. Remember forever.'
+  title='Language Flashcards'
   url='/'
+  hideLogo=true
 }}
-  <div class="container-sm text-center">
-    <h1 class="mb-5">Translate unknown&nbsp;words and&nbsp;learn them as flashcards.</h1>
-    <div class="mb-5">
-      Language learning is mainly about building up vocabulary. This mobile app and browser extension are ideal for those who understand basic grammar and use a new language daily.
-    </div>
-    <div class="mb-5">
-      <div>
-        <div class="d-inline-block position-relative">
-          <div class="opacity-50">
-            <i class="bi-star-fill"></i>
-            <i class="bi-star-fill"></i>
-            <i class="bi-star-fill"></i>
-            <i class="bi-star-fill"></i>
-            <i class="bi-star-fill"></i>
-          </div>
-          <div class="position-absolute white text-warning" style="left:0; top:0; width:96.2%;white-space: nowrap;overflow: hidden;">
-            <i class="bi-star-fill"></i>
-            <i class="bi-star-fill"></i>
-            <i class="bi-star-fill"></i>
-            <i class="bi-star-fill"></i>
-            <i class="bi-star-fill"></i>
-          </div>
-        </div>
-        <br /><button
-          style="margin-top: -1px;"
-          class="btn btn-link px-0 text-decoration-none"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#explainRating"
-          aria-controls="explainRating"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-      >Over 100 people gave Vocably rating <span class="text-nowrap">4.88 out of 5 <i class="bi-chevron-down icon-collapsed"></i><i class="bi-chevron-up icon-expanded"></i></span></button>
+  <style>
+    .show-android,
+    .hide-android,
+    .show-ios,
+    .hide-ios,
+    .hide-chrome,
+    .hide-safari,
+    .show-chrome,
+    .show-safari,
+    .show-any,
+    .show-other {
+      visibility: hidden;
+    }
 
-        <div class="bg-light collapse w-75 m-auto" id="explainRating">
-          <div class="p-4">
-            <p>This is a cumulative rating compiled from all platforms. Here is the <a href="https://docs.google.com/spreadsheets/d/15CfNa_Lp1HO5oZDPk4dofJP9cIJexlrnOXvvZ5dcaNo/edit?usp=sharing" target="_blank">spreadsheet</a> that I used to calculate it.</p>
-            <p>Vocably is a new app. Not many people have heard of it. Many of those who tried love it.</p>
-            <p class="mb-0">Your rating is valuable to Vocably. It helps the app grow and improve.</p>
+    :root {
+      --hero-bg-color-byte: 250;
+    }
+
+    .hero-slide {
+      border-radius: 2rem;
+      overflow: hidden;
+
+      display: flex;
+
+      width: 260px;
+      height: 480px;
+
+      & .image-shadow {
+        filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.4));
+      }
+    }
+
+    @media (min-width: 1400px) {
+      .hero-slide {
+        width: 640px;
+        height: 400px;
+      }
+    }
+
+    .hero-container {
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .hero-container {
+        min-height: max(80vh, 600px);
+      }
+    }
+
+    :root {
+      --hero-overlap: 200px;
+    }
+
+    .gradient-headline {
+      background: linear-gradient(#555, #222, #555);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .headline {
+      & .headline-text {
+        margin: 5rem 0;
+        font-size: 2.5rem;
+        line-height: 3rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .headline {
+        position: absolute;
+        left: 0;
+        right: 40%;
+        bottom: 0;
+        top: 0;
+        margin-right: calc(var(--hero-overlap) * -1);
+        padding-right: var(--hero-overlap);
+        pointer-events: none;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 1) 40vw,
+          rgba(255, 255, 255, 0) 50vw
+        );
+
+        & .headline-text {
+          margin: 0;
+        }
+      }
+
+      .slides {
+        position: absolute;
+        left: 60%;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        margin-left: calc(var(--hero-overlap) * -1);
+
+        .vertical-center {
+          position: relative;
+          top: 50%;
+          transform: translateY(calc(-50% + 68px));
+        }
+      }
+    }
+
+    @media (min-width: 992px) {
+      .headline {
+        right: 50%;
+      }
+
+      .slides {
+        left: 50%;
+      }
+    }
+
+    .platforms {
+      & a {
+        display: block;
+        width: 1.5rem;
+        text-align: center;
+        color: #333;
+        text-decoration: none;
+
+        & img {
+          filter: brightness(1) grayscale(1);
+          width: 100%;
+          transition: all 0.3s ease-in-out;
+        }
+
+        & span {
+          display: none;
+        }
+
+        &.android {
+          & img {
+            filter: brightness(0.7) grayscale(1);
+          }
+        }
+
+        &:hover {
+          & img {
+            filter: brightness(1) grayscale(0);
+          }
+        }
+      }
+    }
+
+    .navigation-button {
+      border-radius: 50%;
+      padding: 0;
+      width: 50px;
+      height: 50px;
+      border: none;
+      color: #333;
+      background-color: #eee;
+    }
+
+    .navigation-button:disabled {
+      color: #ccc;
+    }
+
+    .cta-button {
+      padding: 15px 40px;
+      border: none;
+      outline: none;
+      color: #fff;
+      cursor: pointer;
+      position: relative;
+      z-index: 0;
+      border-radius: 3rem;
+      font-weight: 300;
+      filter: drop-shadow(0px 0px 12px rgb(0, 80, 255));
+      text-decoration: none;
+      text-align: center;
+
+      &.cta-button-non-safari {
+        filter: none;
+      }
+    }
+    .cta-button::after {
+      content: '';
+      z-index: -1;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      left: 0;
+      top: 0;
+      border-radius: 3rem;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .cta-button-non-safari::before {
+      content: '';
+      background: linear-gradient(
+        45deg,
+        #0050ff,
+        #5087ff,
+        #58b3eb,
+        #5087ff,
+        #0050ff
+      );
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      background-size: 600%;
+      z-index: -1;
+      filter: blur(8px);
+      animation: glowing 20s linear infinite;
+      transition: opacity 0.3s ease-in-out, top 0.6s ease-in-out,
+      left 0.6s ease-in-out, width 0.6s ease-in-out, height 0.6s ease-in-out;
+      border-radius: 3rem;
+    }
+
+    @keyframes glowing {
+      0% {
+        background-position: 0 0;
+      }
+      50% {
+        background-position: 400% 0;
+      }
+      100% {
+        background-position: 0 0;
+      }
+    }
+
+    .cta-button-non-safari:hover::before,
+    .cta-button-non-safari:focus::before {
+      top: -6px;
+      left: -6px;
+      width: calc(100% + 12px);
+      height: calc(100% + 12px);
+    }
+
+    .cta-button:focus-visible::after {
+      outline: 2px solid white;
+      background-color: #444;
+    }
+
+    .cta-button:active::after {
+      background-color: #444;
+    }
+  </style>
+  <div class="hero-container">
+    <div class="headline d-flex flex-column align-items-md-end justify-content-center z-1 ps-4 ps-md-0">
+      <div class="p-4 py-md-0 me-md-5" style="pointer-events: all">
+        <div class="mb-3">
+          <img src="assets/logo-gray.svg" style="height: 1.5rem;" alt="Vocably Logo" />
+        </div>
+        <h1 class="headline-text gradient-headline">
+          A powerful combination&nbsp;of<br class="d-none d-md-block" />
+          a <span class="text-nowrap">high-quality</span> dictionary<br class="d-none d-md-block" />
+          and flashcards.
+        </h1>
+        <div class="mt-4 d-none d-md-block">
+          <div class="w-100">
+            {{> index-cta }}
           </div>
         </div>
       </div>
     </div>
-    <div class="mb-3 text-center chrome-cta d-none">
-      <a class="d-inline-flex px-4 py-2 align-items-center text-start btn btn-primary rounded-pill"
-         href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb"
-         target="_blank"
-      >
-        <img src="assets/chrome.svg" alt="Google Chrome Logo" height="32" class="pe-3" />
-        <span class="text-center">Install Chrome Extension</span>
-      </a>
-    </div>
-    <div class="mb-3 text-center safari-cta d-none">
-      <a  class="d-inline-flex px-4 py-2 align-items-center text-start btn btn-primary rounded-pill"
-          href="https://apps.apple.com/app/id6464076425"
-          target="_blank"
-      >
-        <img src="assets/safari.svg" alt="Safari Logo" height="32" class="pe-3" />
-        <span>Install Safari Extension</span>
-      </a>
-    </div>
-    <div class="mb-3">
-      <a href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757" target="_blank" class="d-inline-block mb-2"><img src="assets/download-on-app-store.svg" alt="Download on App Store" height="40" /></a>
-      <a href="https://play.google.com/store/apps/details?id=com.vocablypro" target="_blank" class="d-inline-block ms-2 mb-2"><img src="assets/get-it-on-google-play.svg" alt="Get it on Google Play" height="40" /></a>
-    </div>
+    <div class="slides z-0 ps-4 ps-md-0">
+      <div class="vertical-center">
+        <swiper-container id="swiper" init="false" slides-per-view="auto">
+          <swiper-slide
+            class="hide slide-mobile-translation hide-chrome hide-safari hero-slide p-4 p-xxl-5 pb-0"
+          >
+            <style>
+              .slide-mobile-translation {
+                background: linear-gradient(
+                  108deg,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  #eee
+                );
+              }
+            </style>
+            <div class="row align-items-center">
+              <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
+                High-quality dictionary and flashcards right in your pocket.
+              </div>
+              <div class="col-xxl-6 order-xxl-0">
+                <iphone-16-max class="hide-android" mode="light" style="height: 350px; display: block;">
+                  <img src="assets/hero/ios-lookup.webp" width="100%" alt="Look up and create high-quality flashcards on your mobile" />
+                </iphone-16-max>
+                <pixel-9-pro class="show-android" mode="light" style="height: 350px; display: block;">
+                  <img src="assets/hero/ios-lookup.webp" width="100%" alt="Look up and create high-quality flashcards on your mobile" />
+                </pixel-9-pro>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide
+              class="android-lookup show-android hero-slide p-4 p-xxl-5 pb-0"
+          >
+            <style>
+              .android-lookup {
+                background: linear-gradient(
+                  235deg,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  #eee
+                );
+              }
+            </style>
+            <div class="row align-items-center">
+              <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
+                Translate and create flashcards directly from any app on your device.
+              </div>
+              <style>
+                .lookup-animation {
+                  height: 350px;
+                  display: block;
+                  position: relative;
+                }
 
-    <div class="mb-5">
-      <span class="text-dark">Vocably is <strong>100% free</strong>.</span>
-      <button
-        class="btn btn-link px-0 text-decoration-none"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#whyItIsFree"
-        aria-controls="whyItIsFree"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >Why? <i class="bi-chevron-down icon-collapsed"></i><i class="bi-chevron-up icon-expanded"></i></button>
+                .lookup-animation-scene-init {
+                  width: 100%;
+                }
 
-      <div class="bg-light collapse w-75 m-auto" id="whyItIsFree">
-        <div class="p-4">
-          <p>Vocably is totally free to use.</p>
-          <p>
-            The project costs me about $150 every month to keep it running. I started this project to help myself learn Dutch by reading news articles and watching YouTube videos. It's been so helpful that I see the $150 as my monthly fee for using an awesome tool. Of course, I'd love to make it profitable one day. I’m not sure how I'll do that yet, but I’ll do my best to keep it free for current users.
-          </p>
-          <p class="m-0">
-            Vocably is an open-source product. Your star on <a href="https://github.com/vocably/vocably-pro" target="_blank">GitHub</a> will help this project to grow.
-          </p>
+                .lookup-animation-scene {
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  height: 100%;
+                  opacity: 0;
+                  transition: all 0.5s ease-in-out;
+
+                  &.visible {
+                    opacity: 1;
+                  }
+                }
+
+                .popup {
+                  top: 50px;
+
+                  &.visible {
+                    top: 0;
+                  }
+                }
+
+                .three-dots-click {
+                  content: ' ';
+                  position: absolute;
+                  left: 80.3926546500804%;
+                  top: 50.4418401790116%;
+                  width: 1.8rem;
+                  height: 1.8rem;
+                  background: #373737;
+                  border-radius: 50%;
+                  transform: translate(-50%, -50%);
+                  opacity: 0;
+                  transition: all 0.05s ease-in-out;
+
+                  &.visible {
+                    opacity: 0.5;
+                  }
+                }
+
+                .translate-with-vocably {
+                  background: #373737;
+                  content: ' ';
+                  position: absolute;
+                  left: 44.8506389100449%;
+                  top: 43.0462320324648%;
+                  width: 41.4656850300415%;
+                  height: 5.1200364091478%;
+                  opacity: 0;
+                  transition: all 0.2s ease-in-out;
+
+                  &.visible {
+                    opacity: 0.5;
+                  }
+                }
+              </style>
+              <div class="col-xxl-6 order-xxl-0">
+                <pixel-9-pro id="lookup-animation" class="lookup-animation">
+                  <img id="lookup-animation-01"
+                       class="lookup-animation-scene-init"
+                       src="assets/hero/android-lookup-01.webp"
+                       alt="Share any selected text with the Android app"
+                  />
+                  <img id="lookup-animation-02"
+                       class="lookup-animation-scene"
+                       src="assets/hero/android-lookup-02.webp"
+                       alt="Click the three dots"
+                  />
+                  <div id="three-dots-click" class="three-dots-click"></div>
+                  <img id="lookup-animation-03"
+                       class="lookup-animation-scene"
+                       src="assets/hero/android-lookup-03.webp"
+                       alt="Click the Translate with Vocably"
+                  />
+                  <div id="translate-with-vocably" class="translate-with-vocably"></div>
+                  <img id="lookup-animation-04"
+                       class="lookup-animation-scene popup"
+                       src="assets/hero/android-lookup-04.webp"
+                       alt="See the result"
+                  />
+                </pixel-9-pro>
+              </div>
+              <script>
+                async function androidLookUpAnimation() {
+                  const lookupAnimation = document.getElementById('lookup-animation');
+
+                  const img1 = document.getElementById('lookup-animation-01');
+                  const img2 = document.getElementById('lookup-animation-02');
+                  const threeDotsClick = document.getElementById('three-dots-click');
+                  const img3 = document.getElementById('lookup-animation-03');
+                  const translateWithVocably = document.getElementById('translate-with-vocably');
+                  const img4 = document.getElementById('lookup-animation-04');
+
+                  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+                  while(true) {
+                    await delay(1500);
+                    img2.classList.add('visible');
+                    await delay(800);
+                    threeDotsClick.classList.add('visible');
+                    await delay(200);
+                    threeDotsClick.classList.remove('visible');
+                    await delay(200);
+                    img2.classList.remove('visible');
+                    img3.classList.add('visible');
+                    await delay(800);
+                    translateWithVocably.classList.add('visible');
+                    await delay(200);
+                    translateWithVocably.classList.remove('visible');
+                    await delay(200);
+                    img3.classList.remove('visible')
+                    img4.classList.add('visible');
+                    translateWithVocably.classList.remove('visible');
+                    await delay(3000);
+                    img4.classList.remove('visible');
+                  }
+                }
+
+                androidLookUpAnimation();
+              </script>
+            </div>
+          </swiper-slide>
+          <swiper-slide
+            class="slide-extension-translations hide-android hide-ios hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5"
+          >
+            <style>
+              .slide-extension-translations {
+                background: linear-gradient(
+                  to bottom,
+                  #eee,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte))
+                );
+              }
+
+              @media (min-width: 1400px) {
+                .slide-extension-translations {
+                  background: linear-gradient(
+                    to right,
+                    rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                    rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                    #eee
+                  );
+                }
+              }
+
+              .chrome-popup {
+                text-align: center;
+
+                & img {
+                  width: 100%;
+                }
+
+                & .chrome-popup-text {
+                  position: relative;
+
+                  &::after {
+                    content: ' ';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    right: 0;
+                    background: linear-gradient(
+                      to top,
+                      rgba(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte), 1)
+                      20%,
+                      rgba(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte), 0)
+                      80%
+                    );
+                  }
+                }
+              }
+            </style>
+            <div class="row">
+              <div class="col-xxl-5 order-xxl-1 mb-4 hfs-1">
+                <div>Instant, <span class="text-nowrap">AI-powered</span> translations on any site.</div>
+                <div class="mt-4">Save your translations as top-quality flashcards.</div>
+              </div>
+              <div class="col-xxl-7 order-xxl-0">
+                <div class="chrome-popup">
+                  <img class="image-shadow chrome-popup-popup" alt="Chrome popup example" src="assets/hero/chrome-popup.webp" />
+                  <div class="chrome-popup-text mt-2"><img alt="Chrome popup text example" src="assets/hero/chrome-text.webp" /></div>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide
+            class="slide-extension-translations show-ios hero-slide align-items-center justify-content-center p-4 p-xxl-5"
+          >
+            <div class="row align-items-center">
+              <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
+                <div>Instant, <span class="text-nowrap">AI-powered</span> translations on any site with Mobile Safari extension.</div>
+              </div>
+              <div class="col-xxl-6 order-xxl-0">
+                <style>
+                  .ios-extension-animation {
+                    display: block;
+                    position: relative;
+                  }
+
+                  .ios-extension-scene-init {
+                    width: 100%;
+                  }
+
+                  .ios-extension-scene {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    opacity: 0;
+                    transition: all 0.2s ease-in-out;
+
+                    &.visible {
+                      opacity: 1;
+                    }
+
+                    &.popup {
+                      transition: all 0.5s ease-in-out;
+                    }
+                  }
+
+                  .ios-extension-button {
+                    filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.4));
+
+                    &.clicked {
+                      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+                    }
+                  }
+
+                  .ios-extension-click-cursor {
+                    position: absolute;
+                    content: ' ';
+                    left: 49.695740365%;
+                    top: 54.7342814371257%;
+                    width: 40px;
+                    height: 40px;
+                    background: #373737;
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%);
+                    opacity: 0;
+                    transition: all 0.05s ease-in-out;
+
+                    &.visible {
+                      opacity: 0.5;
+                    }
+                  }
+                </style>
+                <iphone-16-max mode="light" style="height: 300px; display: block;">
+                  <div class="ios-extension-animation">
+                    <img
+                      src="assets/hero/ios-extension-01.webp"
+                      class="ios-extension-scene-init"
+                      alt="Safari Mobile Extension"
+                    />
+                    <img
+                      id="ios-extension-frame-02"
+                      src="assets/hero/ios-extension-02.webp"
+                      class="ios-extension-scene"
+                      alt="Safari Mobile Extension - Select any Text"
+                    />
+                    <img
+                      id="ios-extension-frame-03"
+                      src="assets/hero/ios-extension-03.webp"
+                      class="ios-extension-scene ios-extension-button"
+                      alt="Safari Mobile - Click the Look Up Button"
+                    />
+                    <div id="ios-extension-cursor" class="ios-extension-click-cursor"></div>
+                    <img
+                      id="ios-extension-frame-04"
+                      src="assets/hero/ios-extension-04.webp"
+                      class="ios-extension-scene popup"
+                      alt="Safari Mobile - Translation Popup"
+                    />
+                  </div>
+                </iphone-16-max>
+                <script>
+                  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+                  const frame02 = document.getElementById('ios-extension-frame-02');
+                  const frame03 = document.getElementById('ios-extension-frame-03');
+                  const cursor = document.getElementById('ios-extension-cursor');
+                  const frame04 = document.getElementById('ios-extension-frame-04');
+
+                  async function runIosExtensionAnimation() {
+                    while (true) {
+                      await delay(1000);
+                      frame02.classList.add('visible');
+                      await delay(500);
+                      frame03.classList.add('visible');
+                      await delay(1000);
+                      cursor.classList.add('visible');
+                      frame03.classList.add('clicked');
+                      await delay(400);
+                      frame03.classList.remove('clicked');
+                      cursor.classList.remove('visible');
+                      await delay(200);
+                      frame03.classList.remove('visible');
+                      frame04.classList.add('visible');
+                      frame02.classList.remove('visible');
+                      await delay(3000);
+                      frame04.classList.remove('visible');
+                    }
+                  }
+
+                  runIosExtensionAnimation();
+                </script>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide
+            class="slide-quizzes hero-slide p-4 p-xxl-5 pb-0"
+          >
+            <style>
+              .slide-quizzes {
+                background: linear-gradient(
+                  108deg,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  #eee
+                );
+              }
+            </style>
+            <div class="row align-items-center">
+              <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
+                Master your word-cards with interactive quizzes and questions.
+              </div>
+              <div class="col-xxl-6 order-xxl-0">
+                <iphone-16-max class="hide-android" mode="dark" style="height: 350px; display: block;">
+                  <img src="assets/hero/study.webp" width="100%" alt="Study on your mobile" />
+                </iphone-16-max>
+                <pixel-9-pro class="show-android" mode="light" style="margin-top: 24px; height: 350px; display: block;">
+                  <img src="assets/hero/study-android.webp" width="100%" alt="Study on your mobile" />
+                </pixel-9-pro>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide
+            class="slide-youtube hide-android hide-ios hero-slide pt-4 ps-4 pe-4 p-xxl-5 pb-0"
+          >
+            <style>
+              .slide-youtube {
+                background: linear-gradient(
+                  180deg,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  #eee
+                );
+
+                img {
+                  width: 100%;
+                  filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.4));
+                }
+              }
+
+              @media (max-width: 1400px) {
+                .slide-youtube img {
+                  width: 200%;
+                  position: relative;
+                  filter: none;
+                }
+              }
+            </style>
+            <div class="row align-items-center">
+              <div class="col-xxl-3 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
+                Works on YouTube.
+              </div>
+              <div class="col-xxl-9 order-xxl-0">
+                <img src="assets/hero/youtube.webp" alt="Look up on YouTube" />
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide
+            class="slide-reverse hero-slide p-4 p-xxl-5 pb-0"
+          >
+            <style>
+              .slide-reverse {
+                background: linear-gradient(
+                  to top,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  #eee
+                );
+              }
+            </style>
+            <div class="row align-items-center">
+              <div class="col-xxl-6 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-5">
+                Don’t know the right word? Search for it in your native language.
+              </div>
+              <div class="col-xxl-6">
+                <iphone-16-max class="hide-android" style="height: 350px; display: block;">
+                  <img src="assets/hero/reverse-translation.webp" width="100%" />
+                </iphone-16-max>
+                <pixel-9-pro class="show-android" mode="light" style="margin-top: 24px; height: 350px; display: block;">
+                  <img src="assets/hero/reverse-translation.webp" width="100%" alt="Study on your mobile" />
+                </pixel-9-pro>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide
+            class="slide-extension-translations hide-chrome hide-safari show-any hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5"
+          >
+            <style>
+              .slide-extension-translations {
+                background: linear-gradient(
+                  to bottom,
+                  #eee,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte))
+                );
+              }
+
+              @media (min-width: 1400px) {
+                .slide-extension-translations {
+                  background: linear-gradient(
+                    to right,
+                    rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                    rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                    #eee
+                  );
+                }
+              }
+
+              .chrome-popup {
+                text-align: center;
+
+                & img {
+                  width: 100%;
+                }
+
+                & .chrome-popup-text {
+                  position: relative;
+
+                  &::after {
+                    content: ' ';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    right: 0;
+                    background: linear-gradient(
+                      to top,
+                      rgba(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte), 1)
+                      20%,
+                      rgba(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte), 0)
+                      80%
+                    );
+                  }
+                }
+              }
+            </style>
+            <div class="row">
+              <div class="col-xxl-5 order-xxl-1 mb-4 hfs-1">
+                <div>Also, available as an extension for your desktop Chrome and Safari browsers.</div>
+              </div>
+              <div class="col-xxl-7 order-xxl-0">
+                <div class="chrome-popup">
+                  <img class="image-shadow chrome-popup-popup" alt="Chrome popup example" src="assets/hero/chrome-popup.webp" />
+                  <div class="chrome-popup-text mt-2"><img alt="Chrome popup text example" src="assets/hero/chrome-text.webp" /></div>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper-container>
+
+        <div class="text-end mt-4 me-5">
+          <button id="swiper-prev" class="navigation-button"><i class="bi bi-arrow-left"></i></button>
+          <button id="swiper-next"  class="navigation-button"><i class="bi bi-arrow-right"></i></button>
         </div>
+
+        <div class="mt-4 d-md-none pe-4 mb-5">
+          {{> index-cta }}
+        </div>
+
+        <script>
+          const swiperEl= document.getElementById('swiper');
+          const swiperParams = {
+            spaceBetween: 20,
+            slidesPerView: 'auto',
+            slidesOffsetAfter: 32,
+            breakpoints: {
+              768: {
+                slidesOffsetBefore: 200,
+              }
+            },
+            navigation: {
+              nextEl: document.getElementById('swiper-next'),
+              prevEl: document.getElementById('swiper-prev'),
+            }
+          };
+
+          // now we need to assign all parameters to Swiper element
+          Object.assign(swiperEl, swiperParams);
+
+          // and now initialize it
+          swiperEl.initialize();
+        </script>
       </div>
     </div>
   </div>
 
-  <!-- How it works-->
-  <div class="container-sm text-center mb-5">
-    <div class="h2 mb-5">How It Works</div>
-    <div class="mb-5" style="position: relative; width: 100%; padding-bottom: 56.25%;height: 0;">
-      <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube-nocookie.com/embed/UwNog9yKCeA?si=GBITVvtufhM3HLKD&rel=0" title="How I use Vocably" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="row d-flex justify-content-center align-items-center mb-4 pb-4 border border-1 border-start-0 border-top-0 border-end-0">
-      <div class="col-12 col-md-1 fs-1 text-dark">1</div>
-      <div class="col-12 col-md-11">
-        <div class="row d-flex justify-content-center align-items-center">
-          <div class="col-12 col-md-6 order-md-2">
-            <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-01.svg" alt="Created flashcard">
-          </div>
-          <div class="col-12 col-md-6 order-md-1 text-start">
-            <div class="mb-3">Highlight a new word while browsing any website (works in Android, Chrome, Safari, and Safari Mobile).</div>
-            <div class="mb-3">Or click on a new word while watching YouTube (works in Chrome and Safari).</div>
-            <div>Or translate a new word in the mobile app.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-4 d-flex justify-content-center align-items-center mb-4 pb-4 border border-1 border-start-0 border-top-0 border-end-0">
-      <div class="col-12 col-md-1 fs-1 text-dark">2</div>
-      <div class="col-12 col-md-11">
-        <div class="row d-flex justify-content-center align-items-center">
-          <div class="col-12 col-md-6 order-md-2">
-            <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-02.svg" alt="Created flashcard">
-          </div>
-          <div class="col-12 col-md-6 order-md-1 text-start">
-            Vocably will automatically convert the word to the normal form (i.e. infinitive for a verb or singular for a noun), get its definitions, translations, and create high quality flashcards.
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row d-flex justify-content-center align-items-center">
-      <div class="col-12 col-md-1 fs-1 text-dark">3</div>
-      <div class="col-12 col-md-11">
-        <div class="row d-flex justify-content-center align-items-center">
-          <div class="col-12 col-md-6 order-md-2">
-            <img class="img-fluid w-100 mb-4 mb-md-1" src="assets/img/how-it-works-03.svg" alt="Created flashcard">
-          </div>
-          <div class="col-12 col-md-6 order-md-1 text-start">
-            The created flashcards are available to be studied with Spaced
-            Repetition System (SRS) method on your mobile device.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <style>
+    :root {
+      --language-container-color-byte: 255;
+    }
+    .languages-container {
+      background-color: rgb(
+        var(--language-container-color-byte),
+        var(--language-container-color-byte),
+        var(--language-container-color-byte)
+      );
+      color: #333;
 
-  <div class="container-sm pt-5 mt-5">
-    <div class="h2 mb-5 text-center">What language can I learn?</div>
+      .languages-swiper {
+        --swiper-theme-color: #333;
+        --swiper-navigation-sides-offset: 0px;
 
-    <p>Vocably works exceptionally well for those who learn English, German, Spanish, French, Italian, Portuguese, Danish, Dutch, Japanese, Hebrew, Hindi, Korean, Norwegian, Polish, Greek, Arabic, Czech, Russian, Swedish, Thai, Turkish, Traditional Chinese, and Simplified Chinese.</p>
+        &::part(button-next) {
+          background: linear-gradient(
+            to right,
+            rgba(
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              0
+            ) 0,
+            rgba(
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              1
+            ) 50%
+          );
+        }
 
-    <p>But you can learn any language <a href="https://cloud.google.com/translate/docs/languages" target="_blank">supported by Google Translate</a>.</p>
-  </div>
+        &::part(button-prev) {
+          background: linear-gradient(
+            to left,
+            rgba(
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              0
+            ) 0,
+            rgba(
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              1
+            ) 50%
+          );
+        }
+      }
 
-  <div class="container-sm pt-5 mt-5">
-    <div class="h2 mb-5 text-center">Reverse Translation</div>
+      .language-slide {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        pointer-events: none;
+        font-size: 1rem;
+        line-height: 2.5rem;
+      }
+    }
+  </style>
 
-    <p>Would you like to say something in a new language, but don't know the word?</p>
-
-    <p>Use the <a href="/welcome-mobile-user.html#reverse-translation" target="_blank">reverse translation</a> functionality in the mobile app.</p>
-
-    <p>Search for a new word in your own language, and save it as a flashcard.</p>
-
-    <p>Vocably is all about learning the words you need, so you can feel good about yourself when reading or speaking.</p>
-  </div>
-
-  <div class="container-sm pt-5">
-    <div class="h2 mb-5 text-center">About Vocably</div>
-
-    <img src="assets/about.webp" class="float-start me-4 rounded-2" alt="Photo of Dima Snisarenko" width="40%" />
-
-    <p>
-      Hello, I'm Dima Snisarenko, an <a href="https://sneas.io" target="_blank" rel="nofollow">independent developer</a> from Ukraine who has been living in the Netherlands since 2014.
-    </p>
-
-    <p>I created Vocably because I wanted to read news in Dutch and learn the words I translate.</p>
-
-    <p>Vocably helped me a lot. Now, I can read and understand most news articles. Not all — but I have become a confident reader.</p>
-
-    <p>
-      Now, I am working on my listening. I watch YouTube videos in Dutch and use Vocably to translate new words. Listening is hard! But I still practice.
-    </p>
-  </div>
-
-  <div class="py-5 text-center">
-    <div style="font-size: 1rem;">
-      Follow Vocably on social platforms
-    </div>
-    <div class="display-5 mt-3">
-      <a href="https://github.com/vocably/vocably-pro" class="text-decoration-none text-secondary" target="_blank">
-        <i class="bi bi-github"></i>
-      </a>
-      <a href="https://www.linkedin.com/company/vocably" class="text-decoration-none text-secondary mx-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://twitter.com/provocably" class="text-decoration-none text-secondary" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://t.me/vocably" class="text-decoration-none text-secondary" target="_blank">
-        <i class="bi bi-telegram"></i>
-      </a>
-    </div>
-    <div class="pt-4 small">
-      Made with <i class="bi bi-heart-fill"></i> in <span class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="We see things the same way. That’s why I like you.">Am</span>sterdam.
+  <div class="languages-container mb-5 px-3 mt-md-5">
+    <div class="container-lg text-center">
+      <swiper-container class="languages-swiper" slides-per-view="auto" space-between="20" navigation="true" slides-offset-before="40" slides-offset-after="40" slides-per-group="2">
+        {{#each htmlWebpackPlugin.options.environment.languages}}
+          <swiper-slide class="language-slide">
+            <img alt="{{ this.name }} flag" class="flag" src="assets/language-flags/{{this.code}}.svg" />
+            <span class="language">{{this.name}}</span>
+          </swiper-slide>
+        {{/each}}
+      </swiper-container>
     </div>
   </div>
 

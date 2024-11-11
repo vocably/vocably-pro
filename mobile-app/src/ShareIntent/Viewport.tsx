@@ -1,7 +1,6 @@
-import { FC, PropsWithChildren } from 'react';
-import { BackHandler, Pressable } from 'react-native';
+import React, { FC, PropsWithChildren } from 'react';
+import { BackHandler, Pressable, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
-import Animated, { SlideInDown } from 'react-native-reanimated';
 
 type Props = {
   os: 'ios' | 'android';
@@ -20,14 +19,13 @@ export const Viewport: FC<PropsWithChildren<Props>> = ({ children, os }) => {
         onPress={() => BackHandler.exitApp()}
         style={{
           width: '100%',
-          height: '5%',
+          height: '20%',
         }}
       />
-      <Animated.View
-        entering={SlideInDown}
+      <View
         style={{
           width: '100%',
-          height: '95%',
+          height: '80%',
           overflow: 'hidden',
           backgroundColor: theme.colors.background,
           borderTopStartRadius: 16,
@@ -35,7 +33,7 @@ export const Viewport: FC<PropsWithChildren<Props>> = ({ children, os }) => {
         }}
       >
         {children}
-      </Animated.View>
+      </View>
     </>
   );
 };
