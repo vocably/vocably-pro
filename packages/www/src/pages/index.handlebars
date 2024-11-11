@@ -4,11 +4,10 @@
   hideLogo=true
 }}
   <style>
-    .show-android {
-      visibility: hidden;
-    }
-
-    .hide-android {
+    .show-android,
+    .hide-android,
+    .show-ios,
+    .hide-ios {
       visibility: hidden;
     }
   </style>
@@ -24,8 +23,8 @@
           and flashcards.
         </div>
         <div class="mt-4 d-none d-md-block">
-          <div class="w-75">
-            <button class="cta-button d-block w-100">Install. It's free.</button>
+          <div class="w-100">
+            <button class="cta-button d-block w-100">Install Chrome Extension</button>
             <div class="mt-2 d-flex flex-direction-row align-items-center justify-content-center gap-2">
               <span class="small">Supports</span>
               <ul class="platforms list-unstyled d-inline-flex align-items-start justify-content-center gap-2 align-middle m-0">
@@ -203,7 +202,7 @@
             </div>
           </swiper-slide>
           <swiper-slide
-            class="slide-extension-translations hide-android hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5"
+            class="slide-extension-translations hide-android hide-ios hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5"
           >
             <div class="row">
               <div class="col-xxl-5 order-xxl-1 mb-4 hfs-1">
@@ -219,11 +218,130 @@
             </div>
           </swiper-slide>
           <swiper-slide
+            class="slide-extension-translations show-ios hero-slide align-items-center justify-content-center p-4 p-xxl-5"
+          >
+            <div class="row align-items-center">
+              <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
+                <div>Instant, <span class="text-nowrap">AI-powered</span> translations on any site with Mobile Safari extension.</div>
+              </div>
+              <div class="col-xxl-6 order-xxl-0">
+                <style>
+                  .ios-extension-animation {
+                    display: block;
+                    position: relative;
+                  }
+
+                  .ios-extension-scene-init {
+                    width: 100%;
+                  }
+
+                  .ios-extension-scene {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    opacity: 0;
+                    transition: all 0.2s ease-in-out;
+
+                    &.visible {
+                      opacity: 1;
+                    }
+                  }
+
+                  .ios-extension-button {
+                    filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.4));
+
+                    &.clicked {
+                      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+                    }
+                  }
+
+                  .ios-extension-click-cursor {
+                    position: absolute;
+                    content: ' ';
+                    left: 49.695740365%;
+                    top: 54.7342814371257%;
+                    width: 40px;
+                    height: 40px;
+                    background: #373737;
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%);
+                    opacity: 0;
+                    transition: all 0.05s ease-in-out;
+
+                    &.visible {
+                      opacity: 0.5;
+                    }
+                  }
+                </style>
+                <iphone-16-max mode="light" style="height: 300px; display: block;">
+                  <div class="ios-extension-animation">
+                    <img
+                      src="assets/hero/ios-extension-01.png"
+                      class="ios-extension-scene-init"
+                      alt="Safari Mobile Extension"
+                    />
+                    <img
+                      id="ios-extension-frame-02"
+                      src="assets/hero/ios-extension-02.png"
+                      class="ios-extension-scene"
+                      alt="Safari Mobile Extension - Select any Text"
+                    />
+                    <img
+                      id="ios-extension-frame-03"
+                      src="assets/hero/ios-extension-03.png"
+                      class="ios-extension-scene ios-extension-button"
+                      alt="Safari Mobile - Click the Look Up Button"
+                    />
+                    <div id="ios-extension-cursor" class="ios-extension-click-cursor"></div>
+                    <img
+                      id="ios-extension-frame-04"
+                      src="assets/hero/ios-extension-04.png"
+                      class="ios-extension-scene"
+                      alt="Safari Mobile - Translation Popup"
+                    />
+                  </div>
+                </iphone-16-max>
+                <script>
+                  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+                  const frame02 = document.getElementById('ios-extension-frame-02');
+                  const frame03 = document.getElementById('ios-extension-frame-03');
+                  const cursor = document.getElementById('ios-extension-cursor');
+                  const frame04 = document.getElementById('ios-extension-frame-04');
+
+                  async function runIosExtensionAnimation() {
+                    while (true) {
+                      await delay(800);
+                      frame02.classList.add('visible');
+                      await delay(500);
+                      frame03.classList.add('visible');
+                      await delay(500);
+                      cursor.classList.add('visible');
+                      frame03.classList.add('clicked');
+                      await delay(200);
+                      frame03.classList.remove('clicked');
+                      cursor.classList.remove('visible');
+                      await delay(200);
+                      frame03.classList.remove('visible');
+                      frame04.classList.add('visible');
+                      frame02.classList.remove('visible');
+                      await delay(3000);
+                      frame04.classList.remove('visible');
+                    }
+                  }
+
+                  runIosExtensionAnimation();
+                </script>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide
             class="slide-quizzes hero-slide p-4 p-xxl-5 pb-0"
           >
             <div class="row align-items-center">
               <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
-                Master your  words with interactive quizzes and questions.
+                Master your word-cards with interactive quizzes and questions.
               </div>
               <div class="col-xxl-6 order-xxl-0">
                 <iphone-16-max class="hide-android" mode="dark" style="height: 350px; display: block;">
@@ -236,7 +354,7 @@
             </div>
           </swiper-slide>
           <swiper-slide
-            class="slide-youtube hide-android hero-slide pt-4 ps-4 pe-4 p-xxl-5 pb-0"
+            class="slide-youtube hide-android hide-ios hero-slide pt-4 ps-4 pe-4 p-xxl-5 pb-0"
           >
             <div class="row align-items-center">
               <div class="col-xxl-3 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
@@ -265,11 +383,11 @@
             </div>
           </swiper-slide>
           <swiper-slide
-            class="slide-extension-translations show-android hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5"
+            class="slide-extension-translations hide-chrome hide-safari hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5"
           >
             <div class="row">
               <div class="col-xxl-5 order-xxl-1 mb-4 hfs-1">
-                <div>Available as a browser extension for Desktop Chrome and Safari.</div>
+                <div>Also, available as an extension for your desktop Chrome and Safari browsers.</div>
               </div>
               <div class="col-xxl-7 order-xxl-0">
                 <div class="chrome-popup">
@@ -287,7 +405,7 @@
         </div>
 
         <div class="mt-4 d-md-none pe-4 mb-5">
-          <button class="cta-button d-block w-100">Install. It's free.</button>
+          <button class="cta-button d-block w-100">Install Chrome Extension. It's free.</button>
 
           <div class="d-flex align-items-center justify-content-center mt-3 mb-2 text-muted small gap-2">
             <span>Supports</span>

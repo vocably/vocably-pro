@@ -170,7 +170,7 @@ $hero-overlap: 200px;
 
 .slide-reverse {
   background: linear-gradient(
-    47deg,
+    to top,
     rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte),
     rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte) 60%,
     #eee
