@@ -10,6 +10,236 @@
     .hide-ios {
       visibility: hidden;
     }
+
+    :root {
+      --hero-bg-color-byte: 250;
+    }
+
+    .hero-slide {
+      border-radius: 2rem;
+      overflow: hidden;
+
+      display: flex;
+
+      width: 260px;
+      height: 480px;
+
+      & .image-shadow {
+        filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.4));
+      }
+    }
+
+    @media (min-width: 1400px) {
+      .hero-slide {
+        width: 640px;
+        height: 400px;
+      }
+    }
+
+    .hero-container {
+      position: relative;
+    }
+
+    @media (min-width: 768px) {
+      .hero-container {
+        min-height: max(80vh, 600px);
+      }
+    }
+
+    :root {
+      --hero-overlap: 200px;
+    }
+
+    .gradient-headline {
+      background: linear-gradient(#555, #222, #555);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .headline {
+      & .headline-text {
+        font-family: var(--heading-font-family), sans-serif;
+        margin: 5rem 0;
+        font-size: 2.5rem;
+        line-height: 3rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .headline {
+        position: absolute;
+        left: 0;
+        right: 40%;
+        bottom: 0;
+        top: 0;
+        margin-right: calc(var(--hero-overlap) * -1);
+        padding-right: var(--hero-overlap);
+        pointer-events: none;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 1) 40vw,
+          rgba(255, 255, 255, 0) 50vw
+        );
+
+        & .headline-text {
+          margin: 0;
+        }
+      }
+
+      .slides {
+        position: absolute;
+        left: 60%;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        margin-left: calc(var(--hero-overlap) * -1);
+
+        .vertical-center {
+          position: relative;
+          top: 50%;
+          transform: translateY(calc(-50% + 68px));
+        }
+      }
+    }
+
+    @media (min-width: 992px) {
+      .headline {
+        right: 50%;
+      }
+
+      .slides {
+        left: 50%;
+      }
+    }
+
+    .platforms {
+      & a {
+        display: block;
+        width: 1.5rem;
+        text-align: center;
+        color: #333;
+        text-decoration: none;
+
+        & img {
+          filter: brightness(1) grayscale(1);
+          width: 100%;
+          transition: all 0.3s ease-in-out;
+        }
+
+        & span {
+          display: none;
+        }
+
+        &.android {
+          & img {
+            filter: brightness(0.7) grayscale(1);
+          }
+        }
+
+        &:hover {
+          & img {
+            filter: brightness(1) grayscale(0);
+          }
+        }
+      }
+    }
+
+    .navigation-button {
+      border-radius: 50%;
+      padding: 0;
+      width: 50px;
+      height: 50px;
+      border: none;
+      color: #333;
+      background-color: #eee;
+    }
+
+    .navigation-button:disabled {
+      color: #ccc;
+    }
+
+    .cta-button {
+      padding: 15px 40px;
+      border: none;
+      outline: none;
+      color: #fff;
+      cursor: pointer;
+      position: relative;
+      z-index: 0;
+      border-radius: 3rem;
+      font-weight: 300;
+      filter: drop-shadow(0px 0px 12px rgb(0, 80, 255));
+
+      &.cta-button-non-safari {
+        filter: none;
+      }
+    }
+    .cta-button::after {
+      content: '';
+      z-index: -1;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      left: 0;
+      top: 0;
+      border-radius: 3rem;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .cta-button-non-safari::before {
+      content: '';
+      background: linear-gradient(
+        45deg,
+        #0050ff,
+        #5087ff,
+        #58b3eb,
+        #5087ff,
+        #0050ff
+      );
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      background-size: 600%;
+      z-index: -1;
+      filter: blur(8px);
+      animation: glowing 20s linear infinite;
+      transition: opacity 0.3s ease-in-out, top 0.6s ease-in-out,
+      left 0.6s ease-in-out, width 0.6s ease-in-out, height 0.6s ease-in-out;
+      border-radius: 3rem;
+    }
+
+    @keyframes glowing {
+      0% {
+        background-position: 0 0;
+      }
+      50% {
+        background-position: 400% 0;
+      }
+      100% {
+        background-position: 0 0;
+      }
+    }
+
+    .cta-button-non-safari:hover::before,
+    .cta-button-non-safari:focus::before {
+      top: -6px;
+      left: -6px;
+      width: calc(100% + 12px);
+      height: calc(100% + 12px);
+    }
+
+    .cta-button:focus-visible::after {
+      outline: 2px solid white;
+      background-color: #444;
+    }
+
+    .cta-button:active::after {
+      background-color: #444;
+    }
   </style>
   <div class="hero-container">
     <div class="headline d-flex flex-column align-items-md-end justify-content-center z-1 ps-4 ps-md-0">
@@ -24,36 +254,7 @@
         </div>
         <div class="mt-4 d-none d-md-block">
           <div class="w-100">
-            <button class="cta-button d-block w-100">Install Chrome Extension</button>
-            <div class="mt-2 d-flex flex-direction-row align-items-center justify-content-center gap-2">
-              <span class="small">Supports</span>
-              <ul class="platforms list-unstyled d-inline-flex align-items-start justify-content-center gap-2 align-middle m-0">
-                <li>
-                  <a href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb" target="_blank">
-                    <img src="assets/chrome.svg" alt="Chrome Logo" />
-                    <span>Chrome</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://apps.apple.com/app/id6464076425" target="_blank">
-                    <img src="assets/safari.svg" alt="Safari Logo" />
-                    <span>Safari</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://play.google.com/store/apps/details?id=com.vocablypro" class="android" target="_blank">
-                    <img src="assets/android.svg" alt="Android Logo" />
-                    <span>Android</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757" target="_blank">
-                    <img src="assets/apple.svg" alt="Apple Logo" />
-                    <span>iOS</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+            {{> index-cta }}
           </div>
         </div>
       </div>
@@ -70,7 +271,7 @@
               </div>
               <div class="col-xxl-6 order-xxl-0">
                 <iphone-16-max mode="light" style="height: 350px; display: block;">
-                  <img src="assets/hero/ios-lookup.png" width="100%" alt="Study on your mobile" />
+                  <img src="assets/hero/ios-lookup.png" width="100%" alt="Look up and create high-quality flashcards on your mobile" />
                 </iphone-16-max>
               </div>
             </div>
@@ -100,18 +301,18 @@
                   height: 100%;
                   opacity: 0;
                   transition: all 0.5s ease-in-out;
-                }
 
-                .animation-scene-visible {
-                  opacity: 1;
+                  &.visible {
+                    opacity: 1;
+                  }
                 }
 
                 .popup {
                   top: 50px;
-                }
 
-                .popup.animation-scene-visible {
-                  top: 0;
+                  &.visible {
+                    top: 0;
+                  }
                 }
 
                 .three-dots-click {
@@ -126,10 +327,10 @@
                   transform: translate(-50%, -50%);
                   opacity: 0;
                   transition: all 0.05s ease-in-out;
-                }
 
-                .three-dots-click.visible {
-                  opacity: 0.5;
+                  &.visible {
+                    opacity: 0.5;
+                  }
                 }
 
                 .translate-with-vocably {
@@ -142,10 +343,10 @@
                   height: 5.1200364091478%;
                   opacity: 0;
                   transition: all 0.2s ease-in-out;
-                }
 
-                .translate-with-vocably.visible {
-                  opacity: 0.5;
+                  &.visible {
+                    opacity: 0.5;
+                  }
                 }
               </style>
               <div class="col-xxl-6 order-xxl-0">
@@ -153,24 +354,24 @@
                   <img id="lookup-animation-01"
                        class="lookup-animation-scene-init"
                        src="assets/hero/android-lookup-01.png"
-                       alt="Share"
+                       alt="Share any selected text with the Android app"
                   />
                   <img id="lookup-animation-02"
                        class="lookup-animation-scene"
                        src="assets/hero/android-lookup-02.png"
-                       alt="Share"
+                       alt="Click the three dots"
                   />
                   <div id="three-dots-click" class="three-dots-click"></div>
                   <img id="lookup-animation-03"
                        class="lookup-animation-scene"
                        src="assets/hero/android-lookup-03.png"
-                       alt="Share"
+                       alt="Click the Translate with Vocably"
                   />
                   <div id="translate-with-vocably" class="translate-with-vocably"></div>
                   <img id="lookup-animation-04"
                        class="lookup-animation-scene popup"
                        src="assets/hero/android-lookup-04.png"
-                       alt="Share"
+                       alt="See the result"
                   />
                 </pixel-9-pro>
               </div>
@@ -186,28 +387,27 @@
                   const img4 = document.getElementById('lookup-animation-04');
 
                   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-                  const visible = 'animation-scene-visible';
 
                   while(true) {
                     await delay(1500);
-                    img2.classList.add(visible);
+                    img2.classList.add('visible');
                     await delay(800);
                     threeDotsClick.classList.add('visible');
                     await delay(200);
                     threeDotsClick.classList.remove('visible');
                     await delay(200);
-                    img2.classList.remove(visible);
-                    img3.classList.add(visible);
+                    img2.classList.remove('visible');
+                    img3.classList.add('visible');
                     await delay(800);
                     translateWithVocably.classList.add('visible');
                     await delay(200);
                     translateWithVocably.classList.remove('visible');
                     await delay(200);
-                    img3.classList.remove(visible)
-                    img4.classList.add(visible);
+                    img3.classList.remove('visible')
+                    img4.classList.add('visible');
                     translateWithVocably.classList.remove('visible');
                     await delay(3000);
-                    img4.classList.remove(visible);
+                    img4.classList.remove('visible');
                   }
                 }
 
@@ -218,6 +418,55 @@
           <swiper-slide
             class="slide-extension-translations hide-android hide-ios hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5"
           >
+            <style>
+              .slide-extension-translations {
+                background: linear-gradient(
+                  to bottom,
+                  #eee,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte))
+                );
+              }
+
+              @media (min-width: 1400px) {
+                .slide-extension-translations {
+                  background: linear-gradient(
+                    to right,
+                    rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                    rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                    #eee
+                  );
+                }
+              }
+
+              .chrome-popup {
+                text-align: center;
+
+                & img {
+                  width: 100%;
+                }
+
+                & .chrome-popup-text {
+                  position: relative;
+
+                  &::after {
+                    content: ' ';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    right: 0;
+                    background: linear-gradient(
+                      to top,
+                      rgba(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte), 1)
+                      20%,
+                      rgba(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte), 0)
+                      80%
+                    );
+                  }
+                }
+              }
+            </style>
             <div class="row">
               <div class="col-xxl-5 order-xxl-1 mb-4 hfs-1">
                 <div>Instant, <span class="text-nowrap">AI-powered</span> translations on any site.</div>
@@ -399,6 +648,55 @@
           <swiper-slide
             class="slide-extension-translations hide-chrome hide-safari hero-slide align-items-center justify-content-center slide-chrome-extension p-4 p-xxl-5"
           >
+            <style>
+              .slide-extension-translations {
+                background: linear-gradient(
+                  to bottom,
+                  #eee,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte))
+                );
+              }
+
+              @media (min-width: 1400px) {
+                .slide-extension-translations {
+                  background: linear-gradient(
+                    to right,
+                    rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                    rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                    #eee
+                  );
+                }
+              }
+
+              .chrome-popup {
+                text-align: center;
+
+                & img {
+                  width: 100%;
+                }
+
+                & .chrome-popup-text {
+                  position: relative;
+
+                  &::after {
+                    content: ' ';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    right: 0;
+                    background: linear-gradient(
+                      to top,
+                      rgba(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte), 1)
+                      20%,
+                      rgba(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte), 0)
+                      80%
+                    );
+                  }
+                }
+              }
+            </style>
             <div class="row">
               <div class="col-xxl-5 order-xxl-1 mb-4 hfs-1">
                 <div>Also, available as an extension for your desktop Chrome and Safari browsers.</div>
@@ -419,37 +717,7 @@
         </div>
 
         <div class="mt-4 d-md-none pe-4 mb-5">
-          <button class="cta-button d-block w-100">Install Chrome Extension. It's free.</button>
-
-          <div class="d-flex align-items-center justify-content-center mt-3 mb-2 text-muted small gap-2">
-            <span>Supports</span>
-            <ul class="platforms list-unstyled d-inline-flex align-items-start justify-content-center gap-2 m-0">
-              <li>
-                <a href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb" target="_blank">
-                  <img src="assets/chrome.svg" alt="Chrome Logo" />
-                  <span>Chrome</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://apps.apple.com/app/id6464076425" target="_blank">
-                  <img src="assets/safari.svg" alt="Safari Logo" />
-                  <span>Safari</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://play.google.com/store/apps/details?id=com.vocablypro" class="android" target="_blank">
-                  <img src="assets/android.svg" alt="Android Logo" />
-                  <span>Android</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757" target="_blank">
-                  <img src="assets/apple.svg" alt="Apple Logo" />
-                  <span>iOS</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+          {{> index-cta }}
         </div>
 
         <script>
@@ -478,6 +746,72 @@
       </div>
     </div>
   </div>
+
+  <style>
+    :root {
+      --language-container-color-byte: 255;
+    }
+    .languages-container {
+      background-color: rgb(
+        var(--language-container-color-byte),
+        var(--language-container-color-byte),
+        var(--language-container-color-byte)
+      );
+      color: #333;
+
+      .languages-swiper {
+        --swiper-theme-color: #333;
+        --swiper-navigation-sides-offset: 0px;
+
+        &::part(button-next) {
+          background: linear-gradient(
+            to right,
+            rgba(
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              0
+            ) 0,
+            rgba(
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              1
+            ) 50%
+          );
+        }
+
+        &::part(button-prev) {
+          background: linear-gradient(
+            to left,
+            rgba(
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              0
+            ) 0,
+            rgba(
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              var(--language-container-color-byte),
+              1
+            ) 50%
+          );
+        }
+      }
+
+      .language-slide {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        pointer-events: none;
+        font-size: 1rem;
+        line-height: 2.5rem;
+      }
+    }
+  </style>
 
   <div class="languages-container mb-5 px-3 mt-md-5">
     <div class="container-lg text-center">
