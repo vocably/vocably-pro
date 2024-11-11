@@ -53,53 +53,6 @@ dl {
 
 $hero-bg-color-byte: 250;
 
-.slide-quizzes {
-  background: linear-gradient(
-    108deg,
-    rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte),
-    rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte) 60%,
-    #eee
-  );
-}
-
-.slide-youtube {
-  background: linear-gradient(
-    180deg,
-    rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte),
-    rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte) 60%,
-    #eee
-  );
-
-  img {
-    width: 100%;
-    filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.4));
-
-    @media (max-width: map.get($grid-breakpoints, 'xxl')) {
-      width: 200%;
-      position: relative;
-      filter: none;
-    }
-  }
-}
-
-.slide-reverse {
-  background: linear-gradient(
-    to top,
-    rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte),
-    rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte) 60%,
-    #eee
-  );
-}
-
-.android-lookup {
-  background: linear-gradient(
-    235deg,
-    rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte),
-    rgb($hero-bg-color-byte, $hero-bg-color-byte, $hero-bg-color-byte) 60%,
-    #eee
-  );
-}
-
 .hfs-1 {
   font-size: 20px;
   font-weight: 400;

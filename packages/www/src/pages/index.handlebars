@@ -7,7 +7,9 @@
     .show-android,
     .hide-android,
     .show-ios,
-    .hide-ios {
+    .hide-ios,
+    .hide-chrome,
+    .hide-safari {
       visibility: hidden;
     }
 
@@ -263,25 +265,48 @@
       <div class="vertical-center">
         <swiper-container id="swiper" init="false" slides-per-view="auto">
           <swiper-slide
-            class="show-ios slide-quizzes hero-slide p-4 p-xxl-5 pb-0"
+            class="hide slide-mobile-translation hide-chrome hide-safari hero-slide p-4 p-xxl-5 pb-0"
           >
+            <style>
+              .slide-mobile-translation {
+                background: linear-gradient(
+                  108deg,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  #eee
+                );
+              }
+            </style>
             <div class="row align-items-center">
               <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
                 High-quality dictionary and flashcards right in your pocket.
               </div>
               <div class="col-xxl-6 order-xxl-0">
-                <iphone-16-max mode="light" style="height: 350px; display: block;">
+                <iphone-16-max class="show-ios" mode="light" style="height: 350px; display: block;">
                   <img src="assets/hero/ios-lookup.png" width="100%" alt="Look up and create high-quality flashcards on your mobile" />
                 </iphone-16-max>
+                <pixel-9-pro class="show-android" mode="light" style="height: 350px; display: block;">
+                  <img src="assets/hero/ios-lookup.png" width="100%" alt="Look up and create high-quality flashcards on your mobile" />
+                </pixel-9-pro>
               </div>
             </div>
           </swiper-slide>
           <swiper-slide
               class="android-lookup show-android hero-slide p-4 p-xxl-5 pb-0"
           >
+            <style>
+              .android-lookup {
+                background: linear-gradient(
+                  235deg,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  #eee
+                );
+              }
+            </style>
             <div class="row align-items-center">
               <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
-                Translate and create top-quality word-cards directly from any app on your device.
+                Translate and create flashcards directly from any app on your device.
               </div>
               <style>
                 .lookup-animation {
@@ -509,13 +534,17 @@
                     &.visible {
                       opacity: 1;
                     }
+
+                    &.popup {
+                      transition: all 0.5s ease-in-out;
+                    }
                   }
 
                   .ios-extension-button {
                     filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.4));
 
                     &.clicked {
-                      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+                      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
                     }
                   }
 
@@ -560,7 +589,7 @@
                     <img
                       id="ios-extension-frame-04"
                       src="assets/hero/ios-extension-04.png"
-                      class="ios-extension-scene"
+                      class="ios-extension-scene popup"
                       alt="Safari Mobile - Translation Popup"
                     />
                   </div>
@@ -575,14 +604,14 @@
 
                   async function runIosExtensionAnimation() {
                     while (true) {
-                      await delay(800);
+                      await delay(1000);
                       frame02.classList.add('visible');
                       await delay(500);
                       frame03.classList.add('visible');
-                      await delay(500);
+                      await delay(1000);
                       cursor.classList.add('visible');
                       frame03.classList.add('clicked');
-                      await delay(200);
+                      await delay(400);
                       frame03.classList.remove('clicked');
                       cursor.classList.remove('visible');
                       await delay(200);
@@ -602,6 +631,16 @@
           <swiper-slide
             class="slide-quizzes hero-slide p-4 p-xxl-5 pb-0"
           >
+            <style>
+              .slide-quizzes {
+                background: linear-gradient(
+                  108deg,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  #eee
+                );
+              }
+            </style>
             <div class="row align-items-center">
               <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
                 Master your word-cards with interactive quizzes and questions.
@@ -619,9 +658,32 @@
           <swiper-slide
             class="slide-youtube hide-android hide-ios hero-slide pt-4 ps-4 pe-4 p-xxl-5 pb-0"
           >
+            <style>
+              .slide-youtube {
+                background: linear-gradient(
+                  180deg,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  #eee
+                );
+
+                img {
+                  width: 100%;
+                  filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.4));
+                }
+              }
+
+              @media (max-width: 1400px) {
+                .slide-youtube img {
+                  width: 200%;
+                  position: relative;
+                  filter: none;
+                }
+              }
+            </style>
             <div class="row align-items-center">
               <div class="col-xxl-3 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
-                Look up words directly on YouTube.
+                Works on YouTube.
               </div>
               <div class="col-xxl-9 order-xxl-0">
                 <img src="assets/hero/youtube.png" alt="Look up on YouTube" />
@@ -631,6 +693,16 @@
           <swiper-slide
             class="slide-reverse hero-slide p-4 p-xxl-5 pb-0"
           >
+            <style>
+              .slide-reverse {
+                background: linear-gradient(
+                  to top,
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)),
+                  rgb(var(--hero-bg-color-byte), var(--hero-bg-color-byte), var(--hero-bg-color-byte)) 60%,
+                  #eee
+                );
+              }
+            </style>
             <div class="row align-items-center">
               <div class="col-xxl-6 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-5">
                 Don’t know the right word? Search for it in your native language.
