@@ -9,7 +9,11 @@
     .show-ios,
     .hide-ios,
     .hide-chrome,
-    .hide-safari {
+    .hide-safari,
+    .show-chrome,
+    .show-safari,
+    .show-any,
+    .show-other {
       visibility: hidden;
     }
 
@@ -172,6 +176,8 @@
       border-radius: 3rem;
       font-weight: 300;
       filter: drop-shadow(0px 0px 12px rgb(0, 80, 255));
+      text-decoration: none;
+      text-align: center;
 
       &.cta-button-non-safari {
         filter: none;
@@ -282,7 +288,7 @@
                 High-quality dictionary and flashcards right in your pocket.
               </div>
               <div class="col-xxl-6 order-xxl-0">
-                <iphone-16-max class="show-ios" mode="light" style="height: 350px; display: block;">
+                <iphone-16-max class="hide-android" mode="light" style="height: 350px; display: block;">
                   <img src="assets/hero/ios-lookup.png" width="100%" alt="Look up and create high-quality flashcards on your mobile" />
                 </iphone-16-max>
                 <pixel-9-pro class="show-android" mode="light" style="height: 350px; display: block;">

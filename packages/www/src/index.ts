@@ -10,6 +10,38 @@ const isIos = browser.is('ios');
 const isChrome = browser.is('chrome') && !isAndroid && !isIos;
 const isSafari = browser.is('safari') && !isAndroid && !isIos;
 
+document.querySelectorAll('.show-other').forEach((el) => {
+  if (isChrome || isSafari || isAndroid || isIos) {
+    el.remove();
+  } else {
+    el.classList.remove('show-other');
+  }
+});
+
+document.querySelectorAll('.show-any').forEach((el) => {
+  if (!(isChrome || isSafari || isAndroid || isIos)) {
+    el.remove();
+  } else {
+    el.classList.remove('show-any');
+  }
+});
+
+document.querySelectorAll('.show-chrome').forEach((el) => {
+  if (!isChrome) {
+    el.remove();
+  } else {
+    el.classList.remove('show-chrome');
+  }
+});
+
+document.querySelectorAll('.show-safari').forEach((el) => {
+  if (!isSafari) {
+    el.remove();
+  } else {
+    el.classList.remove('show-safari');
+  }
+});
+
 document.querySelectorAll('.hide-chrome').forEach((el) => {
   if (isChrome) {
     el.remove();
