@@ -82,9 +82,10 @@
         padding-right: var(--hero-overlap);
         pointer-events: none;
         background: linear-gradient(
-          to right,
-          rgba(255, 255, 255, 1) 40vw,
-          rgba(255, 255, 255, 0) 50vw
+          to left,
+          rgba(255, 255, 255, 0) var(--hero-overlap),
+          rgba(257, 255, 255, 1) calc(var(--hero-overlap) + 75px),
+          rgba(257, 255, 255, 1)
         );
 
         & .headline-text {
