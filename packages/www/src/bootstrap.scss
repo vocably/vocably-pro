@@ -37,10 +37,6 @@ $paragraph-margin-bottom: 2rem;
 
 @import '~bootstrap/scss/bootstrap.scss';
 
-:root {
-  --heading-font-family: #{$headings-font-family};
-}
-
 ol,
 ul,
 dl {
