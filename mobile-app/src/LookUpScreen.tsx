@@ -30,6 +30,7 @@ import { AssociatedCard } from './LookUpScreen/associateCards';
 import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
 import { useShareIntentData } from './ShareIntent/useShareIntentData';
+import { Preset } from './TranslationPreset/TranslationPresetContainer';
 import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 import { useLastUsedTagIds } from './useLastUsedTagIds';
 
@@ -48,25 +49,47 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: padding,
   },
-  loaderContainer: {
-    padding: padding,
-  },
   resultContainer: {
     flex: 1,
     width: '100%',
   },
 });
 
-type LookUpScreen = FC<{
-  navigation: NavigationProp<any>;
-}>;
+const getLoadingText = (translationPreset: Preset) => {
+  const fromLanguage = translationPreset.isReverse
+    ? translationPreset.translationLanguage
+    : translationPreset.sourceLanguage;
 
-export const LookUpScreen: LookUpScreen = ({ navigation }) => {
+  const toLanguage = translationPreset.isReverse
+    ? translationPreset.sourceLanguage
+    : translationPreset.translationLanguage;
+
+  const fromLanguageLabel = languageList[fromLanguage as GoogleLanguage];
+  const toLanguageLabel = languageList[toLanguage as GoogleLanguage];
+
+  if (!fromLanguageLabel || !toLanguageLabel) {
+    return 'Looking up...!';
+  }
+
+  if (fromLanguageLabel !== toLanguageLabel) {
+    return `Translating from ${fromLanguageLabel} to ${toLanguageLabel}...`;
+  }
+
+  return `Looking up...!`;
+};
+
+type Props = {
+  navigation: NavigationProp<any>;
+};
+
+export const LookUpScreen: FC<Props> = ({ navigation }) => {
   const [isAutomaticallyLookedUp, setIsAutomaticallyLookedUp] = useState(false);
   const [translationPreset, languagePairs, setTranslationPreset] =
     useTranslationPreset();
   const [lookUpText, setLookUpText] = useState('');
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isAnalyzingPreset, setIsAnalyzingPreset] = useState<Preset | false>(
+    false
+  );
   const [lookUpResult, setLookupResult] =
     useState<Awaited<ReturnType<typeof analyze>>>();
   const theme = useTheme();
@@ -93,7 +116,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
   }, [lookUpText]);
 
   const lookUp = useCallback(async () => {
-    if (isAnalyzing) {
+    if (isAnalyzingPreset) {
       return;
     }
 
@@ -103,7 +126,9 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
 
     Keyboard.dismiss();
 
-    setIsAnalyzing(true);
+    setIsAnalyzingPreset({
+      ...translationPreset,
+    });
     // @ts-ignore
     const payload: AnalyzePayload = {
       [translationPreset.isReverse ? 'target' : 'source']: lookUpText,
@@ -120,10 +145,16 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
     }
 
     setLookupResult(lookupResult);
-    setIsAnalyzing(false);
+    setIsAnalyzingPreset(false);
 
     posthog.capture('lookup', payload);
-  }, [translationPreset, lookUpText, setIsAnalyzing, isAnalyzing, deck]);
+  }, [
+    translationPreset,
+    lookUpText,
+    setIsAnalyzingPreset,
+    isAnalyzingPreset,
+    deck,
+  ]);
 
   useEffect(() => {
     if (
@@ -271,7 +302,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
           }
         />
       </View>
-      {!isAnalyzing && !lookUpResult && (
+      {!isAnalyzingPreset && !lookUpResult && (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View
             style={{
@@ -373,12 +404,19 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
           </View>
         </TouchableWithoutFeedback>
       )}
-      {isAnalyzing && (
-        <View style={styles.loaderContainer}>
-          <InlineLoader>Translating...</InlineLoader>
-        </View>
+      {isAnalyzingPreset && (
+        <Animated.View
+          entering={FadeIn}
+          exiting={FadeOut.duration(50)}
+          style={{
+            padding: padding,
+            marginTop: 16,
+          }}
+        >
+          <InlineLoader>{getLoadingText(isAnalyzingPreset)}</InlineLoader>
+        </Animated.View>
       )}
-      {!isAnalyzing && lookUpResult && lookUpResult.success && (
+      {!isAnalyzingPreset && lookUpResult && lookUpResult.success && (
         <Analyze
           style={styles.resultContainer}
           analysis={lookUpResult.value}
