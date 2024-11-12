@@ -21,7 +21,7 @@ export const DeckStack = () => {
     >
       <Stack.Screen
         name="Dashboard"
-        options={{ title: fullLanguage }}
+        options={{ title: fullLanguage, headerShown: false }}
         component={DashboardScreen}
       />
       <Stack.Screen

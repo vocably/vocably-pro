@@ -1,11 +1,19 @@
 import { useNetInfo } from '@react-native-community/netinfo';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { NavigationProp } from '@react-navigation/native';
-import { byDate, CardItem, TagItem } from '@vocably/model';
+import {
+  byDate,
+  CardItem,
+  GoogleLanguage,
+  languageList,
+  TagItem,
+} from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useCallback, useContext, useMemo, useState } from 'react';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import {
   ActivityIndicator,
+  Appbar,
   Badge,
   Button,
   Chip,
@@ -16,8 +24,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem, Separator } from './CardListItem';
+import { DashboardSearchInput } from './DashboardSearchInput';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
+import { LanguageSelector } from './LanguageSelector';
 import { Loader } from './loaders/Loader';
 import { swipeListButtonPressOpacity } from './stupidConstants';
 import { mainPadding } from './styles';
@@ -45,6 +55,20 @@ const styles = StyleSheet.create({
   },
 });
 
+const filterByLowercasedText =
+  (lowercasedText: string) =>
+  (cardItem: CardItem): boolean => {
+    if (cardItem.data.source.toLowerCase().includes(lowercasedText)) {
+      return true;
+    }
+
+    if (cardItem.data.translation.toLowerCase().includes(lowercasedText)) {
+      return true;
+    }
+
+    return false;
+  };
+
 export const keyExtractor: (item: CardItem) => string = (item) =>
   // The tags thingy is needed to forcefully recalculate the height
   // of the row so left and right swipe buttons look nice
@@ -69,7 +93,6 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
     filteredCards,
   } = selectedDeck;
   const { refreshLanguages } = useContext(LanguagesContext);
-  const cards = useMemo(() => filteredCards.sort(byDate), [filteredCards]);
   const theme = useTheme();
   const netInfo = useNetInfo();
 
@@ -117,6 +140,18 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
 
   const postHog = usePostHog();
 
+  const [isSearching, setIsSearching] = useState(true);
+  const [searchText, setSearchText] = useState('');
+  const cards = useMemo(() => {
+    if (searchText === '') {
+      return filteredCards.sort(byDate);
+    }
+
+    return filteredCards
+      .sort(byDate)
+      .filter(filterByLowercasedText(searchText.toLowerCase()));
+  }, [filteredCards, searchText]);
+
   if (deck.cards.length === 0 && status === 'loading') {
     return <Loader>Loading cards...</Loader>;
   }
@@ -132,6 +167,24 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
         paddingRight: insets.right,
       }}
     >
+      <Appbar.Header>
+        <Appbar.Action
+          icon="menu"
+          onPress={() =>
+            (navigation as any as DrawerNavigationProp<{}>).openDrawer()
+          }
+        />
+
+        <Appbar.Content
+          title={languageList[deck.language as GoogleLanguage] ?? ''}
+        />
+
+        <Appbar.Action
+          icon={isSearching ? 'magnify-remove-outline' : 'magnify'}
+          onPress={() => setIsSearching(!isSearching)}
+        />
+        <LanguageSelector />
+      </Appbar.Header>
       {!isEmpty && (
         <View
           style={{
@@ -144,53 +197,71 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               marginBottom: 8,
             }}
           >
-            <Button
-              labelStyle={{
-                fontSize: 18,
-              }}
-              mode={'contained'}
-              onPress={() => navigation.navigate('Study')}
-              disabled={cards.length === 0 || !netInfo.isInternetReachable}
-            >
-              Practice{selectedTags.length > 0 ? ' selected tags' : ''}
-            </Button>
-            {deck.tags.length > 0 && (
-              <View
-                style={{
-                  position: 'absolute',
-                  right: 0,
-                  top: 0,
+            {isSearching && (
+              <DashboardSearchInput
+                value={searchText}
+                onChange={(text) => {
+                  setSearchText(text);
                 }}
-              >
-                <TagsSelector
-                  value={selectedTags}
-                  onChange={async (tags) => {
-                    await setSelectedTagIds(tags.map((t) => t.id));
-                    postHog.capture('Tags for practice selected');
+                style={{
+                  height: 40,
+                }}
+              />
+            )}
+            {!isSearching && (
+              <>
+                <Button
+                  style={{
+                    height: 40,
                   }}
-                  isAllowedToAdd={false}
-                  deck={selectedDeck}
-                  renderAnchor={({ openMenu, disabled }) => (
-                    <Pressable
-                      style={({ pressed }) => [
-                        {
-                          opacity: pressed ? 0.8 : 1,
-                          padding: 8,
-                        },
-                      ]}
-                      hitSlop={20}
-                      onPress={openMenu}
-                      disabled={disabled}
-                    >
-                      <Icon
-                        name={'tag'}
-                        color={theme.colors.onPrimary}
-                        style={{ fontSize: 22 }}
-                      />
-                    </Pressable>
-                  )}
-                />
-              </View>
+                  labelStyle={{
+                    fontSize: 18,
+                  }}
+                  mode={'contained'}
+                  onPress={() => navigation.navigate('Study')}
+                  disabled={cards.length === 0 || !netInfo.isInternetReachable}
+                >
+                  Practice{selectedTags.length > 0 ? ' selected tags' : ''}
+                </Button>
+                {deck.tags.length > 0 && (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      top: 0,
+                    }}
+                  >
+                    <TagsSelector
+                      value={selectedTags}
+                      onChange={async (tags) => {
+                        await setSelectedTagIds(tags.map((t) => t.id));
+                        postHog.capture('Tags for practice selected');
+                      }}
+                      isAllowedToAdd={false}
+                      deck={selectedDeck}
+                      renderAnchor={({ openMenu, disabled }) => (
+                        <Pressable
+                          style={({ pressed }) => [
+                            {
+                              opacity: pressed ? 0.8 : 1,
+                              padding: 8,
+                            },
+                          ]}
+                          hitSlop={20}
+                          onPress={openMenu}
+                          disabled={disabled}
+                        >
+                          <Icon
+                            name={'tag'}
+                            color={theme.colors.onPrimary}
+                            style={{ fontSize: 22 }}
+                          />
+                        </Pressable>
+                      )}
+                    />
+                  </View>
+                )}
+              </>
             )}
           </View>
           {selectedTags.length > 0 && (
