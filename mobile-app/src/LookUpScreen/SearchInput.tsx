@@ -38,8 +38,20 @@ export const SearchInput: SearchInput = ({
           borderColor: isFocused
             ? theme.colors.primary
             : theme.colors.outlineVariant,
-          borderRadius: 8,
+          borderRadius: 32,
           opacity: disabled ? 0.5 : 1,
+          shadowOffset: {
+            width: 0,
+            height: 0,
+          },
+          shadowOpacity: 0.5,
+          shadowColor: isFocused
+            ? theme.colors.primary
+            : theme.colors.outlineVariant,
+          shadowRadius: 5,
+          backgroundColor: theme.colors.background,
+          elevation: 7,
+          paddingLeft: 12,
         },
       ]}
     >
