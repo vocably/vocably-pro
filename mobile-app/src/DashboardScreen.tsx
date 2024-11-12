@@ -9,7 +9,14 @@ import {
   TagItem,
 } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
-import React, { FC, useCallback, useContext, useMemo, useState } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import {
   ActivityIndicator,
@@ -24,7 +31,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem, Separator } from './CardListItem';
-import { DashboardSearchInput } from './DashboardSearchInput';
+import {
+  DashboardSearchInput,
+  DashboardSearchInputRef,
+} from './DashboardSearchInput';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { LanguageSelector } from './LanguageSelector';
@@ -63,6 +73,15 @@ const filterByLowercasedText =
     }
 
     if (cardItem.data.translation.toLowerCase().includes(lowercasedText)) {
+      return true;
+    }
+
+    if (
+      cardItem.data.tags.length > 0 &&
+      cardItem.data.tags.some((tag) =>
+        tag.data.title.toLowerCase().includes(lowercasedText)
+      )
+    ) {
       return true;
     }
 
@@ -142,15 +161,18 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
 
   const [isSearching, setIsSearching] = useState(true);
   const [searchText, setSearchText] = useState('');
+  const canBeSearched = deck.cards.length > 4;
   const cards = useMemo(() => {
-    if (searchText === '') {
+    if (!canBeSearched || !isSearching || searchText === '') {
       return filteredCards.sort(byDate);
     }
 
     return filteredCards
       .sort(byDate)
       .filter(filterByLowercasedText(searchText.toLowerCase()));
-  }, [filteredCards, searchText]);
+  }, [filteredCards, searchText, isSearching]);
+
+  const searchInputRef = useRef<DashboardSearchInputRef>(null);
 
   if (deck.cards.length === 0 && status === 'loading') {
     return <Loader>Loading cards...</Loader>;
@@ -167,24 +189,34 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
         paddingRight: insets.right,
       }}
     >
-      <Appbar.Header>
-        <Appbar.Action
-          icon="menu"
-          onPress={() =>
-            (navigation as any as DrawerNavigationProp<{}>).openDrawer()
+      <Pressable
+        onPress={() => {
+          if (searchInputRef.current) {
+            searchInputRef.current.blur();
           }
-        />
+        }}
+      >
+        <Appbar.Header>
+          <Appbar.Action
+            icon="menu"
+            onPress={() =>
+              (navigation as any as DrawerNavigationProp<{}>).openDrawer()
+            }
+          />
 
-        <Appbar.Content
-          title={languageList[deck.language as GoogleLanguage] ?? ''}
-        />
+          <Appbar.Content
+            title={languageList[deck.language as GoogleLanguage] ?? ''}
+          />
 
-        <Appbar.Action
-          icon={isSearching ? 'magnify-remove-outline' : 'magnify'}
-          onPress={() => setIsSearching(!isSearching)}
-        />
-        <LanguageSelector />
-      </Appbar.Header>
+          {canBeSearched && (
+            <Appbar.Action
+              icon={isSearching ? 'magnify-remove-outline' : 'magnify'}
+              onPress={() => setIsSearching(!isSearching)}
+            />
+          )}
+          <LanguageSelector />
+        </Appbar.Header>
+      </Pressable>
       {!isEmpty && (
         <View
           style={{
@@ -197,9 +229,10 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               marginBottom: 8,
             }}
           >
-            {isSearching && (
+            {canBeSearched && isSearching && (
               <DashboardSearchInput
                 value={searchText}
+                ref={searchInputRef}
                 onChange={(text) => {
                   setSearchText(text);
                 }}
@@ -208,61 +241,64 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                 }}
               />
             )}
-            {!isSearching && (
-              <>
-                <Button
-                  style={{
-                    height: 40,
-                  }}
-                  labelStyle={{
-                    fontSize: 18,
-                  }}
-                  mode={'contained'}
-                  onPress={() => navigation.navigate('Study')}
-                  disabled={cards.length === 0 || !netInfo.isInternetReachable}
-                >
-                  Practice{selectedTags.length > 0 ? ' selected tags' : ''}
-                </Button>
-                {deck.tags.length > 0 && (
-                  <View
+            {!canBeSearched ||
+              (!isSearching && (
+                <>
+                  <Button
                     style={{
-                      position: 'absolute',
-                      right: 0,
-                      top: 0,
+                      height: 40,
                     }}
+                    labelStyle={{
+                      fontSize: 18,
+                    }}
+                    mode={'contained'}
+                    onPress={() => navigation.navigate('Study')}
+                    disabled={
+                      cards.length === 0 || !netInfo.isInternetReachable
+                    }
                   >
-                    <TagsSelector
-                      value={selectedTags}
-                      onChange={async (tags) => {
-                        await setSelectedTagIds(tags.map((t) => t.id));
-                        postHog.capture('Tags for practice selected');
+                    Practice{selectedTags.length > 0 ? ' selected tags' : ''}
+                  </Button>
+                  {deck.tags.length > 0 && (
+                    <View
+                      style={{
+                        position: 'absolute',
+                        right: 0,
+                        top: 0,
                       }}
-                      isAllowedToAdd={false}
-                      deck={selectedDeck}
-                      renderAnchor={({ openMenu, disabled }) => (
-                        <Pressable
-                          style={({ pressed }) => [
-                            {
-                              opacity: pressed ? 0.8 : 1,
-                              padding: 8,
-                            },
-                          ]}
-                          hitSlop={20}
-                          onPress={openMenu}
-                          disabled={disabled}
-                        >
-                          <Icon
-                            name={'tag'}
-                            color={theme.colors.onPrimary}
-                            style={{ fontSize: 22 }}
-                          />
-                        </Pressable>
-                      )}
-                    />
-                  </View>
-                )}
-              </>
-            )}
+                    >
+                      <TagsSelector
+                        value={selectedTags}
+                        onChange={async (tags) => {
+                          await setSelectedTagIds(tags.map((t) => t.id));
+                          postHog.capture('Tags for practice selected');
+                        }}
+                        isAllowedToAdd={false}
+                        deck={selectedDeck}
+                        renderAnchor={({ openMenu, disabled }) => (
+                          <Pressable
+                            style={({ pressed }) => [
+                              {
+                                opacity: pressed ? 0.8 : 1,
+                                padding: 8,
+                              },
+                            ]}
+                            hitSlop={20}
+                            onPress={openMenu}
+                            disabled={disabled}
+                          >
+                            <Icon
+                              name={'tag'}
+                              color={theme.colors.onPrimary}
+                              style={{ fontSize: 22 }}
+                            />
+                          </Pressable>
+                        )}
+                      />
+                    </View>
+                  )}
+                </>
+              ))}
           </View>
           {selectedTags.length > 0 && (
             <View
