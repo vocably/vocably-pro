@@ -279,6 +279,7 @@ export const LookUpScreen: LookUpScreen = ({ navigation }) => {
               width: '100%',
               paddingHorizontal: padding,
               paddingVertical: padding,
+              paddingLeft: padding + 18,
               gap: 8,
             }}
           >
