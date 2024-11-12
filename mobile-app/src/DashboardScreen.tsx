@@ -160,7 +160,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
 
   const postHog = usePostHog();
 
-  const [isSearching, setIsSearching] = useState(true);
+  const [isSearching, setIsSearching] = useState(false);
   const [searchText, setSearchText] = useState('');
   const canBeSearched = deck.cards.length > 4;
   const cards = useMemo(() => {

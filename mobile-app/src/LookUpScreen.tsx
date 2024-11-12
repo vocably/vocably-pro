@@ -10,7 +10,14 @@ import {
 } from '@vocably/model';
 import { buildTagMap } from '@vocably/model-operations';
 import { usePostHog } from 'posthog-react-native';
-import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   Alert,
   Keyboard,
@@ -115,9 +122,12 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
     }
   }, [lookUpText]);
 
+  const abortControllerRef = useRef<AbortController | null>(null);
+
   const lookUp = useCallback(async () => {
-    if (isAnalyzingPreset) {
-      return;
+    if (isAnalyzingPreset && abortControllerRef.current) {
+      abortControllerRef.current?.abort();
+      abortControllerRef.current = null;
     }
 
     if (deck.status !== 'loaded') {
@@ -135,13 +145,25 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
       sourceLanguage: translationPreset.sourceLanguage as GoogleLanguage,
       targetLanguage: translationPreset.translationLanguage as GoogleLanguage,
     };
-    const lookupResult = await analyze(payload);
 
-    if (lookupResult.success === false) {
+    abortControllerRef.current = new AbortController();
+    const lookupResult = await analyze(payload, abortControllerRef.current);
+
+    if (
+      lookupResult.success === false &&
+      lookupResult.errorCode !== 'API_REQUEST_ABORTED'
+    ) {
       Alert.alert(
         'Error: Look up failed',
         'Oops! Something went wrong while attempting to look up. Please try again later.'
       );
+    }
+
+    if (
+      !lookupResult.success &&
+      lookupResult.errorCode === 'API_REQUEST_ABORTED'
+    ) {
+      return;
     }
 
     setLookupResult(lookupResult);

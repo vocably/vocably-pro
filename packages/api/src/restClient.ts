@@ -47,6 +47,15 @@ export const request = async (
       value: await response.text(),
     };
   } catch (e) {
+    if (e.name === 'AbortError') {
+      return {
+        success: false,
+        errorCode: 'API_REQUEST_ABORTED',
+        reason: 'The request was aboarted by another user operation.',
+        extra: e,
+      };
+    }
+
     return {
       success: false,
       errorCode: 'API_REQUEST_UNHANDLED_ERROR',
