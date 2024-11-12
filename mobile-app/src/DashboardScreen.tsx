@@ -114,6 +114,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
   const { refreshLanguages } = useContext(LanguagesContext);
   const theme = useTheme();
   const netInfo = useNetInfo();
+  const { languages } = useContext(LanguagesContext);
 
   const [refreshing, setRefreshing] = useState(false);
   const [toBeDeletedId, setToBeDeletedId] = useState<string | null>(null);
@@ -214,7 +215,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               onPress={() => setIsSearching(!isSearching)}
             />
           )}
-          <LanguageSelector />
+          {languages.length > 1 && <LanguageSelector />}
         </Appbar.Header>
       </Pressable>
       {!isEmpty && (
@@ -241,64 +242,61 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                 }}
               />
             )}
-            {!canBeSearched ||
-              (!isSearching && (
-                <>
-                  <Button
+            {(!canBeSearched || !isSearching) && (
+              <>
+                <Button
+                  style={{
+                    height: 40,
+                  }}
+                  labelStyle={{
+                    fontSize: 18,
+                  }}
+                  mode={'contained'}
+                  onPress={() => navigation.navigate('Study')}
+                  disabled={cards.length === 0 || !netInfo.isInternetReachable}
+                >
+                  Practice{selectedTags.length > 0 ? ' selected tags' : ''}
+                </Button>
+                {deck.tags.length > 0 && (
+                  <View
                     style={{
-                      height: 40,
+                      position: 'absolute',
+                      right: 0,
+                      top: 0,
                     }}
-                    labelStyle={{
-                      fontSize: 18,
-                    }}
-                    mode={'contained'}
-                    onPress={() => navigation.navigate('Study')}
-                    disabled={
-                      cards.length === 0 || !netInfo.isInternetReachable
-                    }
                   >
-                    Practice{selectedTags.length > 0 ? ' selected tags' : ''}
-                  </Button>
-                  {deck.tags.length > 0 && (
-                    <View
-                      style={{
-                        position: 'absolute',
-                        right: 0,
-                        top: 0,
+                    <TagsSelector
+                      value={selectedTags}
+                      onChange={async (tags) => {
+                        await setSelectedTagIds(tags.map((t) => t.id));
+                        postHog.capture('Tags for practice selected');
                       }}
-                    >
-                      <TagsSelector
-                        value={selectedTags}
-                        onChange={async (tags) => {
-                          await setSelectedTagIds(tags.map((t) => t.id));
-                          postHog.capture('Tags for practice selected');
-                        }}
-                        isAllowedToAdd={false}
-                        deck={selectedDeck}
-                        renderAnchor={({ openMenu, disabled }) => (
-                          <Pressable
-                            style={({ pressed }) => [
-                              {
-                                opacity: pressed ? 0.8 : 1,
-                                padding: 8,
-                              },
-                            ]}
-                            hitSlop={20}
-                            onPress={openMenu}
-                            disabled={disabled}
-                          >
-                            <Icon
-                              name={'tag'}
-                              color={theme.colors.onPrimary}
-                              style={{ fontSize: 22 }}
-                            />
-                          </Pressable>
-                        )}
-                      />
-                    </View>
-                  )}
-                </>
-              ))}
+                      isAllowedToAdd={false}
+                      deck={selectedDeck}
+                      renderAnchor={({ openMenu, disabled }) => (
+                        <Pressable
+                          style={({ pressed }) => [
+                            {
+                              opacity: pressed ? 0.8 : 1,
+                              padding: 8,
+                            },
+                          ]}
+                          hitSlop={20}
+                          onPress={openMenu}
+                          disabled={disabled}
+                        >
+                          <Icon
+                            name={'tag'}
+                            color={theme.colors.onPrimary}
+                            style={{ fontSize: 22 }}
+                          />
+                        </Pressable>
+                      )}
+                    />
+                  </View>
+                )}
+              </>
+            )}
           </View>
           {selectedTags.length > 0 && (
             <View
