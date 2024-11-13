@@ -78,7 +78,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
   }, [translationPreset, isScrolled]);
 
   useEffect(() => {
-    postHog.capture('Welcome');
+    postHog.capture('welcome');
   }, []);
 
   const isTranslate =

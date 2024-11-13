@@ -1,5 +1,4 @@
 import { Slider } from '@miblanchard/react-native-slider';
-import { usePostHog } from 'posthog-react-native';
 import { FC } from 'react';
 import { Linking, ScrollView, View } from 'react-native';
 import { Checkbox, Divider, Text, useTheme } from 'react-native-paper';
@@ -63,18 +62,11 @@ export const PracticeSettingsScreen: FC<Props> = () => {
     setPreferMultiChoiceEnabled
   );
 
-  const postHog = usePostHog();
-
   const onMultiChoicePress = () => {
     if (isMultiChoiceEnabledResult.status !== 'loaded') {
       return;
     }
     mutateMultiChoiceEnabled(!isMultiChoiceEnabledResult.value);
-    if (!isMultiChoiceEnabledResult.value) {
-      postHog.capture(`Multi choice enabled`);
-    } else {
-      postHog.capture(`Multi choice disabled`);
-    }
   };
 
   const onRandomizerEnabledPress = () => {
@@ -83,11 +75,6 @@ export const PracticeSettingsScreen: FC<Props> = () => {
     }
 
     mutateIsRandomizerEnabled(!isRandomizerEnabled.value);
-    if (!isRandomizerEnabled.value) {
-      postHog.capture(`Randomizer enabled`);
-    } else {
-      postHog.capture(`Randomizer disabled`);
-    }
   };
 
   const onPreferMultiChoicePress = () => {
@@ -95,11 +82,6 @@ export const PracticeSettingsScreen: FC<Props> = () => {
       return;
     }
     mutatePreferMultiChoice(!preferMultiChoiceResult.value);
-    if (!preferMultiChoiceResult.value) {
-      postHog.capture(`Prefer multi choice enabled`);
-    } else {
-      postHog.capture(`Prefer multi choice disabled`);
-    }
   };
 
   return (

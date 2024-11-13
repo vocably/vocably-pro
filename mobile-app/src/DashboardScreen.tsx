@@ -269,7 +269,9 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                       value={selectedTags}
                       onChange={async (tags) => {
                         await setSelectedTagIds(tags.map((t) => t.id));
-                        postHog.capture('Tags for practice selected');
+                        postHog.capture('practice_tags_selected', {
+                          tags: tags.map((t) => t.data.title).join(', '),
+                        });
                       }}
                       isAllowedToAdd={false}
                       deck={selectedDeck}

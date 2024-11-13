@@ -97,7 +97,9 @@ export const TagsMenu: FC<Props> = ({
     setNewTags([newTag, ...newTags]);
     setNewSelectedTags([newTag, ...newSelectedTags]);
 
-    postHog.capture('A new tag added (but not saved)');
+    postHog.capture('new_tag_added', {
+      tag: title,
+    });
   };
 
   const isSelectedTag = (tag: Tag): boolean => {
@@ -137,7 +139,9 @@ export const TagsMenu: FC<Props> = ({
   };
 
   const deleteTagPressed = (tag: Tag) => async () => {
-    postHog.capture('Tag deleted');
+    postHog.capture('gat_deleted', {
+      tag: tag.data.title,
+    });
 
     if (!isExistingTag(tag)) {
       setNewTags(newTags.filter((t) => t !== tag));
