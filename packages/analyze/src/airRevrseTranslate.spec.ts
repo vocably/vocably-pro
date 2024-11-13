@@ -23,9 +23,15 @@ describe('aiReverseTranslate', () => {
     }
 
     expect(result.value.length).toBeGreaterThanOrEqual(3);
-    expect(result.value[0].target).toHaveSomeOf('deksel, cover, bedekking');
-    expect(result.value[1].target).toHaveSomeOf('deksel, cover, bedekking');
-    expect(result.value[2].target).toHaveSomeOf('deksel, cover, bedekking');
+    expect(result.value[0].target).toHaveSomeOf(
+      'deksel, cover, bedekking, omslag'
+    );
+    expect(result.value[1].target).toHaveSomeOf(
+      'deksel, cover, bedekking, omslag'
+    );
+    expect(result.value[2].target).toHaveSomeOf(
+      'deksel, cover, bedekking, omslag'
+    );
   });
 
   it('gets all the Dutch meanings of the word or phrase "phone case"', async () => {
