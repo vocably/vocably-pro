@@ -179,6 +179,12 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
   ]);
 
   useEffect(() => {
+    if (isAnalyzingPreset) {
+      lookUp();
+    }
+  }, [translationPreset]);
+
+  useEffect(() => {
     if (
       !isAutomaticallyLookedUp &&
       intentData &&
