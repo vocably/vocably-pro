@@ -14,7 +14,6 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getItem, setItem } from './asyncAppStorage';
 import { LanguagesContext } from './languages/LanguagesContainer';
-import { Select, SelectOption } from './Select';
 import { SourceLanguageButton } from './SourceLanguageButton';
 import { Displayer, DisplayerRef } from './study/Displayer';
 import { TargetLanguageButton } from './TargetLanguageButton';
@@ -26,29 +25,6 @@ const isIos = Platform.OS === 'ios';
 type Props = {
   navigation: NavigationProp<any>;
 };
-
-const languageLevels: SelectOption[] = [
-  {
-    value: 'beginner',
-    label: 'Beginner (A1-A2)',
-  },
-  {
-    value: 'intermediate',
-    label: 'Intermediate (B1-B2)',
-  },
-  {
-    value: 'advanced',
-    label: 'Advanced (C1-C2)',
-  },
-  {
-    value: 'not-sure',
-    label: "I'm not sure",
-  },
-];
-
-const getLevelFromStorage = () =>
-  getItem('languageLevel').then((value) => value ?? '');
-const setLevelToStorage = (level: string) => setItem('languageLevel', level);
 
 type OnboardingStep = 'form' | 'faq';
 const getOnboardingStepFromStorage = (): Promise<OnboardingStep> =>
@@ -67,7 +43,6 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const theme = useTheme();
   const { refreshLanguages } = useContext(LanguagesContext);
-  const [level, setLevel] = useAsync(getLevelFromStorage, setLevelToStorage);
   const [onboardingStep, setOnboardingStep] = useAsync(
     getOnboardingStepFromStorage,
     setOnboardingStepToStorage
@@ -89,10 +64,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const isNextButtonVisible =
-    translationPreset.translationLanguage &&
-    translationPreset.sourceLanguage &&
-    level.status === 'loaded' &&
-    level.value;
+    translationPreset.translationLanguage && translationPreset.sourceLanguage;
 
   useEffect(() => {
     if (
@@ -103,7 +75,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
     ) {
       scrollViewRef.current.scrollToEnd({ animated: true });
     }
-  }, [translationPreset, level, isScrolled]);
+  }, [translationPreset, isScrolled]);
 
   useEffect(() => {
     postHog.capture('Welcome');
@@ -121,7 +93,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
         paddingVertical: 24,
         paddingLeft: insets.left + 24,
         paddingRight: insets.right + 24,
-        minHeight: '100%',
+        minHeight: '90%',
       }}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -153,7 +125,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
             >
               What language do you study?
             </Text>
-            <View style={{ width: '60%' }}>
+            <View style={{ width: '50%' }}>
               <SourceLanguageButton
                 navigation={navigation}
                 preset={translationPreset}
@@ -191,9 +163,9 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
                     color: theme.colors.onBackground,
                   }}
                 >
-                  What language do you speak?
+                  What is your mother{'\u00A0'}tongue?
                 </Text>
-                <View style={{ width: '60%' }}>
+                <View style={{ width: '50%' }}>
                   <TargetLanguageButton
                     navigation={navigation}
                     preset={translationPreset}
@@ -204,42 +176,6 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
               </View>
             </Animated.View>
           )}
-          {translationPreset.sourceLanguage &&
-            translationPreset.translationLanguage && (
-              <Animated.View
-                entering={FadeInDown}
-                style={{
-                  gap: 16,
-                }}
-              >
-                <Divider style={{ width: '100%' }} />
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 16,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      flex: 1,
-                      textAlign: 'right',
-                      color: theme.colors.onBackground,
-                    }}
-                  >
-                    What is your level?
-                  </Text>
-                  <View style={{ width: '60%' }}>
-                    <Select
-                      options={languageLevels}
-                      value={level.status === 'loaded' ? level.value : ''}
-                      onChange={setLevel}
-                    />
-                  </View>
-                </View>
-              </Animated.View>
-            )}
           {isNextButtonVisible && (
             <Animated.View entering={FadeInDown} style={{ marginTop: 25 }}>
               <Button
@@ -255,12 +191,15 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
                       y: 0,
                       animated: true,
                     });
-                  postHog.capture('Welcome form submitted');
+                  postHog.capture('welcome_submitted', {
+                    studyLanguage: translationPreset.sourceLanguage,
+                    nativeLanguage: translationPreset.translationLanguage,
+                  });
                   postHog.capture('$set', {
                     $set: {
-                      studyLanguage: translationPreset.sourceLanguage,
-                      nativeLanguage: translationPreset.translationLanguage,
-                      level: level.status === 'loaded' && level.value,
+                      lastSourceLanguage: translationPreset.sourceLanguage,
+                      lastTranslationLanguage:
+                        translationPreset.translationLanguage,
                     },
                   });
                 }}
