@@ -38,17 +38,6 @@ $section-margin: 8px;
   text-align: right;
 }
 
-.vocably-text-link,
-.vocably-text-link:active,
-.vocably-text-link:visited {
-  color: $v-light-color-body !important;
-  text-decoration: underline !important;
-}
-
-.vocably-text-link:hover {
-  color: $v-light-color-emphasize !important;
-}
-
 .vocably-emphasized {
   color: $v-light-color-emphasize;
   font-weight: bold;
@@ -179,11 +168,14 @@ $container-padding: $input-padding-y $input-padding-x $input-padding-y
       min-width: auto;
       box-shadow: none;
 
-      opacity: 0.1;
-      transition: opacity 200ms;
+      transition: transform 200ms ease-in-out;
 
       &:hover {
-        opacity: 1;
+        transform: scale(1.1);
+      }
+
+      &:active {
+        transform: scale(0.9);
       }
 
       & > * {
@@ -282,6 +274,17 @@ vocably-play-sound {
 .vocably-link-button {
   @include unstyled();
   @include link(!important);
+}
+
+.vocably-text-link,
+.vocably-text-link:active,
+.vocably-text-link:visited {
+  color: $v-light-color-body !important;
+  text-decoration: underline !important;
+}
+
+.vocably-text-link:hover {
+  color: $v-light-color-emphasize !important;
 }
 
 .vocably-tag {

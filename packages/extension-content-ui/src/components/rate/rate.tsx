@@ -16,25 +16,24 @@ export class VocablyRate {
     return (
       <Host>
         <div>
-          <strong>You can help this project.</strong>
+          <strong>Your rating means a lot.</strong>
         </div>
-        <div class="vocably-mt-12">Vocably is 100% free and open-source.</div>
         <div class="vocably-mt-12">
-          Your positive review on {this.platform.name} would help other users to
+          Your positive review or rating on the {this.platform.name}
           <br />
-          discover this project.
+          will make a huge difference for this project.
         </div>
         <div class="vocably-mt-12">
-          If you are missing or don't like something, you can always{' '}
+          If something's missing or not to your liking,{' '}
           <a
             href="https://app.vocably.pro/feedback"
             target="_blank"
-            class="vocably-text-link"
+            class="vocably-link-button"
             onClick={() => this.userSelected.emit('feedback')}
           >
             let me know
           </a>
-          .<br /> I take every feedback seriously.
+          .<br /> I take all feedback seriously.
         </div>
         <div class="vocably-mt-12">
           <a
@@ -43,7 +42,7 @@ export class VocablyRate {
             class="vocably-button"
             onClick={() => this.userSelected.emit('review')}
           >
-            Help this project. Leave a review.
+            Yes, I want to rate Vocably
           </a>
           <button
             class="vocably-link-button"
