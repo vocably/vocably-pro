@@ -8,7 +8,6 @@ import {
 } from '@vocably/model';
 import { tokenize } from '@vocably/sulna';
 import { chatGptRequest, GPT_4O_MINI } from './chatGptRequest';
-import { isOneWord } from './isOneWord';
 
 type Payload = {
   source: string;
@@ -56,23 +55,19 @@ export const itMakesSense = (p: Payload): boolean => {
 export const translateFromContext = async (
   payload: Payload
 ): Promise<Result<Translation>> => {
-  const source = truncateText(payload.source, 10);
-  const context = truncateText(payload.context, 50);
-
-  const isOnwWord = isOneWord(source);
+  const source = truncateAsIs(payload.source, 100);
+  const context = truncateAsIs(payload.context, 400);
 
   const prompt = [
     `Translate the ${languageList[payload.sourceLanguage]} word/phrase`,
-    source,
+    `<word-or-phrase>${source}</word-or-phrase>`,
     `that appears in the context of sentence:`,
-    context,
+    `<sentence>${context}</sentence>`,
     `from ${languageList[payload.sourceLanguage]} to ${
       languageList[payload.targetLanguage]
     }.`,
     '',
-    `Respond in JSON, as in example: {"target": "the translated word"${
-      isOnwWord && ', "partOfSpeech": "noun"'
-    }}`,
+    `Respond in JSON, as in example: {"target": "the translated word", "partOfSpeech": "noun"'}`,
   ].join('\n');
 
   const responseResult = await chatGptRequest({
@@ -106,6 +101,6 @@ export const translateFromContext = async (
   };
 };
 
-export const truncateText = (text: string, maxTokens = 100): string => {
-  return tokenize(text).slice(0, maxTokens).join(' ');
+export const truncateAsIs = (text: string, length: number): string => {
+  return text.replace(/[<>]/gm, '').slice(0, length);
 };

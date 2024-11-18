@@ -64,4 +64,21 @@ describe('translateFromContext', () => {
     // @ts-ignore
     expect(translationResult.value.partOfSpeech).toEqual('noun');
   });
+
+  it('returns a phrase', async () => {
+    const translationResult = await translateFromContext({
+      source: 'как тебя зовут?',
+      context: 'Привет, как тебя зовут?',
+      sourceLanguage: 'ru',
+      targetLanguage: 'en',
+    });
+    expect(translationResult.success).toEqual(true);
+
+    if (!translationResult.success) {
+      return;
+    }
+
+    expect(translationResult.value.partOfSpeech).toEqual('phrase');
+    expect(translationResult.value.target).toEqual('What is your name?');
+  });
 });
