@@ -1,11 +1,13 @@
 <div class="container-xl top"><app-header title="Settings"></app-header></div>
-<div class="container bottom">
-  <div class="green-zone">
-    <p>Not too many settings here, right?</p>
-    <p>Please let me know if anything bothered you. I'd like to change it.</p>
-    <p>
-      <a class="button" [routerLink]="['/feedback']">Let me know</a>
-    </p>
+<div class="container bottom text-center">
+  <div class="green-zone display-flex flex-direction-column align-items-center">
+    <div>
+      <p>Do you need help?</p>
+      <p>Let me know if anything bothered you.</p>
+      <p>
+        <a class="button block" [routerLink]="['/feedback']">I need help</a>
+      </p>
+    </div>
   </div>
   <mat-divider style="margin-bottom: 1rem"></mat-divider>
   <button class="link unstyled" (click)="deleteAccount()">
