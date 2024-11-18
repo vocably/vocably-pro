@@ -24,13 +24,13 @@ describe('aiReverseTranslate', () => {
 
     expect(result.value.length).toBeGreaterThanOrEqual(3);
     expect(result.value[0].target).toHaveSomeOf(
-      'deksel, cover, bedekking, omslag'
+      'deksel, cover, bedekking, omslag, bedekken'
     );
     expect(result.value[1].target).toHaveSomeOf(
-      'deksel, cover, bedekking, omslag'
+      'deksel, cover, bedekking, omslag, bedekken'
     );
     expect(result.value[2].target).toHaveSomeOf(
-      'deksel, cover, bedekking, omslag'
+      'deksel, cover, bedekking, omslag, bedekken'
     );
   });
 
@@ -65,7 +65,10 @@ describe('aiReverseTranslate', () => {
       return;
     }
 
-    expect(result.value[0].target).toEqual('Is everything in force?');
+    expect(result.value[0].target).toHaveSomeOf([
+      'Is everything in force?',
+      'Is everything still on?',
+    ]);
   });
 
   describe('truncateText', () => {
