@@ -72,6 +72,8 @@ export namespace Components {
     }
     interface VocablyPopup {
     }
+    interface VocablyQrCode {
+    }
     interface VocablyRate {
         "platform": { name: string; url: string };
     }
@@ -310,6 +312,12 @@ declare global {
         prototype: HTMLVocablyPopupElement;
         new (): HTMLVocablyPopupElement;
     };
+    interface HTMLVocablyQrCodeElement extends Components.VocablyQrCode, HTMLStencilElement {
+    }
+    var HTMLVocablyQrCodeElement: {
+        prototype: HTMLVocablyQrCodeElement;
+        new (): HTMLVocablyQrCodeElement;
+    };
     interface HTMLVocablyRateElement extends Components.VocablyRate, HTMLStencilElement {
     }
     var HTMLVocablyRateElement: {
@@ -377,6 +385,7 @@ declare global {
         "vocably-overlay": HTMLVocablyOverlayElement;
         "vocably-play-sound": HTMLVocablyPlaySoundElement;
         "vocably-popup": HTMLVocablyPopupElement;
+        "vocably-qr-code": HTMLVocablyQrCodeElement;
         "vocably-rate": HTMLVocablyRateElement;
         "vocably-sign-in": HTMLVocablySignInElement;
         "vocably-spinner": HTMLVocablySpinnerElement;
@@ -456,6 +465,8 @@ declare namespace LocalJSX {
     }
     interface VocablyPopup {
         "onClose"?: (event: VocablyPopupCustomEvent<void>) => void;
+    }
+    interface VocablyQrCode {
     }
     interface VocablyRate {
         "onUserSelected"?: (event: VocablyRateCustomEvent<'review' | 'later' | 'never' | 'feedback'>) => void;
@@ -546,6 +557,7 @@ declare namespace LocalJSX {
         "vocably-overlay": VocablyOverlay;
         "vocably-play-sound": VocablyPlaySound;
         "vocably-popup": VocablyPopup;
+        "vocably-qr-code": VocablyQrCode;
         "vocably-rate": VocablyRate;
         "vocably-sign-in": VocablySignIn;
         "vocably-spinner": VocablySpinner;
@@ -583,6 +595,7 @@ declare module "@stencil/core" {
             "vocably-overlay": LocalJSX.VocablyOverlay & JSXBase.HTMLAttributes<HTMLVocablyOverlayElement>;
             "vocably-play-sound": LocalJSX.VocablyPlaySound & JSXBase.HTMLAttributes<HTMLVocablyPlaySoundElement>;
             "vocably-popup": LocalJSX.VocablyPopup & JSXBase.HTMLAttributes<HTMLVocablyPopupElement>;
+            "vocably-qr-code": LocalJSX.VocablyQrCode & JSXBase.HTMLAttributes<HTMLVocablyQrCodeElement>;
             "vocably-rate": LocalJSX.VocablyRate & JSXBase.HTMLAttributes<HTMLVocablyRateElement>;
             "vocably-sign-in": LocalJSX.VocablySignIn & JSXBase.HTMLAttributes<HTMLVocablySignInElement>;
             "vocably-spinner": LocalJSX.VocablySpinner & JSXBase.HTMLAttributes<HTMLVocablySpinnerElement>;
