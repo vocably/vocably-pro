@@ -6,7 +6,6 @@ import {
 } from '@vocably/model';
 import { isArray, isObject } from 'lodash-es';
 import { chatGptRequest, GPT_4O_MINI } from './chatGptRequest';
-import { truncateText } from './translateFromContext';
 
 type Payload = {
   target: string;
@@ -25,10 +24,14 @@ type AiTranslationResult = {
 
 type ValidTranslations = [Translation, ...Translation[]];
 
+export const truncateText = (text: string, length: number): string => {
+  return text.replace(/[<>]/gm, '').slice(0, length);
+};
+
 export const aiReverseTranslate = async (
   payload: Payload
 ): Promise<Result<ValidTranslations>> => {
-  const target = truncateText(payload.target, 10);
+  const target = truncateText(payload.target, 100);
   const prompt = [
     `Provide all the possible translations of the ${
       languageList[payload.targetLanguage]

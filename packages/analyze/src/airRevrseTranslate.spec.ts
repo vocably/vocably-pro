@@ -1,5 +1,5 @@
 import '@vocably/jest';
-import { aiReverseTranslate } from './aiReverseTranslate';
+import { aiReverseTranslate, truncateText } from './aiReverseTranslate';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 
 configureTestAnalyzer();
@@ -50,5 +50,33 @@ describe('aiReverseTranslate', () => {
     expect(result.value[0].source).toEqual('phone case');
     expect(result.value[1].target).toEqual('telefooncase');
     expect(result.value[1].source).toEqual('phone case');
+  });
+
+  it('translates questions', async () => {
+    const result = await aiReverseTranslate({
+      target: 'Всё в силе?',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+    });
+
+    expect(result.success).toBeTruthy();
+
+    if (!result.success) {
+      return;
+    }
+
+    expect(result.value[0].target).toEqual('Is everything in force?');
+  });
+
+  describe('truncateText', () => {
+    it('keeps all the punctuation but angle braces', () => {
+      expect(truncateText('a, b, </cd>, >, <, something', 100)).toEqual(
+        'a, b, /cd, , , something'
+      );
+    });
+
+    it('truncates the string while keeping the punctuation', () => {
+      expect(truncateText('a, b, c, d, e, f, g, h', 10)).toEqual('a, b, c, d');
+    });
   });
 });
