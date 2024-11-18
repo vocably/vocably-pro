@@ -24,13 +24,13 @@ describe('aiReverseTranslate', () => {
 
     expect(result.value.length).toBeGreaterThanOrEqual(3);
     expect(result.value[0].target).toHaveSomeOf(
-      'deksel, cover, bedekking, omslag, bedekken, coveren'
+      'deksel, cover, bedekking, omslag, bedekken, coveren, dekken'
     );
     expect(result.value[1].target).toHaveSomeOf(
-      'deksel, cover, bedekking, omslag, bedekken, coveren'
+      'deksel, cover, bedekking, omslag, bedekken, coveren, dekken'
     );
     expect(result.value[2].target).toHaveSomeOf(
-      'deksel, cover, bedekking, omslag, bedekken, coveren'
+      'deksel, cover, bedekking, omslag, bedekken, coveren, dekken'
     );
   });
 
