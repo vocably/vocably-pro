@@ -180,8 +180,6 @@ export const registerServiceWorker = (
   };
 
   onAnalyzeRequest(async (sendResponse, payload) => {
-    posthog.capture('analyze_requested', payload);
-
     if (payload.sourceLanguage) {
       await setSourceLanguage(payload.sourceLanguage);
     }
@@ -197,6 +195,8 @@ export const registerServiceWorker = (
       targetLanguage:
         payload.targetLanguage ?? (await getProxyLanguage()) ?? 'en',
     };
+
+    posthog.capture('analyze_requested', analyzePayload);
 
     try {
       const [analysisResult, loadLanguageDeckResult] =
