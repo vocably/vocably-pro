@@ -97,6 +97,7 @@ export const registerServiceWorker = (
   posthog.init('phc_vke56i7RTlBbFYHZHsoH7VhgWi2DwvKtEzusfcFemgT', {
     api_host: 'https://us.i.posthog.com',
     person_profiles: 'identified_only',
+    persistence: 'memory',
   });
 
   Auth.configure(registerServiceWorkerOptions.auth);
