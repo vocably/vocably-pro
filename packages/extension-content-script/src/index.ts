@@ -83,7 +83,6 @@ const isClickableElement = (element: HTMLElement) => {
 const doubleClick$ = new Subject<void>();
 
 const onMouseUp = async (event: MouseEvent) => {
-  console.log('mouseup');
   if (isClickableElement(event.target as HTMLElement)) {
     return;
   }
@@ -91,9 +90,7 @@ const onMouseUp = async (event: MouseEvent) => {
   enableSelectionChangeDetection();
 
   try {
-    console.log('awaiting ping');
     await api.ping();
-    console.log('pong');
   } catch {
     return;
   }
