@@ -74,9 +74,7 @@ export const [listTargetLanguages, onListTargetLanguagesRequest] =
   createScopedMessage<void, GoogleLanguage[]>('listTargetLanguages');
 
 export const [getLocationLanguage, onGetLocationLanguageRequest] =
-  createScopedMessage<string, GoogleLanguage | undefined>(
-    'getLocationLanguage'
-  );
+  createScopedMessage<string, GoogleLanguage | null>('getLocationLanguage');
 
 export const [saveLocationLanguage, onSaveLocationLanguageRequest] =
   createScopedMessage<[string, GoogleLanguage], void>('saveLocationLanguage');

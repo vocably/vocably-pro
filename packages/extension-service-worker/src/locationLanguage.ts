@@ -13,16 +13,14 @@ const locationLanguages: Record<string, GoogleLanguage> = {};
   }
 })();
 
-export const getLocationLanguage = (
-  url: string
-): GoogleLanguage | undefined => {
+export const getLocationLanguage = (url: string): GoogleLanguage | null => {
   const domain = new URL(url).hostname;
 
   if (locationLanguages[domain]) {
     return locationLanguages[domain];
   }
 
-  return undefined;
+  return null;
 };
 
 export const storeLocationLanguage = async (
