@@ -16,6 +16,7 @@ import { lexicalaSearchResultToAnalysisItem } from './lexicala/lexicalaSearchRes
 import { normalizeHeadword } from './lexicala/normalizeHeadword';
 import { lexicalaItemHasDefinitionOrCanBeTranslated } from './lexicalaItemHasDefinitionOrCanBeTranslated';
 import { prependTranslation } from './prependTranslation';
+import { sanitizePayload } from './sanitizePayload';
 import { sortByRelevance } from './sortByRelevance';
 import { translate } from './translate';
 import { translationToAnalysisItem } from './translationToAnalyzeItem';
@@ -28,9 +29,11 @@ type Options = {
 };
 
 export const buildDirectResult = async ({
-  payload,
+  payload: rawPayload,
   lexicalaParams,
 }: Options): Promise<Result<DirectAnalysis>> => {
+  const payload = sanitizePayload(rawPayload);
+
   const translationResult = await translate(payload);
 
   if (translationResult.success === false) {

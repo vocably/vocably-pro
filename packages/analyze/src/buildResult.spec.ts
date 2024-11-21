@@ -611,4 +611,32 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.items[0].source).not.toContain('to ');
   });
+
+  it('keeps the punctuation for sentences', async () => {
+    const result = await buildResult({
+      source: 'Something, and something else.',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    expect(result.value.items[0].source).toEqual(
+      'Something, and something else.'
+    );
+  });
+
+  it('removes punctuation for single words', async () => {
+    const result = await buildResult({
+      source: 'something.',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    expect(result.value.items[0].source).toEqual('something');
+  });
 });

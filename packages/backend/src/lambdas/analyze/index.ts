@@ -5,7 +5,6 @@ import { catchError, map } from 'rxjs/operators';
 import { buildErrorResponse } from '../../utils/buildErrorResponse';
 import { buildResponse } from '../../utils/buildResponse';
 import { extractPayload } from './extractPayload';
-import { sanitizePayload } from './sanitizePayload';
 
 configureAnalyzer({
   lexicalaHost: process.env.LEXICALA_HOST,
@@ -22,7 +21,6 @@ export const analyze = async (
   lastValueFrom(
     of(event).pipe(
       map(extractPayload),
-      map(sanitizePayload),
       mergeMap((payload) => {
         return buildResult(payload);
       }),
