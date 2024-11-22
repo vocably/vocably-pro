@@ -7,7 +7,11 @@
         data...
       </ng-container>
       <ng-container *ngIf="!isLoading && !redirectingToSubscription">
-        You have been successfully signed in. This tab can be closed now.
+        <div class="mb-1">You have been successfully signed in.</div>
+        <div class="mb-1">This tab can be closed now.</div>
+        <div>
+          <a href="/welcome" class="button">Show me how Vocably works</a>
+        </div>
       </ng-container>
       <ng-container *ngIf="!isLoading && redirectingToSubscription">
         <ion-spinner name="dots" class="mr-1"></ion-spinner>Redirecting to
