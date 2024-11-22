@@ -358,20 +358,20 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
             {canTranslate && !translationPreset.isReverse && (
               <Animated.View entering={FadeIn} exiting={FadeOut}>
                 <Text>
-                  Want to search for the right{' '}
+                  To search in{' '}
+                  {
+                    languageList[
+                      translationPreset.translationLanguage as GoogleLanguage
+                    ]
+                  }{' '}
+                  for a{' '}
                   {
                     languageList[
                       translationPreset.sourceLanguage as GoogleLanguage
                     ]
                   }{' '}
-                  word or phrase in{' '}
-                  {
-                    languageList[
-                      translationPreset.translationLanguage as GoogleLanguage
-                    ]
-                  }
-                  ? Just enable Reverse Translation mode by clicking this
-                  {'\u00A0'}button:{'\u00A0'}
+                  word or phrase, turn on reverse translation mode by clicking
+                  this{'\u00A0'}button:{'\u00A0'}
                   <Text
                     style={{
                       backgroundColor: theme.colors.inversePrimary,
@@ -399,20 +399,15 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
                 </View>
                 <View>
                   <Text>
-                    Type any text in{' '}
-                    {
-                      languageList[
-                        translationPreset.translationLanguage as GoogleLanguage
-                      ]
-                    }
-                    , and Vocably will create the correct{' '}
+                    To search in{' '}
                     {
                       languageList[
                         translationPreset.sourceLanguage as GoogleLanguage
                       ]
-                    }{' '}
-                    card. To search in Dutch, simply disable Reverse Translation
-                    mode by clicking this{'\u00A0'}button:{'\u00A0'}
+                    }
+                    {', '}
+                    turn off reverse translation mode by clicking this{'\u00A0'}
+                    button:{'\u00A0'}
                     <Text
                       style={{
                         backgroundColor: theme.colors.inversePrimary,
