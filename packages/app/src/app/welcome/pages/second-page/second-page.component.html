@@ -1,6 +1,13 @@
 <div *ngIf="isLoading">
   <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading example text...
 </div>
+<div *ngIf="sourceLanguage && targetLanguage" class="contrast-panel mb-2">
+  You study <strong>{{ sourceLanguage | language }}</strong> and your mother
+  tongue is <strong>{{ targetLanguage | language }}</strong
+  >.
+
+  <a href="/welcome">Change</a>.
+</div>
 <ng-container *ngIf="!isLoading && exampleHtml">
   <div class="mat-display-1 mb-2 mt-1">
     <span highlight>Highlight</span> any word or phrase to see its meaning. Give
