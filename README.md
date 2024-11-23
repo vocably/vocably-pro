@@ -19,7 +19,6 @@ Vocably exists in multiple forms:
 
 - Browser extensions for [Desktop Chrome](https://chromewebstore.google.com/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb), [Desktop Safari](https://apps.apple.com/app/vocably-for-safari/id6464076425), and [iOS Safari](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757)
 - Mobile application for [iOS](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757) and [Android](https://play.google.com/store/apps/details?id=com.vocablypro)
-- [Web application](https://app.vocably.pro)
 
 ## How I use Vocably
 
