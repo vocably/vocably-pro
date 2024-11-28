@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { appOnboarded } from '@vocably/api';
+import { facilityOnboarded } from '@vocably/api';
 import {
   setProxyLanguage,
   setSourceLanguage,
@@ -38,7 +38,7 @@ const onboardTargetLanguage = async (targetLanguage: string) => {
     return;
   }
 
-  const onboardingResult = await appOnboarded({
+  const onboardingResult = await facilityOnboarded({
     targetLanguage,
     facility: await getFacility(),
   });

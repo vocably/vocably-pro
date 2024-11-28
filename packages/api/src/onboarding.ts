@@ -5,13 +5,13 @@ type ExtensionOnboardingPayload = {
   facility: Facility;
   targetLanguage: string;
 };
-export const appOnboarded = async (
+export const facilityOnboarded = async (
   payload: ExtensionOnboardingPayload
 ): Promise<Result<any>> => {
   return await request('/onboard', {
     method: 'POST',
     body: JSON.stringify({
-      action: 'appOnboarded',
+      action: 'facilityOnboarded',
       payload: payload,
     }),
   });
