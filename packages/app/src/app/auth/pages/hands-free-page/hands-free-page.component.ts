@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subject, switchMap, take, takeUntil, tap } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { browserType } from '../../../../browser';
-import { isExtensionInstalled } from '../../../isExtensionInstalled';
+import { isExtensionInstalled$ } from '../../../isExtensionInstalled';
 import { AuthService } from '../../auth.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class HandsFreePageComponent implements OnInit, OnDestroy {
   constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    isExtensionInstalled
+    isExtensionInstalled$
       .pipe(
         takeUntil(this.destroy$),
         tap((isInstalled) => {

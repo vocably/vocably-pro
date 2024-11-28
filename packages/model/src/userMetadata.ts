@@ -9,7 +9,31 @@ export type RateResponse = {
   isoDate: string;
 };
 
+export type Facility =
+  | 'chrome-extension'
+  | 'safari-extension'
+  | 'ios-safari-extension'
+  | 'ios-app'
+  | 'android-app'
+  | 'web-app';
+
+type WelcomeFlowFacilityValues = {
+  targetLanguage: string;
+};
+
+export type WelcomeFlowMetadata = {
+  extension: WelcomeFlowFacilityValues[];
+  mobile: WelcomeFlowFacilityValues[];
+};
+
+export type WelcomeFlowFacility = keyof WelcomeFlowMetadata;
+
+export const isFacility = (str: string): str is WelcomeFlowFacility => {
+  return str === 'extension' || str === 'mobile';
+};
+
 export type UserMetadata = {
+  welcomeFlow: WelcomeFlowMetadata;
   rate: Record<Platform, RateResponse | undefined>;
 };
 
@@ -18,6 +42,10 @@ export type PartialUserMetadata = Partial<UserMetadata> & {
 };
 
 export const defaultUserMetadata: UserMetadata = {
+  welcomeFlow: {
+    extension: [],
+    mobile: [],
+  },
   rate: {
     ios: undefined,
     android: undefined,

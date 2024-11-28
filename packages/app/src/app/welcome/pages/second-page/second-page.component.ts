@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { extensionOnboarded } from '@vocably/api';
 import {
   setProxyLanguage,
   setSourceLanguage,
@@ -19,6 +20,38 @@ import {
   throwError,
 } from 'rxjs';
 import { extensionId } from '../../../../extension';
+import { getFacility } from '../../../getFacility';
+
+const getOnboardedTargetLanguages = (): string[] => {
+  return JSON.parse(localStorage.getItem('onboardedLanguages') ?? '[]');
+};
+
+const isTargetLanguageOnboarded = (targetLanguage: string): boolean => {
+  const onboardedLanguages = getOnboardedTargetLanguages();
+  return onboardedLanguages.includes(targetLanguage);
+};
+
+const onboardTargetLanguage = async (targetLanguage: string) => {
+  const onboardedLanguages = getOnboardedTargetLanguages();
+
+  if (onboardedLanguages.includes(targetLanguage)) {
+    return;
+  }
+
+  const onboardingResult = await extensionOnboarded({
+    targetLanguage,
+    facility: await getFacility(),
+  });
+
+  if (!onboardingResult.success) {
+    return;
+  }
+
+  localStorage.setItem(
+    'onboardedLanguages',
+    JSON.stringify([...onboardedLanguages, targetLanguage])
+  );
+};
 
 @Component({
   selector: 'app-second-page',
@@ -67,6 +100,14 @@ export class SecondPageComponent implements OnInit, OnDestroy {
               nativeLanguage: this.targetLanguage,
             },
           });
+        }),
+        tap((params) => {
+          if (
+            params['targetLanguage'] &&
+            !isTargetLanguageOnboarded(params['targetLanguage'])
+          ) {
+            onboardTargetLanguage(params['targetLanguage']).then();
+          }
         }),
         switchMap((params): Observable<string> => {
           const exampleExists = [
