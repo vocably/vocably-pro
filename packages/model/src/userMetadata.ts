@@ -9,42 +9,29 @@ export type RateResponse = {
   isoDate: string;
 };
 
-export type Facility =
-  | 'chrome-extension'
-  | 'safari-extension'
-  | 'ios-safari-extension'
-  | 'ios-app'
-  | 'android-app'
-  | 'web-app';
-
-type WelcomeFlowFacilityValues = {
-  targetLanguage: string;
-};
-
-export type WelcomeFlowMetadata = {
-  extension: WelcomeFlowFacilityValues[];
-  mobile: WelcomeFlowFacilityValues[];
-};
-
-export type WelcomeFlowFacility = keyof WelcomeFlowMetadata;
-
-export const isFacility = (str: string): str is WelcomeFlowFacility => {
-  return str === 'extension' || str === 'mobile';
+export type OnboardingFlow = {
+  allowed: boolean;
+  extensionSent: boolean;
+  mobileAppSent: boolean;
+  language: string | null;
 };
 
 export type UserMetadata = {
-  welcomeFlow: WelcomeFlowMetadata;
+  onboardingFlow: OnboardingFlow;
   rate: Record<Platform, RateResponse | undefined>;
 };
 
-export type PartialUserMetadata = Partial<UserMetadata> & {
+export type PartialUserMetadata = {
   rate?: Partial<UserMetadata['rate']>;
+  onboardingFlow?: Partial<UserMetadata['onboardingFlow']>;
 };
 
 export const defaultUserMetadata: UserMetadata = {
-  welcomeFlow: {
-    extension: [],
-    mobile: [],
+  onboardingFlow: {
+    allowed: false,
+    extensionSent: true,
+    mobileAppSent: true,
+    language: null,
   },
   rate: {
     ios: undefined,
@@ -64,6 +51,10 @@ export const mergeUserMetadata = (
     rate: {
       ...md1.rate,
       ...md2.rate,
+    },
+    onboardingFlow: {
+      ...md1.onboardingFlow,
+      ...md2.onboardingFlow,
     },
   };
 };

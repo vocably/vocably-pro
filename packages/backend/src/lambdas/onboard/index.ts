@@ -1,15 +1,21 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { lastValueFrom, mergeMap, of, tap } from 'rxjs';
+import { lastValueFrom, mergeMap, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { buildErrorResponse } from '../../utils/buildErrorResponse';
 import { buildResponse } from '../../utils/buildResponse';
-import { sendEmail } from './sendEmail';
+import { extractUsefulData } from './extractUsefulData';
+import { handleAction } from './handleAction';
 
-export const languageSet = async (event: APIGatewayProxyEvent): Promise<any> =>
+export const onboard = async (event: APIGatewayProxyEvent): Promise<any> =>
   lastValueFrom(
     of(event).pipe(
-      tap(console.log),
-      mergeMap(sendEmail),
+      map(extractUsefulData),
+      mergeMap((usefulDataResult) => {
+        if (usefulDataResult.success === false) {
+          throw usefulDataResult;
+        }
+        return handleAction(usefulDataResult.value);
+      }),
       map((result) => {
         if (result.success === false) {
           throw result;
@@ -23,4 +29,4 @@ export const languageSet = async (event: APIGatewayProxyEvent): Promise<any> =>
     )
   );
 
-exports.languageSet = languageSet;
+exports.languageSet = onboard;

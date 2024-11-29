@@ -5,8 +5,8 @@ import {
   deleteLanguageDeck,
   loadLanguageDeck,
   playSound,
+  postOnboardingAction,
   saveLanguageDeck,
-  userLoggedIn,
 } from '@vocably/api';
 import { isItem, makeCreate, makeDelete, makeUpdate } from '@vocably/crud';
 import {
@@ -130,8 +130,11 @@ export const registerServiceWorker = (
         ? 'chrome-extension'
         : 'safari-extension';
 
-    userLoggedIn({
-      facility,
+    postOnboardingAction({
+      name: 'userLoggedIn',
+      payload: {
+        facility,
+      },
     }).then();
   });
 

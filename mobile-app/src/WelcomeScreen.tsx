@@ -1,5 +1,5 @@
 import { NavigationProp } from '@react-navigation/native';
-import { facilityOnboarded } from '@vocably/api';
+import { postOnboardingAction } from '@vocably/api';
 import { GoogleLanguage, languageList } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
@@ -194,9 +194,12 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
                       animated: true,
                     });
 
-                  facilityOnboarded({
-                    facility,
-                    targetLanguage: translationPreset.translationLanguage,
+                  postOnboardingAction({
+                    name: 'facilityOnboarded',
+                    payload: {
+                      facility,
+                      targetLanguage: translationPreset.translationLanguage,
+                    },
                   }).then();
 
                   postHog.capture('welcome_submitted', {

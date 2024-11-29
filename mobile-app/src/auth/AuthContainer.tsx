@@ -1,5 +1,5 @@
 import { Auth } from '@aws-amplify/auth';
-import { userLoggedIn } from '@vocably/api';
+import { postOnboardingAction } from '@vocably/api';
 import { Hub } from 'aws-amplify';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, ReactNode, useEffect, useState } from 'react';
@@ -69,8 +69,11 @@ export const AuthContainer: FC<{
               user,
             });
 
-            userLoggedIn({
-              facility,
+            postOnboardingAction({
+              name: 'userLoggedIn',
+              payload: {
+                facility,
+              },
             }).then();
           })
           .catch((error) => {
