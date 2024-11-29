@@ -4,12 +4,18 @@ import {
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3';
-import { defaultUserMetadata, Result, UserMetadata } from '@vocably/model';
+import {
+  defaultUserMetadata,
+  mergeUserMetadata,
+  PartialUserMetadata,
+  Result,
+  UserMetadata,
+} from '@vocably/model';
 import { Readable } from 'node:stream';
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION });
 
-export const fetchUserMetadata = async (
+export const nodeFetchUserMetadata = async (
   sub: string
 ): Promise<Result<UserMetadata>> => {
   const command = new GetObjectCommand({
@@ -56,10 +62,20 @@ export const fetchUserMetadata = async (
   };
 };
 
-export const saveUserMetadata = async (
+export const nodeSaveUserMetadata = async (
   sub: string,
-  userMetadata: UserMetadata
+  partialUserMetadata: PartialUserMetadata
 ): Promise<Result<null>> => {
+  const userMetadataResult = await nodeFetchUserMetadata(sub);
+  if (userMetadataResult.success === false) {
+    return userMetadataResult;
+  }
+
+  const userMetadata = mergeUserMetadata(
+    userMetadataResult.value,
+    partialUserMetadata
+  );
+
   try {
     const command = new PutObjectCommand({
       Bucket: process.env.USER_FILES_BUCKET,

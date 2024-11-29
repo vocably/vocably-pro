@@ -1,6 +1,8 @@
-import { saveUserMetadata } from '@vocably/api';
 import { Facility, Result } from '@vocably/model';
-import { fetchUserMetadata } from '../../utils/userMetadata';
+import {
+  nodeFetchUserMetadata,
+  nodeSaveUserMetadata,
+} from '@vocably/node-sulna';
 import { UsefulData } from './extractUsefulData';
 import { mobileAppInstalled } from './mobileAppInstalled';
 import { welcomeExtensionUser } from './welcomeExtensionUser';
@@ -32,7 +34,7 @@ export const handleAction = async ({
     };
   }
 
-  const userMetadataResult = await fetchUserMetadata(sub);
+  const userMetadataResult = await nodeFetchUserMetadata(sub);
 
   if (userMetadataResult.success === false) {
     return userMetadataResult;
@@ -68,7 +70,7 @@ export const handleAction = async ({
       return result;
     }
 
-    return saveUserMetadata({
+    return nodeSaveUserMetadata(sub, {
       onboardingFlow: {
         language: action.payload.targetLanguage,
         extensionSent: true,
@@ -88,7 +90,7 @@ export const handleAction = async ({
       return result;
     }
 
-    return saveUserMetadata({
+    return nodeSaveUserMetadata(sub, {
       onboardingFlow: {
         mobileAppSent: true,
       },
@@ -106,7 +108,7 @@ export const handleAction = async ({
       return result;
     }
 
-    return saveUserMetadata({
+    return nodeSaveUserMetadata(sub, {
       onboardingFlow: {
         mobileAppSent: true,
         language: action.payload.targetLanguage,

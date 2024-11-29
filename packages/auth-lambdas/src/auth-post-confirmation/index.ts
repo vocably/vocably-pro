@@ -1,7 +1,8 @@
+import { saveUserMetadata } from '@vocably/api';
 import { Callback, Context, PostConfirmationTriggerEvent } from 'aws-lambda';
 import { adminAddUserToGroup } from './adminAddUserToGroup';
 import { adminGetUser } from './adminGetUser';
-import { addContact, sendWelcomeEmail } from './brevo';
+import { addContact } from './brevo';
 import { getEmail } from './getEmail';
 
 export const authPostConfirmation = async (
@@ -26,7 +27,14 @@ export const authPostConfirmation = async (
     const email = getEmail(user);
 
     await addContact({ email });
-    await sendWelcomeEmail({ email });
+    await saveUserMetadata({
+      onboardingFlow: {
+        allowed: true,
+        mobileAppSent: false,
+        extensionSent: false,
+      },
+    });
+    // await sendWelcomeEmail({ email });
 
     return callback(null, event);
   } catch (error) {
