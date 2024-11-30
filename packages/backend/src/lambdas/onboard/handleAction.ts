@@ -34,7 +34,10 @@ export const handleAction = async ({
     };
   }
 
-  const userMetadataResult = await nodeFetchUserMetadata(sub);
+  const userMetadataResult = await nodeFetchUserMetadata(
+    sub,
+    process.env.USER_FILES_BUCKET
+  );
 
   if (userMetadataResult.success === false) {
     return userMetadataResult;
@@ -70,7 +73,7 @@ export const handleAction = async ({
       return result;
     }
 
-    return nodeSaveUserMetadata(sub, {
+    return nodeSaveUserMetadata(sub, process.env.USER_FILES_BUCKET, {
       onboardingFlow: {
         language: action.payload.targetLanguage,
         extensionSent: true,
@@ -90,7 +93,7 @@ export const handleAction = async ({
       return result;
     }
 
-    return nodeSaveUserMetadata(sub, {
+    return nodeSaveUserMetadata(sub, process.env.USER_FILES_BUCKET, {
       onboardingFlow: {
         mobileAppSent: true,
       },
@@ -108,7 +111,7 @@ export const handleAction = async ({
       return result;
     }
 
-    return nodeSaveUserMetadata(sub, {
+    return nodeSaveUserMetadata(sub, process.env.USER_FILES_BUCKET, {
       onboardingFlow: {
         mobileAppSent: true,
         language: action.payload.targetLanguage,

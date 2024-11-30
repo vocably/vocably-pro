@@ -96,6 +96,8 @@ USER_FEEDBACK_TABLE="${aws_dynamodb_table.user_feedback.name}"
 CARDS_BUCKET="${aws_s3_bucket.cards.bucket}"
 CARDS_BACKUP_BUCKET="${aws_s3_bucket.cards_backup.bucket}"
 OPENAI_API_KEY="${var.openai_api_key}"
+USER_FILES_BUCKET="${aws_s3_bucket.user_files.bucket}"
+BREVO_API_KEY="${var.brevo_api_key}"
   EOT
 }
 

@@ -1,9 +1,9 @@
-import { saveUserMetadata } from '@vocably/api';
+import { inspect, nodeSaveUserMetadata } from '@vocably/node-sulna';
 import { Callback, Context, PostConfirmationTriggerEvent } from 'aws-lambda';
 import { adminAddUserToGroup } from './adminAddUserToGroup';
 import { adminGetUser } from './adminGetUser';
-import { addContact } from './brevo';
-import { getEmail } from './getEmail';
+import { addContact, sendWelcomeEmail } from './brevo';
+import { getAttribute } from './getAttribute';
 
 export const authPostConfirmation = async (
   event: PostConfirmationTriggerEvent,
@@ -24,17 +24,41 @@ export const authPostConfirmation = async (
       username: userName,
     });
 
-    const email = getEmail(user);
+    console.log(inspect(user.UserAttributes));
 
-    await addContact({ email });
-    await saveUserMetadata({
-      onboardingFlow: {
-        allowed: true,
-        mobileAppSent: false,
-        extensionSent: false,
-      },
-    });
-    // await sendWelcomeEmail({ email });
+    const email = getAttribute(user, 'email');
+    const sub = getAttribute(user, 'sub');
+
+    if (!email || !sub) {
+      return callback('Unable to determine email or sub', {
+        email,
+        sub,
+      });
+    }
+
+    const addContactResult = await addContact({ email });
+
+    if (addContactResult.success === false) {
+      console.error('Brevo add contact error', addContactResult);
+    }
+
+    const saveMetadataResult = await nodeSaveUserMetadata(
+      sub,
+      process.env.USER_FILES_BUCKET,
+      {
+        onboardingFlow: {
+          allowed: true,
+          mobileAppSent: false,
+          extensionSent: false,
+        },
+      }
+    );
+
+    if (saveMetadataResult.success === false) {
+      console.error('Save metadata error', saveMetadataResult);
+    }
+
+    await sendWelcomeEmail({ email });
 
     return callback(null, event);
   } catch (error) {
