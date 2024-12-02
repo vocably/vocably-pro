@@ -1,4 +1,3 @@
-import { inspect } from '@vocably/node-sulna';
 import { Callback, Context, PostConfirmationTriggerEvent } from 'aws-lambda';
 import { adminAddUserToGroup } from './adminAddUserToGroup';
 import { adminGetUser } from './adminGetUser';
@@ -23,8 +22,6 @@ export const authPostConfirmation = async (
       userPoolId,
       username: userName,
     });
-
-    console.log(inspect(user.UserAttributes));
 
     const email = getAttribute(user, 'email');
     const sub = getAttribute(user, 'sub');
