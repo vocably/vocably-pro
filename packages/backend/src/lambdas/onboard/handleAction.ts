@@ -2,7 +2,7 @@ import { Facility, Result } from '@vocably/model';
 import {
   nodeFetchUserMetadata,
   nodeSaveUserMetadata,
-} from '@vocably/node-sulna';
+} from '@vocably/model-operations';
 import { UsefulData } from './extractUsefulData';
 import { mobileAppInstalled } from './mobileAppInstalled';
 import { welcomeExtensionUser } from './welcomeExtensionUser';

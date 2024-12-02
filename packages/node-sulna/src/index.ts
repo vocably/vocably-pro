@@ -1,2 +1,2 @@
+export * from '../../model-operations/src/nodeUserMetadata';
 export * from './inspect';
-export * from './nodeUserMetadata';
