@@ -16,4 +16,5 @@ registerServiceWorker({
     region: process.env.API_REGION,
     cardsBucket: process.env.API_CARDS_BUCKET,
   },
+  facility: 'ios-safari',
 });

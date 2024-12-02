@@ -42,6 +42,9 @@ export const Errors = [
   'UNABLE_TO_PLAY_AUDIO_DATA_URL',
   'JSON_PARSE_ERROR',
   'EXTENSION_UNABLE_TO_COMPLETE_TAG_OPERATION',
+  'USER_METADATA_FETCH_ERROR',
+  'USER_METADATA_PUT_ERROR',
+  'ONBOARDING_POST_MALFORMED_PAYLOAD',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];

@@ -4,7 +4,7 @@ import {
   canExtensionBeInstalled,
   extensionInstallationUrl,
 } from '../../extension';
-import { isExtensionInstalled } from '../isExtensionInstalled';
+import { isExtensionInstalled$ } from '../isExtensionInstalled';
 
 @Component({
   selector: 'app-welcome',
@@ -21,7 +21,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit(): void {
-    isExtensionInstalled
+    isExtensionInstalled$
       .pipe(takeUntil(this.destroy$))
       .subscribe((isInstalled) => {
         // This handles the case where the extension is installed after the page is loaded

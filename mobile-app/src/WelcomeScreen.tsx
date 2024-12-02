@@ -1,4 +1,5 @@
 import { NavigationProp } from '@react-navigation/native';
+import { postOnboardingAction } from '@vocably/api';
 import { GoogleLanguage, languageList } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
@@ -13,6 +14,7 @@ import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getItem, setItem } from './asyncAppStorage';
+import { facility } from './facility';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { SourceLanguageButton } from './SourceLanguageButton';
 import { Displayer, DisplayerRef } from './study/Displayer';
@@ -191,6 +193,15 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
                       y: 0,
                       animated: true,
                     });
+
+                  postOnboardingAction({
+                    name: 'facilityOnboarded',
+                    payload: {
+                      facility,
+                      targetLanguage: translationPreset.translationLanguage,
+                    },
+                  }).then();
+
                   postHog.capture('welcome_submitted', {
                     studyLanguage: translationPreset.sourceLanguage,
                     nativeLanguage: translationPreset.translationLanguage,

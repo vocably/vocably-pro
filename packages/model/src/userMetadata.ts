@@ -9,15 +9,30 @@ export type RateResponse = {
   isoDate: string;
 };
 
+export type OnboardingFlow = {
+  allowed: boolean;
+  extensionSent: boolean;
+  mobileAppSent: boolean;
+  language: string | null;
+};
+
 export type UserMetadata = {
+  onboardingFlow: OnboardingFlow;
   rate: Record<Platform, RateResponse | undefined>;
 };
 
-export type PartialUserMetadata = Partial<UserMetadata> & {
+export type PartialUserMetadata = {
   rate?: Partial<UserMetadata['rate']>;
+  onboardingFlow?: Partial<UserMetadata['onboardingFlow']>;
 };
 
 export const defaultUserMetadata: UserMetadata = {
+  onboardingFlow: {
+    allowed: false,
+    extensionSent: true,
+    mobileAppSent: true,
+    language: null,
+  },
   rate: {
     ios: undefined,
     android: undefined,
@@ -36,6 +51,10 @@ export const mergeUserMetadata = (
     rate: {
       ...md1.rate,
       ...md2.rate,
+    },
+    onboardingFlow: {
+      ...md1.onboardingFlow,
+      ...md2.onboardingFlow,
     },
   };
 };

@@ -1,6 +1,7 @@
 locals {
   auth_lambdas_content = <<EOT
 BREVO_API_KEY="${var.brevo_api_key}"
+USER_FILES_BUCKET="${aws_s3_bucket.user_files.bucket}"
   EOT
 }
 
@@ -75,6 +76,17 @@ resource "aws_iam_policy" "auth_post_confirmation_lambda_execution" {
         ],
         "Resource" : "*"
       },
+      {
+        "Sid" : "S3UserFiles",
+        "Effect" : "Allow",
+        "Action" : [
+          "s3:*"
+        ],
+        "Resource" : [
+          aws_s3_bucket.user_files.arn,
+          "${aws_s3_bucket.user_files.arn}/*",
+        ]
+      }
     ]
   })
 }

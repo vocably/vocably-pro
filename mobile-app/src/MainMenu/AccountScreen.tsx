@@ -3,6 +3,7 @@ import { FC, useCallback } from 'react';
 import { Alert, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { clearAll } from '../asyncAppStorage';
 
 type Props = {};
 
@@ -21,6 +22,7 @@ export const AccountScreen: FC<Props> = () => {
           onPress: async () => {
             await Auth.deleteUser();
             await Auth.signOut();
+            await clearAll();
           },
         },
         {

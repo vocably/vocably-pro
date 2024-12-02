@@ -5,6 +5,7 @@ export * from './errors';
 export * from './language';
 export * from './language-deck';
 export * from './language-list';
+export * from './onboarding';
 export { isError, isSuccess, Result, resultify } from './result';
 export * from './sorted-languages';
 export * from './subscription';

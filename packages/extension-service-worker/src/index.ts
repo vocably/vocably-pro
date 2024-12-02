@@ -5,6 +5,7 @@ import {
   deleteLanguageDeck,
   loadLanguageDeck,
   playSound,
+  postOnboardingAction,
   saveLanguageDeck,
 } from '@vocably/api';
 import { isItem, makeCreate, makeDelete, makeUpdate } from '@vocably/crud';
@@ -48,6 +49,7 @@ import {
 import {
   Analysis,
   AnalyzePayload,
+  Facility,
   GoogleLanguage,
   isCardItem,
   isEligibleForTrial,
@@ -59,6 +61,7 @@ import { buildTagMap } from '@vocably/model-operations';
 import { createSrsItem } from '@vocably/srs';
 import { get, isEqual, uniq } from 'lodash-es';
 import posthog from 'posthog-js';
+import { distinctUntilChanged, Observable, switchMap, timer } from 'rxjs';
 import {
   getAskForRatingCounter,
   resetAskForRatingCounter,
@@ -90,7 +93,18 @@ import {
 type RegisterServiceWorkerOptions = {
   auth: Parameters<typeof Auth.configure>[0];
   api: Parameters<typeof configureApi>[0];
+  facility: 'chrome-or-safari' | 'ios-safari';
 };
+
+export const isLoggedIn$: Observable<boolean> = timer(0, 2000).pipe(
+  switchMap(async () => {
+    return await Auth.currentSession()
+      .then(() => true)
+      .catch(() => false);
+  }),
+  distinctUntilChanged()
+);
+
 export const registerServiceWorker = (
   registerServiceWorkerOptions: RegisterServiceWorkerOptions
 ) => {
@@ -101,7 +115,28 @@ export const registerServiceWorker = (
   });
 
   Auth.configure(registerServiceWorkerOptions.auth);
+
   configureApi(registerServiceWorkerOptions.api);
+
+  isLoggedIn$.subscribe(async (isLoggedIn) => {
+    if (!isLoggedIn) {
+      return;
+    }
+
+    const facility: Facility =
+      registerServiceWorkerOptions.facility === 'ios-safari'
+        ? 'ios-safari-extension'
+        : browserEnv.runtime.getURL('/').startsWith('chrome-extension:')
+        ? 'chrome-extension'
+        : 'safari-extension';
+
+    postOnboardingAction({
+      name: 'userLoggedIn',
+      payload: {
+        facility,
+      },
+    }).then();
+  });
 
   onIsLoggedInRequest(async (sendResponse) => {
     const isLoggedIn = await Auth.currentSession()
