@@ -66,6 +66,7 @@ describe('aiReverseTranslate', () => {
     }
 
     expect(result.value[0].target).toHaveSomeOf([
+      'Is everything still in effect?',
       'Is everything in force?',
       'Is everything still on?',
       'Is everything in place?',
