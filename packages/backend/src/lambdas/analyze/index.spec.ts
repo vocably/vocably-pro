@@ -28,6 +28,8 @@ const unpaidRequestContext: APIGatewayEventRequestContextWithAuthorizer<any> = {
 };
 
 describe('integration check for translate lambda', () => {
+  jest.setTimeout(30000);
+
   if (process.env.TEST_SKIP_SPEC === 'true') {
     it('skip spec testing', () => {});
     return;
