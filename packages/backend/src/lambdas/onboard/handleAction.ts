@@ -106,7 +106,7 @@ export const handleAction = async ({
     action.name === 'facilityOnboarded' &&
     mobileAppFacilities.includes(action.payload.facility)
   ) {
-    const result = await welcomeMobileApp(email, onboardingFlow.language);
+    const result = await welcomeMobileApp(email, action.payload.targetLanguage);
     if (result.success === false) {
       return result;
     }
