@@ -1,8 +1,8 @@
-import { Facility, Result } from '@vocably/model';
 import {
   nodeFetchUserMetadata,
   nodeSaveUserMetadata,
-} from '@vocably/model-operations';
+} from '@vocably/lambda-shared';
+import { Facility, Result } from '@vocably/model';
 import { UsefulData } from './extractUsefulData';
 import { mobileAppInstalled } from './mobileAppInstalled';
 import { welcomeExtensionUser } from './welcomeExtensionUser';

@@ -13,6 +13,7 @@ const packages = [
   'webpack',
   'crud',
   'api',
+  'lambda-shared',
   'analyze',
   'extension-stay-alive',
   'extension-messages',
