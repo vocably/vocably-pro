@@ -10,20 +10,6 @@ import { AuthService } from '../auth/auth.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
-  private _hasBack = false;
-
-  @Input() public set hasBack(hasBack: boolean) {
-    this._hasBack = hasBack;
-    document.documentElement.style.setProperty(
-      '--has-back',
-      `${hasBack ? 1 : 0}`
-    );
-  }
-
-  public get hasBack() {
-    return this._hasBack;
-  }
-
   @Input() title: string = '';
   @Input() dense = false;
 
