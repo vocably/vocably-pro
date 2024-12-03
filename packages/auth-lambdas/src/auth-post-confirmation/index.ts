@@ -34,6 +34,10 @@ export const authPostConfirmation = async (
       });
     }
 
+    console.log(
+      `A user with email ${email} and sub ${sub} is attempting to register.`
+    );
+
     const addContactResult = await addContact({ email });
 
     if (addContactResult.success === false) {
@@ -58,7 +62,7 @@ export const authPostConfirmation = async (
 
     return callback(null, event);
   } catch (error) {
-    console.log(error);
+    console.error('An error in post confirmation lambda occurred', error);
     return callback(error, event);
   }
 };
