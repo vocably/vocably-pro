@@ -34,9 +34,14 @@ export class ExportPageComponent implements OnInit, OnDestroy {
       this.fileName = `${deck.language}`;
       if (this.cards.length > 0) {
         const lastCreateDate = new Date(this.cards[0].created);
-        this.fileName += `-${lastCreateDate.getFullYear()}-${
+        this.fileName += `-${lastCreateDate.getFullYear()}-${(
           lastCreateDate.getMonth() + 1
-        }-${lastCreateDate.getDate()}`;
+        )
+          .toString()
+          .padStart(2, '0')}-${lastCreateDate
+          .getDate()
+          .toString()
+          .padStart(2, '0')}`;
       }
       this.fileName += '.csv';
     });
