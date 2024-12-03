@@ -1,0 +1,10 @@
+.deck-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  & > *:not(:first-child) {
+    margin-left: 2rem;
+  }
+}
