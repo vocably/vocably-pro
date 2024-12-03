@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { byDate, CardItem } from '@vocably/model';
 import { Subject, takeUntil } from 'rxjs';
 import { LoaderService } from '../../../components/loader.service';
@@ -18,14 +19,26 @@ export class ExportPageComponent implements OnInit, OnDestroy {
   public rowDelimiter = 'new_line';
   public customRowDelimiter = '\\n\\n';
 
+  public fileName = '';
+
   private destroy$ = new Subject();
 
   constructor(
     public deckStore: DeckStoreService,
-    public loader: LoaderService
+    public loader: LoaderService,
+    protected sanitizer: DomSanitizer
   ) {
     this.deckStore.deck$.pipe(takeUntil(this.destroy$)).subscribe((deck) => {
       this.cards = deck.cards.sort(byDate);
+
+      this.fileName = `${deck.language}`;
+      if (this.cards.length > 0) {
+        const lastCreateDate = new Date(this.cards[0].created);
+        this.fileName += `-${lastCreateDate.getFullYear()}-${
+          lastCreateDate.getMonth() + 1
+        }-${lastCreateDate.getDate()}`;
+      }
+      this.fileName += '.csv';
     });
   }
 
@@ -73,4 +86,9 @@ export class ExportPageComponent implements OnInit, OnDestroy {
       })
       .join(rowDelimiter);
   }
+
+  getContentsLink = (textContents: string): any => {
+    const blob = new Blob([textContents], { type: 'text/csv' });
+    return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(blob));
+  };
 }

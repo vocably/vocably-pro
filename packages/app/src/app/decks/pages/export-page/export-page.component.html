@@ -63,30 +63,38 @@
     </div>
   </div>
 
-  <div>
-    <div class="display-flex" style="align-items: center">
-      <div class="flex-1">
-        Copy and paste the text below. It cannot be edited.
+  <ng-container *ngIf="getContents() as textContents">
+    <div class="mb-1">
+      <div class="display-flex" style="align-items: center">
+        <div class="flex-1">
+          Copy and paste the text below. It cannot be edited.
+        </div>
+        <div>
+          <button class="button" (click)="copyToClipboard(contents)">
+            Copy all
+          </button>
+        </div>
       </div>
-      <div>
-        <button class="button" (click)="copyToClipboard(contents)">
-          Copy all
-        </button>
-      </div>
+      <textarea
+        #contents
+        style="
+          width: 100%;
+          resize: vertical;
+          height: 10rem;
+          white-space: pre;
+          overflow-wrap: normal;
+          overflow-x: scroll;
+        "
+        readonly
+        wrap="off"
+        >{{ textContents }}</textarea
+      >
     </div>
-    <textarea
-      #contents
-      style="
-        width: 100%;
-        resize: vertical;
-        height: 10rem;
-        white-space: pre;
-        overflow-wrap: normal;
-        overflow-x: scroll;
-      "
-      readonly
-      wrap="off"
-      >{{ getContents() }}</textarea
-    >
-  </div>
+    <div>
+      <a [href]="getContentsLink(textContents)" [download]="fileName"
+        ><mat-icon aria-hidden="false" class="middle">download</mat-icon>
+        Download {{ fileName }}</a
+      >
+    </div>
+  </ng-container>
 </div>
