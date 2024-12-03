@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../components/components.module';
@@ -19,6 +21,7 @@ import { CardFormComponent } from './pages/edit-page/card-form/card-form.compone
 import { DeleteConfirmationDialogComponent } from './pages/edit-page/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { EditCardComponent } from './pages/edit-page/edit-card/edit-card.component';
 import { EditPageComponent } from './pages/edit-page/edit-page.component';
+import { ExportPageComponent } from './pages/export-page/export-page.component';
 import { NoDecksPageComponent } from './pages/no-decks-page/no-decks-page.component';
 import { StudyPageComponent } from './pages/study-page/study-page.component';
 import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
@@ -32,6 +35,7 @@ import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
     DeckSelectorComponent,
     StudyPageComponent,
     EditPageComponent,
+    ExportPageComponent,
     EditCardComponent,
     CardFormComponent,
     DeleteConfirmationDialogComponent,
@@ -50,6 +54,8 @@ import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
+    MatRadioModule,
+    MatInputModule,
   ],
   exports: [],
 })

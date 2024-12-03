@@ -35,7 +35,7 @@ $values: (
     800: mix($color, $baseDark, 54%),
     900: mix($color, $baseDark, 25%),
     A100: lighten(saturate(mix($black, $baseDark, 15%), 80%), 65%),
-    A200: lighten(saturate(mix($black, $baseDark, 15%), 80%), 55%),
+    A200: $color,
     A400: lighten(saturate(mix($black, $baseDark, 15%), 100%), 45%),
     A700: lighten(saturate(mix($black, $baseDark, 15%), 100%), 40%),
   );

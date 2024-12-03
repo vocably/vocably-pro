@@ -1,6 +1,7 @@
-<div class="text-center mb-2">
+<nav class="text-center mb-2 deck-menu">
   <app-back-button></app-back-button>
-</div>
+  <button class="unstyled link" [routerLink]="['./export']">Export Deck</button>
+</nav>
 <ul class="fix-button separated unstyled mb-2">
   <li *ngFor="let card of cards">
     <app-edit-card
