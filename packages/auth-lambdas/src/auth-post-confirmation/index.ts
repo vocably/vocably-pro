@@ -1,7 +1,8 @@
+import { nodeSaveUserMetadata } from '@vocably/lambda-shared';
 import { Callback, Context, PostConfirmationTriggerEvent } from 'aws-lambda';
 import { adminAddUserToGroup } from './adminAddUserToGroup';
 import { adminGetUser } from './adminGetUser';
-import { addContact, sendWelcomeEmail } from './brevo';
+import { addContact } from './brevo';
 import { getAttribute } from './getAttribute';
 
 export const authPostConfirmation = async (
@@ -39,23 +40,21 @@ export const authPostConfirmation = async (
       console.error('Brevo add contact error', addContactResult);
     }
 
-    // const saveMetadataResult = await nodeSaveUserMetadata(
-    //   sub,
-    //   process.env.USER_FILES_BUCKET,
-    //   {
-    //     onboardingFlow: {
-    //       allowed: true,
-    //       mobileAppSent: false,
-    //       extensionSent: false,
-    //     },
-    //   }
-    // );
-    //
-    // if (saveMetadataResult.success === false) {
-    //   console.error('Save metadata error', saveMetadataResult);
-    // }
+    const saveMetadataResult = await nodeSaveUserMetadata(
+      sub,
+      process.env.USER_FILES_BUCKET,
+      {
+        onboardingFlow: {
+          allowed: true,
+          mobileAppSent: false,
+          extensionSent: false,
+        },
+      }
+    );
 
-    await sendWelcomeEmail({ email });
+    if (saveMetadataResult.success === false) {
+      console.error('Save metadata error', saveMetadataResult);
+    }
 
     return callback(null, event);
   } catch (error) {

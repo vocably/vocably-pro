@@ -7,6 +7,8 @@ import { isApiGatewayProxyResult } from './isApiGatewayProxyResult';
 export const buildErrorResponse = (
   e: any
 ): Observable<APIGatewayProxyResult> => {
+  console.error('An error occurred', e);
+
   if (isApiGatewayProxyResult(e)) {
     return of(e);
   }

@@ -110,7 +110,7 @@ resource "aws_api_gateway_integration" "onboard" {
 
 resource "aws_cloudwatch_log_metric_filter" "onboard_error" {
   name           = "error"
-  pattern        = ""
+  pattern        = "error"
   log_group_name = aws_cloudwatch_log_group.onboard.name
 
   metric_transformation {
