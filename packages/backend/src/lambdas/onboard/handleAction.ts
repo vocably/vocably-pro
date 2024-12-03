@@ -46,6 +46,11 @@ export const handleAction = async ({
   const onboardingFlow = userMetadataResult.value.onboardingFlow;
 
   if (!onboardingFlow.allowed) {
+    console.log(
+      `Onboarding flow is not allowed for user with ${email} and metadata:`,
+      userMetadataResult.value
+    );
+
     return {
       success: true,
       value: null,
@@ -53,6 +58,11 @@ export const handleAction = async ({
   }
 
   if (onboardingFlow.extensionSent && onboardingFlow.mobileAppSent) {
+    console.log(
+      `Onboarding flow for user with ${email} has already been triggered. Metadata:`,
+      userMetadataResult.value
+    );
+
     return {
       success: true,
       value: null,
@@ -73,6 +83,8 @@ export const handleAction = async ({
       return result;
     }
 
+    console.log('Welcome extension email has been successfully sent.');
+
     return nodeSaveUserMetadata(sub, process.env.USER_FILES_BUCKET, {
       onboardingFlow: {
         language: action.payload.targetLanguage,
@@ -92,6 +104,7 @@ export const handleAction = async ({
     if (result.success === false) {
       return result;
     }
+    console.log('Mobile app installed email has been successfully sent.');
 
     return nodeSaveUserMetadata(sub, process.env.USER_FILES_BUCKET, {
       onboardingFlow: {
@@ -111,6 +124,8 @@ export const handleAction = async ({
       return result;
     }
 
+    console.log('Welcome mobile app email has been successfully sent.');
+
     return nodeSaveUserMetadata(sub, process.env.USER_FILES_BUCKET, {
       onboardingFlow: {
         mobileAppSent: true,
@@ -118,6 +133,11 @@ export const handleAction = async ({
       },
     });
   }
+
+  console.log(
+    `No emails have been sent for user ${email} and metadata:`,
+    userMetadataResult.value
+  );
 
   return {
     success: true,
