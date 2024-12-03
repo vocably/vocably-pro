@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -17,6 +18,7 @@ import { DeckSelectorComponent } from './deck-selector/deck-selector.component';
 import { DecksRoutingModule } from './decks-routing.module';
 import { DecksComponent } from './decks.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { MobileAppEncouragerComponent } from './pages/dashboard-page/mobile-app-encourager/mobile-app-encourager.component';
 import { CardFormComponent } from './pages/edit-page/card-form/card-form.component';
 import { DeleteConfirmationDialogComponent } from './pages/edit-page/delete-confirmation-dialog/delete-confirmation-dialog.component';
 import { EditCardComponent } from './pages/edit-page/edit-card/edit-card.component';
@@ -40,6 +42,7 @@ import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
     CardFormComponent,
     DeleteConfirmationDialogComponent,
     CardComponent,
+    MobileAppEncouragerComponent,
   ],
   imports: [
     CommonModule,
@@ -56,6 +59,7 @@ import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
     MatIconModule,
     MatRadioModule,
     MatInputModule,
+    MatCheckboxModule,
   ],
   exports: [],
 })
