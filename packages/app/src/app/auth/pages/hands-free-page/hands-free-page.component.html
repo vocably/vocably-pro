@@ -6,22 +6,18 @@
     <div class="hero-body text-center">
       <ng-container *ngIf="isInstalled === false">
         <div>
-          <p>
-            It looks like you don't have the browser extension installed or
-            enabled.
-          </p>
-          Please install or enable the browser extension and give it another
-          try.
+          <p>It seems like the browser extension isn't installed or enabled.</p>
+          Please install or enable the browser extension and try again.
         </div>
         <div *ngIf="browserType !== 'normal'" style="margin-top: 1rem">
           <app-expansion label="But I have it installed">
             <ng-container *ngIf="browserType === 'ios-safari'">
               <div class="text-left">
                 <p>
-                  You are probably experiencing a Safari bug that is preventing
-                  the extension from being detected.
+                  You're likely encountering a Safari bug that's preventing the
+                  extension from being detected.
                 </p>
-                <p>Please perform the following steps:</p>
+                <p>Here's what you need to do:</p>
 
                 <ol class="mb-1">
                   <li>
@@ -37,19 +33,19 @@
                 </ol>
 
                 <div>
-                  I'm sorry that you have to do it. I'm trying fixing it.
+                  I'm sorry for the inconvenience — I'm working on a fix.
                 </div>
               </div>
             </ng-container>
             <ng-container *ngIf="browserType === 'desktop-safari'">
               <div class="text-left">
                 <p>
-                  You are probably experiencing a Safari bug that is preventing
-                  the extension from being detected.
+                  You're likely encountering a Safari bug that's preventing the
+                  extension from being detected.
                 </p>
-                <p>Please restart Safari.</p>
+                <p>Please try restarting Safari.</p>
                 <div>
-                  I'm sorry that you have to do it. I'm trying fixing it.
+                  I'm sorry for the inconvenience — I'm working on a fix.
                 </div>
               </div>
             </ng-container>
