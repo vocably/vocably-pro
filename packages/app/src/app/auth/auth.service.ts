@@ -94,6 +94,7 @@ export class AuthService {
   }
 
   async signOut() {
+    localStorage.removeItem('onboardedLanguages');
     return Auth.signOut();
   }
 

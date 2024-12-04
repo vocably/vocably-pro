@@ -25,6 +25,7 @@ export class SettingsPageComponent implements OnInit {
       const loaderRef = this.loader.show({
         message: 'Deleting account...',
       });
+      localStorage.removeItem('onboardedLanguages');
       await Auth.deleteUser();
       loaderRef.close();
     });
