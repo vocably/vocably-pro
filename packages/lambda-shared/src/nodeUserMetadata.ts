@@ -59,7 +59,10 @@ export const nodeFetchUserMetadata = async (
 
   return {
     success: true,
-    value: JSON.parse(Buffer.concat(chunks).toString('utf-8')),
+    value: mergeUserMetadata(
+      defaultUserMetadata,
+      JSON.parse(Buffer.concat(chunks).toString('utf-8'))
+    ),
   };
 };
 

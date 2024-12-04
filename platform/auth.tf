@@ -118,6 +118,32 @@ resource "aws_cloudwatch_log_group" "auth_post_confirmation" {
   retention_in_days = 14
 }
 
+resource "aws_cloudwatch_log_metric_filter" "auth_post_confirmation_error" {
+  name           = "error"
+  pattern        = "error"
+  log_group_name = aws_cloudwatch_log_group.auth_post_confirmation.name
+
+  metric_transformation {
+    name      = "vocably-${terraform.workspace}-auth-post-confirmation-error"
+    namespace = "vocably-metrics"
+    value     = "1"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "auth_post_confirmation_error" {
+  alarm_name                = "vocably-${terraform.workspace}-auth-post-confirmation-error"
+  comparison_operator       = "GreaterThanThreshold"
+  evaluation_periods        = "1"
+  metric_name               = aws_cloudwatch_log_metric_filter.auth_post_confirmation_error.metric_transformation[0].name
+  namespace                 = aws_cloudwatch_log_metric_filter.auth_post_confirmation_error.metric_transformation[0].namespace
+  period                    = "3600"
+  statistic                 = "Average"
+  threshold                 = "0"
+  alarm_description         = "${terraform.workspace}: auth post confirmation lambda error"
+  alarm_actions             = [aws_sns_topic.alarm.arn]
+  insufficient_data_actions = []
+}
+
 // The rest of the auth
 
 resource "aws_cognito_user_pool" "users" {
