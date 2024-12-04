@@ -41,6 +41,7 @@ export class ImportPageComponent implements OnInit, OnDestroy {
 
   public loadingDecks = true;
   public selectedDeck: GoogleLanguage | '' = '';
+  public csv: string = '';
 
   public languages = Object.keys(languageList);
 
@@ -55,5 +56,26 @@ export class ImportPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next(null);
     this.destroy$.complete();
+  }
+
+  async onFileChange(filesInput: EventTarget | null) {
+    if (!filesInput || !(filesInput instanceof HTMLInputElement)) {
+      return;
+    }
+
+    if (!filesInput.files || filesInput.files.length === 0) {
+      return;
+    }
+
+    const file = filesInput.files.item(0);
+    if (file === null) {
+      return;
+    }
+
+    let reader: FileReader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = (e) => {
+      this.csv = reader.result as string;
+    };
   }
 }

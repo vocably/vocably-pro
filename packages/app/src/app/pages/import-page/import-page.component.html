@@ -1,5 +1,5 @@
 <div class="container-xl top">
-  <app-header title="Import Cards"></app-header>
+  <app-header title="Import Cards from CSV"></app-header>
 </div>
 <div class="container">
   <div class="hero">
@@ -31,40 +31,48 @@
               [languages]="languages"
             ></app-deck-selector>
           </div>
-          <ng-container *ngIf="selectedDeck">
-            <div class="mb-1">
-              <button
-                mat-button
-                color="accent"
-                mat-flat-button
-                class="mr-0_5"
-                (click)="fileInput.click()"
-              >
-                <mat-icon class="middle mr-0_5">upload</mat-icon
-                ><span class="middle">Upload CSV</span>
-              </button>
-              <input hidden #fileInput type="file" /> or paste the CSV file
-              contents below:
-            </div>
+          <div class="mb-1">
+            The CSV file is expected to contain word and translation columns.
+          </div>
+          <div class="mb-1">
+            <button
+              mat-button
+              color="accent"
+              mat-flat-button
+              class="mr-0_5"
+              (click)="fileInput.click()"
+            >
+              <mat-icon class="middle mr-0_5">upload</mat-icon
+              ><span class="middle">Upload CSV</span>
+            </button>
+            <input
+              hidden
+              #fileInput
+              type="file"
+              (change)="onFileChange($event.target)"
+              accept=".csv,.txt"
+            />
+            or paste the CSV file contents below:
+          </div>
 
-            <div>
-              <textarea
-                #contents
-                style="
-                  width: 100%;
-                  resize: vertical;
-                  height: 10rem;
-                  font-size: 0.9rem;
-                  white-space: pre;
-                  overflow-wrap: normal;
-                  overflow-x: scroll;
-                  font-family: 'Courier New', Courier, 'Lucida Console', Monaco,
-                    'DejaVu Sans Mono', monospace;
-                "
-                wrap="off"
-              ></textarea>
-            </div>
-          </ng-container>
+          <div>
+            <textarea
+              #contents
+              [(ngModel)]="csv"
+              style="
+                width: 100%;
+                resize: vertical;
+                height: 10rem;
+                font-size: 0.9rem;
+                white-space: pre;
+                tab-size: 4;
+                overflow-wrap: normal;
+                overflow-x: scroll;
+                font-family: monospace;
+              "
+              wrap="off"
+            ></textarea>
+          </div>
         </ng-container>
       </ng-container>
     </div>
