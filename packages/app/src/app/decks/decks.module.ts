@@ -14,7 +14,6 @@ import { HeaderModule } from '../header/header.module';
 import { LanguageModule } from '../language/language.module';
 import { SrsModule } from '../srs/srs.module';
 import { CardComponent } from './card/card.component';
-import { DeckSelectorComponent } from './deck-selector/deck-selector.component';
 import { DecksRoutingModule } from './decks-routing.module';
 import { DecksComponent } from './decks.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
@@ -34,7 +33,6 @@ import { SelectedDeckComponent } from './selected-deck/selected-deck.component';
     DashboardPageComponent,
     NoDecksPageComponent,
     SelectedDeckComponent,
-    DeckSelectorComponent,
     StudyPageComponent,
     EditPageComponent,
     ExportPageComponent,

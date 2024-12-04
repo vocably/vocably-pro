@@ -16,6 +16,7 @@ import { SignInPageComponent } from './auth/pages/sign-in-page/sign-in-page.comp
 import { SignInSuccessPageComponent } from './auth/pages/sign-in-success-page/sign-in-success-page.component';
 import { SignOutPageComponent } from './auth/pages/sign-out-page/sign-out-page.component';
 import { FeedbackPageComponent } from './pages/feedback-page/feedback-page.component';
+import { ImportPageComponent } from './pages/import-page/import-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 
@@ -84,11 +85,18 @@ const routes: Routes = [
     path: 'settings',
     title: 'Settings',
     component: SettingsPageComponent,
+    canActivate: [CognitoAuthGuard],
   },
   {
     path: 'feedback',
     title: 'Feedback',
     component: FeedbackPageComponent,
+    canActivate: [CognitoAuthGuard],
+  },
+  {
+    path: 'import',
+    title: 'Import Cards',
+    component: ImportPageComponent,
     canActivate: [CognitoAuthGuard],
   },
   { path: '**', pathMatch: 'full', component: NotFoundPageComponent },

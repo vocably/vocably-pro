@@ -9,10 +9,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { setProxyLanguage } from '@vocably/extension-messages';
 import { GoogleLanguage, languageList } from '@vocably/model';
 import { map, Observable, startWith, Subject } from 'rxjs';
-import { extensionId } from '../../../extension';
 
 @Component({
   selector: 'app-language-input',
@@ -22,10 +20,10 @@ import { extensionId } from '../../../extension';
 export class LanguageInputComponent implements OnInit, OnDestroy, OnChanges {
   private destroy$ = new Subject();
 
-  @Input() value: GoogleLanguage = 'en';
+  @Input() value: GoogleLanguage | '' = 'en';
   @Output() onChange = new EventEmitter<GoogleLanguage>();
 
-  languageInput = new FormControl<GoogleLanguage>({
+  languageInput = new FormControl<GoogleLanguage | ''>({
     value: this.value,
     disabled: false,
   });
@@ -74,10 +72,5 @@ export class LanguageInputComponent implements OnInit, OnDestroy, OnChanges {
     if (this.languageInput.pristine) {
       event.target.select();
     }
-  }
-
-  async saveLanguage(language: GoogleLanguage) {
-    await setProxyLanguage(extensionId, language);
-    this.onChange.emit(language);
   }
 }

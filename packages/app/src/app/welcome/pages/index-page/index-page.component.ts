@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { getProxyLanguage } from '@vocably/extension-messages';
+import {
+  getProxyLanguage,
+  setProxyLanguage,
+} from '@vocably/extension-messages';
 import { GoogleLanguage, sortedTargetLanguages } from '@vocably/model';
 import { extensionId } from '../../../../extension';
 import { HowToMultilangComponent } from '../../how-to-multilang/how-to-multilang.component';
@@ -50,5 +53,9 @@ export class IndexPageComponent implements OnInit {
 
   showHowToMultilang() {
     this.dialog.open(HowToMultilangComponent);
+  }
+
+  async saveProxyLanguage(language: GoogleLanguage) {
+    await setProxyLanguage(extensionId, language);
   }
 }

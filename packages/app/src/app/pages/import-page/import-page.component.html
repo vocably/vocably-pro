@@ -1,0 +1,72 @@
+<div class="container-xl top">
+  <app-header title="Import Cards"></app-header>
+</div>
+<div class="container">
+  <div class="hero">
+    <div>
+      <div *ngIf="loadingDecks" class="text-center">
+        <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading decks...
+      </div>
+      <ng-container *ngIf="!loadingDecks">
+        <ng-container *ngIf="!selectedDeck">
+          <div class="lead-2 text-center text-emphasize mb-2">
+            What language would you like to import?
+          </div>
+          <app-language-input
+            [value]="selectedDeck"
+            (onChange)="selectedDeck = $event"
+          ></app-language-input>
+        </ng-container>
+        <ng-container *ngIf="selectedDeck">
+          <div class="mb-1">
+            Import cards for
+
+            <app-deck-selector
+              style="
+                display: inline-flex;
+                margin-top: -6px;
+                margin-left: 0.5rem;
+              "
+              [value]="selectedDeck"
+              [languages]="languages"
+            ></app-deck-selector>
+          </div>
+          <ng-container *ngIf="selectedDeck">
+            <div class="mb-1">
+              <button
+                mat-button
+                color="accent"
+                mat-flat-button
+                class="mr-0_5"
+                (click)="fileInput.click()"
+              >
+                <mat-icon class="middle mr-0_5">upload</mat-icon
+                ><span class="middle">Upload CSV</span>
+              </button>
+              <input hidden #fileInput type="file" /> or paste the CSV file
+              contents below:
+            </div>
+
+            <div>
+              <textarea
+                #contents
+                style="
+                  width: 100%;
+                  resize: vertical;
+                  height: 10rem;
+                  font-size: 0.9rem;
+                  white-space: pre;
+                  overflow-wrap: normal;
+                  overflow-x: scroll;
+                  font-family: 'Courier New', Courier, 'Lucida Console', Monaco,
+                    'DejaVu Sans Mono', monospace;
+                "
+                wrap="off"
+              ></textarea>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
