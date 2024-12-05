@@ -1,97 +1,101 @@
 <nav class="text-center mb-2 deck-menu">
   <app-back-button></app-back-button>
 </nav>
-<div class="contrast-panel">
-  <div class="display-flex mb-2" style="justify-content: center; gap: 3rem">
-    <div>
-      <div class="mb-2 strong">Between card columns</div>
+<div
+  class="display-flex mb-2"
+  style="justify-content: flex-start; flex-wrap: wrap; gap: 1rem"
+>
+  <div style="margin-right: 5rem">
+    <div class="mb-2 strong">Between card columns</div>
 
-      <mat-radio-group
-        aria-label="Select column delimiter"
-        class="display-flex flex-direction-column"
-        [(ngModel)]="colDelimiter"
+    <mat-radio-group
+      aria-label="Select column delimiter"
+      class="display-flex flex-direction-column"
+      [(ngModel)]="colDelimiter"
+    >
+      <mat-radio-button value="tab" class="mb-1">
+        <span class="mr-0_5">Tab</span>
+        <mat-icon aria-hidden="false" class="middle">keyboard_tab</mat-icon>
+      </mat-radio-button>
+      <mat-radio-button value="comma" class="mb-1"
+        >Comma [ , ]</mat-radio-button
       >
-        <mat-radio-button value="tab" class="mb-1">
-          <span class="mr-0_5">Tab</span>
-          <mat-icon aria-hidden="false" class="middle">keyboard_tab</mat-icon>
-        </mat-radio-button>
-        <mat-radio-button value="comma" class="mb-1"
-          >Comma [ , ]</mat-radio-button
-        >
-        <mat-radio-button value="custom" class="mb-1">
-          <mat-form-field>
-            <mat-label> Custom </mat-label>
-            <input
-              matInput
-              value="-"
-              (focus)="colDelimiter = 'custom'"
-              [(ngModel)]="customColDelimiter"
-            />
-          </mat-form-field>
-        </mat-radio-button>
-      </mat-radio-group>
-    </div>
-    <div>
-      <div class="mb-2 strong">Between cards</div>
-
-      <mat-radio-group
-        aria-label="Select column delimiter"
-        class="display-flex flex-direction-column"
-        [(ngModel)]="rowDelimiter"
-      >
-        <mat-radio-button value="new_line" class="mb-1">
-          <span class="mr-0_5">New line</span>
-          <mat-icon aria-hidden="false" class="middle"
-            >keyboard_return</mat-icon
-          >
-        </mat-radio-button>
-        <mat-radio-button value="semicolon" class="mb-1"
-          >Semicolon [ ; ]</mat-radio-button
-        >
-        <mat-radio-button value="custom" class="mb-1">
-          <mat-form-field>
-            <mat-label> Custom </mat-label>
-            <input
-              matInput
-              value="\n\n"
-              (focus)="rowDelimiter = 'custom'"
-              [(ngModel)]="customRowDelimiter"
-            />
-          </mat-form-field>
-        </mat-radio-button>
-      </mat-radio-group>
-    </div>
+      <mat-radio-button value="custom" class="mb-1">
+        <mat-form-field>
+          <mat-label> Custom </mat-label>
+          <input
+            matInput
+            value="-"
+            (focus)="colDelimiter = 'custom'"
+            [(ngModel)]="customColDelimiter"
+          />
+        </mat-form-field>
+      </mat-radio-button>
+    </mat-radio-group>
   </div>
+  <div>
+    <div class="mb-2 strong">Between cards</div>
 
-  <ng-container *ngIf="getContents() as textContents">
-    <div class="mb-1">
-      <div class="display-flex" style="align-items: center">
-        <div class="flex-1">Copy and paste the text below.</div>
-        <div>
-          <button class="button" (click)="copyToClipboard(contents)">
-            Copy all
-          </button>
-        </div>
-      </div>
-      <textarea
-        #contents
-        style="
-          width: 100%;
-          resize: vertical;
-          height: 10rem;
-          white-space: pre;
-          overflow-wrap: normal;
-          overflow-x: scroll;
-        "
-        wrap="off"
-        >{{ textContents }}</textarea
+    <mat-radio-group
+      aria-label="Select column delimiter"
+      class="display-flex flex-direction-column"
+      [(ngModel)]="rowDelimiter"
+    >
+      <mat-radio-button value="new_line" class="mb-1">
+        <span class="mr-0_5">New line</span>
+        <mat-icon aria-hidden="false" class="middle">keyboard_return</mat-icon>
+      </mat-radio-button>
+      <mat-radio-button value="semicolon" class="mb-1"
+        >Semicolon [ ; ]</mat-radio-button
       >
-    </div>
-    <div>
-      <a [href]="getContentsLink(textContents)" [download]="fileName"
-        ><mat-icon aria-hidden="false" class="middle mr-0_5">download</mat-icon
-        >Download {{ fileName }}</a
-      >
-    </div>
-  </ng-container>
+      <mat-radio-button value="custom" class="mb-1">
+        <mat-form-field>
+          <mat-label> Custom </mat-label>
+          <input
+            matInput
+            value="\n\n"
+            (focus)="rowDelimiter = 'custom'"
+            [(ngModel)]="customRowDelimiter"
+          />
+        </mat-form-field>
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
 </div>
+
+<ng-container *ngIf="getContents() as textContents">
+  <div class="mb-1">
+    <div
+      class="display-flex"
+      style="margin-bottom: 0.5rem; align-items: center"
+    >
+      <div class="flex-1">Copy the generated CSV.</div>
+      <div>
+        <button mat-button color="accent" (click)="copyToClipboard(contents)">
+          Copy all
+        </button>
+      </div>
+    </div>
+    <textarea
+      #contents
+      style="
+        font-family: monospace;
+        width: 100%;
+        resize: vertical;
+        height: 10rem;
+        white-space: pre;
+        overflow-wrap: normal;
+        overflow-x: scroll;
+        font-size: 90%;
+      "
+      wrap="off"
+      >{{ textContents }}</textarea
+    >
+  </div>
+  <div>
+    <a [href]="getContentsLink(textContents)" [download]="fileName"
+      ><mat-icon aria-hidden="false" class="middle mr-0_5">download</mat-icon
+      >Download {{ fileName }}</a
+    >
+  </div>
+</ng-container>
