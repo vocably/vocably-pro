@@ -1,8 +1,30 @@
 <div class="container-xl top">
   <app-header title="Import Cards from CSV"></app-header>
 </div>
+<style>
+  .hero-sticky-container {
+    overflow: visible;
+  }
+
+  .sticky-table {
+    position: sticky;
+    top: 0;
+
+    td {
+      padding: 0 6px;
+    }
+
+    th {
+      padding: 6px;
+      backdrop-filter: blur(3px);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+  }
+</style>
 <div class="container">
-  <div class="hero">
+  <div class="hero hero-sticky-container">
     <div>
       <div *ngIf="loadingDecks" class="text-center">
         <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading decks...
@@ -59,6 +81,7 @@
             <textarea
               #contents
               [(ngModel)]="csv"
+              (input)="onCsvChange()"
               style="
                 width: 100%;
                 resize: vertical;
@@ -73,6 +96,17 @@
               wrap="off"
             ></textarea>
           </div>
+
+          <table *ngIf="csvData.length > 0" class="mt-1 mb-2 sticky-table">
+            <tr>
+              <th class="text-left">Word/Phrase</th>
+              <th class="text-left">Translation</th>
+            </tr>
+            <tr *ngFor="let cardRow of csvData">
+              <td>{{ cardRow.source }}</td>
+              <td>{{ cardRow.translation }}</td>
+            </tr>
+          </table>
         </ng-container>
       </ng-container>
     </div>

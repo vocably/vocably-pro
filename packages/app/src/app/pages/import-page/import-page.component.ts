@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { listLanguages } from '@vocably/api';
 import { getSourceLanguage } from '@vocably/extension-messages';
-import { GoogleLanguage, languageList } from '@vocably/model';
+import { Card, GoogleLanguage, languageList } from '@vocably/model';
 import { firstValueFrom, Subject } from 'rxjs';
 import { extensionId } from '../../../extension';
 import { isExtensionInstalled$ } from '../../isExtensionInstalled';
+import { csvToArray } from './csvToArray';
 
 const detectImportDeck = async (): Promise<GoogleLanguage | ''> => {
   const isExtensionInstalled = await firstValueFrom(
@@ -42,6 +43,7 @@ export class ImportPageComponent implements OnInit, OnDestroy {
   public loadingDecks = true;
   public selectedDeck: GoogleLanguage | '' = '';
   public csv: string = '';
+  public csvData: Array<Pick<Card, 'source' | 'translation'>> = [];
 
   public languages = Object.keys(languageList);
 
@@ -58,7 +60,7 @@ export class ImportPageComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  async onFileChange(filesInput: EventTarget | null) {
+  onFileChange(filesInput: EventTarget | null) {
     if (!filesInput || !(filesInput instanceof HTMLInputElement)) {
       return;
     }
@@ -76,6 +78,14 @@ export class ImportPageComponent implements OnInit, OnDestroy {
     reader.readAsText(file);
     reader.onload = (e) => {
       this.csv = reader.result as string;
+      this.onCsvChange();
     };
+  }
+
+  onCsvChange() {
+    this.csvData = csvToArray(this.csv, '\t').map(([source, translation]) => ({
+      source,
+      translation,
+    }));
   }
 }
