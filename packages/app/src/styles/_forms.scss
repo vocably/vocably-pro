@@ -26,3 +26,23 @@
     background-color: var(--form-background-color-focus);
   }
 }
+
+.csv-textarea {
+  background: var(--contrast-bg);
+  color: var(--text-color);
+  border-color: var(--form-border-color);
+  outline: none;
+  font-family: monospace;
+  width: 100%;
+  resize: vertical;
+  height: 10rem;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: scroll;
+  font-size: 90%;
+
+  &:focus {
+    background-color: var(--form-background-color-focus);
+    border-color: var(--form-border-color-focus);
+  }
+}
