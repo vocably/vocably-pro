@@ -21,13 +21,13 @@
     <app-app-qr-code style="width: 160px"></app-app-qr-code>
   </div>
   <div class="mb-1">
-    <mat-checkbox [(ngModel)]="dontShowAgain"
-      >Don't show this message anymore.</mat-checkbox
-    >
-  </div>
-  <div>
     <button class="button block" (click)="dialogRef.close(dontShowAgain)">
       Practice
     </button>
+  </div>
+  <div class="text-center">
+    <mat-checkbox [(ngModel)]="dontShowAgain"
+      >Don't show this message anymore.</mat-checkbox
+    >
   </div>
 </div>
