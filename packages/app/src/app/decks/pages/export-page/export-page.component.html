@@ -76,21 +76,9 @@
         </button>
       </div>
     </div>
-    <textarea
-      #contents
-      style="
-        font-family: monospace;
-        width: 100%;
-        resize: vertical;
-        height: 10rem;
-        white-space: pre;
-        overflow-wrap: normal;
-        overflow-x: scroll;
-        font-size: 90%;
-      "
-      wrap="off"
-      >{{ textContents }}</textarea
-    >
+    <textarea #contents class="csv-textarea" wrap="off">{{
+      textContents
+    }}</textarea>
   </div>
   <div>
     <a [href]="getContentsLink(textContents)" [download]="fileName"
