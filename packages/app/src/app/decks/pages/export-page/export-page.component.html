@@ -66,9 +66,7 @@
   <ng-container *ngIf="getContents() as textContents">
     <div class="mb-1">
       <div class="display-flex" style="align-items: center">
-        <div class="flex-1">
-          Copy and paste the text below. It cannot be edited.
-        </div>
+        <div class="flex-1">Copy and paste the text below.</div>
         <div>
           <button class="button" (click)="copyToClipboard(contents)">
             Copy all
@@ -85,15 +83,14 @@
           overflow-wrap: normal;
           overflow-x: scroll;
         "
-        readonly
         wrap="off"
         >{{ textContents }}</textarea
       >
     </div>
     <div>
       <a [href]="getContentsLink(textContents)" [download]="fileName"
-        ><mat-icon aria-hidden="false" class="middle">download</mat-icon>
-        Download {{ fileName }}</a
+        ><mat-icon aria-hidden="false" class="middle mr-0_5">download</mat-icon
+        >Download {{ fileName }}</a
       >
     </div>
   </ng-container>
