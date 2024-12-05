@@ -1,21 +1,33 @@
-<div class="mb-1">Have you tried the mobile app?</div>
-<div class="mb-1">
-  It offers practice questions,<br />quizzes, and translation features<br />for
-  your phone.
-</div>
-<div class="mb-1">
-  Scan the QR code or open<br /><strong>https://vocably.pro/app.html</strong>
-</div>
-<div class="mb-1">
-  <app-app-qr-code style="width: 50%"></app-app-qr-code>
-</div>
-<div class="mb-1">
-  <mat-checkbox [(ngModel)]="dontShowAgain"
-    >Don't show this message anymore</mat-checkbox
-  >
-</div>
-<div>
-  <button class="button block" (click)="dialogRef.close(dontShowAgain)">
-    Practice
-  </button>
+<div style="max-width: 400px">
+  <div class="mb-1">
+    Most users practice cards on mobile and I don't have time for the web app.
+    As a result, the web app doesn't currently support:
+  </div>
+
+  <ul class="mb-1">
+    <li>Multiple-choice questions</li>
+    <li>Reverse card questions</li>
+    <li>Practice settings</li>
+    <li>Card grouping (tags)</li>
+    <li>Dictionary search</li>
+  </ul>
+
+  <div class="mb-1">
+    To install the app, scan the QR code or visit<br /><strong
+      >https://vocably.pro/app.html</strong
+    ><br />on your mobile device.
+  </div>
+  <div class="mb-1">
+    <app-app-qr-code style="width: 160px"></app-app-qr-code>
+  </div>
+  <div class="mb-1">
+    <mat-checkbox [(ngModel)]="dontShowAgain"
+      >Don't show this message anymore.</mat-checkbox
+    >
+  </div>
+  <div>
+    <button class="button block" (click)="dialogRef.close(dontShowAgain)">
+      Practice
+    </button>
+  </div>
 </div>
