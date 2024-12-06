@@ -1,7 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { listLanguages, loadLanguageDeck } from '@vocably/api';
 import { getSourceLanguage } from '@vocably/extension-messages';
-import { Card, GoogleLanguage, languageList, TagItem } from '@vocably/model';
+import {
+  Card,
+  GoogleLanguage,
+  languageList,
+  NewTag,
+  TagItem,
+} from '@vocably/model';
 import {
   firstValueFrom,
   ReplaySubject,
@@ -119,4 +125,6 @@ export class ImportPageComponent implements OnInit, OnDestroy {
       translation,
     }));
   }
+
+  async deleteTag(tag: TagItem | NewTag) {}
 }

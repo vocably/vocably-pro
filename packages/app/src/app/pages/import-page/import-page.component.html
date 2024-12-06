@@ -100,7 +100,10 @@
             </div>
 
             <div>
-              <app-tags-selector [tags]="deckTags"></app-tags-selector>
+              <app-tags-selector
+                [tags]="deckTags"
+                (onDeleteTag)="deleteTag($event)"
+              ></app-tags-selector>
             </div>
           </ng-container>
 

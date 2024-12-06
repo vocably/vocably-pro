@@ -1,4 +1,4 @@
-<form>
+<form (submit)="$event.preventDefault()">
   <h1 mat-dialog-title style="font-size: 100%">
     {{ data.tag ? 'Edit ' + data.tag.data.title : 'Add new tag' }}
   </h1>

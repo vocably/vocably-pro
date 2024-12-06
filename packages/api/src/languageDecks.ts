@@ -112,3 +112,43 @@ export const deleteLanguageDeck = async (
     };
   }
 };
+
+export const deleteTag = async (
+  language: string,
+  id: string
+): Promise<Result<LanguageDeck>> => {
+  const loadResult = await loadLanguageDeck(language);
+
+  if (loadResult.success === false) {
+    return loadResult;
+  }
+
+  const newDeck: LanguageDeck = {
+    ...loadResult.value,
+    cards: loadResult.value.cards.map((card) => {
+      if (!card.data.tags) {
+        return card;
+      }
+
+      return {
+        ...card,
+        data: {
+          ...card.data,
+          tags: card.data.tags.filter((tag) => tag.id !== id),
+        },
+      };
+    }),
+    tags: (loadResult.value.tags ?? []).filter((tagItem) => tagItem.id !== id),
+  };
+
+  const saveResult = await saveLanguageDeck(newDeck);
+
+  if (saveResult.success === false) {
+    return saveResult;
+  }
+
+  return {
+    success: true,
+    value: newDeck,
+  };
+};

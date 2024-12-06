@@ -1,28 +1,68 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewTag, TagItem } from '@vocably/model';
-import { TagFormComponent, TagFormData } from '../tag-form/tag-form.component';
+import { Subject, takeUntil } from 'rxjs';
+import {
+  TagFormAction,
+  TagFormComponent,
+  TagFormData,
+} from '../tag-form/tag-form.component';
 
 @Component({
   selector: 'app-tags-selector',
   templateUrl: './tags-selector.component.html',
   styleUrls: ['./tags-selector.component.scss'],
 })
-export class TagsSelectorComponent implements OnInit {
-  @Input() tags: TagItem[] = [];
+export class TagsSelectorComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject();
+
+  @Input() tags: Array<TagItem | NewTag> = [];
+
+  @Output() onDeleteTag = new EventEmitter<TagItem | NewTag>();
 
   constructor(private dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {}
+
+  ngOnDestroy() {
+    this.destroy$.next(null);
+    this.destroy$.complete();
+  }
 
   showTagForm(tag: TagItem | NewTag | null = null) {
-    const dialog = this.dialog.open<TagFormComponent, TagFormData>(
+    const dialog = this.dialog.open<
       TagFormComponent,
-      {
-        data: {
-          tag,
-        },
-      }
-    );
+      TagFormData,
+      TagFormAction
+    >(TagFormComponent, {
+      data: {
+        tag,
+      },
+    });
+
+    dialog
+      .beforeClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(async (action) => {
+        if (!action) {
+          return;
+        }
+
+        if (action.name === 'delete') {
+          await this.deleteTag(action.tag);
+          return;
+        }
+      });
+  }
+
+  async deleteTag(tag: TagItem | NewTag) {
+    this.onDeleteTag.next(tag);
   }
 }

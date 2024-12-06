@@ -17,6 +17,7 @@ export type TagFormData = {
 
 export type TagFormActionDelete = {
   name: 'delete';
+  tag: TagItem | NewTag;
 };
 
 export type TagFormActionSave = {
@@ -50,16 +51,24 @@ export class TagFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroy$.next(null);
+    this.destroy$.complete();
   }
 
   onDeleteClick() {
-    if (!isTagItem(this.data.tag)) {
+    if (!isTagItem(this.data.tag) && this.data.tag) {
       this.dialogRef.close({
         name: 'delete',
+        tag: this.data.tag,
       });
 
       return;
     }
+
+    if (!isTagItem(this.data.tag)) {
+      this.dialogRef.close();
+      return;
+    }
+
     const ref = this.dialog.open<
       DeleteConfirmationComponent,
       DeleteConfirmationData,
@@ -78,9 +87,26 @@ export class TagFormComponent implements OnInit, OnDestroy {
           return;
         }
 
+        if (!this.data.tag) {
+          this.dialogRef.close();
+          return;
+        }
+
         this.dialogRef.close({
           name: 'delete',
+          tag: this.data.tag,
         });
       });
+  }
+
+  submit() {
+    if (this.title.trim() === '') {
+      return;
+    }
+
+    this.dialogRef.close({
+      name: 'save',
+      title: this.title,
+    });
   }
 }
