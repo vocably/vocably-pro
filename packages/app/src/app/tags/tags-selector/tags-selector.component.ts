@@ -27,6 +27,8 @@ export class TagsSelectorComponent implements OnInit, OnDestroy {
 
   @Output() onDeleteTag = new EventEmitter<TagItem | NewTag>();
 
+  @Output() onSaveTag = new EventEmitter<TagItem | NewTag>();
+
   constructor(private dialog: MatDialog) {}
 
   ngOnInit() {}
@@ -56,13 +58,31 @@ export class TagsSelectorComponent implements OnInit, OnDestroy {
         }
 
         if (action.name === 'delete') {
-          await this.deleteTag(action.tag);
+          return this.deleteTag(action.tag);
+        }
+
+        if (action.name !== 'save') {
           return;
         }
+
+        if (!tag) {
+          return this.saveTag({
+            data: {
+              title: action.title,
+            },
+          });
+        }
+
+        tag.data.title = action.title;
+        return this.saveTag(tag);
       });
   }
 
   async deleteTag(tag: TagItem | NewTag) {
     this.onDeleteTag.next(tag);
+  }
+
+  async saveTag(tag: TagItem | NewTag) {
+    this.onSaveTag.next(tag);
   }
 }

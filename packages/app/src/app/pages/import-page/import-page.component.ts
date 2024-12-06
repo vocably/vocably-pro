@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { listLanguages, loadLanguageDeck } from '@vocably/api';
+
+import { deleteTag, listLanguages, loadLanguageDeck } from '@vocably/api';
 import { getSourceLanguage } from '@vocably/extension-messages';
 import {
   Card,
   GoogleLanguage,
+  isTagItem,
   languageList,
   NewTag,
   TagItem,
@@ -74,6 +76,7 @@ export class ImportPageComponent implements OnInit, OnDestroy {
     tap(() => (this.loadingSelectedDeck = false)),
     takeUntil(this.destroy$)
   );
+  public newTags: NewTag[] = [];
   public deckTags: TagItem[] = [];
   public csv: string = '';
   public csvData: Array<Pick<Card, 'source' | 'translation'>> = [];
@@ -126,5 +129,18 @@ export class ImportPageComponent implements OnInit, OnDestroy {
     }));
   }
 
-  async deleteTag(tag: TagItem | NewTag) {}
+  async saveTag(tag: TagItem | NewTag) {
+    if (isTagItem(tag)) {
+    }
+  }
+
+  async deleteTag(language: string, tag: TagItem | NewTag) {
+    if (isTagItem(tag)) {
+      const deleteResult = await deleteTag(language, tag.id);
+      if (deleteResult.success) {
+        this.deckTags = deleteResult.value.tags;
+      }
+      return;
+    }
+  }
 }
