@@ -76,8 +76,15 @@ export class ImportPageComponent implements OnInit, OnDestroy {
     tap(() => (this.loadingSelectedDeck = false)),
     takeUntil(this.destroy$)
   );
+
+  public selectedTags: Array<NewTag | TagItem> = [];
   public newTags: NewTag[] = [];
   public deckTags: TagItem[] = [];
+
+  get allTags(): Array<TagItem | NewTag> {
+    return [...this.newTags, ...this.deckTags];
+  }
+
   public csv: string = '';
   public csvData: Array<Pick<Card, 'source' | 'translation'>> = [];
 
@@ -129,8 +136,22 @@ export class ImportPageComponent implements OnInit, OnDestroy {
     }));
   }
 
+  selectTag(tag: TagItem | NewTag) {
+    if (this.selectedTags.includes(tag)) {
+      this.selectedTags = this.selectedTags.filter((t) => t !== tag);
+      return;
+    }
+
+    this.selectedTags = [...this.selectedTags, tag];
+  }
+
+  async addNewTag(tag: NewTag) {
+    this.newTags.unshift(tag);
+    this.selectedTags.push(tag);
+  }
+
   async saveTag(tag: TagItem | NewTag) {
-    if (isTagItem(tag)) {
+    if (!isTagItem(tag)) {
     }
   }
 
@@ -139,8 +160,14 @@ export class ImportPageComponent implements OnInit, OnDestroy {
       const deleteResult = await deleteTag(language, tag.id);
       if (deleteResult.success) {
         this.deckTags = deleteResult.value.tags;
+        this.selectedTags = this.selectedTags.filter(
+          (t) => !isTagItem(t) || t.id !== tag.id
+        );
       }
       return;
     }
+
+    this.selectedTags = this.selectedTags.filter((t) => t !== tag);
+    this.newTags = this.newTags.filter((t) => t !== tag);
   }
 }

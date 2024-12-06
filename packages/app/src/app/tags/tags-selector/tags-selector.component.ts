@@ -23,11 +23,12 @@ import {
 export class TagsSelectorComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
+  @Input() selected: Array<TagItem | NewTag> = [];
   @Input() tags: Array<TagItem | NewTag> = [];
-
   @Output() onDeleteTag = new EventEmitter<TagItem | NewTag>();
-
   @Output() onSaveTag = new EventEmitter<TagItem | NewTag>();
+  @Output() onAddNewTag = new EventEmitter<NewTag>();
+  @Output() onSelect = new EventEmitter<TagItem | NewTag>();
 
   constructor(private dialog: MatDialog) {}
 
@@ -66,7 +67,7 @@ export class TagsSelectorComponent implements OnInit, OnDestroy {
         }
 
         if (!tag) {
-          return this.saveTag({
+          return this.onAddNewTag.emit({
             data: {
               title: action.title,
             },

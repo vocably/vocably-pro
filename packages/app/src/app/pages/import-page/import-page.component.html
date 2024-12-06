@@ -101,10 +101,16 @@
 
             <div>
               <app-tags-selector
-                [tags]="deckTags"
+                [selected]="selectedTags"
+                [tags]="allTags"
                 (onDeleteTag)="deleteTag(selectedDeck, $event)"
                 (onSaveTag)="saveTag($event)"
-              ></app-tags-selector>
+                (onAddNewTag)="addNewTag($event)"
+                (onSelect)="selectTag($event)"
+                ><button mat-flat-button color="accent">
+                  Manage tags
+                </button></app-tags-selector
+              >
             </div>
           </ng-container>
 

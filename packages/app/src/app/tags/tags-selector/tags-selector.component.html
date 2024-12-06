@@ -1,7 +1,7 @@
-<button mat-icon-button color="accent" [matMenuTriggerFor]="menu">
-  <mat-icon>sell</mat-icon>
+<button class="unstyled" [matMenuTriggerFor]="menu">
+  <ng-content></ng-content>
 </button>
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" yPosition="above">
   <button mat-menu-item (click)="$event.stopPropagation(); showTagForm()">
     Add new tag
   </button>
@@ -11,11 +11,13 @@
     [disableRipple]="true"
     *ngFor="let tag of tags"
     style="display: flex; align-items: center"
-    (click)="$event.stopPropagation()"
+    (click)="$event.stopPropagation(); onSelect.emit(tag)"
   >
-    <span style="flex: 1"
+    <span style="flex: 1; display: flex; min-width: 300px; align-items: center"
       ><span class="mr-0_5">{{ tag.data.title }}</span>
-      <mat-icon class="visibility-hidden">check</mat-icon>
+      <mat-icon [class.visibility-hidden]="!selected.includes(tag)"
+        >check</mat-icon
+      >
     </span>
     <button
       mat-icon-button
