@@ -6,11 +6,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { TagsSelectorComponent } from './tags-selector/tags-selector.component';
 
 @NgModule({
-  declarations: [TagsSelectorComponent, TagFormComponent],
+  declarations: [
+    TagsSelectorComponent,
+    TagFormComponent,
+    DeleteConfirmationComponent,
+  ],
   imports: [
     CommonModule,
     MatMenuModule,

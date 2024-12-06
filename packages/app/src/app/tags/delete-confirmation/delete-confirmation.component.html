@@ -1,0 +1,19 @@
+<h1 mat-dialog-title style="font-size: 100%">
+  Delete {{ this.data.tag.data.title }}?
+</h1>
+<div mat-dialog-content>
+  <div class="mb-1">This operation can not be undone.</div>
+  <div>Your cards will not be deleted.</div>
+</div>
+<div mat-dialog-actions style="justify-content: flex-end">
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button
+    mat-button
+    (click)="dialogRef.close(true)"
+    color="accent"
+    type="button"
+    cdkFocusInitial
+  >
+    Delete
+  </button>
+</div>
