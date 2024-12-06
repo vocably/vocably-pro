@@ -1,0 +1,21 @@
+<button mat-icon-button color="accent" [matMenuTriggerFor]="menu">
+  <mat-icon>sell</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>Add new tag</button>
+  <mat-divider *ngIf="tags.length > 0"></mat-divider>
+  <div
+    mat-menu-item
+    [disableRipple]="true"
+    *ngFor="let tag of tags"
+    style="display: flex"
+  >
+    <span style="flex: 1"
+      ><span class="mr-0_5">{{ tag.data.title }}</span>
+      <mat-icon>check</mat-icon>
+    </span>
+    <a href="#sdf" (click)="$event.preventDefault(); $event.stopPropagation()"
+      ><mat-icon style="margin: 0">edit</mat-icon></a
+    >
+  </div>
+</mat-menu>

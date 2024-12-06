@@ -1,8 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { listLanguages } from '@vocably/api';
+import { listLanguages, loadLanguageDeck } from '@vocably/api';
 import { getSourceLanguage } from '@vocably/extension-messages';
-import { Card, GoogleLanguage, languageList } from '@vocably/model';
-import { firstValueFrom, Subject } from 'rxjs';
+import { Card, GoogleLanguage, languageList, TagItem } from '@vocably/model';
+import {
+  firstValueFrom,
+  ReplaySubject,
+  Subject,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { extensionId } from '../../../extension';
 import { isExtensionInstalled$ } from '../../isExtensionInstalled';
 import { csvToArray } from './csvToArray';
@@ -41,18 +48,42 @@ export class ImportPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
   public loadingDecks = true;
-  public selectedDeck: GoogleLanguage | '' = '';
+  public selectedDeck$ = new ReplaySubject<GoogleLanguage | ''>();
+  public loadingSelectedDeck = false;
+  public deck$ = this.selectedDeck$.pipe(
+    tap(() => (this.loadingSelectedDeck = true)),
+    switchMap(async (selectedDeck) => {
+      if (!selectedDeck) {
+        return null;
+      }
+
+      const deckResult = await loadLanguageDeck(selectedDeck);
+
+      if (deckResult.success === false) {
+        return null;
+      }
+
+      return deckResult.value;
+    }),
+    tap(() => (this.loadingSelectedDeck = false)),
+    takeUntil(this.destroy$)
+  );
+  public deckTags: TagItem[] = [];
   public csv: string = '';
   public csvData: Array<Pick<Card, 'source' | 'translation'>> = [];
 
-  public languages = Object.keys(languageList);
+  public languages = Object.keys(languageList) as GoogleLanguage[];
 
   constructor() {}
 
   async ngOnInit() {
     this.loadingDecks = true;
-    this.selectedDeck = await detectImportDeck();
+    this.selectedDeck$.next(await detectImportDeck());
     this.loadingDecks = false;
+
+    this.deck$.pipe(takeUntil(this.destroy$)).subscribe((deck) => {
+      this.deckTags = deck ? deck.tags : [];
+    });
   }
 
   ngOnDestroy(): void {

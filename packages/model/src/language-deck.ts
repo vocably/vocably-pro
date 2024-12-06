@@ -9,6 +9,10 @@ export type TagItem = {
   data: Tag;
 };
 
+export type NewTag = {
+  data: Tag;
+};
+
 export type StrategyStep = {
   step: 'sf' | 'sb' | 'mf' | 'mb';
   allowedFailures: number | null;

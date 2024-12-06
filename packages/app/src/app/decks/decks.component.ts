@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { listLanguages } from '@vocably/api';
+import { GoogleLanguage } from '@vocably/model';
 import {
   from,
   merge,
@@ -42,7 +43,7 @@ export class DecksComponent implements OnInit, OnDestroy {
           if (!result.success) {
             throw new Error(result.reason);
           }
-          decksListStore.store(result.value);
+          decksListStore.store(result.value as GoogleLanguage[]);
         },
       });
   }

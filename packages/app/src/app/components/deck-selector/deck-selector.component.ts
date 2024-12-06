@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GoogleLanguage } from '@vocably/model';
 
 @Component({
   selector: 'app-deck-selector',
@@ -6,15 +7,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./deck-selector.component.scss'],
 })
 export class DeckSelectorComponent implements OnInit {
-  @Input() languages: string[] = [];
-  @Input() value: string = '';
-  @Output() change = new EventEmitter<string>();
+  @Input() languages: GoogleLanguage[] = [];
+  @Input() value: GoogleLanguage | '' = '';
+  @Output() change = new EventEmitter<GoogleLanguage>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
   onChange(language: string) {
-    this.change.emit(language);
+    this.change.emit(language as GoogleLanguage);
   }
 }

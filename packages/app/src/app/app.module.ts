@@ -20,6 +20,7 @@ import { ImportPageComponent } from './pages/import-page/import-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { DeleteAccountConfirmationComponent } from './pages/settings-page/delete-account-confirmation/delete-account-confirmation.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import { TagsModule } from './tags/tags.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
     MatDialogModule,
     MatButtonModule,
     MatDividerModule,
+    TagsModule,
   ],
   providers: [
     {

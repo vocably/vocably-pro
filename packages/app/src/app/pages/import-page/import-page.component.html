@@ -30,72 +30,79 @@
         <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading decks...
       </div>
       <ng-container *ngIf="!loadingDecks">
-        <ng-container *ngIf="!selectedDeck">
-          <div class="lead-2 text-center text-emphasize mb-2">
-            What language would you like to import?
-          </div>
-          <app-language-input
-            [value]="selectedDeck"
-            (onChange)="selectedDeck = $event"
-          ></app-language-input>
-        </ng-container>
-        <ng-container *ngIf="selectedDeck">
-          <div class="mb-1">
-            Import cards for
-
-            <app-deck-selector
-              style="
-                display: inline-flex;
-                margin-top: -6px;
-                margin-left: 0.5rem;
-              "
+        <ng-container *ngIf="selectedDeck$ | async as selectedDeck">
+          <ng-container *ngIf="!selectedDeck">
+            <div class="lead-2 text-center text-emphasize mb-2">
+              What language would you like to import?
+            </div>
+            <app-language-input
               [value]="selectedDeck"
-              [languages]="languages"
-            ></app-deck-selector>
-          </div>
-          <div class="mb-1">
-            The CSV file is expected to contain word and translation columns.
-          </div>
-          <div class="mb-1">
-            <button
-              mat-button
-              color="accent"
-              mat-flat-button
-              class="mr-0_5"
-              (click)="fileInput.click()"
-            >
-              <mat-icon class="middle mr-0_5">upload</mat-icon
-              ><span class="middle">Upload CSV</span>
-            </button>
-            <input
-              hidden
-              #fileInput
-              type="file"
-              (change)="onFileChange($event.target)"
-              accept=".csv,.txt"
-            />
-            or paste the CSV file contents below:
-          </div>
+              (onChange)="selectedDeck$.next($event)"
+            ></app-language-input>
+          </ng-container>
+          <ng-container *ngIf="selectedDeck">
+            <div class="mb-1">
+              Import cards for
 
-          <div>
-            <textarea
-              #contents
-              [(ngModel)]="csv"
-              (input)="onCsvChange()"
-              style="
-                width: 100%;
-                resize: vertical;
-                height: 10rem;
-                font-size: 0.9rem;
-                white-space: pre;
-                tab-size: 4;
-                overflow-wrap: normal;
-                overflow-x: scroll;
-                font-family: monospace;
-              "
-              wrap="off"
-            ></textarea>
-          </div>
+              <app-deck-selector
+                style="
+                  display: inline-flex;
+                  margin-top: -6px;
+                  margin-left: 0.5rem;
+                "
+                [value]="selectedDeck"
+                [languages]="languages"
+                (change)="selectedDeck$.next($event)"
+              ></app-deck-selector>
+            </div>
+            <div class="mb-1">
+              The CSV file is expected to contain word and translation columns.
+            </div>
+            <div class="mb-1">
+              <button
+                mat-button
+                color="accent"
+                mat-flat-button
+                class="mr-0_5"
+                (click)="fileInput.click()"
+              >
+                <mat-icon class="middle mr-0_5">upload</mat-icon
+                ><span class="middle">Upload CSV</span>
+              </button>
+              <input
+                hidden
+                #fileInput
+                type="file"
+                (change)="onFileChange($event.target)"
+                accept=".csv,.txt"
+              />
+              or paste the CSV file contents below:
+            </div>
+
+            <div class="mb-1">
+              <textarea
+                #contents
+                [(ngModel)]="csv"
+                (input)="onCsvChange()"
+                style="
+                  width: 100%;
+                  resize: vertical;
+                  height: 10rem;
+                  font-size: 0.9rem;
+                  white-space: pre;
+                  tab-size: 4;
+                  overflow-wrap: normal;
+                  overflow-x: scroll;
+                  font-family: monospace;
+                "
+                wrap="off"
+              ></textarea>
+            </div>
+
+            <div>
+              <app-tags-selector [tags]="deckTags"></app-tags-selector>
+            </div>
+          </ng-container>
 
           <table *ngIf="csvData.length > 0" class="mt-1 mb-2 sticky-table">
             <tr>
