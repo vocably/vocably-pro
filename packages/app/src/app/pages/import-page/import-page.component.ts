@@ -98,6 +98,7 @@ export class ImportPageComponent implements OnInit, OnDestroy {
     this.loadingDecks = false;
 
     this.deck$.pipe(takeUntil(this.destroy$)).subscribe((deck) => {
+      this.selectedTags = this.selectedTags.filter((t) => !isTagItem(t));
       this.deckTags = deck ? deck.tags : [];
     });
   }

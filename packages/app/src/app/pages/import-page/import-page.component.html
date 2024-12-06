@@ -59,16 +59,6 @@
               The CSV file is expected to contain word and translation columns.
             </div>
             <div class="mb-1">
-              <button
-                mat-button
-                color="accent"
-                mat-flat-button
-                class="mr-0_5"
-                (click)="fileInput.click()"
-              >
-                <mat-icon class="middle mr-0_5">upload</mat-icon
-                ><span class="middle">Upload CSV</span>
-              </button>
               <input
                 hidden
                 #fileInput
@@ -76,7 +66,18 @@
                 (change)="onFileChange($event.target)"
                 accept=".csv,.txt"
               />
-              or paste the CSV file contents below:
+              Paste from the Google Sheets, CSV, or
+              <button
+                mat-button
+                color="accent"
+                class="mr-0_5"
+                (click)="fileInput.click()"
+                style="padding-left: 4px; padding-right: 8px"
+              >
+                <mat-icon class="middle mr-0_5" style="margin-left: 0"
+                  >upload</mat-icon
+                ><span class="middle">Upload CSV file</span>
+              </button>
             </div>
 
             <div class="mb-0_5">
