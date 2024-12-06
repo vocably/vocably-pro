@@ -79,7 +79,7 @@
               or paste the CSV file contents below:
             </div>
 
-            <div class="mb-1">
+            <div class="mb-0_5">
               <textarea
                 #contents
                 [(ngModel)]="csv"
@@ -99,15 +99,28 @@
               ></textarea>
             </div>
 
-            <div>
+            <div class="display-flex" style="align-items: center; gap: 1rem">
+              <mat-chip-list [selectable]="false">
+                <mat-chip
+                  *ngFor="let tag of selectedTags"
+                  [selectable]="false"
+                  [disableRipple]="true"
+                >
+                  {{ tag.data.title }}
+                  <button matChipRemove (click)="selectTag(tag)">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+              </mat-chip-list>
               <app-tags-selector
+                style="margin-left: auto"
                 [selected]="selectedTags"
                 [tags]="allTags"
                 (onDeleteTag)="deleteTag(selectedDeck, $event)"
                 (onSaveTag)="saveTag($event)"
                 (onAddNewTag)="addNewTag($event)"
                 (onSelect)="selectTag($event)"
-                ><button mat-flat-button color="accent">
+                ><button mat-button color="accent">
                   Manage tags
                 </button></app-tags-selector
               >
