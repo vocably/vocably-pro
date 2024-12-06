@@ -1,6 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { deleteTag, listLanguages, loadLanguageDeck } from '@vocably/api';
+import {
+  deleteTag,
+  listLanguages,
+  loadLanguageDeck,
+  updateTag,
+} from '@vocably/api';
 import { getSourceLanguage } from '@vocably/extension-messages';
 import {
   Card,
@@ -151,9 +156,18 @@ export class ImportPageComponent implements OnInit, OnDestroy {
     this.selectedTags.push(tag);
   }
 
-  async saveTag(tag: TagItem | NewTag) {
+  async saveTag(language: string, tag: TagItem | NewTag) {
     if (!isTagItem(tag)) {
+      return;
     }
+
+    const updateResult = await updateTag(language, tag);
+
+    if (!updateResult.success) {
+      return;
+    }
+
+    this.deckTags = updateResult.value.tags;
   }
 
   async deleteTag(language: string, tag: TagItem | NewTag) {

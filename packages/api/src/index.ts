@@ -6,6 +6,7 @@ export {
   listLanguages,
   loadLanguageDeck,
   saveLanguageDeck,
+  updateTag,
 } from './languageDecks';
 export * from './onboarding';
 export { playSound } from './playSound';

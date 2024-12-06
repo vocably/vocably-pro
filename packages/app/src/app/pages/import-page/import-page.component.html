@@ -118,7 +118,7 @@
                 [selected]="selectedTags"
                 [tags]="allTags"
                 (onDeleteTag)="deleteTag(selectedDeck, $event)"
-                (onSaveTag)="saveTag($event)"
+                (onSaveTag)="saveTag(selectedDeck, $event)"
                 (onAddNewTag)="addNewTag($event)"
                 (onSelect)="selectTag($event)"
                 ><button mat-button color="accent">
