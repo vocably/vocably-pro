@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TagItem } from '@vocably/model';
+import { MatDialog } from '@angular/material/dialog';
+import { NewTag, TagItem } from '@vocably/model';
+import { TagFormComponent, TagFormData } from '../tag-form/tag-form.component';
 
 @Component({
   selector: 'app-tags-selector',
@@ -9,7 +11,18 @@ import { TagItem } from '@vocably/model';
 export class TagsSelectorComponent implements OnInit {
   @Input() tags: TagItem[] = [];
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {}
+
+  showTagForm(tag: TagItem | NewTag | null = null) {
+    const dialog = this.dialog.open<TagFormComponent, TagFormData>(
+      TagFormComponent,
+      {
+        data: {
+          tag,
+        },
+      }
+    );
+  }
 }
