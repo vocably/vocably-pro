@@ -7,7 +7,6 @@
   }
 
   .sticky-table {
-    position: sticky;
     top: 0;
 
     td {
@@ -80,7 +79,7 @@
               </button>
             </div>
 
-            <div class="mb-0_5">
+            <div>
               <textarea
                 #contents
                 [(ngModel)]="csv"
@@ -89,36 +88,9 @@
                 wrap="off"
               ></textarea>
             </div>
-
-            <div class="display-flex" style="align-items: center; gap: 1rem">
-              <mat-chip-list [selectable]="false">
-                <mat-chip
-                  *ngFor="let tag of selectedTags"
-                  [selectable]="false"
-                  [disableRipple]="true"
-                >
-                  {{ tag.data.title }}
-                  <button matChipRemove (click)="selectTag(tag)">
-                    <mat-icon>cancel</mat-icon>
-                  </button>
-                </mat-chip>
-              </mat-chip-list>
-              <app-tags-selector
-                style="margin-left: auto"
-                [selected]="selectedTags"
-                [tags]="allTags"
-                (onDeleteTag)="deleteTag(selectedDeck, $event)"
-                (onSaveTag)="saveTag(selectedDeck, $event)"
-                (onAddNewTag)="addNewTag($event)"
-                (onSelect)="selectTag($event)"
-                ><button mat-button color="accent">
-                  Manage tags
-                </button></app-tags-selector
-              >
-            </div>
           </ng-container>
 
-          <table *ngIf="csvData.length > 0" class="mt-1 mb-2 sticky-table">
+          <table *ngIf="csvData.length > 0" class="mt-1 mb-1 sticky-table">
             <tr>
               <th class="text-left"></th>
               <th class="text-left">Word/Phrase</th>
@@ -130,6 +102,34 @@
               <td>{{ cardRow.translation }}</td>
             </tr>
           </table>
+          <div class="display-flex" style="align-items: center; gap: 1rem">
+            <app-tags-selector
+              [selected]="selectedTags"
+              [tags]="allTags"
+              (onDeleteTag)="deleteTag(selectedDeck, $event)"
+              (onSaveTag)="saveTag(selectedDeck, $event)"
+              (onAddNewTag)="addNewTag($event)"
+              (onSelect)="selectTag($event)"
+              ><button mat-button color="accent">
+                <mat-icon class="middle mr-0_5" style="margin-left: 0"
+                  >sell</mat-icon
+                >
+                Add tags
+              </button></app-tags-selector
+            >
+            <mat-chip-list [selectable]="false">
+              <mat-chip
+                *ngFor="let tag of selectedTags"
+                [selectable]="false"
+                [disableRipple]="true"
+              >
+                {{ tag.data.title }}
+                <button matChipRemove (click)="selectTag(tag)">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
         </ng-container>
       </ng-container>
     </div>
