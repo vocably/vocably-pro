@@ -15,5 +15,14 @@ export const extractPayload = (
     };
   }
 
+  if (payload.sources.length > 100) {
+    throw {
+      success: false,
+      errorCode: 'MALFORMED_PAYLOAD',
+      reason: 'Payload is too big',
+      extra: { payload },
+    };
+  }
+
   return payload;
 };
