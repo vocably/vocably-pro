@@ -91,18 +91,20 @@
               ></textarea>
             </div>
 
-            <table *ngIf="csvData.length > 0" class="mt-1 mb-1 sticky-table">
-              <tr>
-                <th class="text-left"></th>
-                <th class="text-left">Word/Phrase</th>
-                <th class="text-left">Translation</th>
-              </tr>
-              <tr *ngFor="let cardRow of csvData; let i = index">
-                <td>{{ i + 1 }}.</td>
-                <td>{{ cardRow.source }}</td>
-                <td>{{ cardRow.translation }}</td>
-              </tr>
-            </table>
+            <ng-container *ngIf="csvData$ | async as csvData">
+              <table *ngIf="csvData.length > 0" class="mt-1 mb-1 sticky-table">
+                <tr>
+                  <th class="text-left"></th>
+                  <th class="text-left">Word/Phrase</th>
+                  <th class="text-left">Translation</th>
+                </tr>
+                <tr *ngFor="let cardRow of csvData; let i = index">
+                  <td>{{ i + 1 }}.</td>
+                  <td>{{ cardRow.source }}</td>
+                  <td>{{ cardRow.translation }}</td>
+                </tr>
+              </table>
+            </ng-container>
             <div class="display-flex" style="align-items: center; gap: 1rem">
               <app-tags-selector
                 [selected]="selectedTags"

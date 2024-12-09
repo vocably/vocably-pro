@@ -6,7 +6,7 @@ export type BulkAnalysisPayload = {
   sources: string[];
 };
 
-export type BulkAnalysisResult = {
+export type BulkAnalysis = {
   sourceLanguage: GoogleLanguage;
   analysis: Array<{
     source: string;

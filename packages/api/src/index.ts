@@ -1,4 +1,5 @@
 export { analyze } from './analyze';
+export { bulkAnalyze } from './bulkAnalyze';
 export { configureApi } from './config';
 export {
   deleteLanguageDeck,

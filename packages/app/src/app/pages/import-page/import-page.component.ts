@@ -91,7 +91,9 @@ export class ImportPageComponent implements OnInit, OnDestroy {
   }
 
   public csv: string = '';
-  public csvData: Array<Pick<Card, 'source' | 'translation'>> = [];
+  public csvData$ = new ReplaySubject<
+    Array<Pick<Card, 'source' | 'translation'>>
+  >();
 
   public languages = Object.keys(languageList) as GoogleLanguage[];
 
@@ -136,10 +138,19 @@ export class ImportPageComponent implements OnInit, OnDestroy {
   }
 
   onCsvChange() {
-    this.csvData = csvToArray(this.csv, '\t').map(([source, translation]) => ({
-      source,
-      translation,
-    }));
+    if (this.csv.trim() === '') {
+      this.csvData$.next([]);
+      return;
+    }
+
+    this.csvData$.next(
+      csvToArray(this.csv, '\t')
+        .map(([source, translation]) => ({
+          source,
+          translation,
+        }))
+        .filter((item) => item.source && item.translation)
+    );
   }
 
   selectTag(tag: TagItem | NewTag) {

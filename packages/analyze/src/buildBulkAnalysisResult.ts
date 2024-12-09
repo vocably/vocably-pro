@@ -1,6 +1,6 @@
 import {
+  BulkAnalysis,
   BulkAnalysisPayload,
-  BulkAnalysisResult,
   languageList,
   Result,
 } from '@vocably/model';
@@ -38,7 +38,7 @@ const isGptBulkAnalyzeResult = (
 
 export const buildBulkAnalysisResult = async (
   payload: BulkAnalysisPayload
-): Promise<Result<BulkAnalysisResult>> => {
+): Promise<Result<BulkAnalysis>> => {
   const [phrases, words] = payload.sources.reduce(
     ([phrases, words], source) => {
       const trimmed = trimArticle(payload.sourceLanguage, source);
@@ -51,7 +51,7 @@ export const buildBulkAnalysisResult = async (
     [[] as string[], [] as string[]]
   );
 
-  let analysis: BulkAnalysisResult['analysis'] = phrases.map((phrase) => ({
+  let analysis: BulkAnalysis['analysis'] = phrases.map((phrase) => ({
     source: phrase,
     partOfSpeech: 'phrase',
   }));
