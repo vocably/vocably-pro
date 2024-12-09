@@ -1,5 +1,6 @@
 export * from './analysis';
 export * from './audio-pronunciation';
+export * from './bulk-analysis';
 export * from './constants';
 export * from './errors';
 export * from './language';

@@ -7,7 +7,7 @@ const { getEnvironmentVariables } = require('@vocably/webpack');
 module.exports = {
   mode: 'production',
   optimization: {
-    minimize: false,
+    minimize: true,
   },
   entry: getModules('./src/lambdas'),
   externals: {
