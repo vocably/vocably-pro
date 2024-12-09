@@ -77,12 +77,14 @@ resource "aws_api_gateway_deployment" "deployment" {
     redeployment = sha1(jsonencode([
       md5(file("${path.module}/api.tf")),
       md5(file("${path.module}/api-analyze.tf")),
+      md5(file("${path.module}/api-bulk-analyze.tf")),
       md5(file("${path.module}/api-onboard.tf")),
       md5(file("${path.module}/api-cards.tf")),
       md5(file("${path.module}/api-user-files.tf")),
       md5(file("${path.module}/api-play-sound.tf")),
       md5(file("${path.module}/user-feedback.tf")),
       aws_lambda_function.analyze.last_modified,
+      aws_lambda_function.bulk_analyze.last_modified,
       aws_lambda_function.onboard.last_modified,
       aws_lambda_function.play_sound.last_modified,
       aws_lambda_function.user_feedback.last_modified,
@@ -90,6 +92,7 @@ resource "aws_api_gateway_deployment" "deployment" {
   }
   depends_on = [
     aws_api_gateway_integration.analyze,
+    aws_api_gateway_integration.bulk_analyze,
     aws_api_gateway_integration.onboard,
     aws_api_gateway_integration.play_sound,
     aws_api_gateway_integration.user_feedback,
@@ -110,6 +113,7 @@ resource "aws_api_gateway_deployment" "deployment" {
     aws_api_gateway_integration_response.get_user_file_200,
     aws_api_gateway_integration_response.get_user_file_4xx,
     aws_lambda_function.analyze,
+    aws_lambda_function.bulk_analyze,
     aws_lambda_function.onboard,
     aws_lambda_function.play_sound,
     aws_lambda_function.user_feedback,
