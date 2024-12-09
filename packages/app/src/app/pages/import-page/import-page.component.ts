@@ -61,7 +61,7 @@ export class ImportPageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
   public loadingDecks = true;
-  public selectedDeck$ = new ReplaySubject<GoogleLanguage | ''>();
+  public selectedDeck$ = new ReplaySubject<GoogleLanguage | 'none'>();
   public loadingSelectedDeck = false;
   public deck$ = this.selectedDeck$.pipe(
     tap(() => (this.loadingSelectedDeck = true)),
@@ -99,7 +99,7 @@ export class ImportPageComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.loadingDecks = true;
-    this.selectedDeck$.next(await detectImportDeck());
+    this.selectedDeck$.next((await detectImportDeck()) || 'none');
     this.loadingDecks = false;
 
     this.deck$.pipe(takeUntil(this.destroy$)).subscribe((deck) => {

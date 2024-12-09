@@ -30,16 +30,16 @@
       </div>
       <ng-container *ngIf="!loadingDecks">
         <ng-container *ngIf="selectedDeck$ | async as selectedDeck">
-          <ng-container *ngIf="!selectedDeck">
+          <ng-container *ngIf="selectedDeck === 'none'">
             <div class="lead-2 text-center text-emphasize mb-2">
               What language would you like to import?
             </div>
             <app-language-input
-              [value]="selectedDeck"
+              value=""
               (onChange)="selectedDeck$.next($event)"
             ></app-language-input>
           </ng-container>
-          <ng-container *ngIf="selectedDeck">
+          <div style="margin-bottom: 4rem" *ngIf="selectedDeck !== 'none'">
             <div class="mb-1">
               Import cards for
 
@@ -55,7 +55,7 @@
               ></app-deck-selector>
             </div>
             <div class="mb-1">
-              The CSV file is expected to contain word and translation columns.
+              The CSV is expected to contain word and translation columns.
             </div>
             <div class="mb-1">
               <input
@@ -65,7 +65,7 @@
                 (change)="onFileChange($event.target)"
                 accept=".csv,.txt"
               />
-              Paste from the Google Sheets, CSV, or
+              Copy and paste from the Google Sheets, CSV file, or
               <button
                 mat-button
                 color="accent"
@@ -88,47 +88,47 @@
                 wrap="off"
               ></textarea>
             </div>
-          </ng-container>
 
-          <table *ngIf="csvData.length > 0" class="mt-1 mb-1 sticky-table">
-            <tr>
-              <th class="text-left"></th>
-              <th class="text-left">Word/Phrase</th>
-              <th class="text-left">Translation</th>
-            </tr>
-            <tr *ngFor="let cardRow of csvData; let i = index">
-              <td>{{ i + 1 }}.</td>
-              <td>{{ cardRow.source }}</td>
-              <td>{{ cardRow.translation }}</td>
-            </tr>
-          </table>
-          <div class="display-flex" style="align-items: center; gap: 1rem">
-            <app-tags-selector
-              [selected]="selectedTags"
-              [tags]="allTags"
-              (onDeleteTag)="deleteTag(selectedDeck, $event)"
-              (onSaveTag)="saveTag(selectedDeck, $event)"
-              (onAddNewTag)="addNewTag($event)"
-              (onSelect)="selectTag($event)"
-              ><button mat-button color="accent">
-                <mat-icon class="middle mr-0_5" style="margin-left: 0"
-                  >sell</mat-icon
-                >
-                Add tags
-              </button></app-tags-selector
-            >
-            <mat-chip-list [selectable]="false">
-              <mat-chip
-                *ngFor="let tag of selectedTags"
-                [selectable]="false"
-                [disableRipple]="true"
+            <table *ngIf="csvData.length > 0" class="mt-1 mb-1 sticky-table">
+              <tr>
+                <th class="text-left"></th>
+                <th class="text-left">Word/Phrase</th>
+                <th class="text-left">Translation</th>
+              </tr>
+              <tr *ngFor="let cardRow of csvData; let i = index">
+                <td>{{ i + 1 }}.</td>
+                <td>{{ cardRow.source }}</td>
+                <td>{{ cardRow.translation }}</td>
+              </tr>
+            </table>
+            <div class="display-flex" style="align-items: center; gap: 1rem">
+              <app-tags-selector
+                [selected]="selectedTags"
+                [tags]="allTags"
+                (onDeleteTag)="deleteTag(selectedDeck, $event)"
+                (onSaveTag)="saveTag(selectedDeck, $event)"
+                (onAddNewTag)="addNewTag($event)"
+                (onSelect)="selectTag($event)"
+                ><button mat-button color="accent">
+                  <mat-icon class="middle mr-0_5" style="margin-left: 0"
+                    >sell</mat-icon
+                  >
+                  Add tags
+                </button></app-tags-selector
               >
-                {{ tag.data.title }}
-                <button matChipRemove (click)="selectTag(tag)">
-                  <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-chip>
-            </mat-chip-list>
+              <mat-chip-list [selectable]="false">
+                <mat-chip
+                  *ngFor="let tag of selectedTags"
+                  [selectable]="false"
+                  [disableRipple]="true"
+                >
+                  {{ tag.data.title }}
+                  <button matChipRemove (click)="selectTag(tag)">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
           </div>
         </ng-container>
       </ng-container>
