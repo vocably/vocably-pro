@@ -16,6 +16,8 @@ import {
   TagItem,
 } from '@vocably/model';
 import {
+  combineLatest,
+  finalize,
   firstValueFrom,
   ReplaySubject,
   Subject,
@@ -23,8 +25,10 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { extensionId } from '../../../extension';
 import { isExtensionInstalled$ } from '../../isExtensionInstalled';
+import { bulkAnalyzeSources } from './bulkAnalyzeSources';
 import { csvToArray } from './csvToArray';
 
 const detectImportDeck = async (): Promise<GoogleLanguage | ''> => {
@@ -97,6 +101,9 @@ export class ImportPageComponent implements OnInit, OnDestroy {
 
   public languages = Object.keys(languageList) as GoogleLanguage[];
 
+  public analyzeValues: Record<string, string> = {};
+  public isAnalyzing = false;
+
   constructor() {}
 
   async ngOnInit() {
@@ -108,6 +115,31 @@ export class ImportPageComponent implements OnInit, OnDestroy {
       this.selectedTags = this.selectedTags.filter((t) => !isTagItem(t));
       this.deckTags = deck ? deck.tags : [];
     });
+
+    combineLatest([
+      this.selectedDeck$.pipe(tap(() => (this.analyzeValues = {}))),
+      this.csvData$,
+    ])
+      .pipe(
+        filter(([selectedDeck]) => selectedDeck !== 'none'),
+        switchMap(([selectedDeck, csvData]) => {
+          this.isAnalyzing = true;
+          return bulkAnalyzeSources(
+            selectedDeck === 'none' ? 'en' : selectedDeck,
+            csvData.map((d) => d.source)
+          );
+        }),
+        finalize(() => {
+          this.isAnalyzing = false;
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((result) => {
+        this.analyzeValues = {
+          ...this.analyzeValues,
+          ...result,
+        };
+      });
   }
 
   ngOnDestroy(): void {

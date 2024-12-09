@@ -97,11 +97,23 @@
                   <th class="text-left"></th>
                   <th class="text-left">Word/Phrase</th>
                   <th class="text-left">Translation</th>
+                  <th class="text-left">Part of speech</th>
                 </tr>
                 <tr *ngFor="let cardRow of csvData; let i = index">
                   <td>{{ i + 1 }}.</td>
                   <td>{{ cardRow.source }}</td>
                   <td>{{ cardRow.translation }}</td>
+                  <td>
+                    <ng-container
+                      *ngIf="analyzeValues[cardRow.source] as partOfSpeech"
+                    >
+                      {{ partOfSpeech }}
+                    </ng-container>
+                    <ion-spinner
+                      name="dots"
+                      *ngIf="!analyzeValues[cardRow.source] && isAnalyzing"
+                    ></ion-spinner>
+                  </td>
                 </tr>
               </table>
             </ng-container>

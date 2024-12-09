@@ -69,6 +69,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     ExpansionComponent,
     AppQrCodeComponent,
     DeckSelectorComponent,
+    LoaderComponent,
   ],
 })
 export class ComponentsModule {}
