@@ -105,13 +105,17 @@
                   <td>{{ cardRow.translation }}</td>
                   <td>
                     <ng-container
-                      *ngIf="analyzeValues[cardRow.source] as partOfSpeech"
+                      *ngIf="
+                        analyzeValues[cardRow.source.trim()] as partOfSpeech
+                      "
                     >
                       {{ partOfSpeech }}
                     </ng-container>
                     <ion-spinner
                       name="dots"
-                      *ngIf="!analyzeValues[cardRow.source] && isAnalyzing"
+                      *ngIf="
+                        !analyzeValues[cardRow.source.trim()] && isAnalyzing
+                      "
                     ></ion-spinner>
                   </td>
                 </tr>

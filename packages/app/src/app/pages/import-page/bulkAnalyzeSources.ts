@@ -46,7 +46,7 @@ export const bulkAnalyzeSources = (
         );
 
         if (bulkAnalyzeResult.success === true) {
-          bulkAnalyzeResult.value.analysis.forEach((item) => {
+          bulkAnalyzeResult.value.analysis.forEach((item, index) => {
             cachedValues[item.source] = item.partOfSpeech;
           });
         }

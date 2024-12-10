@@ -5,11 +5,12 @@ import {
   Result,
 } from '@vocably/model';
 import { trimArticle } from '@vocably/sulna';
-import { isArray, isObject, isString } from 'lodash-es';
+import { isArray, isNumber, isObject, isString } from 'lodash-es';
 import { chatGptRequest, GPT_4O_MINI } from './chatGptRequest';
-import { isOneWord } from './isOneWord';
+import { getWords } from './isOneWord';
 
 type GptBulkAnalyseItem = {
+  index: number;
   word: string;
   partOfSpeech: string;
 };
@@ -19,7 +20,11 @@ const isGptBulkAnalyseItem = (item: any): item is GptBulkAnalyseItem => {
     return false;
   }
 
-  return isString(item['word']) && isString(item['partOfSpeech']);
+  return (
+    isString(item['word']) &&
+    isString(item['partOfSpeech']) &&
+    isNumber(item['index'])
+  );
 };
 
 type GptBulkAnalyzeResult = {
@@ -42,7 +47,7 @@ export const buildBulkAnalysisResult = async (
   const [phrases, words] = payload.sources.reduce(
     ([phrases, words], source) => {
       const trimmed = trimArticle(payload.sourceLanguage, source);
-      if (isOneWord(trimmed.source)) {
+      if (getWords(trimmed.source).length <= 3) {
         return [phrases, [...words, source]];
       } else {
         return [[...phrases, source], words];
@@ -60,11 +65,11 @@ export const buildBulkAnalysisResult = async (
     const prompt = [
       `Provide the part of speech of the following ${
         languageList[payload.sourceLanguage]
-      }  words`,
+      } ordered list of words`,
       `<list>`,
-      words.join(`\n`),
+      words.map((word, index) => `${index + 1}. ${word}`).join(`\n`),
       `</list>`,
-      `Respond with JSON array as in example: {"words":[{"word": "table", "partOfSpeech": "noun"}]}`,
+      `Respond with JSON array as in example: {"words":[{"index": 1, word": "table", "partOfSpeech": "noun"}]}. Keep the order.`,
     ].join('\n');
 
     const responseResult = await chatGptRequest({
@@ -89,7 +94,7 @@ export const buildBulkAnalysisResult = async (
     analysis = [
       ...analysis,
       ...responseResult.value.words.map((gptResponseItem) => ({
-        source: gptResponseItem.word,
+        source: words[gptResponseItem.index - 1],
         partOfSpeech: gptResponseItem.partOfSpeech,
       })),
     ];
