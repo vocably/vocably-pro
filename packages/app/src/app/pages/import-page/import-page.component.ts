@@ -127,10 +127,11 @@ export class ImportPageComponent implements OnInit, OnDestroy {
           return bulkAnalyzeSources(
             selectedDeck === 'none' ? 'en' : selectedDeck,
             csvData.map((d) => d.source)
+          ).pipe(
+            finalize(() => {
+              this.isAnalyzing = false;
+            })
           );
-        }),
-        finalize(() => {
-          this.isAnalyzing = false;
         }),
         takeUntil(this.destroy$)
       )
