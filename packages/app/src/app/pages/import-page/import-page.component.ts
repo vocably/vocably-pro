@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
+import { MatDialog } from '@angular/material/dialog';
 import {
   deleteTag,
   listLanguages,
@@ -31,6 +32,10 @@ import { extensionId } from '../../../extension';
 import { isExtensionInstalled$ } from '../../isExtensionInstalled';
 import { bulkAnalyzeSources } from './bulkAnalyzeSources';
 import { csvToArray } from './csvToArray';
+import {
+  ImportSuccessDialogComponent,
+  ImportSuccessDialogData,
+} from './import-success-dialog/import-success-dialog.component';
 
 const detectImportDeck = async (): Promise<GoogleLanguage | ''> => {
   const isExtensionInstalled = await firstValueFrom(
@@ -56,6 +61,8 @@ const detectImportDeck = async (): Promise<GoogleLanguage | ''> => {
 
   return '';
 };
+
+type CsvData = Array<Pick<Card, 'source' | 'translation'>>;
 
 @Component({
   selector: 'app-import-page',
@@ -96,15 +103,15 @@ export class ImportPageComponent implements OnInit, OnDestroy {
   }
 
   public csv: string = '';
-  public csvData$ = new ReplaySubject<
-    Array<Pick<Card, 'source' | 'translation'>>
-  >();
+  public csvData$ = new ReplaySubject<CsvData>();
   public csvPos: string[] = [];
 
   public languages = Object.keys(languageList) as GoogleLanguage[];
   public isAnalyzing = false;
 
-  constructor() {}
+  public isImporting = false;
+
+  constructor(public dialog: MatDialog) {}
 
   async ngOnInit() {
     this.loadingDecks = true;
@@ -236,5 +243,30 @@ export class ImportPageComponent implements OnInit, OnDestroy {
 
     this.selectedTags = this.selectedTags.filter((t) => t !== tag);
     this.newTags = this.newTags.filter((t) => t !== tag);
+  }
+
+  async import(language: GoogleLanguage, csvData: CsvData) {
+    if (this.isImporting) {
+      return;
+    }
+
+    this.dialog
+      .open<ImportSuccessDialogComponent, ImportSuccessDialogData>(
+        ImportSuccessDialogComponent,
+        {
+          data: {
+            language: 'en',
+          },
+        }
+      )
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value) => {
+        if (value === 'import-more') {
+          this.csv = '';
+          this.csvData$.next([]);
+          this.selectedTags = [];
+        }
+      });
   }
 }

@@ -9,6 +9,7 @@ import { GoogleLanguage } from '@vocably/model';
 export class DeckSelectorComponent implements OnInit {
   @Input() languages: GoogleLanguage[] = [];
   @Input() value: GoogleLanguage | '' = '';
+  @Input() disabled = false;
   @Output() change = new EventEmitter<GoogleLanguage>();
 
   constructor() {}

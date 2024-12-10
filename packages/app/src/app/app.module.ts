@@ -18,6 +18,7 @@ import { ComponentsModule } from './components/components.module';
 import { HeaderModule } from './header/header.module';
 import { FeedbackPageComponent } from './pages/feedback-page/feedback-page.component';
 import { ImportPageComponent } from './pages/import-page/import-page.component';
+import { ImportSuccessDialogComponent } from './pages/import-page/import-success-dialog/import-success-dialog.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { DeleteAccountConfirmationComponent } from './pages/settings-page/delete-account-confirmation/delete-account-confirmation.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
@@ -31,6 +32,7 @@ import { TagsModule } from './tags/tags.module';
     DeleteAccountConfirmationComponent,
     FeedbackPageComponent,
     ImportPageComponent,
+    ImportSuccessDialogComponent,
   ],
   imports: [
     BrowserModule,
