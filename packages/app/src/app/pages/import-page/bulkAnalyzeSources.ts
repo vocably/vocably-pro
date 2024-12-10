@@ -1,6 +1,7 @@
 import { bulkAnalyze } from '@vocably/api';
 import { GoogleLanguage } from '@vocably/model';
-import { chunk } from 'lodash-es';
+import { createQueue } from '@vocably/sulna';
+import { chunk, pick } from 'lodash-es';
 import { Observable } from 'rxjs';
 
 const cache: Partial<Record<GoogleLanguage, Record<string, string>>> = {};
@@ -17,48 +18,47 @@ export const bulkAnalyzeSources = (
   new Observable<Record<string, string>>((subscriber) => {
     let stillWorking = true;
     const abortController = new AbortController();
+    const { queue, tearDownQueue } = createQueue(3);
+
     subscriber.add(() => {
       stillWorking = false;
+      tearDownQueue();
       abortController.abort();
     });
 
-    cache[language] = cache[language] ?? {};
+    if (cache[language] === undefined) {
+      cache[language] = {};
+    }
     const cachedValues = cache[language] as Record<string, string>;
 
-    const asyncAnalyze = async () => {
-      const sourceBatches = chunk(sources, 10);
-
-      for (let i = 0; i < sourceBatches.length && stillWorking; i++) {
-        const sourceBatch = sourceBatches[i].filter(
+    const promises = chunk(sources, 10).map((batch) => {
+      return queue(async () => {
+        const unAnalyzed = batch.filter(
           (source) => cachedValues[source] === undefined
         );
-        if (sourceBatch.length > 0) {
-          const bulkAnalyzeResult = await bulkAnalyze(
-            {
-              sources: sourceBatch,
-              sourceLanguage: language,
-            },
-            abortController
-          );
 
-          if (bulkAnalyzeResult.success) {
-            for (let analysis of bulkAnalyzeResult.value.analysis) {
-              cachedValues[analysis.source] = analysis.partOfSpeech;
-            }
-          }
-        }
-        subscriber.next(
-          sourceBatches[i].reduce((acc, source) => {
-            return {
-              ...acc,
-              [source]: cachedValues[source],
-            };
-          }, {})
+        const bulkAnalyzeResult = await bulkAnalyze(
+          {
+            sources: unAnalyzed,
+            sourceLanguage: language,
+          },
+          abortController
         );
+
+        if (bulkAnalyzeResult.success === true) {
+          bulkAnalyzeResult.value.analysis.forEach((item) => {
+            cachedValues[item.source] = item.partOfSpeech;
+          });
+        }
+
+        subscriber.next(pick(cachedValues, batch));
+      });
+    });
+
+    Promise.all(promises).then(() => {
+      if (stillWorking) {
+        subscriber.complete();
+        stillWorking = false;
       }
-
-      subscriber.complete();
-    };
-
-    asyncAnalyze().then();
+    });
   });

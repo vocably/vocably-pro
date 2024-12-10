@@ -5,6 +5,16 @@ export const bulkAnalyze = async (
   payload: BulkAnalysisPayload,
   abortController?: AbortController
 ): Promise<Result<BulkAnalysis>> => {
+  if (payload.sources.length === 0) {
+    return {
+      success: true,
+      value: {
+        sourceLanguage: payload.sourceLanguage,
+        analysis: [],
+      },
+    };
+  }
+
   try {
     return await request('/bulk-analyze', {
       method: 'POST',
