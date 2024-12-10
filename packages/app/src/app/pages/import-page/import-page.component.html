@@ -6,8 +6,9 @@
     overflow: visible;
   }
 
-  .sticky-table {
+  .import-table {
     top: 0;
+    border-collapse: collapse;
 
     td {
       padding: 0 6px;
@@ -19,6 +20,10 @@
       position: sticky;
       top: 0;
       z-index: 1;
+    }
+
+    tbody tr:hover {
+      background: var(--contrast-bg-hover);
     }
   }
 </style>
@@ -92,33 +97,31 @@
             </div>
 
             <ng-container *ngIf="csvData$ | async as csvData">
-              <table *ngIf="csvData.length > 0" class="mt-1 mb-1 sticky-table">
+              <table *ngIf="csvData.length > 0" class="mt-1 mb-1 import-table">
                 <tr>
                   <th class="text-left"></th>
                   <th class="text-left">Word/Phrase</th>
                   <th class="text-left">Translation</th>
                   <th class="text-left">Part of speech</th>
                 </tr>
-                <tr *ngFor="let cardRow of csvData; let i = index">
-                  <td>{{ i + 1 }}.</td>
-                  <td>{{ cardRow.source }}</td>
-                  <td>{{ cardRow.translation }}</td>
-                  <td>
-                    <ng-container
-                      *ngIf="
-                        analyzeValues[cardRow.source.trim()] as partOfSpeech
-                      "
-                    >
-                      {{ partOfSpeech }}
-                    </ng-container>
-                    <ion-spinner
-                      name="dots"
-                      *ngIf="
-                        !analyzeValues[cardRow.source.trim()] && isAnalyzing
-                      "
-                    ></ion-spinner>
-                  </td>
-                </tr>
+                <tbody>
+                  <tr *ngFor="let cardRow of csvData; let i = index">
+                    <td>{{ i + 1 }}.</td>
+                    <td>{{ cardRow.source }}</td>
+                    <td>{{ cardRow.translation }}</td>
+                    <td>
+                      <ng-container
+                        *ngIf="analyzeValues[cardRow.source] || !isAnalyzing"
+                      >
+                        {{ analyzeValues[cardRow.source] }}
+                      </ng-container>
+                      <ion-spinner
+                        name="dots"
+                        *ngIf="!analyzeValues[cardRow.source] && isAnalyzing"
+                      ></ion-spinner>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </ng-container>
             <div class="display-flex" style="align-items: center; gap: 1rem">
