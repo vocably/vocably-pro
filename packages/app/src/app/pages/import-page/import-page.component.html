@@ -110,14 +110,12 @@
                     <td>{{ cardRow.source }}</td>
                     <td>{{ cardRow.translation }}</td>
                     <td>
-                      <ng-container
-                        *ngIf="analyzeValues[cardRow.source] || !isAnalyzing"
-                      >
-                        {{ analyzeValues[cardRow.source] }}
+                      <ng-container *ngIf="csvPos[i] || !isAnalyzing">
+                        {{ csvPos[i] }}
                       </ng-container>
                       <ion-spinner
                         name="dots"
-                        *ngIf="!analyzeValues[cardRow.source] && isAnalyzing"
+                        *ngIf="!csvPos[i] && isAnalyzing"
                       ></ion-spinner>
                     </td>
                   </tr>

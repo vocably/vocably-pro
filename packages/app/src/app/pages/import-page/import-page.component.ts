@@ -24,6 +24,7 @@ import {
   switchMap,
   takeUntil,
   tap,
+  withLatestFrom,
 } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { extensionId } from '../../../extension';
@@ -98,10 +99,9 @@ export class ImportPageComponent implements OnInit, OnDestroy {
   public csvData$ = new ReplaySubject<
     Array<Pick<Card, 'source' | 'translation'>>
   >();
+  public csvPos: string[] = [];
 
   public languages = Object.keys(languageList) as GoogleLanguage[];
-
-  public analyzeValues: Record<string, string> = {};
   public isAnalyzing = false;
 
   constructor() {}
@@ -117,8 +117,8 @@ export class ImportPageComponent implements OnInit, OnDestroy {
     });
 
     combineLatest([
-      this.selectedDeck$.pipe(tap(() => (this.analyzeValues = {}))),
-      this.csvData$,
+      this.selectedDeck$.pipe(tap(() => (this.csvPos = []))),
+      this.csvData$.pipe(tap(() => (this.csvPos = []))),
     ])
       .pipe(
         filter(([selectedDeck]) => selectedDeck !== 'none'),
@@ -133,13 +133,21 @@ export class ImportPageComponent implements OnInit, OnDestroy {
             })
           );
         }),
+        withLatestFrom(this.csvData$),
         takeUntil(this.destroy$)
       )
-      .subscribe((result) => {
-        this.analyzeValues = {
-          ...this.analyzeValues,
-          ...result,
-        };
+      .subscribe(([result, csvData]) => {
+        csvData.forEach(({ source }, index) => {
+          if (this.csvPos[index]) {
+            return;
+          }
+
+          if (!result[source]) {
+            return;
+          }
+
+          this.csvPos[index] = result[source];
+        });
       });
   }
 
