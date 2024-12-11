@@ -1,0 +1,14 @@
+<h1 mat-dialog-title style="font-size: 100%">
+  <mat-icon color="warn" class="middle">warning</mat-icon>
+  Failure
+</h1>
+<div mat-dialog-content>
+  <p>There was an error during the import.</p>
+  <p>The error has been logged, and I’ll check it out.</p>
+  Please try again later.
+</div>
+<div mat-dialog-actions style="justify-content: flex-end">
+  <button color="accent" mat-button (click)="dialogRef.close()" cdkFocusInitial>
+    Close
+  </button>
+</div>

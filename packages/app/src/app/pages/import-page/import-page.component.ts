@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
+import * as Sentry from '@sentry/browser';
 import {
   deleteTag,
   listLanguages,
@@ -16,6 +17,7 @@ import {
   NewTag,
   TagItem,
 } from '@vocably/model';
+import posthog from 'posthog-js';
 import {
   combineLatest,
   finalize,
@@ -32,10 +34,12 @@ import { extensionId } from '../../../extension';
 import { isExtensionInstalled$ } from '../../isExtensionInstalled';
 import { bulkAnalyzeSources } from './bulkAnalyzeSources';
 import { csvToArray } from './csvToArray';
+import { ImportFailureDialogComponent } from './import-failure-dialog/import-failure-dialog.component';
 import {
   ImportSuccessDialogComponent,
   ImportSuccessDialogData,
 } from './import-success-dialog/import-success-dialog.component';
+import { importCsv } from './importCsv';
 
 const detectImportDeck = async (): Promise<GoogleLanguage | ''> => {
   const isExtensionInstalled = await firstValueFrom(
@@ -131,11 +135,13 @@ export class ImportPageComponent implements OnInit, OnDestroy {
         filter(([selectedDeck]) => selectedDeck !== 'none'),
         switchMap(([selectedDeck, csvData]) => {
           this.isAnalyzing = true;
+          posthog.capture('csv_analyze_started');
           return bulkAnalyzeSources(
             selectedDeck === 'none' ? 'en' : selectedDeck,
             csvData.map((d) => d.source)
           ).pipe(
             finalize(() => {
+              posthog.capture('csv_analyze_ended');
               this.isAnalyzing = false;
             })
           );
@@ -186,19 +192,27 @@ export class ImportPageComponent implements OnInit, OnDestroy {
   }
 
   onCsvChange() {
+    posthog.capture('csv_loaded', {
+      length: this.csv.length,
+    });
+
     if (this.csv.trim() === '') {
       this.csvData$.next([]);
       return;
     }
 
-    this.csvData$.next(
-      csvToArray(this.csv, '\t')
-        .map(([source, translation]) => ({
-          source,
-          translation,
-        }))
-        .filter((item) => item.source && item.translation)
-    );
+    const csvData = csvToArray(this.csv, '\t')
+      .map(([source, translation]) => ({
+        source,
+        translation,
+      }))
+      .filter((item) => item.source && item.translation);
+
+    posthog.capture('csv_data_parsed', {
+      records: csvData.length,
+    });
+
+    this.csvData$.next(csvData);
   }
 
   selectTag(tag: TagItem | NewTag) {
@@ -250,12 +264,38 @@ export class ImportPageComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.isImporting = true;
+
+    const importResult = await importCsv({
+      language,
+      csvCards: csvData.map((csvData, index) => ({
+        ...csvData,
+        partOfSpeech: this.csvPos[index],
+      })),
+      tags: this.selectedTags,
+    });
+
+    this.isImporting = false;
+
+    if (importResult.success === false) {
+      this.dialog.open(ImportFailureDialogComponent);
+      posthog.capture('import_failure', {
+        reason: importResult.reason,
+      });
+      Sentry.captureMessage('Import failure', {
+        extra: {
+          ...importResult,
+        },
+      });
+      return;
+    }
+
     this.dialog
       .open<ImportSuccessDialogComponent, ImportSuccessDialogData>(
         ImportSuccessDialogComponent,
         {
           data: {
-            language: 'en',
+            language,
           },
         }
       )

@@ -17,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
 import { ComponentsModule } from './components/components.module';
 import { HeaderModule } from './header/header.module';
 import { FeedbackPageComponent } from './pages/feedback-page/feedback-page.component';
+import { ImportFailureDialogComponent } from './pages/import-page/import-failure-dialog/import-failure-dialog.component';
 import { ImportPageComponent } from './pages/import-page/import-page.component';
 import { ImportSuccessDialogComponent } from './pages/import-page/import-success-dialog/import-success-dialog.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
@@ -33,6 +34,7 @@ import { TagsModule } from './tags/tags.module';
     FeedbackPageComponent,
     ImportPageComponent,
     ImportSuccessDialogComponent,
+    ImportFailureDialogComponent,
   ],
   imports: [
     BrowserModule,
