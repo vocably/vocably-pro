@@ -1,5 +1,6 @@
 import { Analysis, Card } from '@vocably/model';
 import { join } from '@vocably/sulna';
+import { pick } from 'lodash-es';
 
 export const makeCards = (analysis: Analysis): Card[] => {
   if (analysis.items && analysis.items.length > 0) {
@@ -11,6 +12,7 @@ export const makeCards = (analysis: Analysis): Card[] => {
       example: join(item.examples ?? []),
       translation: item.translation,
       partOfSpeech: item.partOfSpeech ?? '',
+      ...pick(item, ['g']),
       tags: [],
     }));
   }

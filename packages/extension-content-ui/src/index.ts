@@ -21,6 +21,7 @@ const simpletonTranslationResult: Result<TranslationCards> = {
           translation: 'created, done',
           definition: '',
           partOfSpeech: '',
+          g: 'n',
           tags: [],
         },
       },

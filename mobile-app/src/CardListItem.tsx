@@ -86,6 +86,8 @@ export const CardListItem: CardListItem = ({
 
           {card.ipa && <Text style={{ marginRight: 8 }}>[{card.ipa}]</Text>}
 
+          {card.g && <Text style={{ marginRight: 8 }}>({card.g})</Text>}
+
           {card.partOfSpeech && <Text>{card.partOfSpeech}</Text>}
         </View>
       </View>

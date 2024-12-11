@@ -8,6 +8,11 @@
     [{{ item.data.ipa }}]
   </div>
 
+  <div *ngIf="item.data.g" class="small inline-block ml-0_5">
+    <span class="inline-block invisible-space">&nbsp;</span>
+    ({{ item.data.g }})
+  </div>
+
   <div *ngIf="item.data.partOfSpeech" class="small inline-block ml-0_5">
     <span class="inline-block invisible-space">&nbsp;</span>
     {{ item.data.partOfSpeech }}

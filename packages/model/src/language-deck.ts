@@ -56,6 +56,7 @@ export type Card = {
   language: string;
   source: string;
   ipa?: string;
+  g?: string;
   example?: string;
   definition: string;
   translation: string;

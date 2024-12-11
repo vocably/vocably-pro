@@ -36,9 +36,17 @@ export class VocablyCardSource {
             </span>
           </Fragment>
         )}
+        {this.card.data.g && (
+          <Fragment>
+            <span class="vocably-invisible-space">&nbsp;</span>
+            <span class="vocably-muted vocably-small vocably-translation-margin-left">
+              ({this.card.data.g})
+            </span>
+          </Fragment>
+        )}
         {this.card.data.partOfSpeech && (
           <Fragment>
-            <span class="invisible-space ">&nbsp;</span>
+            <span class="vocably-invisible-space ">&nbsp;</span>
             <span class="vocably-muted vocably-small vocably-translation-margin-left">
               {this.card.data.partOfSpeech}
             </span>

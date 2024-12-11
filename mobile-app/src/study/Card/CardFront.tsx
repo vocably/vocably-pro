@@ -61,7 +61,7 @@ export const CardFront: FC<Props> = ({ card, autoPlay }) => {
           {card.data.source}
         </Text>
       </View>
-      {(card.data.ipa || card.data.partOfSpeech) && (
+      {(card.data.ipa || card.data.partOfSpeech || card.data.g) && (
         <View
           style={{
             flexDirection: 'row',
@@ -72,6 +72,9 @@ export const CardFront: FC<Props> = ({ card, autoPlay }) => {
         >
           {card.data.ipa && (
             <Text style={{ marginRight: 8 }}>[{card.data.ipa}]</Text>
+          )}
+          {card.data.g && (
+            <Text style={{ marginRight: 8 }}>({card.data.g})</Text>
           )}
           {card.data.partOfSpeech && (
             <Text style={{ marginRight: 8 }}>{card.data.partOfSpeech}</Text>

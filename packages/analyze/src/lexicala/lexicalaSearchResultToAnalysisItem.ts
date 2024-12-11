@@ -1,6 +1,7 @@
 import { AnalysisItem, Translation } from '@vocably/model';
 import { addArticle } from '../addArticle';
 import { extractTranslation } from '../extractTranslation';
+import { shortenGender } from '../shortenGender';
 import { getDefinitions } from './getDefinitions';
 import { getExamples } from './getExamples';
 import { getIpa } from './getIpa';
@@ -22,5 +23,10 @@ export const lexicalaSearchResultToAnalysisItem =
       definitions: getDefinitions(item.senses),
       partOfSpeech: item.headword.pos,
       translation: translationResult.success ? translationResult.value : '',
+      ...(item.headword.gender
+        ? {
+            g: shortenGender(item.headword.gender),
+          }
+        : {}),
     };
   };

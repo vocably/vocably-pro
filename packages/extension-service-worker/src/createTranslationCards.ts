@@ -9,7 +9,7 @@ import {
 import { byCard, equalCards } from '@vocably/model-operations';
 import { createSrsItem } from '@vocably/srs';
 import { explode, join } from '@vocably/sulna';
-import { merge } from 'lodash-es';
+import { merge, pick } from 'lodash-es';
 
 export const getCardCandidates = (
   collection: Collection<SrsCard>,
@@ -86,6 +86,7 @@ export const createTranslationCards = (
           translation: analysisItem.translation,
           partOfSpeech: analysisItem.partOfSpeech ?? '',
           tags: [],
+          ...pick(analysisItem, ['g']),
           ...srsItem,
         };
       })

@@ -40,6 +40,7 @@ export type AnalysisItem = {
   examples?: string[];
   translation: string;
   partOfSpeech?: string;
+  g?: string;
 };
 
 export type ValidAnalysisItems = [AnalysisItem, ...AnalysisItem[]];
