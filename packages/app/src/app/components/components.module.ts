@@ -9,12 +9,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { LanguageModule } from '../language/language.module';
 import { AppQrCodeComponent } from './app-qr-code/app-qr-code.component';
 import { BackButtonComponent } from './back-button/back-button.component';
+import { DeckSelectorComponent } from './deck-selector/deck-selector.component';
 import { ExpansionComponent } from './expansion/expansion.component';
 import { GoogleIconComponent } from './google-icon/google-icon.component';
 import { LanguageIconComponent } from './language-icon/language-icon.component';
@@ -36,6 +38,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     LanguageIconComponent,
     ExpansionComponent,
     AppQrCodeComponent,
+    DeckSelectorComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +54,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     MatInputModule,
     MatStepperModule,
     MatRadioModule,
+    MatSelectModule,
     LanguageModule,
   ],
   exports: [
@@ -64,6 +68,8 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     LanguageIconComponent,
     ExpansionComponent,
     AppQrCodeComponent,
+    DeckSelectorComponent,
+    LoaderComponent,
   ],
 })
 export class ComponentsModule {}

@@ -1,0 +1,12 @@
+::ng-deep.mat-menu-panel {
+  max-width: none !important;
+}
+
+::ng-deep.mat-menu-item:hover,
+::ng-deep.mat-menu-item.cdk-program-focused,
+::ng-deep.mat-menu-item.cdk-keyboard-focused,
+::ng-deep.mat-menu-item-highlighted {
+  &:not([disabled]) {
+    background: none !important;
+  }
+}

@@ -1,3 +1,5 @@
+import { isObject } from 'lodash-es';
+
 export type Tag = {
   title: string;
 };
@@ -6,6 +8,18 @@ export type TagItem = {
   id: string;
   created: number;
   updated?: number;
+  data: Tag;
+};
+
+export const isTagItem = (item: any): item is TagItem => {
+  if (!isObject(item)) {
+    return false;
+  }
+
+  return item['id'] && isObject(item['data']) && item['data']['title'];
+};
+
+export type NewTag = {
   data: Tag;
 };
 

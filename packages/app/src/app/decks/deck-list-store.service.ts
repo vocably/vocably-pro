@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { GoogleLanguage } from '@vocably/model';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
@@ -6,7 +7,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class DeckListStoreService {
   // @ts-ignore
-  private _decks$: BehaviorSubject<string[]>;
+  private _decks$: BehaviorSubject<GoogleLanguage[]>;
 
   public reload$ = new Subject();
 
@@ -18,9 +19,9 @@ export class DeckListStoreService {
     return this._decks$;
   }
 
-  public store(decks: string[]) {
+  public store(decks: GoogleLanguage[]) {
     if (!this._decks$) {
-      this._decks$ = new BehaviorSubject<string[]>(decks);
+      this._decks$ = new BehaviorSubject<GoogleLanguage[]>(decks);
     } else {
       this._decks$.next(decks);
     }

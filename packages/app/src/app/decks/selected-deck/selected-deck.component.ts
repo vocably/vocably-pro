@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { loadLanguageDeck } from '@vocably/api';
+import { GoogleLanguage } from '@vocably/model';
 import {
   combineLatest,
   filter,
@@ -26,7 +27,7 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
 
   public isLoading = true;
-  public language = '';
+  public language: GoogleLanguage | '' = '';
   cleanScreen = false;
   title = '';
 

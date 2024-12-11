@@ -1,4 +1,4 @@
-import { loadLanguageDeck, saveLanguageDeck } from '@vocably/api';
+import { deleteTag, loadLanguageDeck, saveLanguageDeck } from '@vocably/api';
 import { Item, makeCreate, makeDelete, makeUpdate } from '@vocably/crud';
 import {
   Card,
@@ -181,35 +181,9 @@ export const useLanguageDeck = ({ language, autoReload }: Options): Deck => {
 
   const removeTag = useCallback(
     async (id: string): Promise<Result<true>> => {
-      return loadLanguageDeck(language).then(async (loadResult) => {
-        if (loadResult.success === false) {
-          return loadResult;
-        }
-
-        const newDeck: LanguageDeck = {
-          ...loadResult.value,
-          cards: loadResult.value.cards.map((card) => {
-            if (!card.data.tags) {
-              return card;
-            }
-
-            return {
-              ...card,
-              data: {
-                ...card.data,
-                tags: card.data.tags.filter((tag) => tag.id !== id),
-              },
-            };
-          }),
-          tags: (loadResult.value.tags ?? []).filter(
-            (tagItem) => tagItem.id !== id
-          ),
-        };
-
-        const saveResult = await saveLanguageDeck(newDeck);
-
-        if (saveResult.success === false) {
-          return saveResult;
+      return deleteTag(language, id).then(async (deleteResult) => {
+        if (deleteResult.success === false) {
+          return deleteResult;
         }
 
         const selectedTags = deck.selectedTags.filter((t) => t.id !== id);
@@ -221,7 +195,7 @@ export const useLanguageDeck = ({ language, autoReload }: Options): Deck => {
 
         storeDeck({
           ...deck,
-          deck: newDeck,
+          deck: deleteResult.value,
           status: 'loaded',
           selectedTags,
         });

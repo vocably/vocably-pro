@@ -1,0 +1,200 @@
+<div class="container-xl top">
+  <app-header title="Import Cards from CSV"></app-header>
+</div>
+<style>
+  .hero-sticky-container {
+    overflow: visible;
+  }
+
+  .import-table {
+    top: 0;
+    border-collapse: collapse;
+
+    td {
+      padding: 3px 6px;
+    }
+
+    th {
+      padding: 6px;
+      backdrop-filter: blur(3px);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    tbody tr:hover,
+    tbody tr:has(input:focus) {
+      background: var(--contrast-bg);
+    }
+
+    input {
+      width: 100%;
+      border: 0.5px solid var(--border-color);
+      border-radius: 4px;
+    }
+  }
+</style>
+<div class="container">
+  <div class="hero hero-sticky-container">
+    <div>
+      <div *ngIf="loadingDecks" class="text-center">
+        <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading decks...
+      </div>
+      <ng-container *ngIf="!loadingDecks">
+        <ng-container *ngIf="selectedDeck$ | async as selectedDeck">
+          <ng-container *ngIf="selectedDeck === 'none'">
+            <div class="lead-2 text-center text-emphasize mb-2">
+              What language would you like to import?
+            </div>
+            <app-language-input
+              value=""
+              (onChange)="selectedDeck$.next($event)"
+            ></app-language-input>
+          </ng-container>
+          <div style="margin-bottom: 4rem" *ngIf="selectedDeck !== 'none'">
+            <div class="mb-1">
+              Import cards for
+
+              <app-deck-selector
+                style="
+                  display: inline-flex;
+                  margin-top: -6px;
+                  margin-left: 0.5rem;
+                "
+                [disabled]="isImporting"
+                [value]="selectedDeck"
+                [languages]="languages"
+                (change)="selectedDeck$.next($event)"
+              ></app-deck-selector>
+            </div>
+            <div class="mb-1">
+              The CSV file must include two columns, separated by tabs
+              <mat-icon class="middle ml-0_5">keyboard_tab</mat-icon>.
+            </div>
+            <div class="mb-1">
+              <input
+                hidden
+                #fileInput
+                type="file"
+                (change)="onFileChange($event.target)"
+                accept=".csv,.txt"
+              />
+              Copy and paste from the Google Sheets, CSV file, or
+              <button
+                mat-button
+                color="accent"
+                class="mr-0_5"
+                (click)="fileInput.click()"
+                style="padding-left: 4px; padding-right: 8px"
+                [disabled]="isImporting"
+              >
+                <mat-icon class="middle mr-0_5" style="margin-left: 0"
+                  >upload</mat-icon
+                ><span class="middle">Upload CSV file</span>
+              </button>
+            </div>
+
+            <div>
+              <textarea
+                #contents
+                [(ngModel)]="csv"
+                (input)="onCsvChange()"
+                [readOnly]="isImporting"
+                class="csv-textarea"
+                wrap="off"
+                placeholder="Paste your Google Sheets CSV data here."
+              ></textarea>
+            </div>
+
+            <ng-container *ngIf="csvData$ | async as csvData">
+              <ng-container *ngIf="csvData.length > 0">
+                <table
+                  *ngIf="csvData.length > 0"
+                  class="mt-1 mb-1 import-table"
+                >
+                  <tr>
+                    <th class="text-left"></th>
+                    <th class="text-left">Word/Phrase</th>
+                    <th class="text-left">Translation</th>
+                    <th class="text-left">Part of speech</th>
+                  </tr>
+                  <tbody>
+                    <tr *ngFor="let cardRow of csvData; let i = index">
+                      <td>{{ i + 1 }}.</td>
+                      <td>{{ cardRow.source }}</td>
+                      <td>{{ cardRow.translation }}</td>
+                      <td>
+                        <ng-container *ngIf="csvPos[i] || !isAnalyzing">
+                          <input type="text" [(ngModel)]="csvPos[i]" />
+                        </ng-container>
+                        <ion-spinner
+                          name="dots"
+                          *ngIf="!csvPos[i] && isAnalyzing"
+                        ></ion-spinner>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div
+                  class="display-flex"
+                  style="align-items: center; gap: 1rem"
+                >
+                  <app-tags-selector
+                    [selected]="selectedTags"
+                    [tags]="allTags"
+                    (onDeleteTag)="deleteTag(selectedDeck, $event)"
+                    (onSaveTag)="saveTag(selectedDeck, $event)"
+                    (onAddNewTag)="addNewTag($event)"
+                    (onSelect)="selectTag($event)"
+                    ><button mat-button color="accent" [disabled]="isImporting">
+                      <mat-icon class="middle mr-0_5" style="margin-left: 0"
+                        >sell</mat-icon
+                      >
+                      Add tags
+                    </button></app-tags-selector
+                  >
+                  <mat-chip-list [selectable]="false">
+                    <mat-chip
+                      *ngFor="let tag of selectedTags"
+                      [selectable]="false"
+                      [disableRipple]="true"
+                    >
+                      {{ tag.data.title }}
+                      <button
+                        matChipRemove
+                        (click)="selectTag(tag)"
+                        [disabled]="isImporting"
+                      >
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+                <div class="mt-1 text-center">
+                  <span *ngIf="isAnalyzing"
+                    >Analysing <ion-spinner name="dots"></ion-spinner
+                  ></span>
+                  <button
+                    *ngIf="!isAnalyzing"
+                    class="button block"
+                    (click)="import(selectedDeck, csvData)"
+                  >
+                    Import Cards
+                    <ion-spinner
+                      [style]="{
+                        visibility: isImporting ? 'visible' : 'hidden'
+                      }"
+                      name="dots"
+                      style="margin-right: -28px"
+                    ></ion-spinner>
+                  </button>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>

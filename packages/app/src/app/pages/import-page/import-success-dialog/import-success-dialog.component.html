@@ -1,0 +1,16 @@
+<h1 mat-dialog-title style="font-size: 100%">
+  Your cards have been imported successfully.
+</h1>
+<div mat-dialog-actions style="justify-content: flex-end">
+  <button mat-button (click)="dialogRef.close('import-more')" type="button">
+    Import more cards
+  </button>
+  <button
+    color="accent"
+    mat-button
+    (click)="dialogRef.close(); goToDeck()"
+    cdkFocusInitial
+  >
+    Go to your imported cards
+  </button>
+</div>

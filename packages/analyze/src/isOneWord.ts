@@ -1,3 +1,7 @@
+export const getWords = (source: string): string[] => {
+  return source.split(/\s/);
+};
+
 export const isOneWord = (source: string): boolean => {
-  return source.split(/\s/).length === 1;
+  return getWords(source).length === 1;
 };

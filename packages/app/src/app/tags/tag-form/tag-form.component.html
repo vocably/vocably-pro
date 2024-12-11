@@ -1,0 +1,36 @@
+<form (submit)="$event.preventDefault(); submit()">
+  <h1 mat-dialog-title style="font-size: 100%">
+    {{ data.tag ? 'Edit ' + data.tag.data.title : 'Add new tag' }}
+  </h1>
+  <div mat-dialog-content>
+    <input
+      cdkFocusInitial
+      type="text"
+      class="form-control"
+      name="partOfSpeech"
+      style="width: 280px"
+      [(ngModel)]="title"
+    />
+  </div>
+  <div mat-dialog-actions style="justify-content: flex-end">
+    <button
+      mat-button
+      color="warn"
+      type="button"
+      *ngIf="data.tag"
+      style="margin-right: auto"
+      (click)="onDeleteClick()"
+    >
+      Delete
+    </button>
+    <button mat-button (click)="dialogRef.close()" type="button">Cancel</button>
+    <button
+      mat-button
+      color="accent"
+      type="submit"
+      [disabled]="title.trim() === ''"
+    >
+      Save
+    </button>
+  </div>
+</form>
