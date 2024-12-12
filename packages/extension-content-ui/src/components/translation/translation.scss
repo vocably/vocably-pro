@@ -168,14 +168,12 @@ $container-padding: $input-padding-y $input-padding-x $input-padding-y
       min-width: auto;
       box-shadow: none;
 
-      transition: transform 200ms ease-in-out;
-
       &:hover {
-        transform: scale(1.1);
+        filter: brightness(80%);
       }
 
       &:active {
-        transform: scale(0.9);
+        filter: brightness(60%);
       }
 
       & > * {
