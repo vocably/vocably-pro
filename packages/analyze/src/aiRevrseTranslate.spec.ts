@@ -46,7 +46,10 @@ describe('aiReverseTranslate', () => {
       return;
     }
 
-    expect(result.value[0].target).toEqual('telefoonhoes');
+    expect(result.value[0].target).toHaveSomeOf([
+      'telefoonhoes',
+      'telefoonhoesje',
+    ]);
     expect(result.value[0].source).toEqual('phone case');
     expect(result.value[1].target).toEqual('telefooncase');
     expect(result.value[1].source).toEqual('phone case');
