@@ -47,7 +47,6 @@ export class VocablyTranslation {
   @Prop() loading: boolean = false;
   @Prop() existingSourceLanguages: GoogleLanguage[] = [];
   @Prop() existingTargetLanguages: GoogleLanguage[] = [];
-  @Prop() isFeedbackEnabled: boolean = true;
   @Prop() askForRating: boolean = false;
   @Prop() sourceLanguage: string = '';
   @Prop() targetLanguage: string = '';
@@ -607,17 +606,6 @@ export class VocablyTranslation {
                           }}
                         ></vocably-rate>
                       </div>
-                    </div>
-                  )}
-                  {this.isFeedbackEnabled && !this.askForRating && (
-                    <div class="vocably-mt-12 vocably-text-right vocably-small">
-                      <a
-                        href="https://app.vocably.pro/feedback"
-                        target="_blank"
-                        class="vocably-text-link"
-                      >
-                        Are you missing anything? Feel free to let me know.
-                      </a>
                     </div>
                   )}
                 </div>

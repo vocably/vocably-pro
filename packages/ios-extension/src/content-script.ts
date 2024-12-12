@@ -6,7 +6,6 @@ registerContentScript({
   },
   youTube: { ytHosts: [] },
   contentScript: {
-    isFeedbackEnabled: false,
     askForRatingEnabled: false,
     displayMobileLookupButton: true,
   },

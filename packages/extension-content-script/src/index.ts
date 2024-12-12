@@ -188,7 +188,6 @@ export const registerContentScript = async (
     api: {},
     youTube: { ytHosts: ['www.youtube.com'] },
     contentScript: {
-      isFeedbackEnabled: false,
       askForRatingEnabled: false,
       displayMobileLookupButton: false,
       allowFirstTranslationCongratulation: false,

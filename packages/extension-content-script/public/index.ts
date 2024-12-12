@@ -290,7 +290,6 @@ registerContentScript({
     ytHosts: ['localhost:8020'],
   },
   contentScript: {
-    isFeedbackEnabled: true,
     askForRatingEnabled: true,
     displayMobileLookupButton: true,
     allowFirstTranslationCongratulation: true,

@@ -47,8 +47,6 @@ export const setContents = async ({
     const userKnowsHowToAdd = await api.isUserKnowsHowToAdd();
     const extensionPlatform = detectExtensionPlatform();
     const translation = document.createElement('vocably-translation');
-    translation.isFeedbackEnabled =
-      contentScriptConfiguration.isFeedbackEnabled;
     translation.phrase = source;
     translation.playAudioPronunciation = playAudioPronunciation;
     translation.showSaveHint = !userKnowsHowToAdd;
