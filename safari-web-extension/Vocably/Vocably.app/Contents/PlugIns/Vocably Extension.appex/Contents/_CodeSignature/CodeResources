@@ -10,7 +10,7 @@
 		</data>
 		<key>Resources/content-script.js</key>
 		<data>
-		LX9syh/OR5BTlHSxvVIJkmaRQlc=
+		0wwGBW/4qVcEI7Y8o2rhtI9NX2Q=
 		</data>
 		<key>Resources/content-script.js.LICENSE.txt</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Resources/manifest.json</key>
 		<data>
-		89Jr6kqljkXZpiB2+STvOvqK9Ls=
+		xRE6fquPrLumnNQL0jfHv0P7Uns=
 		</data>
 		<key>Resources/options.html</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Resources/popup/293.js</key>
 		<data>
-		ObhCUfK19bC00TF+6n0LrC7ndz8=
+		XZGGsz3fQVhH55LLt/f3FsVZoro=
 		</data>
 		<key>Resources/popup/296.js</key>
 		<data>
@@ -94,7 +94,7 @@
 		</data>
 		<key>Resources/popup/main.js</key>
 		<data>
-		IGXbqeWBZ8pHuxf+Fv3U0+oPNHE=
+		2JrJdwde5QVlDtQpWoJw4jcDlRc=
 		</data>
 		<key>Resources/popup/polyfills.js</key>
 		<data>
@@ -110,7 +110,7 @@
 		</data>
 		<key>Resources/service-worker.js</key>
 		<data>
-		2PpkjXE4eM64tcww66hxMNuu/LM=
+		YAY7hnrWCkCkKumDkEitIrCBTI0=
 		</data>
 		<key>Resources/service-worker.js.LICENSE.txt</key>
 		<data>
@@ -130,7 +130,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Jc8qC7nB1q6ci4UFXp2ZamVJhk4HTBdc6X3ae3HTuUk=
+			TgQs2Z/byArz/zoVb55aI/jL28N3rXHziJNw3hfRfYg=
 			</data>
 		</dict>
 		<key>Resources/content-script.js.LICENSE.txt</key>
@@ -172,7 +172,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			jm7K2a7M2BYkkXAHPYKW0+KG/VAVBL2VdAgB4/rnUT0=
+			g6c6I0vOc2VOXtszhF3E3wb0cqzZLMOpA/WaW7/97yg=
 			</data>
 		</dict>
 		<key>Resources/options.html</key>
@@ -193,7 +193,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			E71oWBCSUcYAqmE5xSUFp22uVRDvLp4Gw62EVdV8NWs=
+			RjkeC34wiAUi/yDfUs1TTC8aJAgrlhFNyvoHRVEIWGQ=
 			</data>
 		</dict>
 		<key>Resources/popup/296.js</key>
@@ -277,7 +277,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Ku5k1s7Vjt7j8aUfN45pueDX1gqByR9rrN7SNlpoafs=
+			cltC4ZC9VNbhAFwJKqIwUDU9KBA17gj4p4OIbLaFlkw=
 			</data>
 		</dict>
 		<key>Resources/popup/polyfills.js</key>
@@ -305,7 +305,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			itBFzEr5wbldO+yPN+EReRx31HUW+e2vhxILUHsjgZw=
+			ZfL66tw77XNNYqXfQONkKYJn01Q9FhY6mOvdYsCRrB4=
 			</data>
 		</dict>
 		<key>Resources/service-worker.js.LICENSE.txt</key>
