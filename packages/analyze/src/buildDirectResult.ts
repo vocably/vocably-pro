@@ -9,7 +9,7 @@ import { buildDirectJapaneseResult } from './buildDirectResult/buildDirectJapane
 import { combineItems } from './combineItems';
 import { filterOutByPartOfSpeech } from './filterOutByPartOfSpeech';
 import { fitsTheSize } from './fitsTheSize';
-import { isOneWord } from './isOneWord';
+import { getWords } from './isOneWord';
 import { lexicala, LexicalaOverriddenParams } from './lexicala';
 import { languageToLexicalaLanguage } from './lexicala/lexicalaLanguageMapper';
 import { lexicalaSearchResultToAnalysisItem } from './lexicala/lexicalaSearchResultToAnalysisItem';
@@ -71,7 +71,8 @@ export const buildDirectResult = async ({
     payload.source
   );
 
-  if (!isOneWord(trimmedArticle.source)) {
+  const numberOfWords = getWords(trimmedArticle.source).length;
+  if (numberOfWords > 2) {
     return {
       success: true,
       value: {
@@ -83,7 +84,16 @@ export const buildDirectResult = async ({
   }
 
   const results = await Promise.all([
-    lexicala(lexicalaLanguage, trimmedArticle.source, lexicalaParams),
+    lexicala(
+      lexicalaLanguage,
+      trimmedArticle.source,
+      numberOfWords === 1
+        ? lexicalaParams
+        : {
+            morph: 'false',
+            analyzed: 'false',
+          }
+    ),
     lexicalaLanguage === 'en' ? wordDictionary(trimmedArticle.source) : null,
   ]);
 
