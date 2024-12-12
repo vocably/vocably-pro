@@ -181,7 +181,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.reverseTranslations).toBeDefined();
     expect(result.value.items[0].source).toEqual('de regel');
     expect(result.value.items[0].translation).toHaveSomeOf(
-      'строка, норма, правило, условие'
+      'строка, норма, правило, условие, линия'
     );
     expect(result.value.items[1].source).toEqual('het principe');
   });
