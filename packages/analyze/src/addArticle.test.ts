@@ -76,11 +76,33 @@ describe('addArticle', () => {
 
     expect(
       addArticle('es', {
-        text: 'aqua',
+        text: 'agua',
         pos: 'noun',
         gender: 'feminine',
       })
-    ).toEqual('el aqua');
+    ).toEqual('agua');
+
+    expect(
+      addArticle('es', {
+        text: 'agua',
+        pos: 'noun',
+        gender: 'feminine',
+        pronunciation: {
+          value: 'ˈaγua',
+        },
+      })
+    ).toEqual('el agua');
+
+    expect(
+      addArticle('es', {
+        text: 'hacha',
+        pos: 'noun',
+        gender: 'feminine',
+        pronunciation: {
+          value: "'aʧa",
+        },
+      })
+    ).toEqual('el hacha');
 
     expect(
       addArticle('es', {

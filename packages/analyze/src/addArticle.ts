@@ -8,7 +8,12 @@ type ArticleRules = {
   fallback: string;
 };
 
-type ArticleFunction = (options: { gender: string; word: string }) => string;
+type ArticleFunction = (options: {
+  gender: string;
+  word: string;
+  pronunciation: string;
+  number: string;
+}) => string;
 
 const languageArticles: Partial<
   Record<LexicalaLanguage, ArticleRules | ArticleFunction>
@@ -31,10 +36,28 @@ const languageArticles: Partial<
     neuter: 'et ',
     fallback: '',
   },
-  es: ({ gender, word }) => {
-    const firstLetter = (word.at(0) ?? '').toLowerCase();
-    const secondLetter = (word.at(1) ?? '').toLowerCase();
-    if (firstLetter === 'a' || (firstLetter === 'h' && secondLetter === 'a')) {
+  es: ({ gender, word, pronunciation, number }) => {
+    if (number.toLowerCase() === 'plural') {
+      return '';
+    }
+
+    const lowercasedWord = word.toLowerCase();
+
+    if (
+      gender === 'feminine' &&
+      (lowercasedWord.startsWith('a') || lowercasedWord.startsWith('ha'))
+    ) {
+      // Emphasis on the first letter
+      if (['ˈ', "'"].includes(pronunciation.at(0))) {
+        return 'el ';
+      } else if (pronunciation) {
+        return 'la ';
+      } else {
+        return '';
+      }
+    }
+
+    if (lowercasedWord.startsWith('á') || lowercasedWord.startsWith('há')) {
       return 'el ';
     }
 
@@ -48,7 +71,11 @@ const languageArticles: Partial<
 
     return 'el/la ';
   },
-  it: ({ gender, word }) => {
+  it: ({ gender, word, number }) => {
+    if (number.toLowerCase() === 'plural') {
+      return '';
+    }
+
     const firstLetter = (word.at(0) ?? '').toLowerCase();
     const secondLetter = (word.at(1) ?? '').toLowerCase();
 
@@ -105,6 +132,8 @@ export const addArticle = (
       rules({
         gender: headword.gender,
         word: text,
+        pronunciation: headword?.pronunciation?.value ?? '',
+        number: headword?.number ?? '',
       }) + text
     );
   }

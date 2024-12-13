@@ -1,16 +1,15 @@
 type TrimArticleResult = {
   source: string;
-  article?: string;
 };
 
-const trimRegexes: Partial<Record<string, RegExp>> = {
-  en: /^(a)\s/i,
-  nl: /^(de|het|de.het|het.de)\s/i,
-  de: /^(der|die|das|ein|eine)\s/i,
-  es: /^(el|la|los|las)\s/i,
-  fr: /^(le|la|les|un|une|des|du|de)\s/i,
-  it: /^(il|lo|la|i|gli|le|un|uno|una)\s/i,
-  pt: /^(o|a|os|as|um|uma|uns|umas)\s/i,
+const trimRegexes: Partial<Record<string, RegExp[]>> = {
+  en: [/^(a)\s/i],
+  nl: [/^(de|het|de.het|het.de)\s/i],
+  de: [/^(der|die|das|ein|eine)\s/i],
+  es: [/^(el|la|los|las|el.la|la.el)\s/i],
+  fr: [/^(le|la|les|un|une|des|du|de)\s/i],
+  it: [/^(il|lo|la|i|gli|le|un|uno|una)\s/i, /^(l)['’‘‛′ʼʹꞌ＇]/i],
+  pt: [/^(o|a|os|as|um|uma|uns|umas)\s/i],
 };
 
 export const trimArticle = (
@@ -23,18 +22,19 @@ export const trimArticle = (
     };
   }
 
-  const articleMatch = source.match(trimRegexes[language]);
+  for (let regex of trimRegexes[language]) {
+    const articleMatch = source.match(regex);
 
-  if (articleMatch === null) {
+    if (articleMatch === null) {
+      continue;
+    }
+
     return {
-      source,
+      source: source.replace(regex, '').trim(),
     };
   }
 
-  const article = articleMatch[0].trim().toLowerCase();
-
   return {
-    article,
-    source: source.replace(trimRegexes[language], '').trim(),
+    source,
   };
 };
