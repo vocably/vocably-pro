@@ -2,7 +2,11 @@
 <div class="container bottom text-center">
   <div class="green-zone display-flex flex-direction-column align-items-center">
     <div>
-      <p>Do you need help?</p>
+      <p>
+        Not sure where to start? Just
+        <a [routerLink]="['/welcome']">click this link</a>.
+      </p>
+      <p>Do you still need help?</p>
       <p>Let me know if anything bothered you.</p>
       <p>
         <a class="button block" [routerLink]="['/feedback']">I need help</a>
