@@ -31,6 +31,7 @@ locals {
   mime_types = {
     htm  = "text/html"
     html = "text/html"
+    xml  = "text/xml"
     css  = "text/css"
     ttf  = "font/ttf"
     js   = "application/javascript"
