@@ -12,7 +12,7 @@ function getGitLastModifiedDate(filePath) {
     const command = `git log -1 --format="%ci" -- "${filePath}"`;
     const output = execSync(command, { encoding: 'utf8' }).trim();
 
-    return output.replace(' ', 'T').replace(' ', '') || null;
+    return output.replace(' ', 'T').replace(/:\d\d .+$/, '+01:00') || null;
   } catch (error) {
     console.error(
       `Error fetching Git information for file "${filePath}":`,
