@@ -473,6 +473,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].partOfSpeech).toEqual('noun');
     expect(result.value.items[0].translation).toHaveSomeOf([
       'هم‌تجربه، راهبه، خواهر',
+      'خواهر روحانی، خواهر',
       'خواهر',
     ]);
   });
