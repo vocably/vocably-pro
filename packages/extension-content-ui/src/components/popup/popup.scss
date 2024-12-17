@@ -1,5 +1,7 @@
 @import '../../styles/component';
 
+$scrollbar-track: 6px;
+
 :host {
   @include base-font();
   // Reddit sets visibility: hidden for custom elements
@@ -17,8 +19,8 @@
   --padding-bottom: 16px;
   --shadow-spread: 10px;
   --shadow-v-offset: 4px;
-  --scrollbar-track: 6px;
-  --scrollbar-gutter: calc((var(--padding-x) - var(--scrollbar-track)) / 2);
+  --scrollbar-track: #{$scrollbar-track};
+  --scrollbar-gutter: 4px;
 
   // iOS > 14 does not show scrollbar
   @supports (-webkit-touch-callout: none) {
@@ -111,6 +113,7 @@
     );
     max-width: calc(var(--max-width) - var(--padding-right) - var(--padding-x));
     scrollbar-gutter: stable;
+    scrollbar-color: auto;
     padding-top: var(--header-padding-bottom);
     padding-left: var(--padding-x);
     padding-right: var(--padding-right);
@@ -118,8 +121,8 @@
 
     &::-webkit-scrollbar {
       -webkit-appearance: none;
-      width: var(--scrollbar-track);
-      height: var(--scrollbar-track);
+      width: $scrollbar-track;
+      height: $scrollbar-track;
     }
 
     &::-webkit-scrollbar-thumb {
