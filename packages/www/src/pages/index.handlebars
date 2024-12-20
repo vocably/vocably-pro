@@ -146,11 +146,66 @@
         <div class="mb-3">
           <img src="assets/logo-gray.svg" style="height: 1.5rem;" alt="Vocably" />
         </div>
-        <h1 class="headline-text gradient-headline">
-          A powerful combination&nbsp;of
-          <wbr />a <span class="text-nowrap">high-quality</span> dictionary&nbsp;<wbr />
-          and flashcards.
+        <h1 class="headline-text gradient-headline mb-2">
+          A cross-platform language learning tool
         </h1>
+        <div class="mb-2">
+          For <a href="/vocably-is-not-for-beginners.html" class="link-secondary">intermediate</a> language users.
+        </div>
+        <style>
+          .word-carousel {
+            --height: calc(var(--bs-body-line-height) * 1.2rem);
+
+            display: inline-flex;
+            flex-direction: column;
+            height: var(--height);
+            line-height: var(--height);
+            border: none;
+            vertical-align: baseline;
+            overflow: hidden;
+            background-color: var(--bs-secondary-bg-subtle);
+            text-align: center;
+            border-radius: 6px;
+            padding-left: 4px;
+            padding-right: 4px;
+
+            span {
+              line-height: var(--height);
+              position: relative;
+              top: 0;
+
+              &.move {
+                transition: top 0.5s ease-in-out;
+                top: calc(var(--height) * -1);
+              }
+            }
+          }
+        </style>
+        <ul>
+          <li>
+            <div class="word-carousel" id="word-carousel"><span>Read</span><span>Surf</span><span>Speak</span><span>Think</span></div> in a foreign language.
+          </li>
+          <li>
+            Save and learn every word you discover.
+          </li>
+        </ul>
+        <script>
+          const wordCarousel = document.getElementById('word-carousel');
+          const slide = () => {
+            setTimeout(() => {
+              wordCarousel.children[0].classList.add('move');
+              wordCarousel.children[1].classList.add('move');
+
+              setTimeout(() => {
+                wordCarousel.children[0].classList.remove('move');
+                wordCarousel.children[1].classList.remove('move');
+                wordCarousel.appendChild(wordCarousel.children[0]);
+                slide();
+              }, 500);
+            }, 3000);
+          }
+          slide();
+        </script>
         <div class="mt-4 d-none d-md-block">
           <div class="w-100 w-xl-75">
             {{> cta }}
@@ -176,14 +231,14 @@
             </style>
             <div class="row align-items-center">
               <div class="col-xxl-6 order-xxl-1 hfs-1 mb-3 mt-4 mt-xxl-0 mb-xxl-0">
-                High-quality dictionary and flashcards right in your pocket.
+                AI-powered dictionary and flashcards right in your pocket.
               </div>
               <div class="col-xxl-6 order-xxl-0">
                 <iphone-16-max class="hide-android" mode="light" style="height: 350px; display: block;">
-                  <img src="assets/hero/ios-lookup.webp" width="100%" alt="Look up and create high-quality flashcards on your mobile" />
+                  <img src="assets/hero/ios-lookup.webp" width="100%" alt="Look up and create flashcards on your mobile" />
                 </iphone-16-max>
                 <pixel-9-pro class="show-android" mode="light" style="height: 350px; display: block;">
-                  <img src="assets/hero/ios-lookup.webp" width="100%" alt="Look up and create high-quality flashcards on your mobile" />
+                  <img src="assets/hero/ios-lookup.webp" width="100%" alt="Look up and create flashcards on your mobile" />
                 </pixel-9-pro>
               </div>
             </div>
@@ -392,7 +447,7 @@
             <div class="row">
               <div class="col-xxl-5 order-xxl-1 mb-4 hfs-1">
                 <div>Instant, <span class="text-nowrap">AI-powered</span> translations on any site.</div>
-                <div class="mt-4">Save your translations as top-quality flashcards.</div>
+                <div class="mt-4">Save your translations as flashcards.</div>
               </div>
               <div class="col-xxl-7 order-xxl-0">
                 <div class="chrome-popup">
