@@ -10,9 +10,10 @@ const execute = promisify(exec);
 
 const key = process.argv[2];
 
-const deck = JSON.parse(
-  (await execute(`aws s3 cp s3://vocably-prod-cards/${key} -`)).stdout || '""'
-);
+const deckAsIs =
+  (await execute(`aws s3 cp s3://vocably-prod-cards/${key} -`)).stdout || '""';
+
+const deck = JSON.parse(deckAsIs);
 
 const cards = deck.cards
   .sort((a, b) => b.created - a.created)
@@ -33,6 +34,8 @@ writeFileSync(
     '  '
   )
 );
+
+writeFileSync(`deck-asis.json`, deckAsIs);
 
 console.log('cards', inspect(cards, { depth: null }));
 
