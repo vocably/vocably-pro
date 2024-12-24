@@ -1,0 +1,25 @@
+<form class="search-form" (submit)="$event.preventDefault(); submit()">
+  <div class="preset">
+    <select class="language">
+      <option *ngFor="let language of sourceLanguages">
+        {{ languageName(language) }}
+      </option>
+    </select>
+    <div>
+      <button
+        type="button"
+        class="direction"
+        [class.reversed]="isReversed"
+        (click)="isReversed = !isReversed"
+      >
+        <mat-icon class="icon">arrow_forward</mat-icon>
+      </button>
+    </div>
+    <select class="language">
+      <option *ngFor="let language of targetLanguages">
+        {{ languageName(language) }}
+      </option>
+    </select>
+  </div>
+  <div class="search-input"></div>
+</form>

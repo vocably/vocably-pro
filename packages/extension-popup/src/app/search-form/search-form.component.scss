@@ -1,0 +1,52 @@
+@import '@vocably/styles/variables';
+
+.preset {
+  display: flex;
+  gap: 8px;
+}
+
+.direction {
+  $size: 48px;
+
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $size;
+  height: $size;
+  line-height: $size;
+  border: 0.5px solid $v-light-color-border;
+  border-radius: $v-border-radius;
+  background-color: $v-light-color-contrast;
+  cursor: pointer;
+
+  .icon {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &.reversed .icon {
+    transform: rotate(180deg);
+  }
+}
+
+select {
+  $padding: 12px;
+
+  color: $v-light-color-body;
+  padding: $padding;
+  border: 0.5px solid $v-light-color-border;
+  border-radius: $v-border-radius;
+  background-color: $v-light-color-contrast;
+  outline: none;
+  height: auto;
+  line-height: inherit;
+  box-shadow: none;
+  box-sizing: border-box;
+  width: 100%;
+  appearance: none;
+  background: $v-light-color-contrast
+    url('data:image/svg+xml;utf8,<svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 5 6 1 1" stroke="rgb(109, 109, 109)" stroke-width=".5" stroke-miterlimit="10" stroke-linecap="round"/></svg>')
+    no-repeat;
+  background-position: right $padding top 50%;
+  cursor: pointer;
+}
