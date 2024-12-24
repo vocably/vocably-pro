@@ -15,13 +15,3 @@
 .button {
   @include button();
 }
-
-.qr-code {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
-
-  &.visible {
-    max-height: 400px;
-  }
-}

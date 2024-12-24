@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  .settings {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: auto;
+    text-decoration: none;
+    gap: 0.2rem;
+  }
+}
+
+.qr-code {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+
+  &.visible {
+    max-height: 400px;
+  }
+}

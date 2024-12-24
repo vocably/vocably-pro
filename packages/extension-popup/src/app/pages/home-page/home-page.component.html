@@ -1,4 +1,9 @@
-<app-header class="mb-1"></app-header>
+<div class="header">
+  <vocably-logo style="height: 1.5rem"></vocably-logo>
+  <a class="settings" [routerLink]="['settings']"
+    ><mat-icon>settings</mat-icon> Settings</a
+  >
+</div>
 
 <div class="mb-1" *ngIf="needsOnboarding$ | async">
   <div class="mb-1">Click this button if you're not sure what to do next:</div>
