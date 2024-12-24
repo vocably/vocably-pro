@@ -23,6 +23,7 @@
         "build": {
           "builder": "ngx-build-plus:browser",
           "options": {
+            "baseHref": "/popup/",
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
