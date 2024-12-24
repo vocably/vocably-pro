@@ -12,6 +12,8 @@ export class HomePageComponent implements OnInit {
 
   welcomeUrl = `${environment.appBaseUrl}/welcome`;
 
+  showQRCode = false;
+
   constructor() {}
 
   ngOnInit(): void {}

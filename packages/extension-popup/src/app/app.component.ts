@@ -8,9 +8,6 @@ import { isUserLoggedIn$ } from '../isUserLoggedIn';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  appBaseUrl = environment.appBaseUrl;
-  showQRCode = false;
-
   loginUrl = `${environment.appBaseUrl}/page/welcome`;
 
   isLoggedIn: 'yes' | 'no' | 'undefined' = 'undefined';

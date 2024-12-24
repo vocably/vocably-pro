@@ -33,9 +33,13 @@ const mockIsLoggedIn: typeof isLoggedIn = async () => {
   return !params.has('notLoggedIn');
 };
 
+// @ts-ignore
 const mockGetInternalSourceLanguage: typeof getInternalSourceLanguage =
-  // @ts-ignore
-  async () => null;
+  async () => {
+    await timeout(500);
+    const params = new URLSearchParams(window.location.search);
+    return params.has('noInternalSourceLanguage') ? null : 'en';
+  };
 
 export const environment = merge(environmentLocal, {
   production: false,
