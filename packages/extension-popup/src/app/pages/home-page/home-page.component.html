@@ -1,0 +1,14 @@
+<app-header class="mb-1"></app-header>
+
+<div class="mb-1" *ngIf="needsOnboarding$ | async">
+  <div class="mb-1">Click this button if you're not sure what to do next:</div>
+  <div>
+    <a
+      [href]="welcomeUrl"
+      target="_blank"
+      class="button block"
+      style="white-space: nowrap"
+      >Let's set you up</a
+    >
+  </div>
+</div>

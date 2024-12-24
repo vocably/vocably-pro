@@ -1,70 +1,7 @@
 <div class="container">
-  <app-header class="mb-1"></app-header>
+  <router-outlet></router-outlet>
 
   <ng-container *ngIf="isLoggedIn$ | async; else loggedOut">
-    <div class="mb-1" *ngIf="needsOnboarding$ | async">
-      <div class="mb-1">
-        Click this button if you're not sure what to do next:
-      </div>
-      <div>
-        <a
-          [href]="welcomeUrl"
-          target="_blank"
-          class="button block"
-          style="white-space: nowrap"
-          >Let's set you up</a
-        >
-      </div>
-    </div>
-
-    <ng-container *ngIf="settings$ | async as settings">
-      <p class="mb-1">
-        <label>
-          <input
-            type="checkbox"
-            [checked]="settings.showOnDoubleClick"
-            (change)="
-              setSettings({
-                showOnDoubleClick: !settings.showOnDoubleClick
-              })
-            "
-          />
-          Display the translations on double-click.
-        </label>
-      </p>
-
-      <p class="mb-1">
-        <label>
-          <input
-            type="checkbox"
-            [checked]="settings.autoPlay"
-            (change)="
-              setSettings({
-                autoPlay: !settings.autoPlay
-              })
-            "
-          />
-          Automatically play audio pronunciation.
-        </label>
-      </p>
-
-      <p class="mb-1">
-        <label>
-          <input
-            type="checkbox"
-            [checked]="settings.hideSelectionButton"
-            (change)="
-              setSettings({
-                hideSelectionButton: !settings.hideSelectionButton
-              })
-            "
-          />
-          Don't show the Vocably button when text is selected (use the
-          right-click context menu instead).
-        </label>
-      </p>
-    </ng-container>
-
     <div>
       <button class="link" (click)="showQRCode = true">
         Install the mobile app

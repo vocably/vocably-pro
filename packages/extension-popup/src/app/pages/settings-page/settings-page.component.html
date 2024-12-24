@@ -1,0 +1,47 @@
+<ng-container *ngIf="settings$ | async as settings">
+  <p class="mb-1">
+    <label>
+      <input
+        type="checkbox"
+        [checked]="settings.showOnDoubleClick"
+        (change)="
+          setSettings({
+            showOnDoubleClick: !settings.showOnDoubleClick
+          })
+        "
+      />
+      Display the translations on double-click.
+    </label>
+  </p>
+
+  <p class="mb-1">
+    <label>
+      <input
+        type="checkbox"
+        [checked]="settings.autoPlay"
+        (change)="
+          setSettings({
+            autoPlay: !settings.autoPlay
+          })
+        "
+      />
+      Automatically play audio pronunciation.
+    </label>
+  </p>
+
+  <p class="mb-1">
+    <label>
+      <input
+        type="checkbox"
+        [checked]="settings.hideSelectionButton"
+        (change)="
+          setSettings({
+            hideSelectionButton: !settings.hideSelectionButton
+          })
+        "
+      />
+      Don't show the Vocably button when text is selected (use the right-click
+      context menu instead).
+    </label>
+  </p>
+</ng-container>

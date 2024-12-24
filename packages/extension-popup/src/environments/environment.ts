@@ -14,6 +14,10 @@ let settings: ExtensionSettings = {
   hideSelectionButton: true,
 };
 
+const timeout = async (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
 const mockGetSettings: typeof getSettings = async () => {
   return settings;
 };
@@ -23,7 +27,11 @@ const mockSetSettings: typeof setSettings = async (newSettings) => {
   return settings;
 };
 
-const mockIsLoggedIn: typeof isLoggedIn = async () => true;
+const mockIsLoggedIn: typeof isLoggedIn = async () => {
+  await timeout(500);
+  const params = new URLSearchParams(window.location.search);
+  return !params.has('notLoggedIn');
+};
 
 const mockGetInternalSourceLanguage: typeof getInternalSourceLanguage =
   // @ts-ignore
