@@ -1,7 +1,6 @@
 <div class="container">
-  <router-outlet></router-outlet>
-
-  <ng-container *ngIf="isLoggedIn$ | async; else loggedOut">
+  <ng-container *ngIf="isLoggedIn === 'yes'">
+    <router-outlet></router-outlet>
     <div>
       <button class="link" (click)="showQRCode = true">
         Install the mobile app
@@ -17,22 +16,18 @@
       </p>
     </div>
   </ng-container>
-  <ng-template #loggedOut>
-    <div>
-      <p class="mb-1">
-        This extension translates the selected text and creates flashcards.
-      </p>
-      <p class="mb-1">
-        The flashcards will be available on your mobile device.
-      </p>
-      <p class="mb-1">You need to be signed in to use Vocably.</p>
-      <a
-        [href]="loginUrl"
-        target="_blank"
-        class="button block"
-        style="white-space: nowrap"
-        >Let's start</a
-      >
-    </div>
-  </ng-template>
+  <div *ngIf="isLoggedIn === 'no'">
+    <p class="mb-1">
+      This extension translates the selected text and creates flashcards.
+    </p>
+    <p class="mb-1">The flashcards will be available on your mobile device.</p>
+    <p class="mb-1">You need to be signed in to use Vocably.</p>
+    <a
+      [href]="loginUrl"
+      target="_blank"
+      class="button block"
+      style="white-space: nowrap"
+      >Sign in or create account</a
+    >
+  </div>
 </div>

@@ -11,9 +11,13 @@ export class AppComponent implements OnInit {
   appBaseUrl = environment.appBaseUrl;
   showQRCode = false;
 
-  isLoggedIn$ = isUserLoggedIn$;
-
   loginUrl = `${environment.appBaseUrl}/page/welcome`;
 
-  ngOnInit() {}
+  isLoggedIn: 'yes' | 'no' | 'undefined' = 'undefined';
+
+  ngOnInit() {
+    isUserLoggedIn$.subscribe((isUserLoggedIn) => {
+      this.isLoggedIn = isUserLoggedIn ? 'yes' : 'no';
+    });
+  }
 }
