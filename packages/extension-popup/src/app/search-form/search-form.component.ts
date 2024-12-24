@@ -10,10 +10,13 @@ import { Subject } from 'rxjs';
 export class SearchFormComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
 
+  sourceLanguage = 'nl';
+  targetLanguage = 'en';
+  isReversed: boolean = true;
+  searchText: string = 'something';
+
   sourceLanguages: string[] = Object.keys(languageList);
   targetLanguages: string[] = Object.keys(languageList);
-
-  isReversed: boolean = false;
 
   constructor() {}
 

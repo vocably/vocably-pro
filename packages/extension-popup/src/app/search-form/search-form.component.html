@@ -1,7 +1,7 @@
 <form class="search-form" (submit)="$event.preventDefault(); submit()">
   <div class="preset">
-    <select class="language">
-      <option *ngFor="let language of sourceLanguages">
+    <select class="language" name="sourceLanguage" [(ngModel)]="sourceLanguage">
+      <option *ngFor="let language of sourceLanguages" [value]="language">
         {{ languageName(language) }}
       </option>
     </select>
@@ -15,11 +15,21 @@
         <mat-icon class="icon">arrow_forward</mat-icon>
       </button>
     </div>
-    <select class="language">
-      <option *ngFor="let language of targetLanguages">
+    <select class="language" name="targetLanguage" [(ngModel)]="targetLanguage">
+      <option *ngFor="let language of targetLanguages" [value]="language">
         {{ languageName(language) }}
       </option>
     </select>
   </div>
-  <div class="search-input"></div>
+  <div class="search-input">
+    <input
+      class="input"
+      type="text"
+      name="searchText"
+      [(ngModel)]="searchText"
+    />
+    <button class="submit" type="submit" [disabled]="searchText.trim() === ''">
+      <mat-icon class="magnify">search</mat-icon>
+    </button>
+  </div>
 </form>

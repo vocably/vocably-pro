@@ -1,8 +1,11 @@
 @import '@vocably/styles/variables';
 
+$input-padding: 12px;
+
 .preset {
   display: flex;
   gap: 8px;
+  margin-bottom: 8px;
 }
 
 .direction {
@@ -30,10 +33,8 @@
 }
 
 select {
-  $padding: 12px;
-
   color: $v-light-color-body;
-  padding: $padding;
+  padding: $input-padding;
   border: 0.5px solid $v-light-color-border;
   border-radius: $v-border-radius;
   background-color: $v-light-color-contrast;
@@ -47,6 +48,52 @@ select {
   background: $v-light-color-contrast
     url('data:image/svg+xml;utf8,<svg width="11" height="7" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1 5 6 1 1" stroke="rgb(109, 109, 109)" stroke-width=".5" stroke-miterlimit="10" stroke-linecap="round"/></svg>')
     no-repeat;
-  background-position: right $padding top 50%;
+  background-position: right $input-padding top 50%;
   cursor: pointer;
+}
+
+.search-input {
+  $height: 48px;
+  $border: 0.5px solid $v-light-color-border;
+
+  position: relative;
+
+  .input {
+    padding-left: $input-padding;
+    padding-right: $input-padding;
+    color: $v-light-color-body;
+    border: $border;
+    border-radius: $v-border-radius;
+    background-color: $v-light-color-contrast;
+    outline: none;
+    height: $height;
+    line-height: $height;
+    box-shadow: none;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+
+    &:focus {
+      background-color: $v-light-color-body-bg;
+    }
+  }
+
+  .submit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: $height;
+    width: $height;
+    line-height: $height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: $border;
+    border-left: none;
+    border-radius: 0 $v-border-radius $v-border-radius 0;
+
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+  }
 }

@@ -1,4 +1,8 @@
 .header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
   a {
     display: inline-flex;
     align-items: center;
