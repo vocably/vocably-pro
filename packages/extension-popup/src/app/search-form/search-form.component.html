@@ -28,8 +28,14 @@
       name="searchText"
       [(ngModel)]="searchText"
     />
-    <button class="submit" type="submit" [disabled]="searchText.trim() === ''">
-      <mat-icon class="magnify">search</mat-icon>
+    <button
+      class="submit"
+      type="submit"
+      [disabled]="isSearching || searchText.trim() === ''"
+    >
+      <mat-icon class="magnify" [class.animating]="isSearching"
+        >search</mat-icon
+      >
     </button>
   </div>
 </form>

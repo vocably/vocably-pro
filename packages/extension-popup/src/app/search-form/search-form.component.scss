@@ -82,7 +82,6 @@ select {
     top: 0;
     height: $height;
     width: $height;
-    line-height: $height;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,6 +91,28 @@ select {
 
     &:not(:disabled) {
       cursor: pointer;
+    }
+
+    .animating {
+      animation-name: rock;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      transform-origin: 9px 9px;
+    }
+
+    @keyframes rock {
+      0%,
+      50%,
+      100% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(-25deg);
+      }
+      75% {
+        transform: rotate(25deg);
+      }
     }
   }
 }
