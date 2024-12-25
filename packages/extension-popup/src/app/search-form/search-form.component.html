@@ -1,9 +1,11 @@
 <form class="search-form" (submit)="$event.preventDefault(); submit()">
   <div class="preset mb-0_5">
     <select class="language" name="sourceLanguage" [(ngModel)]="sourceLanguage">
-      <option *ngFor="let language of sourceLanguages" [value]="language">
-        {{ languageName(language) }}
-      </option>
+      <optgroup label="Other Languages">
+        <option *ngFor="let language of sourceLanguages" [value]="language">
+          {{ languageName(language) }}
+        </option>
+      </optgroup>
     </select>
     <div>
       <button
@@ -16,9 +18,11 @@
       </button>
     </div>
     <select class="language" name="targetLanguage" [(ngModel)]="targetLanguage">
-      <option *ngFor="let language of targetLanguages" [value]="language">
-        {{ languageName(language) }}
-      </option>
+      <optgroup label="Other Languages">
+        <option *ngFor="let language of targetLanguages" [value]="language">
+          {{ languageName(language) }}
+        </option>
+      </optgroup>
     </select>
   </div>
   <div class="search-input">
