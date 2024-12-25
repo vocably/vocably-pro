@@ -19,6 +19,9 @@
     [showSaveHint]="false"
     [showLanguages]="false"
     [hideChatGpt]="true"
+    [loading]="isTranslationLoading"
+    (addCard)="addCard($event)"
+    (removeCard)="removeCard($event)"
   ></vocably-translation>
 </div>
 

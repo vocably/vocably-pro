@@ -1,9 +1,11 @@
 import {
+  addCard,
   analyze,
   ExtensionSettings,
   getInternalSourceLanguage,
   getSettings,
   isLoggedIn,
+  removeCard,
   setSettings,
 } from '@vocably/extension-messages';
 import { merge } from 'lodash-es';
@@ -98,9 +100,54 @@ const mockAnalyze: typeof analyze = async () => {
   };
 };
 
+const mockAddCard: typeof addCard = async (payload) => {
+  await timeout(2000);
+
+  return {
+    success: true,
+    value: {
+      ...payload.translationCards,
+      cards: payload.translationCards.cards.map((translationCard) => {
+        if (translationCard.data.source !== payload.card.data.source) {
+          return translationCard;
+        }
+
+        return {
+          id: 'piu',
+          created: 123,
+          updated: 123,
+          data: translationCard.data,
+        };
+      }),
+    },
+  };
+};
+
+const mockRemoveCard: typeof removeCard = async (payload) => {
+  await timeout(2000);
+
+  return {
+    success: true,
+    value: {
+      ...payload.translationCards,
+      cards: payload.translationCards.cards.map((translationCard) => {
+        if (translationCard.data.source !== payload.card.data.source) {
+          return translationCard;
+        }
+
+        return {
+          data: translationCard.data,
+        };
+      }),
+    },
+  };
+};
+
 export const environment = merge(environmentLocal, {
   production: false,
   analyze: mockAnalyze,
+  addCard: mockAddCard,
+  removeCard: mockRemoveCard,
   getSettings: mockGetSettings,
   setSettings: mockSetSettings,
   isLoggedIn: mockIsLoggedIn,

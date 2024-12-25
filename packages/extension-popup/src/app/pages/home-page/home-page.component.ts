@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Result, TranslationCards } from '@vocably/model';
+import {
+  AddCardPayload,
+  RemoveCardPayload,
+  Result,
+  TranslationCards,
+} from '@vocably/model';
 import { environment } from '../../../environments/environment';
 import { needsOnboarding$ } from '../../../needsOnboarding';
 import { SearchValues } from '../../search-form/search-form.component';
@@ -14,6 +19,7 @@ export class HomePageComponent implements OnInit {
   welcomeUrl = `${environment.appBaseUrl}/welcome`;
   showQRCode = false;
   isSearching: boolean = false;
+  isTranslationLoading: boolean = false;
   searchResult: Result<TranslationCards> | null = null;
 
   constructor() {}
@@ -41,5 +47,28 @@ export class HomePageComponent implements OnInit {
     this.searchResult = result;
 
     this.isSearching = false;
+  }
+
+  async addCard(event: any) {
+    if (!event.detail) {
+      console.error('Add card: Undefined event', event);
+      return;
+    }
+
+    this.isTranslationLoading = true;
+    const payload: AddCardPayload = event.detail;
+    this.searchResult = await environment.addCard(payload);
+    this.isTranslationLoading = false;
+  }
+  async removeCard(event: any) {
+    if (!event.detail) {
+      console.error('Remove card: Undefined event', event);
+      return;
+    }
+
+    this.isTranslationLoading = true;
+    const payload: RemoveCardPayload = event.detail;
+    this.searchResult = await environment.removeCard(payload);
+    this.isTranslationLoading = false;
   }
 }
