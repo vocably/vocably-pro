@@ -6,6 +6,10 @@
 @import '@vocably/styles/mixins/link';
 @import '@vocably/styles/mixins/button';
 
+body {
+  background-color: $v-light-color-body-bg;
+}
+
 .container {
   padding: 1rem;
   min-width: 240px;

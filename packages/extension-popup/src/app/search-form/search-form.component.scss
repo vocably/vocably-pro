@@ -20,7 +20,12 @@ $input-padding: 12px;
   border: 0.5px solid $v-light-color-border;
   border-radius: $v-border-radius;
   background-color: $v-light-color-contrast;
+  transition: background-color 0.25s ease-in-out;
   cursor: pointer;
+
+  &:hover {
+    background-color: $v-light-color-hover-bg;
+  }
 
   .icon {
     transition: transform 0.3s ease-in-out;
@@ -49,6 +54,11 @@ select {
     no-repeat;
   background-position: right $input-padding top 50%;
   cursor: pointer;
+  transition: background-color 0.25s ease-in-out;
+
+  &:hover {
+    background-color: $v-light-color-hover-bg;
+  }
 }
 
 .search-input {
@@ -70,6 +80,7 @@ select {
     box-sizing: border-box;
     display: block;
     width: 100%;
+    transition: background-color 0.25s ease-in-out;
 
     &:focus {
       background-color: $v-light-color-body-bg;
@@ -88,9 +99,16 @@ select {
     border: $border;
     border-left: none;
     border-radius: 0 $v-border-radius $v-border-radius 0;
+    background-color: transparent;
+    transition: background-color 0.25s ease-in-out;
 
     &:not(:disabled) {
       cursor: pointer;
+      background-color: $v-light-color-contrast;
+
+      &:hover {
+        background-color: $v-light-color-hover-bg;
+      }
     }
 
     .animating {

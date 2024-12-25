@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Vocably: Language Flashcards",
+  "name": "Vocably - dev: Language Flashcards",
   "description": "Translate and create flashcards on any website or YouTube. Study the flashcards on your mobile device.",
-  "version": "1.419.0",
+  "version": "0.0.0",
 
   "icons": {
     "16": "images/icon-16x16.png",
@@ -25,18 +25,18 @@
     {
       "matches": ["*://*/*"],
       "js": ["content-script.js", "play-audio.js"],
-      "exclude_matches": [],
+      "exclude_matches": ["http://localhost:8010/", "http://localhost:8020/", "http://localhost:8040/"],
       "all_frames": true
     }
   ],
 
-  "permissions": ["storage", "offscreen", "contextMenus"],
+  "permissions": ["storage", "offscreen", "contextMenus", "scripting"],
 
   "externally_connectable": {
-    "matches": ["https://*.vocably.pro/*"]
+    "matches": ["https://*.vocably.pro/*", "http://localhost/*"]
   },
-  
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArKNqtdLHY0m5KYrwlINdtqAbuM24V437v3AwODOQOR6nZjb1dKz27Gjb05TgwFIF4ZjvHO4hmDsdl88FvqAM1LPReOvVpOH+uxDF0QPYrBm7F4CXwtI4QOgtAesfk0AEgFsRYU794VItbihciyFJ9rkfDWjA7riHrFkcfNic8BDuT5yrtXWdBwj2YMinWXotvBCqrG/oGc2WAYty9Ni65brVWe7F5+LiIxpkgtQhMq2imSrnUYIadQf3dyaExKAzCATM6DGjDMBxgHYS+H8tG+o4PLIarkP/zEilbFQyG4S1xL3df0AtJ1MmXHnHWlkoV6JCt1ACmo+LFzzhOstikQIDAQAB",
+  "host_permissions": ["<all_urls>"],
+  "key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "background": {
     "service_worker": "service-worker.js"
   }
