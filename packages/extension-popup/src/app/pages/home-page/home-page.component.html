@@ -7,13 +7,18 @@
 
 <div class="mb-1">
   <app-search-form
+    class="block mb-0_5"
     (onSubmit)="onSearchFormSubmit($event)"
-    [disabled]="isSearching"
+    [isSearching]="isSearching"
   ></app-search-form>
-</div>
 
-<div class="mb-1" *ngIf="searchResult">
-  <vocably-translation [result]="searchResult"></vocably-translation>
+  <vocably-translation
+    *ngIf="searchResult"
+    class="search-result"
+    [result]="searchResult"
+    [showSaveHint]="false"
+    [showLanguages]="false"
+  ></vocably-translation>
 </div>
 
 <div class="mb-1" *ngIf="needsOnboarding$ | async">

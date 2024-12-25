@@ -22,7 +22,7 @@ export type SearchValues = {
   styleUrls: ['./search-form.component.scss'],
 })
 export class SearchFormComponent implements OnInit, OnDestroy {
-  @Input() disabled = false;
+  @Input() isSearching = false;
   @Output() onSubmit = new EventEmitter<SearchValues>();
 
   destroy$ = new Subject<void>();
@@ -45,7 +45,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    if (this.disabled) {
+    if (this.isSearching) {
       return;
     }
 
