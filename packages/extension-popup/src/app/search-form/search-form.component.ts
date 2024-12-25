@@ -30,7 +30,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   sourceLanguage = 'nl';
   targetLanguage = 'en';
   isReversed: boolean = false;
-  searchText: string = 'gemaakt';
+  searchText: string = '';
 
   sourceLanguages: string[] = Object.keys(languageList);
   targetLanguages: string[] = Object.keys(languageList);
