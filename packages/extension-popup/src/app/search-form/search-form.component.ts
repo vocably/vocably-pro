@@ -1,6 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { languageList } from '@vocably/model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { GoogleLanguage, isGoogleLanguage, languageList } from '@vocably/model';
 import { Subject } from 'rxjs';
+
+export type SearchValues = {
+  text: string;
+  sourceLanguage: GoogleLanguage;
+  targetLanguage: GoogleLanguage;
+  isReversed: boolean;
+};
 
 @Component({
   selector: 'app-search-form',
@@ -8,12 +22,15 @@ import { Subject } from 'rxjs';
   styleUrls: ['./search-form.component.scss'],
 })
 export class SearchFormComponent implements OnInit, OnDestroy {
+  @Input() disabled = false;
+  @Output() onSubmit = new EventEmitter<SearchValues>();
+
   destroy$ = new Subject<void>();
 
   sourceLanguage = 'nl';
   targetLanguage = 'en';
-  isReversed: boolean = true;
-  searchText: string = 'something';
+  isReversed: boolean = false;
+  searchText: string = 'gemaakt';
 
   sourceLanguages: string[] = Object.keys(languageList);
   targetLanguages: string[] = Object.keys(languageList);
@@ -27,7 +44,26 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  submit() {}
+  submit() {
+    if (this.disabled) {
+      return;
+    }
+
+    if (!isGoogleLanguage(this.sourceLanguage)) {
+      return;
+    }
+
+    if (!isGoogleLanguage(this.targetLanguage)) {
+      return;
+    }
+
+    this.onSubmit.emit({
+      isReversed: this.isReversed,
+      text: this.searchText,
+      sourceLanguage: this.sourceLanguage,
+      targetLanguage: this.targetLanguage,
+    });
+  }
 
   languageName(lng: string): string {
     // @ts-ignore

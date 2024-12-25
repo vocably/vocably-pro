@@ -11,6 +11,7 @@ import {
   RateInteractionPayload,
   RemoveCardPayload,
   Result,
+  ReverseAnalyzePayload,
   TranslationCards,
   UpdateTagPayload,
 } from '@vocably/model';
@@ -50,8 +51,13 @@ export const [isActive, onIsActiveRequest] = createScopedMessage<void, boolean>(
 export const [isEligibleForTrial, onIsEligibleForTrialRequest] =
   createScopedMessage<void, boolean>('isEligibleForTrial');
 
+type AnalyzePayload =
+  | (Omit<DirectAnalyzePayload, 'targetLanguage'> &
+      Partial<DirectAnalyzePayload>)
+  | ReverseAnalyzePayload;
+
 export const [analyze, onAnalyzeRequest] = createScopedMessage<
-  Omit<DirectAnalyzePayload, 'targetLanguage'> & Partial<DirectAnalyzePayload>,
+  AnalyzePayload,
   Result<TranslationCards>
 >('analyze');
 

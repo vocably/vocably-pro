@@ -1,4 +1,5 @@
 import {
+  analyze,
   getInternalSourceLanguage,
   getSettings,
   isLoggedIn,
@@ -9,6 +10,7 @@ import { environmentLocal } from './environmentLocal';
 
 export const environment = merge(environmentLocal, {
   production: true,
+  analyze: analyze,
   getSettings: getSettings,
   setSettings: setSettings,
   isLoggedIn: isLoggedIn,

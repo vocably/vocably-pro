@@ -1,4 +1,5 @@
 import {
+  analyze,
   ExtensionSettings,
   getInternalSourceLanguage,
   getSettings,
@@ -41,8 +42,65 @@ const mockGetInternalSourceLanguage: typeof getInternalSourceLanguage =
     return params.has('noInternalSourceLanguage') ? null : 'en';
   };
 
+const mockAnalyze: typeof analyze = async () => {
+  await timeout(2000);
+  return {
+    success: true,
+    value: {
+      cards: [
+        {
+          data: {
+            language: 'nl',
+            source: 'gemaakt',
+            g: 'f',
+            ipa: 'ɣəˈmaːkt',
+            example: 'Bij een gemaakte glimlach lachen onze ogen niet mee.',
+            definition: 'als iets niet natuurlijk is of gebeurt',
+            translation: 'made',
+            partOfSpeech: 'adjective',
+            interval: 0,
+            repetition: 0,
+            eFactor: 2.5,
+            dueDate: 1646179200000,
+            tags: [],
+          },
+        },
+        {
+          id: 'Oqewl',
+          created: 1646242718636,
+          data: {
+            language: 'nl',
+            source: 'maken',
+            g: 'f',
+            ipa: 'ˈmaːkə(n)',
+            example: '* winst maken\n* De klok is weer gemaakt.',
+            definition:
+              '* (iets dat nog niet bestond) laten ontstaan\n* (iets dat kapot is) zorgen dat het weer heel is',
+            translation: 'to make',
+            partOfSpeech: 'verb',
+            interval: 0,
+            repetition: 0,
+            eFactor: 2.5,
+            dueDate: 1646179200000,
+            tags: [],
+          },
+        },
+      ],
+      source: 'gemaakt',
+      translation: {
+        source: 'gemaakt',
+        sourceLanguage: 'nl',
+        target: 'made',
+        targetLanguage: 'en',
+      },
+      tags: [],
+    },
+  };
+};
+
 export const environment = merge(environmentLocal, {
   production: false,
+  analyze: mockAnalyze,
   getSettings: mockGetSettings,
   setSettings: mockSetSettings,
   isLoggedIn: mockIsLoggedIn,

@@ -6,7 +6,14 @@
 </div>
 
 <div class="mb-1">
-  <app-search-form></app-search-form>
+  <app-search-form
+    (onSubmit)="onSearchFormSubmit($event)"
+    [disabled]="isSearching"
+  ></app-search-form>
+</div>
+
+<div class="mb-1" *ngIf="searchResult">
+  <vocably-translation [result]="searchResult"></vocably-translation>
 </div>
 
 <div class="mb-1" *ngIf="needsOnboarding$ | async">
