@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {
   AddCardPayload,
+  AttachTagPayload,
+  DeleteTagPayload,
+  DetachTagPayload,
   RemoveCardPayload,
   Result,
   TranslationCards,
+  UpdateTagPayload,
 } from '@vocably/model';
 import { environment } from '../../../environments/environment';
 import { needsOnboarding$ } from '../../../needsOnboarding';
@@ -70,5 +74,29 @@ export class HomePageComponent implements OnInit {
     const payload: RemoveCardPayload = event.detail;
     this.searchResult = await environment.removeCard(payload);
     this.isTranslationLoading = false;
+  }
+  async attachTag(payload: AttachTagPayload) {
+    this.isTranslationLoading = true;
+    this.searchResult = await environment.attachTag(payload);
+    this.isTranslationLoading = false;
+    return this.searchResult;
+  }
+  async detachTag(payload: DetachTagPayload) {
+    this.isTranslationLoading = true;
+    this.searchResult = await environment.detachTag(payload);
+    this.isTranslationLoading = false;
+    return this.searchResult;
+  }
+  async deleteTag(payload: DeleteTagPayload) {
+    this.isTranslationLoading = true;
+    this.searchResult = await environment.deleteTag(payload);
+    this.isTranslationLoading = false;
+    return this.searchResult;
+  }
+  async updateTag(payload: UpdateTagPayload) {
+    this.isTranslationLoading = true;
+    this.searchResult = await environment.updateTag(payload);
+    this.isTranslationLoading = false;
+    return this.searchResult;
   }
 }

@@ -1,12 +1,16 @@
 import {
   addCard,
   analyze,
+  attachTag,
+  deleteTag,
+  detachTag,
   ExtensionSettings,
   getInternalSourceLanguage,
   getSettings,
   isLoggedIn,
   removeCard,
   setSettings,
+  updateTag,
 } from '@vocably/extension-messages';
 import { merge } from 'lodash-es';
 import { environmentLocal } from './environmentLocal';
@@ -143,11 +147,60 @@ const mockRemoveCard: typeof removeCard = async (payload) => {
   };
 };
 
+const attachTagMock: typeof attachTag = async (payload) => {
+  console.log(
+    'Attach tag. This mock action does nothing. Do not expect any result.',
+    payload
+  );
+  await timeout(2000);
+  return {
+    success: true,
+    value: payload.translationCards,
+  };
+};
+const detachTagMock: typeof detachTag = async (payload) => {
+  console.log(
+    'Detach tag. This mock action does nothing. Do not expect any result.',
+    payload
+  );
+  await timeout(2000);
+  return {
+    success: true,
+    value: payload.translationCards,
+  };
+};
+const deleteTagMock: typeof deleteTag = async (payload) => {
+  console.log(
+    'Delete tag. This mock action does nothing. Do not expect any result.',
+    payload
+  );
+  await timeout(2000);
+  return {
+    success: true,
+    value: payload.translationCards,
+  };
+};
+const updateTagMock: typeof updateTag = async (payload) => {
+  console.log(
+    'Update tag. This mock action does nothing. Do not expect any result.',
+    payload
+  );
+  await timeout(2000);
+  return {
+    success: true,
+    value: payload.translationCards,
+  };
+};
+
 export const environment = merge(environmentLocal, {
   production: false,
   analyze: mockAnalyze,
   addCard: mockAddCard,
   removeCard: mockRemoveCard,
+  attachTag: attachTagMock,
+  detachTag: detachTagMock,
+  deleteTag: deleteTagMock,
+  updateTag: updateTagMock,
   getSettings: mockGetSettings,
   setSettings: mockSetSettings,
   isLoggedIn: mockIsLoggedIn,
