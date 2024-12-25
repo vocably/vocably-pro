@@ -114,6 +114,7 @@ export namespace Components {
         "existingSourceLanguages": GoogleLanguage[];
         "existingTargetLanguages": GoogleLanguage[];
         "extensionPlatform": { name: string; url: string };
+        "hideChatGpt": boolean;
         "isUpdating": TranslationCard | null;
         "loading": boolean;
         "phrase": string;
@@ -512,6 +513,7 @@ declare namespace LocalJSX {
         "existingSourceLanguages"?: GoogleLanguage[];
         "existingTargetLanguages"?: GoogleLanguage[];
         "extensionPlatform"?: { name: string; url: string };
+        "hideChatGpt"?: boolean;
         "isUpdating"?: TranslationCard | null;
         "loading"?: boolean;
         "onAddCard"?: (event: VocablyTranslationCustomEvent<AddCardPayload>) => void;

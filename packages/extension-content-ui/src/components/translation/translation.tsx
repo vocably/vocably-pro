@@ -71,6 +71,7 @@ export class VocablyTranslation {
   ) => Promise<Result<TranslationCards>>;
   @Prop({ mutable: true }) disabled = false;
   @Prop() showLanguages: boolean = true;
+  @Prop() hideChatGpt: boolean = false;
 
   @Event() ratingInteraction: EventEmitter<RateInteractionPayload>;
 
@@ -338,7 +339,8 @@ export class VocablyTranslation {
       </select>
     );
 
-    const showDirect =
+    const showChatGpt =
+      !this.hideChatGpt &&
       this.result &&
       this.result.success &&
       isDirectNecessary(this.result.value);
@@ -365,7 +367,7 @@ export class VocablyTranslation {
                       </div>
                     </div>
                   )}
-                  {showDirect && (
+                  {showChatGpt && (
                     <div class="vocably-mb-12">
                       <div class="vocably-small vocably-muted vocably-mb-4">
                         ChatGPT thinks that{' '}
