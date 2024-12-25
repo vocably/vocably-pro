@@ -41,11 +41,13 @@ export class HomePageComponent implements OnInit {
             target: values.text,
             sourceLanguage: values.sourceLanguage,
             targetLanguage: values.targetLanguage,
+            initiator: 'popup',
           }
         : {
             source: values.text,
             sourceLanguage: values.sourceLanguage,
             targetLanguage: values.targetLanguage,
+            initiator: 'popup',
           }
     );
 

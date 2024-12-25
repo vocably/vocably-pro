@@ -51,10 +51,13 @@ export const [isActive, onIsActiveRequest] = createScopedMessage<void, boolean>(
 export const [isEligibleForTrial, onIsEligibleForTrialRequest] =
   createScopedMessage<void, boolean>('isEligibleForTrial');
 
-type AnalyzePayload =
+type AnalyzePayload = (
   | (Omit<DirectAnalyzePayload, 'targetLanguage'> &
       Partial<DirectAnalyzePayload>)
-  | ReverseAnalyzePayload;
+  | ReverseAnalyzePayload
+) & {
+  initiator: string;
+};
 
 export const [analyze, onAnalyzeRequest] = createScopedMessage<
   AnalyzePayload,
