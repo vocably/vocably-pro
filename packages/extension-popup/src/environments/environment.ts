@@ -8,6 +8,7 @@ import {
   getInternalSourceLanguage,
   getSettings,
   isLoggedIn,
+  playAudioPronunciation,
   removeCard,
   setSettings,
   updateTag,
@@ -147,7 +148,7 @@ const mockRemoveCard: typeof removeCard = async (payload) => {
   };
 };
 
-const attachTagMock: typeof attachTag = async (payload) => {
+const mockAttachTag: typeof attachTag = async (payload) => {
   console.log(
     'Attach tag. This mock action does nothing. Do not expect any result.',
     payload
@@ -158,7 +159,7 @@ const attachTagMock: typeof attachTag = async (payload) => {
     value: payload.translationCards,
   };
 };
-const detachTagMock: typeof detachTag = async (payload) => {
+const mockDetachTag: typeof detachTag = async (payload) => {
   console.log(
     'Detach tag. This mock action does nothing. Do not expect any result.',
     payload
@@ -169,7 +170,7 @@ const detachTagMock: typeof detachTag = async (payload) => {
     value: payload.translationCards,
   };
 };
-const deleteTagMock: typeof deleteTag = async (payload) => {
+const mockDeleteTag: typeof deleteTag = async (payload) => {
   console.log(
     'Delete tag. This mock action does nothing. Do not expect any result.',
     payload
@@ -180,7 +181,7 @@ const deleteTagMock: typeof deleteTag = async (payload) => {
     value: payload.translationCards,
   };
 };
-const updateTagMock: typeof updateTag = async (payload) => {
+const mockUpdateTag: typeof updateTag = async (payload) => {
   console.log(
     'Update tag. This mock action does nothing. Do not expect any result.',
     payload
@@ -192,17 +193,26 @@ const updateTagMock: typeof updateTag = async (payload) => {
   };
 };
 
+const mockPlayAudioPronunciation: typeof playAudioPronunciation = async () => {
+  await timeout(2000);
+  return {
+    success: true,
+    value: true,
+  };
+};
+
 export const environment = merge(environmentLocal, {
   production: false,
   analyze: mockAnalyze,
   addCard: mockAddCard,
   removeCard: mockRemoveCard,
-  attachTag: attachTagMock,
-  detachTag: detachTagMock,
-  deleteTag: deleteTagMock,
-  updateTag: updateTagMock,
+  attachTag: mockAttachTag,
+  detachTag: mockDetachTag,
+  deleteTag: mockDeleteTag,
+  updateTag: mockUpdateTag,
   getSettings: mockGetSettings,
   setSettings: mockSetSettings,
   isLoggedIn: mockIsLoggedIn,
   getInternalSourceLanguage: mockGetInternalSourceLanguage,
+  playAudioPronunciation: mockPlayAudioPronunciation,
 });

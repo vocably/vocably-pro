@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   AddCardPayload,
   AttachTagPayload,
+  AudioPronunciationPayload,
   DeleteTagPayload,
   DetachTagPayload,
   RemoveCardPayload,
@@ -98,5 +99,8 @@ export class HomePageComponent implements OnInit {
     this.searchResult = await environment.updateTag(payload);
     this.isTranslationLoading = false;
     return this.searchResult;
+  }
+  async playAudioPronunciation(payload: AudioPronunciationPayload) {
+    return environment.playAudioPronunciation(payload);
   }
 }
