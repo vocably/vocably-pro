@@ -1,5 +1,17 @@
 <div class="header">
   <vocably-logo style="height: 1.5rem"></vocably-logo>
+  <div
+    *ngIf="needsOnboarding"
+    class="text-center"
+    style="
+      color: var(--emphasize-color);
+      position: relative;
+      top: 0.1rem;
+      margin-left: 0.22rem;
+    "
+  >
+    is almost ready!
+  </div>
   <a class="settings" [routerLink]="['settings']"
     ><mat-icon>settings</mat-icon> Extension Settings</a
   >
@@ -10,8 +22,7 @@
 </div>
 
 <ng-container *ngIf="languagePairsLoaded">
-  <div style="margin-top: 3rem" *ngIf="needsOnboarding">
-    <div class="mb-0_5 text-center">Click this button to start:</div>
+  <div style="margin-top: 2rem" *ngIf="needsOnboarding">
     <div>
       <a
         [href]="welcomeUrl"
