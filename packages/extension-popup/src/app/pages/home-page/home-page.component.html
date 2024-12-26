@@ -5,6 +5,19 @@
   >
 </div>
 
+<div class="mb-2 mt-2" *ngIf="needsOnboarding$ | async">
+  <div class="mb-1 text-center">Click this button:</div>
+  <div>
+    <a
+      [href]="welcomeUrl"
+      target="_blank"
+      class="button block"
+      style="white-space: nowrap"
+      >Setup</a
+    >
+  </div>
+</div>
+
 <div class="mb-1">
   <app-search-form
     class="block mb-0_5"
@@ -28,19 +41,6 @@
     [updateTag]="updateTag"
     [playAudioPronunciation]="playAudioPronunciation"
   ></vocably-translation>
-</div>
-
-<div class="mb-1" *ngIf="needsOnboarding$ | async">
-  <div class="mb-1">Click this button if you're not sure what to do next:</div>
-  <div>
-    <a
-      [href]="welcomeUrl"
-      target="_blank"
-      class="button block"
-      style="white-space: nowrap"
-      >Let's set you up</a
-    >
-  </div>
 </div>
 
 <div>
