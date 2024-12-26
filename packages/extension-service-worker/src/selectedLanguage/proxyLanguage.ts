@@ -11,14 +11,14 @@ export const getProxyLanguage = async (): Promise<GoogleLanguage | null> => {
 };
 
 export const setProxyLanguage = async (targetLanguage: GoogleLanguage) => {
-  const currentProxyLanguage = await getProxyLanguage();
-  if (currentProxyLanguage === targetLanguage) {
-    return;
-  }
-
   const sourceLanguage = await getSourceLanguage();
   if (sourceLanguage) {
     await addLanguagePair(sourceLanguage, targetLanguage);
+  }
+
+  const currentProxyLanguage = await getProxyLanguage();
+  if (currentProxyLanguage === targetLanguage) {
+    return;
   }
 
   await browserEnv.storage.sync.set({

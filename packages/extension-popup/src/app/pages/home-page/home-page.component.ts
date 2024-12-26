@@ -44,6 +44,7 @@ export class HomePageComponent implements OnInit {
     );
 
     environment.getLanguagePairs().then((languagePairs) => {
+      console.log(languagePairs);
       this.languagePairs = languagePairs;
       this.languagePairsLoaded = true;
       this.needsOnboarding = Object.keys(languagePairs).length === 0;
