@@ -5,7 +5,9 @@
   >
 </div>
 
-<div *ngIf="!languagePairsLoaded" class="mt-2">Loading...</div>
+<div *ngIf="!languagePairsLoaded" class="mt-2">
+  <ion-spinner name="dots"></ion-spinner> Loading search presets
+</div>
 
 <ng-container *ngIf="languagePairsLoaded">
   <div style="margin-top: 3rem" *ngIf="needsOnboarding">
@@ -22,47 +24,40 @@
   </div>
 
   <ng-container *ngIf="!needsOnboarding">
-    <div class="mb-1">
-      <app-search-form
-        class="block mb-0_5"
-        (onSubmit)="onSearchFormSubmit($event)"
-        (onChange)="onSearchValuesChanged($event)"
-        [isSearching]="isSearching"
-        [value]="searchValues"
-        [languagePairs]="languagePairs"
-      ></app-search-form>
+    <app-search-form
+      class="block"
+      (onSubmit)="onSearchFormSubmit($event)"
+      (onChange)="onSearchValuesChanged($event)"
+      [isSearching]="isSearching"
+      [value]="searchValues"
+      [languagePairs]="languagePairs"
+    ></app-search-form>
 
-      <vocably-translation
-        *ngIf="searchResult"
-        class="search-result"
-        [result]="searchResult"
-        [showSaveHint]="false"
-        [showLanguages]="false"
-        [hideChatGpt]="true"
-        [loading]="isTranslationLoading"
-        (addCard)="addCard($event)"
-        (removeCard)="removeCard($event)"
-        [attachTag]="attachTag"
-        [detachTag]="detachTag"
-        [deleteTag]="deleteTag"
-        [updateTag]="updateTag"
-        [playAudioPronunciation]="playAudioPronunciation"
-      ></vocably-translation>
+    <div
+      *ngIf="isSearching"
+      class="text-center"
+      style="margin-top: 1rem"
+      [class.floating-loading]="searchResult"
+    >
+      <ion-spinner name="dots"></ion-spinner> Requesting ChatGPT
     </div>
 
-    <div>
-      <button class="link" (click)="showQRCode = true">
-        Install the mobile app
-      </button>
-      to study your cards.
-    </div>
-    <div class="qr-code" [class.visible]="showQRCode">
-      <p class="mt-1 mb-1">Scan the below QR code with your phone:</p>
-      <vocably-qr-code style="width: 200px"></vocably-qr-code>
-      <div>
-        Or open this link on your mobile:<br />
-        <strong>https://vocably.pro/app.html</strong>
-      </div>
-    </div>
+    <vocably-translation
+      *ngIf="searchResult"
+      style="margin-top: 0.5rem"
+      class="search-result"
+      [result]="searchResult"
+      [showSaveHint]="false"
+      [showLanguages]="false"
+      [hideChatGpt]="true"
+      [loading]="isTranslationLoading"
+      (addCard)="addCard($event)"
+      (removeCard)="removeCard($event)"
+      [attachTag]="attachTag"
+      [detachTag]="detachTag"
+      [deleteTag]="deleteTag"
+      [updateTag]="updateTag"
+      [playAudioPronunciation]="playAudioPronunciation"
+    ></vocably-translation>
   </ng-container>
 </ng-container>

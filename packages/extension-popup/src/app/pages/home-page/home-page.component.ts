@@ -26,7 +26,6 @@ const lastUsedSearchValuesKey = 'lastUsedSearchValues_01';
 })
 export class HomePageComponent implements OnInit {
   welcomeUrl = `${environment.appBaseUrl}/welcome`;
-  showQRCode = false;
   isSearching: boolean = false;
   isTranslationLoading: boolean = false;
   searchResult: Result<TranslationCards> | null = null;
@@ -150,10 +149,12 @@ export class HomePageComponent implements OnInit {
     this.isTranslationLoading = false;
     return this.searchResult;
   }
-  async playAudioPronunciation(payload: AudioPronunciationPayload) {
+  async playAudioPronunciation(
+    payload: AudioPronunciationPayload
+  ): Promise<Result<true>> {
     const result = await environment.getAudioPronunciation(payload);
     if (result.success === false) {
-      return;
+      return result;
     }
 
     return playDataUrl(result.value.url);

@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./settings-page.component.scss'],
 })
 export class SettingsPageComponent implements OnInit {
+  showQRCode = false;
   settings$ = new ReplaySubject<ExtensionSettings>();
 
   constructor() {}

@@ -204,7 +204,7 @@ const mockGetAudioPronunciation: typeof getAudioPronunciation = async () => {
 };
 
 const mockGetLanguagePairs: typeof getLanguagePairs = async () => {
-  await timeout(2000);
+  await timeout(500);
 
   const params = new URLSearchParams(window.location.search);
   if (params.has('noLanguagePairs')) {

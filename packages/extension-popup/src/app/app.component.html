@@ -1,5 +1,7 @@
 <div class="container">
-  <ng-container *ngIf="isLoggedIn === 'undefined'"> Loading... </ng-container>
+  <ng-container *ngIf="isLoggedIn === 'undefined'"
+    ><ion-spinner name="dots"></ion-spinner> Checking auth status
+  </ng-container>
   <ng-container *ngIf="isLoggedIn === 'yes'">
     <router-outlet></router-outlet>
   </ng-container>

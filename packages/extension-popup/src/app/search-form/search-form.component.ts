@@ -116,10 +116,10 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     }
 
     if (this.isReversed) {
-      return `Search in ${this.languageName(this.targetLanguage)}...`;
+      return `Search text in ${this.languageName(this.targetLanguage)}...`;
     }
 
-    return `Search in ${this.languageName(this.sourceLanguage)}...`;
+    return `Search text in ${this.languageName(this.sourceLanguage)}...`;
   }
 
   sourceLanguageChange() {

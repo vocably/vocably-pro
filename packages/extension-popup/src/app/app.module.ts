@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { IonicModule } from '@ionic/angular';
 import { defineCustomElements } from '@vocably/extension-content-ui/loader';
 
 defineCustomElements();
@@ -19,7 +20,16 @@ import { SearchFormComponent } from './search-form/search-form.component';
     SettingsPageComponent,
     SearchFormComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, MatIconModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MatIconModule,
+    FormsModule,
+    IonicModule.forRoot({
+      mode: 'md',
+      statusTap: true,
+    }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
   exports: [],
