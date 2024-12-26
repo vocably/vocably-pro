@@ -15,6 +15,7 @@ import {
 import { first } from 'lodash-es';
 import { environment } from '../../../environments/environment';
 import { SearchValues } from '../../search-form/search-form.component';
+import { playDataUrl } from './playDataUrl';
 
 const lastUsedSearchValuesKey = 'lastUsedSearchValues_01';
 
@@ -150,6 +151,11 @@ export class HomePageComponent implements OnInit {
     return this.searchResult;
   }
   async playAudioPronunciation(payload: AudioPronunciationPayload) {
-    return environment.playAudioPronunciation(payload);
+    const result = await environment.getAudioPronunciation(payload);
+    if (result.success === false) {
+      return;
+    }
+
+    return playDataUrl(result.value.url);
   }
 }

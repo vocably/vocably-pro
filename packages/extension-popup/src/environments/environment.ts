@@ -5,11 +5,11 @@ import {
   deleteTag,
   detachTag,
   ExtensionSettings,
+  getAudioPronunciation,
   getInternalSourceLanguage,
   getLanguagePairs,
   getSettings,
   isLoggedIn,
-  playAudioPronunciation,
   removeCard,
   setSettings,
   updateTag,
@@ -194,11 +194,12 @@ const mockUpdateTag: typeof updateTag = async (payload) => {
   };
 };
 
-const mockPlayAudioPronunciation: typeof playAudioPronunciation = async () => {
+const mockGetAudioPronunciation: typeof getAudioPronunciation = async () => {
   await timeout(2000);
   return {
-    success: true,
-    value: true,
+    success: false,
+    errorCode: 'UNABLE_TO_PLAY_AUDIO_DATA_URL',
+    reason: 'This is just a mock error',
   };
 };
 
@@ -235,6 +236,6 @@ export const environment = merge(environmentLocal, {
   setSettings: mockSetSettings,
   isLoggedIn: mockIsLoggedIn,
   getInternalSourceLanguage: mockGetInternalSourceLanguage,
-  playAudioPronunciation: mockPlayAudioPronunciation,
+  getAudioPronunciation: mockGetAudioPronunciation,
   getLanguagePairs: mockGetLanguagePairs,
 });
