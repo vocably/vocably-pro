@@ -5,13 +5,13 @@ import {
   AudioPronunciationPayload,
   DeleteTagPayload,
   DetachTagPayload,
+  LanguagePairs,
   RemoveCardPayload,
   Result,
   TranslationCards,
   UpdateTagPayload,
 } from '@vocably/model';
 import { environment } from '../../../environments/environment';
-import { needsOnboarding$ } from '../../../needsOnboarding';
 import { SearchValues } from '../../search-form/search-form.component';
 
 @Component({
@@ -20,16 +20,23 @@ import { SearchValues } from '../../search-form/search-form.component';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  needsOnboarding$ = needsOnboarding$;
   welcomeUrl = `${environment.appBaseUrl}/welcome`;
   showQRCode = false;
   isSearching: boolean = false;
   isTranslationLoading: boolean = false;
   searchResult: Result<TranslationCards> | null = null;
 
+  languagePairsLoaded = false;
+  languagePairs: LanguagePairs = {};
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    environment.getLanguagePairs().then((languageParis) => {
+      this.languagePairs = languageParis;
+      this.languagePairsLoaded = true;
+    });
+  }
 
   async onSearchFormSubmit(values: SearchValues) {
     this.isSearching = true;

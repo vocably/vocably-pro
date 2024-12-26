@@ -6,6 +6,7 @@ import {
   detachTag,
   ExtensionSettings,
   getInternalSourceLanguage,
+  getLanguagePairs,
   getSettings,
   isLoggedIn,
   playAudioPronunciation,
@@ -201,6 +202,20 @@ const mockPlayAudioPronunciation: typeof playAudioPronunciation = async () => {
   };
 };
 
+const mockGetLanguagePairs: typeof getLanguagePairs = async () => {
+  await timeout(2000);
+  return {
+    nl: {
+      currentTargetLanguage: 'en',
+      possibleTargetLanguages: ['en', 'ru'],
+    },
+    en: {
+      currentTargetLanguage: 'ru',
+      possibleTargetLanguages: ['ru', 'uk'],
+    },
+  };
+};
+
 export const environment = merge(environmentLocal, {
   production: false,
   analyze: mockAnalyze,
@@ -215,4 +230,5 @@ export const environment = merge(environmentLocal, {
   isLoggedIn: mockIsLoggedIn,
   getInternalSourceLanguage: mockGetInternalSourceLanguage,
   playAudioPronunciation: mockPlayAudioPronunciation,
+  getLanguagePairs: mockGetLanguagePairs,
 });

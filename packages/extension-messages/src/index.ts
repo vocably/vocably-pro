@@ -8,6 +8,7 @@ import {
   DetachTagPayload,
   DirectAnalyzePayload,
   GoogleLanguage,
+  LanguagePairs,
   RateInteractionPayload,
   RemoveCardPayload,
   Result,
@@ -87,6 +88,11 @@ export const [getLocationLanguage, onGetLocationLanguageRequest] =
 
 export const [saveLocationLanguage, onSaveLocationLanguageRequest] =
   createScopedMessage<[string, GoogleLanguage], void>('saveLocationLanguage');
+
+export const [getLanguagePairs, onGetLanguagePairs] = createScopedMessage<
+  void,
+  LanguagePairs
+>('getLanguagePairs');
 
 export const [cleanUp, onCleanUpRequest] = createScopedMessage<
   TranslationCards,

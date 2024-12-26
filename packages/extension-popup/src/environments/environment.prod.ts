@@ -5,6 +5,7 @@ import {
   deleteTag,
   detachTag,
   getInternalSourceLanguage,
+  getLanguagePairs,
   getSettings,
   isLoggedIn,
   playAudioPronunciation,
@@ -29,4 +30,5 @@ export const environment = merge(environmentLocal, {
   setSettings: setSettings,
   isLoggedIn: isLoggedIn,
   getInternalSourceLanguage: getInternalSourceLanguage,
+  getLanguagePairs: getLanguagePairs,
 });
