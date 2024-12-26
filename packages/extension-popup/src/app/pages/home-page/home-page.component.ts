@@ -5,14 +5,18 @@ import {
   AudioPronunciationPayload,
   DeleteTagPayload,
   DetachTagPayload,
+  isGoogleLanguage,
   LanguagePairs,
   RemoveCardPayload,
   Result,
   TranslationCards,
   UpdateTagPayload,
 } from '@vocably/model';
+import { first } from 'lodash-es';
 import { environment } from '../../../environments/environment';
 import { SearchValues } from '../../search-form/search-form.component';
+
+const lastUsedSearchValuesKey = 'lastUsedSearchValues_00';
 
 @Component({
   selector: 'app-home-page',
@@ -29,18 +33,47 @@ export class HomePageComponent implements OnInit {
   languagePairsLoaded = false;
   languagePairs: LanguagePairs = {};
 
+  searchValues: SearchValues | null = null;
+
   constructor() {}
 
   ngOnInit(): void {
-    environment.getLanguagePairs().then((languageParis) => {
-      this.languagePairs = languageParis;
+    this.searchValues = JSON.parse(
+      localStorage.getItem(lastUsedSearchValuesKey) ?? 'null'
+    );
+
+    environment.getLanguagePairs().then((languagePairs) => {
+      this.languagePairs = languagePairs;
       this.languagePairsLoaded = true;
+
+      if (this.searchValues !== null || languagePairs === {}) {
+        return;
+      }
+
+      const pair = first(Object.entries(languagePairs));
+
+      if (!pair || !pair[0] || !pair[1] || !isGoogleLanguage(pair[0])) {
+        return;
+      }
+
+      this.searchValues = {
+        sourceLanguage: pair[0],
+        isReversed: false,
+        text: '',
+        targetLanguage: pair[1].currentTargetLanguage,
+      };
     });
   }
 
   async onSearchFormSubmit(values: SearchValues) {
+    localStorage.setItem(lastUsedSearchValuesKey, JSON.stringify(values));
+    this.searchValues = values;
+
+    if (this.isSearching) {
+      return;
+    }
+
     this.isSearching = true;
-    console.log(values);
 
     const result = await environment.analyze(
       values.isReversed

@@ -26,6 +26,8 @@
       class="block mb-0_5"
       (onSubmit)="onSearchFormSubmit($event)"
       [isSearching]="isSearching"
+      [value]="searchValues"
+      [languagePairs]="languagePairs"
     ></app-search-form>
 
     <vocably-translation

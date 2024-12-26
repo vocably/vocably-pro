@@ -6,8 +6,14 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { GoogleLanguage, isGoogleLanguage, languageList } from '@vocably/model';
+import {
+  GoogleLanguage,
+  isGoogleLanguage,
+  languageList,
+  LanguagePairs,
+} from '@vocably/model';
 import { Subject } from 'rxjs';
+import { detectTargetLanguage } from '../../detectTargetLanguage';
 
 export type SearchValues = {
   text: string;
@@ -23,21 +29,54 @@ export type SearchValues = {
 })
 export class SearchFormComponent implements OnInit, OnDestroy {
   @Input() isSearching = false;
+  @Input() value: SearchValues | null = null;
+  @Input() languagePairs: LanguagePairs = {};
   @Output() onSubmit = new EventEmitter<SearchValues>();
 
   destroy$ = new Subject<void>();
 
-  sourceLanguage = 'nl';
-  targetLanguage = 'en';
+  sourceLanguage = 'en';
+  targetLanguage = detectTargetLanguage();
   isReversed: boolean = false;
   searchText: string = '';
 
-  sourceLanguages: string[] = Object.keys(languageList);
-  targetLanguages: string[] = Object.keys(languageList);
+  preferredSourceLanguages: string[] = [];
+  preferredTargetLanguages: string[] = [];
+
+  availableSourceLanguages: string[] = [];
+  availableTargetLanguages: string[] = [];
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.value) {
+      this.sourceLanguage = this.value.sourceLanguage;
+      this.targetLanguage = this.value.targetLanguage;
+      this.isReversed = this.value.isReversed;
+    }
+
+    const allLanguages = Object.keys(languageList);
+
+    this.preferredSourceLanguages = Object.keys(this.languagePairs);
+    this.preferredTargetLanguages = Object.values(this.languagePairs).reduce(
+      (acc, pair) => {
+        return [
+          ...acc,
+          ...pair.possibleTargetLanguages.filter(
+            (possibleLanguage) => !acc.includes(possibleLanguage)
+          ),
+        ];
+      },
+      [] as string[]
+    );
+
+    this.availableSourceLanguages = allLanguages.filter(
+      (l) => !this.preferredSourceLanguages.includes(l)
+    );
+    this.availableTargetLanguages = allLanguages.filter(
+      (l) => !this.preferredTargetLanguages.includes(l)
+    );
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -80,5 +119,16 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     }
 
     return `Search in ${this.languageName(this.sourceLanguage)}...`;
+  }
+
+  sourceLanguageChange() {
+    // @ts-ignore
+    if (!this.languagePairs[this.sourceLanguage]) {
+      return;
+    }
+
+    this.targetLanguage =
+      // @ts-ignore
+      this.languagePairs[this.sourceLanguage].currentTargetLanguage;
   }
 }

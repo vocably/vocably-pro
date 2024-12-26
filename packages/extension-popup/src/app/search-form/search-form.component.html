@@ -1,8 +1,27 @@
 <form class="search-form" (submit)="$event.preventDefault(); submit()">
   <div class="preset mb-0_5">
-    <select class="language" name="sourceLanguage" [(ngModel)]="sourceLanguage">
-      <optgroup label="Other Languages">
-        <option *ngFor="let language of sourceLanguages" [value]="language">
+    <select
+      class="language"
+      name="sourceLanguage"
+      [(ngModel)]="sourceLanguage"
+      (change)="sourceLanguageChange()"
+    >
+      <optgroup
+        label="Your Languages"
+        *ngIf="preferredSourceLanguages.length > 0"
+      >
+        <option
+          *ngFor="let language of preferredSourceLanguages"
+          [value]="language"
+        >
+          {{ languageName(language) }}
+        </option>
+      </optgroup>
+      <optgroup label="Available Languages">
+        <option
+          *ngFor="let language of availableSourceLanguages"
+          [value]="language"
+        >
           {{ languageName(language) }}
         </option>
       </optgroup>
@@ -18,8 +37,22 @@
       </button>
     </div>
     <select class="language" name="targetLanguage" [(ngModel)]="targetLanguage">
-      <optgroup label="Other Languages">
-        <option *ngFor="let language of targetLanguages" [value]="language">
+      <optgroup
+        label="Your Languages"
+        *ngIf="preferredTargetLanguages.length > 0"
+      >
+        <option
+          *ngFor="let language of preferredTargetLanguages"
+          [value]="language"
+        >
+          {{ languageName(language) }}
+        </option>
+      </optgroup>
+      <optgroup label="Available Languages">
+        <option
+          *ngFor="let language of availableTargetLanguages"
+          [value]="language"
+        >
           {{ languageName(language) }}
         </option>
       </optgroup>
