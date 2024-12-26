@@ -111,7 +111,12 @@ select {
       }
     }
 
+    .magnify {
+      transition: transform 0.3s ease-in-out;
+    }
+
     .animating {
+      transition: none;
       animation-name: rock;
       animation-duration: 2s;
       animation-iteration-count: infinite;
