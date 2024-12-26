@@ -70,6 +70,8 @@
       name="searchText"
       [placeholder]="getPlaceholderText()"
       [(ngModel)]="searchText"
+      (focus)="textInputFocused = true"
+      (blur)="textInputFocused = false"
     />
     <button
       class="submit"

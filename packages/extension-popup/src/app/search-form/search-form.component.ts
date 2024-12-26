@@ -47,6 +47,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   availableSourceLanguages: string[] = [];
   availableTargetLanguages: string[] = [];
 
+  textInputFocused = false;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -116,10 +118,16 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     }
 
     if (this.isReversed) {
-      return `Search text in ${this.languageName(this.targetLanguage)}...`;
+      return `${
+        this.textInputFocused ? 'Enter any' : 'Click here to search'
+      } text in ${this.languageName(
+        this.targetLanguage
+      )} and create cards for ${this.languageName(this.sourceLanguage)}`;
     }
 
-    return `Search text in ${this.languageName(this.sourceLanguage)}...`;
+    return `${
+      this.textInputFocused ? 'Enter any' : 'Click here to search'
+    } text in ${this.languageName(this.sourceLanguage)}`;
   }
 
   sourceLanguageChange() {
