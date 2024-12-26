@@ -69,4 +69,16 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     // @ts-ignore
     return languageList[lng] ?? '';
   }
+
+  getPlaceholderText(): string {
+    if (!this.sourceLanguage || !this.targetLanguage) {
+      return '';
+    }
+
+    if (this.isReversed) {
+      return `Search in ${this.languageName(this.targetLanguage)}...`;
+    }
+
+    return `Search in ${this.languageName(this.sourceLanguage)}...`;
+  }
 }
