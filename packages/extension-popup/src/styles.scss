@@ -11,6 +11,13 @@ html {
   background-color: $v-light-color-body-bg;
 }
 
+h1 {
+  font-family: Ruda, sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: $v-light-color-emphasize;
+}
+
 .container {
   padding: 1rem;
   min-width: 240px;
