@@ -6,7 +6,8 @@
 @import '@vocably/styles/mixins/link';
 @import '@vocably/styles/mixins/button';
 
-body {
+body,
+html {
   background-color: $v-light-color-body-bg;
 }
 
