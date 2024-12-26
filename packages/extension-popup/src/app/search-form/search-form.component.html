@@ -83,4 +83,33 @@
       >
     </button>
   </div>
+  <div *ngIf="!hideHint" style="margin-top: 1rem" class="muted">
+    <style>
+      .reverse-search-hint-icon {
+        vertical-align: middle;
+        top: -0.1rem;
+        position: relative;
+        cursor: pointer;
+        transition: color 0.3s ease-in-out;
+
+        &:hover {
+          color: var(--emphasize-color);
+        }
+      }
+    </style>
+    <ng-container *ngIf="!isReversed">
+      Want to search for {{ languageName(sourceLanguage) }} cards in
+      {{ languageName(targetLanguage) }}? Just click the arrow button
+      <mat-icon class="reverse-search-hint-icon" (click)="isReversed = true"
+        >arrow_forward</mat-icon
+      >
+    </ng-container>
+    <ng-container *ngIf="isReversed">
+      Click
+      <mat-icon class="reverse-search-hint-icon" (click)="isReversed = false"
+        >arrow_back</mat-icon
+      >
+      button to search for cards in {{ languageName(sourceLanguage) }}.
+    </ng-container>
+  </div>
 </form>

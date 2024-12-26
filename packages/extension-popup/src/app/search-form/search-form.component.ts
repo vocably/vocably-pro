@@ -22,6 +22,16 @@ export type SearchValues = {
   isReversed: boolean;
 };
 
+const article = (phrase: string) => {
+  if (
+    ['a', 'e', 'i', 'o', 'y', 'u'].includes((phrase.at(0) ?? '').toLowerCase())
+  ) {
+    return 'an';
+  } else {
+    return 'a';
+  }
+};
+
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
@@ -30,6 +40,7 @@ export type SearchValues = {
 export class SearchFormComponent implements OnInit, OnDestroy {
   @Input() isSearching = false;
   @Input() value: SearchValues | null = null;
+  @Input() hideHint: boolean = false;
   @Input() languagePairs: LanguagePairs = {};
   @Output() onSubmit = new EventEmitter<SearchValues>();
   @Output() onChange = new EventEmitter<SearchValues>();
@@ -117,17 +128,18 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       return '';
     }
 
+    const sourceLanguageName = this.languageName(this.sourceLanguage);
+    const targetLanguageName = this.languageName(this.targetLanguage);
+
     if (this.isReversed) {
-      return `${
-        this.textInputFocused ? 'Enter any' : 'Click here to search'
-      } text in ${this.languageName(
-        this.targetLanguage
-      )} and create cards for ${this.languageName(this.sourceLanguage)}`;
+      return `Enter ${article(
+        targetLanguageName
+      )} ${targetLanguageName} word or phrase here. ${sourceLanguageName} cards will be created.`;
     }
 
-    return `${
-      this.textInputFocused ? 'Enter any' : 'Click here to search'
-    } text in ${this.languageName(this.sourceLanguage)}`;
+    return `Enter ${article(
+      sourceLanguageName
+    )} ${sourceLanguageName} word or phrase here.`;
   }
 
   sourceLanguageChange() {
