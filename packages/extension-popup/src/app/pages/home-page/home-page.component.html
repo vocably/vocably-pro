@@ -8,8 +8,8 @@
 <div *ngIf="!languagePairsLoaded" class="mt-2">Loading...</div>
 
 <ng-container *ngIf="languagePairsLoaded">
-  <div class="mb-2 mt-2" *ngIf="languagePairs === {}">
-    <div class="mb-1 text-center">Click this button:</div>
+  <div style="margin-top: 3rem" *ngIf="needsOnboarding">
+    <div class="mb-0_5 text-center">Click this button to start:</div>
     <div>
       <a
         [href]="welcomeUrl"
@@ -21,45 +21,47 @@
     </div>
   </div>
 
-  <div class="mb-1">
-    <app-search-form
-      class="block mb-0_5"
-      (onSubmit)="onSearchFormSubmit($event)"
-      [isSearching]="isSearching"
-      [value]="searchValues"
-      [languagePairs]="languagePairs"
-    ></app-search-form>
+  <ng-container *ngIf="!needsOnboarding">
+    <div class="mb-1">
+      <app-search-form
+        class="block mb-0_5"
+        (onSubmit)="onSearchFormSubmit($event)"
+        [isSearching]="isSearching"
+        [value]="searchValues"
+        [languagePairs]="languagePairs"
+      ></app-search-form>
 
-    <vocably-translation
-      *ngIf="searchResult"
-      class="search-result"
-      [result]="searchResult"
-      [showSaveHint]="false"
-      [showLanguages]="false"
-      [hideChatGpt]="true"
-      [loading]="isTranslationLoading"
-      (addCard)="addCard($event)"
-      (removeCard)="removeCard($event)"
-      [attachTag]="attachTag"
-      [detachTag]="detachTag"
-      [deleteTag]="deleteTag"
-      [updateTag]="updateTag"
-      [playAudioPronunciation]="playAudioPronunciation"
-    ></vocably-translation>
-  </div>
-
-  <div>
-    <button class="link" (click)="showQRCode = true">
-      Install the mobile app
-    </button>
-    to study your cards.
-  </div>
-  <div class="qr-code" [class.visible]="showQRCode">
-    <p class="mt-1 mb-1">Scan the below QR code with your phone:</p>
-    <vocably-qr-code style="width: 200px"></vocably-qr-code>
-    <div>
-      Or open this link on your mobile:<br />
-      <strong>https://vocably.pro/app.html</strong>
+      <vocably-translation
+        *ngIf="searchResult"
+        class="search-result"
+        [result]="searchResult"
+        [showSaveHint]="false"
+        [showLanguages]="false"
+        [hideChatGpt]="true"
+        [loading]="isTranslationLoading"
+        (addCard)="addCard($event)"
+        (removeCard)="removeCard($event)"
+        [attachTag]="attachTag"
+        [detachTag]="detachTag"
+        [deleteTag]="deleteTag"
+        [updateTag]="updateTag"
+        [playAudioPronunciation]="playAudioPronunciation"
+      ></vocably-translation>
     </div>
-  </div>
+
+    <div>
+      <button class="link" (click)="showQRCode = true">
+        Install the mobile app
+      </button>
+      to study your cards.
+    </div>
+    <div class="qr-code" [class.visible]="showQRCode">
+      <p class="mt-1 mb-1">Scan the below QR code with your phone:</p>
+      <vocably-qr-code style="width: 200px"></vocably-qr-code>
+      <div>
+        Or open this link on your mobile:<br />
+        <strong>https://vocably.pro/app.html</strong>
+      </div>
+    </div>
+  </ng-container>
 </ng-container>

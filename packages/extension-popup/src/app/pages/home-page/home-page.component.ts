@@ -16,7 +16,7 @@ import { first } from 'lodash-es';
 import { environment } from '../../../environments/environment';
 import { SearchValues } from '../../search-form/search-form.component';
 
-const lastUsedSearchValuesKey = 'lastUsedSearchValues_00';
+const lastUsedSearchValuesKey = 'lastUsedSearchValues_01';
 
 @Component({
   selector: 'app-home-page',
@@ -32,6 +32,7 @@ export class HomePageComponent implements OnInit {
 
   languagePairsLoaded = false;
   languagePairs: LanguagePairs = {};
+  needsOnboarding = false;
 
   searchValues: SearchValues | null = null;
 
@@ -45,6 +46,7 @@ export class HomePageComponent implements OnInit {
     environment.getLanguagePairs().then((languagePairs) => {
       this.languagePairs = languagePairs;
       this.languagePairsLoaded = true;
+      this.needsOnboarding = Object.keys(languagePairs).length === 0;
 
       if (this.searchValues !== null || languagePairs === {}) {
         return;

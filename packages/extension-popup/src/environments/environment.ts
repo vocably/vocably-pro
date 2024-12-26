@@ -204,6 +204,12 @@ const mockPlayAudioPronunciation: typeof playAudioPronunciation = async () => {
 
 const mockGetLanguagePairs: typeof getLanguagePairs = async () => {
   await timeout(2000);
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('noLanguagePairs')) {
+    return {};
+  }
+
   return {
     nl: {
       currentTargetLanguage: 'en',
