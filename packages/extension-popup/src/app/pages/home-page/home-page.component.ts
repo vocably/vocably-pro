@@ -68,6 +68,11 @@ export class HomePageComponent implements OnInit {
     });
   }
 
+  onSearchValuesChanged(values: SearchValues) {
+    localStorage.setItem(lastUsedSearchValuesKey, JSON.stringify(values));
+    this.searchValues = values;
+  }
+
   async onSearchFormSubmit(values: SearchValues) {
     localStorage.setItem(lastUsedSearchValuesKey, JSON.stringify(values));
     this.searchValues = values;

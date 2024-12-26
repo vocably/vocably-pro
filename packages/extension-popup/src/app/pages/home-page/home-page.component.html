@@ -26,6 +26,7 @@
       <app-search-form
         class="block mb-0_5"
         (onSubmit)="onSearchFormSubmit($event)"
+        (onChange)="onSearchValuesChanged($event)"
         [isSearching]="isSearching"
         [value]="searchValues"
         [languagePairs]="languagePairs"

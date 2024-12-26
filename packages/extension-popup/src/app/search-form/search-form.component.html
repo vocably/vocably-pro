@@ -31,12 +31,17 @@
         type="button"
         class="direction"
         [class.reversed]="isReversed"
-        (click)="isReversed = !isReversed"
+        (click)="isReversed = !isReversed; change()"
       >
         <mat-icon class="icon">arrow_forward</mat-icon>
       </button>
     </div>
-    <select class="language" name="targetLanguage" [(ngModel)]="targetLanguage">
+    <select
+      class="language"
+      name="targetLanguage"
+      [(ngModel)]="targetLanguage"
+      (change)="change()"
+    >
       <optgroup
         label="Your Languages"
         *ngIf="preferredTargetLanguages.length > 0"

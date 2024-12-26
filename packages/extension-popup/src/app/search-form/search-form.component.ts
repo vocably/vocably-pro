@@ -32,6 +32,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   @Input() value: SearchValues | null = null;
   @Input() languagePairs: LanguagePairs = {};
   @Output() onSubmit = new EventEmitter<SearchValues>();
+  @Output() onChange = new EventEmitter<SearchValues>();
 
   destroy$ = new Subject<void>();
 
@@ -123,12 +124,37 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   sourceLanguageChange() {
     // @ts-ignore
-    if (!this.languagePairs[this.sourceLanguage]) {
+    if (this.languagePairs[this.sourceLanguage]) {
+      this.targetLanguage =
+        // @ts-ignore
+        this.languagePairs[this.sourceLanguage].currentTargetLanguage;
+    }
+
+    this.change();
+  }
+
+  targetLanguageChange() {
+    this.change();
+  }
+
+  change() {
+    if (this.isSearching) {
       return;
     }
 
-    this.targetLanguage =
-      // @ts-ignore
-      this.languagePairs[this.sourceLanguage].currentTargetLanguage;
+    if (!isGoogleLanguage(this.sourceLanguage)) {
+      return;
+    }
+
+    if (!isGoogleLanguage(this.targetLanguage)) {
+      return;
+    }
+
+    this.onChange.emit({
+      isReversed: this.isReversed,
+      text: this.searchText,
+      sourceLanguage: this.sourceLanguage,
+      targetLanguage: this.targetLanguage,
+    });
   }
 }
