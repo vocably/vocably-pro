@@ -348,7 +348,20 @@ export class VocablyTranslation {
     return (
       <Host data-test="translation-container">
         <div class="vocably-loading-container">
-          {this.result === null && <vocably-spinner></vocably-spinner>}
+          {this.result === null && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                gap: '12px',
+              }}
+            >
+              <vocably-spinner></vocably-spinner>
+              <div>...ChatGPT</div>
+            </div>
+          )}
           {this.result && this.result.success === false && (
             <div class="vocably-error">An error has occurred.</div>
           )}
