@@ -8,9 +8,11 @@ import {
   DetachTagPayload,
   DirectAnalyzePayload,
   GoogleLanguage,
+  LanguagePairs,
   RateInteractionPayload,
   RemoveCardPayload,
   Result,
+  ReverseAnalyzePayload,
   TranslationCards,
   UpdateTagPayload,
 } from '@vocably/model';
@@ -50,8 +52,16 @@ export const [isActive, onIsActiveRequest] = createScopedMessage<void, boolean>(
 export const [isEligibleForTrial, onIsEligibleForTrialRequest] =
   createScopedMessage<void, boolean>('isEligibleForTrial');
 
+type AnalyzePayload = (
+  | (Omit<DirectAnalyzePayload, 'targetLanguage'> &
+      Partial<DirectAnalyzePayload>)
+  | ReverseAnalyzePayload
+) & {
+  initiator: string;
+};
+
 export const [analyze, onAnalyzeRequest] = createScopedMessage<
-  Omit<DirectAnalyzePayload, 'targetLanguage'> & Partial<DirectAnalyzePayload>,
+  AnalyzePayload,
   Result<TranslationCards>
 >('analyze');
 
@@ -78,6 +88,11 @@ export const [getLocationLanguage, onGetLocationLanguageRequest] =
 
 export const [saveLocationLanguage, onSaveLocationLanguageRequest] =
   createScopedMessage<[string, GoogleLanguage], void>('saveLocationLanguage');
+
+export const [getLanguagePairs, onGetLanguagePairs] = createScopedMessage<
+  void,
+  LanguagePairs
+>('getLanguagePairs');
 
 export const [cleanUp, onCleanUpRequest] = createScopedMessage<
   TranslationCards,

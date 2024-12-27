@@ -1,0 +1,115 @@
+<form class="search-form" (submit)="$event.preventDefault(); submit()">
+  <div class="preset mb-0_5">
+    <select
+      class="language"
+      name="sourceLanguage"
+      [(ngModel)]="sourceLanguage"
+      (change)="sourceLanguageChange()"
+    >
+      <optgroup
+        label="Your Languages"
+        *ngIf="preferredSourceLanguages.length > 0"
+      >
+        <option
+          *ngFor="let language of preferredSourceLanguages"
+          [value]="language"
+        >
+          {{ languageName(language) }}
+        </option>
+      </optgroup>
+      <optgroup label="Available Languages">
+        <option
+          *ngFor="let language of availableSourceLanguages"
+          [value]="language"
+        >
+          {{ languageName(language) }}
+        </option>
+      </optgroup>
+    </select>
+    <div>
+      <button
+        type="button"
+        class="direction"
+        [class.reversed]="isReversed"
+        (click)="isReversed = !isReversed; change()"
+      >
+        <mat-icon class="icon">arrow_forward</mat-icon>
+      </button>
+    </div>
+    <select
+      class="language"
+      name="targetLanguage"
+      [(ngModel)]="targetLanguage"
+      (change)="change()"
+    >
+      <optgroup
+        label="Your Languages"
+        *ngIf="preferredTargetLanguages.length > 0"
+      >
+        <option
+          *ngFor="let language of preferredTargetLanguages"
+          [value]="language"
+        >
+          {{ languageName(language) }}
+        </option>
+      </optgroup>
+      <optgroup label="Available Languages">
+        <option
+          *ngFor="let language of availableTargetLanguages"
+          [value]="language"
+        >
+          {{ languageName(language) }}
+        </option>
+      </optgroup>
+    </select>
+  </div>
+  <div class="search-input">
+    <input
+      class="input"
+      type="text"
+      name="searchText"
+      [placeholder]="getPlaceholderText()"
+      [(ngModel)]="searchText"
+      (focus)="textInputFocused = true"
+      (blur)="textInputFocused = false"
+    />
+    <button
+      class="submit"
+      type="submit"
+      [disabled]="isSearching || searchText.trim() === ''"
+    >
+      <mat-icon class="magnify" [class.animating]="isSearching"
+        >search</mat-icon
+      >
+    </button>
+  </div>
+  <div *ngIf="!hideHint" style="margin-top: 1rem" class="muted">
+    <style>
+      .reverse-search-hint-icon {
+        vertical-align: middle;
+        top: -0.1rem;
+        position: relative;
+        cursor: pointer;
+        transition: color 0.3s ease-in-out;
+
+        &:hover {
+          color: var(--emphasize-color);
+        }
+      }
+    </style>
+    <ng-container *ngIf="!isReversed">
+      Want to search for {{ languageName(sourceLanguage) }} cards in
+      {{ languageName(targetLanguage) }}? Just click the arrow button
+      <mat-icon class="reverse-search-hint-icon" (click)="isReversed = true"
+        >arrow_forward</mat-icon
+      >
+    </ng-container>
+    <ng-container *ngIf="isReversed">
+      Click
+      <mat-icon class="reverse-search-hint-icon" (click)="isReversed = false"
+        >arrow_back</mat-icon
+      >
+      button to search for cards in {{ languageName(sourceLanguage) }}.
+    </ng-container>
+  </div>
+</form>

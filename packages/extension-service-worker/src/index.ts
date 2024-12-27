@@ -21,6 +21,7 @@ import {
   onGetAudioPronunciation,
   onGetInternalProxyLanuage,
   onGetInternalSourceLanguage,
+  onGetLanguagePairs,
   onGetLocationLanguageRequest,
   onGetProxyLanguage,
   onGetSettingsRequest,
@@ -74,7 +75,10 @@ import { getUserAttributes } from './getUserAttributes';
 import { addLanguage, getUserLanguages, removeLanguage } from './languageList';
 import { getLastUsedTagsIds, saveLastUsedTagsIds } from './lastUsedTagsIds';
 import { getLocationLanguage, storeLocationLanguage } from './locationLanguage';
-import { getLanguagePair } from './selectedLanguage/languagePairs';
+import {
+  getLanguagePair,
+  languagePairs,
+} from './selectedLanguage/languagePairs';
 import {
   getProxyLanguage,
   setProxyLanguage,
@@ -805,5 +809,9 @@ export const registerServiceWorker = (
         }),
       },
     });
+  });
+
+  onGetLanguagePairs(async (sendResponse) => {
+    return sendResponse(languagePairs);
   });
 };

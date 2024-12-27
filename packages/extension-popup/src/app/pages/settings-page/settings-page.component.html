@@ -1,0 +1,72 @@
+<div class="header">
+  <a [routerLink]="['/']"><mat-icon>arrow_back</mat-icon> Back</a>
+  <h1>Extension Settings</h1>
+</div>
+<ng-container *ngIf="settings$ | async as settings">
+  <p class="mb-1">
+    <label>
+      <input
+        type="checkbox"
+        [checked]="settings.showOnDoubleClick"
+        (change)="
+          setSettings({
+            showOnDoubleClick: !settings.showOnDoubleClick
+          })
+        "
+      />
+      Display the translations on double-click.
+    </label>
+  </p>
+
+  <p class="mb-1">
+    <label>
+      <input
+        type="checkbox"
+        [checked]="settings.autoPlay"
+        (change)="
+          setSettings({
+            autoPlay: !settings.autoPlay
+          })
+        "
+      />
+      Automatically play audio pronunciation.
+    </label>
+  </p>
+
+  <p class="mb-1">
+    <label>
+      <input
+        type="checkbox"
+        [checked]="settings.hideSelectionButton"
+        (change)="
+          setSettings({
+            hideSelectionButton: !settings.hideSelectionButton
+          })
+        "
+      />
+      Don't show the Vocably button when text is selected (use the right-click
+      context menu instead).
+    </label>
+  </p>
+
+  <div>
+    <button class="link" (click)="showQRCode = true">
+      Install the mobile app
+    </button>
+    to study your cards.
+  </div>
+  <div class="qr-code" [class.visible]="showQRCode">
+    <p class="mt-1 mb-1">Scan the below QR code with your phone:</p>
+    <vocably-qr-code style="width: 200px"></vocably-qr-code>
+    <div>
+      Or open this link on your mobile:<br />
+      <strong>https://vocably.pro/app.html</strong>
+    </div>
+  </div>
+  <div class="mt-1">
+    Want to <span style="color: var(--emphasize-color)">import</span> or
+    <span style="color: var(--emphasize-color)">export</span> your cards? You
+    can
+    <a href="https://app.vocably.pro" target="_blank">do it in the web app</a>.
+  </div>
+</ng-container>

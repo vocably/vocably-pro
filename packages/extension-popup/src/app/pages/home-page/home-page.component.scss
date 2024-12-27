@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .settings {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: auto;
+    text-decoration: none;
+    gap: 0.2rem;
+  }
+}
+
+.qr-code {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+
+  &.visible {
+    max-height: 400px;
+  }
+}
+
+.search-result {
+  display: block;
+  max-width: inherit;
+}
+
+.floating-loading {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+  backdrop-filter: blur(3px);
+}

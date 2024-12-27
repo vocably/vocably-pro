@@ -30,7 +30,7 @@ export const isDirectAnalyzePayload = (o: any): o is DirectAnalyzePayload => {
 };
 
 export const isReverseAnalyzePayload = (o: any): o is DirectAnalyzePayload => {
-  return !(!o || !o.target || !o.targetLanguage || !o.targetLanguage);
+  return !(!o || !o.target || !o.sourceLanguage || !o.targetLanguage);
 };
 
 export type AnalysisItem = {

@@ -1,14 +1,7 @@
-import { GoogleLanguage } from '@vocably/model';
+import { GoogleLanguage, LanguagePair, LanguagePairs } from '@vocably/model';
 import { browserEnv } from '../browserEnv';
 
-type LanguagePair = {
-  currentTargetLanguage: GoogleLanguage;
-  possibleTargetLanguages: GoogleLanguage[];
-};
-
-type LanguagePairs = Partial<Record<GoogleLanguage, LanguagePair>>;
-
-const languagePairs: LanguagePairs = {};
+export const languagePairs: LanguagePairs = {};
 
 // Load language pairs
 (async () => {

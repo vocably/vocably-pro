@@ -66,7 +66,13 @@ export const setContents = async ({
     }: AnalyzePayload = {}) => {
       translation.loading = true;
       api
-        .analyze({ source, sourceLanguage, targetLanguage, context })
+        .analyze({
+          source,
+          sourceLanguage,
+          targetLanguage,
+          context,
+          initiator: 'content-script',
+        })
         .finally(() => {
           translation.loading = false;
         })

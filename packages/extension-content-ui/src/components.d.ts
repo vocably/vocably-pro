@@ -114,6 +114,7 @@ export namespace Components {
         "existingSourceLanguages": GoogleLanguage[];
         "existingTargetLanguages": GoogleLanguage[];
         "extensionPlatform": { name: string; url: string };
+        "hideChatGpt": boolean;
         "isUpdating": TranslationCard | null;
         "loading": boolean;
         "phrase": string;
@@ -122,6 +123,7 @@ export namespace Components {
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
         "result": Result<TranslationCards> | null;
+        "showLanguages": boolean;
         "showSaveHint": boolean;
         "sourceLanguage": string;
         "targetLanguage": string;
@@ -511,6 +513,7 @@ declare namespace LocalJSX {
         "existingSourceLanguages"?: GoogleLanguage[];
         "existingTargetLanguages"?: GoogleLanguage[];
         "extensionPlatform"?: { name: string; url: string };
+        "hideChatGpt"?: boolean;
         "isUpdating"?: TranslationCard | null;
         "loading"?: boolean;
         "onAddCard"?: (event: VocablyTranslationCustomEvent<AddCardPayload>) => void;
@@ -523,6 +526,7 @@ declare namespace LocalJSX {
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
         "result"?: Result<TranslationCards> | null;
+        "showLanguages"?: boolean;
         "showSaveHint"?: boolean;
         "sourceLanguage"?: string;
         "targetLanguage"?: string;

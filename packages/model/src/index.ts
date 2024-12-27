@@ -6,6 +6,7 @@ export * from './errors';
 export * from './language';
 export * from './language-deck';
 export * from './language-list';
+export * from './language-pairs';
 export * from './onboarding';
 export { isError, isSuccess, Result, resultify } from './result';
 export * from './sorted-languages';

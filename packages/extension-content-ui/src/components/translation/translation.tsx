@@ -70,6 +70,8 @@ export class VocablyTranslation {
     data: DeleteTagPayload
   ) => Promise<Result<TranslationCards>>;
   @Prop({ mutable: true }) disabled = false;
+  @Prop() showLanguages: boolean = true;
+  @Prop() hideChatGpt: boolean = false;
 
   @Event() ratingInteraction: EventEmitter<RateInteractionPayload>;
 
@@ -337,7 +339,8 @@ export class VocablyTranslation {
       </select>
     );
 
-    const showDirect =
+    const showChatGpt =
+      !this.hideChatGpt &&
       this.result &&
       this.result.success &&
       isDirectNecessary(this.result.value);
@@ -353,16 +356,18 @@ export class VocablyTranslation {
             <Fragment>
               <div class="vocably-translation" data-test="translation">
                 <div class="vocably-translation-section">
-                  <div class="vocably-mb-12 vocably-language-selector">
-                    <div class="vocably-language-wrapper">
-                      {sourceLanguageSelector}
+                  {this.showLanguages && (
+                    <div class="vocably-mb-12 vocably-language-selector">
+                      <div class="vocably-language-wrapper">
+                        {sourceLanguageSelector}
+                      </div>
+                      <vocably-icon-arrow-right class="vocably-from-to"></vocably-icon-arrow-right>
+                      <div class="vocably-language-wrapper">
+                        {targetLanguageSelector}
+                      </div>
                     </div>
-                    <vocably-icon-arrow-right class="vocably-from-to"></vocably-icon-arrow-right>
-                    <div class="vocably-language-wrapper">
-                      {targetLanguageSelector}
-                    </div>
-                  </div>
-                  {showDirect && (
+                  )}
+                  {showChatGpt && (
                     <div class="vocably-mb-12">
                       <div class="vocably-small vocably-muted vocably-mb-4">
                         ChatGPT thinks that{' '}

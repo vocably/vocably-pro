@@ -1,3 +1,43 @@
 @import 'styles/reset';
 @import 'styles/theme';
 @import '@vocably/styles/utils';
+
+@import '@vocably/styles/mixins/unstyled';
+@import '@vocably/styles/mixins/link';
+@import '@vocably/styles/mixins/button';
+
+body,
+html {
+  background-color: $v-light-color-body-bg;
+}
+
+h1 {
+  font-family: Ruda, sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: $v-light-color-emphasize;
+}
+
+.container {
+  padding: 1rem;
+  min-width: 240px;
+}
+
+.link {
+  @include unstyled();
+  @include link();
+}
+
+.button {
+  @include button();
+}
+
+.qr-code {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+
+  &.visible {
+    max-height: 400px;
+  }
+}

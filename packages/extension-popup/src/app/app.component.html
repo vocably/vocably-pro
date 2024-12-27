@@ -1,101 +1,22 @@
 <div class="container">
-  <app-header class="mb-1"></app-header>
-
-  <ng-container *ngIf="isLoggedIn$ | async; else loggedOut">
-    <div class="mb-1" *ngIf="needsOnboarding$ | async">
-      <div class="mb-1">
-        Click this button if you're not sure what to do next:
-      </div>
-      <div>
-        <a
-          [href]="welcomeUrl"
-          target="_blank"
-          class="button block"
-          style="white-space: nowrap"
-          >Let's set you up</a
-        >
-      </div>
-    </div>
-
-    <ng-container *ngIf="settings$ | async as settings">
-      <p class="mb-1">
-        <label>
-          <input
-            type="checkbox"
-            [checked]="settings.showOnDoubleClick"
-            (change)="
-              setSettings({
-                showOnDoubleClick: !settings.showOnDoubleClick
-              })
-            "
-          />
-          Display the translations on double-click.
-        </label>
-      </p>
-
-      <p class="mb-1">
-        <label>
-          <input
-            type="checkbox"
-            [checked]="settings.autoPlay"
-            (change)="
-              setSettings({
-                autoPlay: !settings.autoPlay
-              })
-            "
-          />
-          Automatically play audio pronunciation.
-        </label>
-      </p>
-
-      <p class="mb-1">
-        <label>
-          <input
-            type="checkbox"
-            [checked]="settings.hideSelectionButton"
-            (change)="
-              setSettings({
-                hideSelectionButton: !settings.hideSelectionButton
-              })
-            "
-          />
-          Don't show the Vocably button when text is selected (use the
-          right-click context menu instead).
-        </label>
-      </p>
-    </ng-container>
-
-    <div>
-      <button class="link" (click)="showQRCode = true">
-        Install the mobile app
-      </button>
-      to study your cards.
-    </div>
-    <div class="pt-1 qr-code" [class.visible]="showQRCode">
-      <p class="mb-1">Scan the below QR code with your phone:</p>
-      <vocably-qr-code style="width: 200px"></vocably-qr-code>
-      <p>
-        Or open this link on your mobile:<br />
-        <strong>https://vocably.pro/app.html</strong>
-      </p>
-    </div>
+  <ng-container *ngIf="isLoggedIn === 'undefined'"
+    ><ion-spinner name="dots"></ion-spinner> Checking auth status
   </ng-container>
-  <ng-template #loggedOut>
-    <div>
-      <p class="mb-1">
-        This extension translates the selected text and creates flashcards.
-      </p>
-      <p class="mb-1">
-        The flashcards will be available on your mobile device.
-      </p>
-      <p class="mb-1">You need to be signed in to use Vocably.</p>
-      <a
-        [href]="loginUrl"
-        target="_blank"
-        class="button block"
-        style="white-space: nowrap"
-        >Let's start</a
-      >
-    </div>
-  </ng-template>
+  <ng-container *ngIf="isLoggedIn === 'yes'">
+    <router-outlet></router-outlet>
+  </ng-container>
+  <div *ngIf="isLoggedIn === 'no'">
+    <p class="mb-1">
+      This extension translates the selected text and creates flashcards.
+    </p>
+    <p class="mb-1">The flashcards will be available on your mobile device.</p>
+    <p class="mb-1">You need to be signed in to use Vocably.</p>
+    <a
+      [href]="loginUrl"
+      target="_blank"
+      class="button block"
+      style="white-space: nowrap"
+      >Sign in or create account</a
+    >
+  </div>
 </div>
