@@ -14,8 +14,9 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   constructor(auth: AuthService, router: Router) {
     auth.isLoggedIn$
       .pipe(take(1), takeUntil(this.destroy$))
-      .subscribe((isLoggedIn) => {
+      .subscribe(async (isLoggedIn) => {
         if (isLoggedIn) {
+          await auth.refreshToken();
           router.navigate(['/'], { replaceUrl: true }).then();
         }
       });
