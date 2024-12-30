@@ -5,6 +5,7 @@ const defaultSettings: ExtensionSettings = {
   showOnDoubleClick: false,
   autoPlay: false,
   hideSelectionButton: false,
+  autodetectLanguage: false,
 };
 
 export const getSettings = async (): Promise<ExtensionSettings> => {

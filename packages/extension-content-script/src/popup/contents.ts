@@ -35,6 +35,7 @@ export const setContents = async ({
   autoPlay,
 }: Options): Promise<TearDown> => {
   let intervalId: ReturnType<typeof setInterval> | null = null;
+  let explicitlySetLanguage: GoogleLanguage | null = null;
 
   const tearDown = () => {
     if (intervalId !== null) {
@@ -179,7 +180,7 @@ export const setContents = async ({
     );
 
     analyze({
-      sourceLanguage: detectedLanguage,
+      sourceLanguage: explicitlySetLanguage ?? detectedLanguage,
     });
 
     popup.innerHTML = '';
@@ -260,6 +261,7 @@ export const setContents = async ({
         languageForm.addEventListener('confirm', async (event: CustomEvent) => {
           languageForm.waiting = true;
           const { sourceLanguage, targetLanguage } = event.detail;
+          explicitlySetLanguage = sourceLanguage;
           await Promise.all([
             api.setInternalSourceLanguage(sourceLanguage),
             api.setInternalProxyLanguage(targetLanguage),

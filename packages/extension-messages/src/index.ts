@@ -33,6 +33,7 @@ export type ExtensionSettings = {
   showOnDoubleClick: boolean;
   autoPlay: boolean;
   hideSelectionButton: boolean;
+  autodetectLanguage: boolean;
 };
 
 export const [getSettings, onGetSettingsRequest] = createScopedMessage<

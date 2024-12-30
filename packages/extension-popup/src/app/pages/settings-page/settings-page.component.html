@@ -3,6 +3,25 @@
   <h1>Extension Settings</h1>
 </div>
 <ng-container *ngIf="settings$ | async as settings">
+  <p class="mb-0_5">
+    <label>
+      <input
+        type="checkbox"
+        [checked]="settings.autodetectLanguage"
+        (change)="
+          setSettings({
+            autodetectLanguage: !settings.autodetectLanguage
+          })
+        "
+      />
+      Automatically detect website language.
+    </label>
+  </p>
+  <p class="mb-1 small" style="max-width: 500px">
+    Automatic language detection isn’t 100% accurate and might confuse
+    inexperienced users. However, it can be a handy feature for people actively
+    studying multiple languages.
+  </p>
   <p class="mb-1">
     <label>
       <input

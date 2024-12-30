@@ -176,6 +176,8 @@ registerContentScript({
           hideSelectionButton: (
             document.getElementById('hideSelectionButton') as HTMLInputElement
           ).checked,
+
+          autodetectLanguage: false,
         });
       }),
 

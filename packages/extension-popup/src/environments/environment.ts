@@ -21,6 +21,7 @@ let settings: ExtensionSettings = {
   showOnDoubleClick: true,
   autoPlay: true,
   hideSelectionButton: true,
+  autodetectLanguage: false,
 };
 
 const timeout = async (ms: number) => {

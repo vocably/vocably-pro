@@ -30,6 +30,15 @@ export const detectLanguage = async (
     return locationLanguage;
   }
 
+  const [{ autodetectLanguage }, sourceLanguage] = await Promise.all([
+    api.getSettings(),
+    api.getInternalSourceLanguage(),
+  ]);
+
+  if (!autodetectLanguage && sourceLanguage) {
+    return sourceLanguage;
+  }
+
   if (isSelection(anchor)) {
     return getNodeLanguage(anchor.anchorNode);
   }
