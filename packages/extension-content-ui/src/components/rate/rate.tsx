@@ -16,24 +16,14 @@ export class VocablyRate {
     return (
       <Host>
         <div>
-          <strong>Your rating means a lot.</strong>
+          <strong>
+            It will take less than a minute, but will mean a lot for Vocably.
+          </strong>
         </div>
         <div class="vocably-mt-12">
-          Your positive review or rating on the {this.platform.name}
+          Do you find Vocably useful? Your rating on the {this.platform.name}
           <br />
-          will make a huge difference for this project.
-        </div>
-        <div class="vocably-mt-12">
-          If something's missing or not to your liking,{' '}
-          <a
-            href="https://app.vocably.pro/feedback"
-            target="_blank"
-            class="vocably-link-button"
-            onClick={() => this.userSelected.emit('feedback')}
-          >
-            let me know
-          </a>
-          .<br /> I take all feedback seriously.
+          will make a big difference for this project.
         </div>
         <div class="vocably-mt-12">
           <a
@@ -42,7 +32,7 @@ export class VocablyRate {
             class="vocably-button"
             onClick={() => this.userSelected.emit('review')}
           >
-            Yes, I want to rate Vocably
+            OK, rate Vocably
           </a>
           <button
             class="vocably-link-button"
@@ -52,11 +42,25 @@ export class VocablyRate {
           </button>
         </div>
         <div class="vocably-mt-12">
+          Don't you like anything about Vocably? Then please{' '}
+          <a
+            href="https://app.vocably.pro/feedback"
+            target="_blank"
+            class="vocably-link-button"
+            onClick={() => this.userSelected.emit('feedback')}
+          >
+            contact the author
+          </a>
+          .<br /> I take every feedback seriously. We can improve this project
+          together.
+        </div>
+        <div class="vocably-mt-12">
+          You will see this message again after 10 translations.
           <button
             class="vocably-link-button vocably-text-link vocably-small"
             onClick={() => this.userSelected.emit('never')}
           >
-            Please stop asking me about this.
+            Never show this message again.
           </button>
         </div>
       </Host>
