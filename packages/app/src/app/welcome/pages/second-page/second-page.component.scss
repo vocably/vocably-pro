@@ -7,6 +7,6 @@
   font-size: 140%;
 }
 
-.text-example > *:last-child {
+.text-example ::ng-deep *:last-child {
   margin-bottom: 0;
 }

@@ -122,6 +122,11 @@ export class SecondPageComponent implements OnInit, OnDestroy {
             'ja',
             'nl',
             'pt',
+            'ko',
+            'da',
+            'sv',
+            'no',
+            'tr',
           ].includes(params['sourceLanguage']);
 
           if (!exampleExists) {
