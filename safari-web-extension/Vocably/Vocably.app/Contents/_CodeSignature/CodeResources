@@ -18,15 +18,15 @@
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<data>
-		lbohlwOIjfyYw+2sqWwWCU5G+Dk=
+		kGBB49l9+JnzNkC5RH+60Kh3PCc=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<data>
-		P7TdeaEZSJ8lym7Mno/xgLe71DI=
+		lEC2qEVfxwZBI8/Nfng9iArBYsY=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-B8D-0N-5wS.nib</key>
 		<data>
-		VMDnca2iS08dfEOcz9aI9K2RI7o=
+		qHlDpZgNClZfZleX3nW01obm6hc=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<data>
@@ -204,7 +204,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			iaFt715M+lBbKZ/58D/oYqQ11k4=
+			FQuCPoVUEPgO+lpHFCZPb/2obIU=
 			</data>
 			<key>requirement</key>
 			<string>identifier "pro.vocably.Vocably.Extension" and anchor apple generic and certificate leaf[subject.CN] = "Apple Development: Dmytro Snisarenko (X2D37S38M5)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
@@ -234,21 +234,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			JSDFAhf1tVXTdHhUkVGAj28H3ufVGhwGzq9yqWTuEL4=
+			5TbnxsNUlR3OVODcxOLrnSUOrMvt7Qpjw3EDNUWFooA=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			XMDYRnKx1WvhT2mnCr5U86IBGY63M8hgKXKlIP8u3Rw=
+			88S5rbq3g7/RZd/9NnNUKeE57FScVaGP53XCStdbU2E=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-B8D-0N-5wS.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			K89MLvxhtpruRq/GNG81eelwH0/kT5arIrGDhcW11Mg=
+			MjpN9g4qL2EduJlWwCs4dOktYIadqEeiB5CwPAho45E=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
