@@ -1,4 +1,11 @@
-import { GoogleLanguage, Result, Translation } from '@vocably/model';
+import {
+  GoogleLanguage,
+  isChatGPTLanguage,
+  Result,
+  Translation,
+} from '@vocably/model';
+import { aiDirectTranslate } from './aiDirectTranslate';
+import { fallback } from './fallback';
 import { googleTranslate } from './googleTranslate';
 import {
   isContextPayload,
@@ -23,6 +30,19 @@ export const translate = async (
       success: true,
       value: {
         source: payload.source,
+        target: payload.target ?? payload.source,
+        sourceLanguage: payload.sourceLanguage,
+        targetLanguage: payload.targetLanguage,
+        partOfSpeech: payload.partOfSpeech,
+      },
+    };
+  }
+
+  if (payload.sourceLanguage === payload.targetLanguage) {
+    return {
+      success: true,
+      value: {
+        source: payload.source,
         target: payload.target,
         sourceLanguage: payload.sourceLanguage,
         targetLanguage: payload.targetLanguage,
@@ -31,7 +51,7 @@ export const translate = async (
     };
   }
 
-  if (!isContextPayload(payload) || !itMakesSense(payload)) {
+  if (!isChatGPTLanguage(payload.sourceLanguage)) {
     return googleTranslate(
       payload.source,
       payload.sourceLanguage,
@@ -39,14 +59,27 @@ export const translate = async (
     );
   }
 
-  const contextTranslation = await translateFromContext(payload);
-  if (contextTranslation.success === true) {
-    return contextTranslation;
+  if (!isContextPayload(payload) || !itMakesSense(payload)) {
+    return fallback(
+      aiDirectTranslate({
+        sourceLanguage: payload.sourceLanguage,
+        source: payload.source,
+        targetLanguage: payload.targetLanguage,
+      }),
+      () =>
+        googleTranslate(
+          payload.source,
+          payload.sourceLanguage,
+          payload.targetLanguage
+        )
+    );
   }
 
-  return googleTranslate(
-    payload.source,
-    payload.sourceLanguage,
-    payload.targetLanguage
+  return fallback(translateFromContext(payload), () =>
+    googleTranslate(
+      payload.source,
+      payload.sourceLanguage,
+      payload.targetLanguage
+    )
   );
 };

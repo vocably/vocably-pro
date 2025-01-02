@@ -68,7 +68,7 @@ export const buildDirectResult = async ({
 
   const trimmedArticle = trimArticle(
     translation.sourceLanguage,
-    payload.source
+    translation.source
   );
 
   const numberOfWords = getWords(trimmedArticle.source).length;
@@ -156,8 +156,8 @@ export const buildDirectResult = async ({
           await Promise.all(
             filterOutByPartOfSpeech(
               lexicalaResult.value
-                .map(normalizeHeadword(payload.source))
-                .filter(fitsTheSize(payload.source))
+                .map(normalizeHeadword(translation.source))
+                .filter(fitsTheSize(translation.source))
                 .filter(
                   lexicalaItemHasDefinitionOrCanBeTranslated(translation)
                 ),

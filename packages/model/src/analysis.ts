@@ -11,7 +11,7 @@ export type Translation = {
 export type DirectAnalyzePayload = {
   source: string;
   target?: string;
-  sourceLanguage?: GoogleLanguage;
+  sourceLanguage: GoogleLanguage;
   targetLanguage: GoogleLanguage;
   partOfSpeech?: string;
   context?: string;

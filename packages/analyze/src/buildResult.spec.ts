@@ -11,14 +11,6 @@ describe('integration check for translate lambda', () => {
     return;
   }
 
-  it('execute translate lambda', async () => {
-    const result = await buildResult({
-      source: 'dankjewel',
-      targetLanguage: 'en',
-    });
-    expect(result.success).toEqual(true);
-  });
-
   it('translates texts as is when language does not supported by lexicala', async () => {
     const result = await buildResult({
       source: 'labas rytas',
@@ -33,23 +25,6 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.source).toEqual('labas rytas');
     expect(result.value.translation).toBeDefined();
-  });
-
-  it('skips translation when source language equals to target language', async () => {
-    const result = await buildResult({
-      source: 'asylum',
-      targetLanguage: 'en',
-    });
-
-    expect(result.success).toBeTruthy();
-    if (result.success === false) {
-      return;
-    }
-
-    expect(result.value.source).toEqual('asylum');
-    expect(result.value.translation).toBeDefined();
-    expect(result.value.items.length).toBeGreaterThan(0);
-    expect(result.value.items[0].translation).toEqual('');
   });
 
   it('adds articles and takes translations from lexicala (nl)', async () => {
@@ -127,9 +102,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.items.length).toEqual(4);
     expect(result.value.items[0].source).toEqual('de regeling');
-    expect(result.value.items[0].translation).toEqual(
-      'регулирование, расположение'
-    );
+    expect(result.value.items[0].translation).toEqual('регулирование');
   });
 
   it('skips analyze when source is more than one word', async () => {
@@ -151,7 +124,7 @@ describe('integration check for translate lambda', () => {
       {
         source: 'vijf dagen',
         translation: 'five days',
-        partOfSpeech: undefined,
+        partOfSpeech: 'noun',
         definitions: [],
         examples: [],
       },
@@ -273,8 +246,8 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    expect(result.value.items[0].translation).toEqual('his');
-    expect(result.value.items[1].translation).toEqual('be, become');
+    expect(result.value.items[0].translation).toEqual('be, become, to be');
+    expect(result.value.items[1].translation).toEqual('his');
   });
 
   it('adds romaji for japanese multi translation', async () => {
@@ -536,8 +509,8 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    expect(result.value.items[0].ipa).toEqual('nǐhǎo');
-    expect(result.value.items[0].translation).toEqual('привет');
+    expect(result.value.items[1].ipa).toEqual('nǐhǎo');
+    expect(result.value.items[1].translation).toEqual('привет');
   });
 
   it('provides context translation', async () => {
@@ -656,6 +629,36 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.items[0].source).toEqual('get along');
     expect(result.value.items[0].translation).toEqual('ладить');
+    expect(result.value.items[0].definitions.length).toBeGreaterThan(0);
+  });
+
+  it('fixes diacritic marks', async () => {
+    const result = await buildResult({
+      source: 'frere',
+      sourceLanguage: 'fr',
+      targetLanguage: 'ru',
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    expect(result.value.items[0].source).toEqual('frère');
+    expect(result.value.items[0].translation).toEqual('брат');
+    expect(result.value.items[0].definitions.length).toBeGreaterThan(0);
+  });
+
+  it('fixes spelling', async () => {
+    const result = await buildResult({
+      source: 'sissors',
+      sourceLanguage: 'en',
+      targetLanguage: 'uk',
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    expect(result.value.items[0].source).toEqual('scissors');
+    expect(result.value.items[0].translation).toEqual('ножиці');
     expect(result.value.items[0].definitions.length).toBeGreaterThan(0);
   });
 });
