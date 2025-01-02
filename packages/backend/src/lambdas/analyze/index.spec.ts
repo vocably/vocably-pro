@@ -195,7 +195,7 @@ describe('integration check for translate lambda', () => {
         translation: 'five days',
         examples: [],
         definitions: [],
-        partOfSpeech: undefined,
+        partOfSpeech: 'noun',
       },
     ]);
   });
@@ -274,8 +274,8 @@ describe('integration check for translate lambda', () => {
     const result = await analyze(mockEvent);
     expect(result.statusCode).toEqual(200);
     const resultBody: DirectAnalysis = JSON.parse(result.body);
-    expect(resultBody.items[0].translation).toHaveSomeOf('his');
-    expect(resultBody.items[1].translation).toHaveSomeOf('be, become');
+    expect(resultBody.items[0].translation).toHaveSomeOf('be, become, to be');
+    expect(resultBody.items[1].translation).toHaveSomeOf('his');
   });
 
   it('provides context translation', async () => {
