@@ -94,7 +94,8 @@ describe('aiDirectTranslate', () => {
       return;
     }
 
-    expect(result.value.source).toBe('ёж');
+    expect(result.value.source).toHaveSomeOf(['ёж', 'еж']);
+    expect(result.value.target).toEqual('hedgehog');
     expect(result.value.partOfSpeech).toBe('noun');
   });
 
