@@ -41,7 +41,7 @@ export const OnboardingSlider: FC<Props> = () => {
         >
           <Text style={{ fontSize: 22 }}>
             Do you see a new English word while surfing the web in Mobile
-            Safari? Translate it with Vocably for Safari extension!
+            Safari? Translate it with Vocably extension for Safari!
           </Text>
           <IPhone style={{ height: 350 }}>
             <View
