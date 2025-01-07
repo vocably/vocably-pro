@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { FC, useRef } from 'react';
-import { ScrollView, useWindowDimensions, View } from 'react-native';
-import { Button, Divider, Text, useTheme } from 'react-native-paper';
+import { useWindowDimensions, View } from 'react-native';
+import { Divider, Text, useTheme } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import { CardListItem } from './CardListItem';
 import { IPhone } from './iPhone';
@@ -17,12 +17,6 @@ export const OnboardingSlider: FC<Props> = () => {
   const swiperRef = useRef<Swiper>(null);
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
-  const selectOption = (optionName: string) => {
-    if (!swiperRef.current) {
-      return;
-    }
-  };
-
   const theme = useTheme();
   const sliderHeight = Math.min(windowHeight * 0.8, 600);
   const slideHeight = sliderHeight - 60;
@@ -32,85 +26,63 @@ export const OnboardingSlider: FC<Props> = () => {
       <Swiper loop={false} showsPagination={true} ref={swiperRef}>
         <View
           style={{
-            display: 'flex',
+            height: slideHeight,
             alignItems: 'center',
             justifyContent: 'center',
-            height: slideHeight,
             gap: 24,
+            padding: 12,
           }}
         >
-          <Text style={{ fontSize: 22 }}>
-            Do you see a new English word while surfing the web in Mobile
-            Safari? Translate it with Vocably extension for Safari!
+          <Text style={{ fontSize: 22, textAlign: 'center' }}>
+            You don't have flashcards yet.
           </Text>
-          <IPhone style={{ height: 350 }}>
-            <View
-              pointerEvents="none"
-              style={{ marginTop: 64, alignItems: 'center', gap: 24 }}
-            >
-              <View
-                style={{
-                  backgroundColor: theme.colors.surfaceVariant,
-                  paddingHorizontal: 16,
-                  borderRadius: 16,
-                }}
-              >
-                <CardListItem
-                  card={{
-                    source: 'something',
-                    definition: '',
-                    example: '',
-                    ipa: 'something',
-                    partOfSpeech: 'noun',
-                    tags: [],
-                    language: 'en',
-                    translation: 'Something',
-                  }}
-                />
-                <Divider bold={true} />
-                <CardListItem
-                  card={{
-                    source: 'something',
-                    definition: '',
-                    example: '',
-                    ipa: 'something',
-                    partOfSpeech: 'noun',
-                    tags: [],
-                    language: 'en',
-                    translation: 'Something',
-                  }}
-                />
-              </View>
 
-              <View>
-                <Text style={{ fontSize: 36 }}>
-                  {stringExample
-                    .split('*')
-                    .map((part, index) =>
-                      index === 1 ? (
-                        <Text style={{ backgroundColor: '#2C9FD9' }}>
-                          {part}
-                        </Text>
-                      ) : (
-                        part
-                      )
-                    )}
-                </Text>
-              </View>
-            </View>
-          </IPhone>
+          <Text style={{ fontSize: 18, textAlign: 'center' }}>But...</Text>
 
-          <Text
+          <Text style={{ fontSize: 22, textAlign: 'center' }}>
+            Vocably translates anything and makes flashcards like this one:
+          </Text>
+          <View
             style={{
-              fontSize: 18,
-              textAlign: 'center',
+              borderWidth: 1,
+              borderRadius: 16,
+              paddingHorizontal: 16,
+              borderColor: theme.colors.secondary,
+              backgroundColor: theme.colors.surfaceVariant,
+            }}
+          >
+            <CardListItem
+              card={{
+                source: 'something',
+                definition: '',
+                example: '',
+                ipa: 'something',
+                partOfSpeech: 'noun',
+                tags: [],
+                language: 'en',
+                translation: 'Something',
+              }}
+            />
+          </View>
+          <Text style={{ fontSize: 22, textAlign: 'center' }}>
+            You can practice your flashcards with spaced repetition system.
+          </Text>
+          <View
+            style={{
               borderBottomWidth: 1,
               borderBottomColor: theme.colors.onBackground,
             }}
-            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
           >
-            Next →
-          </Text>
+            <Text
+              style={{
+                fontSize: 18,
+                textAlign: 'center',
+              }}
+              onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
+            >
+              Swipe to learn more →
+            </Text>
+          </View>
         </View>
         <View
           style={{
@@ -275,91 +247,86 @@ export const OnboardingSlider: FC<Props> = () => {
         </View>
         <View
           style={{
-            height: slideHeight,
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            height: slideHeight,
             gap: 24,
-            padding: 12,
           }}
         >
-          <Text style={{ fontSize: 22, textAlign: 'center' }}>
-            You don't have flashcards yet.
+          <Text style={{ fontSize: 22 }}>
+            Do you see a new English word while surfing the web in Mobile
+            Safari? Translate it with Vocably extension for Safari!
           </Text>
+          <IPhone style={{ height: 350 }}>
+            <View
+              pointerEvents="none"
+              style={{ marginTop: 64, alignItems: 'center', gap: 24 }}
+            >
+              <View
+                style={{
+                  backgroundColor: theme.colors.surfaceVariant,
+                  paddingHorizontal: 16,
+                  borderRadius: 16,
+                }}
+              >
+                <CardListItem
+                  card={{
+                    source: 'something',
+                    definition: '',
+                    example: '',
+                    ipa: 'something',
+                    partOfSpeech: 'noun',
+                    tags: [],
+                    language: 'en',
+                    translation: 'Something',
+                  }}
+                />
+                <Divider bold={true} />
+                <CardListItem
+                  card={{
+                    source: 'something',
+                    definition: '',
+                    example: '',
+                    ipa: 'something',
+                    partOfSpeech: 'noun',
+                    tags: [],
+                    language: 'en',
+                    translation: 'Something',
+                  }}
+                />
+              </View>
 
-          <Text style={{ fontSize: 18, textAlign: 'center' }}>But...</Text>
+              <View>
+                <Text style={{ fontSize: 36 }}>
+                  {stringExample
+                    .split('*')
+                    .map((part, index) =>
+                      index === 1 ? (
+                        <Text style={{ backgroundColor: '#2C9FD9' }}>
+                          {part}
+                        </Text>
+                      ) : (
+                        part
+                      )
+                    )}
+                </Text>
+              </View>
+            </View>
+          </IPhone>
 
-          <Text style={{ fontSize: 22, textAlign: 'center' }}>
-            Vocably translates anything and makes flashcards like this one:
-          </Text>
-          <View
+          <Text
             style={{
-              borderWidth: 1,
-              borderRadius: 16,
-              paddingHorizontal: 16,
-              borderColor: theme.colors.secondary,
-              backgroundColor: theme.colors.surfaceVariant,
-            }}
-          >
-            <CardListItem
-              card={{
-                source: 'something',
-                definition: '',
-                example: '',
-                ipa: 'something',
-                partOfSpeech: 'noun',
-                tags: [],
-                language: 'en',
-                translation: 'Something',
-              }}
-            />
-          </View>
-          <Text style={{ fontSize: 22, textAlign: 'center' }}>
-            You can practice your flashcards with spaced repetition system.
-          </Text>
-          <View
-            style={{
+              fontSize: 18,
+              textAlign: 'center',
               borderBottomWidth: 1,
               borderBottomColor: theme.colors.onBackground,
             }}
+            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
           >
-            <Text
-              style={{
-                fontSize: 18,
-                textAlign: 'center',
-              }}
-              onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
-            >
-              Swipe to learn more →
-            </Text>
-          </View>
+            Next →
+          </Text>
         </View>
-
-        <ScrollView
-          contentContainerStyle={{
-            height: slideHeight,
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 24,
-            padding: 12,
-          }}
-        >
-          <Text style={{ fontSize: 22, textAlign: 'center' }}>
-            Vocably will help you translate and learn English words you meet in
-            everyday life.
-          </Text>
-          <Text style={{ fontSize: 22, textAlign: 'center' }}>
-            How do you meet new words?
-          </Text>
-          <View style={{ gap: 12, width: '100%', alignItems: 'stretch' }}>
-            <Button mode="outlined">I surf websites</Button>
-            <Button mode="outlined">I live in a foreign country</Button>
-            <Button mode="outlined">I communicate with people</Button>
-            <Button mode="outlined">I attend offline language courses</Button>
-            <Button mode="outlined">I watch YouTube</Button>
-            <Button mode="outlined">Other</Button>
-            <Button mode="outlined">I don't know what to answer</Button>
-          </View>
-        </ScrollView>
       </Swiper>
     </View>
   );
