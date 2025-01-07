@@ -10,6 +10,8 @@ import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
 
 type Props = {};
 
+const stringExample = 'זה *משהו* חדש';
+
 export const OnboardingSlider: FC<Props> = () => {
   const navigation: any = useNavigation();
   const swiperRef = useRef<Swiper>(null);
@@ -28,6 +30,88 @@ export const OnboardingSlider: FC<Props> = () => {
   return (
     <View style={{ height: sliderHeight }}>
       <Swiper loop={false} showsPagination={true} ref={swiperRef}>
+        <View
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: slideHeight,
+            gap: 24,
+          }}
+        >
+          <Text style={{ fontSize: 22 }}>
+            Do you see a new English word while surfing the web in Mobile
+            Safari? Translate it with Vocably for Safari extension!
+          </Text>
+          <IPhone style={{ height: 350 }}>
+            <View
+              pointerEvents="none"
+              style={{ marginTop: 64, alignItems: 'center', gap: 24 }}
+            >
+              <View
+                style={{
+                  backgroundColor: theme.colors.surfaceVariant,
+                  paddingHorizontal: 16,
+                  borderRadius: 16,
+                }}
+              >
+                <CardListItem
+                  card={{
+                    source: 'something',
+                    definition: '',
+                    example: '',
+                    ipa: 'something',
+                    partOfSpeech: 'noun',
+                    tags: [],
+                    language: 'en',
+                    translation: 'Something',
+                  }}
+                />
+                <Divider bold={true} />
+                <CardListItem
+                  card={{
+                    source: 'something',
+                    definition: '',
+                    example: '',
+                    ipa: 'something',
+                    partOfSpeech: 'noun',
+                    tags: [],
+                    language: 'en',
+                    translation: 'Something',
+                  }}
+                />
+              </View>
+
+              <View>
+                <Text style={{ fontSize: 36 }}>
+                  {stringExample
+                    .split('*')
+                    .map((part, index) =>
+                      index === 1 ? (
+                        <Text style={{ backgroundColor: '#2C9FD9' }}>
+                          {part}
+                        </Text>
+                      ) : (
+                        part
+                      )
+                    )}
+                </Text>
+              </View>
+            </View>
+          </IPhone>
+
+          <Text
+            style={{
+              fontSize: 18,
+              textAlign: 'center',
+              borderBottomWidth: 1,
+              borderBottomColor: theme.colors.onBackground,
+            }}
+            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
+          >
+            Next →
+          </Text>
+        </View>
         <View
           style={{
             display: 'flex',

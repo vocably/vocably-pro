@@ -9,7 +9,7 @@ import {
 
 type ThemeProvider = FC<PropsWithChildren<{}>>;
 
-const lightTheme: MD3Theme = {
+export const lightTheme: MD3Theme = {
   ...MD3LightTheme,
   colors: {
     ...MD3LightTheme.colors,
