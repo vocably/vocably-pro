@@ -44,9 +44,88 @@ export const OnboardingSlider: FC<Props> = () => {
               style={{ color: theme.colors.primary }}
               onPress={() => navigation.navigate('LookUp')}
             >
-              Look it up
+              Look it up!
             </Text>
-            !
+          </Text>
+          <IPhone style={{ height: 350 }}>
+            <View pointerEvents="none">
+              <View style={{ marginBottom: 16, marginTop: 44 }}>
+                <TranslationPresetForm
+                  navigation={navigation}
+                  preset={{
+                    sourceLanguage: 'en',
+                    translationLanguage: 'ru',
+                    isReverse: false,
+                  }}
+                  onChange={() => {}}
+                  languagePairs={{}}
+                />
+              </View>
+              <View style={{ marginBottom: 8 }}>
+                <SearchInput
+                  value={'Test'}
+                  placeholder={''}
+                  onChange={() => {}}
+                  onSubmit={() => {}}
+                />
+              </View>
+              <CardListItem
+                card={{
+                  source: 'something',
+                  definition: '',
+                  example: '',
+                  ipa: 'something',
+                  partOfSpeech: 'noun',
+                  tags: [],
+                  language: 'en',
+                  translation: 'Something',
+                }}
+              />
+              <Divider bold={true} />
+              <CardListItem
+                card={{
+                  source: 'something',
+                  definition: '',
+                  example: '',
+                  ipa: 'something',
+                  partOfSpeech: 'noun',
+                  tags: [],
+                  language: 'en',
+                  translation: 'Something',
+                }}
+              />
+            </View>
+          </IPhone>
+
+          <Text
+            style={{
+              fontSize: 18,
+              textAlign: 'center',
+              borderBottomWidth: 1,
+              borderBottomColor: theme.colors.onBackground,
+            }}
+            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
+          >
+            Next →
+          </Text>
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: slideHeight,
+            gap: 24,
+          }}
+        >
+          <Text style={{ fontSize: 22 }}>
+            Do you want to say something in English but don't know the word?{' '}
+            <Text
+              style={{ color: theme.colors.primary }}
+              onPress={() => navigation.navigate('LookUp')}
+            >
+              Search for it in Russian!
+            </Text>
           </Text>
           <IPhone style={{ height: 350 }}>
             <View pointerEvents="none">
