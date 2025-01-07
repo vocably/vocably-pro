@@ -16,6 +16,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getItem, setItem } from './asyncAppStorage';
 import { facility } from './facility';
 import { LanguagesContext } from './languages/LanguagesContainer';
+import { OnboardingSlider } from './OnboardingSlider';
 import { SourceLanguageButton } from './SourceLanguageButton';
 import { Displayer, DisplayerRef } from './study/Displayer';
 import { TargetLanguageButton } from './TargetLanguageButton';
@@ -223,6 +224,8 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
       )}
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'faq' && (
         <Displayer style={{ gap: 16, maxWidth: 600 }}>
+          <OnboardingSlider />
+
           <Text style={{ fontSize: 18 }}>
             Vocably is designed to help you{' '}
             {isTranslate ? 'translate' : 'look up'} words and phrases right when

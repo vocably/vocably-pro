@@ -1,0 +1,203 @@
+import { useNavigation } from '@react-navigation/native';
+import { FC, useRef } from 'react';
+import { ScrollView, useWindowDimensions, View } from 'react-native';
+import { Button, Divider, Text, useTheme } from 'react-native-paper';
+import Swiper from 'react-native-swiper';
+import { CardListItem } from './CardListItem';
+import { IPhone } from './iPhone';
+import { SearchInput } from './LookUpScreen/SearchInput';
+import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
+
+type Props = {};
+
+export const OnboardingSlider: FC<Props> = () => {
+  const navigation: any = useNavigation();
+  const swiperRef = useRef<Swiper>(null);
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+
+  const selectOption = (optionName: string) => {
+    if (!swiperRef.current) {
+      return;
+    }
+  };
+
+  const theme = useTheme();
+  const sliderHeight = Math.min(windowHeight * 0.8, 600);
+  const slideHeight = sliderHeight - 60;
+
+  return (
+    <View style={{ height: sliderHeight }}>
+      <Swiper loop={false} showsPagination={true} ref={swiperRef}>
+        <View
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: slideHeight,
+            gap: 24,
+          }}
+        >
+          <Text style={{ fontSize: 22 }}>
+            Do you see a new English word in real life of hear it in a
+            conversation?{' '}
+            <Text
+              style={{ color: theme.colors.primary }}
+              onPress={() => navigation.navigate('LookUp')}
+            >
+              Look it up
+            </Text>
+            !
+          </Text>
+          <IPhone style={{ height: 350 }}>
+            <View pointerEvents="none">
+              <View style={{ marginBottom: 16, marginTop: 44 }}>
+                <TranslationPresetForm
+                  navigation={navigation}
+                  preset={{
+                    sourceLanguage: 'en',
+                    translationLanguage: 'ru',
+                    isReverse: false,
+                  }}
+                  onChange={() => {}}
+                  languagePairs={{}}
+                />
+              </View>
+              <View style={{ marginBottom: 8 }}>
+                <SearchInput
+                  value={'Test'}
+                  placeholder={''}
+                  onChange={() => {}}
+                  onSubmit={() => {}}
+                />
+              </View>
+              <CardListItem
+                card={{
+                  source: 'something',
+                  definition: '',
+                  example: '',
+                  ipa: 'something',
+                  partOfSpeech: 'noun',
+                  tags: [],
+                  language: 'en',
+                  translation: 'Something',
+                }}
+              />
+              <Divider bold={true} />
+              <CardListItem
+                card={{
+                  source: 'something',
+                  definition: '',
+                  example: '',
+                  ipa: 'something',
+                  partOfSpeech: 'noun',
+                  tags: [],
+                  language: 'en',
+                  translation: 'Something',
+                }}
+              />
+            </View>
+          </IPhone>
+
+          <Text
+            style={{
+              fontSize: 18,
+              textAlign: 'center',
+              borderBottomWidth: 1,
+              borderBottomColor: theme.colors.onBackground,
+            }}
+            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
+          >
+            Next →
+          </Text>
+        </View>
+        <View
+          style={{
+            height: slideHeight,
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 24,
+            padding: 12,
+          }}
+        >
+          <Text style={{ fontSize: 22, textAlign: 'center' }}>
+            You don't have flashcards yet.
+          </Text>
+
+          <Text style={{ fontSize: 18, textAlign: 'center' }}>But...</Text>
+
+          <Text style={{ fontSize: 22, textAlign: 'center' }}>
+            Vocably translates anything and makes flashcards like this one:
+          </Text>
+          <View
+            style={{
+              borderWidth: 1,
+              borderRadius: 16,
+              paddingHorizontal: 16,
+              borderColor: theme.colors.secondary,
+              backgroundColor: theme.colors.surfaceVariant,
+            }}
+          >
+            <CardListItem
+              card={{
+                source: 'something',
+                definition: '',
+                example: '',
+                ipa: 'something',
+                partOfSpeech: 'noun',
+                tags: [],
+                language: 'en',
+                translation: 'Something',
+              }}
+            />
+          </View>
+          <Text style={{ fontSize: 22, textAlign: 'center' }}>
+            You can practice your flashcards with spaced repetition system.
+          </Text>
+          <View
+            style={{
+              borderBottomWidth: 1,
+              borderBottomColor: theme.colors.onBackground,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                textAlign: 'center',
+              }}
+              onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
+            >
+              Swipe to learn more →
+            </Text>
+          </View>
+        </View>
+
+        <ScrollView
+          contentContainerStyle={{
+            height: slideHeight,
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 24,
+            padding: 12,
+          }}
+        >
+          <Text style={{ fontSize: 22, textAlign: 'center' }}>
+            Vocably will help you translate and learn English words you meet in
+            everyday life.
+          </Text>
+          <Text style={{ fontSize: 22, textAlign: 'center' }}>
+            How do you meet new words?
+          </Text>
+          <View style={{ gap: 12, width: '100%', alignItems: 'stretch' }}>
+            <Button mode="outlined">I surf websites</Button>
+            <Button mode="outlined">I live in a foreign country</Button>
+            <Button mode="outlined">I communicate with people</Button>
+            <Button mode="outlined">I attend offline language courses</Button>
+            <Button mode="outlined">I watch YouTube</Button>
+            <Button mode="outlined">Other</Button>
+            <Button mode="outlined">I don't know what to answer</Button>
+          </View>
+        </ScrollView>
+      </Swiper>
+    </View>
+  );
+};
