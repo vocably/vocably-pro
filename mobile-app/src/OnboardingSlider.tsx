@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { GoogleLanguage } from '@vocably/model';
 import { FC, useRef } from 'react';
 import { useWindowDimensions, View } from 'react-native';
 import { Divider, Text, useTheme } from 'react-native-paper';
@@ -7,12 +8,19 @@ import { CardListItem } from './CardListItem';
 import { IPhone } from './iPhone';
 import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
+import { getOnboardingData } from './Onboarding/getOnboardingData';
 
-type Props = {};
+type Props = {
+  sourceLanguage: GoogleLanguage;
+  targetLanguage: GoogleLanguage;
+};
 
 const stringExample = 'זה *משהו* חדש';
 
-export const OnboardingSlider: FC<Props> = () => {
+export const OnboardingSlider: FC<Props> = ({
+  sourceLanguage,
+  targetLanguage,
+}) => {
   const navigation: any = useNavigation();
   const swiperRef = useRef<Swiper>(null);
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
@@ -20,6 +28,8 @@ export const OnboardingSlider: FC<Props> = () => {
   const theme = useTheme();
   const sliderHeight = Math.min(windowHeight * 0.8, 600);
   const slideHeight = sliderHeight - 60;
+
+  const onboardingData = getOnboardingData(sourceLanguage, targetLanguage);
 
   return (
     <View style={{ height: sliderHeight }}>
@@ -51,18 +61,7 @@ export const OnboardingSlider: FC<Props> = () => {
               backgroundColor: theme.colors.surfaceVariant,
             }}
           >
-            <CardListItem
-              card={{
-                source: 'something',
-                definition: '',
-                example: '',
-                ipa: 'something',
-                partOfSpeech: 'noun',
-                tags: [],
-                language: 'en',
-                translation: 'Something',
-              }}
-            />
+            <CardListItem card={onboardingData.card} />
           </View>
           <Text style={{ fontSize: 22, textAlign: 'center' }}>
             You can practice your flashcards with spaced repetition system.

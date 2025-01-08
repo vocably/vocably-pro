@@ -224,7 +224,12 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
       )}
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'faq' && (
         <Displayer style={{ gap: 16, maxWidth: 600 }}>
-          <OnboardingSlider />
+          <OnboardingSlider
+            sourceLanguage={translationPreset.sourceLanguage as GoogleLanguage}
+            targetLanguage={
+              translationPreset.translationLanguage as GoogleLanguage
+            }
+          />
 
           <Text style={{ fontSize: 18 }}>
             Vocably is designed to help you{' '}
