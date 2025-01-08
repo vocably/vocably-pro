@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { GoogleLanguage } from '@vocably/model';
-import { FC, useRef } from 'react';
-import { useWindowDimensions, View } from 'react-native';
+import { FC, useContext, useRef } from 'react';
+import { ScrollView, useWindowDimensions, View } from 'react-native';
 import { Divider, Text, useTheme } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import { CardListItem } from './CardListItem';
 import { IPhone } from './iPhone';
+import { LanguagesContext } from './languages/LanguagesContainer';
 import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
 import { getOnboardingData } from './Onboarding/getOnboardingData';
@@ -24,6 +25,7 @@ export const OnboardingSlider: FC<Props> = ({
   const navigation: any = useNavigation();
   const swiperRef = useRef<Swiper>(null);
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const { languages } = useContext(LanguagesContext);
 
   const theme = useTheme();
   const sliderHeight = Math.min(windowHeight * 0.8, 600);
@@ -34,8 +36,8 @@ export const OnboardingSlider: FC<Props> = ({
   return (
     <View style={{ height: sliderHeight }}>
       <Swiper loop={false} showsPagination={true} ref={swiperRef}>
-        <View
-          style={{
+        <ScrollView
+          contentContainerStyle={{
             height: slideHeight,
             alignItems: 'center',
             justifyContent: 'center',
@@ -43,14 +45,18 @@ export const OnboardingSlider: FC<Props> = ({
             paddingHorizontal: 24,
           }}
         >
-          <Text style={{ fontSize: 22, textAlign: 'center' }}>
-            You don't have flashcards yet.
-          </Text>
+          {languages.length === 0 && (
+            <>
+              <Text style={{ fontSize: 22, textAlign: 'center' }}>
+                You don't have flashcards yet.
+              </Text>
 
-          <Text style={{ fontSize: 18, textAlign: 'center' }}>But...</Text>
+              <Text style={{ fontSize: 18, textAlign: 'center' }}>But...</Text>
+            </>
+          )}
 
           <Text style={{ fontSize: 22, textAlign: 'center' }}>
-            Vocably translates anything and makes flashcards like this one:
+            Vocably translates and makes flashcards like this one:
           </Text>
           <View
             style={{
@@ -61,10 +67,18 @@ export const OnboardingSlider: FC<Props> = ({
               backgroundColor: theme.colors.surfaceVariant,
             }}
           >
-            <CardListItem card={onboardingData.card} />
+            <CardListItem
+              style={{
+                width: '100%',
+                maxWidth: 300,
+              }}
+              card={onboardingData.welcomeScreenCard}
+              showExamples={true}
+            />
           </View>
           <Text style={{ fontSize: 22, textAlign: 'center' }}>
-            You can practice your flashcards with spaced repetition system.
+            You can save and study your flashcards with spaced repetition
+            system.
           </Text>
           <View
             style={{
@@ -82,7 +96,7 @@ export const OnboardingSlider: FC<Props> = ({
               Swipe to learn more →
             </Text>
           </View>
-        </View>
+        </ScrollView>
         <View
           style={{
             display: 'flex',
@@ -94,7 +108,7 @@ export const OnboardingSlider: FC<Props> = ({
           }}
         >
           <Text style={{ fontSize: 22 }}>
-            Do you see a new English word in real life of hear it in a
+            Do you see a new English word in real life or hear it in a
             conversation?{' '}
             <Text
               style={{ color: theme.colors.primary }}
@@ -109,9 +123,12 @@ export const OnboardingSlider: FC<Props> = ({
                 <TranslationPresetForm
                   navigation={navigation}
                   preset={{
-                    sourceLanguage: 'en',
-                    translationLanguage: 'ru',
-                    isReverse: false,
+                    sourceLanguage:
+                      onboardingData.directTranslationExample.sourceLanguage,
+                    translationLanguage:
+                      onboardingData.directTranslationExample.targetLanguage,
+                    isReverse:
+                      onboardingData.directTranslationExample.isReversed,
                   }}
                   onChange={() => {}}
                   languagePairs={{}}
@@ -119,39 +136,20 @@ export const OnboardingSlider: FC<Props> = ({
               </View>
               <View style={{ marginBottom: 8 }}>
                 <SearchInput
-                  value={'Test'}
+                  value={onboardingData.directTranslationExample.text}
                   placeholder={''}
                   onChange={() => {}}
                   onSubmit={() => {}}
                 />
               </View>
-              <CardListItem
-                style={{ paddingVertical: 16 }}
-                card={{
-                  source: 'something',
-                  definition: '',
-                  example: '',
-                  ipa: 'something',
-                  partOfSpeech: 'noun',
-                  tags: [],
-                  language: 'en',
-                  translation: 'Something',
-                }}
-              />
-              <Divider bold={true} />
-              <CardListItem
-                style={{ paddingVertical: 16 }}
-                card={{
-                  source: 'something',
-                  definition: '',
-                  example: '',
-                  ipa: 'something',
-                  partOfSpeech: 'noun',
-                  tags: [],
-                  language: 'en',
-                  translation: 'Something',
-                }}
-              />
+              {onboardingData.directTranslationExample.results.map(
+                (card, index) => (
+                  <View key={index}>
+                    {index > 0 && <Divider bold={true} />}
+                    <CardListItem style={{ paddingVertical: 16 }} card={card} />
+                  </View>
+                )
+              )}
             </View>
           </IPhone>
 
