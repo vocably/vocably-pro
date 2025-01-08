@@ -366,7 +366,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
             <CardListItem
               savingTagsInProgress={savingTagsForId === item.id}
               card={item.data}
-              style={{ flex: 1 }}
+              style={{ flex: 1, paddingVertical: 16 }}
               onTagsChange={onTagsChange(item)}
             />
           </Pressable>

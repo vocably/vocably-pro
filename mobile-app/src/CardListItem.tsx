@@ -34,14 +34,7 @@ export const CardListItem: CardListItem = ({
   };
 
   return (
-    <View
-      style={[
-        style,
-        {
-          paddingVertical: 16,
-        },
-      ]}
-    >
+    <View style={style}>
       <View
         style={{
           display: 'flex',

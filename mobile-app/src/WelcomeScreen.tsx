@@ -94,8 +94,8 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 24,
-        paddingLeft: insets.left + 24,
-        paddingRight: insets.right + 24,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
         minHeight: '90%',
       }}
       refreshControl={
@@ -104,7 +104,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
     >
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'form' && (
         <Displayer
-          style={{ gap: 16, maxWidth: 600 }}
+          style={{ gap: 16, maxWidth: 600, paddingHorizontal: 24 }}
           ref={onboardingDisplayerRef}
         >
           <Text style={{ textAlign: 'center', fontSize: 24, marginBottom: 24 }}>

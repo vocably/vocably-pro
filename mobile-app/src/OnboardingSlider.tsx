@@ -30,7 +30,7 @@ export const OnboardingSlider: FC<Props> = () => {
             alignItems: 'center',
             justifyContent: 'center',
             gap: 24,
-            padding: 12,
+            paddingHorizontal: 24,
           }}
         >
           <Text style={{ fontSize: 22, textAlign: 'center' }}>
@@ -44,9 +44,9 @@ export const OnboardingSlider: FC<Props> = () => {
           </Text>
           <View
             style={{
-              borderWidth: 1,
               borderRadius: 16,
-              paddingHorizontal: 16,
+              padding: 16,
+              borderWidth: 1,
               borderColor: theme.colors.secondary,
               backgroundColor: theme.colors.surfaceVariant,
             }}
@@ -91,6 +91,7 @@ export const OnboardingSlider: FC<Props> = () => {
             justifyContent: 'center',
             height: slideHeight,
             gap: 24,
+            paddingHorizontal: 24,
           }}
         >
           <Text style={{ fontSize: 22 }}>
@@ -126,6 +127,7 @@ export const OnboardingSlider: FC<Props> = () => {
                 />
               </View>
               <CardListItem
+                style={{ paddingVertical: 16 }}
                 card={{
                   source: 'something',
                   definition: '',
@@ -139,6 +141,7 @@ export const OnboardingSlider: FC<Props> = () => {
               />
               <Divider bold={true} />
               <CardListItem
+                style={{ paddingVertical: 16 }}
                 card={{
                   source: 'something',
                   definition: '',
@@ -172,6 +175,7 @@ export const OnboardingSlider: FC<Props> = () => {
             justifyContent: 'center',
             height: slideHeight,
             gap: 24,
+            paddingHorizontal: 24,
           }}
         >
           <Text style={{ fontSize: 22 }}>
@@ -206,6 +210,7 @@ export const OnboardingSlider: FC<Props> = () => {
                 />
               </View>
               <CardListItem
+                style={{ paddingVertical: 16 }}
                 card={{
                   source: 'something',
                   definition: '',
@@ -219,6 +224,7 @@ export const OnboardingSlider: FC<Props> = () => {
               />
               <Divider bold={true} />
               <CardListItem
+                style={{ paddingVertical: 16 }}
                 card={{
                   source: 'something',
                   definition: '',
@@ -252,6 +258,7 @@ export const OnboardingSlider: FC<Props> = () => {
             justifyContent: 'center',
             height: slideHeight,
             gap: 24,
+            paddingHorizontal: 24,
           }}
         >
           <Text style={{ fontSize: 22 }}>
@@ -266,11 +273,13 @@ export const OnboardingSlider: FC<Props> = () => {
               <View
                 style={{
                   backgroundColor: theme.colors.surfaceVariant,
-                  paddingHorizontal: 16,
                   borderRadius: 16,
                 }}
               >
                 <CardListItem
+                  style={{
+                    padding: 16,
+                  }}
                   card={{
                     source: 'something',
                     definition: '',
