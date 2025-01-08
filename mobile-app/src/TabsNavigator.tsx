@@ -12,15 +12,27 @@ export const TabsNavigator = () => {
   const { languages } = useContext(LanguagesContext);
   return (
     <Tabs.Navigator>
+      {languages.length > 0 && (
+        <Tabs.Screen
+          name="DeckScreen"
+          options={{
+            title: 'Cards',
+            tabBarIcon: ({ color }) => (
+              <Icon name="card-multiple-outline" color={color} size={24} />
+            ),
+          }}
+          component={DeckStack}
+        />
+      )}
       <Tabs.Screen
-        name="DeckScreen"
+        name="WelcomeScreen"
         options={{
-          title: 'Cards',
+          title: 'Welcome',
           tabBarIcon: ({ color }) => (
-            <Icon name="card-multiple-outline" color={color} size={24} />
+            <Icon name="human-greeting-variant" color={color} size={24} />
           ),
         }}
-        component={languages.length === 0 ? WelcomeStack : DeckStack}
+        component={WelcomeStack}
       />
       <Tabs.Screen
         name="LookUp"
