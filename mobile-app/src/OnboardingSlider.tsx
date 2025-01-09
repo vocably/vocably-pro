@@ -18,6 +18,7 @@ import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
 import { getOnboardingData } from './Onboarding/getOnboardingData';
 import { useColorScheme } from './useColorScheme';
+import { WelcomeContext } from './WelcomeContainer';
 
 type Props = {
   sourceLanguage: GoogleLanguage;
@@ -39,6 +40,7 @@ export const OnboardingSlider: FC<Props> = ({
   const colorScheme = useColorScheme();
   const sliderHeight = Math.min(windowHeight * 0.8, 600);
   const slideHeight = sliderHeight - 60;
+  const { setIsWelcomeVisible } = useContext(WelcomeContext);
 
   const onboardingData = getOnboardingData(sourceLanguage, targetLanguage);
 
@@ -356,9 +358,7 @@ export const OnboardingSlider: FC<Props> = ({
             }}
           />
           {languages.length > 0 && (
-            <Button
-              onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
-            >
+            <Button onPress={() => setIsWelcomeVisible(false)}>
               Hide Welcome Page
             </Button>
           )}

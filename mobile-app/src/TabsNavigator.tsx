@@ -4,12 +4,15 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DeckStack } from './DeckStack';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { LookUpScreen } from './LookUpScreen';
+import { WelcomeContext } from './WelcomeContainer';
 import { WelcomeStack } from './WelcomeStack';
 
 const Tabs = createMaterialBottomTabNavigator();
 
 export const TabsNavigator = () => {
   const { languages } = useContext(LanguagesContext);
+  const { isWelcomeVisible } = useContext(WelcomeContext);
+
   return (
     <Tabs.Navigator>
       {languages.length > 0 && (
@@ -24,16 +27,18 @@ export const TabsNavigator = () => {
           component={DeckStack}
         />
       )}
-      <Tabs.Screen
-        name="WelcomeScreen"
-        options={{
-          title: 'Welcome',
-          tabBarIcon: ({ color }) => (
-            <Icon name="human-greeting-variant" color={color} size={24} />
-          ),
-        }}
-        component={WelcomeStack}
-      />
+      {(isWelcomeVisible || languages.length === 0) && (
+        <Tabs.Screen
+          name="WelcomeScreen"
+          options={{
+            title: 'Welcome',
+            tabBarIcon: ({ color }) => (
+              <Icon name="human-greeting-variant" color={color} size={24} />
+            ),
+          }}
+          component={WelcomeStack}
+        />
+      )}
       <Tabs.Screen
         name="LookUp"
         component={LookUpScreen}
