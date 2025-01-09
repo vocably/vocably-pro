@@ -355,11 +355,13 @@ export const OnboardingSlider: FC<Props> = ({
               height: 200,
             }}
           />
-          <Button
-            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
-          >
-            Hide Welcome Page
-          </Button>
+          {languages.length > 0 && (
+            <Button
+              onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
+            >
+              Hide Welcome Page
+            </Button>
+          )}
         </View>
       </Swiper>
     </View>
