@@ -7,6 +7,13 @@ export type OnboardingData = {
     targetLanguage: GoogleLanguage;
     isReversed: boolean;
     text: string;
-    results: Card[];
+    results: [Card, ...Card[]];
+  };
+  reverseTranslationExample: {
+    sourceLanguage: GoogleLanguage;
+    targetLanguage: GoogleLanguage;
+    isReversed: boolean;
+    text: string;
+    results: [Card, ...Card[]];
   };
 };

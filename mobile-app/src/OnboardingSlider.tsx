@@ -199,9 +199,12 @@ export const OnboardingSlider: FC<Props> = ({
                 <TranslationPresetForm
                   navigation={navigation}
                   preset={{
-                    sourceLanguage: 'en',
-                    translationLanguage: 'ru',
-                    isReverse: false,
+                    sourceLanguage:
+                      onboardingData.reverseTranslationExample.sourceLanguage,
+                    translationLanguage:
+                      onboardingData.reverseTranslationExample.targetLanguage,
+                    isReverse:
+                      onboardingData.reverseTranslationExample.isReversed,
                   }}
                   onChange={() => {}}
                   languagePairs={{}}
@@ -209,39 +212,20 @@ export const OnboardingSlider: FC<Props> = ({
               </View>
               <View style={{ marginBottom: 8 }}>
                 <SearchInput
-                  value={'Test'}
+                  value={onboardingData.reverseTranslationExample.text}
                   placeholder={''}
                   onChange={() => {}}
                   onSubmit={() => {}}
                 />
               </View>
-              <CardListItem
-                style={{ paddingVertical: 16 }}
-                card={{
-                  source: 'something',
-                  definition: '',
-                  example: '',
-                  ipa: 'something',
-                  partOfSpeech: 'noun',
-                  tags: [],
-                  language: 'en',
-                  translation: 'Something',
-                }}
-              />
-              <Divider bold={true} />
-              <CardListItem
-                style={{ paddingVertical: 16 }}
-                card={{
-                  source: 'something',
-                  definition: '',
-                  example: '',
-                  ipa: 'something',
-                  partOfSpeech: 'noun',
-                  tags: [],
-                  language: 'en',
-                  translation: 'Something',
-                }}
-              />
+              {onboardingData.reverseTranslationExample.results.map(
+                (card, index) => (
+                  <View key={index}>
+                    {index > 0 && <Divider bold={true} />}
+                    <CardListItem style={{ paddingVertical: 16 }} card={card} />
+                  </View>
+                )
+              )}
             </View>
           </IPhone>
 
