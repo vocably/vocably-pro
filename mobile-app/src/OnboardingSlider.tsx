@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { GoogleLanguage } from '@vocably/model';
+import { GoogleLanguage, languageList } from '@vocably/model';
 import { FC, useContext, useRef } from 'react';
 import { ScrollView, useWindowDimensions, View } from 'react-native';
 import { Divider, Text, useTheme } from 'react-native-paper';
@@ -108,8 +108,8 @@ export const OnboardingSlider: FC<Props> = ({
           }}
         >
           <Text style={{ fontSize: 22 }}>
-            Do you see a new English word in real life or hear it in a
-            conversation?{' '}
+            Do you see a new {languageList[sourceLanguage]} word in real life or
+            hear it in a conversation?{' '}
             <Text
               style={{ color: theme.colors.primary }}
               onPress={() => navigation.navigate('LookUp')}
@@ -176,12 +176,13 @@ export const OnboardingSlider: FC<Props> = ({
           }}
         >
           <Text style={{ fontSize: 22 }}>
-            Do you want to say something in English but don't know the word?{' '}
+            Do you want to say something in {languageList[sourceLanguage]} but
+            don't know the word?{' '}
             <Text
               style={{ color: theme.colors.primary }}
               onPress={() => navigation.navigate('LookUp')}
             >
-              Search for it in Russian!
+              Search for it in {languageList[targetLanguage]}!
             </Text>
           </Text>
           <IPhone style={{ height: 350 }}>
@@ -259,8 +260,9 @@ export const OnboardingSlider: FC<Props> = ({
           }}
         >
           <Text style={{ fontSize: 22 }}>
-            Do you see a new English word while surfing the web in Mobile
-            Safari? Translate it with Vocably extension for Safari!
+            Do you see a new {languageList[sourceLanguage]} word while surfing
+            the web in Mobile Safari? Translate it with Vocably extension for
+            Safari!
           </Text>
           <IPhone style={{ height: 350 }}>
             <View
