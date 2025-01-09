@@ -1,15 +1,9 @@
 import { NavigationProp } from '@react-navigation/native';
 import { postOnboardingAction } from '@vocably/api';
-import { GoogleLanguage, languageList } from '@vocably/model';
+import { GoogleLanguage } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
-import {
-  Linking,
-  Platform,
-  RefreshControl,
-  ScrollView,
-  View,
-} from 'react-native';
+import { Platform, RefreshControl, ScrollView, View } from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -230,83 +224,6 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
               translationPreset.translationLanguage as GoogleLanguage
             }
           />
-
-          <Text style={{ fontSize: 18 }}>
-            Vocably is designed to help you{' '}
-            {isTranslate ? 'translate' : 'look up'} words and phrases right when
-            you need them.
-          </Text>
-
-          <Text style={{ fontSize: 18 }}>
-            Each time you {isTranslate ? 'translate' : 'look up'} a word,
-            Vocably creates custom flashcards to save and study later.
-          </Text>
-          <Text style={{ fontSize: 18 }}>Features:</Text>
-          <Text style={{ fontSize: 18 }}>
-            •{' '}
-            <Text
-              style={{ color: theme.colors.primary }}
-              onPress={() => navigation.navigate('LookUp')}
-            >
-              Look up
-            </Text>{' '}
-            words and phrases
-            {isTranslate &&
-              ` in ${
-                languageList[translationPreset.sourceLanguage as GoogleLanguage]
-              } and ${
-                languageList[
-                  translationPreset.translationLanguage as GoogleLanguage
-                ]
-              }`}
-            .
-          </Text>
-          <Text style={{ fontSize: 18 }}>
-            • When you see a new{' '}
-            {languageList[translationPreset.sourceLanguage as GoogleLanguage]}{' '}
-            word in any app, select it and share with Vocably for definitions
-            and translations.
-          </Text>
-          {isIos && (
-            <Text style={{ fontSize: 18 }}>
-              • Enable the{' '}
-              <Text
-                style={{ color: theme.colors.primary }}
-                onPress={() =>
-                  Linking.openURL(
-                    'https://vocably.pro/ios-safari-extension.html'
-                  )
-                }
-              >
-                Mobile Safari Extension
-              </Text>{' '}
-              for accurate AI translations while browsing on your mobile device.
-            </Text>
-          )}
-
-          <Text style={{ fontSize: 18 }}>
-            • On your computer — use the{' '}
-            <Text
-              style={{ color: theme.colors.primary }}
-              onPress={() =>
-                Linking.openURL(
-                  'https://chromewebstore.google.com/detail/vocably-pro-language-flas/baocigmmhhdemijfjnjdidbkfgpgogmb'
-                )
-              }
-            >
-              Chrome
-            </Text>{' '}
-            or{' '}
-            <Text
-              style={{ color: theme.colors.primary }}
-              onPress={() =>
-                Linking.openURL('https://apps.apple.com/app/id6464076425')
-              }
-            >
-              Safari
-            </Text>{' '}
-            extensions with AI-powered word matching.
-          </Text>
         </Displayer>
       )}
     </ScrollView>
