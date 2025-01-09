@@ -16,4 +16,8 @@ export type OnboardingData = {
     text: string;
     results: [Card, ...Card[]];
   };
+  contextTranslationExample: {
+    text: string;
+    results: [Card, ...Card[]];
+  };
 };

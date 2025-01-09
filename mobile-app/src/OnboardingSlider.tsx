@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { GoogleLanguage, languageList } from '@vocably/model';
 import { FC, useContext, useRef } from 'react';
-import { ScrollView, useWindowDimensions, View } from 'react-native';
+import { Linking, ScrollView, useWindowDimensions, View } from 'react-native';
 import { Divider, Text, useTheme } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import { CardListItem } from './CardListItem';
@@ -253,8 +253,15 @@ export const OnboardingSlider: FC<Props> = ({
         >
           <Text style={{ fontSize: 22 }}>
             Do you see a new {languageList[sourceLanguage]} word while surfing
-            the web in Mobile Safari? Translate it with Vocably extension for
-            Safari!
+            the web in Mobile Safari? Translate it with{' '}
+            <Text
+              style={{ color: theme.colors.primary }}
+              onPress={() =>
+                Linking.openURL('https://vocably.pro/ios-safari-extension.html')
+              }
+            >
+              Vocably extension for Safari!
+            </Text>
           </Text>
           <IPhone
             colorScheme={colorScheme}
@@ -262,59 +269,55 @@ export const OnboardingSlider: FC<Props> = ({
           >
             <View
               pointerEvents="none"
-              style={{ marginTop: 64, alignItems: 'center', gap: 24 }}
+              style={{
+                marginTop: 64,
+                alignItems: 'center',
+                gap: 24,
+                position: 'relative',
+              }}
             >
-              <View
-                style={{
-                  backgroundColor: theme.colors.surfaceVariant,
-                  borderRadius: 16,
-                }}
-              >
-                <CardListItem
-                  style={{
-                    padding: 16,
-                  }}
-                  card={{
-                    source: 'something',
-                    definition: '',
-                    example: '',
-                    ipa: 'something',
-                    partOfSpeech: 'noun',
-                    tags: [],
-                    language: 'en',
-                    translation: 'Something',
-                  }}
-                />
-                <Divider bold={true} />
-                <CardListItem
-                  card={{
-                    source: 'something',
-                    definition: '',
-                    example: '',
-                    ipa: 'something',
-                    partOfSpeech: 'noun',
-                    tags: [],
-                    language: 'en',
-                    translation: 'Something',
-                  }}
-                />
-              </View>
-
               <View>
-                <Text style={{ fontSize: 36 }}>
-                  {stringExample
+                <Text style={{ fontSize: 24 }}>
+                  {onboardingData.contextTranslationExample.text
                     .split('*')
-                    .map((part, index) =>
-                      index === 1 ? (
-                        <Text style={{ backgroundColor: '#2C9FD9' }}>
-                          {part}
-                        </Text>
-                      ) : (
-                        part
-                      )
-                    )}
+                    .map((part, index) => (
+                      <Text
+                        key={index}
+                        style={{
+                          backgroundColor: index === 1 ? '#2C9FD9' : undefined,
+                        }}
+                      >
+                        {part}
+                      </Text>
+                    ))}
                 </Text>
               </View>
+            </View>
+
+            <View
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 110,
+                right: 0,
+                backgroundColor: theme.colors.surfaceVariant,
+                borderWidth: 1,
+                borderColor: theme.colors.outlineVariant,
+                borderRadius: 16,
+              }}
+            >
+              {onboardingData.contextTranslationExample.results.map(
+                (card, index) => (
+                  <View key={index}>
+                    {index > 0 && <Divider bold={true} />}
+                    <CardListItem
+                      style={{ padding: 16 }}
+                      card={card}
+                      showExamples={true}
+                    />
+                  </View>
+                )
+              )}
             </View>
           </IPhone>
 

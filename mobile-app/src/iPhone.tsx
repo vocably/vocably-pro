@@ -70,7 +70,7 @@ export const IPhone: FC<PropsWithChildren<Props>> = ({
                 : require('./iPhoneHeaderDark.png')
             }
             style={{
-              width: containerWidth / 1.3,
+              width: containerWidth / 1.25,
               height: containerWidth / 12,
             }}
           />

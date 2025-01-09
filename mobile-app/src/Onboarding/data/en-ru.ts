@@ -70,4 +70,19 @@ export const onboardingData: OnboardingData = {
       },
     ],
   },
+  contextTranslationExample: {
+    text: 'The most *commonly* skipped maintenance tasks involves your war on dust. Your house is filled with filters and vents that capture dust and other stuff, increasing the lifespan of your systems and keeping the air clean. At least once a year you should clean and replace the following:',
+    results: [
+      {
+        language: 'en',
+        source: 'commonly',
+        ipa: 'ˈkɒmənli',
+        example: 'a belief commonly held in the area',
+        definition: '',
+        partOfSpeech: 'adverb',
+        translation: 'обычно',
+        tags: [],
+      },
+    ],
+  },
 };
