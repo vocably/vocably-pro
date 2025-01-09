@@ -10,6 +10,7 @@ import { LanguagesContext } from './languages/LanguagesContainer';
 import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
 import { getOnboardingData } from './Onboarding/getOnboardingData';
+import { useColorScheme } from './useColorScheme';
 
 type Props = {
   sourceLanguage: GoogleLanguage;
@@ -28,6 +29,7 @@ export const OnboardingSlider: FC<Props> = ({
   const { languages } = useContext(LanguagesContext);
 
   const theme = useTheme();
+  const colorScheme = useColorScheme();
   const sliderHeight = Math.min(windowHeight * 0.8, 600);
   const slideHeight = sliderHeight - 60;
 
@@ -117,7 +119,10 @@ export const OnboardingSlider: FC<Props> = ({
               Look it up!
             </Text>
           </Text>
-          <IPhone style={{ height: 350 }}>
+          <IPhone
+            colorScheme={colorScheme}
+            style={{ height: 350, maxWidth: 310 }}
+          >
             <View pointerEvents="none">
               <View style={{ marginBottom: 16, marginTop: 44 }}>
                 <TranslationPresetForm
@@ -185,7 +190,10 @@ export const OnboardingSlider: FC<Props> = ({
               Search for it in {languageList[targetLanguage]}!
             </Text>
           </Text>
-          <IPhone style={{ height: 350 }}>
+          <IPhone
+            colorScheme={colorScheme}
+            style={{ height: 350, maxWidth: 310 }}
+          >
             <View pointerEvents="none">
               <View style={{ marginBottom: 16, marginTop: 44 }}>
                 <TranslationPresetForm
@@ -264,7 +272,10 @@ export const OnboardingSlider: FC<Props> = ({
             the web in Mobile Safari? Translate it with Vocably extension for
             Safari!
           </Text>
-          <IPhone style={{ height: 350 }}>
+          <IPhone
+            colorScheme={colorScheme}
+            style={{ height: 350, maxWidth: 310 }}
+          >
             <View
               pointerEvents="none"
               style={{ marginTop: 64, alignItems: 'center', gap: 24 }}

@@ -1,12 +1,15 @@
 import { FC, PropsWithChildren, useState } from 'react';
 import { FlexStyle, Image, ImageBackground, View } from 'react-native';
+import { ColorScheme } from './useColorScheme';
 
 type Props = {
   style?: FlexStyle;
+  colorScheme?: ColorScheme;
 };
 
 export const IPhone: FC<PropsWithChildren<Props>> = ({
   style = {},
+  colorScheme = 'light',
   children,
 }) => {
   const [containerWidth, setContainerWidth] = useState(0);
@@ -51,7 +54,7 @@ export const IPhone: FC<PropsWithChildren<Props>> = ({
         <View
           style={{
             position: 'absolute',
-            left: 14,
+            left: containerWidth / 22.14,
             top: 18,
             right: 0,
             display: 'flex',
@@ -61,10 +64,14 @@ export const IPhone: FC<PropsWithChildren<Props>> = ({
         >
           <Image
             resizeMode="cover"
-            source={require('./iPhoneHeaderLight.png')}
+            source={
+              colorScheme === 'light'
+                ? require('./iPhoneHeaderLight.png')
+                : require('./iPhoneHeaderDark.png')
+            }
             style={{
-              width: '84%',
-              height: 30,
+              width: containerWidth / 1.3,
+              height: containerWidth / 12,
             }}
           />
         </View>
