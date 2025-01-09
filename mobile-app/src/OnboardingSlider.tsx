@@ -1,8 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import { GoogleLanguage, languageList } from '@vocably/model';
-import { FC, useContext, useRef } from 'react';
-import { Linking, ScrollView, useWindowDimensions, View } from 'react-native';
-import { Divider, Text, useTheme } from 'react-native-paper';
+import React, { FC, useContext, useRef } from 'react';
+import {
+  Image,
+  Linking,
+  Platform,
+  ScrollView,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import { CardListItem } from './CardListItem';
 import { IPhone } from './iPhone';
@@ -82,22 +89,11 @@ export const OnboardingSlider: FC<Props> = ({
             You can save and study your flashcards with spaced repetition
             system.
           </Text>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: theme.colors.onBackground,
-            }}
+          <Button
+            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
           >
-            <Text
-              style={{
-                fontSize: 18,
-                textAlign: 'center',
-              }}
-              onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
-            >
-              Swipe to learn more →
-            </Text>
-          </View>
+            Learn more →
+          </Button>
         </ScrollView>
         <View
           style={{
@@ -158,17 +154,11 @@ export const OnboardingSlider: FC<Props> = ({
             </View>
           </IPhone>
 
-          <Text
-            style={{
-              fontSize: 18,
-              textAlign: 'center',
-              borderBottomWidth: 1,
-              borderBottomColor: theme.colors.onBackground,
-            }}
+          <Button
             onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
           >
             Next →
-          </Text>
+          </Button>
         </View>
         <View
           style={{
@@ -229,17 +219,11 @@ export const OnboardingSlider: FC<Props> = ({
             </View>
           </IPhone>
 
-          <Text
-            style={{
-              fontSize: 18,
-              textAlign: 'center',
-              borderBottomWidth: 1,
-              borderBottomColor: theme.colors.onBackground,
-            }}
+          <Button
             onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
           >
             Next →
-          </Text>
+          </Button>
         </View>
         <View
           style={{
@@ -321,17 +305,61 @@ export const OnboardingSlider: FC<Props> = ({
             </View>
           </IPhone>
 
-          <Text
-            style={{
-              fontSize: 18,
-              textAlign: 'center',
-              borderBottomWidth: 1,
-              borderBottomColor: theme.colors.onBackground,
-            }}
+          <Button
             onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
           >
             Next →
+          </Button>
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: slideHeight,
+            gap: 24,
+            paddingHorizontal: 24,
+          }}
+        >
+          <Text style={{ fontSize: 22 }}>
+            Do you use a desktop computer? Install{' '}
+            <Text
+              style={{ color: theme.colors.primary }}
+              onPress={() =>
+                Linking.openURL(
+                  'https://chromewebstore.google.com/detail/vocably-pro-language-flas/baocigmmhhdemijfjnjdidbkfgpgogmb'
+                )
+              }
+            >
+              Chrome
+            </Text>{' '}
+            or{' '}
+            <Text
+              style={{ color: theme.colors.primary }}
+              onPress={() =>
+                Linking.openURL('https://apps.apple.com/app/id6464076425')
+              }
+            >
+              Safari
+            </Text>{' '}
+            browser extension to surf the web in {languageList[sourceLanguage]}!
           </Text>
+          <Image
+            source={
+              Platform.OS === 'ios'
+                ? require('./DesktopSafari.png')
+                : require('./DesktopChrome.png')
+            }
+            style={{
+              width: 300,
+              height: 200,
+            }}
+          />
+          <Button
+            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
+          >
+            Hide Welcome Page
+          </Button>
         </View>
       </Swiper>
     </View>
