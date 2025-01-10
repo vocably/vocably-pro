@@ -25,8 +25,6 @@ type Props = {
   targetLanguage: GoogleLanguage;
 };
 
-const stringExample = 'זה *משהו* חדש';
-
 export const OnboardingSlider: FC<Props> = ({
   sourceLanguage,
   targetLanguage,
@@ -38,7 +36,7 @@ export const OnboardingSlider: FC<Props> = ({
 
   const theme = useTheme();
   const colorScheme = useColorScheme();
-  const sliderHeight = Math.min(windowHeight * 0.8, 600);
+  const sliderHeight = Math.min(windowHeight * 0.7, 600);
   const slideHeight = sliderHeight - 60;
   const { setIsWelcomeVisible } = useContext(WelcomeContext);
 
@@ -49,11 +47,12 @@ export const OnboardingSlider: FC<Props> = ({
       <Swiper loop={false} showsPagination={true} ref={swiperRef}>
         <ScrollView
           contentContainerStyle={{
-            height: slideHeight,
             alignItems: 'center',
             justifyContent: 'center',
             gap: 24,
             paddingHorizontal: 24,
+            paddingBottom: 60,
+            flexGrow: 1,
           }}
         >
           {languages.length === 0 && (
@@ -93,18 +92,21 @@ export const OnboardingSlider: FC<Props> = ({
           </Text>
           <Button
             onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
+            style={{}}
+            labelStyle={{ fontSize: 18, padding: 12 }}
           >
-            Learn more →
+            Learn more <Icon name="arrow-right" size={16} />
           </Button>
         </ScrollView>
-        <View
-          style={{
+        <ScrollView
+          contentContainerStyle={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            height: slideHeight,
             gap: 24,
             paddingHorizontal: 24,
+            paddingBottom: 60,
+            flexGrow: 1,
           }}
         >
           <Text style={{ fontSize: 22 }}>
@@ -159,17 +161,18 @@ export const OnboardingSlider: FC<Props> = ({
           <Button
             onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
           >
-            Next →
+            Next <Icon name="arrow-right" />
           </Button>
-        </View>
-        <View
-          style={{
+        </ScrollView>
+        <ScrollView
+          contentContainerStyle={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            height: slideHeight,
             gap: 24,
             paddingHorizontal: 24,
+            paddingBottom: 60,
+            flexGrow: 1,
           }}
         >
           <Text style={{ fontSize: 22 }}>
@@ -224,17 +227,18 @@ export const OnboardingSlider: FC<Props> = ({
           <Button
             onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
           >
-            Next →
+            Next <Icon name="arrow-right" />
           </Button>
-        </View>
-        <View
-          style={{
+        </ScrollView>
+        <ScrollView
+          contentContainerStyle={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            height: slideHeight,
             gap: 24,
             paddingHorizontal: 24,
+            paddingBottom: 60,
+            flexGrow: 1,
           }}
         >
           <Text style={{ fontSize: 22 }}>
@@ -251,7 +255,7 @@ export const OnboardingSlider: FC<Props> = ({
           </Text>
           <IPhone
             colorScheme={colorScheme}
-            style={{ height: 350, maxWidth: 310 }}
+            style={{ height: 300, maxWidth: 310 }}
           >
             <View
               pointerEvents="none"
@@ -310,17 +314,18 @@ export const OnboardingSlider: FC<Props> = ({
           <Button
             onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
           >
-            Next →
+            Next <Icon name="arrow-right" />
           </Button>
-        </View>
-        <View
-          style={{
+        </ScrollView>
+        <ScrollView
+          contentContainerStyle={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            height: slideHeight,
             gap: 24,
             paddingHorizontal: 24,
+            paddingBottom: 60,
+            flexGrow: 1,
           }}
         >
           <Text style={{ fontSize: 22 }}>
@@ -358,7 +363,7 @@ export const OnboardingSlider: FC<Props> = ({
               Hide Welcome Page
             </Button>
           )}
-        </View>
+        </ScrollView>
       </Swiper>
     </View>
   );

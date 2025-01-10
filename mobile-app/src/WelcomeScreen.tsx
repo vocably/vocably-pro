@@ -3,7 +3,7 @@ import { postOnboardingAction } from '@vocably/api';
 import { GoogleLanguage } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
-import { Platform, RefreshControl, ScrollView, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -48,13 +48,6 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
     useTranslationPreset();
   const insets = useSafeAreaInsets();
   const onboardingDisplayerRef = useRef<DisplayerRef>(null);
-  const scrollViewRef = useRef<ScrollView>(null);
-  const onRefresh = () => {
-    setRefreshing(true);
-    refreshLanguages().then(() => {
-      setRefreshing(false);
-    });
-  };
 
   const postHog = usePostHog();
 
@@ -64,27 +57,12 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
     translationPreset.translationLanguage && translationPreset.sourceLanguage;
 
   useEffect(() => {
-    if (
-      !isScrolled &&
-      isNextButtonVisible &&
-      scrollViewRef.current &&
-      onboardingDisplayerRef.current
-    ) {
-      scrollViewRef.current.scrollToEnd({ animated: true });
-    }
-  }, [translationPreset, isScrolled]);
-
-  useEffect(() => {
     postHog.capture('welcome');
   }, []);
 
-  const isTranslate =
-    translationPreset.sourceLanguage !== translationPreset.translationLanguage;
-
   return (
-    <ScrollView
-      ref={scrollViewRef}
-      contentContainerStyle={{
+    <View
+      style={{
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 24,
@@ -92,9 +70,6 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
         paddingRight: insets.right,
         minHeight: '90%',
       }}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
     >
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'form' && (
         <Displayer
@@ -182,13 +157,6 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
                     (await onboardingDisplayerRef.current.hide());
 
                   setOnboardingStep('faq');
-                  scrollViewRef.current &&
-                    scrollViewRef.current.scrollTo({
-                      x: 0,
-                      y: 0,
-                      animated: true,
-                    });
-
                   postOnboardingAction({
                     name: 'facilityOnboarded',
                     payload: {
@@ -226,6 +194,6 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
           />
         </Displayer>
       )}
-    </ScrollView>
+    </View>
   );
 };
