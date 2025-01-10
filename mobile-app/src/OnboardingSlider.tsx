@@ -4,6 +4,7 @@ import React, { FC, useContext, useRef } from 'react';
 import {
   Image,
   Linking,
+  Platform,
   ScrollView,
   useWindowDimensions,
   View,
@@ -37,10 +38,10 @@ export const OnboardingSlider: FC<Props> = ({
   const theme = useTheme();
   const colorScheme = useColorScheme();
   const sliderHeight = Math.min(windowHeight * 0.7, 600);
-  const slideHeight = sliderHeight - 60;
   const { setIsWelcomeVisible } = useContext(WelcomeContext);
 
   const onboardingData = getOnboardingData(sourceLanguage, targetLanguage);
+  const isAndroid = Platform.OS === 'android';
 
   return (
     <View style={{ height: sliderHeight }}>
@@ -243,18 +244,32 @@ export const OnboardingSlider: FC<Props> = ({
             flexGrow: 1,
           }}
         >
-          <Text style={{ fontSize: 22 }}>
-            Do you see a new {languageList[sourceLanguage]} word while surfing
-            the web in Mobile Safari? Translate it with{' '}
-            <Text
-              style={{ color: theme.colors.primary }}
-              onPress={() =>
-                Linking.openURL('https://vocably.pro/ios-safari-extension.html')
-              }
-            >
-              Vocably extension for Safari!
+          {!isAndroid && (
+            <Text style={{ fontSize: 22 }}>
+              Do you see a new {languageList[sourceLanguage]} word while surfing
+              the web in Mobile Safari? Translate it with{' '}
+              <Text
+                style={{ color: theme.colors.primary }}
+                onPress={() =>
+                  Linking.openURL(
+                    'https://vocably.pro/ios-safari-extension.html'
+                  )
+                }
+              >
+                Vocably extension for Safari!
+              </Text>
             </Text>
-          </Text>
+          )}
+          {isAndroid && (
+            <Text style={{ fontSize: 22 }}>
+              Do you see a new {languageList[sourceLanguage]} word on the screen
+              of your Android device?{'\n\n'}
+              Select the word <Icon name="arrow-right" size={18} /> Click{' '}
+              <Icon name="dots-vertical" size={22} />{' '}
+              <Icon name="arrow-right" size={22} /> Click "Translate with
+              Vocably"
+            </Text>
+          )}
           <Telephone
             colorScheme={colorScheme}
             style={{ height: 300, maxWidth: 310 }}
