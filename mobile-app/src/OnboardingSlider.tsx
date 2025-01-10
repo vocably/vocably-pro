@@ -12,11 +12,11 @@ import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem } from './CardListItem';
-import { IPhone } from './iPhone';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
 import { getOnboardingData } from './Onboarding/getOnboardingData';
+import { Telephone } from './Telephone';
 import { useColorScheme } from './useColorScheme';
 import { WelcomeContext } from './WelcomeContainer';
 
@@ -121,7 +121,7 @@ export const OnboardingSlider: FC<Props> = ({
               Look it up!
             </Text>
           </Text>
-          <IPhone
+          <Telephone
             colorScheme={colorScheme}
             style={{ height: 350, maxWidth: 310 }}
           >
@@ -158,7 +158,7 @@ export const OnboardingSlider: FC<Props> = ({
                 )
               )}
             </View>
-          </IPhone>
+          </Telephone>
 
           <Button
             onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
@@ -187,7 +187,7 @@ export const OnboardingSlider: FC<Props> = ({
               Look it up in {languageList[targetLanguage]}!
             </Text>
           </Text>
-          <IPhone
+          <Telephone
             colorScheme={colorScheme}
             style={{ height: 350, maxWidth: 310 }}
           >
@@ -224,7 +224,7 @@ export const OnboardingSlider: FC<Props> = ({
                 )
               )}
             </View>
-          </IPhone>
+          </Telephone>
 
           <Button
             onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
@@ -255,7 +255,7 @@ export const OnboardingSlider: FC<Props> = ({
               Vocably extension for Safari!
             </Text>
           </Text>
-          <IPhone
+          <Telephone
             colorScheme={colorScheme}
             style={{ height: 300, maxWidth: 310 }}
           >
@@ -311,7 +311,7 @@ export const OnboardingSlider: FC<Props> = ({
                 )
               )}
             </View>
-          </IPhone>
+          </Telephone>
 
           <Button
             onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}

@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren, useState } from 'react';
 import { FlexStyle, Image, ImageBackground, View } from 'react-native';
-import { ColorScheme } from './useColorScheme';
+import { ColorScheme } from '../useColorScheme';
 
 type Props = {
   style?: FlexStyle;
