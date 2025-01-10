@@ -4,13 +4,13 @@ import React, { FC, useContext, useRef } from 'react';
 import {
   Image,
   Linking,
-  Platform,
   ScrollView,
   useWindowDimensions,
   View,
 } from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem } from './CardListItem';
 import { IPhone } from './iPhone';
 import { LanguagesContext } from './languages/LanguagesContainer';
@@ -88,8 +88,8 @@ export const OnboardingSlider: FC<Props> = ({
             />
           </View>
           <Text style={{ fontSize: 22, textAlign: 'center' }}>
-            You can save and study your flashcards with spaced repetition
-            system.
+            You can save <Icon name="plus-circle" size={18} /> your flashcards
+            and study them with spaced repetition system.
           </Text>
           <Button
             onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
@@ -108,8 +108,8 @@ export const OnboardingSlider: FC<Props> = ({
           }}
         >
           <Text style={{ fontSize: 22 }}>
-            Do you see a new {languageList[sourceLanguage]} word in real life or
-            hear it in a conversation?{' '}
+            Do you see or hear a new {languageList[sourceLanguage]} word
+            somewhere?{' '}
             <Text
               style={{ color: theme.colors.primary }}
               onPress={() => navigation.navigate('LookUp')}
@@ -179,7 +179,7 @@ export const OnboardingSlider: FC<Props> = ({
               style={{ color: theme.colors.primary }}
               onPress={() => navigation.navigate('LookUp')}
             >
-              Search for it in {languageList[targetLanguage]}!
+              Look it up in {languageList[targetLanguage]}!
             </Text>
           </Text>
           <IPhone
@@ -347,11 +347,7 @@ export const OnboardingSlider: FC<Props> = ({
             browser extension to surf the web in {languageList[sourceLanguage]}!
           </Text>
           <Image
-            source={
-              Platform.OS === 'ios'
-                ? require('./DesktopSafari.png')
-                : require('./DesktopChrome.png')
-            }
+            source={require('./Desktop.png')}
             style={{
               width: 300,
               height: 200,
