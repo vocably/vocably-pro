@@ -80,7 +80,9 @@ export const OnboardingSlider: FC<Props> = ({
             <CardListItem
               style={{
                 width: '100%',
-                maxWidth: 300,
+                padding: 0,
+                paddingHorizontal: 0,
+                paddingVertical: 0,
               }}
               card={onboardingData.welcomeScreenCard}
               showExamples={true}
