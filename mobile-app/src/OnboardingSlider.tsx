@@ -261,14 +261,18 @@ export const OnboardingSlider: FC<Props> = ({
             </Text>
           )}
           {isAndroid && (
-            <Text style={{ fontSize: 22 }}>
-              Do you see a new {languageList[sourceLanguage]} word on the screen
-              of your Android device?{'\n\n'}
-              Select the word <Icon name="arrow-right" size={18} /> Click{' '}
-              <Icon name="dots-vertical" size={22} />{' '}
-              <Icon name="arrow-right" size={22} /> Click "Translate with
-              Vocably"
-            </Text>
+            <View style={{ gap: 8 }}>
+              <Text style={{ fontSize: 22 }}>
+                Do you see a new {languageList[sourceLanguage]} word on the
+                screen of your Android device?
+              </Text>
+              <Text style={{ fontSize: 22 }}>
+                Select the word <Icon name="arrow-right" size={18} /> Click{' '}
+                <Icon name="dots-vertical" size={22} />{' '}
+                <Icon name="arrow-right" size={22} /> Click "Translate with
+                Vocably"
+              </Text>
+            </View>
           )}
           <Telephone
             colorScheme={colorScheme}
