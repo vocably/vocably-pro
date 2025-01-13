@@ -89,4 +89,39 @@ describe('translateDefinitions', () => {
     expect(translationResult.value[0]).toEqual('источник');
     expect(translationResult.value[1]).toHaveSomeOf('месторождение, рудник');
   }, 60_000);
+
+  it('arrival', async () => {
+    const translationResult = await translateDefinitions({
+      source: 'arrival',
+      partOfSpeech: 'noun',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      definitions: ['the time of getting to a place', 'the beginning of'],
+    });
+    expect(translationResult.success).toEqual(true);
+    if (!translationResult.success) {
+      return;
+    }
+    expect(translationResult.value.length).toEqual(2);
+    // @ts-ignore
+    expect(translationResult.value[0]).toEqual('приход');
+    expect(translationResult.value[1]).toEqual('прибытие');
+  }, 60_000);
+
+  it('bottle', async () => {
+    const translationResult = await translateDefinitions({
+      source: 'bottle',
+      partOfSpeech: 'noun',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      definitions: ['a container for liquids', 'the amount a bottle can hold'],
+    });
+    expect(translationResult.success).toEqual(true);
+    if (!translationResult.success) {
+      return;
+    }
+    expect(translationResult.value.length).toEqual(2);
+    // @ts-ignore
+    expect(translationResult.value[0]).toEqual('бутылка');
+  }, 60_000);
 });

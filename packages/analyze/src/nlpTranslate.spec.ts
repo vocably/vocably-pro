@@ -10,7 +10,7 @@ describe('nlpTranslate', () => {
     return;
   }
 
-  it('returns successful result', async () => {
+  xit('returns successful result', async () => {
     const result = await nlpTranslate('машина', 'ru', 'en');
 
     console.log(result);

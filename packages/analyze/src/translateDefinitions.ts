@@ -54,7 +54,7 @@ export const translateDefinitions = async ({
       partOfSpeech,
       sourceLanguage
     )}" into ${safeTargetLanguage}`,
-    `The translations should be one word in ${safeTargetLanguage} and consider only the following definitions:`,
+    `Each translation should be one word or two words in ${safeTargetLanguage} and consider the following definitions:`,
     `[`,
     safeDefinitions.map((def) => `  "${def}"`).join(',\n'),
     `]`,
