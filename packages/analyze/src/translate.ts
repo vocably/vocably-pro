@@ -43,7 +43,7 @@ export const translate = async (
       success: true,
       value: {
         source: payload.source,
-        target: payload.target,
+        target: payload.target ?? payload.source,
         sourceLanguage: payload.sourceLanguage,
         targetLanguage: payload.targetLanguage,
         partOfSpeech: payload.partOfSpeech,
