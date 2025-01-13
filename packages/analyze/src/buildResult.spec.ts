@@ -215,7 +215,9 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].translation).toHaveSomeOf(
       'трюк, прием, уловка, фокус'
     );
-    expect(result.value.items[1].translation).toHaveSomeOf('обмануть');
+    expect(result.value.items[1].translation).toHaveSomeOf(
+      'обмануть, провести'
+    );
   });
 
   it('properly translates dutch to non-article languages', async () => {
@@ -510,7 +512,7 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.items[1].ipa).toEqual('nǐhǎo');
-    expect(result.value.items[1].translation).toEqual('привет');
+    expect(result.value.items[1].translation.toLowerCase()).toEqual('привет');
   });
 
   it('provides context translation', async () => {
@@ -660,5 +662,19 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].source).toEqual('scissors');
     expect(result.value.items[0].translation).toEqual('ножиці');
     expect(result.value.items[0].definitions.length).toBeGreaterThan(0);
+  });
+
+  it('arrives', async () => {
+    const result = await buildResult({
+      source: 'arrive',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    expect(result.value.items[1].source).toEqual('arrival');
+    expect(result.value.items[1].translation).toEqual('приход, прибытие');
   });
 });

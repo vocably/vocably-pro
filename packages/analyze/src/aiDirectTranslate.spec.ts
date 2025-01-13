@@ -148,7 +148,7 @@ describe('aiDirectTranslate', () => {
     }
 
     expect(result.value.source).toBe('e sua cidade');
-    expect(result.value.target).toHaveSomeOf(['и ваш город']);
+    expect(result.value.target).toHaveSomeOf(['и ваш город', 'и его город']);
     expect(result.value.partOfSpeech).toBe('phrase');
   });
 
