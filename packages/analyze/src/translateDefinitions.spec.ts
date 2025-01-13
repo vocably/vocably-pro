@@ -87,7 +87,9 @@ describe('translateDefinitions', () => {
     expect(translationResult.value.length).toEqual(2);
     // @ts-ignore
     expect(translationResult.value[0]).toEqual('источник');
-    expect(translationResult.value[1]).toHaveSomeOf('месторождение, рудник');
+    expect(translationResult.value[1]).toHaveSomeOf(
+      'месторождение, рудник, место нахождения'
+    );
   }, 60_000);
 
   it('arrival', async () => {
