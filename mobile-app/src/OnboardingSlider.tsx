@@ -24,11 +24,15 @@ import { WelcomeContext } from './WelcomeContainer';
 type Props = {
   sourceLanguage: GoogleLanguage;
   targetLanguage: GoogleLanguage;
+  setIsReverse: (isReverse: boolean) => void;
 };
+
+const isAndroid = Platform.OS === 'android';
 
 export const OnboardingSlider: FC<Props> = ({
   sourceLanguage,
   targetLanguage,
+  setIsReverse,
 }) => {
   const navigation: any = useNavigation();
   const swiperRef = useRef<Swiper>(null);
@@ -41,7 +45,6 @@ export const OnboardingSlider: FC<Props> = ({
   const { setIsWelcomeVisible } = useContext(WelcomeContext);
 
   const onboardingData = getOnboardingData(sourceLanguage, targetLanguage);
-  const isAndroid = Platform.OS === 'android';
 
   return (
     <View style={{ height: sliderHeight }}>
@@ -117,7 +120,12 @@ export const OnboardingSlider: FC<Props> = ({
             somewhere?{' '}
             <Text
               style={{ color: theme.colors.primary }}
-              onPress={() => navigation.navigate('LookUp')}
+              onPress={() => {
+                navigation.navigate('LookUp');
+                setTimeout(() => {
+                  setIsReverse(false);
+                }, 500);
+              }}
             >
               Look it up!
             </Text>
@@ -183,7 +191,12 @@ export const OnboardingSlider: FC<Props> = ({
             don't know the word?{' '}
             <Text
               style={{ color: theme.colors.primary }}
-              onPress={() => navigation.navigate('LookUp')}
+              onPress={() => {
+                navigation.navigate('LookUp');
+                setTimeout(() => {
+                  setIsReverse(true);
+                }, 500);
+              }}
             >
               Look it up in {languageList[targetLanguage]}!
             </Text>

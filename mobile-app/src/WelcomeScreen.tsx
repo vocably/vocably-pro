@@ -187,6 +187,12 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'faq' && (
         <Displayer style={{ gap: 16, maxWidth: 600 }}>
           <OnboardingSlider
+            setIsReverse={(isReverse) =>
+              setTranslationPreset({
+                ...translationPreset,
+                isReverse,
+              })
+            }
             sourceLanguage={translationPreset.sourceLanguage as GoogleLanguage}
             targetLanguage={
               translationPreset.translationLanguage as GoogleLanguage
