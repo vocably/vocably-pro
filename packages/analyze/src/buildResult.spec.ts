@@ -677,4 +677,18 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[1].source).toEqual('arrival');
     expect(result.value.items[1].translation).toEqual('приход, прибытие');
   });
+
+  it('arrive in hindi', async () => {
+    const result = await buildResult({
+      source: 'आना',
+      sourceLanguage: 'hi',
+      targetLanguage: 'ru',
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    expect(result.value.items[1].source).toEqual('arrival');
+    expect(result.value.items[1].translation).toEqual('приход, прибытие');
+  });
 });

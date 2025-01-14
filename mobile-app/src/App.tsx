@@ -12,6 +12,7 @@ import { PostHogProvider } from './PostHogProvider';
 import { RootModalStack } from './RootModalStack';
 import { TranslationPresetContainer } from './TranslationPreset/TranslationPresetContainer';
 import { UserMetadataContainer } from './UserMetadataContainer';
+import { WelcomeContainer } from './WelcomeContainer';
 
 Sentry.init({
   dsn: 'https://88ec70cfa6b68493c79646625c208280@o1191770.ingest.us.sentry.io/4507980535758848',
@@ -26,23 +27,25 @@ configureApi({
 const App = () => {
   return (
     <ThemeProvider>
-      <NavigationContainer>
-        <PostHogProvider>
-          <AuthContainer>
-            <Login>
-              <UserMetadataContainer>
-                <LanguagesContainer>
-                  <TranslationPresetContainer>
-                    <SafeAreaProvider>
-                      <RootModalStack />
-                    </SafeAreaProvider>
-                  </TranslationPresetContainer>
-                </LanguagesContainer>
-              </UserMetadataContainer>
-            </Login>
-          </AuthContainer>
-        </PostHogProvider>
-      </NavigationContainer>
+      <WelcomeContainer>
+        <NavigationContainer>
+          <PostHogProvider>
+            <AuthContainer>
+              <Login>
+                <UserMetadataContainer>
+                  <LanguagesContainer>
+                    <TranslationPresetContainer>
+                      <SafeAreaProvider>
+                        <RootModalStack />
+                      </SafeAreaProvider>
+                    </TranslationPresetContainer>
+                  </LanguagesContainer>
+                </UserMetadataContainer>
+              </Login>
+            </AuthContainer>
+          </PostHogProvider>
+        </NavigationContainer>
+      </WelcomeContainer>
     </ThemeProvider>
   );
 };

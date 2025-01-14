@@ -1,15 +1,15 @@
-import { FC, PropsWithChildren, useEffect, useState } from 'react';
-import { Appearance } from 'react-native';
+import { FC, PropsWithChildren } from 'react';
 import {
   MD3DarkTheme,
   MD3LightTheme,
   MD3Theme,
   Provider,
 } from 'react-native-paper';
+import { useColorScheme } from './useColorScheme';
 
 type ThemeProvider = FC<PropsWithChildren<{}>>;
 
-const lightTheme: MD3Theme = {
+export const lightTheme: MD3Theme = {
   ...MD3LightTheme,
   colors: {
     ...MD3LightTheme.colors,
@@ -73,19 +73,7 @@ const darkTheme: MD3Theme = {
 };
 
 export const ThemeProvider: ThemeProvider = ({ children }) => {
-  const [colorScheme, setColorScheme] = useState<'dark' | 'light'>(
-    Appearance.getColorScheme() ?? 'light'
-  );
-
-  useEffect(() => {
-    const subscription = Appearance.addChangeListener((preferences) => {
-      setColorScheme(preferences.colorScheme ?? 'light');
-    });
-
-    return () => {
-      subscription.remove();
-    };
-  }, [Appearance]);
+  const colorScheme = useColorScheme();
   return (
     <Provider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
       {children}

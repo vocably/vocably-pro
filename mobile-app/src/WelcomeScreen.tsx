@@ -1,21 +1,16 @@
 import { NavigationProp } from '@react-navigation/native';
 import { postOnboardingAction } from '@vocably/api';
-import { GoogleLanguage, languageList } from '@vocably/model';
+import { GoogleLanguage } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
-import {
-  Linking,
-  Platform,
-  RefreshControl,
-  ScrollView,
-  View,
-} from 'react-native';
+import { Platform, View } from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getItem, setItem } from './asyncAppStorage';
 import { facility } from './facility';
 import { LanguagesContext } from './languages/LanguagesContainer';
+import { OnboardingSlider } from './OnboardingSlider';
 import { SourceLanguageButton } from './SourceLanguageButton';
 import { Displayer, DisplayerRef } from './study/Displayer';
 import { TargetLanguageButton } from './TargetLanguageButton';
@@ -53,13 +48,6 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
     useTranslationPreset();
   const insets = useSafeAreaInsets();
   const onboardingDisplayerRef = useRef<DisplayerRef>(null);
-  const scrollViewRef = useRef<ScrollView>(null);
-  const onRefresh = () => {
-    setRefreshing(true);
-    refreshLanguages().then(() => {
-      setRefreshing(false);
-    });
-  };
 
   const postHog = usePostHog();
 
@@ -69,41 +57,23 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
     translationPreset.translationLanguage && translationPreset.sourceLanguage;
 
   useEffect(() => {
-    if (
-      !isScrolled &&
-      isNextButtonVisible &&
-      scrollViewRef.current &&
-      onboardingDisplayerRef.current
-    ) {
-      scrollViewRef.current.scrollToEnd({ animated: true });
-    }
-  }, [translationPreset, isScrolled]);
-
-  useEffect(() => {
     postHog.capture('welcome');
   }, []);
 
-  const isTranslate =
-    translationPreset.sourceLanguage !== translationPreset.translationLanguage;
-
   return (
-    <ScrollView
-      ref={scrollViewRef}
-      contentContainerStyle={{
+    <View
+      style={{
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 24,
-        paddingLeft: insets.left + 24,
-        paddingRight: insets.right + 24,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
         minHeight: '90%',
       }}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
     >
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'form' && (
         <Displayer
-          style={{ gap: 16, maxWidth: 600 }}
+          style={{ gap: 16, maxWidth: 600, paddingHorizontal: 24 }}
           ref={onboardingDisplayerRef}
         >
           <Text style={{ textAlign: 'center', fontSize: 24, marginBottom: 24 }}>
@@ -187,13 +157,6 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
                     (await onboardingDisplayerRef.current.hide());
 
                   setOnboardingStep('faq');
-                  scrollViewRef.current &&
-                    scrollViewRef.current.scrollTo({
-                      x: 0,
-                      y: 0,
-                      animated: true,
-                    });
-
                   postOnboardingAction({
                     name: 'facilityOnboarded',
                     payload: {
@@ -223,84 +186,20 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
       )}
       {onboardingStep.status === 'loaded' && onboardingStep.value === 'faq' && (
         <Displayer style={{ gap: 16, maxWidth: 600 }}>
-          <Text style={{ fontSize: 18 }}>
-            Vocably is designed to help you{' '}
-            {isTranslate ? 'translate' : 'look up'} words and phrases right when
-            you need them.
-          </Text>
-
-          <Text style={{ fontSize: 18 }}>
-            Each time you {isTranslate ? 'translate' : 'look up'} a word,
-            Vocably creates custom flashcards to save and study later.
-          </Text>
-          <Text style={{ fontSize: 18 }}>Features:</Text>
-          <Text style={{ fontSize: 18 }}>
-            •{' '}
-            <Text
-              style={{ color: theme.colors.primary }}
-              onPress={() => navigation.navigate('LookUp')}
-            >
-              Look up
-            </Text>{' '}
-            words and phrases
-            {isTranslate &&
-              ` in ${
-                languageList[translationPreset.sourceLanguage as GoogleLanguage]
-              } and ${
-                languageList[
-                  translationPreset.translationLanguage as GoogleLanguage
-                ]
-              }`}
-            .
-          </Text>
-          <Text style={{ fontSize: 18 }}>
-            • When you see a new{' '}
-            {languageList[translationPreset.sourceLanguage as GoogleLanguage]}{' '}
-            word in any app, select it and share with Vocably for definitions
-            and translations.
-          </Text>
-          {isIos && (
-            <Text style={{ fontSize: 18 }}>
-              • Enable the{' '}
-              <Text
-                style={{ color: theme.colors.primary }}
-                onPress={() =>
-                  Linking.openURL(
-                    'https://vocably.pro/ios-safari-extension.html'
-                  )
-                }
-              >
-                Mobile Safari Extension
-              </Text>{' '}
-              for accurate AI translations while browsing on your mobile device.
-            </Text>
-          )}
-
-          <Text style={{ fontSize: 18 }}>
-            • On your computer — use the{' '}
-            <Text
-              style={{ color: theme.colors.primary }}
-              onPress={() =>
-                Linking.openURL(
-                  'https://chromewebstore.google.com/detail/vocably-pro-language-flas/baocigmmhhdemijfjnjdidbkfgpgogmb'
-                )
-              }
-            >
-              Chrome
-            </Text>{' '}
-            or{' '}
-            <Text
-              style={{ color: theme.colors.primary }}
-              onPress={() =>
-                Linking.openURL('https://apps.apple.com/app/id6464076425')
-              }
-            >
-              Safari
-            </Text>{' '}
-            extensions with AI-powered word matching.
-          </Text>
+          <OnboardingSlider
+            setIsReverse={(isReverse) =>
+              setTranslationPreset({
+                ...translationPreset,
+                isReverse,
+              })
+            }
+            sourceLanguage={translationPreset.sourceLanguage as GoogleLanguage}
+            targetLanguage={
+              translationPreset.translationLanguage as GoogleLanguage
+            }
+          />
         </Displayer>
       )}
-    </ScrollView>
+    </View>
   );
 };

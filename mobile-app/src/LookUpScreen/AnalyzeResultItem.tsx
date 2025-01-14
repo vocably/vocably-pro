@@ -62,7 +62,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
     >
       <CardListItem
         card={item.card}
-        style={{ flex: 1 }}
+        style={{ flex: 1, paddingVertical: 16 }}
         showExamples={true}
         savingTagsInProgress={isSavingTags}
         onTagsChange={onTagsChange}
