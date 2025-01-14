@@ -14,7 +14,7 @@ data "external" "auth_lambdas_build" {
   depends_on = [local_file.auth_lambdas_environment]
 
   program = ["bash", "-c", <<EOT
-(npm run build) >&2 && echo "{\"dest\": \"dist\"}"
+(npm run build --loglevel verbose) >&2 && echo "{\"dest\": \"dist\"}"
 EOT
   ]
   working_dir = local.auth_lambdas_root

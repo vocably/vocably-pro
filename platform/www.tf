@@ -21,7 +21,7 @@ locals {
 data "external" "www_build" {
   depends_on = [local_file.www_environment]
   program = ["bash", "-c", <<EOT
-(npm run build) >&2 && echo "{\"dest\": \"$(pwd)/dist\"}"
+(npm run build --loglevel verbose) >&2 && echo "{\"dest\": \"$(pwd)/dist\"}"
 EOT
   ]
   working_dir = local.www_root

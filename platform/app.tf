@@ -128,7 +128,7 @@ resource "aws_route53_record" "app" {
 data "external" "app_build" {
   depends_on = [local_file.app_environment]
   program = ["bash", "-c", <<EOT
-(npm run build) >&2 && echo "{\"dest\": \"$(pwd)/dist\"}"
+(npm run build --loglevel verbose) >&2 && echo "{\"dest\": \"$(pwd)/dist\"}"
 EOT
   ]
   working_dir = local.app_root
