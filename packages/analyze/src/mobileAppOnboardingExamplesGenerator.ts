@@ -321,6 +321,7 @@ export const generateAppOnboardingExamples = async (
     return;
   }
 
+  // @ts-ignore
   const result: MobileOnboardingDataCollection = {};
   for (let targetLanguage of ChatGPTLanguages) {
     console.log({ targetLanguage });

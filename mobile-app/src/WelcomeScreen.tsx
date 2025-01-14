@@ -51,10 +51,19 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
 
   const postHog = usePostHog();
 
-  const [isScrolled, setIsScrolled] = useState(false);
-
   const isNextButtonVisible =
     translationPreset.translationLanguage && translationPreset.sourceLanguage;
+
+  const showSlider =
+    onboardingStep.status === 'loaded' &&
+    onboardingStep.value === 'faq' &&
+    translationPreset.sourceLanguage &&
+    translationPreset.translationLanguage;
+
+  const showWelcomeForm =
+    onboardingStep.status === 'loaded' &&
+    onboardingStep.value === 'form' &&
+    !showSlider;
 
   useEffect(() => {
     postHog.capture('welcome');
@@ -71,7 +80,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
         minHeight: '90%',
       }}
     >
-      {onboardingStep.status === 'loaded' && onboardingStep.value === 'form' && (
+      {showWelcomeForm && (
         <Displayer
           style={{ gap: 16, maxWidth: 600, paddingHorizontal: 24 }}
           ref={onboardingDisplayerRef}
@@ -184,7 +193,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
           )}
         </Displayer>
       )}
-      {onboardingStep.status === 'loaded' && onboardingStep.value === 'faq' && (
+      {showSlider && (
         <Displayer style={{ gap: 16, maxWidth: 600 }}>
           <OnboardingSlider
             setIsReverse={(isReverse) =>
