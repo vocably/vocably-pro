@@ -29,7 +29,7 @@ describe('exampleGenerator', () => {
     console.log(allTranslations);
   }, 1_000_000_000);
 
-  it('generate stuff', async () => {
+  xit('generate stuff', async () => {
     for (let chatGptLanguage of ChatGPTLanguages) {
       await generateAppOnboardingExamples(chatGptLanguage);
     }
