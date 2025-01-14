@@ -23,6 +23,6 @@ export type MobileOnboardingData = {
   };
 };
 
-export type MobileOnboardingDataCollection = Partial<
-  Record<GoogleLanguage, MobileOnboardingData>
->;
+export type MobileOnboardingDataCollection = {
+  en: MobileOnboardingData;
+} & Partial<Record<GoogleLanguage, MobileOnboardingData>>;

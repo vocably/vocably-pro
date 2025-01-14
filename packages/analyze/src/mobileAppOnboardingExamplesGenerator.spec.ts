@@ -30,7 +30,9 @@ describe('exampleGenerator', () => {
   }, 1_000_000_000);
 
   it('generate stuff', async () => {
-    await generateAppOnboardingExamples('en');
+    for (let chatGptLanguage of ChatGPTLanguages) {
+      await generateAppOnboardingExamples(chatGptLanguage);
+    }
     expect(true).toEqual(true);
   }, 1_000_000_000);
 });

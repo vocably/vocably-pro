@@ -7,7 +7,7 @@ import {
   MobileOnboardingDataCollection,
 } from '@vocably/model';
 import { join } from '@vocably/sulna';
-import { writeFileSync } from 'node:fs';
+import { existsSync, writeFileSync } from 'node:fs';
 import { buildDirectResult } from './buildDirectResult';
 import { buildReverseResult } from './buildReverseResult';
 
@@ -315,6 +315,12 @@ const languages: Languages = {
 export const generateAppOnboardingExamples = async (
   sourceLanguage: ChatGPTLanguage
 ) => {
+  const fileName = `${__dirname}/mobileAppOnboardingGenerator/${sourceLanguage}.ts`;
+
+  if (existsSync(fileName)) {
+    return;
+  }
+
   const result: MobileOnboardingDataCollection = {};
   for (let targetLanguage of ChatGPTLanguages) {
     console.log({ targetLanguage });
@@ -408,7 +414,7 @@ export const generateAppOnboardingExamples = async (
   }
 
   writeFileSync(
-    `${__dirname}/mobileAppOnboardingGenerator/${sourceLanguage}.ts`,
+    fileName,
     `import { MobileOnboardingDataCollection } from '@vocably/model';
 
 export const onboardingCollection: MobileOnboardingDataCollection = ${JSON.stringify(
