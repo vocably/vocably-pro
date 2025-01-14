@@ -1,14 +1,20 @@
-import { OnboardingData } from './types';
+import {
+  GoogleLanguage,
+  MobileOnboardingData,
+  MobileOnboardingDataCollection,
+} from '@vocably/model';
 
 export const getOnboardingData = (
-  sourceLanguage: string,
-  targetLanguage: string
-): OnboardingData => {
+  sourceLanguage: GoogleLanguage,
+  targetLanguage: GoogleLanguage
+): MobileOnboardingData => {
+  let collection: MobileOnboardingDataCollection;
   if (sourceLanguage === 'en') {
-    if (targetLanguage === 'ru') {
-      return require('./data/en-ru').onboardingData;
-    }
+    collection = require('./data/en').onboardingCollection;
+  } else {
+    collection = require('./data/en').onboardingCollection;
   }
 
-  return require('./data/de-en').onboardingData;
+  // @ts-ignore
+  return collection[targetLanguage] ?? collection['en'];
 };
