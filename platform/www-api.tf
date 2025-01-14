@@ -76,7 +76,7 @@ resource "aws_iam_role_policy_attachment" "save_emails_db" {
 data "external" "www_backend_build" {
   depends_on = [local_file.www_backend_environment]
   program = ["bash", "-c", <<EOT
-(npm run build --loglevel verbose) >&2 && echo "{\"dest\": \"dist\"}"
+(NODE_OPTIONS=--max-old-space-size=1024 npm run build --loglevel verbose) >&2 && echo "{\"dest\": \"dist\"}"
 EOT
   ]
   working_dir = local.www_backed_root
