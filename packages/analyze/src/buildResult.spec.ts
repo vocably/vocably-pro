@@ -429,7 +429,7 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.items[1].partOfSpeech).toEqual('verb');
     expect(result.value.items[1].translation).toHaveSomeOf(
-      'пристосувати, стилізувати, шити'
+      'підлаштувати, пристосувати, стилізувати, шити'
     );
   });
 
