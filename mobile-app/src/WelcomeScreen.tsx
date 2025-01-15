@@ -3,7 +3,7 @@ import { postOnboardingAction } from '@vocably/api';
 import { GoogleLanguage } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useContext, useEffect, useRef, useState } from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -16,8 +16,6 @@ import { Displayer, DisplayerRef } from './study/Displayer';
 import { TargetLanguageButton } from './TargetLanguageButton';
 import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 import { useAsync } from './useAsync';
-
-const isIos = Platform.OS === 'ios';
 
 type Props = {
   navigation: NavigationProp<any>;
@@ -54,20 +52,20 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
   const isNextButtonVisible =
     translationPreset.translationLanguage && translationPreset.sourceLanguage;
 
+  useEffect(() => {
+    postHog.capture('welcome');
+  }, []);
+
+  if (onboardingStep.status !== 'loaded') {
+    return <></>;
+  }
+
   const showSlider =
-    onboardingStep.status === 'loaded' &&
     onboardingStep.value === 'faq' &&
     translationPreset.sourceLanguage &&
     translationPreset.translationLanguage;
 
-  const showWelcomeForm =
-    onboardingStep.status === 'loaded' &&
-    onboardingStep.value === 'form' &&
-    !showSlider;
-
-  useEffect(() => {
-    postHog.capture('welcome');
-  }, []);
+  const showWelcomeForm = onboardingStep.value === 'form' || !showSlider;
 
   return (
     <View
