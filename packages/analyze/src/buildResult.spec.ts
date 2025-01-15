@@ -630,7 +630,9 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.items[0].source).toEqual('get along');
-    expect(result.value.items[0].translation).toHaveSomeOf('ладить, уживаться');
+    expect(result.value.items[0].translation).toHaveSomeOf(
+      'ладить, уживаться, хорошо ладить'
+    );
     expect(result.value.items[0].definitions.length).toBeGreaterThan(0);
   });
 
