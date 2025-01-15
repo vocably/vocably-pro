@@ -2,7 +2,7 @@
   "name": "vocably",
   "version": "0.0.0-auto",
   "private": true,
-  "repository": "git@github.com:vocably-pro/vocably.git",
+  "repository": "git@github.com:vocably/vocably-pro.git",
   "license": "LicenseRef-LICENSE.md",
   "author": "Dmytro Snisarenko <dmytro@sneas.io>",
   "main": "index.js",
