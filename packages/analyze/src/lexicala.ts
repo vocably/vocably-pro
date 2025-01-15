@@ -69,11 +69,13 @@ export const lexicala = async (
       };
     }
 
-    const searchResult: any = JSON.parse(result.value);
+    const lexicalaItems: LexicalaSearchResultItem[] =
+      JSON.parse(result.value).results ?? [];
 
     return {
       success: true,
-      value: searchResult.results ?? [],
+      // Senses are sometimes missing in Lexicala output which leads to further confusions
+      value: lexicalaItems.filter((item) => item.senses),
     };
   } catch (e) {
     return {

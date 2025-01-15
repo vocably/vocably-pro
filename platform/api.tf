@@ -42,7 +42,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logging" {
 }
 
 data "external" "backend_build" {
-  depends_on = [local_file.backend_environment]
+  depends_on = [local_file.backend_environment, data.external.app_build]
   program = ["bash", "-c", <<EOT
 (NODE_OPTIONS=--max-old-space-size=1024 npm run build --loglevel verbose) >&2 && echo "{\"dest\": \"dist\"}"
 EOT
