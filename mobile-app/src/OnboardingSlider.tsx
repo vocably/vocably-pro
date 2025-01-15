@@ -70,7 +70,7 @@ export const OnboardingSlider: FC<Props> = ({
           )}
 
           <Text style={{ fontSize: 22, textAlign: 'center' }}>
-            Vocably translates and makes flashcards like this one:
+            Vocably translates words and makes flashcards like this one:
           </Text>
           <View
             style={{
