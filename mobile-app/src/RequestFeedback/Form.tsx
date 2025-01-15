@@ -22,15 +22,6 @@ const styles = StyleSheet.create({
     maxHeight: Math.min(380, 300 + (windowDimensions.height - 667)),
   },
 
-  scrollContainer: {
-    flex: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingBottom: gradientHeight - 30,
-  },
-  element: {
-    marginTop: 12,
-  },
   gradientPanel: {
     position: 'absolute',
     display: 'flex',
@@ -57,20 +48,40 @@ export const RequestFeedbackForm: FC<Props> = ({
   const navigation = useNavigation();
   return (
     <View style={[styles.container]}>
-      <ScrollView contentContainerStyle={[styles.scrollContainer, style]}>
+      <ScrollView
+        contentContainerStyle={[
+          {
+            flex: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingBottom: gradientHeight - 30,
+            gap: 16,
+          },
+          style,
+        ]}
+      >
         <View>
-          <Text style={{ fontWeight: 'bold' }}>By the way,</Text>
-        </View>
-        <View style={styles.element}>
-          <Text>Vocably is 100% free and open-source.</Text>
-        </View>
-        <View style={styles.element}>
-          <Text style={{ textAlign: 'center' }}>
-            Your positive review on {mobileStoreName} would help other users to
-            discover this project.
+          <Text style={{ fontWeight: 'bold' }}>
+            It will take less than a minute.
           </Text>
         </View>
-        <View style={styles.element}>
+        <View>
+          <Text style={{ textAlign: 'center' }}>
+            Do you find Vocably useful? Your rating on {mobileStoreName} will
+            make a big difference.
+          </Text>
+        </View>
+        <View style={{ alignSelf: 'stretch' }}>
+          <Button mode={'contained'} onPress={() => onAction('review')}>
+            Rate on {mobileStoreName}
+          </Button>
+        </View>
+        <View style={{ alignSelf: 'stretch' }}>
+          <Button mode={'outlined'} onPress={() => onAction('later')}>
+            Ask me later
+          </Button>
+        </View>
+        <View>
           <Text style={{ textAlign: 'center' }}>
             If you are missing or don't like something, you can always{' '}
             <Text
@@ -82,19 +93,13 @@ export const RequestFeedbackForm: FC<Props> = ({
             . I take every feedback seriously.
           </Text>
         </View>
-        <View style={[styles.element, { alignSelf: 'stretch' }]}>
-          <Button mode={'contained'} onPress={() => onAction('review')}>
-            Rate on {mobileStoreName}
-          </Button>
-        </View>
-        <View style={[styles.element, { alignSelf: 'stretch' }]}>
-          <Button mode={'outlined'} onPress={() => onAction('later')}>
-            Ask me later
-          </Button>
-        </View>
-        <View style={styles.element}>
-          <Button mode="text" onPress={() => onAction('never')}>
-            Please don't ask me about this.
+        <View>
+          <Button
+            mode="text"
+            textColor={theme.colors.onSurface}
+            onPress={() => onAction('never')}
+          >
+            Don't show this message again
           </Button>
         </View>
       </ScrollView>
