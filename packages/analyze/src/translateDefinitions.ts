@@ -64,7 +64,17 @@ export const translateDefinitions = async ({
     )}`,
   ].join('\n');
 
-  const result = await chatGptRequest({ prompt, model: GPT_4O_MINI });
+  const result = await chatGptRequest({
+    messages: [
+      {
+        role: 'system',
+        content:
+          'You are a smart language assistant. Only respond to questions about vocabulary and translations.',
+      },
+      { role: 'user', content: prompt },
+    ],
+    model: GPT_4O_MINI,
+  });
 
   if (result.success === false) {
     return result;

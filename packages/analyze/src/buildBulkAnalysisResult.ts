@@ -73,7 +73,14 @@ export const buildBulkAnalysisResult = async (
     ].join('\n');
 
     const responseResult = await chatGptRequest({
-      prompt,
+      messages: [
+        {
+          role: 'system',
+          content:
+            'You are a smart language assistant. Only respond to questions about vocabulary and translations.',
+        },
+        { role: 'user', content: prompt },
+      ],
       model: GPT_4O_MINI,
     });
 

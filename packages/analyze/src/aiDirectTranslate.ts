@@ -26,7 +26,7 @@ export const aiDirectTranslate = async (
   const example: AiTranslation = resultExamples[payload.sourceLanguage][
     payload.targetLanguage
   ] ?? {
-    correctSpelling: 'hedgehog',
+    source: 'hedgehog',
     translation: 'ёж',
     partOfSpeech: 'noun',
   };
@@ -45,7 +45,15 @@ export const aiDirectTranslate = async (
   ].join('\n');
 
   const responseResult = await chatGptRequest({
-    prompt,
+    messages: [
+      {
+        role: 'system',
+        content: `You are a ${languageList[payload.sourceLanguage]}-${
+          languageList[payload.targetLanguage]
+        } dictionary.`,
+      },
+      { role: 'user', content: prompt },
+    ],
     model: GPT_4O_MINI,
   });
 
@@ -66,7 +74,7 @@ export const aiDirectTranslate = async (
   return {
     success: true,
     value: {
-      source: response.correctSpelling,
+      source: response.source,
       target: response.translation,
       sourceLanguage: payload.sourceLanguage,
       targetLanguage: payload.targetLanguage,

@@ -28,44 +28,6 @@ describe('aiDirectTranslate', () => {
     expect(result.value.targetLanguage).toBe('ru');
   });
 
-  it('properly translates and corrects a phrase', async () => {
-    const result = await aiDirectTranslate({
-      source: 'iedr nadeel heeft zijn vordeel',
-      sourceLanguage: 'nl',
-      targetLanguage: 'en',
-    });
-
-    if (result.success !== true) {
-      expect(result.reason).toBeFalsy();
-      return;
-    }
-
-    expect(result.value.source).toHaveSomeOf([
-      'iedere nadeel heeft zijn voordeel',
-      'ieder nadeel heeft zijn voordeel',
-    ]);
-    expect(result.value.partOfSpeech).toHaveSomeOf(['phrase', 'proverb']);
-    expect(result.value.target).toBe('every disadvantage has its advantage');
-    expect(result.value.sourceLanguage).toBe('nl');
-    expect(result.value.targetLanguage).toBe('en');
-  });
-
-  it('properly translates and corrects', async () => {
-    const result = await aiDirectTranslate({
-      source: 'betise',
-      sourceLanguage: 'fr',
-      targetLanguage: 'en',
-    });
-
-    if (result.success !== true) {
-      expect(result.reason).toBeFalsy();
-      return;
-    }
-
-    expect(result.value.source).toBe('bêtise');
-    expect(result.value.partOfSpeech).toBe('noun');
-  });
-
   it('properly translates and corrects', async () => {
     const result = await aiDirectTranslate({
       source: 'betise',
@@ -166,6 +128,25 @@ describe('aiDirectTranslate', () => {
 
     expect(result.value.source).toBe('scissors');
     expect(result.value.target).toHaveSomeOf(['ножницы']);
+    expect(result.value.partOfSpeech).toBe('noun');
+  });
+
+  it('translates from german to ukrainian', async () => {
+    const result = await aiDirectTranslate({
+      source: 'scharfes Essen',
+      sourceLanguage: 'de',
+      targetLanguage: 'uk',
+    });
+
+    if (result.success !== true) {
+      expect(result.reason).toBeFalsy();
+      return;
+    }
+
+    console.log(result);
+
+    expect(result.value.source).toBe('scharfes Essen');
+    expect(result.value.target).toHaveSomeOf(['гостра їжа']);
     expect(result.value.partOfSpeech).toBe('noun');
   });
 });

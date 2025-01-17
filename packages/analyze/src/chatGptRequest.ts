@@ -1,33 +1,28 @@
 import { Result, resultify } from '@vocably/model';
 import { get } from 'lodash';
+import OpenAI from 'openai';
 import { getOpenAiClient } from './openAiClient';
 import { parseJson } from './parseJson';
+import ChatCompletionMessageParam = OpenAI.ChatCompletionMessageParam;
 
 export const GPT_4O_MINI = 'gpt-4o-mini';
 
 type OpenAiModel = typeof GPT_4O_MINI;
 
 type Options = {
-  prompt: string;
+  messages: Array<ChatCompletionMessageParam>;
   model: OpenAiModel;
 };
 
 export const chatGptRequest = async ({
-  prompt,
+  messages,
   model,
 }: Options): Promise<Result<any>> => {
   const openai = await getOpenAiClient();
 
   const completionResult = await resultify(
     openai.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content:
-            'You are a smart language assistant. Only respond to questions about vocabulary and translations.',
-        },
-        { role: 'user', content: prompt },
-      ],
+      messages: messages,
       model: model,
       response_format: {
         type: 'json_object',
@@ -42,9 +37,9 @@ export const chatGptRequest = async ({
   );
 
   console.log(
-    `Sent prompt ${prompt}. Analyzer responded with: ${JSON.stringify(
-      completionResult
-    )}`
+    `Sent prompt ${JSON.stringify(
+      messages
+    )}. Analyzer responded with: ${JSON.stringify(completionResult)}`
   );
 
   if (completionResult.success === false) {
