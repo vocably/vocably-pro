@@ -2,14 +2,13 @@ import { NavigationProp } from '@react-navigation/native';
 import { postOnboardingAction } from '@vocably/api';
 import { GoogleLanguage } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
-import React, { FC, useContext, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { View } from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getItem, setItem } from './asyncAppStorage';
 import { facility } from './facility';
-import { LanguagesContext } from './languages/LanguagesContainer';
 import { OnboardingSlider } from './OnboardingSlider';
 import { SourceLanguageButton } from './SourceLanguageButton';
 import { Displayer, DisplayerRef } from './study/Displayer';
@@ -35,9 +34,7 @@ const setOnboardingStepToStorage = (onboardingStep: OnboardingStep) =>
   setItem('onboardingStep', onboardingStep);
 
 export const WelcomeScreen: FC<Props> = ({ navigation }) => {
-  const [refreshing, setRefreshing] = useState(false);
   const theme = useTheme();
-  const { refreshLanguages } = useContext(LanguagesContext);
   const [onboardingStep, setOnboardingStep] = useAsync(
     getOnboardingStepFromStorage,
     setOnboardingStepToStorage

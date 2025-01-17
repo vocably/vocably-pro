@@ -13,6 +13,7 @@ type Props = {
   card: CardItem;
   onGrade: (score: SrsScore) => void;
   existingCards: CardItem[];
+  prerenderedCards: CardItem[];
 };
 
 export const Grade: FC<Props> = ({
@@ -22,12 +23,14 @@ export const Grade: FC<Props> = ({
   existingCards,
   autoPlay,
   onGrade,
+  prerenderedCards,
 }) => {
   const { immediateStep } = craftTheStrategy({
     isMultiChoiceEnabled,
     preferMultiChoiceEnabled,
     card,
     allCards: existingCards,
+    prerenderedCards,
   });
 
   const strategyStep = () => {
