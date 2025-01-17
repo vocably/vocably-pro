@@ -31,6 +31,7 @@ type Options = {
   preferMultiChoiceEnabled: boolean;
   card: CardItem;
   allCards: CardItem[];
+  prerenderedCards: CardItem[];
 };
 
 type ReturnType = {
@@ -43,6 +44,7 @@ export const craftTheStrategy = ({
   preferMultiChoiceEnabled,
   card,
   allCards,
+  prerenderedCards,
 }: Options): ReturnType => {
   const swipeStrategy: StudyStrategy = [
     { step: 'sf', allowedFailures: null },
@@ -62,7 +64,8 @@ export const craftTheStrategy = ({
     };
   }
 
-  const multiChoiceItems = getMultiChoice(card, allCards);
+  const multiChoiceItems =
+    getMultiChoice(card, allCards) ?? getMultiChoice(card, prerenderedCards);
 
   if (multiChoiceItems === null) {
     const { currentState } = spreadStrategy(card.data.state, swipeStrategy);

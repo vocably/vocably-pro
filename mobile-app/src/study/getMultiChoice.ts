@@ -2,6 +2,8 @@ import { CardItem } from '@vocably/model';
 import { get, shuffle } from 'lodash-es';
 
 const posMap = {
+  noun: ['noun', 'pronoun'],
+  pronoun: ['noun', 'pronoun'],
   adjective: ['adjective', 'adverb'],
   adverb: ['adjective', 'adverb'],
 };

@@ -1,4 +1,4 @@
-import { CardItem } from '@vocably/model';
+import { CardItem, GoogleLanguage } from '@vocably/model';
 import { grade, slice, SrsScore } from '@vocably/srs';
 import { shuffle } from 'lodash-es';
 import { usePostHog } from 'posthog-react-native';
@@ -9,7 +9,9 @@ import { Loader } from '../loaders/Loader';
 import { useNumberOfRepetitions } from '../RequestFeedback/useNumberOfRepetitions';
 import { Completed } from './Completed';
 import { craftTheStrategy } from './craftTheStrategy';
+import { getPredefinedMultiChoiceOptions } from './getPredefinedMultiChoiceOptions';
 import { Grade } from './Grade';
+import { useTranslationLanguage } from './useTranslationLanguage';
 
 type Props = {
   onExit: () => void;
@@ -41,6 +43,10 @@ export const Study: FC<Props> = ({
   const [numberOfRepetitions, increaseNumberOfRepetitions] =
     useNumberOfRepetitions();
 
+  const translationLanguage = useTranslationLanguage(
+    language as GoogleLanguage
+  );
+
   const totalCardsToStudy = Math.min(
     maximumCardsPerSession,
     filteredCards.length
@@ -71,6 +77,12 @@ export const Study: FC<Props> = ({
         preferMultiChoiceEnabled,
         card: cards[0],
         allCards,
+        prerenderedCards: translationLanguage
+          ? getPredefinedMultiChoiceOptions(
+              language as GoogleLanguage,
+              translationLanguage
+            )
+          : [],
       });
 
       update(cards[0].id, grade(cards[0].data, score, strategy)).then(
@@ -142,6 +154,14 @@ export const Study: FC<Props> = ({
               onGrade={onGrade}
               autoPlay={autoPlay}
               existingCards={allCards}
+              prerenderedCards={
+                translationLanguage
+                  ? getPredefinedMultiChoiceOptions(
+                      language as GoogleLanguage,
+                      translationLanguage
+                    )
+                  : []
+              }
             />
           ))}
       {cards.length === 0 && (
