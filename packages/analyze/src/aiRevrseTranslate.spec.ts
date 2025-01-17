@@ -76,6 +76,27 @@ describe('aiReverseTranslate', () => {
     ]);
   });
 
+  it('translates from ukrainian to german', async () => {
+    const result = await aiReverseTranslate({
+      target: 'гостра їжа',
+      sourceLanguage: 'de',
+      targetLanguage: 'uk',
+    });
+
+    if (result.success !== true) {
+      expect(result.reason).toBeFalsy();
+      return;
+    }
+
+    console.log(result);
+
+    expect(result.value.length).toBeGreaterThanOrEqual(1);
+    expect(result.value[0].target).toHaveSomeOf([
+      'scharfes Essen',
+      'scharfe Speisen',
+    ]);
+  });
+
   describe('truncateText', () => {
     it('keeps all the punctuation but angle braces', () => {
       expect(truncateText('a, b, </cd>, >, <, something', 100)).toEqual(
