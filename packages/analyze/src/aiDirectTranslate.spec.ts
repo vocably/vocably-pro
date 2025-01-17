@@ -149,4 +149,42 @@ describe('aiDirectTranslate', () => {
     expect(result.value.target).toHaveSomeOf(['гостра їжа']);
     expect(result.value.partOfSpeech).toBe('noun');
   });
+
+  it('fixes osccillation', async () => {
+    const result = await aiDirectTranslate({
+      source: 'oscilation',
+      sourceLanguage: 'en',
+      targetLanguage: 'uk',
+    });
+
+    if (result.success !== true) {
+      expect(result.reason).toBeFalsy();
+      return;
+    }
+
+    console.log(result);
+
+    expect(result.value.source).toBe('oscillation');
+    expect(result.value.target).toHaveSomeOf(['осциляція']);
+    expect(result.value.partOfSpeech).toBe('noun');
+  });
+
+  it('fixes voordeel', async () => {
+    const result = await aiDirectTranslate({
+      source: 'vordeel',
+      sourceLanguage: 'nl',
+      targetLanguage: 'ru',
+    });
+
+    if (result.success !== true) {
+      expect(result.reason).toBeFalsy();
+      return;
+    }
+
+    console.log(result);
+
+    expect(result.value.source).toBe('voordeel');
+    expect(result.value.target).toHaveSomeOf(['преимущество']);
+    expect(result.value.partOfSpeech).toBe('noun');
+  });
 });

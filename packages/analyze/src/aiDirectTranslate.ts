@@ -39,7 +39,7 @@ export const aiDirectTranslate = async (
     `Translate the ${languageList[payload.sourceLanguage]} word/phrase`,
     `<word-or-phrase>${source}</word-or-phrase>`,
     `into ${languageList[payload.targetLanguage]}.`,
-    `Provide the part of speech, correct spelling, preserve punctuation${diacriticMarks}.`,
+    `Provide the part of speech, fix spelling, preserve punctuation${diacriticMarks}.`,
     '',
     `Respond in JSON, as in example: ${JSON.stringify(example)}`,
   ].join('\n');
