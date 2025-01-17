@@ -166,6 +166,7 @@ export const Study: FC<Props> = ({
           ))}
       {cards.length === 0 && (
         <Completed
+          cards={allCards}
           numberOfRepetitions={
             numberOfRepetitions.status === 'loaded'
               ? numberOfRepetitions.value

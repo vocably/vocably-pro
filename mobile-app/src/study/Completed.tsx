@@ -1,10 +1,11 @@
+import { CardItem } from '@vocably/model';
 import { sample } from 'lodash-es';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { RequestFeedback } from '../RequestFeedback.tsx';
+import { RequestFeedback } from '../RequestFeedback';
 import { Displayer } from './Displayer';
 
 const motivationalQuotes = [
@@ -39,14 +40,16 @@ const motivationalQuotes = [
   'Pat yourself, congrats!',
 ];
 
-type Completed = FC<{
+type Props = {
   numberOfRepetitions?: number;
   onStudyAgain?: () => void;
-}>;
+  cards: CardItem[];
+};
 
-export const Completed: Completed = ({
+export const Completed: FC<Props> = ({
   onStudyAgain = () => {},
   numberOfRepetitions,
+  cards,
 }) => {
   const theme = useTheme();
   const [motivationalQuote, setMotivationalQuote] = useState('');
@@ -86,12 +89,14 @@ export const Completed: Completed = ({
           </Text>
         )}
         <Button onPress={onStudyAgain}>Take one more round</Button>
-        <RequestFeedback
-          numberOfRepetitions={numberOfRepetitions}
-          style={{
-            paddingHorizontal: 24,
-          }}
-        />
+        {cards.length < 30 && (
+          <RequestFeedback
+            numberOfRepetitions={numberOfRepetitions}
+            style={{
+              paddingHorizontal: 24,
+            }}
+          />
+        )}
       </View>
     </Displayer>
   );
