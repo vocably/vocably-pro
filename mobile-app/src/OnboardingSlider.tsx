@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { GoogleLanguage, languageList } from '@vocably/model';
+import { usePostHog } from 'posthog-react-native';
 import React, { FC, useContext, useRef } from 'react';
 import {
   Image,
@@ -46,9 +47,20 @@ export const OnboardingSlider: FC<Props> = ({
 
   const onboardingData = getOnboardingData(sourceLanguage, targetLanguage);
 
+  const posthog = usePostHog();
+
   return (
     <View style={{ height: sliderHeight }}>
-      <Swiper loop={false} showsPagination={true} ref={swiperRef}>
+      <Swiper
+        loop={false}
+        showsPagination={true}
+        ref={swiperRef}
+        onIndexChanged={(index) => {
+          posthog.capture('onboardingSwiped', {
+            index,
+          });
+        }}
+      >
         <ScrollView
           contentContainerStyle={{
             alignItems: 'center',
@@ -125,6 +137,7 @@ export const OnboardingSlider: FC<Props> = ({
                 setTimeout(() => {
                   setIsReverse(false);
                 }, 500);
+                posthog.capture('onboardingLookUpClicked');
               }}
             >
               Look it up!
@@ -196,6 +209,7 @@ export const OnboardingSlider: FC<Props> = ({
                 setTimeout(() => {
                   setIsReverse(true);
                 }, 500);
+                posthog.capture('onboardingReverseLookUpClicked');
               }}
             >
               Look it up in {languageList[targetLanguage]}!
@@ -263,11 +277,12 @@ export const OnboardingSlider: FC<Props> = ({
               the web in Mobile Safari? Translate it with{' '}
               <Text
                 style={{ color: theme.colors.primary }}
-                onPress={() =>
+                onPress={() => {
                   Linking.openURL(
                     'https://vocably.pro/ios-safari-extension.html'
-                  )
-                }
+                  );
+                  posthog.capture('onboardingMobileSafariClicked');
+                }}
               >
                 Vocably extension for Safari!
               </Text>
@@ -366,20 +381,22 @@ export const OnboardingSlider: FC<Props> = ({
             Do you use a desktop computer? Install{' '}
             <Text
               style={{ color: theme.colors.primary }}
-              onPress={() =>
+              onPress={() => {
                 Linking.openURL(
                   'https://chromewebstore.google.com/detail/vocably-pro-language-flas/baocigmmhhdemijfjnjdidbkfgpgogmb'
-                )
-              }
+                );
+                posthog.capture('onboardingChromeLinkClicked');
+              }}
             >
               Chrome
             </Text>{' '}
             or{' '}
             <Text
               style={{ color: theme.colors.primary }}
-              onPress={() =>
-                Linking.openURL('https://apps.apple.com/app/id6464076425')
-              }
+              onPress={() => {
+                Linking.openURL('https://apps.apple.com/app/id6464076425');
+                posthog.capture('onboardingSafariLinkClicked');
+              }}
             >
               Safari
             </Text>{' '}
@@ -393,7 +410,12 @@ export const OnboardingSlider: FC<Props> = ({
             }}
           />
           {languages.length > 0 && (
-            <Button onPress={() => setIsWelcomeVisible(false)}>
+            <Button
+              onPress={() => {
+                setIsWelcomeVisible(false);
+                posthog.capture('onboardingHideClicked');
+              }}
+            >
               Hide Welcome Page
             </Button>
           )}
