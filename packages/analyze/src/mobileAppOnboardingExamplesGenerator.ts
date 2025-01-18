@@ -34,7 +34,7 @@ const reverseTranslationExample = {
   fa: 'سوال',
   pl: 'pytanie',
   el: 'ερώτηση',
-  he: 'שְׁאֵלָה',
+  he: 'שאלה',
   th: 'คำถาม',
   vi: 'câu hỏi',
   id: 'pertanyaan',
@@ -257,7 +257,7 @@ const languages: Languages = {
     },
   },
   he: {
-    welcomeScreenCard: 'ספר',
+    welcomeScreenCard: 'מרשים',
     directTranslationExample: 'עגבנייה',
     reverseTranslationExample: reverseTranslationExample,
     contextTranslationExample: {

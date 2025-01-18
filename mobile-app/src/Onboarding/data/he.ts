@@ -4,12 +4,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   en: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'book',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'impressive, amazing',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -39,22 +39,26 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'question',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'question, issue, wish, request',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
         {
           language: 'he',
-          source: 'תְּשׁוּבָה',
-          ipa: '',
+          source: 'תשובה',
+          ipa: 'tʃuˈva',
           example: '',
-          definition: '',
-          translation: 'answer',
+          definition:
+            "* תגובה על שאלה\n* שיבה לנוהג, לתהליך וכד'\n* חֲרָטָה על דבר מה",
+          translation: 'answer, response, return, repentance, regret',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -93,12 +97,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   es: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
+      source: 'מרשים',
       ipa: '',
       example: '',
       definition: '',
-      translation: 'libro',
-      partOfSpeech: 'noun',
+      translation: 'impresionante',
+      partOfSpeech: 'adjetivo',
       tags: [],
     },
     directTranslationExample: {
@@ -128,12 +132,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'pregunta',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'pregunta, interrogante',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -171,12 +177,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   fr: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'livre',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'impressionnant, remarquable',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -206,12 +212,15 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'question',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation:
+            'question, demande, interrogation, souhait, désir, requête',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
         {
@@ -262,12 +271,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   de: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'buch',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'beeindruckend',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -297,12 +306,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'frage',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'Frage, Anfrage',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
         {
@@ -340,7 +351,7 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
           ipa: 'ʃaˈmiʁ',
           example: 'תיבול המִמְרָח בשמיר',
           definition: 'צמח בעל גבעול דק ועלים דקים הדומים לחוטים',
-          translation: 'Schmirgel',
+          translation: 'Schmir',
           partOfSpeech: 'noun',
           g: 'm',
           tags: [],
@@ -351,12 +362,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   zh: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: '书',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: '令人印象深刻',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -386,22 +397,26 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: '问题',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: '问题, 疑问',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
         {
           language: 'he',
-          source: 'בַּעֲיָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: '问题',
+          source: 'בעיה',
+          ipa: 'beʔaˈja',
+          example: 'לפתור בעיה בחשבון',
+          definition:
+            '* עניין הדורש פתרון\n* מצב בריאותי לקוי\n* חידה שהפיתרון שלה מושג באמצעות חישובים מתמטיים',
+          translation: '问题, 病症, 数学难题',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -439,12 +454,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   'zh-TW': {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: '書',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: '令人印象深刻',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -484,12 +499,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
         },
         {
           language: 'he',
-          source: 'בַּעֲיָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: '問題',
+          source: 'בעיה',
+          ipa: 'beʔaˈja',
+          example: 'לפתור בעיה בחשבון',
+          definition:
+            '* עניין הדורש פתרון\n* מצב בריאותי לקוי\n* חידה שהפיתרון שלה מושג באמצעות חישובים מתמטיים',
+          translation: '問題, 健康狀況不佳, 數學謎題',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -527,12 +544,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   ja: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: '本',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: '印象的な',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -605,12 +622,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   ru: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'книга',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'впечатляющий',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -640,12 +657,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'вопрос',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'вопрос, проблема',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -683,12 +702,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   it: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
+      source: 'מרשים',
       ipa: '',
       example: '',
       definition: '',
-      translation: 'libro',
-      partOfSpeech: 'noun',
+      translation: 'impressionante',
+      partOfSpeech: 'aggettivo',
       tags: [],
     },
     directTranslationExample: {
@@ -718,12 +737,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'domanda',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'domanda, questione',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
         {
@@ -774,12 +795,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   pt: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
+      source: 'מרשים',
       ipa: '',
       example: '',
       definition: '',
-      translation: 'livro',
-      partOfSpeech: 'noun',
+      translation: 'impressionante',
+      partOfSpeech: 'adjetivo',
       tags: [],
     },
     directTranslationExample: {
@@ -809,12 +830,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'pergunta',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'pergunta, questão',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -841,7 +864,7 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
           ipa: 'ʃaˈmiʁ',
           example: 'תיבול המִמְרָח בשמיר',
           definition: 'צמח בעל גבעול דק ועלים דקים הדומים לחוטים',
-          translation: 'cabo de guerra, planta fina',
+          translation: 'planta, cabo de seda',
           partOfSpeech: 'noun',
           g: 'm',
           tags: [],
@@ -852,12 +875,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   ar: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'كتاب',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'مثير للإعجاب',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -887,12 +910,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'سؤال',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'سؤال, استفسار',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -930,12 +955,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   nl: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'boek',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'indrukwekkend',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -965,12 +990,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'vraag',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'vraag, ondervraging',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
         {
@@ -1019,12 +1046,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   ko: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: '책',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: '인상적인, 놀랄 만한',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1098,12 +1125,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   hi: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'पुस्तक',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'प्रभावशाली',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1133,12 +1160,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'प्रश्न',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'प्रश्न, सवाल',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -1176,12 +1205,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   tr: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'kitap',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'etkileyici',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1211,12 +1240,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'soru',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'soru, sorun, sorulacak şey',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -1254,12 +1285,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   sv: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'bok',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'imponerande',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1289,12 +1320,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'fråga',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'fråga, spørsmål',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
         {
@@ -1342,12 +1375,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   no: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'bok',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'imponerende',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1377,12 +1410,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'spørsmål',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'spørsmål, forespørsel',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -1420,12 +1455,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   da: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'bog',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'imponerende',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1455,12 +1490,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'spørgsmål',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'spørgsmål, forespørgsel',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -1487,7 +1524,7 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
           ipa: 'ʃaˈmiʁ',
           example: 'תיבול המִמְרָח בשמיר',
           definition: 'צמח בעל גבעול דק ועלים דקים הדומים לחוטים',
-          translation: 'trådplante',
+          translation: 'snerre',
           partOfSpeech: 'noun',
           g: 'm',
           tags: [],
@@ -1498,12 +1535,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   fi: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'kirja',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'vaikuttava',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1533,12 +1570,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'kysymys',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'kysymys, kysymysmerkki',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -1554,7 +1593,8 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
             '* שְׁמִירַת הַסְּבִיבָה\n* שמירת חפצים בתא המטוס\n* שמירת קובץ html',
           definition:
             '* הַשְׁגָּחָה עַל מישהו או על משהו\n* אחסון חפצים בתא נעול\n* אצירת קובץ במחשב',
-          translation: 'valvonta, säilytys, tiedoston tallennus, huolehtiminen',
+          translation:
+            'valvonta, säilytys, tiedoston säilyttäminen, huolehtiminen',
           partOfSpeech: 'noun',
           g: 'f',
           tags: [],
@@ -1576,12 +1616,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   fa: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'کتاب',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'تحسین برانگیز',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1611,12 +1651,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'سوال',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'پرسش، سوال',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -1654,12 +1696,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   pl: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'książka',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'imponujący',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1689,12 +1731,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'pytanie',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'pytanie, zapytanie',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -1732,12 +1776,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   el: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'βιβλίο',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'εντυπωσιακός',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1767,12 +1811,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'ερώτηση',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'ερώτηση, αναζήτηση απάντησης',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -1810,14 +1856,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   he: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'ספר',
-      ipa: 'ˈsefeʁ',
-      example: '',
-      definition:
-        '* גיליונות נייר כתובים וכרוכים יחד\n* דפדפת, מחברת וכד\' לרשימות שונות\n* כל אחד מחלקי התנ"ך\n* האזור הקרוב לגבול שבין מדינות\n* מומחה לעיצוב שֵער',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
       translation: '',
-      partOfSpeech: 'noun',
-      g: 'm',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1840,7 +1884,7 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       ],
     },
     reverseTranslationExample: {
-      text: 'שְׁאֵלָה',
+      text: 'שאלה',
       sourceLanguage: 'he',
       targetLanguage: 'he',
       isReversed: true,
@@ -1852,16 +1896,6 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
           example: '',
           definition: '',
           translation: 'question',
-          partOfSpeech: 'noun',
-          tags: [],
-        },
-        {
-          language: 'he',
-          source: 'inquiry',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'inquiry',
           partOfSpeech: 'noun',
           tags: [],
         },
@@ -1900,12 +1934,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   th: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'หนังสือ',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'น่าประทับใจ',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -1935,12 +1969,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'คำถาม',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'คำถาม, ข้อสงสัย',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -1956,7 +1992,7 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
             '* שְׁמִירַת הַסְּבִיבָה\n* שמירת חפצים בתא המטוס\n* שמירת קובץ html',
           definition:
             '* הַשְׁגָּחָה עַל מישהו או על משהו\n* אחסון חפצים בתא נעול\n* אצירת קובץ במחשב',
-          translation: 'การเฝ้าระวัง, การเก็บรักษา, การจัดเก็บไฟล์, การรักษา',
+          translation: 'การดูแล, การเก็บรักษา, การจัดเก็บไฟล์, การรักษา',
           partOfSpeech: 'noun',
           g: 'f',
           tags: [],
@@ -1978,12 +2014,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   vi: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'sách',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'ấn tượng',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -2013,12 +2049,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'câu hỏi',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'câu hỏi, thắc mắc',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -2056,12 +2094,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   id: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'buku',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'mengagumkan, mengesankan',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -2091,12 +2129,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'pertanyaan',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'pertanyaan, soal',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -2112,7 +2152,7 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
             '* שְׁמִירַת הַסְּבִיבָה\n* שמירת חפצים בתא המטוס\n* שמירת קובץ html',
           definition:
             '* הַשְׁגָּחָה עַל מישהו או על משהו\n* אחסון חפצים בתא נעול\n* אצירת קובץ במחשב',
-          translation: 'pengawasan, penyimpanan, arsip, perlindungan',
+          translation: 'pengawasan, penyimpanan, arsip, perawatan',
           partOfSpeech: 'noun',
           g: 'f',
           tags: [],
@@ -2123,7 +2163,7 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
           ipa: 'ʃaˈmiʁ',
           example: 'תיבול המִמְרָח בשמיר',
           definition: 'צמח בעל גבעול דק ועלים דקים הדומים לחוטים',
-          translation: 'tanaman tipis',
+          translation: 'tanaman',
           partOfSpeech: 'noun',
           g: 'm',
           tags: [],
@@ -2134,12 +2174,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   ms: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'buku',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'mengagumkan',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -2169,12 +2209,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'soalan',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'soalan, pertanyaan',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
@@ -2212,12 +2254,12 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
   uk: {
     welcomeScreenCard: {
       language: 'he',
-      source: 'סֵפֶר',
-      ipa: '',
-      example: '',
-      definition: '',
-      translation: 'книга',
-      partOfSpeech: 'noun',
+      source: 'מרשים',
+      ipa: 'maʁˈʃim',
+      example: 'נוכחות מרשימה באירוע',
+      definition: 'מעורר התפעלות',
+      translation: 'вражаючий',
+      partOfSpeech: 'adjective',
       tags: [],
     },
     directTranslationExample: {
@@ -2247,12 +2289,14 @@ export const onboardingCollection: MobileOnboardingDataCollection = {
       results: [
         {
           language: 'he',
-          source: 'שְׁאֵלָה',
-          ipa: '',
-          example: '',
-          definition: '',
-          translation: 'питання',
+          source: 'שאלה',
+          ipa: 'ʃeʔeˈla',
+          example: 'שאלה אחת אני שואל ממך, ומקווה שלא תסרב.',
+          definition:
+            '* הצגת בעיה ודרישת מענה עליה\n* משפט המביע קושיה\n* הבעת מִשְׁאָלָה',
+          translation: 'питання, запитання',
           partOfSpeech: 'noun',
+          g: 'f',
           tags: [],
         },
       ],
