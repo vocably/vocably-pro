@@ -89,7 +89,7 @@ export const Completed: FC<Props> = ({
           </Text>
         )}
         <Button onPress={onStudyAgain}>Take one more round</Button>
-        {cards.length < 30 && (
+        {cards.length > 30 && (
           <RequestFeedback
             numberOfRepetitions={numberOfRepetitions}
             style={{
