@@ -692,4 +692,24 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.items.length).toBeGreaterThan(0);
   });
+
+  it('question in hebrew', async () => {
+    const result = await buildResult({
+      source: 'שאלה',
+      sourceLanguage: 'he',
+      targetLanguage: 'en',
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    console.log(result);
+
+    expect(result.value.items.length).toBeGreaterThan(0);
+    expect(result.value.items[0].source).toEqual('שאלה');
+    expect(result.value.items[0].translation).toHaveSomeOf(
+      'question, issue, wish, request'
+    );
+    expect(result.value.items[0].definitions.length).toBeGreaterThan(0);
+  });
 });

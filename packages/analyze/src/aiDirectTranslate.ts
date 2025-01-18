@@ -31,7 +31,7 @@ export const aiDirectTranslate = async (
     partOfSpeech: 'noun',
   };
 
-  const diacriticMarks = !['en', 'nl'].includes(payload.sourceLanguage)
+  const diacriticMarks = !['en', 'nl', 'he'].includes(payload.sourceLanguage)
     ? ', fix diacritic marks'
     : '';
 
