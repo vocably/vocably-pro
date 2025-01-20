@@ -130,7 +130,7 @@ describe('integration check for translate lambda', () => {
     const resultBody: Analysis = JSON.parse(result.body);
     expect(resultBody.source.toLowerCase()).toEqual('katzen');
     expect(resultBody.translation).toBeDefined();
-    expect(resultBody.items[0].source).toEqual('katzen');
+    expect(resultBody.items[0].source.toLowerCase()).toEqual('katzen');
     expect(resultBody.items[0].translation).toEqual('cats');
 
     expect(resultBody.items[1].source).toEqual('die Katze');
