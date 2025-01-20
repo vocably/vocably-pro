@@ -46,7 +46,7 @@ jobs:
       - run: bash ./scripts/install-build-dependencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
-      - run: npm run test -ws -- --runInBand --silent
+      - run: npm run test -ws -- --runInBand
       - run: npx semantic-release
       - run: npx zx ./scripts/build-extension.mjs
 
