@@ -1,5 +1,6 @@
 import { Result, resultify } from '@vocably/model';
 import { get } from 'lodash';
+import type { ChatCompletionMessageParam } from 'openai/resources/chat';
 import { getOpenAiClient } from './openAiClient';
 import { parseJson } from './parseJson';
 
@@ -9,7 +10,7 @@ export const GPT_4O = 'gpt-4o';
 type OpenAiModel = typeof GPT_4O_MINI | typeof GPT_4O;
 
 type Options = {
-  messages: Array<any>;
+  messages: Array<ChatCompletionMessageParam>;
   model: OpenAiModel;
   timeoutMs?: number;
 };
