@@ -56,7 +56,7 @@ resource "aws_api_gateway_integration" "analyze" {
 
 resource "aws_cloudwatch_log_metric_filter" "analyze_translation_error" {
   name           = "error"
-  pattern        = "?AS_IS_TRANSLATION ?LEXICALA"
+  pattern        = "?AS_IS_TRANSLATION ?LEXICALA ?OPENAI"
   log_group_name = aws_cloudwatch_log_group.analyze.name
 
   metric_transformation {
@@ -74,7 +74,7 @@ resource "aws_cloudwatch_metric_alarm" "analyze_translation_error" {
   namespace                 = aws_cloudwatch_log_metric_filter.analyze_translation_error.metric_transformation[0].namespace
   period                    = "3600"
   statistic                 = "Average"
-  threshold                 = "0"
+  threshold                 = "5"
   alarm_description         = "${terraform.workspace}: something went wrong during the Google Translation or Lexicala translation"
   alarm_actions             = [aws_sns_topic.alarm.arn]
   insufficient_data_actions = []

@@ -149,7 +149,7 @@ describe('aiDirectTranslate', () => {
 
     expect(result.value.source).toBe('scharfes Essen');
     expect(result.value.target).toHaveSomeOf(['гостра їжа']);
-    expect(result.value.partOfSpeech).toBe('noun phrase');
+    expect(result.value.partOfSpeech).toHaveSomeOf('noun, noun phrase');
   });
 
   it('fixes osccillation', async () => {

@@ -8,6 +8,8 @@ export const fallback = async <T>(
 
   if (result.success === true) {
     return result;
+  } else {
+    console.error('Fallback error', result);
   }
 
   return fallback();

@@ -55,6 +55,7 @@ export const aiDirectTranslate = async (
       { role: 'user', content: prompt },
     ],
     model: GPT_4O,
+    timeoutMs: 3000,
   });
 
   if (!responseResult.success) {

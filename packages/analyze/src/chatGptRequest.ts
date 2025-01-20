@@ -3,6 +3,7 @@ import { get } from 'lodash';
 import OpenAI from 'openai';
 import { getOpenAiClient } from './openAiClient';
 import { parseJson } from './parseJson';
+import { retry } from './retry';
 import ChatCompletionMessageParam = OpenAI.ChatCompletionMessageParam;
 
 export const GPT_4O_MINI = 'gpt-4o-mini';
@@ -13,27 +14,46 @@ type OpenAiModel = typeof GPT_4O_MINI | typeof GPT_4O;
 type Options = {
   messages: Array<ChatCompletionMessageParam>;
   model: OpenAiModel;
+  timeoutMs?: number;
 };
 
 export const chatGptRequest = async ({
   messages,
   model,
+  timeoutMs = 7000,
 }: Options): Promise<Result<any>> => {
   const openai = await getOpenAiClient();
 
-  const completionResult = await resultify(
-    openai.chat.completions.create({
-      messages: messages,
-      model: model,
-      response_format: {
-        type: 'json_object',
-      },
-      temperature: 0,
-      top_p: 0,
-    }),
+  const abortController = new AbortController();
+  if (timeoutMs > 0) {
+    setTimeout(() => abortController.abort(), timeoutMs);
+  }
+
+  const completionResult = await retry(
+    () =>
+      resultify(
+        openai.chat.completions.create(
+          {
+            messages: messages,
+            model: model,
+            response_format: {
+              type: 'json_object',
+            },
+            temperature: 0,
+            top_p: 0,
+          },
+          {
+            signal: abortController.signal,
+          }
+        ),
+        {
+          errorCode: 'OPENAI_UNSUCCESSFUL_REQUEST',
+          reason: 'Unable to perform request to OpenAI',
+        }
+      ),
     {
-      errorCode: 'OPENAI_UNSUCCESSFUL_REQUEST',
-      reason: 'Unable to perform request to OpenAI',
+      retryTimes: 3,
+      msBetweenRetries: 500,
     }
   );
 

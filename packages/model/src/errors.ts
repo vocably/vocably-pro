@@ -47,6 +47,7 @@ export const Errors = [
   'ONBOARDING_POST_MALFORMED_PAYLOAD',
   'MALFORMED_PAYLOAD',
   'GPT_RESPONSE_MALFORMED',
+  'RETRY_ERROR',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];
