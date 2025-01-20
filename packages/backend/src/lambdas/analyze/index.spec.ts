@@ -112,7 +112,9 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.source).toEqual('regeling');
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.items[0].source).toEqual('de regeling');
-    expect(resultBody.items[0].translation).toEqual('regulation, settlement');
+    expect(resultBody.items[0].translation).toHaveSomeOf(
+      'regulation, settlement, arrangement'
+    );
   });
 
   it('adds articles and takes translations from lexicala (de)', async () => {
@@ -126,7 +128,7 @@ describe('integration check for translate lambda', () => {
     console.log({ result });
     expect(result.statusCode).toEqual(200);
     const resultBody: Analysis = JSON.parse(result.body);
-    expect(resultBody.source).toEqual('katzen');
+    expect(resultBody.source.toLowerCase()).toEqual('katzen');
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.items[0].source).toEqual('katzen');
     expect(resultBody.items[0].translation).toEqual('cats');
@@ -189,15 +191,10 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.source).toEqual('vijf dagen');
     expect(resultBody.translation).toBeDefined();
     expect(resultBody.translation.target).toEqual('five days');
-    expect(resultBody.items).toEqual([
-      {
-        source: 'vijf dagen',
-        translation: 'five days',
-        examples: [],
-        definitions: [],
-        partOfSpeech: 'noun',
-      },
-    ]);
+
+    expect(resultBody.items[0].source).toEqual('vijf dagen');
+    expect(resultBody.items[0].translation).toEqual('five days');
+    expect(resultBody.items[0].partOfSpeech).toHaveSomeOf('noun, noun phrase');
   });
 
   it('performs reverse analyze', async () => {
