@@ -10,7 +10,7 @@ import {
   isAiTranslation,
   resultExamples,
 } from './aiDirectTranslateConstants';
-import { chatGptRequest, GPT_4O_MINI } from './chatGptRequest';
+import { chatGptRequest, GPT_4O } from './chatGptRequest';
 
 type Payload = {
   source: string;
@@ -26,7 +26,7 @@ export const aiDirectTranslate = async (
   const example: AiTranslation = resultExamples[payload.sourceLanguage][
     payload.targetLanguage
   ] ?? {
-    source: 'hedgehog',
+    fixedSource: 'hedgehog',
     translation: 'ёж',
     partOfSpeech: 'noun',
   };
@@ -54,7 +54,7 @@ export const aiDirectTranslate = async (
       },
       { role: 'user', content: prompt },
     ],
-    model: GPT_4O_MINI,
+    model: GPT_4O,
   });
 
   if (!responseResult.success) {
@@ -74,7 +74,7 @@ export const aiDirectTranslate = async (
   return {
     success: true,
     value: {
-      source: response.source,
+      source: response.fixedSource,
       target: response.translation,
       sourceLanguage: payload.sourceLanguage,
       targetLanguage: payload.targetLanguage,

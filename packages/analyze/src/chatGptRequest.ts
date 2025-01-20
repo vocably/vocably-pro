@@ -6,8 +6,9 @@ import { parseJson } from './parseJson';
 import ChatCompletionMessageParam = OpenAI.ChatCompletionMessageParam;
 
 export const GPT_4O_MINI = 'gpt-4o-mini';
+export const GPT_4O = 'gpt-4o';
 
-type OpenAiModel = typeof GPT_4O_MINI;
+type OpenAiModel = typeof GPT_4O_MINI | typeof GPT_4O;
 
 type Options = {
   messages: Array<ChatCompletionMessageParam>;

@@ -42,7 +42,9 @@ describe('integration check for translate lambda', () => {
     expect(result.value.source).toEqual('regeling');
     expect(result.value.translation).toBeDefined();
     expect(result.value.items[0].source).toEqual('de regeling');
-    expect(result.value.items[0].translation).toEqual('regulation, settlement');
+    expect(result.value.items[0].translation).toEqual(
+      'regulation, settlement, arrangement'
+    );
   });
 
   it('adds articles and takes translations from lexicala (de)', async () => {
@@ -59,7 +61,7 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.source).toEqual('katzen');
     expect(result.value.translation).toBeDefined();
-    expect(result.value.items[0].source).toEqual('katzen');
+    expect(result.value.items[0].source.toLowerCase()).toEqual('katzen');
     expect(result.value.items[0].translation).toEqual('cats');
     expect(result.value.items[1].source).toEqual('die Katze');
     expect(result.value.items[1].translation).toEqual('cat');
@@ -102,7 +104,9 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.items.length).toEqual(4);
     expect(result.value.items[0].source).toEqual('de regeling');
-    expect(result.value.items[0].translation).toEqual('регулирование');
+    expect(result.value.items[0].translation).toEqual(
+      'регулирование, положение'
+    );
   });
 
   it('skips analyze when source is more than one word', async () => {
@@ -124,7 +128,7 @@ describe('integration check for translate lambda', () => {
       {
         source: 'vijf dagen',
         translation: 'five days',
-        partOfSpeech: 'noun',
+        partOfSpeech: 'noun phrase',
         definitions: [],
         examples: [],
       },

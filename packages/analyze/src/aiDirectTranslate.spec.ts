@@ -93,6 +93,8 @@ describe('aiDirectTranslate', () => {
     expect(result.value.target).toHaveSomeOf([
       'Что-то, и что-то еще.',
       'Что-то, и что-то другое.',
+      'Что-то и что-то ещё.',
+      'Что-то, и что-то ещё.',
     ]);
     expect(result.value.partOfSpeech).toBe('phrase');
   });
@@ -147,7 +149,7 @@ describe('aiDirectTranslate', () => {
 
     expect(result.value.source).toBe('scharfes Essen');
     expect(result.value.target).toHaveSomeOf(['гостра їжа']);
-    expect(result.value.partOfSpeech).toBe('noun');
+    expect(result.value.partOfSpeech).toBe('noun phrase');
   });
 
   it('fixes osccillation', async () => {
@@ -165,7 +167,7 @@ describe('aiDirectTranslate', () => {
     console.log(result);
 
     expect(result.value.source).toBe('oscillation');
-    expect(result.value.target).toHaveSomeOf(['осциляція']);
+    expect(result.value.target).toHaveSomeOf(['коливання']);
     expect(result.value.partOfSpeech).toBe('noun');
   });
 
@@ -185,6 +187,25 @@ describe('aiDirectTranslate', () => {
 
     expect(result.value.source).toBe('voordeel');
     expect(result.value.target).toHaveSomeOf(['преимущество']);
+    expect(result.value.partOfSpeech).toBe('noun');
+  });
+
+  it('guinea fowl', async () => {
+    const result = await aiDirectTranslate({
+      source: 'guinea fowl',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+    });
+
+    if (result.success !== true) {
+      expect(result.reason).toBeFalsy();
+      return;
+    }
+
+    console.log(result);
+
+    expect(result.value.source).toBe('guinea fowl');
+    expect(result.value.target).toHaveSomeOf(['цесарка']);
     expect(result.value.partOfSpeech).toBe('noun');
   });
 });
