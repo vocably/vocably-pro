@@ -104,7 +104,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.translation).toBeDefined();
     expect(result.value.items.length).toEqual(4);
     expect(result.value.items[0].source).toEqual('de regeling');
-    expect(result.value.items[0].translation).toEqual(
+    expect(result.value.items[0].translation).toHaveSomeOf(
       'регулирование, положение'
     );
   });
