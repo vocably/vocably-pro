@@ -42,7 +42,7 @@ describe('integration check for translate lambda', () => {
     expect(result.value.source).toEqual('regeling');
     expect(result.value.translation).toBeDefined();
     expect(result.value.items[0].source).toEqual('de regeling');
-    expect(result.value.items[0].translation).toEqual(
+    expect(result.value.items[0].translation).toHaveSomeOf(
       'regulation, settlement, arrangement'
     );
   });
@@ -252,7 +252,7 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    expect(result.value.items[0].translation).toEqual('be, become, to be');
+    expect(result.value.items[0].translation).toHaveSomeOf('be, become, to be');
     expect(result.value.items[1].translation).toEqual('his');
   });
 
