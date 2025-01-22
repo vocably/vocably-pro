@@ -1,5 +1,5 @@
 import { AppState } from 'react-native';
-import { debounceTime, Subject } from 'rxjs';
+import { concatMap, debounceTime, map, merge, Subject } from 'rxjs';
 import * as asyncAppStorage from '../asyncAppStorage';
 
 const storageKey = 'auth';
@@ -10,31 +10,45 @@ let isSynced = false;
 let dataMemory: AuthData = {};
 
 const syncAuthStorage = async (): Promise<AuthData> => {
-  return asyncAppStorage.getItem(storageKey).then((value) => {
-    dataMemory = value ? JSON.parse(value) : {};
-    return dataMemory;
-  });
+  const value = await asyncAppStorage.getItem(storageKey);
+  dataMemory = value ? JSON.parse(value) : {};
+  isSynced = true;
+  return dataMemory;
 };
 
-let syncPromise = syncAuthStorage().then((data) => {
-  isSynced = true;
-  return data;
-});
+let syncPromise: Promise<AuthData>;
+
+const updateValues$ = new Subject<void>();
+const syncAuthStorage$ = new Subject<void>();
+
+merge(
+  updateValues$.pipe(
+    debounceTime(10),
+    map(() => async () => {
+      if (!isSynced) {
+        return;
+      }
+
+      await asyncAppStorage.setItem(storageKey, JSON.stringify(dataMemory));
+    })
+  ),
+  syncAuthStorage$.pipe(
+    map(() => async () => {
+      syncPromise = syncAuthStorage();
+      await syncPromise;
+    })
+  )
+)
+  .pipe(concatMap((operation) => operation()))
+  .subscribe();
 
 AppState.addEventListener('change', (nextAppState) => {
   if (nextAppState === 'active') {
-    syncPromise = syncAuthStorage();
+    syncAuthStorage$.next();
   }
 });
 
-const updateValues$ = new Subject<void>();
-
-updateValues$.pipe(debounceTime(500)).subscribe((data) => {
-  if (!isSynced) {
-    return;
-  }
-  asyncAppStorage.setItem(storageKey, JSON.stringify(dataMemory));
-});
+syncAuthStorage$.next();
 
 export class AuthStorage {
   setItem(key: string, value: string) {
