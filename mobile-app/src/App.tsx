@@ -33,7 +33,7 @@ const App = () => {
             <AuthContainer>
               <Login>
                 <UserMetadataContainer>
-                  <LanguagesContainer>
+                  <LanguagesContainer refreshLanguagesOnActive={true}>
                     <TranslationPresetContainer>
                       <SafeAreaProvider>
                         <RootModalStack />

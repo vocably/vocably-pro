@@ -1,5 +1,6 @@
 import { deleteLanguageDeck, listLanguages } from '@vocably/api';
 import { LanguageDeck, TagItem } from '@vocably/model';
+import { usePostHog } from 'posthog-react-native';
 import React, {
   createContext,
   FC,
@@ -7,6 +8,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import { AppState } from 'react-native';
 import * as asyncAppStorage from '../asyncAppStorage';
 import { Error } from '../Error';
 import { Loader } from '../loaders/Loader';
@@ -56,11 +58,15 @@ export const LanguagesContext = createContext<Languages>({
   addLanguage: () => null,
 });
 
-type LanguagesContainer = FC<{
+type Props = {
   children: ReactNode;
-}>;
+  refreshLanguagesOnActive?: boolean;
+};
 
-export const LanguagesContainer: LanguagesContainer = ({ children }) => {
+export const LanguagesContainer: FC<Props> = ({
+  children,
+  refreshLanguagesOnActive = false,
+}) => {
   const [listLoadingStatus, setListLoadingStatus] =
     useState<Languages['status']>('loading');
   const [languages, setLanguages] = useState<string[]>([]);
@@ -69,6 +75,8 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
     loadSelectedLanguageStorage,
     saveSelectedLanguageToStorage
   );
+
+  const posthog = usePostHog();
 
   const storeDeck = (deck: LanguageContainerDeck) => {
     setDecks({
@@ -115,6 +123,17 @@ export const LanguagesContainer: LanguagesContainer = ({ children }) => {
 
   useEffect(() => {
     refreshLanguages().then();
+
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      if (nextAppState === 'active' && refreshLanguagesOnActive) {
+        posthog.capture('languagesContainerAutoRefresh');
+        refreshLanguages().then();
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   useEffect(() => {
