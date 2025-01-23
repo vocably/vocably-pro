@@ -55,7 +55,7 @@ export const itMakesSense = (p: Payload): boolean => {
 export const translateFromContext = async (
   payload: Payload
 ): Promise<Result<Translation>> => {
-  const source = truncateAsIs(payload.source, 100);
+  const source = truncateAsIs(payload.source, 400);
   const context = truncateAsIs(payload.context, 400);
 
   const prompt = [
