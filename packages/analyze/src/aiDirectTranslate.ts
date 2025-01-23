@@ -10,7 +10,13 @@ import {
   isAiTranslation,
   resultExamples,
 } from './aiDirectTranslateConstants';
-import { chatGptRequest, GPT_4O } from './chatGptRequest';
+import {
+  chatGptRequest,
+  GPT_4O,
+  GPT_4O_MINI,
+  OpenAiModel,
+} from './chatGptRequest';
+import { fallback } from './fallback';
 
 type Payload = {
   source: string;
@@ -18,8 +24,9 @@ type Payload = {
   targetLanguage: GoogleLanguage;
 };
 
-export const aiDirectTranslate = async (
-  payload: Payload
+const internalAiDirectTranslate = async (
+  payload: Payload,
+  model: OpenAiModel
 ): Promise<Result<Translation>> => {
   const source = truncateAsIs(payload.source, 500);
 
@@ -54,7 +61,7 @@ export const aiDirectTranslate = async (
       },
       { role: 'user', content: prompt },
     ],
-    model: GPT_4O,
+    model,
     timeoutMs: 3000,
   });
 
@@ -82,6 +89,14 @@ export const aiDirectTranslate = async (
       partOfSpeech: response.partOfSpeech,
     },
   };
+};
+
+export const aiDirectTranslate = async (
+  payload: Payload
+): Promise<Result<Translation>> => {
+  return fallback(internalAiDirectTranslate(payload, GPT_4O), () =>
+    internalAiDirectTranslate(payload, GPT_4O_MINI)
+  );
 };
 
 export const truncateAsIs = (text: string, length: number): string => {

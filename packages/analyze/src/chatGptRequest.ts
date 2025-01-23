@@ -7,7 +7,7 @@ import { parseJson } from './parseJson';
 export const GPT_4O_MINI = 'gpt-4o-mini';
 export const GPT_4O = 'gpt-4o';
 
-type OpenAiModel = typeof GPT_4O_MINI | typeof GPT_4O;
+export type OpenAiModel = typeof GPT_4O_MINI | typeof GPT_4O;
 
 type Options = {
   messages: Array<ChatCompletionMessageParam>;
