@@ -21,7 +21,7 @@ type Payload = {
 export const aiDirectTranslate = async (
   payload: Payload
 ): Promise<Result<Translation>> => {
-  const source = truncateAsIs(payload.source, 100);
+  const source = truncateAsIs(payload.source, 500);
 
   const example: AiTranslation = resultExamples[payload.sourceLanguage][
     payload.targetLanguage
