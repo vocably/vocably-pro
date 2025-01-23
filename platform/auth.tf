@@ -348,6 +348,16 @@ resource "null_resource" "test_user" {
   }
 }
 
+resource "aws_cognito_user_pool_ui_customization" "auth" {
+  image_file = filebase64("www-logo.png")
+
+  css = file("hosted-ui.css")
+
+  # Refer to the aws_cognito_user_pool_domain resource's
+  # user_pool_id attribute to ensure it is in an 'Active' state
+  user_pool_id = aws_cognito_user_pool_domain.auth.user_pool_id
+}
+
 
 output "auth_user_pool_id" {
   value = aws_cognito_user_pool.users.id

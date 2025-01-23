@@ -1,0 +1,16 @@
+.background-customizable {
+  border-radius: 18px;
+}
+
+.banner-customizable {
+  background-color: transparent;
+  display: flex;
+  padding-bottom: 0;
+}
+
+.logo-customizable {
+  height: 24px;
+  max-width: none;
+  max-height: none;
+  margin-left: 15px;
+}
