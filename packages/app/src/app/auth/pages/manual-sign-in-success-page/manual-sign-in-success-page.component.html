@@ -6,16 +6,16 @@
         <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading profile
         data...
       </ng-container>
-      <ng-container *ngIf="!isLoading && !redirectingToSubscription">
+      <ng-container *ngIf="!isLoading && !isRedirecting">
         <div class="mb-1">You have been successfully signed in.</div>
         <div class="mb-1">This tab can be closed now.</div>
         <div>
           <a href="/welcome" class="button">Show me how Vocably works</a>
         </div>
       </ng-container>
-      <ng-container *ngIf="!isLoading && redirectingToSubscription">
-        <ion-spinner name="dots" class="mr-1"></ion-spinner>Redirecting to
-        subscription page...
+      <ng-container *ngIf="!isLoading && isRedirecting">
+        <div class="mb-1">You have been successfully signed in.</div>
+        <ion-spinner name="dots" class="mr-1"></ion-spinner>Redirecting...
       </ng-container>
     </div>
   </div>

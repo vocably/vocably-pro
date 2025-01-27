@@ -1,0 +1,36 @@
+<div class="container-xl top"><app-header></app-header></div>
+<div class="container bottom">
+  <div class="hero">
+    <div
+      class="hero-body"
+      style="display: flex; align-items: center; justify-content: center"
+    >
+      <div class="text-center">
+        <ng-container *ngIf="isLoading">
+          <ion-spinner name="dots" class="mr-1"></ion-spinner>Loading profile
+          data...
+        </ng-container>
+        <ng-container *ngIf="!isLoading">
+          <div class="mb-1">You have been successfully signed in.</div>
+          <div class="mb-1" *ngIf="!canBeAutomaticallyClosed">
+            This tab can be closed now.
+          </div>
+          <div
+            class="mb-1"
+            style="margin-top: 2rem"
+            *ngIf="canBeAutomaticallyClosed"
+          >
+            <button class="button block" (click)="closeTheTab()">
+              Close this tab
+            </button>
+          </div>
+          <div>
+            <a href="/welcome" class="button outline block"
+              >Show me how Vocably works</a
+            >
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

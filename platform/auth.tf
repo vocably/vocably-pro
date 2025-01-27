@@ -313,12 +313,21 @@ resource "aws_route53_record" "auth-cognito-A" {
 }
 
 locals {
-  auto_sign_in_confirmation_url = "https://${local.app_domain}/${local.auto_sign_in_confirmation_path}"
-  mobile_app_auth_url           = "vocably-pro://auth"
+  auto_sign_in_confirmation_url   = "https://${local.app_domain}/${local.auto_sign_in_confirmation_path}"
+  manual_sign_in_confurmation_url = "https://${local.app_domain}/${local.manual_sign_in_confirmation_path}"
+  mobile_app_auth_url             = "vocably-pro://auth"
 }
 
 locals {
-  available_urls = concat(["https://${local.app_domain}", local.auto_sign_in_confirmation_url, local.mobile_app_auth_url], local.dev_urls)
+  available_urls = concat(
+    [
+      "https://${local.app_domain}",
+      local.auto_sign_in_confirmation_url,
+      local.manual_sign_in_confurmation_url,
+      local.mobile_app_auth_url
+    ],
+    local.dev_urls
+  )
 }
 
 resource "aws_cognito_user_pool_client" "client" {
