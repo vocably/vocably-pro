@@ -4,17 +4,26 @@ import { environment } from './environments/environment';
 import { extensionId } from './extension';
 
 export const autoSignInPath = 'hands-free';
-export const signInConfirmationPath = 'signed-in';
+
+export const autoSignInConfirmationPath = 'signed-in';
+export const manualSignInConfirmationPath = 'portal';
+
+if (
+  manualSignInConfirmationPath.includes(autoSignInConfirmationPath) ||
+  autoSignInConfirmationPath.includes(manualSignInConfirmationPath)
+) {
+  throw 'manualSignInConfirmationPath must not contain parts of autoSignInPath';
+}
 
 const constructRedirectSignInUrl = (): string => {
   const basePath = `${location.protocol}//${location.host}`;
   const currentPath = location.pathname.substring(1);
 
-  if ([autoSignInPath, signInConfirmationPath].includes(currentPath)) {
-    return basePath + `/${signInConfirmationPath}`;
+  if ([autoSignInPath, autoSignInConfirmationPath].includes(currentPath)) {
+    return basePath + `/${autoSignInConfirmationPath}`;
   }
 
-  return basePath;
+  return basePath + `/${manualSignInConfirmationPath}`;
 };
 
 export const authConfig = {

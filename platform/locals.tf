@@ -1,28 +1,26 @@
 locals {
-  is_dev                         = terraform.workspace != "prod"
-  auth_domain                    = "auth.${var.root_domain}"
-  app_domain                     = "app.${var.root_domain}"
-  api_domain                     = "api.${var.root_domain}"
-  www_api_domain                 = "www-api.${var.root_domain}"
-  app_root                       = abspath("../packages/app")
-  extension_root                 = abspath("../packages/extension")
-  analyze_root                   = abspath("../packages/analyze")
-  backend_root                   = abspath("../packages/backend")
-  auth_lambdas_root              = abspath("../packages/auth-lambdas")
-  model_root                     = abspath("../packages/model")
-  www_root                       = abspath("../packages/www")
-  e2e_www_root                   = abspath("../packages/e2e-www")
-  www_backed_root                = abspath("../packages/www-backend")
-  artifacts_root                 = abspath("../packages/artifacts")
-  e2e_root                       = abspath("../packages/e2e")
-  extension_popup_root           = abspath("../packages/extension-popup")
-  scripts_root                   = abspath("../scripts")
-  api_config                     = abspath("${local.model_root}/api.yml")
-  auto_sign_in_confirmation_path = "signed-in"
-  www_base_url                   = "https://${var.root_domain}"
+  auth_domain                      = "auth.${var.root_domain}"
+  app_domain                       = "app.${var.root_domain}"
+  api_domain                       = "api.${var.root_domain}"
+  www_api_domain                   = "www-api.${var.root_domain}"
+  app_root                         = abspath("../packages/app")
+  extension_root                   = abspath("../packages/extension")
+  analyze_root                     = abspath("../packages/analyze")
+  backend_root                     = abspath("../packages/backend")
+  auth_lambdas_root                = abspath("../packages/auth-lambdas")
+  www_root                         = abspath("../packages/www")
+  e2e_www_root                     = abspath("../packages/e2e-www")
+  www_backed_root                  = abspath("../packages/www-backend")
+  artifacts_root                   = abspath("../packages/artifacts")
+  extension_popup_root             = abspath("../packages/extension-popup")
+  scripts_root                     = abspath("../scripts")
+  auto_sign_in_confirmation_path   = "signed-in"
+  manual_sign_in_confirmation_path = "portal"
+  www_base_url                     = "https://${var.root_domain}"
   dev_urls = [
     "http://localhost:8030",
     "http://localhost:8030/${local.auto_sign_in_confirmation_path}",
+    "http://localhost:8030/${local.manual_sign_in_confirmation_path}",
     "https://oauth.pstmn.io/v1/callback"
   ]
 }

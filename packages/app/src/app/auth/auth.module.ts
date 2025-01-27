@@ -4,9 +4,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../components/components.module';
 import { HeaderModule } from '../header/header.module';
+import { AutoSignInSuccessPageComponent } from './pages/auto-sign-in-success-page/auto-sign-in-success-page.component';
 import { HandsFreePageComponent } from './pages/hands-free-page/hands-free-page.component';
+import { ManualSignInSuccessPageComponent } from './pages/manual-sign-in-success-page/manual-sign-in-success-page.component';
 import { SignInPageComponent } from './pages/sign-in-page/sign-in-page.component';
-import { SignInSuccessPageComponent } from './pages/sign-in-success-page/sign-in-success-page.component';
 import { SignOutPageComponent } from './pages/sign-out-page/sign-out-page.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 
@@ -14,9 +15,10 @@ import { SignInComponent } from './sign-in/sign-in.component';
   declarations: [
     SignInPageComponent,
     HandsFreePageComponent,
-    SignInSuccessPageComponent,
     SignOutPageComponent,
     SignInComponent,
+    AutoSignInSuccessPageComponent,
+    ManualSignInSuccessPageComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
   ],
   exports: [
     HandsFreePageComponent,
-    SignInSuccessPageComponent,
+    AutoSignInSuccessPageComponent,
+    ManualSignInSuccessPageComponent,
     SignInComponent,
   ],
 })

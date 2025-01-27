@@ -9,11 +9,16 @@ import {
   TitleStrategy,
 } from '@angular/router';
 import posthog from 'posthog-js';
+import {
+  autoSignInConfirmationPath,
+  manualSignInConfirmationPath,
+} from '../auth-config';
 import { AuthModule } from './auth/auth.module';
 import { CognitoAuthGuard } from './auth/cognito-auth.guard';
+import { AutoSignInSuccessPageComponent } from './auth/pages/auto-sign-in-success-page/auto-sign-in-success-page.component';
 import { HandsFreePageComponent } from './auth/pages/hands-free-page/hands-free-page.component';
+import { ManualSignInSuccessPageComponent } from './auth/pages/manual-sign-in-success-page/manual-sign-in-success-page.component';
 import { SignInPageComponent } from './auth/pages/sign-in-page/sign-in-page.component';
-import { SignInSuccessPageComponent } from './auth/pages/sign-in-success-page/sign-in-success-page.component';
 import { SignOutPageComponent } from './auth/pages/sign-out-page/sign-out-page.component';
 import { FeedbackPageComponent } from './pages/feedback-page/feedback-page.component';
 import { ImportPageComponent } from './pages/import-page/import-page.component';
@@ -74,8 +79,12 @@ const routes: Routes = [
     component: HandsFreePageComponent,
   },
   {
-    path: 'signed-in',
-    component: SignInSuccessPageComponent,
+    path: autoSignInConfirmationPath,
+    component: AutoSignInSuccessPageComponent,
+  },
+  {
+    path: manualSignInConfirmationPath,
+    component: ManualSignInSuccessPageComponent,
   },
   {
     path: 'sign-out',
