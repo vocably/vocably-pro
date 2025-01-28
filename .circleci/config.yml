@@ -46,25 +46,10 @@ jobs:
       - run: bash ./scripts/install-build-dependencies.sh
       - run: bash ./scripts/declare-variables.sh
       - run: bash ./scripts/run-terraform.sh
-      - run: npm run test -ws -- --runInBand
+      - run: npm run test -ws -- --runInBand --silent
       - run: npx semantic-release
       - run: npx zx ./scripts/build-extension.mjs
 
-  stage:
-    working_directory: ~/repo
-    docker:
-      - image: cimg/node:18.19
-    environment:
-      ENV_NAME: STAGE
-    steps:
-      - checkout
-      - install_npm_dependencies
-      - run: npx zx ./scripts/build-packages.mjs
-      - run: npm run test -ws -- --runInBand --silent
-      - run: bash ./scripts/install-build-dependencies.sh
-      - run: bash ./scripts/declare-variables.sh
-      - run: bash ./scripts/run-terraform.sh
-      - run: npx zx ./scripts/build-extension.mjs
   prod:
     working_directory: ~/repo
     docker:

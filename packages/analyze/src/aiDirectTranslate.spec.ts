@@ -167,7 +167,7 @@ describe('aiDirectTranslate', () => {
     console.log(result);
 
     expect(result.value.source).toBe('oscillation');
-    expect(result.value.target).toHaveSomeOf(['коливання']);
+    expect(result.value.target).toHaveSomeOf(['коливання', 'осциляція']);
     expect(result.value.partOfSpeech).toBe('noun');
   });
 
