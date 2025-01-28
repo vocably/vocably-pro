@@ -26,10 +26,26 @@
   </div>
   <div>
     <app-expansion
-      label="Explain it better"
+      [label]="
+        'Explain it better' +
+        (targetLanguage === 'ru' ? ' (видео на русском)' : '')
+      "
       *ngIf="sourceLanguage"
       panelStyle="padding-top: 2rem;"
     >
+      <ng-container *ngIf="targetLanguage === 'ru'">
+        <video
+          controls
+          style="width: 360px; cursor: pointer; margin-bottom: 1rem"
+        >
+          <source src="/assets/how-to-ru.webm" type="video/webm" />
+          <source src="/assets/how-to-ru.mp4" type="video/mp4" />
+        </video>
+
+        <p>А дальше по-английски.</p>
+
+        <hr />
+      </ng-container>
       <app-detailed-explanation
         [language]="sourceLanguage"
       ></app-detailed-explanation>
