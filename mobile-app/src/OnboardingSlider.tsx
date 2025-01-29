@@ -108,13 +108,6 @@ export const OnboardingSlider: FC<Props> = ({
             You can save <Icon name="plus-circle" size={18} /> your flashcards
             and study them with spaced repetition system.
           </Text>
-          <Button
-            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
-            style={{}}
-            labelStyle={{ fontSize: 18, padding: 12 }}
-          >
-            Learn more <Icon name="arrow-right" size={16} />
-          </Button>
         </ScrollView>
         <ScrollView
           contentContainerStyle={{
@@ -181,12 +174,6 @@ export const OnboardingSlider: FC<Props> = ({
               )}
             </View>
           </Telephone>
-
-          <Button
-            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
-          >
-            Next <Icon name="arrow-right" />
-          </Button>
         </ScrollView>
         <ScrollView
           contentContainerStyle={{
@@ -253,12 +240,6 @@ export const OnboardingSlider: FC<Props> = ({
               )}
             </View>
           </Telephone>
-
-          <Button
-            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
-          >
-            Next <Icon name="arrow-right" />
-          </Button>
         </ScrollView>
         <ScrollView
           contentContainerStyle={{
@@ -359,12 +340,6 @@ export const OnboardingSlider: FC<Props> = ({
               )}
             </View>
           </Telephone>
-
-          <Button
-            onPress={() => swiperRef.current && swiperRef.current.scrollBy(1)}
-          >
-            Next <Icon name="arrow-right" />
-          </Button>
         </ScrollView>
         <ScrollView
           contentContainerStyle={{
