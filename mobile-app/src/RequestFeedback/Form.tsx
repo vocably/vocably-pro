@@ -61,24 +61,25 @@ export const RequestFeedbackForm: FC<Props> = ({
         ]}
       >
         <View>
-          <Text style={{ fontWeight: 'bold' }}>
-            It will take less than a minute.
+          <Text style={{ fontWeight: 'bold', textAlign: 'center' }}>
+            It's okay to skip the following text.{'\n'}I understand that people
+            can be busy{'\n'}or not in the mood.
           </Text>
         </View>
         <View>
           <Text style={{ textAlign: 'center' }}>
-            Do you find Vocably useful? Your rating on {mobileStoreName} will
-            make a big difference.
+            Do you love Vocably? Your rating on {mobileStoreName} will take less
+            than a minute and help this project.
           </Text>
         </View>
         <View style={{ alignSelf: 'stretch' }}>
-          <Button mode={'contained'} onPress={() => onAction('review')}>
-            Rate on {mobileStoreName}
+          <Button mode={'outlined'} onPress={() => onAction('review')}>
+            Yes, I'll rate Vocably on {mobileStoreName}
           </Button>
         </View>
         <View style={{ alignSelf: 'stretch' }}>
-          <Button mode={'outlined'} onPress={() => onAction('later')}>
-            Ask me later
+          <Button mode={'text'} onPress={() => onAction('later')}>
+            No, ask me later
           </Button>
         </View>
         <View>
@@ -99,7 +100,7 @@ export const RequestFeedbackForm: FC<Props> = ({
             textColor={theme.colors.onSurface}
             onPress={() => onAction('never')}
           >
-            Don't show this message again
+            I don't want to see this message again
           </Button>
         </View>
       </ScrollView>

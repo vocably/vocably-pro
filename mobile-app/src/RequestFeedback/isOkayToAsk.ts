@@ -24,5 +24,5 @@ export const isOkayToAsk = async ({
     return false;
   }
 
-  return numberOfRepetitions % 3 === 0;
+  return numberOfRepetitions % 5 === 0;
 };
