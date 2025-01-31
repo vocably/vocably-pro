@@ -2,8 +2,8 @@ import { CardItem } from '@vocably/model';
 import { sample } from 'lodash-es';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import { Button, useTheme } from 'react-native-paper';
+import { View } from 'react-native';
+import { Button, Text, useTheme } from 'react-native-paper';
 import { RequestFeedback } from '../RequestFeedback';
 import { Displayer } from './Displayer';
 
@@ -74,9 +74,11 @@ export const Completed: FC<Props> = ({
           gap: 12,
         }}
       >
-        <Text style={{ fontSize: 24 }}>You did it!</Text>
+        <Text style={{ fontSize: 24, color: theme.colors.secondary }}>
+          You did it!
+        </Text>
         {motivationalQuote.length > 0 && (
-          <View style={{ paddingHorizontal: 36 }}>
+          <View style={{ paddingHorizontal: 36, marginBottom: 14 }}>
             <Text
               style={{
                 color: theme.colors.onBackground,
