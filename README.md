@@ -5,7 +5,7 @@
 [![Google Chrome](https://img.shields.io/badge/Google_Chrome-blue)](https://chromewebstore.google.com/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb)
 [![Safari](https://img.shields.io/badge/Safari-blue)](https://apps.apple.com/app/vocably-for-safari/id6464076425)
 
-One day you will have to start using a foreign language if you want to become fluent. This will be difficult, I promise. Remember about Vocably. It will not remove the pain, but will make it less painful.
+One day you will have to start using a foreign language if you want to become fluent. This will be difficult, I promise. Remember about Vocably. It will ease your pain.
 
 ## How it works
 
