@@ -1,15 +1,15 @@
-# Vocably: Translate, Create Flashcards, Learn
+# Vocably — a language-learning tool for intermediate and advanced language users.
 
 [![Android](https://img.shields.io/badge/Android-blue)](https://play.google.com/store/apps/details?id=com.vocablypro)
 [![iOS](https://img.shields.io/badge/iOS-blue)](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757)
 [![Google Chrome](https://img.shields.io/badge/Google_Chrome-blue)](https://chromewebstore.google.com/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb)
 [![Safari](https://img.shields.io/badge/Safari-blue)](https://apps.apple.com/app/vocably-for-safari/id6464076425)
 
-Vocably is a perfect tool for those who study a foreign language, and want to learn as many words as possible.
+One day you will have to start using a foreign language if you want to become fluent. This will be difficult, I promise. Remember about Vocably. It will not remove the pain, but will make it less painful.
 
 ## How it works
 
-1. Select any word (or phrase) you don't know (supports Chrome, Safari, iOS Safari, Android, and YouTube on Desktop).
+1. Select any new word (or phrase) (supports Chrome, Safari, iOS Safari, Android, and YouTube on Desktop).
 1. Translate it + Add it to your collection.
 1. Learn the words from your collection.
 
