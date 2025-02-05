@@ -1,7 +1,7 @@
+import '@sneas/telephone/iphone-16-max';
+import '@sneas/telephone/pixel-9-pro';
 import * as Bowser from 'bowser';
-import './android';
 import './bootstrap.scss';
-import './iphone';
 import './styles.scss';
 
 const browser = Bowser.getParser(window.navigator.userAgent);
