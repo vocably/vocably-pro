@@ -1,5 +1,10 @@
 import { buildResult, configureAnalyzer } from '@vocably/analyze';
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import {
+  APIGatewayProxyEvent,
+  APIGatewayProxyResult,
+  ScheduledEvent,
+} from 'aws-lambda';
+import { isObject } from 'lodash-es';
 import { lastValueFrom, mergeMap, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { buildErrorResponse } from '../../utils/buildErrorResponse';
@@ -15,10 +20,27 @@ configureAnalyzer({
   openaiApiKey: process.env.OPENAI_API_KEY,
 });
 
+const isScheduleEvent = (event: any): event is ScheduledEvent => {
+  return (
+    isObject(event) &&
+    'detail-type' in event &&
+    event['detail-type'] === 'Scheduled Event'
+  );
+};
+
 export const analyze = async (
-  event: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> =>
-  lastValueFrom(
+  event: APIGatewayProxyEvent | ScheduledEvent
+): Promise<APIGatewayProxyResult> => {
+  // Schedule event is made for
+  // starting the lambda on timer
+  if (isScheduleEvent(event)) {
+    return {
+      statusCode: 200,
+      body: 'OK',
+    };
+  }
+
+  return lastValueFrom(
     of(event).pipe(
       map(extractPayload),
       mergeMap((payload) => {
@@ -36,5 +58,6 @@ export const analyze = async (
       catchError(buildErrorResponse)
     )
   );
+};
 
 exports.analyze = analyze;

@@ -79,3 +79,21 @@ resource "aws_cloudwatch_metric_alarm" "analyze_translation_error" {
   alarm_actions             = [aws_sns_topic.alarm.arn]
   insufficient_data_actions = []
 }
+
+resource "aws_cloudwatch_event_rule" "analyze" {
+  name                = "vocably-${terraform.workspace}-analyze"
+  schedule_expression = "rate(1 minute)"
+}
+
+resource "aws_cloudwatch_event_target" "analyze" {
+  arn  = aws_lambda_function.analyze.arn
+  rule = aws_cloudwatch_event_rule.analyze.name
+}
+
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_analyze_lambda" {
+  statement_id  = "AllowExecutionFromCloudWatch"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.analyze.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.analyze.arn
+}
