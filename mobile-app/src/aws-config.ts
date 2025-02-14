@@ -1,5 +1,6 @@
 import {
   AWS_CONFIG_COGNITO_REGION,
+  AWS_CONFIG_IDENTITY_POOL_ID,
   AWS_CONFIG_OAUTH_DOMAIN,
   AWS_CONFIG_PROJECT_REGION,
   AWS_CONFIG_USER_POOLS_ID,
@@ -13,6 +14,7 @@ export const awsConfig = {
   aws_cognito_region: AWS_CONFIG_COGNITO_REGION,
   aws_user_pools_id: AWS_CONFIG_USER_POOLS_ID,
   aws_user_pools_web_client_id: AWS_CONFIG_USER_POOLS_WEB_CLIENT_ID,
+  aws_cognito_identity_pool_id: AWS_CONFIG_IDENTITY_POOL_ID,
   oauth: {
     domain: AWS_CONFIG_OAUTH_DOMAIN,
     scope: ['email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],

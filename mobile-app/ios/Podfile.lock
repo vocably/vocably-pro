@@ -1,4 +1,8 @@
 PODS:
+  - AmplifyRTNPushNotification (1.1.15):
+    - AmplifyUtilsNotifications
+    - React-Core
+  - AmplifyUtilsNotifications (1.1.1)
   - boost (1.83.0)
   - BVLinearGradient (2.8.3):
     - React-Core
@@ -1091,7 +1095,7 @@ PODS:
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
     - React-RCTImage
-  - RNSentry (5.33.0):
+  - RNSentry (5.33.2):
     - glog
     - hermes-engine
     - RCT-Folly (= 2022.05.16.00)
@@ -1114,6 +1118,7 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
+  - "AmplifyRTNPushNotification (from `../node_modules/@aws-amplify/rtn-push-notification`)"
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -1187,12 +1192,15 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AmplifyUtilsNotifications
     - fmt
     - libevent
     - Sentry
     - SocketRocket
 
 EXTERNAL SOURCES:
+  AmplifyRTNPushNotification:
+    :path: "../node_modules/@aws-amplify/rtn-push-notification"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   BVLinearGradient:
@@ -1330,6 +1338,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AmplifyRTNPushNotification: 5998077e757634ab23b2e3308b182a5c8c56e1f6
+  AmplifyUtilsNotifications: b30b9e3172ae6c2c7344a64b22de649d4fcf6659
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   BVLinearGradient: 880f91a7854faff2df62518f0281afb1c60d49a3
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
@@ -1394,7 +1404,7 @@ SPEC CHECKSUMS:
   RNReactNativeSharedGroupPreferences: 29092869fc2e40d5baca5e15d82fa5c24a668977
   RNReanimated: e4276a6afc57c02056daa5ea1afb41a5ec497d9b
   RNScreens: 134a7511b12b8eb440b87aac21e36a71295d6024
-  RNSentry: f00dc94b8fd4368bf6b841270cb756861c7e3641
+  RNSentry: 22b7ac5d8a179a1781e97311ef7ecb45812c6db1
   RNShareMenu: cb9dac548c8bf147d06f0bf07296ad51ea9f5fc3
   RNSound: 6c156f925295bdc83e8e422e7d8b38d33bc71852
   RNVectorIcons: 73ab573085f65a572d3b6233e68996d4707fd505

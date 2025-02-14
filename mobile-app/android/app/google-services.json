@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1099232061569",
+    "project_id": "vocably-pro",
+    "storage_bucket": "vocably-pro.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1099232061569:android:4e114a49b201415481c580",
+        "android_client_info": {
+          "package_name": "com.vocablypro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBqzpFQC3nhgyDrYo5rczOfLhJAGfrbL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

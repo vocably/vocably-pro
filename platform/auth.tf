@@ -342,6 +342,143 @@ resource "aws_cognito_user_pool_client" "client" {
   depends_on                           = [aws_cognito_identity_provider.google]
 }
 
+resource "aws_cognito_identity_pool" "users" {
+  identity_pool_name               = "vocably-${terraform.workspace}-users"
+  allow_unauthenticated_identities = false
+
+  cognito_identity_providers {
+    client_id     = aws_cognito_user_pool_client.client.id
+    provider_name = aws_cognito_user_pool.users.endpoint
+  }
+}
+
+resource "aws_iam_role" "user_authenticated" {
+  name = "vocably-${terraform.workspace}-cognito-user-authenticated"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "cognito-identity.amazonaws.com"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "cognito-identity.amazonaws.com:aud": "${aws_cognito_identity_pool.users.id}"
+        },
+        "ForAnyValue:StringLike": {
+          "cognito-identity.amazonaws.com:amr": "authenticated"
+        }
+      }
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "user_authenticated" {
+  name = "vocably-${terraform.workspace}-user-authenticated"
+  role = aws_iam_role.user_authenticated.id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cognito-identity:*"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+        "Effect": "Allow",
+        "Action": [
+            "mobiletargeting:UpdateEndpoint",
+            "mobiletargeting:PutEvents"
+        ],
+        "Resource": [
+            "${aws_pinpoint_app.mobile_app.arn}*"
+        ]
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role" "user_unauthenticated" {
+  name = "vocably-${terraform.workspace}-cognito-user-unauthenticated"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "cognito-identity.amazonaws.com"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "cognito-identity.amazonaws.com:aud": "${aws_cognito_identity_pool.users.id}"
+        },
+        "ForAnyValue:StringLike": {
+          "cognito-identity.amazonaws.com:amr": "unauthenticated"
+        }
+      }
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "user_unauthenticated" {
+  name = "vocably-${terraform.workspace}-user-unauthenticated"
+  role = aws_iam_role.user_unauthenticated.id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cognito-identity:*"
+      ],
+      "Resource": [
+        "*"
+      ]
+    },
+    {
+        "Effect": "Allow",
+        "Action": [
+            "mobiletargeting:UpdateEndpoint",
+            "mobiletargeting:PutEvents"
+        ],
+        "Resource": [
+            "${aws_pinpoint_app.mobile_app.arn}*"
+        ]
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_cognito_identity_pool_roles_attachment" "user" {
+  identity_pool_id = aws_cognito_identity_pool.users.id
+
+  roles = {
+    authenticated   = aws_iam_role.user_authenticated.arn
+    unauthenticated = aws_iam_role.user_unauthenticated.arn
+  }
+}
+
 resource "null_resource" "test_user" {
 
   triggers = {

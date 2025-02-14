@@ -12,6 +12,7 @@ import App from './src/App';
 import ShareIntentApp from './src/ShareIntent/ShareExtensionApp';
 // We need this to make crud -> nanoid work in RN app
 import 'react-native-get-random-values';
+import 'react-native-url-polyfill/auto';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
