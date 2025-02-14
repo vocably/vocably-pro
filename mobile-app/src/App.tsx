@@ -5,9 +5,11 @@ import { LanguagesContainer } from './languages/LanguagesContainer';
 import { NavigationContainer } from './NavigationContainer';
 import { ThemeProvider } from './ThemeProvider';
 // @ts-ignore
+import { Notifications } from '@aws-amplify/notifications';
 import { API_BASE_URL, API_CARDS_BUCKET, API_REGION } from '@env';
 import * as Sentry from '@sentry/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { awsConfig } from './aws-config';
 import { PostHogProvider } from './PostHogProvider';
 import { RootModalStack } from './RootModalStack';
 import { TranslationPresetContainer } from './TranslationPreset/TranslationPresetContainer';
@@ -23,6 +25,20 @@ configureApi({
   region: API_REGION,
   cardsBucket: API_CARDS_BUCKET,
 });
+
+Notifications.configure({
+  ...awsConfig,
+  Notifications: {
+    //@ts-ignore
+    Push: {
+      AWSPinpoint: {
+        appId: process.env.AWS_PINPOINT_PROJECT_ID as string,
+        region: 'eu-central-1',
+      },
+    },
+  },
+});
+// Notifications.Push.enable();
 
 const App = () => {
   return (

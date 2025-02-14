@@ -78,6 +78,25 @@ export const MainMenu: FC<MenuMainProps> = ({ parentNavigator }) => {
             />
           )}
         ></List.Item>
+        {SHOW_CLEAR_STORAGE_BUTTON === 'true' && (
+          <>
+            <Divider />
+            <List.Item
+              title="Notifications"
+              onPress={() => navigator.navigate('Notifications')}
+              titleStyle={{
+                color: theme.colors.onBackground,
+              }}
+              right={() => (
+                <Icon
+                  name="menu-right"
+                  size={24}
+                  color={theme.colors.onBackground}
+                />
+              )}
+            ></List.Item>
+          </>
+        )}
       </View>
 
       <View
