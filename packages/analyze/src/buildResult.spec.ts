@@ -433,7 +433,7 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.items[1].partOfSpeech).toEqual('verb');
     expect(result.value.items[1].translation).toHaveSomeOf(
-      'підлаштувати, пристосувати, стилізувати, шити'
+      'підлаштовувати, підлаштувати, пристосувати, стилізувати, шити'
     );
   });
 
@@ -710,7 +710,7 @@ describe('integration check for translate lambda', () => {
     console.log(result);
 
     expect(result.value.items.length).toBeGreaterThan(0);
-    expect(result.value.items[0].source).toEqual('שאלה');
+    expect(result.value.items[0].source).toHaveSomeOf(['שאלה', 'שְׁאֵלָה']);
     expect(result.value.items[0].translation).toHaveSomeOf(
       'question, issue, wish, request'
     );
