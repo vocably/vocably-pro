@@ -1,3 +1,4 @@
+import { Notifications } from '@aws-amplify/notifications';
 import { CardItem, GoogleLanguage } from '@vocably/model';
 import { grade, slice, SrsScore } from '@vocably/srs';
 import { shuffle } from 'lodash-es';
@@ -108,6 +109,7 @@ export const Study: FC<Props> = ({
       setCardsStudied((cardsStudied) => cardsStudied + 1);
 
       if (followingCards.length === 0) {
+        Notifications.Push.setBadgeCount(0);
         increaseNumberOfRepetitions();
       }
     },
