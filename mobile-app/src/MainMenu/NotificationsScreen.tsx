@@ -31,19 +31,12 @@ export const NotificationsScreen: FC<Props> = () => {
 
     Notifications.Push.requestPermissions({
       alert: true,
+      badge: true,
+      sound: true,
     })
       .then(async (data) => {
         postHog.capture('notification-requested', {
           data,
-        });
-
-        console.log('notification-requested, data:', data);
-        console.log('sub:', user.attributes.sub);
-
-        await Notifications.Push.identifyUser(user.attributes.sub, {
-          attributes: {
-            studyLanguages: ['nl'],
-          },
         });
       })
       .catch((e) => {

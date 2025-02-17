@@ -1,3 +1,4 @@
 .env.local
+.env.development
 deck.json
 deck-asis.json

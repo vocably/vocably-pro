@@ -1,17 +1,22 @@
+import { Notifications } from '@aws-amplify/notifications';
+import {
+  API_BASE_URL,
+  API_CARDS_BUCKET,
+  API_REGION,
+  AWS_CONFIG_PROJECT_REGION,
+  AWS_PINPOINT_PROJECT_ID,
+} from '@env';
+import * as Sentry from '@sentry/react-native';
 import { configureApi } from '@vocably/api';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthContainer } from './auth/AuthContainer';
 import { Login } from './auth/Login';
+import { awsConfig } from './aws-config';
 import { LanguagesContainer } from './languages/LanguagesContainer';
 import { NavigationContainer } from './NavigationContainer';
-import { ThemeProvider } from './ThemeProvider';
-// @ts-ignore
-import { Notifications } from '@aws-amplify/notifications';
-import { API_BASE_URL, API_CARDS_BUCKET, API_REGION } from '@env';
-import * as Sentry from '@sentry/react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { awsConfig } from './aws-config';
 import { PostHogProvider } from './PostHogProvider';
 import { RootModalStack } from './RootModalStack';
+import { ThemeProvider } from './ThemeProvider';
 import { TranslationPresetContainer } from './TranslationPreset/TranslationPresetContainer';
 import { UserMetadataContainer } from './UserMetadataContainer';
 import { WelcomeContainer } from './WelcomeContainer';
@@ -32,13 +37,14 @@ Notifications.configure({
     //@ts-ignore
     Push: {
       AWSPinpoint: {
-        appId: process.env.AWS_PINPOINT_PROJECT_ID as string,
-        region: 'eu-central-1',
+        appId: AWS_PINPOINT_PROJECT_ID as string,
+        region: AWS_CONFIG_PROJECT_REGION as string,
       },
     },
   },
 });
-// Notifications.Push.enable();
+
+Notifications.Push.enable();
 
 const App = () => {
   return (

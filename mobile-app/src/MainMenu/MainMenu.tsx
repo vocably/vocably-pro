@@ -78,7 +78,7 @@ export const MainMenu: FC<MenuMainProps> = ({ parentNavigator }) => {
             />
           )}
         ></List.Item>
-        {SHOW_CLEAR_STORAGE_BUTTON === 'true' && (
+        {SHOW_CLEAR_STORAGE_BUTTON && (
           <>
             <Divider />
             <List.Item
