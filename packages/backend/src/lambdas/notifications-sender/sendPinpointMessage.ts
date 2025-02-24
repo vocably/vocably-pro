@@ -3,13 +3,14 @@ import {
   SendUsersMessagesCommand,
   SendUsersMessagesCommandInput,
 } from '@aws-sdk/client-pinpoint';
-import { CardItem, Result } from '@vocably/model';
+import { Result } from '@vocably/model';
+import { NotificationBody } from './getBody';
 
 const pinpointClient = new PinpointClient({});
 
 export const sendPinpointMessage = async (
   sub: string,
-  card: CardItem
+  body: NotificationBody
 ): Promise<Result<any>> => {
   try {
     const commandInput: SendUsersMessagesCommandInput = {
@@ -20,10 +21,7 @@ export const sendPinpointMessage = async (
           [sub]: {},
         },
         MessageConfiguration: {
-          DefaultPushNotificationMessage: {
-            Title: `Time to learn`,
-            Body: `${card.data.source}`,
-          },
+          DefaultPushNotificationMessage: body,
           APNSMessage: {
             Badge: 1,
           },

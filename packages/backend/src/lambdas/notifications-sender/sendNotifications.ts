@@ -1,7 +1,6 @@
-import { byDate, Result } from '@vocably/model';
-import { slice } from '@vocably/srs';
-import { first } from 'lodash-es';
+import { Result } from '@vocably/model';
 import { getDeck } from './decks';
+import { getBody } from './getBody';
 import {
   getUtcTimestampInSeconds,
   roundNotificationDate,
@@ -26,15 +25,10 @@ export const sendNotifications = async (): Promise<Result<any>> => {
       continue;
     }
 
-    const card = first(
-      slice(new Date(), 1, cardsDeckResult.value.cards.sort(byDate))
+    const sendMessageResult = await sendPinpointMessage(
+      sub,
+      getBody(cardsDeckResult.value)
     );
-
-    if (!card) {
-      continue;
-    }
-
-    const sendMessageResult = await sendPinpointMessage(sub, card);
 
     if (sendMessageResult.success === false) {
       console.error(
