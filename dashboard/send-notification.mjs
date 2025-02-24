@@ -1,6 +1,6 @@
 import { exec } from 'child_process';
 import { config } from 'dotenv-flow';
-import { promisify } from 'node:util';
+import { inspect, promisify } from 'node:util';
 import 'zx/globals';
 
 config();
@@ -15,6 +15,8 @@ console.log('Sending notification...', {
   messageTitle,
   messageBody,
 });
+
+console.log(process.env.USER_POOL_ID);
 
 const listUsers = `aws cognito-idp list-users --user-pool-id ${process.env.USER_POOL_ID} --filter "email=\\"${userEmail}\\""`;
 
@@ -43,4 +45,8 @@ const sendPushNotification = `aws pinpoint send-users-messages --cli-input-json 
   sendRequest
 )}'`;
 
-console.log(JSON.parse((await execute(sendPushNotification)).stdout));
+console.log(
+  inspect(JSON.parse((await execute(sendPushNotification)).stdout), {
+    depth: null,
+  })
+);

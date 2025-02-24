@@ -48,6 +48,10 @@ export const Errors = [
   'MALFORMED_PAYLOAD',
   'GPT_RESPONSE_MALFORMED',
   'RETRY_ERROR',
+  'NOTIFICATIONS_TABLE_SCAN_ERROR',
+  'NOTIFICATIONS_CARDS_GET_ERROR',
+  'NOTIFICATIONS_PUSH_ERROR',
+  'NOTIFICATIONS_TABLE_UPDATE_ERROR',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];
