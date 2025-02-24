@@ -8,6 +8,7 @@ export * from './language-deck';
 export * from './language-list';
 export * from './language-pairs';
 export * from './mobile-onboarding';
+export * from './notifications';
 export * from './onboarding';
 export { isError, isSuccess, Result, resultify } from './result';
 export * from './sorted-languages';

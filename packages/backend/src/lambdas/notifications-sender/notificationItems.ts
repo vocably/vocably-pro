@@ -4,17 +4,9 @@ import {
   ScanInput,
   UpdateItemCommand,
 } from '@aws-sdk/client-dynamodb';
-import { Result, resultify } from '@vocably/model';
+import { NotificationItem, Result, resultify } from '@vocably/model';
 
 const ddb = new DynamoDBClient();
-
-type NotificationItem = {
-  ID: { S: string };
-  Sub: { S: string };
-  Language: { S: string };
-  UTCTime: { S: string };
-  SentTimestamp: { N: string };
-};
 
 export const getNotificationItems = async (): Promise<
   Result<NotificationItem[]>

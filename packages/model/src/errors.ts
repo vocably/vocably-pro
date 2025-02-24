@@ -52,6 +52,8 @@ export const Errors = [
   'NOTIFICATIONS_CARDS_GET_ERROR',
   'NOTIFICATIONS_PUSH_ERROR',
   'NOTIFICATIONS_TABLE_UPDATE_ERROR',
+  'GET_NOTIFICATION_TIME_ERROR',
+  'SET_NOTIFICATION_TIME_ERROR',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];
