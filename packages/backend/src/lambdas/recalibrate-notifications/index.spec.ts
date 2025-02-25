@@ -1,6 +1,6 @@
 import { inspect } from '@vocably/node-sulna';
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { setNotificationTimeLambdaFunction } from './index';
+import { recalibrateNotificationsLambdaFunction } from './index';
 
 // @ts-ignore
 let mockEvent: APIGatewayProxyEvent = {
@@ -14,19 +14,17 @@ let mockEvent: APIGatewayProxyEvent = {
   },
 };
 
-describe('integration check for getNotificationTime lambda', () => {
+describe('integration check for recalibrateNotifications lambda', () => {
   if (process.env.TEST_SKIP_SPEC === 'true') {
     it('skip spec testing', () => {});
     return;
   }
 
-  it('execute setNotificationTime lambda', async () => {
+  it('execute recalibrate notifications lambda', async () => {
     mockEvent.body = JSON.stringify({
-      language: 'en',
-      localTime: '09:00',
-      IANATimezone: 'Europe/Kiev',
+      IANATimezone: 'Europe/Amsterdam',
     });
-    const result = await setNotificationTimeLambdaFunction(mockEvent);
+    const result = await recalibrateNotificationsLambdaFunction(mockEvent);
     console.log(inspect({ result }));
     expect(result.statusCode).toEqual(200);
   });

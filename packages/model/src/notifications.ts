@@ -24,3 +24,7 @@ export type SetNotificationTimePayload = {
   localTime: string;
   language: string;
 };
+
+export type RecalibrateNotificationsPayload = {
+  IANATimezone: string;
+};

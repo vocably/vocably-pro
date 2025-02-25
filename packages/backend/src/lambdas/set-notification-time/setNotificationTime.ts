@@ -1,10 +1,10 @@
 import { Result } from '@vocably/model';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { getNotificationItem } from '../../utils/getNotificationItem';
+import { getUTCTime } from '../../utils/getUTCTime';
+import { updateNotificationItem } from '../../utils/updateNotificationItem';
 import { createNotificationItem } from './createNotificationItem';
 import { extractPayload } from './extractPayload';
-import { getUTCTime } from './getUTCTime';
-import { updateNotificationItem } from './updateNotificationItem';
 
 export const setNotificationTime = async (
   event: APIGatewayProxyEvent
@@ -41,8 +41,6 @@ export const setNotificationTime = async (
   );
 
   const ttl = Math.floor(Date.now() / 1000) + 90 * 24 * 60 * 60;
-
-  console.log(itemResult);
 
   if (!itemResult.value) {
     const result = await createNotificationItem({

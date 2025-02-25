@@ -23,7 +23,7 @@ describe('integration check for getNotificationTime lambda', () => {
     return;
   }
 
-  it('execute get notification tieme lambda', async () => {
+  it('execute get notification time lambda', async () => {
     const result = await getNotificationTimeLambdaFunction(mockEvent);
     console.log(inspect({ result }));
     expect(result.statusCode).toEqual(200);

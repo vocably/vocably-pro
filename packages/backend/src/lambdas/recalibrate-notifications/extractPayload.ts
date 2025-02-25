@@ -1,25 +1,17 @@
-import { Result, SetNotificationTimePayload } from '@vocably/model';
+import { RecalibrateNotificationsPayload, Result } from '@vocably/model';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { isValidTimeZone } from '../../utils/isValidTimezone';
 
-const isValidTime = (time: string) => {
-  return /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/.test(time);
-};
-
 export const extractPayload = (
   event: APIGatewayProxyEvent
-): Result<SetNotificationTimePayload> => {
+): Result<RecalibrateNotificationsPayload> => {
   try {
     const payload = JSON.parse(event.body);
 
-    if (
-      !isValidTimeZone(payload.IANATimezone) ||
-      !isValidTime(payload.localTime) ||
-      !payload.language
-    ) {
+    if (!isValidTimeZone(payload.IANATimezone)) {
       return {
         success: false,
-        errorCode: 'SET_NOTIFICATION_TIME_ERROR',
+        errorCode: 'RECALIBRATE_NOTIFICATIONS_ERROR',
         reason: 'The payload is invalid.',
         extra: payload,
       };
@@ -32,7 +24,7 @@ export const extractPayload = (
   } catch (e) {
     return {
       success: false,
-      errorCode: 'SET_NOTIFICATION_TIME_ERROR',
+      errorCode: 'RECALIBRATE_NOTIFICATIONS_ERROR',
       reason: 'Unable to parse payload.',
       extra: e,
     };
