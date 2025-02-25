@@ -8,6 +8,7 @@ import {
 } from '@env';
 import * as Sentry from '@sentry/react-native';
 import { configureApi } from '@vocably/api';
+import { AppState } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthContainer } from './auth/AuthContainer';
 import { Login } from './auth/Login';
@@ -15,6 +16,7 @@ import { awsConfig } from './aws-config';
 import { LanguagesContainer } from './languages/LanguagesContainer';
 import { NavigationContainer } from './NavigationContainer';
 import { PostHogProvider } from './PostHogProvider';
+import { recalibrateNotifications } from './recalibrateNotifications';
 import { RootModalStack } from './RootModalStack';
 import { ThemeProvider } from './ThemeProvider';
 import { TranslationPresetContainer } from './TranslationPreset/TranslationPresetContainer';
@@ -45,6 +47,12 @@ Notifications.configure({
 });
 
 Notifications.Push.enable();
+
+AppState.addEventListener('change', (nextAppState) => {
+  if (nextAppState === 'active') {
+    recalibrateNotifications().then().catch(console.error);
+  }
+});
 
 const App = () => {
   return (

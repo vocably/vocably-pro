@@ -9,6 +9,7 @@ export {
   saveLanguageDeck,
   updateTag,
 } from './languageDecks';
+export * from './notifications';
 export * from './onboarding';
 export { playSound } from './playSound';
 export { sendUserFeedback } from './userFeedback';
