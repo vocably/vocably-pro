@@ -83,17 +83,25 @@ resource "aws_api_gateway_deployment" "deployment" {
       md5(file("${path.module}/api-user-files.tf")),
       md5(file("${path.module}/api-play-sound.tf")),
       md5(file("${path.module}/user-feedback.tf")),
+      md5(file("${path.module}/api-notification-time.tf")),
+      md5(file("${path.module}/api-recalibrate-notifications.tf")),
       aws_lambda_function.analyze.last_modified,
       aws_lambda_function.bulk_analyze.last_modified,
       aws_lambda_function.onboard.last_modified,
       aws_lambda_function.play_sound.last_modified,
       aws_lambda_function.user_feedback.last_modified,
+      aws_lambda_function.get_notification_time.last_modified,
+      aws_lambda_function.set_notification_time.last_modified,
+      aws_lambda_function.recalibrate_notifications.last_modified,
     ]))
   }
   depends_on = [
     aws_api_gateway_integration.analyze,
     aws_api_gateway_integration.bulk_analyze,
     aws_api_gateway_integration.onboard,
+    aws_api_gateway_integration.get_notification_time,
+    aws_api_gateway_integration.set_notification_time,
+    aws_api_gateway_integration.recalibrate_notifications,
     aws_api_gateway_integration.play_sound,
     aws_api_gateway_integration.user_feedback,
     aws_api_gateway_integration.put_language,
@@ -117,6 +125,9 @@ resource "aws_api_gateway_deployment" "deployment" {
     aws_lambda_function.onboard,
     aws_lambda_function.play_sound,
     aws_lambda_function.user_feedback,
+    aws_lambda_function.get_notification_time,
+    aws_lambda_function.set_notification_time,
+    aws_lambda_function.recalibrate_notifications,
   ]
   lifecycle {
     create_before_destroy = true
