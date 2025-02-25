@@ -27,8 +27,16 @@ export const EditDeckScreen: FC<Props> = ({ navigation }) => {
         }}
       >
         <List.Item
-          title="How to group cards"
-          onPress={() => navigation.navigate('HowToGroupCards')}
+          title="Practice Notifications"
+          onPress={() => navigation.navigate('Notifications')}
+          left={() => (
+            <Icon
+              name="bell"
+              size={24}
+              color={theme.colors.onBackground}
+              style={{ marginLeft: 24 }}
+            />
+          )}
           right={() => (
             <Icon
               name="menu-right"
@@ -39,8 +47,36 @@ export const EditDeckScreen: FC<Props> = ({ navigation }) => {
         ></List.Item>
         <Divider style={{ alignSelf: 'stretch' }} />
         <List.Item
-          title="How to import and export"
+          title="How to Group Cards"
+          onPress={() => navigation.navigate('HowToGroupCards')}
+          left={() => (
+            <Icon
+              name="group"
+              size={24}
+              color={theme.colors.onBackground}
+              style={{ marginLeft: 24 }}
+            />
+          )}
+          right={() => (
+            <Icon
+              name="menu-right"
+              size={24}
+              color={theme.colors.onBackground}
+            />
+          )}
+        ></List.Item>
+        <Divider style={{ alignSelf: 'stretch' }} />
+        <List.Item
+          title="How to Import and Export"
           onPress={() => navigation.navigate('HowToImportAndExport')}
+          left={() => (
+            <Icon
+              name="swap-vertical"
+              size={24}
+              color={theme.colors.onBackground}
+              style={{ marginLeft: 24 }}
+            />
+          )}
           right={() => (
             <Icon
               name="menu-right"
