@@ -1,4 +1,6 @@
+import { isError } from '@vocably/model';
 import { useCallback, useEffect, useState } from 'react';
+import { Sentry } from './BetterSentry';
 
 type AsyncSuccess<T> = {
   status: 'loaded';
@@ -27,12 +29,30 @@ export const useAsync = <T>(
   useEffect(() => {
     load()
       .then((value) => {
+        if (isError(value)) {
+          setResult({
+            status: 'failed',
+            error: value,
+          });
+
+          Sentry.captureException(
+            new Error('Unable to perform async request in the component.'),
+            {
+              extra: value,
+            }
+          );
+
+          return;
+        }
+
         setResult({
           status: 'loaded',
           value,
         });
       })
       .catch((error) => {
+        Sentry.captureException(error);
+
         setResult({
           status: 'failed',
           error,

@@ -1073,6 +1073,8 @@ PODS:
     - React-Core
   - RNCMaskedView (0.3.1):
     - React-Core
+  - RNDateTimePicker (8.3.0):
+    - React-Core
   - RNDeviceInfo (13.1.0):
     - React-Core
   - RNFlashList (1.6.4):
@@ -1179,6 +1181,7 @@ DEPENDENCIES:
   - RNAWSCognito (from `../node_modules/amazon-cognito-identity-js`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - "RNFlashList (from `../node_modules/@shopify/flash-list`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -1315,6 +1318,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-masked-view/masked-view"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNFlashList:
@@ -1402,6 +1407,7 @@ SPEC CHECKSUMS:
   RNAWSCognito: fe0c870c7cd9970a2efefc075b3f2d75eac913c7
   RNCAsyncStorage: 618d03a5f52fbccb3d7010076bc54712844c18ef
   RNCMaskedView: 090213d32d8b3bb83a4dcb7d12c18f0152591906
+  RNDateTimePicker: a793ed8822283f576dd0a205a0916c5098c2611f
   RNDeviceInfo: e13b7d68878fba693c9fbb13ca4d56ad57d95917
   RNFlashList: b521ebdd7f9352673817f1d98e8bdc0c8cf8545b
   RNGestureHandler: bc2cdb2dc42facdf34992ae364b8a728e19a3686

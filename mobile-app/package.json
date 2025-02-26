@@ -25,6 +25,7 @@
     "@aws-amplify/rtn-push-notification": "~1.1.x",
     "@miblanchard/react-native-slider": "^2.6.0",
     "@react-native-async-storage/async-storage": "1.21.0",
+    "@react-native-community/datetimepicker": "^8.3.0",
     "@react-native-community/netinfo": "11.3.1",
     "@react-native-masked-view/masked-view": "0.3.1",
     "@react-navigation/drawer": "6.6.15",

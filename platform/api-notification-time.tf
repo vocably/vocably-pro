@@ -104,7 +104,7 @@ resource "aws_api_gateway_integration" "get_notification_time" {
   resource_id = aws_api_gateway_method.get_notification_time.resource_id
   http_method = aws_api_gateway_method.get_notification_time.http_method
 
-  integration_http_method = "GET"
+  integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.get_notification_time.invoke_arn
   passthrough_behavior    = "WHEN_NO_MATCH"

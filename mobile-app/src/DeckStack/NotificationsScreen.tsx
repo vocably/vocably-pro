@@ -1,17 +1,33 @@
 import { Auth } from '@aws-amplify/auth';
-import { Notifications } from '@aws-amplify/notifications';
+import {
+  Notifications,
+  PushNotificationPermissionStatus,
+} from '@aws-amplify/notifications';
+import { languageList } from '@vocably/model';
+import { trimLanguage } from '@vocably/sulna';
+import { get } from 'lodash-es';
 import { usePostHog } from 'posthog-react-native';
 import { FC, useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
-import { Button, Text, useTheme } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
+import { InlineLoader } from '../loaders/InlineLoader';
+import { NotificationsAllowed } from './notifications/NotificationsAllowed';
 
 type Props = {};
 
 export const NotificationsScreen: FC<Props> = () => {
-  const theme = useTheme();
   const insets = useSafeAreaInsets();
-  const [notificationsStatus, setNotificationsStatus] = useState('');
+  const [notificationsStatus, setNotificationsStatus] = useState<
+    PushNotificationPermissionStatus | 'LOADING'
+  >('LOADING');
+
+  const {
+    deck: { language },
+  } = useSelectedDeck({ autoReload: false });
+
+  const languageString = trimLanguage(get(languageList, language, ''));
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
@@ -54,11 +70,28 @@ export const NotificationsScreen: FC<Props> = () => {
         justifyContent: 'center',
         paddingTop: insets.top,
         paddingBottom: insets.bottom,
+        height: '100%',
+        gap: 12,
       }}
     >
-      <Text>Notifications</Text>
-      <Text>{notificationsStatus}</Text>
-      <Button onPress={requestPermissions}>Request Permissions</Button>
+      {notificationsStatus === 'LOADING' && (
+        <InlineLoader>Checking...</InlineLoader>
+      )}
+      {notificationsStatus === 'GRANTED' && (
+        <NotificationsAllowed language={language} />
+      )}
+      {(notificationsStatus === 'SHOULD_EXPLAIN_THEN_REQUEST' ||
+        notificationsStatus === 'SHOULD_REQUEST') && (
+        <>
+          <Text style={{ textAlign: 'center', paddingHorizontal: 38 }}>
+            Practice notifications are sent once a days to remind you to review
+            your {languageString} cards.
+          </Text>
+          <Button onPress={requestPermissions} mode="contained">
+            Enable Notifications
+          </Button>
+        </>
+      )}
     </ScrollView>
   );
 };
