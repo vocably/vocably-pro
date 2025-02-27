@@ -1,5 +1,6 @@
 import { isError } from '@vocably/model';
 import { useCallback, useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 import { Sentry } from './BetterSentry';
 
 type AsyncSuccess<T> = {
@@ -62,28 +63,22 @@ export const useAsync = <T>(
 
   const update = useCallback(
     async (newValue: T) => {
-      if (!mutate) {
-        setResult({
-          status: 'loaded',
-          value: newValue,
-        });
+      const lastResult = result;
 
+      setResult({
+        status: 'loaded',
+        value: newValue,
+      });
+
+      if (!mutate) {
         return;
       }
 
-      mutate(newValue)
-        .then(() => {
-          setResult({
-            status: 'loaded',
-            value: newValue,
-          });
-        })
-        .catch((error) => {
-          setResult({
-            status: 'failed',
-            error,
-          });
-        });
+      return mutate(newValue).catch((error) => {
+        Alert.alert('Error', 'Unable to perform the operation.');
+        console.error('Mutation failed', error);
+        setResult(lastResult);
+      });
     },
     [mutate, result, setResult]
   );

@@ -29,6 +29,16 @@ export const TimePicker: FC<Props> = ({ time, onChange, disabled = false }) => {
           mode={'time'}
           display={'spinner'}
           disabled={disabled}
+          onChange={(_, date) => {
+            if (date !== undefined) {
+              onChange(
+                `${date.getHours().toString().padStart(2, '0')}:${date
+                  .getMinutes()
+                  .toString()
+                  .padStart(2, '0')}`
+              );
+            }
+          }}
         />
       )}
       {Platform.OS !== 'ios' && (

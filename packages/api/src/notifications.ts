@@ -47,6 +47,29 @@ export const setNotificationTime = async (
   }
 };
 
+export const deleteNotificationTime = async (
+  language: string
+): Promise<Result<any>> => {
+  try {
+    return await request(
+      '/notification-time?' +
+        new URLSearchParams({
+          language,
+        }),
+      {
+        method: 'DELETE',
+      }
+    );
+  } catch (e) {
+    return {
+      success: false,
+      errorCode: 'NOTIFICATION_TIME_REQUEST_FAILED',
+      reason: 'Delete notification time request failed.',
+      extra: e,
+    };
+  }
+};
+
 export const recalibrateNotifications = async (
   payload: RecalibrateNotificationsPayload
 ): Promise<Result<any>> => {

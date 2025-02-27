@@ -23,6 +23,7 @@ export const request = async (
     );
 
     if (!response.ok) {
+      console.error('API error', await response.text());
       return {
         success: false,
         errorCode: 'API_REQUEST_NOT_OK',

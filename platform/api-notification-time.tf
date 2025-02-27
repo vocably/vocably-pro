@@ -40,7 +40,8 @@ resource "aws_iam_policy" "notification_time_lambda_execution" {
           "dynamodb:UpdateItem",
           "dynamodb:Query",
           "dynamodb:Scan",
-          "dynamodb:DeleteItem"
+          "dynamodb:DeleteItem",
+          "dynamodb:PutItem",
         ],
         "Resource" : "${aws_dynamodb_table.notifications.arn}*"
       },
@@ -214,7 +215,7 @@ resource "aws_lambda_function" "delete_notification_time" {
   filename         = data.archive_file.backend_build.output_path
   function_name    = "vocably-${terraform.workspace}-delete-notification-time"
   role             = aws_iam_role.notification_time_lambda_execution.arn
-  handler          = "delete-notification-time.getNotificationTime"
+  handler          = "delete-notification-time.deleteNotificationTime"
   source_code_hash = data.archive_file.backend_build.output_base64sha256
   runtime          = "nodejs18.x"
   timeout          = 10
