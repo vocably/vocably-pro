@@ -92,6 +92,7 @@ resource "aws_api_gateway_deployment" "deployment" {
       aws_lambda_function.user_feedback.last_modified,
       aws_lambda_function.get_notification_time.last_modified,
       aws_lambda_function.set_notification_time.last_modified,
+      aws_lambda_function.delete_notification_time.last_modified,
       aws_lambda_function.recalibrate_notifications.last_modified,
     ]))
   }
@@ -101,6 +102,7 @@ resource "aws_api_gateway_deployment" "deployment" {
     aws_api_gateway_integration.onboard,
     aws_api_gateway_integration.get_notification_time,
     aws_api_gateway_integration.set_notification_time,
+    aws_api_gateway_integration.delete_notification_time,
     aws_api_gateway_integration.recalibrate_notifications,
     aws_api_gateway_integration.play_sound,
     aws_api_gateway_integration.user_feedback,
@@ -127,6 +129,7 @@ resource "aws_api_gateway_deployment" "deployment" {
     aws_lambda_function.user_feedback,
     aws_lambda_function.get_notification_time,
     aws_lambda_function.set_notification_time,
+    aws_lambda_function.delete_notification_time,
     aws_lambda_function.recalibrate_notifications,
   ]
   lifecycle {
