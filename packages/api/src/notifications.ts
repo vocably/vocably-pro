@@ -30,12 +30,14 @@ export const getNotificationTime = async (
 };
 
 export const setNotificationTime = async (
-  payload: SetNotificationTimePayload
+  payload: SetNotificationTimePayload,
+  abortController?: AbortController
 ): Promise<Result<any>> => {
   try {
     return await request('/notification-time', {
       method: 'POST',
       body: JSON.stringify(payload),
+      signal: abortController?.signal,
     });
   } catch (e) {
     return {

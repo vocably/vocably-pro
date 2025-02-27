@@ -27,16 +27,25 @@ const getNotificationTime = (language: string) => async () => {
   throw new Error(`Unable to get notification time for ${language}`);
 };
 
+let lastAbortController: AbortController;
 const setNotificationTime =
   (language: string) => async (payload: GetNotificationTimeResult) => {
     if (payload.exists === true) {
-      const result = await setNotificationTimeApi({
-        localTime: payload.time,
-        language,
-        IANATimezone: getTimeZone(),
-      });
+      lastAbortController && lastAbortController.abort();
+      lastAbortController = new AbortController();
+      const result = await setNotificationTimeApi(
+        {
+          localTime: payload.time,
+          language,
+          IANATimezone: getTimeZone(),
+        },
+        lastAbortController
+      );
 
-      if (result.success === false) {
+      if (
+        result.success === false &&
+        result.errorCode !== 'API_REQUEST_ABORTED'
+      ) {
         console.error('Unable to set notification time', result);
         throw new Error(`Unable to set notification time for ${language}`);
       }
@@ -131,7 +140,7 @@ export const NotificationsAllowed: FC<Props> = ({ language }) => {
               <Text>Enabled for {languageString}</Text>
             </View>
             <TimePicker
-              disabled={!loadNotificationsResult.value.exists}
+              disabled={!loadNotificationsResult.value.exists || isSwitching}
               time={
                 (loadNotificationsResult.value.exists &&
                   loadNotificationsResult.value.time) ||
