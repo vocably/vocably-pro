@@ -8,12 +8,13 @@ import { trimLanguage } from '@vocably/sulna';
 import { get } from 'lodash-es';
 import { usePostHog } from 'posthog-react-native';
 import { FC, useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
+import { Alert, Platform, ScrollView } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { InlineLoader } from '../loaders/InlineLoader';
 import { NotificationsAllowed } from './notifications/NotificationsAllowed';
+import { NotificationsDenied } from './notifications/NotificationsDenied';
 
 type Props = {};
 
@@ -50,9 +51,17 @@ export const NotificationsScreen: FC<Props> = () => {
       badge: true,
       sound: true,
     })
-      .then(async (data) => {
+      .then(async (enabled) => {
+        if (!enabled) {
+          Alert.alert(
+            'Notifications failed',
+            Platform.OS === 'android'
+              ? "Notifications can't be set through the app. Please enable them in the App Info settings."
+              : "Notifications can't be set through the app. Please enable them in Settings → Vocably."
+          );
+        }
         postHog.capture('notification-requested', {
-          data,
+          enabled,
         });
       })
       .catch((e) => {
@@ -80,6 +89,7 @@ export const NotificationsScreen: FC<Props> = () => {
       {notificationsStatus === 'GRANTED' && (
         <NotificationsAllowed language={language} />
       )}
+      {notificationsStatus === 'DENIED' && <NotificationsDenied />}
       {(notificationsStatus === 'SHOULD_EXPLAIN_THEN_REQUEST' ||
         notificationsStatus === 'SHOULD_REQUEST') && (
         <>
