@@ -50,7 +50,8 @@ export const setNotificationTime = async (
 };
 
 export const deleteNotificationTime = async (
-  language: string
+  language: string,
+  abortController?: AbortController
 ): Promise<Result<any>> => {
   try {
     return await request(
@@ -60,6 +61,7 @@ export const deleteNotificationTime = async (
         }),
       {
         method: 'DELETE',
+        signal: abortController?.signal,
       }
     );
   } catch (e) {

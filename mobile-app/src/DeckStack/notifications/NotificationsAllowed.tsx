@@ -30,9 +30,10 @@ const getNotificationTime = (language: string) => async () => {
 let lastAbortController: AbortController;
 const setNotificationTime =
   (language: string) => async (payload: GetNotificationTimeResult) => {
+    lastAbortController && lastAbortController.abort();
+    lastAbortController = new AbortController();
+
     if (payload.exists === true) {
-      lastAbortController && lastAbortController.abort();
-      lastAbortController = new AbortController();
       const result = await setNotificationTimeApi(
         {
           localTime: payload.time,
@@ -50,7 +51,10 @@ const setNotificationTime =
         throw new Error(`Unable to set notification time for ${language}`);
       }
     } else {
-      const result = await deleteNotificationTimeApi(payload.language);
+      const result = await deleteNotificationTimeApi(
+        payload.language,
+        lastAbortController
+      );
 
       if (result.success === false) {
         throw new Error(`Unable to delete notification time for ${language}`);
