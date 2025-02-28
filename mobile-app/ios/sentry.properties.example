@@ -1,0 +1,6 @@
+auth.token=to-be-provided
+
+defaults.org=vocably-bv
+defaults.project=mobile-app
+
+defaults.url=https://sentry.io/
