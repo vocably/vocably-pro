@@ -8,11 +8,26 @@ import { NotificationItem, Result, resultify } from '@vocably/model';
 
 const ddb = new DynamoDBClient();
 
-export const getNotificationItems = async (): Promise<
-  Result<NotificationItem[]>
-> => {
+export const getNotificationItems = async (
+  utcTime: string,
+  sentTimestamp: number
+): Promise<Result<NotificationItem[]>> => {
   const scanInput: ScanInput = {
     TableName: process.env.NOTIFICATIONS_DYNAMO_TABLE,
+    IndexName: 'UTCTimeIndex',
+    FilterExpression: '#UTCTime = :utcTime AND #SentTimestamp < :sentTimestamp',
+    ExpressionAttributeNames: {
+      '#UTCTime': 'UTCTime',
+      '#SentTimestamp': 'SentTimestamp',
+    },
+    ExpressionAttributeValues: {
+      ':utcTime': {
+        S: utcTime,
+      },
+      ':sentTimestamp': {
+        N: sentTimestamp.toString(),
+      },
+    },
   };
 
   const result = await resultify(ddb.send(new ScanCommand(scanInput)), {

@@ -2,6 +2,7 @@ import { Result } from '@vocably/model';
 import { getDeck } from './decks';
 import { getBody } from './getBody';
 import {
+  getUtcTime,
   getUtcTimestampInSeconds,
   roundNotificationDate,
 } from './notificationDate';
@@ -10,12 +11,24 @@ import { sendPinpointMessage } from './sendPinpointMessage';
 
 export const sendNotifications = async (): Promise<Result<any>> => {
   const notificationDate = roundNotificationDate(new Date());
+  const utcTime = getUtcTime(notificationDate);
+  const sentTimestamp = getUtcTimestampInSeconds(notificationDate);
 
-  const notificationItemsResult = await getNotificationItems();
+  console.log('Sending notifications', {
+    utcTime,
+    sentTimestamp,
+  });
+
+  const notificationItemsResult = await getNotificationItems(
+    utcTime,
+    sentTimestamp
+  );
 
   if (notificationItemsResult.success === false) {
     return notificationItemsResult;
   }
+
+  console.log('Items affected', notificationItemsResult.value.length);
 
   for (let item of notificationItemsResult.value) {
     const sub = item.Sub.S;
@@ -39,7 +52,7 @@ export const sendNotifications = async (): Promise<Result<any>> => {
 
     const updateItemResult = await updateSentTimestamp(
       item.ID.S,
-      getUtcTimestampInSeconds(notificationDate)
+      sentTimestamp
     );
     if (updateItemResult.success === false) {
       console.error('Update notification item error', updateItemResult);

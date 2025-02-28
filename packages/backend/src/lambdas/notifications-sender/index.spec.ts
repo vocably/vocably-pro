@@ -1,6 +1,6 @@
 import { inspect } from '@vocably/node-sulna';
 import { ScheduledEvent } from 'aws-lambda';
-import { notificationsSender } from './index';
+import { notificationsSenderLambdaFunction } from './index';
 
 // @ts-ignore
 let mockEvent: ScheduledEvent = {
@@ -14,7 +14,7 @@ describe('integration check for send notifications lambda', () => {
   }
 
   it('works', async () => {
-    const result = await notificationsSender(mockEvent);
+    const result = await notificationsSenderLambdaFunction(mockEvent);
     console.log(inspect({ result }));
     expect(result.success).toBeTruthy();
   });

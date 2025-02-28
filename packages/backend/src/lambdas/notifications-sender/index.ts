@@ -3,9 +3,9 @@ import { ScheduledEvent } from 'aws-lambda';
 import { lastValueFrom, of, switchMap } from 'rxjs';
 import { sendNotifications } from './sendNotifications';
 
-export const notificationsSender = async (
+export const notificationsSenderLambdaFunction = async (
   event: ScheduledEvent
 ): Promise<Result<any>> =>
   lastValueFrom(of(event).pipe(switchMap(sendNotifications)));
 
-exports.notificationsSender = notificationsSender;
+exports.notificationsSender = notificationsSenderLambdaFunction;
