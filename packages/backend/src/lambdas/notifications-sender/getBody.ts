@@ -51,6 +51,12 @@ export const getBody = (deck: LanguageDeck): NotificationBody => {
     return getGenericBody(deck.language);
   }
 
+  // Send generic body so the correct answer is not revealed
+  // in the notifications.
+  if (card.data.state.s === 'sb' || card.data.state.s === 'mb') {
+    return getGenericBody(deck.language);
+  }
+
   const titleCandidate = `Remember "${card.data.source}"?`;
 
   const languageName = languageList[deck.language]
