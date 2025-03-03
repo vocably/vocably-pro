@@ -7,7 +7,8 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, View } from 'react-native';
 import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { Loader } from '../loaders/Loader';
-import { useNumberOfRepetitions } from '../RequestFeedback/useNumberOfRepetitions';
+import { useNumberOfPracticeSessions } from '../RequestFeedback/useNumberOfPracticeSessions';
+import { useCardsAnsweredToday } from './cardsAnsweredToday';
 import { Completed } from './Completed';
 import { craftTheStrategy } from './craftTheStrategy';
 import { getPredefinedMultiChoiceOptions } from './getPredefinedMultiChoiceOptions';
@@ -42,16 +43,23 @@ export const Study: FC<Props> = ({
   const [cards, setCards] = useState<CardItem[]>();
   const [cardsStudied, setCardsStudied] = useState(0);
   const [numberOfRepetitions, increaseNumberOfRepetitions] =
-    useNumberOfRepetitions();
+    useNumberOfPracticeSessions();
+  const [cardsAnsweredToday, increaseCardsAnsweredToday] =
+    useCardsAnsweredToday();
 
   const translationLanguage = useTranslationLanguage(
     language as GoogleLanguage
   );
 
-  const totalCardsToStudy = Math.min(
-    maximumCardsPerSession,
-    filteredCards.length
-  );
+  useEffect(() => {
+    if (
+      cardsAnsweredToday !== null &&
+      cardsAnsweredToday.answers > 0 &&
+      cardsAnsweredToday.answers % maximumCardsPerSession === 0
+    ) {
+      Notifications.Push.setBadgeCount(0);
+    }
+  }, [cardsAnsweredToday]);
 
   useEffect(() => {
     if (cardsStudied === 0) {
@@ -104,6 +112,7 @@ export const Study: FC<Props> = ({
         }
       );
 
+      increaseCardsAnsweredToday();
       const followingCards = cards.slice(1);
       setCards(followingCards);
       setCardsStudied((cardsStudied) => cardsStudied + 1);
@@ -113,7 +122,7 @@ export const Study: FC<Props> = ({
         increaseNumberOfRepetitions();
       }
     },
-    [cards, increaseNumberOfRepetitions]
+    [cards, increaseNumberOfRepetitions, increaseCardsAnsweredToday]
   );
 
   const posthog = usePostHog();

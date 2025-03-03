@@ -17,7 +17,7 @@ type AsyncLoading = {
   status: 'loading';
 };
 
-type AsyncResult<T> = AsyncSuccess<T> | AsyncFailure | AsyncLoading;
+export type AsyncResult<T> = AsyncSuccess<T> | AsyncFailure | AsyncLoading;
 
 export const useAsync = <T>(
   load: () => Promise<T>,
