@@ -1,7 +1,11 @@
 export const roundNotificationDate = (date: Date): Date => {
   const now = new Date(date);
   const minutes = now.getMinutes();
-  now.setMinutes(minutes < 30 ? 0 : 30);
+
+  const roundedMinutes =
+    minutes < 15 ? 0 : minutes < 30 ? 15 : minutes < 45 ? 30 : 45;
+
+  now.setMinutes(roundedMinutes);
   now.setSeconds(0);
   now.setMilliseconds(0);
   return now;

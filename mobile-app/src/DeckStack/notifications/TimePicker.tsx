@@ -25,7 +25,7 @@ export const TimePicker: FC<Props> = ({ time, onChange, disabled = false }) => {
       {Platform.OS === 'ios' && (
         <DateTimePicker
           value={value}
-          minuteInterval={30}
+          minuteInterval={15}
           mode={'time'}
           display={'spinner'}
           disabled={disabled}
@@ -53,7 +53,7 @@ export const TimePicker: FC<Props> = ({ time, onChange, disabled = false }) => {
           {isAndroidVisible && (
             <DateTimePicker
               value={value}
-              minuteInterval={30}
+              minuteInterval={15}
               display={'spinner'}
               mode={'time'}
               disabled={disabled}
