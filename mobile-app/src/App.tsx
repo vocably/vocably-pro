@@ -1,22 +1,13 @@
-import { Notifications } from '@aws-amplify/notifications';
-import {
-  API_BASE_URL,
-  API_CARDS_BUCKET,
-  API_REGION,
-  AWS_CONFIG_PROJECT_REGION,
-  AWS_PINPOINT_PROJECT_ID,
-} from '@env';
+import { API_BASE_URL, API_CARDS_BUCKET, API_REGION } from '@env';
 import * as Sentry from '@sentry/react-native';
 import { configureApi } from '@vocably/api';
-import { AppState } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthContainer } from './auth/AuthContainer';
 import { Login } from './auth/Login';
-import { awsConfig } from './aws-config';
 import { LanguagesContainer } from './languages/LanguagesContainer';
 import { NavigationContainer } from './NavigationContainer';
+import { NotificationsContainer } from './NotificationsContainer';
 import { PostHogProvider } from './PostHogProvider';
-import { recalibrateNotifications } from './recalibrateNotifications';
 import { RootModalStack } from './RootModalStack';
 import { ThemeProvider } from './ThemeProvider';
 import { TranslationPresetContainer } from './TranslationPreset/TranslationPresetContainer';
@@ -33,27 +24,6 @@ configureApi({
   cardsBucket: API_CARDS_BUCKET,
 });
 
-Notifications.configure({
-  ...awsConfig,
-  Notifications: {
-    //@ts-ignore
-    Push: {
-      AWSPinpoint: {
-        appId: AWS_PINPOINT_PROJECT_ID as string,
-        region: AWS_CONFIG_PROJECT_REGION as string,
-      },
-    },
-  },
-});
-
-Notifications.Push.enable();
-
-AppState.addEventListener('change', (nextAppState) => {
-  if (nextAppState === 'active') {
-    recalibrateNotifications().then().catch(console.error);
-  }
-});
-
 const App = () => {
   return (
     <ThemeProvider>
@@ -62,15 +32,17 @@ const App = () => {
           <PostHogProvider>
             <AuthContainer>
               <Login>
-                <UserMetadataContainer>
-                  <LanguagesContainer refreshLanguagesOnActive={true}>
-                    <TranslationPresetContainer>
-                      <SafeAreaProvider>
-                        <RootModalStack />
-                      </SafeAreaProvider>
-                    </TranslationPresetContainer>
-                  </LanguagesContainer>
-                </UserMetadataContainer>
+                <NotificationsContainer>
+                  <UserMetadataContainer>
+                    <LanguagesContainer refreshLanguagesOnActive={true}>
+                      <TranslationPresetContainer>
+                        <SafeAreaProvider>
+                          <RootModalStack />
+                        </SafeAreaProvider>
+                      </TranslationPresetContainer>
+                    </LanguagesContainer>
+                  </UserMetadataContainer>
+                </NotificationsContainer>
               </Login>
             </AuthContainer>
           </PostHogProvider>

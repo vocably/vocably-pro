@@ -1,5 +1,4 @@
 import { Auth } from '@aws-amplify/auth';
-import { Notifications } from '@aws-amplify/notifications';
 import { postOnboardingAction } from '@vocably/api';
 import { Hub } from 'aws-amplify';
 import { usePostHog } from 'posthog-react-native';
@@ -37,12 +36,6 @@ export const AuthContainer: FC<{
       posthog.identify(attributes['sub'], {
         email: attributes['email'],
       });
-
-      Notifications.Push.identifyUser(attributes['sub'], {
-        attributes: {
-          email: [attributes['email']],
-        },
-      }).catch(console.error);
     });
   }, [authStatus]);
 

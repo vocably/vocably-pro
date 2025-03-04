@@ -35,12 +35,12 @@ platform :ios do
   desc 'Fetch code signing secrets. Build the iOS application.'
   lane :build do
     certificates
-    increment_build_number(
-      build_number: File.read("../../VERSION")
-    )
-
     increment_version_number(
       version_number: File.read("../../VERSION")
+    )
+
+    increment_build_number(
+      xcodeproj: "VocablyPro.xcodeproj",
     )
 
     gym(
