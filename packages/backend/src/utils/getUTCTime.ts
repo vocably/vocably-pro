@@ -10,6 +10,12 @@ const getTimeZoneOffsetInMinutes = (IANATimezone: string): number => {
 
   // Parse formatted date string:
   const match = /(\d+)\/(\d+)\/(\d+), (\d+):(\d+)/.exec(tzDateString);
+
+  if (match === null) {
+    console.error('Unable to parse timezone');
+    return 0;
+  }
+
   const [_, month, day, year, hour, min] = match.map(Number);
 
   // Change date string's time zone to UTC and get timestamp:

@@ -9,7 +9,7 @@ const ses = new SESv2Client();
 export const saveFeedback = async (
   event: APIGatewayProxyEvent
 ): Promise<Result<null>> => {
-  const { feedback, metadata = {} } = JSON.parse(event.body);
+  const { feedback, metadata = {} } = JSON.parse(event.body ?? '{}');
 
   const timestamp = new Date().toISOString();
   const claims = event.requestContext?.authorizer?.claims ?? {};

@@ -16,7 +16,7 @@ export const getNotificationTime = async (
     };
   }
 
-  const language: string = event.queryStringParameters.language;
+  const language: string = event?.queryStringParameters?.language ?? '';
 
   if (!language) {
     return {

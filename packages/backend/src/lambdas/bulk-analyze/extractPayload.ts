@@ -4,7 +4,7 @@ import { APIGatewayProxyEvent } from 'aws-lambda';
 export const extractPayload = (
   event: APIGatewayProxyEvent
 ): BulkAnalysisPayload => {
-  const payload = JSON.parse(event.body);
+  const payload = JSON.parse(event.body ?? '{}');
 
   if (!isBulkAnalysisPayload(payload)) {
     throw {

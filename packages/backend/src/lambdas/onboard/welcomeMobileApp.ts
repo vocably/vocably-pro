@@ -1,4 +1,6 @@
 import { Result } from '@vocably/model';
+
+import { get } from 'lodash-es';
 import { send } from './brevo';
 
 const templates = {
@@ -14,6 +16,6 @@ export const welcomeMobileApp = async (
 ): Promise<Result<any>> => {
   return send({
     email,
-    templateId: templates[language] ?? defaultTemplate,
+    templateId: get(templates, language, defaultTemplate),
   });
 };
