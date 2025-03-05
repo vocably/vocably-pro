@@ -21,20 +21,20 @@ const inspiringQuotes = [
   'Strength comes quietly.',
   'Grit over glamour.',
   'Create habits, not excuses.',
-];
+] as const;
 
 const getGenericBody = (language: string): NotificationBody => {
   const languageName = trimLanguage(get(languageList, language, ''));
 
   if (!languageName) {
     return {
-      Title: sample(inspiringQuotes) as string,
+      Title: sample(inspiringQuotes),
       Body: "It's time to practice your cards.",
     };
   }
 
   return {
-    Title: sample(inspiringQuotes) as string,
+    Title: sample(inspiringQuotes),
     Body: `It's time to practice your ${languageName} cards.`,
   };
 };
@@ -83,6 +83,6 @@ export const getBody = (deck: LanguageDeck): NotificationBody => {
 
   return {
     Title: genericTitle,
-    Body: sample(inspiringQuotes) as string,
+    Body: sample(inspiringQuotes),
   };
 };
