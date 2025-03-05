@@ -30,6 +30,8 @@ export const NotificationsScreen: FC<Props> = () => {
 
   const languageString = trimLanguage(get(languageList, language, ''));
 
+  const postHog = usePostHog();
+
   useEffect(() => {
     const intervalId = setInterval(async () => {
       const status = await Notifications.Push.getPermissionStatus();
@@ -41,7 +43,11 @@ export const NotificationsScreen: FC<Props> = () => {
     };
   }, []);
 
-  const postHog = usePostHog();
+  useEffect(() => {
+    postHog.capture('notificationsScreenShow', {
+      language,
+    });
+  }, []);
 
   const requestPermissions = async () => {
     const user = await Auth.currentAuthenticatedUser();
@@ -60,14 +66,16 @@ export const NotificationsScreen: FC<Props> = () => {
               : "Notifications can't be set through the app. Please enable them in Settings → Vocably."
           );
         }
-        postHog.capture('notification-requested', {
+        postHog.capture('notificationsOSRequested', {
           enabled,
+          language,
         });
       })
       .catch((e) => {
         console.log('Notification Error', e);
-        postHog.capture('notification-request-error', {
+        postHog.capture('notificationOSRequestError', {
           e,
+          language,
         });
       });
   };

@@ -6,6 +6,7 @@ import {
 import { GetNotificationTimeResult, languageList } from '@vocably/model';
 import { trimLanguage } from '@vocably/sulna';
 import { get } from 'lodash-es';
+import { usePostHog } from 'posthog-react-native';
 import { FC, useState } from 'react';
 import { View } from 'react-native';
 import { getTimeZone } from 'react-native-localize';
@@ -69,6 +70,7 @@ export const NotificationsAllowed: FC<Props> = ({ language }) => {
     getNotificationTime(language),
     setNotificationTime(language)
   );
+  const posthog = usePostHog();
   const [isSwitching, setIsSwitching] = useState(false);
 
   const languageString = trimLanguage(get(languageList, language, ''));
@@ -98,6 +100,17 @@ export const NotificationsAllowed: FC<Props> = ({ language }) => {
             }
       );
     } catch (e) {}
+
+    if (loadNotificationsResult.value.exists) {
+      posthog.capture('notificationsDisabled', {
+        language,
+      });
+    } else {
+      posthog.capture('notificationsEnabled', {
+        language,
+      });
+    }
+
     setIsSwitching(false);
   };
 
@@ -151,6 +164,8 @@ export const NotificationsAllowed: FC<Props> = ({ language }) => {
                 defaultNotificationTime
               }
               onChange={(time) => {
+                posthog.capture('notificationsSetTime', { time });
+
                 mutateNotifications({
                   language: loadNotificationsResult.value.language,
                   time,
