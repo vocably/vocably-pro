@@ -17,7 +17,7 @@ export const deleteNotificationTime = async (
     };
   }
 
-  const language: string = event.queryStringParameters.language;
+  const language: string = event?.queryStringParameters?.language ?? '';
 
   if (!language) {
     return {

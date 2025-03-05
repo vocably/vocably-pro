@@ -8,6 +8,7 @@ global.beforeEach(() => {
   }
 
   const consoleMethods = Object.keys(console).filter(
+    // @ts-ignore
     (paramName) => typeof console[paramName] === 'function'
   );
 

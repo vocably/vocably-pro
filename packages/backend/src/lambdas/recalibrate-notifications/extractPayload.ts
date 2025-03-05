@@ -6,7 +6,7 @@ export const extractPayload = (
   event: APIGatewayProxyEvent
 ): Result<RecalibrateNotificationsPayload> => {
   try {
-    const payload = JSON.parse(event.body);
+    const payload = JSON.parse(event.body ?? '{}');
 
     if (!isValidTimeZone(payload.IANATimezone)) {
       return {

@@ -7,7 +7,8 @@ export const request = async (requestOptions: any): Promise<Result<string>> => {
       const body = new Array<Buffer | string>();
       response.on('data', (chunk) => body.push(chunk));
       response.on('end', () => {
-        if (response.statusCode >= 200 && response.statusCode <= 299) {
+        const statusCode = response.statusCode ?? 500;
+        if (statusCode >= 200 && statusCode <= 299) {
           resolve({
             success: true,
             value: body.join(''),
@@ -16,7 +17,7 @@ export const request = async (requestOptions: any): Promise<Result<string>> => {
           resolve({
             success: false,
             errorCode: 'HTTP_REQUEST_NOT_OK',
-            reason: `The response status code is ${response.statusCode}`,
+            reason: `The response status code is ${statusCode}`,
             extra: {
               body: body.join(''),
               response,

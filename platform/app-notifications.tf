@@ -154,7 +154,7 @@ resource "aws_cloudwatch_metric_alarm" "notifications_sender_error" {
   namespace                 = aws_cloudwatch_log_metric_filter.notifications_sender_error.metric_transformation[0].namespace
   period                    = "3600"
   statistic                 = "Average"
-  threshold                 = "5"
+  threshold                 = "0"
   alarm_description         = "${terraform.workspace}: something went wrong while sending notifications"
   alarm_actions             = [aws_sns_topic.alarm.arn]
   insufficient_data_actions = []

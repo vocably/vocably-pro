@@ -36,7 +36,7 @@ export const handleAction = async ({
 
   const userMetadataResult = await nodeFetchUserMetadata(
     sub,
-    process.env.USER_FILES_BUCKET
+    process.env?.USER_FILES_BUCKET ?? ''
   );
 
   if (userMetadataResult.success === false) {
@@ -85,7 +85,7 @@ export const handleAction = async ({
 
     console.log('Welcome extension email has been successfully sent.');
 
-    return nodeSaveUserMetadata(sub, process.env.USER_FILES_BUCKET, {
+    return nodeSaveUserMetadata(sub, process.env?.USER_FILES_BUCKET ?? '', {
       onboardingFlow: {
         language: action.payload.targetLanguage,
         extensionSent: true,
@@ -106,7 +106,7 @@ export const handleAction = async ({
     }
     console.log('Mobile app installed email has been successfully sent.');
 
-    return nodeSaveUserMetadata(sub, process.env.USER_FILES_BUCKET, {
+    return nodeSaveUserMetadata(sub, process.env?.USER_FILES_BUCKET ?? '', {
       onboardingFlow: {
         mobileAppSent: true,
       },
@@ -126,7 +126,7 @@ export const handleAction = async ({
 
     console.log('Welcome mobile app email has been successfully sent.');
 
-    return nodeSaveUserMetadata(sub, process.env.USER_FILES_BUCKET, {
+    return nodeSaveUserMetadata(sub, process.env?.USER_FILES_BUCKET ?? '', {
       onboardingFlow: {
         mobileAppSent: true,
         language: action.payload.targetLanguage,

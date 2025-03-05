@@ -1,7 +1,7 @@
 import { byDate, LanguageDeck, languageList } from '@vocably/model';
 import { slice } from '@vocably/srs';
 import { trimLanguage } from '@vocably/sulna';
-import { first, sample } from 'lodash-es';
+import { first, get, sample } from 'lodash-es';
 
 export type NotificationBody = {
   Title: string;
@@ -21,12 +21,11 @@ const inspiringQuotes = [
   'Strength comes quietly.',
   'Grit over glamour.',
   'Create habits, not excuses.',
-];
+] as const;
 
 const getGenericBody = (language: string): NotificationBody => {
-  const languageName = languageList[language]
-    ? trimLanguage(languageList[language])
-    : '';
+  const languageName = trimLanguage(get(languageList, language, ''));
+
   if (!languageName) {
     return {
       Title: sample(inspiringQuotes),
@@ -53,15 +52,13 @@ export const getBody = (deck: LanguageDeck): NotificationBody => {
 
   // Send generic body so the correct answer is not revealed
   // in the notifications.
-  if (card.data.state.s === 'sb' || card.data.state.s === 'mb') {
+  if (card?.data?.state?.s === 'sb' || card?.data?.state?.s === 'mb') {
     return getGenericBody(deck.language);
   }
 
   const titleCandidate = `Remember "${card.data.source}"?`;
 
-  const languageName = languageList[deck.language]
-    ? trimLanguage(languageList[deck.language])
-    : undefined;
+  const languageName = trimLanguage(get(languageList, deck.language, ''));
   const genericBody = languageName
     ? `It's time to practice your ${languageName} cards.`
     : `It's time to practice your cards.`;

@@ -12,7 +12,7 @@ export type BackendPayload = AnalyzePayload & {
 };
 
 export const extractPayload = (event: APIGatewayProxyEvent): BackendPayload => {
-  const payload = JSON.parse(event.body);
+  const payload = JSON.parse(event.body ?? '{}');
 
   if (!isDirectAnalyzePayload(payload) && !isReverseAnalyzePayload(payload)) {
     throw {

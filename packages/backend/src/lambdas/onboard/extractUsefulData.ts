@@ -15,7 +15,7 @@ export type UsefulData = {
 export const extractUsefulData = (
   event: APIGatewayProxyEvent
 ): Result<UsefulData> => {
-  const action = JSON.parse(event.body);
+  const action = JSON.parse(event.body ?? '{}');
 
   if (!isFacilityOnboardedAction(action) && !isUserLoggedInAction(action)) {
     return {
