@@ -4,6 +4,7 @@ import {
   SendUsersMessagesCommandInput,
 } from '@aws-sdk/client-pinpoint';
 import { Result } from '@vocably/model';
+import { inspect } from '@vocably/node-sulna';
 import { NotificationBody } from './getBody';
 
 const pinpointClient = new PinpointClient({});
@@ -29,7 +30,10 @@ export const sendPinpointMessage = async (
       },
     };
 
-    await pinpointClient.send(new SendUsersMessagesCommand(commandInput));
+    const result = await pinpointClient.send(
+      new SendUsersMessagesCommand(commandInput)
+    );
+    console.log('Pinpoint sent result', inspect(result));
     return {
       success: true,
       value: null,
