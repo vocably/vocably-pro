@@ -1,3 +1,4 @@
+import { Analytics } from '@aws-amplify/analytics';
 import { Auth } from '@aws-amplify/auth';
 import { Notifications } from '@aws-amplify/notifications';
 import { debounce } from 'lodash-es';
@@ -19,6 +20,10 @@ export const notificationsIdentifyUser = debounce(async () => {
           email: [attributes['email']],
         },
       }).catch(console.error);
+
+      Analytics.updateEndpoint({
+        OptOut: 'NONE',
+      });
     })
     .catch((error) => {
       console.log("User is not logged in. Can't identify.");
