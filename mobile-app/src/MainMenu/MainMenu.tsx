@@ -67,6 +67,23 @@ export const MainMenu: FC<MenuMainProps> = ({
         ></List.Item>
         <Divider />
         <List.Item
+          title="Notifications"
+          onPress={() => {
+            parentNavigator.navigate('Notifications');
+          }}
+          titleStyle={{
+            color: theme.colors.onBackground,
+          }}
+          right={() => (
+            <Icon
+              name="menu-right"
+              size={24}
+              color={theme.colors.onBackground}
+            />
+          )}
+        ></List.Item>
+        <Divider />
+        <List.Item
           title="How to Group Cards"
           titleStyle={{
             color: theme.colors.onBackground,
