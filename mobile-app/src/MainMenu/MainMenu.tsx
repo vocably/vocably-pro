@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { FC } from 'react';
+import { useNavigation, type DrawerStatus } from '@react-navigation/native';
+import React, { FC, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 import { Button, Divider, List, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,12 +11,29 @@ import { clearAll } from '../asyncAppStorage';
 
 export type MenuMainProps = {
   parentNavigator: any;
+  drawerStatus: DrawerStatus;
 };
 
-export const MainMenu: FC<MenuMainProps> = ({ parentNavigator }) => {
+export const MainMenu: FC<MenuMainProps> = ({
+  parentNavigator,
+  drawerStatus,
+}) => {
   const theme = useTheme();
   const navigator = useNavigation();
   const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    if (drawerStatus === 'closed' && navigator.canGoBack()) {
+      timeoutId = setTimeout(() => {
+        navigator.navigate('MainMenu');
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [drawerStatus, navigator]);
 
   return (
     <ScrollView

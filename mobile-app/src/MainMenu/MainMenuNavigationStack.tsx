@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import { useDrawerStatus } from '@react-navigation/drawer';
 import {
   NavigationContainer,
   Theme,
@@ -21,7 +22,9 @@ const menuComponent =
     <MainMenu {...mainMenuProps} {...navigationProps} />;
 
 export const MainMenuNavigationStack: FC = () => {
+  const drawerStatus = useDrawerStatus();
   const navigation = useNavigation();
+
   const theme = useTheme() as Theme & MD3Theme;
   return (
     <View
@@ -43,6 +46,7 @@ export const MainMenuNavigationStack: FC = () => {
             }}
             component={menuComponent({
               parentNavigator: navigation,
+              drawerStatus,
             })}
           />
           <Stack.Screen
