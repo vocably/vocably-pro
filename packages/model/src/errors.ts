@@ -59,6 +59,7 @@ export const Errors = [
   'RECALIBRATE_NOTIFICATIONS_ERROR',
   'NOTIFICATION_TIME_REQUEST_FAILED',
   'RECALIBRATE_NOTIFICATIONS_REQUEST_FAILED',
+  'NOTIFICATIONS_UNABLE_TO_IDENTIFY_USER',
 ] as const;
 
 export type VocablyErrorCode = typeof Errors[number];

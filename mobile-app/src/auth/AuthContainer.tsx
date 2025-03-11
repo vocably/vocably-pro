@@ -3,12 +3,9 @@ import { postOnboardingAction } from '@vocably/api';
 import { Hub } from 'aws-amplify';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, ReactNode, useEffect, useState } from 'react';
-import { awsConfig } from '../aws-config';
 import { facility } from '../facility';
 import { AuthContext, AuthStatus } from './AuthContext';
 import { getFlatAttributes } from './getFlatAttributes';
-
-Auth.configure(awsConfig);
 
 export const AuthContainer: FC<{
   children?: ReactNode;

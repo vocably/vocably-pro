@@ -1,31 +1,67 @@
-import { Analytics } from '@aws-amplify/analytics';
 import { Auth } from '@aws-amplify/auth';
 import { Notifications } from '@aws-amplify/notifications';
+import { Result, resultify } from '@vocably/model';
 import { debounce } from 'lodash-es';
 import { getFlatAttributes } from './auth/getFlatAttributes';
+import { Sentry } from './BetterSentry';
 
-export const notificationsIdentifyUser = debounce(async () => {
-  console.log('Identifying notifications user.');
-  Auth.currentAuthenticatedUser()
-    .then(async (user) => {
-      console.log('User is logged in. Identifying.');
-      const attributes = await getFlatAttributes(user);
+export const notificationsIdentifyUser = debounce(
+  async (): Promise<Result<unknown>> => {
+    const status = await Notifications.Push.getPermissionStatus();
+    if (status !== 'GRANTED') {
+      console.log("Notifications permission is not granted. Can't identify.");
+      return {
+        success: true,
+        value: null,
+      };
+    }
 
-      if (!attributes['sub'] || !attributes['email']) {
-        return;
-      }
+    const userResult = await resultify(Auth.currentAuthenticatedUser(), {
+      errorCode: 'AUTH_UNABLE_TO_GET_USER_SESSION',
+      reason: 'Unable to get current user',
+    });
 
+    if (userResult.success === false) {
+      console.log("User is not logged in. Can't identify.", userResult);
+      return {
+        success: true,
+        value: null,
+      };
+    }
+
+    const attributes = await getFlatAttributes(userResult.value);
+
+    if (!attributes['sub'] || !attributes['email']) {
+      console.error('Unable to get user sub and email', attributes);
+      Sentry.captureMessage(
+        'Unable to get user sub and email in notificationsIdentifyUser'
+      );
+      return {
+        success: false,
+        errorCode: 'AUTH_UNABLE_TO_GET_USER_ATTRIBUTES',
+        reason: 'Unable to get user sub and email',
+      };
+    }
+
+    const identifyUserResult = await resultify(
       Notifications.Push.identifyUser(attributes['sub'], {
         attributes: {
           email: [attributes['email']],
         },
-      }).catch(console.error);
+      }),
+      {
+        errorCode: 'NOTIFICATIONS_UNABLE_TO_IDENTIFY_USER',
+        reason: 'Unable to identify user',
+      }
+    );
 
-      Analytics.updateEndpoint({
-        OptOut: 'NONE',
+    if (identifyUserResult.success === false) {
+      Sentry.captureMessage('Unable to identify user', {
+        extra: identifyUserResult,
       });
-    })
-    .catch((error) => {
-      console.log("User is not logged in. Can't identify.");
-    });
-}, 1000);
+    }
+
+    return identifyUserResult;
+  },
+  1000
+);

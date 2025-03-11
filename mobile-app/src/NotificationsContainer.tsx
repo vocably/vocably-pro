@@ -15,6 +15,7 @@ export const NotificationsContainer: FC<PropsWithChildren<Props>> = ({
       'change',
       (nextAppState) => {
         if (nextAppState === 'active') {
+          notificationsIdentifyUser();
           recalibrateNotifications().then().catch(console.error);
         }
       }
