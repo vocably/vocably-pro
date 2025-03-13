@@ -1,17 +1,18 @@
 import { signInWithRedirect } from 'aws-amplify/auth';
 import React, { FC, ReactNode, useContext } from 'react';
-import { Linking, View } from 'react-native';
+import { Linking, Platform, View } from 'react-native';
 import { Button, Text, useTheme } from 'react-native-paper';
 import { Loader } from '../loaders/Loader';
-import { urlOpenerOptions } from '../urlOpener';
 import { AuthContext } from './AuthContext';
 
 const signIn = () => signInWithRedirect();
 
 const signInWithAnIdioticCognitoFlow = async () => {
-  urlOpenerOptions.ephemeralWebSession = true;
   await signInWithRedirect({
     provider: 'Google',
+    options: {
+      preferPrivateSession: true,
+    },
   });
 };
 
@@ -64,15 +65,17 @@ export const Login: FC<{
         </Text>
         .
       </Text>
-      <Text
-        onPress={() => signInWithAnIdioticCognitoFlow()}
-        style={{
-          color: theme.colors.primary,
-          marginTop: 12,
-        }}
-      >
-        I want to sign in with another Google Account.
-      </Text>
+      {Platform.OS === 'ios' && (
+        <Text
+          onPress={() => signInWithAnIdioticCognitoFlow()}
+          style={{
+            color: theme.colors.primary,
+            marginTop: 12,
+          }}
+        >
+          I want to sign in with another Google Account.
+        </Text>
+      )}
     </View>
   );
 };

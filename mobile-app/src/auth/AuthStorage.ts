@@ -53,25 +53,26 @@ syncAuthStorage$.next();
 
 export class AuthStorage implements KeyValueStorageInterface {
   async setItem(key: string, value: string) {
+    await syncPromise;
     dataMemory[key] = value;
     updateValues$.next();
   }
 
   async getItem(key: string) {
-    const memory = await syncPromise;
-    const res = Object.prototype.hasOwnProperty.call(memory, key)
-      ? memory[key]
+    await syncPromise;
+    return Object.prototype.hasOwnProperty.call(dataMemory, key)
+      ? dataMemory[key]
       : null;
-
-    return res;
   }
 
   async removeItem(key: string) {
+    await syncPromise;
     delete dataMemory[key];
     updateValues$.next();
   }
 
   async clear() {
+    await syncPromise;
     dataMemory = {};
     updateValues$.next();
   }
