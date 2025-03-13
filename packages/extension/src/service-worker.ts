@@ -1,3 +1,4 @@
+import { Auth } from '@aws-amplify/auth';
 import { registerServiceWorker } from '@vocably/extension-service-worker';
 import '@vocably/extension-stay-alive';
 import { registerExtensionStorage } from '@vocably/pontis';
@@ -15,6 +16,11 @@ registerServiceWorker({
     baseUrl: process.env.API_BASE_URL,
     region: process.env.API_REGION,
     cardsBucket: process.env.API_CARDS_BUCKET,
+    getJwtToken: () => {
+      return Auth.currentSession().then((session) =>
+        session.getIdToken().getJwtToken()
+      );
+    },
   },
   facility: 'chrome-or-safari',
 });
