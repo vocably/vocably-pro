@@ -13,6 +13,7 @@ import { Button, Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { InlineLoader } from '../loaders/InlineLoader';
+import { notificationsIdentifyUser } from '../notificationsIdentifyUser';
 import { NotificationsAllowed } from './notifications/NotificationsAllowed';
 import { NotificationsDenied } from './notifications/NotificationsDenied';
 
@@ -64,6 +65,11 @@ export const NotificationsScreen: FC<Props> = () => {
               : "Notifications can't be set through the app. Please enable them in Settings → Vocably."
           );
         }
+
+        if (enabled) {
+          notificationsIdentifyUser();
+        }
+
         postHog.capture('notificationsOSRequested', {
           enabled,
           language,
