@@ -1,81 +1,51 @@
-import { AppState } from 'react-native';
-import { concatMap, debounceTime, map, merge, Subject } from 'rxjs';
+import { KeyValueStorageInterface } from '@aws-amplify/core';
+import { debounce } from 'lodash-es';
 import * as asyncAppStorage from '../asyncAppStorage';
+
+type AuthCollection = Record<string, string>;
 
 const storageKey = 'auth';
 
-type AuthData = Record<string, string>;
+export class AuthStorage implements KeyValueStorageInterface {
+  private collectionSynchronizedTimestamp: number = 0;
+  private collection: AuthCollection = {};
 
-let isSynced = false;
-let dataMemory: AuthData = {};
+  private getCollection = async (): Promise<AuthCollection> => {
+    const currentTimestamp = Date.now();
+    if (currentTimestamp - this.collectionSynchronizedTimestamp < 5_000) {
+      return this.collection;
+    }
+    this.collection = JSON.parse(
+      (await asyncAppStorage.getItem(storageKey)) ?? '{}'
+    );
+    this.collectionSynchronizedTimestamp = currentTimestamp;
+    return this.collection;
+  };
 
-const syncAuthStorage = async (): Promise<AuthData> => {
-  const value = await asyncAppStorage.getItem(storageKey);
-  dataMemory = value ? JSON.parse(value) : {};
-  isSynced = true;
-  return dataMemory;
-};
+  private saveCollection = debounce(async (collection: AuthCollection) => {
+    await asyncAppStorage.setItem(storageKey, JSON.stringify(collection));
+    this.collection = collection;
+    this.collectionSynchronizedTimestamp = Date.now();
+  }, 1000);
 
-let syncPromise: Promise<AuthData>;
-
-const updateValues$ = new Subject<void>();
-const syncAuthStorage$ = new Subject<void>();
-
-merge(
-  updateValues$.pipe(
-    debounceTime(10),
-    map(() => async () => {
-      if (!isSynced) {
-        return;
-      }
-
-      await asyncAppStorage.setItem(storageKey, JSON.stringify(dataMemory));
-    })
-  ),
-  syncAuthStorage$.pipe(
-    map(() => async () => {
-      syncPromise = syncAuthStorage();
-      await syncPromise;
-    })
-  )
-)
-  .pipe(concatMap((operation) => operation()))
-  .subscribe();
-
-AppState.addEventListener('change', (nextAppState) => {
-  if (nextAppState === 'active') {
-    syncAuthStorage$.next();
-  }
-});
-
-syncAuthStorage$.next();
-
-export class AuthStorage {
-  setItem(key: string, value: string) {
-    dataMemory[key] = value;
-    updateValues$.next();
-    return dataMemory[key];
+  async setItem(key: string, value: string) {
+    const collection = await this.getCollection();
+    collection[key] = value;
+    await this.saveCollection(collection);
   }
 
-  getItem(key: string): string | undefined {
-    return Object.prototype.hasOwnProperty.call(dataMemory, key)
-      ? dataMemory[key]
-      : undefined;
+  async getItem(key: string) {
+    const collection = await this.getCollection();
+    return collection[key] ?? null;
   }
 
-  removeItem(key: string) {
-    const result = delete dataMemory[key];
-    updateValues$.next();
-    return result;
+  async removeItem(key: string) {
+    const collection = await this.getCollection();
+    delete collection[key];
+    await this.saveCollection(collection);
   }
 
-  clear() {
-    dataMemory = {};
-    updateValues$.next();
-    return dataMemory;
-  }
-
-  sync(): Promise<AuthData> {
-    return syncPromise;
+  async clear() {
+    await asyncAppStorage.removeItem(storageKey);
   }
 }

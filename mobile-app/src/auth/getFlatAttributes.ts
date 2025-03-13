@@ -1,67 +1,19 @@
-import { CognitoUser } from '@aws-amplify/auth';
-import { Result } from '@vocably/model';
-import { CognitoUserSession } from 'amazon-cognito-identity-js';
-import { isCognitoUser } from './isCognitoUser';
+import { fetchUserAttributes } from '@aws-amplify/auth';
+import { FetchUserAttributesOutput } from '@aws-amplify/auth/src/providers/cognito/types';
+import { resultify } from '@vocably/model';
 
-const getSession = async (
-  user: CognitoUser
-): Promise<Result<CognitoUserSession | null>> => {
-  return new Promise((resolve) => {
-    user.getSession((error: Error, session: CognitoUserSession | null) => {
-      if (error) {
-        resolve({
-          success: false,
-          errorCode: 'AUTH_UNABLE_TO_GET_USER_SESSION',
-          reason: "The app can't get user session",
-          extra: error,
-        });
-
-        return;
-      }
-
-      resolve({
-        success: true,
-        value: session,
-      });
-    });
-  });
-};
-
-export const getFlatAttributes = (
-  user: CognitoUser | any
-): Promise<Record<string, string>> => {
+export const getFlatAttributes = (): Promise<FetchUserAttributesOutput> => {
   return new Promise(async (resolve) => {
-    if (!isCognitoUser(user)) {
-      return resolve({});
-    }
+    const userAttributeResult = await resultify(fetchUserAttributes(), {
+      errorCode: 'AUTH_UNABLE_TO_GET_USER_ATTRIBUTES',
+      reason: 'Unable to get user attributes',
+    });
 
-    const sessionResult = await getSession(user);
-
-    if (sessionResult.success === false) {
+    if (userAttributeResult.success === false) {
       resolve({});
       return;
     }
 
-    user.getUserAttributes((error, attributes) => {
-      if (error) {
-        return resolve({});
-      }
-
-      if (!attributes) {
-        return resolve({});
-      }
-
-      const flatAttributes: Record<string, string> = attributes.reduce(
-        (acc, attribute) => {
-          return {
-            ...acc,
-            [attribute.getName()]: attribute.getValue(),
-          };
-        },
-        {}
-      );
-
-      return resolve(flatAttributes);
-    });
+    resolve(userAttributeResult.value);
   });
 };

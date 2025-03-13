@@ -344,7 +344,7 @@ resource "aws_cognito_user_pool_client" "client" {
 
 resource "aws_cognito_identity_pool" "users" {
   identity_pool_name               = "vocably-${terraform.workspace}-users"
-  allow_unauthenticated_identities = false
+  allow_unauthenticated_identities = true
 
   cognito_identity_providers {
     client_id     = aws_cognito_user_pool_client.client.id

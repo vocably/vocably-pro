@@ -1,6 +1,6 @@
-import { Notifications } from '@aws-amplify/notifications';
 import { CardItem, GoogleLanguage } from '@vocably/model';
 import { grade, slice, SrsScore } from '@vocably/srs';
+import { setBadgeCount } from 'aws-amplify/push-notifications';
 import { shuffle } from 'lodash-es';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useCallback, useEffect, useState } from 'react';
@@ -57,7 +57,7 @@ export const Study: FC<Props> = ({
       cardsAnsweredToday.answers > 0 &&
       cardsAnsweredToday.answers % maximumCardsPerSession === 0
     ) {
-      Notifications.Push.setBadgeCount(0);
+      setBadgeCount(0);
     }
   }, [cardsAnsweredToday]);
 
@@ -118,7 +118,7 @@ export const Study: FC<Props> = ({
       setCardsStudied((cardsStudied) => cardsStudied + 1);
 
       if (followingCards.length === 0) {
-        Notifications.Push.setBadgeCount(0);
+        setBadgeCount(0);
         increaseNumberOfRepetitions();
       }
     },

@@ -1,4 +1,4 @@
-import { Auth } from '@aws-amplify/auth';
+import { deleteUser, signOut } from '@aws-amplify/auth';
 import { FC, useCallback } from 'react';
 import { Alert, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
@@ -20,8 +20,8 @@ export const AccountScreen: FC<Props> = () => {
           text: 'Delete',
           style: 'destructive',
           onPress: async () => {
-            await Auth.deleteUser();
-            await Auth.signOut();
+            await deleteUser();
+            await signOut();
             await clearAll();
           },
         },
@@ -54,7 +54,7 @@ export const AccountScreen: FC<Props> = () => {
         <Button
           style={{ width: '100%' }}
           mode="outlined"
-          onPress={() => Auth.signOut()}
+          onPress={() => signOut()}
         >
           Sign out
         </Button>

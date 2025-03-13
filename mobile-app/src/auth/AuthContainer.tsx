@@ -1,9 +1,10 @@
-import { Auth } from '@aws-amplify/auth';
 import { postOnboardingAction } from '@vocably/api';
-import { Hub } from 'aws-amplify';
+import { getCurrentUser } from 'aws-amplify/auth';
+import { Hub } from 'aws-amplify/utils';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { facility } from '../facility';
+import { notificationsIdentifyUser } from '../notificationsIdentifyUser';
 import { AuthContext, AuthStatus } from './AuthContext';
 import { getFlatAttributes } from './getFlatAttributes';
 
@@ -21,7 +22,7 @@ export const AuthContainer: FC<{
       return;
     }
 
-    getFlatAttributes(authStatus.user).then((attributes) => {
+    getFlatAttributes().then((attributes) => {
       if (!attributes) {
         return;
       }
@@ -37,7 +38,7 @@ export const AuthContainer: FC<{
   }, [authStatus]);
 
   useEffect(() => {
-    Auth.currentAuthenticatedUser()
+    getCurrentUser()
       .then((user) => {
         setAuthStatus({
           status: 'logged-in',
@@ -50,16 +51,18 @@ export const AuthContainer: FC<{
         });
       });
 
-    return Hub.listen('auth', ({ payload: { event, data } }) => {
-      if (event === 'signOut') {
+    return Hub.listen('auth', ({ payload: { event } }) => {
+      if (event === 'signedOut') {
         setAuthStatus({
           status: 'not-logged-in',
         });
         return;
       }
 
-      if (event === 'signIn') {
-        Auth.currentAuthenticatedUser()
+      if (event === 'signedIn') {
+        notificationsIdentifyUser();
+
+        getCurrentUser()
           .then(async (user) => {
             setAuthStatus({
               status: 'logged-in',

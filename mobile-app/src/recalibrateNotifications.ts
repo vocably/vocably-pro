@@ -1,6 +1,6 @@
-import { Auth } from '@aws-amplify/auth';
 import { recalibrateNotifications as recalibrateNotificationApi } from '@vocably/api';
 import { resultify } from '@vocably/model';
+import { getCurrentUser } from 'aws-amplify/auth';
 import { getTimeZone } from 'react-native-localize';
 import { getItem, setItem } from './asyncAppStorage';
 
@@ -16,7 +16,7 @@ const lastRecalibrationKey = 'last-recalibration';
 export const recalibrateNotifications = async () => {
   console.log('Recalibrating notifications');
 
-  const currentUserResult = await resultify(Auth.currentAuthenticatedUser(), {
+  const currentUserResult = await resultify(getCurrentUser(), {
     errorCode: 'AUTH_UNABLE_TO_GET_USER_SESSION',
     reason: 'Unable to get current user',
   });

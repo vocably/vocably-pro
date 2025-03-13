@@ -37,7 +37,11 @@ if (environment.production) {
 
 Auth.configure(authConfig);
 
-configureApi(environment.api);
+configureApi({
+  ...environment.api,
+  getJwtToken: () =>
+    Auth.currentSession().then((session) => session.getIdToken().getJwtToken()),
+});
 
 maintainAppSize();
 

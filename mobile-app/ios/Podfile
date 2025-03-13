@@ -77,6 +77,7 @@ target 'VocablyProShare' do
   pod 'react-native-get-random-values', :path => '../node_modules/react-native-get-random-values'
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
   pod 'AmplifyRTNPushNotification', :path => '../node_modules/@aws-amplify/rtn-push-notification'
+  pod 'RNLocalize', :path => '../node_modules/react-native-localize'
 
   # Manually link packages here to keep your extension bundle size minimal
 end

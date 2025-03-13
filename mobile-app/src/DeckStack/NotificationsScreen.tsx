@@ -1,10 +1,10 @@
-import { Auth } from '@aws-amplify/auth';
-import {
-  Notifications,
-  PushNotificationPermissionStatus,
-} from '@aws-amplify/notifications';
 import { languageList } from '@vocably/model';
 import { trimLanguage } from '@vocably/sulna';
+import {
+  getPermissionStatus,
+  GetPermissionStatusOutput,
+  requestPermissions as amplifyRequestPermissions,
+} from 'aws-amplify/push-notifications';
 import { get } from 'lodash-es';
 import { usePostHog } from 'posthog-react-native';
 import { FC, useEffect, useState } from 'react';
@@ -13,6 +13,7 @@ import { Button, Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { InlineLoader } from '../loaders/InlineLoader';
+import { notificationsIdentifyUser } from '../notificationsIdentifyUser';
 import { NotificationsAllowed } from './notifications/NotificationsAllowed';
 import { NotificationsDenied } from './notifications/NotificationsDenied';
 
@@ -21,8 +22,8 @@ type Props = {};
 export const NotificationsScreen: FC<Props> = () => {
   const insets = useSafeAreaInsets();
   const [notificationsStatus, setNotificationsStatus] = useState<
-    PushNotificationPermissionStatus | 'LOADING'
-  >('LOADING');
+    GetPermissionStatusOutput | 'loading'
+  >('loading');
 
   const {
     deck: { language },
@@ -34,7 +35,7 @@ export const NotificationsScreen: FC<Props> = () => {
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
-      const status = await Notifications.Push.getPermissionStatus();
+      const status = await getPermissionStatus();
       setNotificationsStatus(status);
     }, 1000);
 
@@ -50,9 +51,7 @@ export const NotificationsScreen: FC<Props> = () => {
   }, []);
 
   const requestPermissions = async () => {
-    const user = await Auth.currentAuthenticatedUser();
-
-    Notifications.Push.requestPermissions({
+    amplifyRequestPermissions({
       alert: true,
       badge: true,
       sound: true,
@@ -66,6 +65,11 @@ export const NotificationsScreen: FC<Props> = () => {
               : "Notifications can't be set through the app. Please enable them in Settings → Vocably."
           );
         }
+
+        if (enabled) {
+          notificationsIdentifyUser();
+        }
+
         postHog.capture('notificationsOSRequested', {
           enabled,
           language,
@@ -91,15 +95,15 @@ export const NotificationsScreen: FC<Props> = () => {
         gap: 12,
       }}
     >
-      {notificationsStatus === 'LOADING' && (
+      {notificationsStatus === 'loading' && (
         <InlineLoader>Checking...</InlineLoader>
       )}
-      {notificationsStatus === 'GRANTED' && (
+      {notificationsStatus === 'granted' && (
         <NotificationsAllowed language={language} />
       )}
-      {notificationsStatus === 'DENIED' && <NotificationsDenied />}
-      {(notificationsStatus === 'SHOULD_EXPLAIN_THEN_REQUEST' ||
-        notificationsStatus === 'SHOULD_REQUEST') && (
+      {notificationsStatus === 'denied' && <NotificationsDenied />}
+      {(notificationsStatus === 'shouldExplainThenRequest' ||
+        notificationsStatus === 'shouldRequest') && (
         <>
           <Text style={{ textAlign: 'center', paddingHorizontal: 38 }}>
             Practice notifications are sent once a day to remind you to review
