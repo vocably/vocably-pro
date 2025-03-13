@@ -1,6 +1,10 @@
 PODS:
-  - AmplifyRTNPushNotification (1.1.15):
+  - AmplifyRTNCore (1.1.7):
+    - React-Core
+  - AmplifyRTNPushNotification (1.2.32):
     - AmplifyUtilsNotifications
+    - React-Core
+  - AmplifyRTNWebBrowser (1.1.1):
     - React-Core
   - AmplifyUtilsNotifications (1.1.1)
   - boost (1.83.0)
@@ -1067,15 +1071,13 @@ PODS:
     - React-jsi (= 0.73.7)
     - React-logger (= 0.73.7)
     - React-perflogger (= 0.73.7)
-  - RNAWSCognito (6.3.12):
-    - React-Core
   - RNCAsyncStorage (1.21.0):
     - React-Core
   - RNCMaskedView (0.3.1):
     - React-Core
   - RNDateTimePicker (8.3.0):
     - React-Core
-  - RNDeviceInfo (13.1.0):
+  - RNDeviceInfo (13.2.0):
     - React-Core
   - RNFlashList (1.6.4):
     - React-Core
@@ -1122,7 +1124,9 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
+  - "AmplifyRTNCore (from `../node_modules/@aws-amplify/react-native`)"
   - "AmplifyRTNPushNotification (from `../node_modules/@aws-amplify/rtn-push-notification`)"
+  - "AmplifyRTNWebBrowser (from `../node_modules/@aws-amplify/rtn-web-browser`)"
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -1178,7 +1182,6 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - RNAWSCognito (from `../node_modules/amazon-cognito-identity-js`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
@@ -1205,8 +1208,12 @@ SPEC REPOS:
     - SocketRocket
 
 EXTERNAL SOURCES:
+  AmplifyRTNCore:
+    :path: "../node_modules/@aws-amplify/react-native"
   AmplifyRTNPushNotification:
     :path: "../node_modules/@aws-amplify/rtn-push-notification"
+  AmplifyRTNWebBrowser:
+    :path: "../node_modules/@aws-amplify/rtn-web-browser"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   BVLinearGradient:
@@ -1312,8 +1319,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  RNAWSCognito:
-    :path: "../node_modules/amazon-cognito-identity-js"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
@@ -1348,7 +1353,9 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AmplifyRTNPushNotification: 5998077e757634ab23b2e3308b182a5c8c56e1f6
+  AmplifyRTNCore: 5c39677ce6ba15609b2f44a80d06ef237a7cdccd
+  AmplifyRTNPushNotification: 4bc891c1161129fbdfaf9e2883c1848fdfbcb300
+  AmplifyRTNWebBrowser: 56813d9858f5d196d096a598aa9aa8651c7863fd
   AmplifyUtilsNotifications: b30b9e3172ae6c2c7344a64b22de649d4fcf6659
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   BVLinearGradient: 880f91a7854faff2df62518f0281afb1c60d49a3
@@ -1404,11 +1411,10 @@ SPEC CHECKSUMS:
   React-runtimescheduler: a884a55560e2a90caa1cbe0b9eaa24a5add4fa2c
   React-utils: d07d009101c7dabff68b710da5c4a47b7a850d98
   ReactCommon: 8cae78d3c3eceff20ee4bbca8bb73b675a45fd5d
-  RNAWSCognito: fe0c870c7cd9970a2efefc075b3f2d75eac913c7
   RNCAsyncStorage: 618d03a5f52fbccb3d7010076bc54712844c18ef
   RNCMaskedView: 090213d32d8b3bb83a4dcb7d12c18f0152591906
   RNDateTimePicker: a793ed8822283f576dd0a205a0916c5098c2611f
-  RNDeviceInfo: e13b7d68878fba693c9fbb13ca4d56ad57d95917
+  RNDeviceInfo: 29e01d5ae94bdb5a0f6c11a4c438132545b4df80
   RNFlashList: b521ebdd7f9352673817f1d98e8bdc0c8cf8545b
   RNGestureHandler: bc2cdb2dc42facdf34992ae364b8a728e19a3686
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
@@ -1424,6 +1430,6 @@ SPEC CHECKSUMS:
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: c716aea2ee01df6258550c7505fa61b248145ced
 
-PODFILE CHECKSUM: b6cdfc4fdd7ba6281ab467ca1610170c4338ea07
+PODFILE CHECKSUM: 74929b411cde92044388a906d92cdf811654a1e3
 
 COCOAPODS: 1.12.0

@@ -1,14 +1,18 @@
-import { Auth } from '@aws-amplify/auth';
-import { Notifications } from '@aws-amplify/notifications';
 import { Result, resultify } from '@vocably/model';
+import { getCurrentUser } from 'aws-amplify/auth';
+import {
+  getPermissionStatus,
+  identifyUser,
+} from 'aws-amplify/push-notifications';
 import { debounce } from 'lodash-es';
 import { getFlatAttributes } from './auth/getFlatAttributes';
 import { Sentry } from './BetterSentry';
 
 export const notificationsIdentifyUser = debounce(
   async (): Promise<Result<unknown>> => {
-    const status = await Notifications.Push.getPermissionStatus();
-    if (status !== 'GRANTED') {
+    console.log('Identifying user');
+    const status = await getPermissionStatus();
+    if (status !== 'granted') {
       console.log("Notifications permission is not granted. Can't identify.");
       return {
         success: true,
@@ -16,7 +20,7 @@ export const notificationsIdentifyUser = debounce(
       };
     }
 
-    const userResult = await resultify(Auth.currentAuthenticatedUser(), {
+    const userResult = await resultify(getCurrentUser(), {
       errorCode: 'AUTH_UNABLE_TO_GET_USER_SESSION',
       reason: 'Unable to get current user',
     });
@@ -29,7 +33,7 @@ export const notificationsIdentifyUser = debounce(
       };
     }
 
-    const attributes = await getFlatAttributes(userResult.value);
+    const attributes = await getFlatAttributes();
 
     if (!attributes['sub'] || !attributes['email']) {
       console.error('Unable to get user sub and email', attributes);
@@ -44,9 +48,11 @@ export const notificationsIdentifyUser = debounce(
     }
 
     const identifyUserResult = await resultify(
-      Notifications.Push.identifyUser(attributes['sub'], {
-        attributes: {
-          email: [attributes['email']],
+      identifyUser({
+        userId: userResult.value.userId,
+        userProfile: {},
+        options: {
+          optOut: 'NONE',
         },
       }),
       {

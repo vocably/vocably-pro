@@ -1,4 +1,3 @@
-import { Auth } from '@aws-amplify/auth';
 import { Result } from '@vocably/model';
 import { merge } from 'lodash-es';
 import { apiOptions } from './config';
@@ -8,11 +7,10 @@ export const request = async (
   init: RequestInit
 ): Promise<Result<any>> => {
   try {
-    const session = await Auth.currentSession();
     const headers = {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Authorization: `Bearer ${session.getIdToken().getJwtToken()}`,
+      Authorization: `Bearer ${await apiOptions.getJwtToken()}`,
     };
 
     const response = await fetch(

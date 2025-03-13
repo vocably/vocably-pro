@@ -1,4 +1,4 @@
-import { CognitoUser } from '@aws-amplify/auth';
+import { GetCurrentUserOutput } from '@aws-amplify/auth';
 import { createContext } from 'react';
 
 export type AuthStatus =
@@ -10,7 +10,7 @@ export type AuthStatus =
     }
   | {
       status: 'logged-in';
-      user: CognitoUser;
+      user: GetCurrentUserOutput;
     }
   | {
       status: 'error';

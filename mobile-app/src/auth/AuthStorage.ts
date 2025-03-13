@@ -1,3 +1,4 @@
+import { KeyValueStorageInterface } from '@aws-amplify/core';
 import { AppState } from 'react-native';
 import { concatMap, debounceTime, map, merge, Subject } from 'rxjs';
 import * as asyncAppStorage from '../asyncAppStorage';
@@ -50,32 +51,28 @@ AppState.addEventListener('change', (nextAppState) => {
 
 syncAuthStorage$.next();
 
-export class AuthStorage {
-  setItem(key: string, value: string) {
+export class AuthStorage implements KeyValueStorageInterface {
+  async setItem(key: string, value: string) {
     dataMemory[key] = value;
     updateValues$.next();
-    return dataMemory[key];
   }
 
-  getItem(key: string): string | undefined {
-    return Object.prototype.hasOwnProperty.call(dataMemory, key)
-      ? dataMemory[key]
-      : undefined;
+  async getItem(key: string) {
+    const memory = await syncPromise;
+    const res = Object.prototype.hasOwnProperty.call(memory, key)
+      ? memory[key]
+      : null;
+
+    return res;
   }
 
-  removeItem(key: string) {
-    const result = delete dataMemory[key];
+  async removeItem(key: string) {
+    delete dataMemory[key];
     updateValues$.next();
-    return result;
   }
 
-  clear() {
+  async clear() {
     dataMemory = {};
     updateValues$.next();
-    return dataMemory;
-  }
-
-  sync(): Promise<AuthData> {
-    return syncPromise;
   }
 }

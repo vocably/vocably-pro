@@ -1,4 +1,4 @@
-import { Auth, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
+import { signInWithRedirect } from 'aws-amplify/auth';
 import React, { FC, ReactNode, useContext } from 'react';
 import { Linking, View } from 'react-native';
 import { Button, Text, useTheme } from 'react-native-paper';
@@ -6,12 +6,12 @@ import { Loader } from '../loaders/Loader';
 import { urlOpenerOptions } from '../urlOpener';
 import { AuthContext } from './AuthContext';
 
-const signIn = () => Auth.federatedSignIn();
+const signIn = () => signInWithRedirect();
 
 const signInWithAnIdioticCognitoFlow = async () => {
   urlOpenerOptions.ephemeralWebSession = true;
-  await Auth.federatedSignIn({
-    provider: CognitoHostedUIIdentityProvider.Google,
+  await signInWithRedirect({
+    provider: 'Google',
   });
 };
 

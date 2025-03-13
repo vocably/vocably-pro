@@ -1,5 +1,6 @@
 import { API_BASE_URL, API_CARDS_BUCKET, API_REGION } from '@env';
 import { configureApi } from '@vocably/api';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthContainer } from './auth/AuthContainer';
 import { Login } from './auth/Login';
@@ -17,6 +18,10 @@ configureApi({
   baseUrl: API_BASE_URL,
   region: API_REGION,
   cardsBucket: API_CARDS_BUCKET,
+  getJwtToken: () =>
+    fetchAuthSession().then(
+      (session) => session.tokens?.idToken?.toString() ?? ''
+    ),
 });
 
 const App = () => {

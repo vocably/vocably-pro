@@ -22,7 +22,10 @@
     "mobile-app": "npm start"
   },
   "dependencies": {
-    "@aws-amplify/rtn-push-notification": "~1.1.x",
+    "@aws-amplify/react-native": "^1.1.7",
+    "@aws-amplify/rtn-push-notification": "^1.2.32",
+    "@aws-amplify/rtn-web-browser": "^1.1.1",
+    "@aws-crypto/sha256-js": "^5.2.0",
     "@miblanchard/react-native-slider": "^2.6.0",
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-native-community/datetimepicker": "^8.3.0",
@@ -34,9 +37,7 @@
     "@react-navigation/stack": "^6.3.17",
     "@sentry/react-native": "5.33.2",
     "@shopify/flash-list": "1.6.4",
-    "amazon-cognito-identity-js": "6.3.12",
-    "aws-amplify": "5.3.27",
-    "aws-amplify-react-native": "7.0.8",
+    "aws-amplify": "^6.13.4",
     "posthog-react-native": "^3.3.6",
     "react": "18.2.0",
     "react-native": "0.73.7",
