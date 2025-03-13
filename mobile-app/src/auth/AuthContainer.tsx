@@ -4,6 +4,7 @@ import { Hub } from 'aws-amplify/utils';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { facility } from '../facility';
+import { notificationsIdentifyUser } from '../notificationsIdentifyUser';
 import { AuthContext, AuthStatus } from './AuthContext';
 import { getFlatAttributes } from './getFlatAttributes';
 
@@ -59,6 +60,8 @@ export const AuthContainer: FC<{
       }
 
       if (event === 'signedIn') {
+        notificationsIdentifyUser();
+
         getCurrentUser()
           .then(async (user) => {
             setAuthStatus({

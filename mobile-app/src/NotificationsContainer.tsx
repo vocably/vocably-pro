@@ -28,13 +28,5 @@ export const NotificationsContainer: FC<PropsWithChildren<Props>> = ({
     };
   }, []);
 
-  useEffect(() => {
-    console.log(
-      'Auth status is updated. Identifying notifications user.',
-      authStatus.status
-    );
-    notificationsIdentifyUser();
-  }, [authStatus]);
-
   return <>{children}</>;
 };
