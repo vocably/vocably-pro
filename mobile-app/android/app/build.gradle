@@ -81,7 +81,7 @@ android {
         applicationId "com.vocablypro"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 126
+        versionCode 127
         versionName "1.57"
     }
 
