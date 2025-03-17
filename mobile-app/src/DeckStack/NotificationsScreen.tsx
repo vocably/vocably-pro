@@ -1,4 +1,5 @@
-import { languageList } from '@vocably/model';
+import { getNotificationTime, setNotificationTime } from '@vocably/api';
+import { languageList, Result } from '@vocably/model';
 import { trimLanguage } from '@vocably/sulna';
 import {
   getPermissionStatus,
@@ -9,6 +10,7 @@ import { get } from 'lodash-es';
 import { usePostHog } from 'posthog-react-native';
 import { FC, useEffect, useState } from 'react';
 import { Alert, Platform, ScrollView } from 'react-native';
+import { getTimeZone } from 'react-native-localize';
 import { Button, Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
@@ -19,11 +21,32 @@ import { NotificationsDenied } from './notifications/NotificationsDenied';
 
 type Props = {};
 
+const enableNotificationIfNecessary = async (
+  language: string
+): Promise<Result<unknown>> => {
+  const notificationTimeResult = await getNotificationTime(language);
+  if (notificationTimeResult.success === false) {
+    return notificationTimeResult;
+  }
+
+  if (notificationTimeResult.value.exists === true) {
+    return notificationTimeResult;
+  }
+
+  return await setNotificationTime({
+    language,
+    IANATimezone: getTimeZone(),
+    localTime: '17:00',
+  });
+};
+
 export const NotificationsScreen: FC<Props> = () => {
   const insets = useSafeAreaInsets();
   const [notificationsStatus, setNotificationsStatus] = useState<
     GetPermissionStatusOutput | 'loading'
   >('loading');
+
+  const [enablingNotifications, setEnablingNotifications] = useState(false);
 
   const {
     deck: { language },
@@ -51,6 +74,8 @@ export const NotificationsScreen: FC<Props> = () => {
   }, []);
 
   const requestPermissions = async () => {
+    setEnablingNotifications(true);
+
     amplifyRequestPermissions({
       alert: true,
       badge: true,
@@ -68,19 +93,23 @@ export const NotificationsScreen: FC<Props> = () => {
 
         if (enabled) {
           notificationsIdentifyUser();
+          await enableNotificationIfNecessary(language);
         }
 
         postHog.capture('notificationsOSRequested', {
           enabled,
           language,
         });
+
+        setEnablingNotifications(false);
       })
       .catch((e) => {
-        console.log('Notification Error', e);
         postHog.capture('notificationOSRequestError', {
           e,
           language,
         });
+
+        setEnablingNotifications(false);
       });
   };
 
@@ -98,18 +127,23 @@ export const NotificationsScreen: FC<Props> = () => {
       {notificationsStatus === 'loading' && (
         <InlineLoader>Checking...</InlineLoader>
       )}
-      {notificationsStatus === 'granted' && (
+      {notificationsStatus === 'granted' && !enablingNotifications && (
         <NotificationsAllowed language={language} />
       )}
       {notificationsStatus === 'denied' && <NotificationsDenied />}
       {(notificationsStatus === 'shouldExplainThenRequest' ||
-        notificationsStatus === 'shouldRequest') && (
+        notificationsStatus === 'shouldRequest' ||
+        enablingNotifications) && (
         <>
           <Text style={{ textAlign: 'center', paddingHorizontal: 38 }}>
             Practice notifications are sent once a day to remind you to review
             your {languageString} cards.
           </Text>
-          <Button onPress={requestPermissions} mode="contained">
+          <Button
+            onPress={requestPermissions}
+            mode="contained"
+            loading={enablingNotifications}
+          >
             Enable Notifications
           </Button>
         </>
