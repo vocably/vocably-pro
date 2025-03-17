@@ -31,6 +31,7 @@ const nouns: Record<ChatGPTLanguage, string> = {
   id: 'meja',
   ms: 'laut',
   uk: 'їжак',
+  et: 'öö',
 };
 
 export const generateExamples = async () => {
@@ -53,7 +54,7 @@ export const generateExamples = async () => {
       }
 
       result[fromLanguage][toLanguage] = {
-        correctSpelling: noun,
+        fixedSource: noun,
         translation: translationResult.value.target.toLowerCase(),
         partOfSpeech: 'noun',
       };

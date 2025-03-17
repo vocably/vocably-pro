@@ -40,6 +40,7 @@ const reverseTranslationExample = {
   id: 'pertanyaan',
   ms: 'soalan',
   uk: 'запитання',
+  et: 'küsimus',
 };
 
 type LanguageStuff = {
@@ -308,6 +309,15 @@ const languages: Languages = {
     contextTranslationExample: {
       word: 'завдання',
       text: 'Найпоширеніші завдання технічного обслуговування, які часто пропускають, — це війна з пилом. Ваш будинок наповнений фільтрами та вентиляційними отворами, які вловлюють пил та інші речі, збільшуючи термін служби ваших систем і зберігаючи повітря чистим. Принаймні раз на рік слід чистити та замінювати наступне:',
+    },
+  },
+  et: {
+    welcomeScreenCard: 'silmapaistev',
+    directTranslationExample: 'saabuma',
+    reverseTranslationExample: reverseTranslationExample,
+    contextTranslationExample: {
+      word: 'köök',
+      text: 'Eesti köök peegeldab maa ajalugu ja loodust, olles lihtne, kuid toitainerikas. Traditsioonilised road, nagu mulgipuder, verivorst ja kiluvõileib, on paljudele eestlastele nostalgilised maitsed. Kohalikud metsad ja põllud pakuvad rohkelt värskeid koostisosi – seened, marjad ja juurviljad on paljudes roogades olulisel kohal.',
     },
   },
 };
