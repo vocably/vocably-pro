@@ -32,6 +32,7 @@ const nouns: Record<ChatGPTLanguage, string> = {
   ms: 'laut',
   uk: 'їжак',
   et: 'öö',
+  sq: 'iriq',
 };
 
 export const generateExamples = async () => {

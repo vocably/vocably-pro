@@ -46,14 +46,14 @@ const reverseTranslationExample = {
 type LanguageStuff = {
   welcomeScreenCard: string;
   directTranslationExample: string;
-  reverseTranslationExample: Record<ChatGPTLanguage, string>;
+  reverseTranslationExample: Partial<Record<ChatGPTLanguage, string>>;
   contextTranslationExample: {
     text: string;
     word: string;
   };
 };
 
-type Languages = Record<ChatGPTLanguage, LanguageStuff>;
+type Languages = Partial<Record<ChatGPTLanguage, LanguageStuff>>;
 
 const languages: Languages = {
   en: {

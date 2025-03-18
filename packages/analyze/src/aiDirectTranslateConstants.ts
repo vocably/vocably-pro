@@ -54,6 +54,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'table', translation: 'meja', partOfSpeech: 'noun' },
     uk: { fixedSource: 'table', translation: 'стіл', partOfSpeech: 'noun' },
     et: { fixedSource: 'table', translation: 'laud', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'table', translation: 'tabela', partOfSpeech: 'noun' },
   },
   es: {
     en: { fixedSource: 'corazón', translation: 'heart', partOfSpeech: 'noun' },
@@ -105,6 +106,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'corazón', translation: 'hati', partOfSpeech: 'noun' },
     uk: { fixedSource: 'corazón', translation: 'серце', partOfSpeech: 'noun' },
     et: { fixedSource: 'corazón', translation: 'süda', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'corazón', translation: 'zemra', partOfSpeech: 'noun' },
   },
   fr: {
     en: {
@@ -168,6 +170,11 @@ export const resultExamples: Record<
       translation: 'juurvilja',
       partOfSpeech: 'noun',
     },
+    sq: {
+      fixedSource: 'légume',
+      translation: 'perimesh',
+      partOfSpeech: 'noun',
+    },
   },
   de: {
     en: { fixedSource: 'füße', translation: 'feet', partOfSpeech: 'noun' },
@@ -199,6 +206,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'füße', translation: 'kaki', partOfSpeech: 'noun' },
     uk: { fixedSource: 'füße', translation: 'ноги', partOfSpeech: 'noun' },
     et: { fixedSource: 'füße', translation: 'jalad', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'füße', translation: 'këmbët', partOfSpeech: 'noun' },
   },
   zh: {
     en: { fixedSource: '书', translation: 'book', partOfSpeech: 'noun' },
@@ -230,6 +238,7 @@ export const resultExamples: Record<
     ms: { fixedSource: '书', translation: 'buku', partOfSpeech: 'noun' },
     uk: { fixedSource: '书', translation: 'книга', partOfSpeech: 'noun' },
     et: { fixedSource: '书', translation: 'raamat', partOfSpeech: 'noun' },
+    sq: { fixedSource: '书', translation: 'libër', partOfSpeech: 'noun' },
   },
   'zh-TW': {
     en: { fixedSource: '燈籠', translation: 'lantern', partOfSpeech: 'noun' },
@@ -261,6 +270,7 @@ export const resultExamples: Record<
     ms: { fixedSource: '燈籠', translation: 'tanglung', partOfSpeech: 'noun' },
     uk: { fixedSource: '燈籠', translation: 'ліхтар', partOfSpeech: 'noun' },
     et: { fixedSource: '燈籠', translation: 'latern', partOfSpeech: 'noun' },
+    sq: { fixedSource: '燈籠', translation: 'fanar', partOfSpeech: 'noun' },
   },
   ja: {
     en: {
@@ -352,6 +362,7 @@ export const resultExamples: Record<
       translation: 'söögipulgad',
       partOfSpeech: 'noun',
     },
+    sq: { fixedSource: 'お箸', translation: 'shkopinj', partOfSpeech: 'noun' },
   },
   ru: {
     en: { fixedSource: 'ёж', translation: 'hedgehog', partOfSpeech: 'noun' },
@@ -391,6 +402,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'ёж', translation: 'landak', partOfSpeech: 'noun' },
     uk: { fixedSource: 'ёж', translation: 'їжак', partOfSpeech: 'noun' },
     et: { fixedSource: 'ёж', translation: 'siil', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'ёж', translation: 'iriq', partOfSpeech: 'noun' },
   },
   it: {
     en: { fixedSource: 'città', translation: 'city', partOfSpeech: 'noun' },
@@ -430,6 +442,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'città', translation: 'bandar', partOfSpeech: 'noun' },
     uk: { fixedSource: 'città', translation: 'місто', partOfSpeech: 'noun' },
     et: { fixedSource: 'città', translation: 'linn', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'città', translation: 'qytet', partOfSpeech: 'noun' },
   },
   pt: {
     en: { fixedSource: 'óculos', translation: 'glasses', partOfSpeech: 'noun' },
@@ -493,6 +506,7 @@ export const resultExamples: Record<
     },
     uk: { fixedSource: 'óculos', translation: 'окуляри', partOfSpeech: 'noun' },
     et: { fixedSource: 'óculos', translation: 'prillid', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'óculos', translation: 'syzet', partOfSpeech: 'noun' },
   },
   ar: {
     en: {
@@ -640,6 +654,11 @@ export const resultExamples: Record<
       translation: 'raamatukogu',
       partOfSpeech: 'noun',
     },
+    sq: {
+      fixedSource: 'مَكتَبَة',
+      translation: 'bibliotekë',
+      partOfSpeech: 'noun',
+    },
   },
   nl: {
     en: {
@@ -783,6 +802,11 @@ export const resultExamples: Record<
       translation: 'jõupingutusi',
       partOfSpeech: 'noun',
     },
+    sq: {
+      fixedSource: 'inspanning',
+      translation: 'përpjekje',
+      partOfSpeech: 'noun',
+    },
   },
   ko: {
     en: {
@@ -902,6 +926,11 @@ export const resultExamples: Record<
       translation: 'söögipulgad',
       partOfSpeech: 'noun',
     },
+    sq: {
+      fixedSource: '젓가락',
+      translation: 'shkopinj',
+      partOfSpeech: 'noun',
+    },
   },
   hi: {
     en: { fixedSource: 'क़लम', translation: 'pen', partOfSpeech: 'noun' },
@@ -937,6 +966,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'क़लम', translation: 'pen', partOfSpeech: 'noun' },
     uk: { fixedSource: 'क़लम', translation: 'перо', partOfSpeech: 'noun' },
     et: { fixedSource: 'क़लम', translation: 'pliiats', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'क़लम', translation: 'stilolaps', partOfSpeech: 'noun' },
   },
   tr: {
     en: {
@@ -1084,6 +1114,11 @@ export const resultExamples: Record<
       translation: 'töökas',
       partOfSpeech: 'noun',
     },
+    sq: {
+      fixedSource: 'çalışkan',
+      translation: 'punë e vështirë',
+      partOfSpeech: 'noun',
+    },
   },
   sv: {
     en: { fixedSource: 'fjäder', translation: 'spring', partOfSpeech: 'noun' },
@@ -1155,6 +1190,11 @@ export const resultExamples: Record<
     },
     uk: { fixedSource: 'fjäder', translation: 'весна', partOfSpeech: 'noun' },
     et: { fixedSource: 'fjäder', translation: 'kevad', partOfSpeech: 'noun' },
+    sq: {
+      fixedSource: 'fjäder',
+      translation: 'pranverë',
+      partOfSpeech: 'noun',
+    },
   },
   no: {
     en: { fixedSource: 'fjøs', translation: 'barn', partOfSpeech: 'noun' },
@@ -1194,6 +1234,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'fjøs', translation: 'bangsal', partOfSpeech: 'noun' },
     uk: { fixedSource: 'fjøs', translation: 'сарай', partOfSpeech: 'noun' },
     et: { fixedSource: 'fjøs', translation: 'ait', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'fjøs', translation: 'hambar', partOfSpeech: 'noun' },
   },
   da: {
     en: { fixedSource: 'sø', translation: 'lake', partOfSpeech: 'noun' },
@@ -1225,6 +1266,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'sø', translation: 'tasik', partOfSpeech: 'noun' },
     uk: { fixedSource: 'sø', translation: 'озеро', partOfSpeech: 'noun' },
     et: { fixedSource: 'sø', translation: 'järv', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'sø', translation: 'liqeni', partOfSpeech: 'noun' },
   },
   fi: {
     en: { fixedSource: 'käärme', translation: 'snake', partOfSpeech: 'noun' },
@@ -1268,6 +1310,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'käärme', translation: 'ular', partOfSpeech: 'noun' },
     uk: { fixedSource: 'käärme', translation: 'змія', partOfSpeech: 'noun' },
     et: { fixedSource: 'käärme', translation: 'madu', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'käärme', translation: 'gjarpër', partOfSpeech: 'noun' },
   },
   fa: {
     en: {
@@ -1367,6 +1410,11 @@ export const resultExamples: Record<
       partOfSpeech: 'noun',
     },
     et: { fixedSource: 'ساختمان', translation: 'hoone', partOfSpeech: 'noun' },
+    sq: {
+      fixedSource: 'ساختمان',
+      translation: 'ndërtesa',
+      partOfSpeech: 'noun',
+    },
   },
   pl: {
     en: { fixedSource: 'żółw', translation: 'turtle', partOfSpeech: 'noun' },
@@ -1418,6 +1466,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'żółw', translation: 'penyu', partOfSpeech: 'noun' },
     uk: { fixedSource: 'żółw', translation: 'черепаха', partOfSpeech: 'noun' },
     et: { fixedSource: 'żółw', translation: 'kilpkonn', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'żółw', translation: 'breshkë', partOfSpeech: 'noun' },
   },
   el: {
     en: { fixedSource: 'καρδιά', translation: 'heart', partOfSpeech: 'noun' },
@@ -1453,6 +1502,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'καρδιά', translation: 'hati', partOfSpeech: 'noun' },
     uk: { fixedSource: 'καρδιά', translation: 'серце', partOfSpeech: 'noun' },
     et: { fixedSource: 'καρδιά', translation: 'süda', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'καρδιά', translation: 'zemra', partOfSpeech: 'noun' },
   },
   he: {
     en: { fixedSource: 'שָׁלוֹם', translation: 'peace', partOfSpeech: 'noun' },
@@ -1512,6 +1562,7 @@ export const resultExamples: Record<
     },
     uk: { fixedSource: 'שָׁלוֹם', translation: 'спокій', partOfSpeech: 'noun' },
     et: { fixedSource: 'שָׁלוֹם', translation: 'rahu', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'שָׁלוֹם', translation: 'paqen', partOfSpeech: 'noun' },
   },
   th: {
     en: { fixedSource: 'ช้าง', translation: 'elephant', partOfSpeech: 'noun' },
@@ -1543,6 +1594,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'ช้าง', translation: 'gajah', partOfSpeech: 'noun' },
     uk: { fixedSource: 'ช้าง', translation: 'слон', partOfSpeech: 'noun' },
     et: { fixedSource: 'ช้าง', translation: 'elevant', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'ช้าง', translation: 'elefant', partOfSpeech: 'noun' },
   },
   vi: {
     en: { fixedSource: 'bánh mì', translation: 'bread', partOfSpeech: 'noun' },
@@ -1582,6 +1634,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'bánh mì', translation: 'roti', partOfSpeech: 'noun' },
     uk: { fixedSource: 'bánh mì', translation: 'хліб', partOfSpeech: 'noun' },
     et: { fixedSource: 'bánh mì', translation: 'leiba', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'bánh mì', translation: 'bukë', partOfSpeech: 'noun' },
   },
   id: {
     en: { fixedSource: 'meja', translation: 'table', partOfSpeech: 'noun' },
@@ -1613,6 +1666,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'meja', translation: 'meja', partOfSpeech: 'noun' },
     uk: { fixedSource: 'meja', translation: 'стіл', partOfSpeech: 'noun' },
     et: { fixedSource: 'meja', translation: 'laud', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'meja', translation: 'tabela', partOfSpeech: 'noun' },
   },
   ms: {
     en: { fixedSource: 'laut', translation: 'sea', partOfSpeech: 'noun' },
@@ -1644,6 +1698,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'laut', translation: 'laut', partOfSpeech: 'noun' },
     uk: { fixedSource: 'laut', translation: 'море', partOfSpeech: 'noun' },
     et: { fixedSource: 'laut', translation: 'meri', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'laut', translation: 'deti', partOfSpeech: 'noun' },
   },
   uk: {
     en: { fixedSource: 'їжак', translation: 'hedgehog', partOfSpeech: 'noun' },
@@ -1687,6 +1742,7 @@ export const resultExamples: Record<
     ms: { fixedSource: 'їжак', translation: 'landak', partOfSpeech: 'noun' },
     uk: { fixedSource: 'їжак', translation: 'їжак', partOfSpeech: 'noun' },
     et: { fixedSource: 'їжак', translation: 'siil', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'їжак', translation: 'iriq', partOfSpeech: 'noun' },
   },
   et: {
     en: { fixedSource: 'öö', translation: 'night', partOfSpeech: 'noun' },
@@ -1718,5 +1774,50 @@ export const resultExamples: Record<
     ms: { fixedSource: 'öö', translation: 'malam', partOfSpeech: 'noun' },
     uk: { fixedSource: 'öö', translation: 'ніч', partOfSpeech: 'noun' },
     et: { fixedSource: 'öö', translation: 'öö', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'öö', translation: 'natën', partOfSpeech: 'noun' },
+  },
+  sq: {
+    en: { fixedSource: 'iriq', translation: 'hedgehog', partOfSpeech: 'noun' },
+    es: { fixedSource: 'iriq', translation: 'erizo', partOfSpeech: 'noun' },
+    fr: { fixedSource: 'iriq', translation: 'hérisson', partOfSpeech: 'noun' },
+    de: { fixedSource: 'iriq', translation: 'igel', partOfSpeech: 'noun' },
+    zh: { fixedSource: 'iriq', translation: '刺猬', partOfSpeech: 'noun' },
+    'zh-TW': { fixedSource: 'iriq', translation: '刺蝟', partOfSpeech: 'noun' },
+    ja: {
+      fixedSource: 'iriq',
+      translation: 'ハリネズミ',
+      partOfSpeech: 'noun',
+    },
+    ru: { fixedSource: 'iriq', translation: 'ёжик', partOfSpeech: 'noun' },
+    it: { fixedSource: 'iriq', translation: 'riccio', partOfSpeech: 'noun' },
+    pt: { fixedSource: 'iriq', translation: 'ouriço', partOfSpeech: 'noun' },
+    ar: { fixedSource: 'iriq', translation: 'قنفذ', partOfSpeech: 'noun' },
+    nl: { fixedSource: 'iriq', translation: 'egel', partOfSpeech: 'noun' },
+    ko: { fixedSource: 'iriq', translation: '고슴도치', partOfSpeech: 'noun' },
+    hi: {
+      fixedSource: 'iriq',
+      translation: 'कांटेदार जंगली चूहा',
+      partOfSpeech: 'noun',
+    },
+    tr: { fixedSource: 'iriq', translation: 'kirpi', partOfSpeech: 'noun' },
+    sv: { fixedSource: 'iriq', translation: 'igelkott', partOfSpeech: 'noun' },
+    no: { fixedSource: 'iriq', translation: 'pinnsvin', partOfSpeech: 'noun' },
+    da: { fixedSource: 'iriq', translation: 'pindsvin', partOfSpeech: 'noun' },
+    fi: { fixedSource: 'iriq', translation: 'siili', partOfSpeech: 'noun' },
+    fa: { fixedSource: 'iriq', translation: 'جوجه تیغی', partOfSpeech: 'noun' },
+    pl: { fixedSource: 'iriq', translation: 'jeż', partOfSpeech: 'noun' },
+    el: {
+      fixedSource: 'iriq',
+      translation: 'σκατζόχοιρος',
+      partOfSpeech: 'noun',
+    },
+    he: { fixedSource: 'iriq', translation: 'קִפּוֹד', partOfSpeech: 'noun' },
+    th: { fixedSource: 'iriq', translation: 'เม่น', partOfSpeech: 'noun' },
+    vi: { fixedSource: 'iriq', translation: 'con nhím', partOfSpeech: 'noun' },
+    id: { fixedSource: 'iriq', translation: 'landak', partOfSpeech: 'noun' },
+    ms: { fixedSource: 'iriq', translation: 'landak', partOfSpeech: 'noun' },
+    uk: { fixedSource: 'iriq', translation: 'їжак', partOfSpeech: 'noun' },
+    et: { fixedSource: 'iriq', translation: 'siil', partOfSpeech: 'noun' },
+    sq: { fixedSource: 'iriq', translation: 'iriq', partOfSpeech: 'noun' },
   },
 };
