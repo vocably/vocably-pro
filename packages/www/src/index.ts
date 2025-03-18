@@ -82,6 +82,14 @@ document.querySelectorAll('.hide-android').forEach((el) => {
   }
 });
 
+document.querySelectorAll('.hide-other').forEach((el) => {
+  if (!(isChrome || isSafari || isAndroid || isIos)) {
+    el.remove();
+  } else {
+    el.classList.remove('hide-other');
+  }
+});
+
 document.querySelectorAll('.show-android').forEach((el) => {
   if (!isAndroid) {
     el.remove();

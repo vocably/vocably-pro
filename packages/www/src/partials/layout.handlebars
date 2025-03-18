@@ -30,15 +30,64 @@
         !function(a,n,i){a[n]=a[n]||{};for(var c=0;c<i.length;c++)!function(i){a[n][i]=a[n][i]||{},a[n][i].api=a[n][i].api||function(){var a=[].slice.call(arguments,0);"string"==typeof a[0]&&window[dataLayerName].push({event:n+"."+i+":"+a[0],parameters:[].slice.call(arguments,1)})}}(i[c])}(window,"ppms",["tm","cm"]);
       })(window, document, "dataLayer", "{{ htmlWebpackPlugin.options.environment.piwikId }}");
     </script>
-    <main class="flex-shrink-0">
+    <main class="flex-shrink-0 px-2">
+      <style>
+        .navbar-bg {
+          background: rgba(255, 255, 255, 0.5);
+          backdrop-filter: blur(10px);
+        }
+
+        @media (width >= 1000px) {
+          .navbar-bg {
+            background: none;
+            backdrop-filter: none;
+          }
+        }
+
+        .sticky-menu {
+          position: sticky;
+          top: 0;
+          z-index: 1020;
+        }
+      </style>
+      <nav class="navbar navbar-expand-lg navbar-light sticky-menu navbar-bg sticky-top p-4" style="">
+        <div class="container-fluid p-0">
+          <a class="navbar-brand" href="/">
+            <img
+              src="assets/logo.svg"
+              alt="Vocably"
+              class="nav-logo"
+            />
+          </a>
+          <div class="d-flex flex-column get-button">
+            <a
+              href='https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb'
+              class='show-chrome btn btn-primary btn-sm rounded-pill px-5 text-sm'
+            >Get</a>
+            <a
+              href='https://apps.apple.com/app/id6464076425'
+              class='show-safari btn btn-primary btn-sm rounded-pill px-5 text-sm'
+            >Get</a>
+            <a
+              href='https://play.google.com/store/apps/details?id=com.vocablypro'
+              class='show-android btn btn-primary btn-sm rounded-pill px-5 text-sm'
+            >Get</a>
+            <a
+              href='https://apps.apple.com/us/app/vocably-pro-language-cards/id1641258757'
+              class='show-ios btn btn-primary btn-sm rounded-pill px-5 text-sm'
+            >Get</a>
+            <div class="hide-other" style="font-size: 1rem; text-align: center; margin-top:0.2rem;">Vocably is free.</div>
+          </div>
+        </div>
+      </nav>
       {{#unless hideLogo}}
-      <div class="py-5 text-center">
-        <a href="/"><img
-          src="assets/logo.svg"
-          alt="Vocably"
-          class="nav-logo"
-        /></a>
-      </div>
+<!--      <div class="py-3 px-3 stic">-->
+<!--        <a href="/"><img-->
+<!--          src="assets/logo.svg"-->
+<!--          alt="Vocably"-->
+<!--          class="nav-logo"-->
+<!--        /></a>-->
+<!--      </div>-->
       {{/unless}}
 
       {{> @partial-block }}

@@ -139,13 +139,23 @@
     .navigation-button:disabled {
       color: #ccc;
     }
+
+    .navbar-bg {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .sticky-menu {
+      position: static;
+    }
+
+    .get-button {
+      display: none !important;
+    }
   </style>
   <div class="hero-container">
     <div class="headline d-flex flex-column align-items-md-end justify-content-center z-1 ps-4 ps-md-0">
       <div class="p-4 py-md-0 me-md-5" style="pointer-events: all">
-        <div class="mb-3">
-          <img src="assets/logo-gray.svg" style="height: 1.5rem;" alt="Vocably" />
-        </div>
         <h1 class="headline-text gradient-headline mb-2">
           A cross-platform language learning tool
         </h1>
