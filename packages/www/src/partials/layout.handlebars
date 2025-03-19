@@ -33,7 +33,7 @@
     <main class="flex-shrink-0 px-2">
       <style>
         .navbar-bg {
-          background: rgba(255, 255, 255, 0.5);
+          background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.2) 100%);
           backdrop-filter: blur(10px);
         }
 
@@ -49,10 +49,20 @@
           top: 0;
           z-index: 1020;
         }
+
+        .navbar-home-link {
+          flex: 0 1 auto;
+          align-self: self-start;
+          margin-top: 4px;
+        }
+
+        .nav-logo {
+          height: 1.6rem;
+        }
       </style>
       <nav class="navbar navbar-expand-lg navbar-light sticky-menu navbar-bg sticky-top px-4" style="">
         <div class="container-fluid p-0">
-          <a class="navbar-brand" href="/">
+          <a class="navbar-home-link" href="/">
             <img
               src="assets/logo.svg"
               alt="Vocably"
