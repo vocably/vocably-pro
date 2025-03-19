@@ -1,23 +1,8 @@
 import { NavigationProp } from '@react-navigation/native';
 import { analyze } from '@vocably/api';
-import {
-  AnalyzePayload,
-  CardItem,
-  GoogleLanguage,
-  languageList,
-  Result,
-  TagItem,
-} from '@vocably/model';
-import { buildTagMap } from '@vocably/model-operations';
+import { AnalyzePayload, GoogleLanguage, languageList } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
-import React, {
-  FC,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import {
   Alert,
   Keyboard,
@@ -30,16 +15,14 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
-import { LanguagesContext } from './languages/LanguagesContainer';
 import { InlineLoader } from './loaders/InlineLoader';
 import { Analyze } from './LookUpScreen/AnalyzeResult';
-import { AssociatedCard } from './LookUpScreen/associateCards';
 import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
 import { useShareIntentData } from './ShareIntent/useShareIntentData';
 import { Preset } from './TranslationPreset/TranslationPresetContainer';
 import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
-import { useLastUsedTagIds } from './useLastUsedTagIds';
+import { useAnalyzeOperations } from './useAnalyzeOperations';
 
 const padding = 16;
 
@@ -59,6 +42,7 @@ const styles = StyleSheet.create({
   resultContainer: {
     flex: 1,
     width: '100%',
+    marginRight: 8,
   },
 });
 
@@ -104,11 +88,8 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
     language: translationPreset.sourceLanguage,
     autoReload: true,
   });
-  const languages = useContext(LanguagesContext);
   const intentData = useShareIntentData();
   const posthog = usePostHog();
-
-  const [lastUsedTagIds, setLastUsedTagIds] = useLastUsedTagIds();
 
   useEffect(() => {
     if (intentData) {
@@ -196,97 +177,9 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
     }
   }, [intentData, lookUpText, deck.status, isAutomaticallyLookedUp, lookUp]);
 
-  const onAdd = useCallback(
-    async (card: AssociatedCard): Promise<Result<CardItem>> => {
-      if (card.id) {
-        const existingCard = deck.deck.cards.find(
-          (item) => item.id === card.id
-        );
-        if (existingCard) {
-          return {
-            success: true,
-            value: existingCard,
-          };
-        }
-      }
-
-      let tags = card.card.tags;
-      if (lastUsedTagIds.status === 'loaded') {
-        const tagMap = buildTagMap(deck.deck.tags);
-        const lastUsedTags = lastUsedTagIds.value
-          .filter((tagId) => !tags.some((t) => t.id === tagId))
-          .filter((tagId) => tagMap[tagId])
-          .map((tagId) => tagMap[tagId] as TagItem);
-
-        tags = [...tags, ...lastUsedTags];
-      }
-
-      const addResult = await deck.add({
-        ...card.card,
-        tags,
-      });
-
-      if (addResult.success === false) {
-        Alert.alert(
-          'Error: Card addition failed',
-          'Oops! Something went wrong while attempting to add a new card into your collection. Please try again later.'
-        );
-        return addResult;
-      }
-
-      languages.addLanguage(card.card.language);
-      await languages.selectLanguage(card.card.language);
-
-      return addResult;
-    },
-    [deck]
-  );
-
-  const onRemove = useCallback(
-    async (card: AssociatedCard): Promise<Result<true>> => {
-      if (!card.id) {
-        return {
-          success: true,
-          value: true,
-        };
-      }
-
-      const removeResult = await deck.remove(card.id);
-
-      if (removeResult.success === false) {
-        Alert.alert(
-          'Error: Card removal failed',
-          'Oops! Something went wrong while attempting to remove a the card from your collection. Please try again later.'
-        );
-        return removeResult;
-      }
-
-      await languages.selectLanguage(card.card.language);
-
-      return removeResult;
-    },
-    [deck, languages]
-  );
-
-  const onTagsChange = useCallback(
-    async (id: string, tags: TagItem[]): Promise<Result<true>> => {
-      const updateResult = await deck.update(id, {
-        tags,
-      });
-
-      if (updateResult.success === false) {
-        return updateResult;
-      }
-
-      await setLastUsedTagIds(tags.map((t) => t.id));
-
-      return {
-        success: true,
-        value: true,
-      };
-    },
-    [deck]
-  );
+  const { onAdd, onRemove, onTagsChange } = useAnalyzeOperations({
+    deck,
+  });
 
   const setTranslationDirection = (isReverse: boolean) => {
     setTranslationPreset({

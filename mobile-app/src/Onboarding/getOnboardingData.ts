@@ -65,7 +65,10 @@ const getOnboardingCollection = (
     case 'zh-TW':
       return require('./data/zh-TW').onboardingCollection;
     default:
-      return require('./data/de').onboardingCollection;
+      return {
+        ...require('./data/de').onboardingCollection,
+        isFallback: true,
+      };
   }
 };
 
@@ -74,5 +77,17 @@ export const getOnboardingData = (
   targetLanguage: GoogleLanguage
 ): MobileOnboardingData => {
   const collection = getOnboardingCollection(sourceLanguage);
-  return collection[targetLanguage] ?? collection['en'];
+
+  if (collection[targetLanguage] === undefined) {
+    return {
+      ...collection['en'],
+      isFallback: true,
+    };
+  } else {
+    // @ts-ignore
+    return {
+      ...collection[targetLanguage],
+      isFallback: collection.isFallback,
+    };
+  }
 };

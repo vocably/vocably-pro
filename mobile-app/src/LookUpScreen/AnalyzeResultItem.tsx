@@ -14,6 +14,7 @@ type AnalyzeResultItem = FC<{
   onTagsChange: (id: string, tags: TagItem[]) => Promise<Result<true>>;
   item: AssociatedCard;
   deck: Deck;
+  hideOperations?: boolean;
 }>;
 
 export const AnalyzeResultItem: AnalyzeResultItem = ({
@@ -22,6 +23,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
   onTagsChange: onTagsChangePropFunction,
   item,
   deck,
+  hideOperations = false,
 }) => {
   const theme = useTheme();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -67,39 +69,40 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
         savingTagsInProgress={isSavingTags}
         onTagsChange={onTagsChange}
       />
-      <View
-        style={{
-          marginTop: 8,
-          marginRight: 8,
-          // To prevent jumping
-          height: 87,
-        }}
-      >
-        <IconButton
-          icon={!item.id ? 'plus-circle' : 'minus-circle'}
-          animated={true}
-          iconColor={!item.id ? theme.colors.primary : theme.colors.error}
-          onPress={toggleCard}
-          disabled={isProcessing}
-          style={{ margin: 0 }}
-        />
-        {item.id && (
-          <TagsSelector
-            value={item.card.tags}
-            onChange={onTagsChange}
-            deck={deck}
-            renderAnchor={({ openMenu, disabled }) => (
-              <IconButton
-                icon={'tag-plus'}
-                iconColor={theme.colors.primary}
-                onPress={openMenu}
-                disabled={disabled}
-                style={{ margin: 0 }}
-              />
-            )}
+      {!hideOperations && (
+        <View
+          style={{
+            marginTop: 12,
+            // To prevent jumping
+            height: 87,
+          }}
+        >
+          <IconButton
+            icon={!item.id ? 'plus-circle' : 'minus-circle'}
+            animated={true}
+            iconColor={!item.id ? theme.colors.primary : theme.colors.error}
+            onPress={toggleCard}
+            disabled={isProcessing}
+            style={{ margin: 0 }}
           />
-        )}
-      </View>
+          {item.id && (
+            <TagsSelector
+              value={item.card.tags}
+              onChange={onTagsChange}
+              deck={deck}
+              renderAnchor={({ openMenu, disabled }) => (
+                <IconButton
+                  icon={'tag-plus'}
+                  iconColor={theme.colors.primary}
+                  onPress={openMenu}
+                  disabled={disabled}
+                  style={{ margin: 0 }}
+                />
+              )}
+            />
+          )}
+        </View>
+      )}
     </View>
   );
 };

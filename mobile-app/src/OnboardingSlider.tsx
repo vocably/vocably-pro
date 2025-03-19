@@ -14,11 +14,15 @@ import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem } from './CardListItem';
+import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { LanguagesContext } from './languages/LanguagesContainer';
+import { AnalyzeResultItem } from './LookUpScreen/AnalyzeResultItem';
+import { associateCards } from './LookUpScreen/associateCards';
 import { SearchInput } from './LookUpScreen/SearchInput';
 import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
 import { getOnboardingData } from './Onboarding/getOnboardingData';
 import { Telephone } from './Telephone';
+import { useAnalyzeOperations } from './useAnalyzeOperations';
 import { useColorScheme } from './useColorScheme';
 import { WelcomeContext } from './WelcomeContainer';
 
@@ -35,9 +39,14 @@ export const OnboardingSlider: FC<Props> = ({
   targetLanguage,
   setIsReverse,
 }) => {
+  const deck = useLanguageDeck({
+    language: sourceLanguage,
+    autoReload: true,
+  });
+
   const navigation: any = useNavigation();
   const swiperRef = useRef<Swiper>(null);
-  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const { height: windowHeight } = useWindowDimensions();
   const { languages } = useContext(LanguagesContext);
 
   const theme = useTheme();
@@ -47,7 +56,16 @@ export const OnboardingSlider: FC<Props> = ({
 
   const onboardingData = getOnboardingData(sourceLanguage, targetLanguage);
 
+  const welcomeScreenAssociatedCards = associateCards(
+    [onboardingData.welcomeScreenCard],
+    deck.deck.cards
+  );
+
   const posthog = usePostHog();
+
+  const { onAdd, onRemove, onTagsChange } = useAnalyzeOperations({
+    deck,
+  });
 
   return (
     <View style={{ height: sliderHeight }}>
@@ -84,24 +102,61 @@ export const OnboardingSlider: FC<Props> = ({
           <Text style={{ fontSize: 22, textAlign: 'center' }}>
             Vocably translates words and makes flashcards like this one:
           </Text>
+
+          {onboardingData.isFallback && (
+            <View>
+              <Text style={{ fontWeight: 'bold' }}>
+                Note from the author of Vocably
+              </Text>
+              <Text>
+                These card samples are inaccurate and confusing. I apologize for
+                that. I'm working on accurate examples for onboarding users who
+                study {languageList[sourceLanguage]} and speak{' '}
+                {languageList[targetLanguage]}.
+              </Text>
+            </View>
+          )}
+
           <View
             style={{
-              borderRadius: 16,
-              padding: 16,
-              borderWidth: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
               borderColor: theme.colors.secondary,
-              backgroundColor: theme.colors.surfaceVariant,
+              borderWidth: 1,
+              borderRadius: 16,
             }}
           >
-            <CardListItem
-              style={{
-                width: '100%',
-                padding: 0,
-                paddingHorizontal: 0,
-                paddingVertical: 0,
+            <AnalyzeResultItem
+              hideOperations={!!onboardingData.isFallback}
+              onAdd={(card) => {
+                posthog.capture('onboardingCardAdded', {
+                  sourceLanguage,
+                  targetLanguage,
+                  cardSource: welcomeScreenAssociatedCards[0].card.source,
+                });
+                return onAdd(card);
               }}
-              card={onboardingData.welcomeScreenCard}
-              showExamples={true}
+              onRemove={(card) => {
+                posthog.capture('onboardingCardRemoved', {
+                  sourceLanguage,
+                  targetLanguage,
+                  cardSource: welcomeScreenAssociatedCards[0].card.source,
+                });
+
+                return onRemove(card);
+              }}
+              onTagsChange={(id, tags) => {
+                posthog.capture('onboardingCardTagsChange', {
+                  sourceLanguage,
+                  targetLanguage,
+                  cardSource: welcomeScreenAssociatedCards[0].card.source,
+                  tags: tags.map((tag) => tag.data.title),
+                });
+
+                return onTagsChange(id, tags);
+              }}
+              item={welcomeScreenAssociatedCards[0]}
+              deck={deck}
             />
           </View>
           <Text style={{ fontSize: 22, textAlign: 'center' }}>

@@ -21,8 +21,10 @@ export type MobileOnboardingData = {
     text: string;
     results: [Card, ...Card[]];
   };
+  isFallback?: boolean;
 };
 
 export type MobileOnboardingDataCollection = {
   en: MobileOnboardingData;
+  isFallback?: boolean;
 } & Partial<Record<GoogleLanguage, MobileOnboardingData>>;
