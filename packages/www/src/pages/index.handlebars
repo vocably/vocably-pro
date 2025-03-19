@@ -1,6 +1,7 @@
 {{#> layout
   title='Language Flashcards'
   url='/'
+  hideNavBar=true
 }}
   <style>
     .show-android,
@@ -71,6 +72,7 @@
 
     .headline {
       & .headline-text {
+        margin: 5rem 0;
         font-size: 2.5rem;
         line-height: 3rem;
       }
@@ -137,23 +139,13 @@
     .navigation-button:disabled {
       color: #ccc;
     }
-
-    .navbar-bg {
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(10px);
-    }
-
-    .sticky-menu {
-      position: static;
-    }
-
-    .get-button {
-      display: none !important;
-    }
   </style>
   <div class="hero-container">
-    <div class="headline d-flex flex-column align-items-md-end justify-content-center z-1">
+    <div class="headline d-flex flex-column align-items-md-end justify-content-center z-1 ps-4 ps-md-0">
       <div class="p-4 py-md-0 me-md-5" style="pointer-events: all">
+        <div class="mb-3">
+          <img src="assets/logo-gray.svg" style="height: 1.5rem;" alt="Vocably" />
+        </div>
         <h1 class="headline-text gradient-headline mb-2">
           A cross-platform language learning tool
         </h1>
@@ -253,7 +245,7 @@
             </div>
           </swiper-slide>
           <swiper-slide
-              class="android-lookup show-android hero-slide p-4 p-xxl-5 pb-0"
+            class="android-lookup show-android hero-slide p-4 p-xxl-5 pb-0"
           >
             <style>
               .android-lookup {

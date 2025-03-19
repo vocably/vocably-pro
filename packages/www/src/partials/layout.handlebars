@@ -19,7 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
     <base href="/" />
   </head>
-  <body id="page-top" class="d-flex flex-column h-100">
+  <body id="page-top" class="d-flex flex-column min-vh-100">
     <script type="text/javascript">
       (function(window, document, dataLayerName, id) {
         window[dataLayerName]=window[dataLayerName]||[],window[dataLayerName].push({start:(new Date).getTime(),event:"stg.start"});var scripts=document.getElementsByTagName("script")[0],tags=document.createElement("script");
@@ -30,7 +30,7 @@
         !function(a,n,i){a[n]=a[n]||{};for(var c=0;c<i.length;c++)!function(i){a[n][i]=a[n][i]||{},a[n][i].api=a[n][i].api||function(){var a=[].slice.call(arguments,0);"string"==typeof a[0]&&window[dataLayerName].push({event:n+"."+i+":"+a[0],parameters:[].slice.call(arguments,1)})}}(i[c])}(window,"ppms",["tm","cm"]);
       })(window, document, "dataLayer", "{{ htmlWebpackPlugin.options.environment.piwikId }}");
     </script>
-    <main class="flex-shrink-0 px-2">
+    {{#unless hideNavBar}}
       <style>
         .navbar-bg {
           background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.2) 100%);
@@ -90,6 +90,8 @@
           </div>
         </div>
       </nav>
+    {{/unless}}
+    <main class="flex-shrink-0 px-2">
       {{> @partial-block }}
     </main>
 
