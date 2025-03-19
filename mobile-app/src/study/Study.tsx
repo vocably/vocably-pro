@@ -99,8 +99,9 @@ export const Study: FC<Props> = ({
           if (result.success === false) {
             Alert.alert(
               `Error: Card update failed`,
-              // `Oops! Unable to continue practice session due to a technical issue. Please try again later or contact support for assistance.`,
-              `Oops! Unable to continue practice session due to a technical issue. Please try again later.`,
+              result.errorCode === 'NETWORK_REQUEST_ERROR'
+                ? `Your answer wasn't saved due to a lost connection. The session will stop and resume from the failed answer.`
+                : `Oops! Unable to continue practice session due to a technical issue. Please try again later.`,
               [
                 {
                   text: 'Exit practice session',

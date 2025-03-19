@@ -55,6 +55,18 @@ export const request = async (
       };
     }
 
+    if (
+      e.message === 'Failed to fetch' ||
+      e.message === 'Network request failed'
+    ) {
+      return {
+        success: false,
+        errorCode: 'NETWORK_REQUEST_ERROR',
+        reason: 'Network request failed',
+        extra: e,
+      };
+    }
+
     return {
       success: false,
       errorCode: 'API_REQUEST_UNHANDLED_ERROR',
