@@ -532,19 +532,17 @@ export class VocablyTranslation {
                               </button>
                             )}
                           </div>
-                          <div
-                            class={{
-                              'vocably-safe-action-area': true,
-                              'vocably-card-hint-displayed':
-                                itemIndex === 0 && this.showSaveHint,
-                            }}
-                          >
+                          <div class="vocably-safe-action-area">
                             <vocably-card-source
                               card={card}
                               playAudioPronunciation={
                                 this.playAudioPronunciation
                               }
-                              class="vocably-mb-6"
+                              class={{
+                                'vocably-mb-6': true,
+                                'vocably-card-hint-displayed':
+                                  itemIndex === 0 && this.showSaveHint,
+                              }}
                             ></vocably-card-source>
                             <vocably-card-definitions
                               class="vocably-mb-6"
