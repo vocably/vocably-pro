@@ -117,6 +117,7 @@ export const setContents = async ({
         });
     };
 
+    translation.updateCard = api.updateCard;
     translation.attachTag = api.attachTag;
     translation.detachTag = api.detachTag;
     translation.deleteTag = api.deleteTag;

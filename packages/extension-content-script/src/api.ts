@@ -26,6 +26,7 @@ import {
   setInternalProxyLanguage,
   setInternalSourceLanguage,
   setUserKnowsHowToAdd,
+  updateCard,
   updateTag,
 } from '@vocably/extension-messages';
 
@@ -55,6 +56,7 @@ export const api = {
   getLocationLanguage,
   saveLocationLanguage,
   getSettings,
+  updateCard,
   attachTag,
   detachTag,
   updateTag,

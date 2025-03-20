@@ -181,6 +181,33 @@ registerContentScript({
         });
       }),
 
+    updateCard: (payload) => {
+      return new Promise((resolve) => {
+        const translationCards = cloneDeep(payload.translationCards);
+
+        translationCards.cards = translationCards.cards.map((existingCard) => {
+          if (!isEqual(existingCard, payload.card)) {
+            return existingCard;
+          }
+
+          return {
+            ...payload.card,
+            data: {
+              ...payload.card.data,
+              ...payload.data,
+            },
+          };
+        });
+
+        setTimeout(() => {
+          resolve({
+            success: true,
+            value: translationCards,
+          });
+        }, 1000);
+      });
+    },
+
     attachTag: (payload) =>
       new Promise((resolve) => {
         const translationCards = cloneDeep(payload.translationCards);

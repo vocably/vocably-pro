@@ -1,5 +1,5 @@
 import { Translation } from './analysis';
-import { CardItem, TagItem } from './language-deck';
+import { Card, CardItem, TagItem } from './language-deck';
 
 export type DetachedCard = Omit<
   CardItem['data'],
@@ -29,6 +29,12 @@ export type AddCardPayload = {
 };
 
 export type TagCandidate = TagItem | Pick<TagItem, 'data'>;
+
+export type UpdateCardPayload = {
+  translationCards: TranslationCards;
+  card: TranslationCard;
+  data: Partial<Card>;
+};
 
 export type AttachTagPayload = {
   translationCards: TranslationCards;

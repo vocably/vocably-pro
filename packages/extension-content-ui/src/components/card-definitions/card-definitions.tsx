@@ -1,5 +1,10 @@
-import { Component, h, Host, Prop } from '@stencil/core';
-import { TranslationCard } from '@vocably/model';
+import { Component, h, Prop } from '@stencil/core';
+import {
+  Card,
+  Result,
+  TranslationCard,
+  TranslationCards,
+} from '@vocably/model';
 import { explode } from '@vocably/sulna';
 
 @Component({
@@ -9,15 +14,19 @@ import { explode } from '@vocably/sulna';
 })
 export class VocablyCardDefinitions {
   @Prop() card: TranslationCard;
+  @Prop() updateCard: (
+    data: Partial<Card>
+  ) => Promise<Result<TranslationCards>>;
 
   render() {
     const definitions = explode(this.card.data.definition);
 
     if (definitions.length === 0) {
       return (
-        <Host>
-          <div class="vocably-italic">{this.card.data.translation}</div>
-        </Host>
+        <vocably-card-translation
+          card={this.card}
+          updateCard={this.updateCard}
+        ></vocably-card-translation>
       );
     }
 
@@ -25,7 +34,10 @@ export class VocablyCardDefinitions {
       <ul class="vocably-list">
         {this.card.data.translation && (
           <li>
-            <span class="vocably-italic">{this.card.data.translation}</span>
+            <vocably-card-translation
+              card={this.card}
+              updateCard={this.updateCard}
+            ></vocably-card-translation>
           </li>
         )}
         {definitions.map((item) => (

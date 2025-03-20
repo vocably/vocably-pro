@@ -15,6 +15,7 @@ import {
   AddCardPayload,
   AttachTagPayload,
   AudioPronunciationPayload,
+  Card,
   CardItem,
   DeleteTagPayload,
   DetachTagPayload,
@@ -30,6 +31,7 @@ import {
   TagItem,
   TranslationCard,
   TranslationCards,
+  UpdateCardPayload,
   UpdateTagPayload,
 } from '@vocably/model';
 import { getSelectedTagIds } from './getSelectedTagIds';
@@ -57,6 +59,9 @@ export class VocablyTranslation {
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
   @Prop() extensionPlatform: { name: string; url: string };
+  @Prop() updateCard: (
+    payload: UpdateCardPayload
+  ) => Promise<Result<TranslationCards>>;
   @Prop() attachTag: (
     data: AttachTagPayload
   ) => Promise<Result<TranslationCards>>;
@@ -103,6 +108,25 @@ export class VocablyTranslation {
 
   private overlay: HTMLElement | null = null;
   private tagsMenu: HTMLElement | null = null;
+
+  private makeUpdateCard =
+    (card: TranslationCard) => async (data: Partial<Card>) => {
+      if (this.result.success === false) {
+        return this.result;
+      }
+
+      const result = await this.updateCard({
+        card,
+        data,
+        translationCards: this.result.value,
+      });
+
+      if (result.success === true) {
+        this.result = result;
+      }
+
+      return result;
+    };
 
   private showTagMenu(caller: HTMLElement, cardId: string) {
     if (this.result === null || !this.result.success) {
@@ -525,6 +549,7 @@ export class VocablyTranslation {
                             <vocably-card-definitions
                               class="vocably-mb-6"
                               card={card}
+                              updateCard={this.makeUpdateCard(card)}
                             ></vocably-card-definitions>
                             {card.data.example && (
                               <div>

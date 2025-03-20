@@ -44,12 +44,14 @@ import {
   onSetSettingsRequest,
   onSetSourceLanguage,
   onSetUserKnowsHowToAdd,
+  onUpdateCard,
   onUpdateTag,
   playAudioPronunciationOffscreen,
 } from '@vocably/extension-messages';
 import {
   Analysis,
   AnalyzePayload,
+  Card,
   Facility,
   GoogleLanguage,
   isCardItem,
@@ -57,6 +59,8 @@ import {
   LanguageDeck,
   mapUserAttributes,
   Result,
+  TranslationCard,
+  TranslationCards,
 } from '@vocably/model';
 import { buildTagMap } from '@vocably/model-operations';
 import { createSrsItem } from '@vocably/srs';
@@ -580,6 +584,99 @@ export const registerServiceWorker = (
     }
 
     return sendResponse(await playAudioPronunciationOffscreen(payload));
+  });
+
+  type UpdateDetachedCardPayload = {
+    translationCards: TranslationCards;
+    card: TranslationCard;
+    data: Partial<Card>;
+  };
+  const updateDetachedCard = ({
+    translationCards,
+    card,
+    data,
+  }: UpdateDetachedCardPayload): Result<TranslationCards> => {
+    return {
+      success: true,
+      value: {
+        ...translationCards,
+        cards: translationCards.cards.map((translationCard) => {
+          if (!isEqual(translationCard, card)) {
+            return translationCard;
+          }
+
+          return {
+            ...translationCard,
+            data: {
+              ...translationCard.data,
+              ...data,
+            },
+          };
+        }),
+      },
+    };
+  };
+
+  onUpdateCard(async (sendResponse, payload) => {
+    if (payload.data.translation) {
+      posthog.capture('cardTranslationUpdated', {
+        sourceLanguage: payload.translationCards.translation.sourceLanguage,
+        targetLanguage: payload.translationCards.translation.targetLanguage,
+        source: payload.translationCards.source,
+        originalTranslation: payload.card.data.translation,
+        newTranslation: payload.data.translation,
+      });
+    }
+
+    if (!isCardItem(payload.card)) {
+      return sendResponse(
+        updateDetachedCard({
+          ...payload,
+          card: payload.card,
+        })
+      );
+    }
+
+    const languageDeckResult = await loadLanguageDeck(
+      payload.translationCards.translation.sourceLanguage
+    );
+
+    if (languageDeckResult.success === false) {
+      return sendResponse(languageDeckResult);
+    }
+
+    const updateResult = makeUpdate(languageDeckResult.value.cards)(
+      payload.card.id,
+      payload.data
+    );
+
+    if (updateResult.success === false) {
+      return sendResponse(updateResult);
+    }
+
+    const saveResult = await saveLanguageDeck(languageDeckResult.value);
+
+    if (saveResult.success === false) {
+      return sendResponse(saveResult);
+    }
+
+    return sendResponse({
+      success: true,
+      value: {
+        ...payload.translationCards,
+        cards: payload.translationCards.cards.map((c) => {
+          if (!isItem(c)) {
+            return c;
+          }
+
+          if (c.id !== updateResult.value.id) {
+            return c;
+          }
+
+          return updateResult.value;
+        }),
+      },
+    });
   });
 
   onAttachTag(async (sendResponse, payload) => {

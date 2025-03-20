@@ -1,0 +1,60 @@
+@import '../../styles/component';
+
+vocably-card-translation {
+  @include base-font();
+  display: block;
+
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
+}
+
+$height: 20px;
+
+.translation-icon-button {
+  @include unstyled();
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  line-height: inherit;
+  height: $height;
+}
+
+.hover-button {
+  .translation-icon-button {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  &:hover {
+    .translation-icon-button {
+      opacity: 1;
+    }
+  }
+}
+
+.translation-icon-button:focus {
+  opacity: 1;
+}
+
+.text-input {
+  line-height: inherit;
+  background-color: transparent;
+  padding: 0 4px;
+  border: none;
+  display: inline-block;
+  width: calc(100% - 80px) !important;
+  height: $height;
+  outline: 0.8px solid $v-light-color-border;
+  border-radius: 4px;
+  margin-right: 6px;
+
+  &:focus {
+    background-color: #fff;
+  }
+}
+
+.spin-icon {
+  --size: 12px;
+  vertical-align: middle;
+}

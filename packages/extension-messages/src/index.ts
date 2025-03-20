@@ -14,6 +14,7 @@ import {
   Result,
   ReverseAnalyzePayload,
   TranslationCards,
+  UpdateCardPayload,
   UpdateTagPayload,
 } from '@vocably/model';
 
@@ -186,6 +187,11 @@ export const [canPlayOffScreen, onCanPlayOffScreen] = createScopedMessage<
   void,
   boolean
 >('canPlayOffScreen');
+
+export const [updateCard, onUpdateCard] = createScopedMessage<
+  UpdateCardPayload,
+  Result<TranslationCards>
+>('updateCard');
 
 export const [attachTag, onAttachTag] = createScopedMessage<
   AttachTagPayload,
