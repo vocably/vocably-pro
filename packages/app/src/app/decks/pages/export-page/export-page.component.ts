@@ -79,9 +79,13 @@ export class ExportPageComponent implements OnInit, OnDestroy {
         return [
           prepareColumn(card.data.source, colDelimiter, rowDelimiter),
           prepareColumn(card.data.translation, colDelimiter, rowDelimiter),
-          prepareColumn(card.data.partOfSpeech, colDelimiter, rowDelimiter),
+          prepareColumn(
+            card.data.partOfSpeech ?? '',
+            colDelimiter,
+            rowDelimiter
+          ),
           prepareColumn(card.data.ipa ?? '', colDelimiter, rowDelimiter),
-          prepareColumn(card.data.definition, colDelimiter, rowDelimiter),
+          prepareColumn(card.data.definition ?? '', colDelimiter, rowDelimiter),
           prepareColumn(card.data.example ?? '', colDelimiter, rowDelimiter),
           prepareColumn(
             card.data.tags.map((t) => t.data.title).join(', '),
