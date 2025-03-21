@@ -12,9 +12,10 @@ import {
   isLoggedIn,
   removeCard,
   setSettings,
+  updateCard,
   updateTag,
 } from '@vocably/extension-messages';
-import { merge } from 'lodash-es';
+import { isEqual, merge } from 'lodash-es';
 import { environmentLocal } from './environmentLocal';
 
 let settings: ExtensionSettings = {
@@ -224,6 +225,30 @@ const mockGetLanguagePairs: typeof getLanguagePairs = async () => {
   };
 };
 
+const mockUpdateCard: typeof updateCard = async (payload) => {
+  await timeout(500);
+
+  return {
+    success: true,
+    value: {
+      ...payload.translationCards,
+      cards: payload.translationCards.cards.map((existingCard) => {
+        if (isEqual(existingCard, payload.card)) {
+          return {
+            ...existingCard,
+            data: {
+              ...existingCard.data,
+              ...payload.data,
+            },
+          };
+        }
+
+        return existingCard;
+      }),
+    },
+  };
+};
+
 export const environment = merge(environmentLocal, {
   production: false,
   analyze: mockAnalyze,
@@ -239,4 +264,5 @@ export const environment = merge(environmentLocal, {
   getInternalSourceLanguage: mockGetInternalSourceLanguage,
   getAudioPronunciation: mockGetAudioPronunciation,
   getLanguagePairs: mockGetLanguagePairs,
+  updateCard: mockUpdateCard,
 });

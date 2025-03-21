@@ -11,6 +11,7 @@ import {
   isLoggedIn,
   removeCard,
   setSettings,
+  updateCard,
   updateTag,
 } from '@vocably/extension-messages';
 import { merge } from 'lodash-es';
@@ -18,6 +19,7 @@ import { environmentLocal } from './environmentLocal';
 
 export const environment = merge(environmentLocal, {
   production: true,
+  updateCard: updateCard,
   analyze: analyze,
   addCard: addCard,
   attachTag: attachTag,

@@ -10,6 +10,7 @@ import {
   RemoveCardPayload,
   Result,
   TranslationCards,
+  UpdateCardPayload,
   UpdateTagPayload,
 } from '@vocably/model';
 import { first } from 'lodash-es';
@@ -147,6 +148,10 @@ export class HomePageComponent implements OnInit {
     this.isTranslationLoading = true;
     this.searchResult = await environment.updateTag(payload);
     this.isTranslationLoading = false;
+    return this.searchResult;
+  }
+  async updateCard(payload: UpdateCardPayload) {
+    this.searchResult = await environment.updateCard(payload);
     return this.searchResult;
   }
   async playAudioPronunciation(
