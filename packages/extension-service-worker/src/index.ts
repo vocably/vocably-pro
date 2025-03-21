@@ -514,17 +514,26 @@ export const registerServiceWorker = (
       return sendResponse(false);
     }
 
-    if (
+    const shouldAskForRating =
       userMetadata.rate[payload.extensionPlatform] &&
       userMetadata.rate[payload.extensionPlatform].response === 'feedback'
-    ) {
-      return sendResponse(counter % 30 === 0);
+        ? counter % 30 === 0
+        : counter % 10 === 0;
+
+    if (shouldAskForRating) {
+      posthog.capture('extensionAskForRatingShown', {
+        counter,
+      });
     }
 
-    return sendResponse(counter % 10 === 0);
+    return sendResponse(shouldAskForRating);
   });
 
   onSaveAskForRatingResponse(async (sendResponse, payload) => {
+    posthog.capture('extensionAskForRatingResponse', {
+      response: payload.rateInteraction,
+    });
+
     invalidateUserMetadata();
     const userMetadataResult = await getUserMetadata();
 
