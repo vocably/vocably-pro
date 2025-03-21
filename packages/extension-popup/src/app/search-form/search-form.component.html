@@ -1,4 +1,8 @@
-<form class="search-form" (submit)="$event.preventDefault(); submit()">
+<form
+  class="search-form"
+  autocomplete="off"
+  (submit)="$event.preventDefault(); submit()"
+>
   <div class="preset mb-0_5">
     <select
       class="language"
@@ -65,6 +69,9 @@
   </div>
   <div class="search-input">
     <input
+      autocomplete="off"
+      aria-haspopup="false"
+      autocapitalize="off"
       class="input"
       type="text"
       name="searchText"
