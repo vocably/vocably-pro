@@ -20,15 +20,20 @@ Vocably exists in multiple forms:
 - Browser extensions for [Desktop Chrome](https://chromewebstore.google.com/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb), [Desktop Safari](https://apps.apple.com/app/vocably-for-safari/id6464076425), and [iOS Safari](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757)
 - Mobile application for [iOS](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757) and [Android](https://play.google.com/store/apps/details?id=com.vocablypro)
 
-## How I use Vocably
+## In a nutshell
 
-[![How I use Vocably](assets/how-i-use-vocably.png?raw=true)](https://youtu.be/UwNog9yKCeA)
+![Browser extensions](assets/github/browser-extension.png)
+![Android integration](assets/github/android-integration.png)
+![Rich lexical information](assets/github/lexical-information.png)
+![Study as flashcards](assets/github/study.png)
+![Reverse translations](assets/github/reverse-translation.png)
+![Youtube integration](assets/github/youtube.png)
 
 ## License
 
 This is published under the [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) license.
 
-You can share and adapt it but may not use it commercially without the author's permission.
+_TLDR: You can share and adapt it but may not use it commercially without the author's permission._
 
 Some pieces of Vocably are released under the MIT license https://github.com/vocably
 
