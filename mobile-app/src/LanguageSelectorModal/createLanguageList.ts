@@ -15,27 +15,37 @@ export const createLanguageList = ({
   selected,
   preferred,
   preferredTitle,
+  searchText,
 }: {
   selected: string;
   preferred: string[];
   preferredTitle: string;
+  searchText: string;
 }): LanguageList => {
   const data: LanguageList = [];
 
-  if (selected && languageList[selected as GoogleLanguage]) {
+  const filteredLanguageList = Object.fromEntries(
+    Object.entries(languageList).filter(([languageKey, languageName]) =>
+      languageName.toLowerCase().includes(searchText.toLowerCase())
+    )
+  );
+
+  if (selected && filteredLanguageList[selected as GoogleLanguage]) {
     data.push({
       title: 'Selected',
       data: [
         {
           key: selected,
-          label: languageList[selected as GoogleLanguage],
+          label: filteredLanguageList[selected as GoogleLanguage],
           selected: true,
         },
       ],
     });
   }
 
-  const filteredPreferred = preferred.filter((l) => l !== selected);
+  const filteredPreferred = preferred
+    .filter((l) => l !== selected)
+    .filter((l) => filteredLanguageList[l] !== undefined);
 
   if (filteredPreferred.length > 0) {
     data.push({
@@ -43,14 +53,14 @@ export const createLanguageList = ({
       data: filteredPreferred.map((key) => ({
         key,
         selected: false,
-        label: languageList[key as GoogleLanguage],
+        label: filteredLanguageList[key as GoogleLanguage],
       })),
     });
   }
 
   data.push({
     title: 'Available',
-    data: Object.entries(languageList).map(([key, label]) => ({
+    data: Object.entries(filteredLanguageList).map(([key, label]) => ({
       key,
       label,
       selected: false,

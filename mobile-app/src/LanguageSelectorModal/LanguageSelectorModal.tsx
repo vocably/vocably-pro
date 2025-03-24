@@ -1,8 +1,9 @@
 import { NavigationProp, Route } from '@react-navigation/native';
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { ListRenderItem, Pressable, SectionList, View } from 'react-native';
 import { Appbar, Divider, Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { SearchInput } from '../SearchInput';
 import { createLanguageList, LanguageListItem } from './createLanguageList';
 
 const createItem =
@@ -60,6 +61,8 @@ export const LanguageSelectorModal: LanguageSelectorModal = ({
   } = route.params;
   const theme = useTheme();
 
+  const [searchText, setSearchText] = useState('');
+
   const onPress = useCallback(
     (language: string) => {
       onSelect(language);
@@ -79,8 +82,23 @@ export const LanguageSelectorModal: LanguageSelectorModal = ({
         <Appbar.Content title={title} />
         <Appbar.Action icon="close" onPress={() => navigation.goBack()} />
       </Appbar.Header>
+      <View style={{ padding: 8 }}>
+        <SearchInput
+          value={searchText}
+          placeholder="Search"
+          onChange={(value) => {
+            setSearchText(value);
+          }}
+          onSubmit={() => {}}
+        />
+      </View>
       <SectionList
-        sections={createLanguageList({ selected, preferred, preferredTitle })}
+        sections={createLanguageList({
+          selected,
+          preferred,
+          preferredTitle,
+          searchText,
+        })}
         renderItem={createItem(onPress)}
         renderSectionHeader={({ section: { title } }) => (
           <Text
