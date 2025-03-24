@@ -49,7 +49,7 @@ export const DeckStack = () => {
       />
       <Stack.Screen
         name="EditCard"
-        options={{ title: `Edit Card` }}
+        options={{ title: `Edit Card`, headerShown: false }}
         component={EditCardScreen}
       />
     </Stack.Navigator>

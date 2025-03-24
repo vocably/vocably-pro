@@ -2,7 +2,7 @@ import { NavigationProp, Route } from '@react-navigation/native';
 import { CardItem } from '@vocably/model';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, View } from 'react-native';
-import { Button, TextInput, useTheme } from 'react-native-paper';
+import { Appbar, TextInput, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { mainPadding } from './styles';
@@ -62,75 +62,81 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
 
   const theme = useTheme();
   return (
-    <ScrollView
-      automaticallyAdjustKeyboardInsets={true}
-      contentContainerStyle={{
-        paddingLeft: insets.left,
-        paddingRight: insets.right,
-        paddingBottom: insets.bottom,
-      }}
-    >
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'stretch',
-          justifyContent: 'flex-start',
-          padding: mainPadding,
-        }}
-      >
-        <TextInput
-          style={styles.inputItem}
-          mode={'outlined'}
-          label={'Source'}
-          value={cardData.source}
-          onChangeText={onTextChange('source')}
-        ></TextInput>
-        <TextInput
-          style={styles.inputItem}
-          mode={'outlined'}
-          label={'Transcription'}
-          value={cardData.ipa}
-          onChangeText={onTextChange('ipa')}
-        ></TextInput>
-        <TextInput
-          style={styles.inputItem}
-          mode={'outlined'}
-          label={'Part of Speech'}
-          value={cardData.partOfSpeech}
-          onChangeText={onTextChange('partOfSpeech')}
-        ></TextInput>
-        <TextInput
-          style={styles.inputItem}
-          mode={'outlined'}
-          label={'Translation'}
-          value={cardData.translation}
-          onChangeText={onTextChange('translation')}
-        ></TextInput>
-        <TextInput
-          style={styles.inputItem}
-          mode={'outlined'}
-          label={'Definition'}
-          value={cardData.definition}
-          multiline={true}
-          onChangeText={onTextChange('definition')}
-        ></TextInput>
-        <TextInput
-          style={styles.inputItem}
-          mode={'outlined'}
-          label={'Example'}
-          value={cardData.example}
-          multiline={true}
-          onChangeText={onTextChange('example')}
-        ></TextInput>
-        <Button
-          mode={'contained'}
+    <>
+      <Appbar.Header>
+        <Appbar.BackAction onPress={navigation.goBack} />
+        <Appbar.Content title="Edit Card" />
+        <Appbar.Action
+          icon={'check'}
+          size={32}
           loading={isUpdating}
           disabled={isUpdating}
           onPress={onUpdate}
+          color={theme.colors.primary}
+        />
+      </Appbar.Header>
+      <ScrollView
+        automaticallyAdjustKeyboardInsets={true}
+        contentContainerStyle={{
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+          paddingBottom: insets.bottom,
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'stretch',
+            justifyContent: 'flex-start',
+            padding: mainPadding,
+          }}
         >
-          Save
-        </Button>
-      </View>
-    </ScrollView>
+          <TextInput
+            style={styles.inputItem}
+            mode={'outlined'}
+            label={'Source'}
+            value={cardData.source}
+            onChangeText={onTextChange('source')}
+          ></TextInput>
+          <TextInput
+            style={styles.inputItem}
+            mode={'outlined'}
+            label={'Transcription'}
+            value={cardData.ipa}
+            onChangeText={onTextChange('ipa')}
+          ></TextInput>
+          <TextInput
+            style={styles.inputItem}
+            mode={'outlined'}
+            label={'Part of Speech'}
+            value={cardData.partOfSpeech}
+            onChangeText={onTextChange('partOfSpeech')}
+          ></TextInput>
+          <TextInput
+            style={styles.inputItem}
+            mode={'outlined'}
+            label={'Translation'}
+            value={cardData.translation}
+            onChangeText={onTextChange('translation')}
+          ></TextInput>
+          <TextInput
+            style={styles.inputItem}
+            mode={'outlined'}
+            label={'Definition'}
+            value={cardData.definition}
+            multiline={true}
+            onChangeText={onTextChange('definition')}
+          ></TextInput>
+          <TextInput
+            style={styles.inputItem}
+            mode={'outlined'}
+            label={'Example'}
+            value={cardData.example}
+            multiline={true}
+            onChangeText={onTextChange('example')}
+          ></TextInput>
+        </View>
+      </ScrollView>
+    </>
   );
 };
