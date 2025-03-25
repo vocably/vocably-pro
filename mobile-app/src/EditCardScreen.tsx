@@ -12,6 +12,7 @@ import {
 } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
+import { Loader } from './loaders/Loader';
 import { mainPadding } from './styles';
 import { TagsSelector } from './TagsSelector';
 
@@ -40,6 +41,8 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
   const [cardData, setCardData] = useState({ ...card.data });
   const [isUpdating, setIsUpdating] = useState(false);
   const [savingTags, setSavingTags] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const theme = useTheme();
 
   const insets = useSafeAreaInsets();
 
@@ -82,7 +85,38 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
     }
   };
 
-  const theme = useTheme();
+  const onDelete = async () => {
+    Alert.alert(
+      'Delete this card?',
+      'This operation can not be undone',
+      [
+        { text: 'Cancel', onPress: () => {} },
+        {
+          text: 'Delete',
+          onPress: async () => {
+            setIsDeleting(true);
+            const deleteResult = await deck.remove(card.id);
+            if (deleteResult.success === false) {
+              setIsDeleting(false);
+              Alert.alert('Unable to delete the card. Please try again.');
+              return;
+            }
+            navigation.goBack();
+          },
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  if (isDeleting) {
+    return (
+      <View style={{ flex: 1 }}>
+        <Loader>Deleting card...</Loader>
+      </View>
+    );
+  }
+
   return (
     <>
       <Appbar.Header statusBarHeight={0}>
@@ -202,6 +236,13 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
             multiline={true}
             onChangeText={onTextChange('example')}
           ></TextInput>
+          <Button
+            icon={'delete'}
+            textColor={theme.colors.error}
+            onPress={onDelete}
+          >
+            Delete this card
+          </Button>
         </View>
       </ScrollView>
     </>
