@@ -7,8 +7,15 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { Button, useTheme } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+const WEAK_SCORE = 0;
+const MEDIUM_SCORE = 3;
+const STRONG_SCORE = 5;
+
+const buttonAnimationDuration = 300;
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +40,7 @@ export const SwipeGrade: FC<{
   const theme = useTheme();
 
   const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
 
   const sufficientHorizontalDisplacement = Math.min(windowWidth / 4, 110);
   const sufficientVerticalDisplacement = Math.min(windowHeight / 5, 110);
@@ -77,7 +85,7 @@ export const SwipeGrade: FC<{
         if (movementRef.current === null) {
           if (Math.abs(gestureState.dx * 2) > Math.abs(gestureState.dy)) {
             movementRef.current = 'horizontal';
-          } else if (gestureState.dy > 5) {
+          } else if (Math.abs(gestureState.dy) > 5) {
             movementRef.current = 'vertical';
           }
         }
@@ -106,7 +114,7 @@ export const SwipeGrade: FC<{
             x: gestureState.dx,
             y: 0,
           });
-        } else if (movementRef.current === 'vertical' && gestureState.dy > 0) {
+        } else if (movementRef.current === 'vertical') {
           mediumVisibility.setValue(
             Math.min(1, gestureState.dy / sufficientVerticalDisplacement)
           );
@@ -144,7 +152,7 @@ export const SwipeGrade: FC<{
               duration: fastReleaseAnimationDuration,
               useNativeDriver: true,
             }).start(() => {
-              onGrade(0);
+              onGrade(WEAK_SCORE);
             });
             return;
           }
@@ -158,7 +166,7 @@ export const SwipeGrade: FC<{
               duration: fastReleaseAnimationDuration,
               useNativeDriver: true,
             }).start(() => {
-              onGrade(3);
+              onGrade(MEDIUM_SCORE);
             });
             return;
           }
@@ -172,7 +180,7 @@ export const SwipeGrade: FC<{
               duration: fastReleaseAnimationDuration,
               useNativeDriver: true,
             }).start(() => {
-              onGrade(5);
+              onGrade(STRONG_SCORE);
             });
             return;
           }
@@ -192,6 +200,57 @@ export const SwipeGrade: FC<{
       },
     })
   ).current;
+
+  const weak = () => {
+    Animated.parallel([
+      Animated.timing(pan.x, {
+        toValue: -windowWidth,
+        duration: buttonAnimationDuration,
+        useNativeDriver: true,
+      }),
+      Animated.timing(weakVisibility, {
+        toValue: 1,
+        duration: buttonAnimationDuration,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      onGrade(WEAK_SCORE);
+    });
+  };
+
+  const medium = () => {
+    Animated.parallel([
+      Animated.timing(pan.y, {
+        toValue: windowHeight,
+        duration: buttonAnimationDuration,
+        useNativeDriver: true,
+      }),
+      Animated.timing(mediumVisibility, {
+        toValue: 1,
+        duration: buttonAnimationDuration,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      onGrade(MEDIUM_SCORE);
+    });
+  };
+
+  const strong = () => {
+    Animated.parallel([
+      Animated.timing(pan.x, {
+        toValue: windowWidth,
+        duration: buttonAnimationDuration,
+        useNativeDriver: true,
+      }),
+      Animated.timing(strongVisibility, {
+        toValue: 1,
+        duration: buttonAnimationDuration,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      onGrade(STRONG_SCORE);
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -246,6 +305,45 @@ export const SwipeGrade: FC<{
       >
         {children}
       </Animated.View>
+      <View
+        style={{
+          position: 'absolute',
+          bottom: insets.bottom + 16,
+          paddingLeft: 16 + insets.left,
+          paddingRight: 16 + insets.right,
+          left: 0,
+          right: 0,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          gap: 6,
+        }}
+      >
+        <Button
+          style={{ flex: 1 }}
+          icon={'close'}
+          textColor={theme.colors.error}
+          onPress={weak}
+          mode="elevated"
+        >
+          Weak
+        </Button>
+        <Button
+          style={{ flex: 1 }}
+          icon={'check'}
+          onPress={medium}
+          mode="elevated"
+        >
+          Okay
+        </Button>
+        <Button
+          style={{ flex: 1 }}
+          icon={'check-all'}
+          onPress={strong}
+          mode="elevated"
+        >
+          Strong
+        </Button>
+      </View>
     </View>
   );
 };
