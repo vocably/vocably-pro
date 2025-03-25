@@ -1,15 +1,8 @@
 import { NavigationProp, Route } from '@react-navigation/native';
 import { CardItem, TagItem } from '@vocably/model';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, View } from 'react-native';
-import {
-  ActivityIndicator,
-  Appbar,
-  Button,
-  Chip,
-  TextInput,
-  useTheme,
-} from 'react-native-paper';
+import { Alert, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { Appbar, Button, Chip, TextInput, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelectedDeck } from './languageDeck/useSelectedDeck';
 import { Loader } from './loaders/Loader';
@@ -18,7 +11,7 @@ import { TagsSelector } from './TagsSelector';
 
 const styles = StyleSheet.create({
   inputItem: {
-    marginBottom: 24,
+    marginBottom: 16,
     textAlign: 'auto',
   },
 });
@@ -151,18 +144,28 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
             padding: mainPadding,
           }}
         >
-          <View style={{ marginBottom: 24, alignItems: 'flex-start' }}>
+          <View
+            style={{
+              marginBottom: 24,
+              alignItems: Platform.OS === 'android' ? 'flex-start' : 'center',
+            }}
+          >
             <TagsSelector
               value={cardData.tags}
               onChange={onTagsChange}
               deck={deck}
               renderAnchor={({ openMenu, disabled }) => (
-                <Button onPress={openMenu} disabled={disabled} icon={'tag'}>
+                <Button
+                  onPress={openMenu}
+                  disabled={disabled}
+                  icon={'tag'}
+                  loading={savingTags}
+                >
                   Manage card tags (folders)
                 </Button>
               )}
             />
-            {(cardData.tags.length > 0 || savingTags) && (
+            {cardData.tags.length > 0 && (
               <View
                 style={{
                   marginTop: 8,
@@ -185,9 +188,6 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
                     {tag.data.title}
                   </Chip>
                 ))}
-                {savingTags && (
-                  <ActivityIndicator color={theme.colors.onBackground} />
-                )}
               </View>
             )}
           </View>
@@ -198,6 +198,7 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
             label={'Source'}
             value={cardData.source}
             onChangeText={onTextChange('source')}
+            outlineColor={theme.colors.outlineVariant}
           ></TextInput>
           <TextInput
             style={styles.inputItem}
@@ -205,6 +206,7 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
             label={'Transcription'}
             value={cardData.ipa}
             onChangeText={onTextChange('ipa')}
+            outlineColor={theme.colors.outlineVariant}
           ></TextInput>
           <TextInput
             style={styles.inputItem}
@@ -212,6 +214,7 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
             label={'Part of Speech'}
             value={cardData.partOfSpeech}
             onChangeText={onTextChange('partOfSpeech')}
+            outlineColor={theme.colors.outlineVariant}
           ></TextInput>
           <TextInput
             style={styles.inputItem}
@@ -219,6 +222,7 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
             label={'Translation'}
             value={cardData.translation}
             onChangeText={onTextChange('translation')}
+            outlineColor={theme.colors.outlineVariant}
           ></TextInput>
           <TextInput
             style={styles.inputItem}
@@ -227,6 +231,7 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
             value={cardData.definition}
             multiline={true}
             onChangeText={onTextChange('definition')}
+            outlineColor={theme.colors.outlineVariant}
           ></TextInput>
           <TextInput
             style={styles.inputItem}
@@ -235,6 +240,7 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
             value={cardData.example}
             multiline={true}
             onChangeText={onTextChange('example')}
+            outlineColor={theme.colors.outlineVariant}
           ></TextInput>
           <Button
             icon={'delete'}
