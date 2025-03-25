@@ -36,7 +36,7 @@ export const clear = async (keys: string[]): Promise<void> => {
 
 export const clearAll = async (): Promise<void> => {
   if (Platform.OS === 'ios') {
-    return iosGroupStorage.clearAll();
+    await iosGroupStorage.clearAll();
   }
 
   const allKeys = (await AsyncStorage.getAllKeys()).filter(
