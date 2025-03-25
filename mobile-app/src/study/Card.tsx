@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CardItem } from '@vocably/model';
 import React, { FC, useCallback, useRef, useState } from 'react';
 import {
@@ -6,10 +7,12 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import { useAsync } from '../useAsync';
 import { CardBack } from './Card/CardBack';
 import { CardFront } from './Card/CardFront';
 import { ReverseCardBack } from './Card/ReverseCardBack';
 import { ReverseCardFront } from './Card/ReverseCardFront';
+import { TapDot } from './Card/TapDot';
 import { Displayer } from './Displayer';
 
 const styles = StyleSheet.create({
@@ -36,6 +39,15 @@ const styles = StyleSheet.create({
     backfaceVisibility: 'hidden',
   },
 });
+
+const loadTapHelperIsNeeded = () =>
+  AsyncStorage.getItem('swiperTapHelperIsNeeded').then(
+    (value) => value !== 'false'
+  );
+
+const setTapHelperIsNeeded = async (isNeeded: boolean) => {
+  AsyncStorage.setItem('swiperTapHelperIsNeeded', isNeeded ? 'true' : 'false');
+};
 
 type Props = {
   autoPlay: boolean;
@@ -69,6 +81,11 @@ export const Card: FC<Props> = ({ card, autoPlay, direction }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [hasChecked, setHasChecked] = useState(false);
 
+  const [tapHelperIsNeededResult, mutateTapHelperIsNeeded] = useAsync(
+    loadTapHelperIsNeeded,
+    setTapHelperIsNeeded
+  );
+
   const flipToBack = useCallback(() => {
     setIsFlipped(true);
     Animated.timing(flipAnimation, {
@@ -90,11 +107,23 @@ export const Card: FC<Props> = ({ card, autoPlay, direction }) => {
 
   const isReverse = direction === 'back';
 
+  const onPress = () => {
+    isFlipped ? flipToFront() : flipToBack();
+    mutateTapHelperIsNeeded(false);
+  };
+
   return (
     <Displayer style={{ flex: 1 }}>
-      <TouchableWithoutFeedback
-        onPress={() => (isFlipped ? flipToFront() : flipToBack())}
-      >
+      {tapHelperIsNeededResult.status === 'loaded' &&
+        tapHelperIsNeededResult.value && (
+          <TapDot
+            style={{
+              right: '10%',
+              bottom: '20%',
+            }}
+          />
+        )}
+      <TouchableWithoutFeedback onPress={onPress}>
         <View style={styles.container}>
           <Animated.View
             style={{

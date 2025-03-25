@@ -248,7 +248,6 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
             onPress={() =>
               navigation.navigate('EditCardModal', {
                 card: cards[0],
-                onUpdate: () => {},
               })
             }
           />
