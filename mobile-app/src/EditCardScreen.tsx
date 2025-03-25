@@ -85,12 +85,16 @@ export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
   const theme = useTheme();
   return (
     <>
-      <Appbar.Header>
-        <Appbar.BackAction onPress={navigation.goBack} />
+      <Appbar.Header statusBarHeight={0}>
+        <Appbar.Action
+          icon={'close'}
+          size={24}
+          onPress={() => navigation.goBack()}
+        />
         <Appbar.Content title="Edit Card" />
         <Appbar.Action
           icon={'check'}
-          size={32}
+          size={24}
           loading={isUpdating}
           disabled={isUpdating}
           onPress={onUpdate}

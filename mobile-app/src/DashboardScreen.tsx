@@ -349,7 +349,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
         keyExtractor={keyExtractor}
         renderItem={({ item }) => (
           <Pressable
-            onPress={() => navigation.navigate('EditCard', { card: item })}
+            onPress={() => navigation.navigate('EditCardModal', { card: item })}
             style={{
               backgroundColor: theme.colors.background,
               // This is to prevent the swipe menu

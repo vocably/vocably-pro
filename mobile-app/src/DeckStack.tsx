@@ -6,7 +6,6 @@ import { DashboardScreen } from './DashboardScreen';
 import { HowToGroupCardsScreen } from './DeckStack/HowToGroupCardsScreen';
 import { HowToImportAndExportScreen } from './DeckStack/HowToImportAndExportScreen';
 import { NotificationsScreen } from './DeckStack/NotificationsScreen';
-import { EditCardScreen } from './EditCardScreen';
 import { EditDeckScreen } from './EditDeckScreen';
 import { Header } from './Header';
 import { LanguagesContext } from './languages/LanguagesContainer';
@@ -46,11 +45,6 @@ export const DeckStack = () => {
         name="HowToImportAndExport"
         options={{ title: `Import/Export` }}
         component={HowToImportAndExportScreen}
-      />
-      <Stack.Screen
-        name="EditCard"
-        options={{ title: `Edit Card`, headerShown: false }}
-        component={EditCardScreen}
       />
     </Stack.Navigator>
   );
