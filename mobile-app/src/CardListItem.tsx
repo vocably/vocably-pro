@@ -97,7 +97,11 @@ export const CardListItem: FC<Props> = ({
                   opacity: pressed ? 0.4 : 1,
                 })}
               >
-                <Icon name="content-copy" size={16} />
+                <Icon
+                  name="content-copy"
+                  size={16}
+                  color={theme.colors.onSurface}
+                />
               </Pressable>
 
               <Portal>

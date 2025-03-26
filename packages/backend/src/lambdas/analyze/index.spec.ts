@@ -153,7 +153,7 @@ describe('integration check for translate lambda', () => {
     expect(resultBody.items.length).toEqual(4);
     expect(resultBody.items[0].source).toEqual('de regeling');
     expect(resultBody.items[0].translation).toHaveSomeOf(
-      'расположение, регулирование, положение'
+      'расположение, регулирование, положение, правило'
     );
   });
 
