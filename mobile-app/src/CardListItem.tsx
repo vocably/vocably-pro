@@ -1,37 +1,44 @@
 import { Card, isGoogleTTSLanguage, TagItem } from '@vocably/model';
-import React, { FC } from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import React, { FC, useState } from 'react';
+import { Clipboard, Pressable, StyleProp, View, ViewStyle } from 'react-native';
 import {
   ActivityIndicator,
   Chip,
   Divider,
+  Portal,
+  Snackbar,
   Text,
   useTheme,
 } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardDefinition } from './CardDefinition';
 import { CardExample } from './CardExample';
 import { PlaySound } from './PlaySound';
 
-type CardListItem = FC<{
+type Props = {
   card: Card;
   style?: StyleProp<ViewStyle>;
   showExamples?: boolean;
   savingTagsInProgress?: boolean;
   onTagsChange?: (tags: TagItem[]) => Promise<any>;
-}>;
+  allowCopy?: boolean;
+};
 
-export const CardListItem: CardListItem = ({
+export const CardListItem: FC<Props> = ({
   card,
   style,
   showExamples = false,
   savingTagsInProgress = false,
   onTagsChange = () => null,
+  allowCopy = false,
 }) => {
   const theme = useTheme();
 
   const onTagClose = (tagToRemove: TagItem) => () => {
     onTagsChange(card.tags.filter((t) => t.id !== tagToRemove.id));
   };
+
+  const [copied, setCopied] = useState(false);
 
   return (
     <View style={style}>
@@ -76,6 +83,34 @@ export const CardListItem: CardListItem = ({
               {card.source}
             </Text>
           </Text>
+          {allowCopy && (
+            <>
+              <Pressable
+                hitSlop={30}
+                onPress={() => {
+                  Clipboard.setString(card.source);
+                  !copied && setCopied(true);
+                }}
+                style={({ pressed }) => ({
+                  marginLeft: 0,
+                  marginRight: 8,
+                  opacity: pressed ? 0.4 : 1,
+                })}
+              >
+                <Icon name="content-copy" size={16} />
+              </Pressable>
+
+              <Portal>
+                <Snackbar
+                  visible={copied}
+                  onDismiss={() => copied && setCopied(false)}
+                  duration={2000}
+                >
+                  Copied to clipboard.
+                </Snackbar>
+              </Portal>
+            </>
+          )}
 
           {card.ipa && <Text style={{ marginRight: 8 }}>[{card.ipa}]</Text>}
 

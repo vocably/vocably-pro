@@ -68,6 +68,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
         showExamples={true}
         savingTagsInProgress={isSavingTags}
         onTagsChange={onTagsChange}
+        allowCopy={true}
       />
       {!hideOperations && (
         <View
