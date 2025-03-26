@@ -28,11 +28,13 @@ import { getPredefinedMultiChoiceOptions } from './getPredefinedMultiChoiceOptio
 import { Grade } from './Grade';
 import { useTranslationLanguage } from './useTranslationLanguage';
 
-type Dashboard = FC<{
+export const PADDING_VERTICAL = 70;
+
+type Props = FC<{
   navigation: NavigationProp<any>;
 }>;
 
-export const StudyScreen: Dashboard = ({ navigation }) => {
+export const StudyScreen: Props = ({ navigation }) => {
   const theme = useTheme();
 
   const [autoPlayResult, setAutoPlay] = useAsync(
@@ -220,7 +222,7 @@ export const StudyScreen: Dashboard = ({ navigation }) => {
       style={{
         backgroundColor: theme.colors.background,
         height: '100%',
-        paddingTop: 70,
+        paddingTop: PADDING_VERTICAL,
       }}
     >
       <View

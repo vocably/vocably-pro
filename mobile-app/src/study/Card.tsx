@@ -14,6 +14,7 @@ import { ReverseCardBack } from './Card/ReverseCardBack';
 import { ReverseCardFront } from './Card/ReverseCardFront';
 import { TapDot } from './Card/TapDot';
 import { Displayer } from './Displayer';
+import { PADDING_VERTICAL } from './StudyScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -113,7 +114,7 @@ export const Card: FC<Props> = ({ card, autoPlay, direction }) => {
   };
 
   return (
-    <Displayer style={{ flex: 1 }}>
+    <Displayer style={{ flex: 1, paddingBottom: PADDING_VERTICAL + 12 }}>
       {tapHelperIsNeededResult.status === 'loaded' &&
         tapHelperIsNeededResult.value && (
           <TapDot

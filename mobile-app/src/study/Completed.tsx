@@ -2,10 +2,12 @@ import { CardItem } from '@vocably/model';
 import { sample } from 'lodash-es';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import { Button, Text, useTheme } from 'react-native-paper';
 import { RequestFeedback } from '../RequestFeedback';
 import { Displayer } from './Displayer';
+import { PADDING_VERTICAL } from './StudyScreen';
 
 const motivationalQuotes = [
   'Perseverance is not a long race; it is many short races one after the other.',
@@ -66,12 +68,14 @@ export const Completed: FC<Props> = ({
 
   return (
     <Displayer style={{ flex: 1 }}>
-      <View
-        style={{
-          flex: 1,
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{
           alignItems: 'center',
           justifyContent: 'center',
           gap: 12,
+          paddingBottom: PADDING_VERTICAL,
+          minHeight: '100%',
         }}
       >
         <Text style={{ fontSize: 24, color: theme.colors.secondary }}>
@@ -104,7 +108,23 @@ export const Completed: FC<Props> = ({
             }}
           />
         )}
-      </View>
+      </ScrollView>
+      <LinearGradient
+        locations={[0.1, 1]}
+        // @ts-ignore
+        colors={[theme.colors.transparentSurface, theme.colors.surface]}
+        style={{
+          position: 'absolute',
+          display: 'flex',
+          bottom: 0,
+          width: '100%',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: PADDING_VERTICAL,
+          pointerEvents: 'none',
+        }}
+      ></LinearGradient>
     </Displayer>
   );
 };

@@ -18,12 +18,6 @@ const STRONG_SCORE = 5;
 const buttonAnimationDuration = 300;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
   icon: {
     position: 'absolute',
   },
@@ -253,7 +247,14 @@ export const SwipeGrade: FC<{
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+      }}
+    >
       <AnimatedIcon
         style={[
           styles.icon,
@@ -298,7 +299,12 @@ export const SwipeGrade: FC<{
       ></AnimatedIcon>
       <Animated.View
         style={[
-          styles.container,
+          {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+          },
           { transform: [{ translateX: pan.x }, { translateY: pan.y }] },
         ]}
         {...panResponder.panHandlers}
@@ -321,7 +327,6 @@ export const SwipeGrade: FC<{
         <Button
           style={{ flex: 1 }}
           icon={'close'}
-          textColor={theme.colors.error}
           onPress={weak}
           mode="elevated"
         >

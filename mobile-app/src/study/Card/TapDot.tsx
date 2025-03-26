@@ -71,8 +71,8 @@ export const TapDot: FC<Props> = ({ style }) => {
         style,
       ]}
     >
-      <Icon name="gesture-tap" size={60} />
-      <Text style={{ fontSize: 16 }}>Touch</Text>
+      <Icon name="gesture-tap" size={60} color={theme.colors.secondary} />
+      <Text style={{ fontSize: 16, color: theme.colors.secondary }}>Touch</Text>
     </Animated.View>
   );
 };

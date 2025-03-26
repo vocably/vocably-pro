@@ -8,8 +8,8 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { mobilePlatform, mobileStoreUrl } from './mobilePlatform';
-import { RequestFeedbackForm } from './RequestFeedback/Form';
 import { isOkayToAsk } from './RequestFeedback/isOkayToAsk';
+import { RequestFeedbackForm } from './RequestFeedback/RequestFeedbackForm';
 import { UserMetadataContext } from './UserMetadataContainer';
 
 type Props = {
