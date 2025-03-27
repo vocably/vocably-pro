@@ -1,6 +1,13 @@
 import { Card, isGoogleTTSLanguage, TagItem } from '@vocably/model';
 import React, { FC, useState } from 'react';
-import { Clipboard, Pressable, StyleProp, View, ViewStyle } from 'react-native';
+import {
+  Clipboard,
+  Platform,
+  Pressable,
+  StyleProp,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {
   ActivityIndicator,
   Chip,
@@ -58,72 +65,96 @@ export const CardListItem: FC<Props> = ({
             alignItems: 'baseline',
           }}
         >
-          {isGoogleTTSLanguage(card.language) && (
-            <View style={{ alignSelf: 'flex-start', paddingTop: 6 }}>
-              <PlaySound
-                text={card.source}
-                language={card.language}
-                size={22}
-                style={{
-                  marginRight: 4,
-                }}
-              />
-            </View>
-          )}
           <Text
             style={{
-              fontSize: 24,
-              color: theme.colors.secondary,
-              marginRight: 8,
+              fontSize: 16,
+              textAlignVertical: 'top',
             }}
           >
+            {isGoogleTTSLanguage(card.language) && (
+              <>
+                <PlaySound
+                  text={card.source}
+                  language={card.language}
+                  size={22}
+                  style={{
+                    transform: [
+                      { translateY: Platform.OS === 'android' ? 3 : 1 },
+                    ],
+                  }}
+                />{' '}
+              </>
+            )}
             <Text
-              style={{ color: theme.colors.secondary, verticalAlign: 'bottom' }}
+              style={{
+                fontSize: 24,
+                color: theme.colors.secondary,
+                textAlignVertical: 'top',
+              }}
             >
               {card.source}
             </Text>
-          </Text>
-          {allowCopy && (
-            <>
-              <Pressable
-                hitSlop={30}
-                onPress={() => {
-                  Clipboard.setString(card.source);
-                  !copied && setCopied(true);
-                }}
-                style={({ pressed }) => ({
-                  marginLeft: 0,
-                  marginRight: 8,
-                  opacity: pressed ? 0.4 : 1,
-                })}
-              >
-                <Icon
-                  name="content-copy"
-                  size={16}
-                  color={theme.colors.onSurface}
-                />
-              </Pressable>
-
-              <Portal>
-                <Snackbar
-                  visible={copied}
-                  onDismiss={() => copied && setCopied(false)}
-                  duration={2000}
+            {allowCopy && (
+              <>
+                {'\u00A0'}
+                <Pressable
+                  hitSlop={10}
+                  onPress={() => {
+                    Clipboard.setString(card.source);
+                    !copied && setCopied(true);
+                  }}
+                  style={({ pressed }) => ({
+                    opacity: pressed ? 0.4 : 1,
+                    transform: [
+                      { translateY: Platform.OS === 'android' ? 3 : 0 },
+                    ],
+                  })}
                 >
-                  Copied to clipboard.
-                </Snackbar>
-              </Portal>
-            </>
-          )}
+                  <Icon
+                    name="content-copy"
+                    size={16}
+                    color={theme.colors.onSurface}
+                  />
+                </Pressable>
+              </>
+            )}
+            {card.ipa && (
+              <>
+                {' '}
+                <Text>[{card.ipa}]</Text>
+              </>
+            )}
 
-          {card.ipa && <Text style={{ marginRight: 8 }}>[{card.ipa}]</Text>}
+            {card.g && (
+              <>
+                {' '}
+                <Text>({card.g})</Text>
+              </>
+            )}
 
-          {card.g && <Text style={{ marginRight: 8 }}>({card.g})</Text>}
-
-          {card.partOfSpeech && <Text>{card.partOfSpeech}</Text>}
+            {card.partOfSpeech && (
+              <>
+                {' '}
+                <Text>{card.partOfSpeech}</Text>
+              </>
+            )}
+          </Text>
         </View>
       </View>
-      <CardDefinition card={card} />
+      {allowCopy && (
+        <Portal>
+          <Snackbar
+            visible={copied}
+            onDismiss={() => copied && setCopied(false)}
+            duration={2000}
+          >
+            Copied to clipboard.
+          </Snackbar>
+        </Portal>
+      )}
+      <View style={{ marginTop: 8 }}>
+        <CardDefinition card={card} />
+      </View>
       {showExamples && card.example && (
         <View style={{ marginStart: 10, marginTop: 8 }}>
           <Text style={{ fontWeight: 'bold' }}>Examples</Text>
