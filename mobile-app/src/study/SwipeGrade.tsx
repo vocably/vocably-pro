@@ -10,6 +10,7 @@ import {
 import { Button, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { PADDING_VERTICAL } from './StudyScreen';
 
 const WEAK_SCORE = 0;
 const MEDIUM_SCORE = 3;
@@ -253,50 +254,65 @@ export const SwipeGrade: FC<{
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
+        paddingBottom: PADDING_VERTICAL,
       }}
     >
-      <AnimatedIcon
-        style={[
-          styles.icon,
-          {
-            color: theme.colors.primary,
-          },
-          {
-            opacity: strongVisibility,
-            transform: [{ scale: strongVisibility }],
-          },
-        ]}
-        name="check-all"
-        size={iconSize}
-      ></AnimatedIcon>
-      <AnimatedIcon
-        style={[
-          styles.icon,
-          {
-            color: theme.colors.primary,
-          },
-          {
-            opacity: mediumVisibility,
-            transform: [{ scale: mediumVisibility }],
-          },
-        ]}
-        name="check"
-        size={iconSize}
-      ></AnimatedIcon>
-      <AnimatedIcon
-        style={[
-          styles.icon,
-          {
-            color: theme.colors.error,
-          },
-          {
-            opacity: weakVisibility,
-            transform: [{ scale: weakVisibility }],
-          },
-        ]}
-        name="close"
-        size={iconSize}
-      ></AnimatedIcon>
+      {/* We need the below container to move icons a bit upper to consider bottom padding */}
+      <View
+        style={{
+          pointerEvents: 'none',
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: PADDING_VERTICAL + 24,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <AnimatedIcon
+          style={[
+            styles.icon,
+            {
+              color: theme.colors.primary,
+            },
+            {
+              opacity: strongVisibility,
+              transform: [{ scale: strongVisibility }],
+            },
+          ]}
+          name="check-all"
+          size={iconSize}
+        ></AnimatedIcon>
+        <AnimatedIcon
+          style={[
+            styles.icon,
+            {
+              color: theme.colors.primary,
+            },
+            {
+              opacity: mediumVisibility,
+              transform: [{ scale: mediumVisibility }],
+            },
+          ]}
+          name="check"
+          size={iconSize}
+        ></AnimatedIcon>
+        <AnimatedIcon
+          style={[
+            styles.icon,
+            {
+              color: theme.colors.error,
+            },
+            {
+              opacity: weakVisibility,
+              transform: [{ scale: weakVisibility }],
+            },
+          ]}
+          name="close"
+          size={iconSize}
+        ></AnimatedIcon>
+      </View>
       <Animated.View
         style={[
           {
