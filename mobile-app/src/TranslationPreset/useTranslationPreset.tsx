@@ -1,15 +1,19 @@
 import { useContext } from 'react';
-import { Preset, TranslationPresetContext } from './TranslationPresetContainer';
+import {
+  Preset,
+  PresetState,
+  TranslationPresetContext,
+} from './TranslationPresetContainer';
 import { LanguagePairs } from './useLanguagePairs';
 
 export const useTranslationPreset = (): [
-  preset: Preset,
+  preset: PresetState,
   languagePairs: LanguagePairs,
   setPreset: (preset: Preset) => Promise<void>
 ] => {
   const contextProps = useContext(TranslationPresetContext);
   return [
-    contextProps.preset,
+    contextProps.presetState,
     contextProps.languagePairs,
     contextProps.setPreset,
   ];

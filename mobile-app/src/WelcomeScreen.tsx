@@ -39,7 +39,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
     getOnboardingStepFromStorage,
     setOnboardingStepToStorage
   );
-  const [translationPreset, languagePairs, setTranslationPreset] =
+  const [translationPresetState, languagePairs, setTranslationPreset] =
     useTranslationPreset();
   const insets = useSafeAreaInsets();
   const onboardingDisplayerRef = useRef<DisplayerRef>(null);
@@ -47,7 +47,9 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
   const postHog = usePostHog();
 
   const isNextButtonVisible =
-    translationPreset.translationLanguage && translationPreset.sourceLanguage;
+    translationPresetState.status === 'known' &&
+    translationPresetState.preset.translationLanguage &&
+    translationPresetState.preset.sourceLanguage;
 
   useEffect(() => {
     postHog.capture('welcome');
@@ -59,10 +61,15 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
 
   const showSlider =
     onboardingStep.value === 'faq' &&
-    translationPreset.sourceLanguage &&
-    translationPreset.translationLanguage;
+    translationPresetState.status === 'known' &&
+    translationPresetState.preset.sourceLanguage &&
+    translationPresetState.preset.translationLanguage;
 
   const showWelcomeForm = onboardingStep.value === 'form' || !showSlider;
+
+  if (translationPresetState.status === 'unknown') {
+    return <></>;
+  }
 
   return (
     <View
@@ -104,7 +111,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
             <View style={{ width: '50%' }}>
               <SourceLanguageButton
                 navigation={navigation}
-                preset={translationPreset}
+                preset={translationPresetState.preset}
                 onChange={setTranslationPreset}
                 languagePairs={languagePairs}
                 emptyText="Select"
@@ -116,7 +123,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
               You can study multiple languages. For now, let's pick one.
             </Text>
           </View>
-          {translationPreset.sourceLanguage && (
+          {translationPresetState.preset.sourceLanguage && (
             <Animated.View
               entering={FadeInDown}
               style={{
@@ -144,7 +151,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
                 <View style={{ width: '50%' }}>
                   <TargetLanguageButton
                     navigation={navigation}
-                    preset={translationPreset}
+                    preset={translationPresetState.preset}
                     onChange={setTranslationPreset}
                     languagePairs={languagePairs}
                   />
@@ -165,19 +172,22 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
                     name: 'facilityOnboarded',
                     payload: {
                       facility,
-                      targetLanguage: translationPreset.translationLanguage,
+                      targetLanguage:
+                        translationPresetState.preset.translationLanguage,
                     },
                   }).then();
 
                   postHog.capture('welcome_submitted', {
-                    studyLanguage: translationPreset.sourceLanguage,
-                    nativeLanguage: translationPreset.translationLanguage,
+                    studyLanguage: translationPresetState.preset.sourceLanguage,
+                    nativeLanguage:
+                      translationPresetState.preset.translationLanguage,
                   });
                   postHog.capture('$set', {
                     $set: {
-                      lastSourceLanguage: translationPreset.sourceLanguage,
+                      lastSourceLanguage:
+                        translationPresetState.preset.sourceLanguage,
                       lastTranslationLanguage:
-                        translationPreset.translationLanguage,
+                        translationPresetState.preset.translationLanguage,
                     },
                   });
                 }}
@@ -193,13 +203,16 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
           <OnboardingSlider
             setIsReverse={(isReverse) =>
               setTranslationPreset({
-                ...translationPreset,
+                ...translationPresetState.preset,
                 isReverse,
               })
             }
-            sourceLanguage={translationPreset.sourceLanguage as GoogleLanguage}
+            sourceLanguage={
+              translationPresetState.preset.sourceLanguage as GoogleLanguage
+            }
             targetLanguage={
-              translationPreset.translationLanguage as GoogleLanguage
+              translationPresetState.preset
+                .translationLanguage as GoogleLanguage
             }
           />
         </Displayer>

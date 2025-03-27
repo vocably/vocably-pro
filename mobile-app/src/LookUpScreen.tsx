@@ -75,7 +75,7 @@ type Props = {
 
 export const LookUpScreen: FC<Props> = ({ navigation }) => {
   const [isAutomaticallyLookedUp, setIsAutomaticallyLookedUp] = useState(false);
-  const [translationPreset, languagePairs, setTranslationPreset] =
+  const [translationPresetState, languagePairs, setTranslationPreset] =
     useTranslationPreset();
   const [lookUpText, setLookUpText] = useState('');
   const [isAnalyzingPreset, setIsAnalyzingPreset] = useState<Preset | false>(
@@ -85,7 +85,10 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
     useState<Awaited<ReturnType<typeof analyze>>>();
   const theme = useTheme();
   const deck = useLanguageDeck({
-    language: translationPreset.sourceLanguage,
+    language:
+      translationPresetState.status === 'known'
+        ? translationPresetState.preset.sourceLanguage
+        : '',
     autoReload: true,
   });
   const intentData = useShareIntentData();
@@ -115,16 +118,23 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
       return;
     }
 
+    if (translationPresetState.status === 'unknown') {
+      return;
+    }
+
     Keyboard.dismiss();
 
     setIsAnalyzingPreset({
-      ...translationPreset,
+      ...translationPresetState.preset,
     });
     // @ts-ignore
     const payload: AnalyzePayload = {
-      [translationPreset.isReverse ? 'target' : 'source']: lookUpText,
-      sourceLanguage: translationPreset.sourceLanguage as GoogleLanguage,
-      targetLanguage: translationPreset.translationLanguage as GoogleLanguage,
+      [translationPresetState.preset.isReverse ? 'target' : 'source']:
+        lookUpText,
+      sourceLanguage: translationPresetState.preset
+        .sourceLanguage as GoogleLanguage,
+      targetLanguage: translationPresetState.preset
+        .translationLanguage as GoogleLanguage,
     };
 
     abortControllerRef.current = new AbortController();
@@ -152,7 +162,7 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
 
     posthog.capture('lookup', payload);
   }, [
-    translationPreset,
+    translationPresetState,
     lookUpText,
     setIsAnalyzingPreset,
     isAnalyzingPreset,
@@ -163,7 +173,7 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
     if (isAnalyzingPreset) {
       lookUp();
     }
-  }, [translationPreset]);
+  }, [translationPresetState]);
 
   useEffect(() => {
     if (
@@ -182,16 +192,25 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
   });
 
   const setTranslationDirection = (isReverse: boolean) => {
+    if (translationPresetState.status === 'unknown') {
+      return;
+    }
+
     setTranslationPreset({
-      ...translationPreset,
+      ...translationPresetState.preset,
       isReverse,
     });
   };
 
+  if (translationPresetState.status === 'unknown') {
+    return <></>;
+  }
+
   const canTranslate =
-    translationPreset.sourceLanguage &&
-    translationPreset.translationLanguage &&
-    translationPreset.sourceLanguage !== translationPreset.translationLanguage;
+    translationPresetState.preset.sourceLanguage &&
+    translationPresetState.preset.translationLanguage &&
+    translationPresetState.preset.sourceLanguage !==
+      translationPresetState.preset.translationLanguage;
 
   return (
     <SafeAreaView
@@ -201,7 +220,7 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
         <TranslationPresetForm
           navigation={navigation}
           languagePairs={languagePairs}
-          preset={translationPreset}
+          preset={translationPresetState.preset}
           onChange={setTranslationPreset}
         />
       </View>
@@ -210,16 +229,17 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
           value={lookUpText}
           placeholder={
             languageList[
-              (translationPreset.isReverse
-                ? translationPreset.translationLanguage
-                : translationPreset.sourceLanguage) as GoogleLanguage
+              (translationPresetState.preset.isReverse
+                ? translationPresetState.preset.translationLanguage
+                : translationPresetState.preset
+                    .sourceLanguage) as GoogleLanguage
             ]
           }
           onChange={setLookUpText}
           onSubmit={lookUp}
           disabled={
-            !translationPreset.sourceLanguage ||
-            !translationPreset.translationLanguage
+            !translationPresetState.preset.sourceLanguage ||
+            !translationPresetState.preset.translationLanguage
           }
         />
       </View>
@@ -241,26 +261,29 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
                   The cards will be saved to your{' '}
                   {
                     languageList[
-                      translationPreset.sourceLanguage as GoogleLanguage
+                      translationPresetState.preset
+                        .sourceLanguage as GoogleLanguage
                     ]
                   }{' '}
                   deck.
                 </Text>
               </View>
             )}
-            {canTranslate && !translationPreset.isReverse && (
+            {canTranslate && !translationPresetState.preset.isReverse && (
               <Animated.View entering={FadeIn} exiting={FadeOut}>
                 <Text>
                   To search in{' '}
                   {
                     languageList[
-                      translationPreset.translationLanguage as GoogleLanguage
+                      translationPresetState.preset
+                        .translationLanguage as GoogleLanguage
                     ]
                   }{' '}
                   for a{' '}
                   {
                     languageList[
-                      translationPreset.sourceLanguage as GoogleLanguage
+                      translationPresetState.preset
+                        .sourceLanguage as GoogleLanguage
                     ]
                   }{' '}
                   word or phrase, turn on reverse translation mode by clicking
@@ -281,7 +304,7 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
               </Animated.View>
             )}
 
-            {canTranslate && translationPreset.isReverse && (
+            {canTranslate && translationPresetState.preset.isReverse && (
               <Animated.View
                 entering={FadeIn}
                 exiting={FadeOut}
@@ -295,7 +318,8 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
                     To search in{' '}
                     {
                       languageList[
-                        translationPreset.sourceLanguage as GoogleLanguage
+                        translationPresetState.preset
+                          .sourceLanguage as GoogleLanguage
                       ]
                     }
                     {', '}

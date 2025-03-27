@@ -16,18 +16,27 @@ export type Preset = {
   isReverse: boolean;
 };
 
-export type TranslationPresetContextProps = {
+type PresetKnown = {
+  status: 'known';
   preset: Preset;
+};
+
+type PresetUnknown = {
+  status: 'unknown';
+};
+
+export type PresetState = PresetKnown | PresetUnknown;
+
+export type TranslationPresetContextProps = {
+  presetState: PresetState;
   languagePairs: LanguagePairs;
   setPreset: (preset: Preset) => Promise<void>;
 };
 
 export const TranslationPresetContext =
   createContext<TranslationPresetContextProps>({
-    preset: {
-      sourceLanguage: '',
-      translationLanguage: '',
-      isReverse: false,
+    presetState: {
+      status: 'unknown',
     },
     languagePairs: {},
     setPreset: async (preset: Preset) => {},
@@ -39,14 +48,15 @@ export const TranslationPresetContainer: FC<PropsWithChildren> = ({
   const [selectedLanguage, saveSelectedLanguage] =
     useTranslationPresetSelectedLanguage();
   const [languagePairs, saveLanguagePairs] = useLanguagePairs();
-  const [preset, setPresetState] = useState<Preset>({
-    sourceLanguage: selectedLanguage,
-    translationLanguage: '',
-    isReverse: false,
+  const [presetState, setPresetState] = useState<PresetState>({
+    status: 'unknown',
   });
 
   const setPreset = (preset: Preset) => {
-    setPresetState(preset);
+    setPresetState({
+      status: 'known',
+      preset,
+    });
     if (selectedLanguage !== preset.sourceLanguage) {
       saveSelectedLanguage(preset.sourceLanguage);
     }
@@ -60,39 +70,61 @@ export const TranslationPresetContainer: FC<PropsWithChildren> = ({
       return;
     }
 
-    if (!preset.sourceLanguage && selectedLanguage) {
+    if (presetState.status === 'unknown') {
       setPresetState({
-        ...preset,
-        sourceLanguage: selectedLanguage,
+        status: 'known',
+        preset: {
+          sourceLanguage: selectedLanguage,
+          translationLanguage: '',
+          isReverse: false,
+        },
+      });
+      return;
+    }
+
+    if (!presetState.preset.sourceLanguage && selectedLanguage) {
+      setPresetState({
+        status: 'known',
+        preset: {
+          ...presetState.preset,
+          sourceLanguage: selectedLanguage,
+        },
       });
 
       return;
     }
 
-    if (!isGoogleLanguage(preset.sourceLanguage)) {
+    if (!isGoogleLanguage(presetState.preset.sourceLanguage)) {
       return;
     }
 
-    const translationLanguageCandidate = languagePairs[preset.sourceLanguage]
+    const translationLanguageCandidate = languagePairs[
+      presetState.preset.sourceLanguage
+    ]
       ? // @ts-ignore
-        languagePairs[preset.sourceLanguage].translationLanguage
-      : preset.translationLanguage;
+        languagePairs[presetState.preset.sourceLanguage].translationLanguage
+      : presetState.preset.translationLanguage;
 
-    if (translationLanguageCandidate === preset.translationLanguage) {
+    if (
+      translationLanguageCandidate === presetState.preset.translationLanguage
+    ) {
       return;
     }
 
     setPresetState({
-      ...preset,
-      sourceLanguage: selectedLanguage,
-      translationLanguage: translationLanguageCandidate,
+      status: 'known',
+      preset: {
+        ...presetState.preset,
+        sourceLanguage: selectedLanguage,
+        translationLanguage: translationLanguageCandidate,
+      },
     });
-  }, [preset, languagePairs, selectedLanguage]);
+  }, [presetState, languagePairs, selectedLanguage]);
 
   return (
     <TranslationPresetContext.Provider
       value={{
-        preset,
+        presetState,
         languagePairs: languagePairs ?? {},
         setPreset,
       }}
