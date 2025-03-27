@@ -31,6 +31,9 @@ type Props = {
   allowCopy?: boolean;
 };
 
+const textTransform = [{ translateY: Platform.OS === 'android' ? 6 : 3 }];
+const lineHeight = 24;
+
 export const CardListItem: FC<Props> = ({
   card,
   style,
@@ -58,13 +61,7 @@ export const CardListItem: FC<Props> = ({
           width: '100%',
         }}
       >
-        <View
-          style={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            alignItems: 'baseline',
-          }}
-        >
+        <View>
           <Text
             style={{
               fontSize: 16,
@@ -79,7 +76,7 @@ export const CardListItem: FC<Props> = ({
                   size={22}
                   style={{
                     transform: [
-                      { translateY: Platform.OS === 'android' ? 3 : 1 },
+                      { translateY: Platform.OS === 'android' ? 4 : 1 },
                     ],
                   }}
                 />{' '}
@@ -89,7 +86,6 @@ export const CardListItem: FC<Props> = ({
               style={{
                 fontSize: 24,
                 color: theme.colors.secondary,
-                textAlignVertical: 'top',
               }}
             >
               {card.source}
@@ -121,21 +117,27 @@ export const CardListItem: FC<Props> = ({
             {card.ipa && (
               <>
                 {' '}
-                <Text>[{card.ipa}]</Text>
+                <View style={{ transform: textTransform }}>
+                  <Text style={{ lineHeight }}>[{card.ipa}]</Text>
+                </View>
               </>
             )}
 
             {card.g && (
               <>
                 {' '}
-                <Text>({card.g})</Text>
+                <View style={{ transform: textTransform }}>
+                  <Text style={{ lineHeight }}>({card.g})</Text>
+                </View>
               </>
             )}
 
             {card.partOfSpeech && (
               <>
                 {' '}
-                <Text>{card.partOfSpeech}</Text>
+                <View style={{ transform: textTransform }}>
+                  <Text style={{ lineHeight }}>{card.partOfSpeech}</Text>
+                </View>
               </>
             )}
           </Text>
