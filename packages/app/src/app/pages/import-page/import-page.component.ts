@@ -216,6 +216,19 @@ export class ImportPageComponent implements OnInit, OnDestroy {
     this.csvData$.next(csvData);
   }
 
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      const textArea = event.currentTarget as HTMLTextAreaElement;
+      textArea.setRangeText(
+        '\t',
+        textArea.selectionStart,
+        textArea.selectionEnd,
+        'end'
+      );
+    }
+  }
+
   selectTag(tag: TagItem | NewTag) {
     if (this.selectedTags.includes(tag)) {
       this.selectedTags = this.selectedTags.filter((t) => t !== tag);

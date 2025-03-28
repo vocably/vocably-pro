@@ -99,6 +99,7 @@
                 #contents
                 [(ngModel)]="csv"
                 (input)="onCsvChange()"
+                (keydown)="onKeyDown($event)"
                 [readOnly]="isImporting"
                 class="csv-textarea"
                 wrap="off"
@@ -107,12 +108,16 @@
             </div>
 
             <ng-container *ngIf="csvData$ | async as csvData">
-              <div class="text-danger" *ngIf="csvData.length === 0">
-                Each line of CSV data must contain two values: a word/phrase and
-                its translation.
-                <br />
-                Improvements to the import functionality are on the way.
-              </div>
+              <ng-container *ngIf="csvData.length === 0">
+                <p class="text-danger">
+                  Each line of CSV data must contain two values: a word/phrase
+                  and its translation. Values should be separate by tab
+                  <mat-icon class="middle ml-0_5">keyboard_tab</mat-icon>
+                </p>
+                <p class="text-danger">
+                  Improvements to the import functionality are on the way.
+                </p>
+              </ng-container>
               <ng-container *ngIf="csvData.length > 0">
                 <table
                   *ngIf="csvData.length > 0"
