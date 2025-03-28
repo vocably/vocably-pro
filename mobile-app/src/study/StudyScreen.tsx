@@ -242,6 +242,9 @@ export const StudyScreen: Props = ({ navigation }) => {
           size={24}
           animated={true}
           onPress={() => setAutoPlay(!autoPlayResult.value)}
+          style={{
+            backgroundColor: theme.colors.background,
+          }}
         />
         {cards.length > 0 && (
           <IconButton
@@ -252,12 +255,16 @@ export const StudyScreen: Props = ({ navigation }) => {
                 card: cards[0],
               })
             }
+            style={{
+              backgroundColor: theme.colors.background,
+            }}
           />
         )}
         <View style={{ flex: 1, alignItems: 'flex-end' }}>
           <Button
             textColor={theme.colors.onBackground}
             onPress={() => navigation.goBack()}
+            buttonColor={theme.colors.background}
           >
             Done
           </Button>
