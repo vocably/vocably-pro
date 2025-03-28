@@ -111,11 +111,12 @@
               <ng-container *ngIf="csvData.length === 0">
                 <p class="text-danger">
                   Each line of CSV data must contain two values: a word/phrase
-                  and its translation. Values should be separate by tab
+                  and its translation. Values should be separated by tab
                   <mat-icon class="middle ml-0_5">keyboard_tab</mat-icon>
                 </p>
                 <p class="text-danger">
-                  Improvements to the import functionality are on the way.
+                  Having trouble with the import?
+                  <a href="/feedback">Let me know</a> — I'll do my best to help.
                 </p>
               </ng-container>
               <ng-container *ngIf="csvData.length > 0">
