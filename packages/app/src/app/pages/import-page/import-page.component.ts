@@ -210,6 +210,7 @@ export class ImportPageComponent implements OnInit, OnDestroy {
 
     posthog.capture('csv_data_parsed', {
       records: csvData.length,
+      csvData: csvData.length === 0 ? this.csv : 'not needed',
     });
 
     this.csvData$.next(csvData);

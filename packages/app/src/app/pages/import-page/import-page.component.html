@@ -107,6 +107,12 @@
             </div>
 
             <ng-container *ngIf="csvData$ | async as csvData">
+              <div class="text-danger" *ngIf="csvData.length === 0">
+                Each line of a CSV file must contain two values: a word/phrase
+                and its translation.
+                <br />
+                Improvements to the import functionality are on the way.
+              </div>
               <ng-container *ngIf="csvData.length > 0">
                 <table
                   *ngIf="csvData.length > 0"
