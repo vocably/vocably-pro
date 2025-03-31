@@ -34,7 +34,7 @@
     }
   }
 </style>
-<div class="container">
+<div class="container-xl">
   <div class="hero hero-sticky-container">
     <div>
       <div *ngIf="loadingDecks" class="text-center">
@@ -126,9 +126,15 @@
                 >
                   <tr>
                     <th class="text-left"></th>
-                    <th class="text-left">Word/Phrase</th>
-                    <th class="text-left">Translation</th>
-                    <th class="text-left">Part of speech</th>
+                    <th class="text-left">{{ columnLabels.source }}</th>
+                    <th class="text-left">{{ columnLabels.translation }}</th>
+                    <th class="text-left">{{ columnLabels.partOfSpeech }}</th>
+                    <th
+                      class="text-left"
+                      *ngFor="let column of extraCsvColumns"
+                    >
+                      {{ columnLabels[column] }}
+                    </th>
                   </tr>
                   <tbody>
                     <tr *ngFor="let cardRow of csvData; let i = index">
@@ -144,6 +150,8 @@
                           *ngIf="!csvPos[i] && isAnalyzing"
                         ></ion-spinner>
                       </td>
+                      <!-- prettier-ignore -->
+                      <td class="pre" *ngFor="let column of extraCsvColumns">{{ cardRow[column] }}</td>
                     </tr>
                   </tbody>
                 </table>

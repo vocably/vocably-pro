@@ -10,7 +10,6 @@ import {
 } from '@vocably/api';
 import { getSourceLanguage } from '@vocably/extension-messages';
 import {
-  Card,
   GoogleLanguage,
   isTagItem,
   languageList,
@@ -31,9 +30,12 @@ import {
 } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { extensionId } from '../../../extension';
+import { columnLabels } from '../../importExport';
 import { isExtensionInstalled$ } from '../../isExtensionInstalled';
 import { bulkAnalyzeSources } from './bulkAnalyzeSources';
 import { csvToArray } from './csvToArray';
+import { CsvData, getCsvData } from './getCsvData';
+import { getExtraCsvColumns, SafeColumn } from './getExtraCsvColumns';
 import { ImportFailureDialogComponent } from './import-failure-dialog/import-failure-dialog.component';
 import {
   ImportSuccessDialogComponent,
@@ -66,8 +68,6 @@ const detectImportDeck = async (): Promise<GoogleLanguage | ''> => {
   return '';
 };
 
-type CsvData = Array<Pick<Card, 'source' | 'translation'>>;
-
 @Component({
   selector: 'app-import-page',
   templateUrl: './import-page.component.html',
@@ -80,7 +80,9 @@ export class ImportPageComponent implements OnInit, OnDestroy {
   public selectedDeck$ = new ReplaySubject<GoogleLanguage | 'none'>();
   public loadingSelectedDeck = false;
   public deck$ = this.selectedDeck$.pipe(
-    tap(() => (this.loadingSelectedDeck = true)),
+    tap(() => {
+      this.loadingSelectedDeck = true;
+    }),
     switchMap(async (selectedDeck) => {
       if (!selectedDeck) {
         return null;
@@ -109,6 +111,8 @@ export class ImportPageComponent implements OnInit, OnDestroy {
   public csv: string = '';
   public csvData$ = new ReplaySubject<CsvData>();
   public csvPos: string[] = [];
+  public extraCsvColumns: SafeColumn[] = [];
+  public columnLabels = columnLabels;
 
   public languages = Object.keys(languageList) as GoogleLanguage[];
   public isAnalyzing = false;
@@ -127,18 +131,27 @@ export class ImportPageComponent implements OnInit, OnDestroy {
       this.deckTags = deck ? deck.tags : [];
     });
 
-    combineLatest([
-      this.selectedDeck$.pipe(tap(() => (this.csvPos = []))),
-      this.csvData$.pipe(tap(() => (this.csvPos = []))),
-    ])
+    combineLatest([this.selectedDeck$, this.csvData$])
       .pipe(
+        tap(([_, csvData]) => {
+          this.csvPos = [];
+          csvData.forEach((dataItem, index) => {
+            if (dataItem.partOfSpeech) {
+              this.csvPos[index] = dataItem.partOfSpeech;
+            }
+          });
+
+          this.extraCsvColumns = getExtraCsvColumns(csvData);
+        }),
         filter(([selectedDeck]) => selectedDeck !== 'none'),
         switchMap(([selectedDeck, csvData]) => {
           this.isAnalyzing = true;
           posthog.capture('csv_analyze_started');
           return bulkAnalyzeSources(
             selectedDeck === 'none' ? 'en' : selectedDeck,
-            csvData.map((d) => d.source)
+            csvData
+              .filter((csvData) => !csvData.partOfSpeech)
+              .map((d) => d.source)
           ).pipe(
             finalize(() => {
               posthog.capture('csv_analyze_ended');
@@ -150,17 +163,23 @@ export class ImportPageComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe(([result, csvData]) => {
-        csvData.forEach(({ source }, index) => {
-          if (this.csvPos[index]) {
-            return;
-          }
+        csvData.forEach(
+          ({ source, partOfSpeech: originalPartOfSpeech }, index) => {
+            if (this.csvPos[index]) {
+              return;
+            }
 
-          if (!result[source]) {
-            return;
-          }
+            if (!result[source]) {
+              return;
+            }
 
-          this.csvPos[index] = result[source];
-        });
+            if (originalPartOfSpeech) {
+              return;
+            }
+
+            this.csvPos[index] = result[source];
+          }
+        );
       });
   }
 
@@ -201,12 +220,7 @@ export class ImportPageComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const csvData = csvToArray(this.csv, '\t')
-      .map(([source, translation]) => ({
-        source,
-        translation,
-      }))
-      .filter((item) => item.source && item.translation);
+    const csvData = getCsvData(csvToArray(this.csv, '\t'));
 
     posthog.capture('csv_data_parsed', {
       records: csvData.length,
