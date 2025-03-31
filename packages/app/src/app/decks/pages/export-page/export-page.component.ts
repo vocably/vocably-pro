@@ -3,7 +3,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { byDate, CardItem } from '@vocably/model';
 import { Subject, takeUntil } from 'rxjs';
 import { LoaderService } from '../../../components/loader.service';
+import { columnLabels } from '../../../importExport';
 import { DeckStoreService } from '../../deck-store.service';
+import { getColumns, getValue } from './getColumns';
 import { prepareColumn } from './prepareColumn';
 
 @Component({
@@ -74,27 +76,22 @@ export class ExportPageComponent implements OnInit, OnDestroy {
         ? ';'
         : this.customRowDelimiter.replace(/\\n/g, `\n`);
 
-    return this.cards
-      .map((card) => {
-        return [
-          prepareColumn(card.data.source, colDelimiter, rowDelimiter),
-          prepareColumn(card.data.translation, colDelimiter, rowDelimiter),
-          prepareColumn(
-            card.data.partOfSpeech ?? '',
-            colDelimiter,
-            rowDelimiter
-          ),
-          prepareColumn(card.data.ipa ?? '', colDelimiter, rowDelimiter),
-          prepareColumn(card.data.definition ?? '', colDelimiter, rowDelimiter),
-          prepareColumn(card.data.example ?? '', colDelimiter, rowDelimiter),
-          prepareColumn(
-            card.data.tags.map((t) => t.data.title).join(', '),
-            colDelimiter,
-            rowDelimiter
-          ),
-        ].join(colDelimiter);
-      })
-      .join(rowDelimiter);
+    const columns = getColumns(this.cards);
+
+    return [
+      columns.map((column) => columnLabels[column]).join(colDelimiter),
+      ...this.cards.map((card) => {
+        return columns
+          .map((column) => {
+            return prepareColumn(
+              getValue(card, column),
+              colDelimiter,
+              rowDelimiter
+            );
+          })
+          .join(colDelimiter);
+      }),
+    ].join(rowDelimiter);
   }
 
   getContentsLink = (textContents: string): any => {
