@@ -1,6 +1,6 @@
+import { chatGptRequest, GPT_4O_MINI } from '@vocably/lambda-shared';
 import { ChatGPTLanguage, languageList, Result } from '@vocably/model';
 import { tokenize } from '@vocably/sulna';
-import { chatGptRequest, GPT_4O_MINI } from './chatGptRequest';
 import { enrichSource } from './translateDefinitions/enrichSource';
 
 type ChatGptResponse = {

@@ -11,7 +11,7 @@
     "watch-esm": "tsc --watch",
     "watch-commonjs": "tsc --watch --project tsconfig.commonjs.json",
     "start": "run-p watch*",
-    "test": "echo 'Use `@vocably/lambda-shared has no tests.'",
+    "test": "jest",
     "lambda-shared": "npm start"
   },
   "repository": {
@@ -19,10 +19,5 @@
     "url": "https://github.com/vocably-pro/vocably.git"
   },
   "dependencies": {},
-  "devDependencies": {
-    "@types/jest": "^27.4.1",
-    "jest": "^27.5.1",
-    "jest-cli": "^27.5.1",
-    "ts-jest": "^27.1.3"
-  }
+  "devDependencies": {}
 }

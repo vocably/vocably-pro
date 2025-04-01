@@ -1,3 +1,4 @@
+import { chatGptRequest, GPT_4O_MINI } from '@vocably/lambda-shared';
 import {
   ChatGPTLanguage,
   ChatGPTLanguages,
@@ -7,7 +8,6 @@ import {
   Translation,
 } from '@vocably/model';
 import { tokenize } from '@vocably/sulna';
-import { chatGptRequest, GPT_4O_MINI } from './chatGptRequest';
 
 type Payload = {
   source: string;
