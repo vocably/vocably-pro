@@ -1,4 +1,8 @@
-import { chatGptRequest, GPT_4O_MINI } from '@vocably/lambda-shared';
+import {
+  chatGptRequest,
+  GPT_4O,
+  setOpenAIConfig,
+} from '@vocably/lambda-shared';
 import {
   GenerateMnemonicPayload,
   GenerateMnemonicResult,
@@ -6,6 +10,11 @@ import {
   Result,
 } from '@vocably/model';
 import { trimLanguage } from '@vocably/sulna';
+import { stripCode } from './stripCode';
+
+setOpenAIConfig({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 export const generateMnemonic = async (
   payload: GenerateMnemonicPayload
@@ -18,7 +27,7 @@ export const generateMnemonic = async (
     payload.card.source,
     `</word>`,
     `Response in ${trimLanguage(languageList[payload.targetLanguage])}`,
-    `Provide response in markdown.`,
+    'Highlight with markdown.',
   ].join('\n');
 
   const responseResult = await chatGptRequest({
@@ -31,8 +40,18 @@ export const generateMnemonic = async (
       },
       { role: 'user', content: prompt },
     ],
-    model: GPT_4O_MINI,
+    model: GPT_4O,
+    temperature: 2,
   });
 
-  return responseResult;
+  if (responseResult.success === false) {
+    return responseResult;
+  }
+
+  return {
+    success: true,
+    value: {
+      text: stripCode(responseResult.value),
+    },
+  };
 };

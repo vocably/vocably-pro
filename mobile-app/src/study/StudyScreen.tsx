@@ -1,5 +1,5 @@
 import { NavigationProp } from '@react-navigation/native';
-import { CardItem, GoogleLanguage } from '@vocably/model';
+import { CardItem, GoogleLanguage, isGoogleLanguage } from '@vocably/model';
 import { grade, slice, SrsScore } from '@vocably/srs';
 import { setBadgeCount } from 'aws-amplify/push-notifications';
 import { shuffle } from 'lodash-es';
@@ -33,6 +33,12 @@ export const PADDING_VERTICAL = 70;
 type Props = FC<{
   navigation: NavigationProp<any>;
 }>;
+
+const isOkayForMnemonic = (cardItem: CardItem) => {
+  return (
+    cardItem.data.partOfSpeech && !cardItem.data.partOfSpeech.includes('phrase')
+  );
+};
 
 export const StudyScreen: Props = ({ navigation }) => {
   const theme = useTheme();
@@ -247,18 +253,39 @@ export const StudyScreen: Props = ({ navigation }) => {
           }}
         />
         {cards.length > 0 && (
-          <IconButton
-            icon={'pencil'}
-            size={24}
-            onPress={() =>
-              navigation.navigate('EditCardModal', {
-                card: cards[0],
-              })
-            }
-            style={{
-              backgroundColor: theme.colors.background,
-            }}
-          />
+          <>
+            <IconButton
+              icon={'pencil'}
+              size={24}
+              onPress={() =>
+                navigation.navigate('EditCardModal', {
+                  card: cards[0],
+                })
+              }
+              style={{
+                backgroundColor: theme.colors.background,
+              }}
+            />
+            {isOkayForMnemonic(cards[0]) &&
+              isGoogleLanguage(language) &&
+              isGoogleLanguage(translationLanguage ?? '') && (
+                <IconButton
+                  icon={'creation'}
+                  size={24}
+                  onPress={() =>
+                    navigation.navigate('MnemonicModal', {
+                      sourceLanguage: language,
+                      targetLanguage: translationLanguage,
+                      card: cards[0],
+                    })
+                  }
+                  style={{
+                    transform: [{ translateX: -9 }],
+                    backgroundColor: theme.colors.background,
+                  }}
+                />
+              )}
+          </>
         )}
         <View style={{ flex: 1, alignItems: 'flex-end' }}>
           <Button

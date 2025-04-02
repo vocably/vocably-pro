@@ -5,6 +5,7 @@ import { DrawerNavigator } from './DrawerNavigator';
 import { EditCardScreen } from './EditCardScreen';
 import { FeedbackModal } from './FeedbackModal';
 import { LanguageSelectorModal } from './LanguageSelectorModal';
+import { MnemonicModal } from './MnemonicModal';
 import { StudyScreen } from './study/StudyScreen';
 
 const Stack = createStackNavigator();
@@ -24,6 +25,7 @@ export const RootModalStack = () => {
       >
         <Stack.Screen name="Study" component={StudyScreen} />
         <Stack.Screen name="EditCardModal" component={EditCardScreen} />
+        <Stack.Screen name="MnemonicModal" component={MnemonicModal} />
         <Stack.Screen
           name="LanguageSelector"
           component={LanguageSelectorModal}

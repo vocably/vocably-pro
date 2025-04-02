@@ -14,6 +14,7 @@ type Options = {
   model: OpenAiModel;
   timeoutMs?: number;
   responseFormat?: 'json_object' | 'text';
+  temperature?: number;
 };
 
 export const chatGptRequest = async ({
@@ -21,6 +22,7 @@ export const chatGptRequest = async ({
   model,
   timeoutMs = 7000,
   responseFormat = 'json_object',
+  temperature = 0,
 }: Options): Promise<Result<any>> => {
   const openai = await getOpenAiClient();
 
@@ -37,7 +39,7 @@ export const chatGptRequest = async ({
         response_format: {
           type: responseFormat,
         },
-        temperature: 0,
+        temperature,
         top_p: 0,
       },
       {
