@@ -9,6 +9,7 @@ import {
   Translation,
   ValidAnalysisItems,
 } from '@vocably/model';
+import { trimArticle } from '@vocably/sulna';
 import { buildDirectResult } from './buildDirectResult';
 import { combineTranslations } from './combineItems';
 import { makeUniqueItems } from './makeUniqueItems';
@@ -81,13 +82,15 @@ export const buildReverseResult = async (
 };
 
 const mergeItems = (
+  language: string,
   candidate: AnalysisItem,
   items: ValidAnalysisItems
 ): ValidAnalysisItems => {
   const itemThatIsMatchedWithTheCandidate = items.find(
     (item) =>
       item.partOfSpeech === candidate.partOfSpeech &&
-      item.source === candidate.source
+      trimArticle(language, item.source).source ===
+        trimArticle(language, candidate.source).source
   );
 
   if (itemThatIsMatchedWithTheCandidate === undefined) {
@@ -128,8 +131,11 @@ const builtTranslationItems = (
       definitions: [],
     };
 
+    const language = result.translation.targetLanguage;
+
     if (result.directTranslationResult.success) {
       return mergeItems(
+        language,
         itemCandidate,
         result.directTranslationResult.value.items
       );
