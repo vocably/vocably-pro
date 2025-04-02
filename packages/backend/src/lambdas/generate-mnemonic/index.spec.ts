@@ -39,12 +39,40 @@ describe('integration check for generate-mnemonic lambda', () => {
     expect(result.statusCode).toEqual(200);
   });
 
-  it('reading', async () => {
+  it('conceivable', async () => {
     mockEvent.body = JSON.stringify({
       sourceLanguage: 'en',
       targetLanguage: 'ru',
       card: {
-        source: 'reading',
+        source: 'conceivable',
+        partOfSpeech: 'noun',
+      },
+    });
+    const result = await generateMnemonicFunction(mockEvent);
+    console.log(inspect({ result }));
+    expect(result.statusCode).toEqual(200);
+  });
+
+  it('opwinding', async () => {
+    mockEvent.body = JSON.stringify({
+      sourceLanguage: 'nl',
+      targetLanguage: 'en',
+      card: {
+        source: 'de opwinding',
+        partOfSpeech: 'noun',
+      },
+    });
+    const result = await generateMnemonicFunction(mockEvent);
+    console.log(inspect({ result }));
+    expect(result.statusCode).toEqual(200);
+  });
+
+  it('guedkeuring', async () => {
+    mockEvent.body = JSON.stringify({
+      sourceLanguage: 'nl',
+      targetLanguage: 'en',
+      card: {
+        source: 'de goedkeuring',
         partOfSpeech: 'noun',
       },
     });

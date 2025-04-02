@@ -26,9 +26,17 @@ export const generateMnemonic = async (
     `<word>`,
     payload.card.source,
     `</word>`,
-    `Response in ${trimLanguage(languageList[payload.targetLanguage])}`,
-    'Highlight with markdown.',
-  ].join('\n');
+    payload.targetLanguage !== 'en'
+      ? `Response in ${trimLanguage(languageList[payload.targetLanguage])}`
+      : '',
+    payload.sourceLanguage != payload.targetLanguage
+      ? 'Incorporate the translation in response'
+      : '',
+    `Don't suggest first letter sentences`,
+    'Highlight with markdown',
+  ]
+    .filter((line) => !!line)
+    .join('\n');
 
   const responseResult = await chatGptRequest({
     responseFormat: 'text',
