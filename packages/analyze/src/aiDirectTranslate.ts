@@ -1,4 +1,10 @@
 import {
+  chatGptRequest,
+  GPT_4O,
+  GPT_4O_MINI,
+  OpenAiModel,
+} from '@vocably/lambda-shared';
+import {
   ChatGPTLanguage,
   GoogleLanguage,
   languageList,
@@ -10,12 +16,6 @@ import {
   isAiTranslation,
   resultExamples,
 } from './aiDirectTranslateConstants';
-import {
-  chatGptRequest,
-  GPT_4O,
-  GPT_4O_MINI,
-  OpenAiModel,
-} from './chatGptRequest';
 import { fallback } from './fallback';
 
 type Payload = {

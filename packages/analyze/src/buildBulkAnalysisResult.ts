@@ -1,3 +1,4 @@
+import { chatGptRequest, GPT_4O_MINI } from '@vocably/lambda-shared';
 import {
   BulkAnalysis,
   BulkAnalysisPayload,
@@ -6,7 +7,6 @@ import {
 } from '@vocably/model';
 import { trimArticle } from '@vocably/sulna';
 import { isArray, isNumber, isObject, isString } from 'lodash-es';
-import { chatGptRequest, GPT_4O_MINI } from './chatGptRequest';
 import { getWords } from './isOneWord';
 
 type GptBulkAnalyseItem = {

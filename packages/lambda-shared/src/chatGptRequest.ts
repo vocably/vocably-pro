@@ -13,12 +13,14 @@ type Options = {
   messages: Array<ChatCompletionMessageParam>;
   model: OpenAiModel;
   timeoutMs?: number;
+  responseFormat?: 'json_object' | 'text';
 };
 
 export const chatGptRequest = async ({
   messages,
   model,
   timeoutMs = 7000,
+  responseFormat = 'json_object',
 }: Options): Promise<Result<any>> => {
   const openai = await getOpenAiClient();
 
@@ -33,7 +35,7 @@ export const chatGptRequest = async ({
         messages: messages,
         model: model,
         response_format: {
-          type: 'json_object',
+          type: responseFormat,
         },
         temperature: 0,
         top_p: 0,
@@ -58,6 +60,13 @@ export const chatGptRequest = async ({
 
   if (completionResult.success === false) {
     return completionResult;
+  }
+
+  if (responseFormat === 'text') {
+    return {
+      success: true,
+      value: get(completionResult, 'value.choices[0].message.content', ''),
+    };
   }
 
   const parseResult = parseJson(

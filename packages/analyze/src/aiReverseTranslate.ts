@@ -1,3 +1,4 @@
+import { chatGptRequest, GPT_4O_MINI } from '@vocably/lambda-shared';
 import {
   GoogleLanguage,
   languageList,
@@ -5,7 +6,6 @@ import {
   Translation,
 } from '@vocably/model';
 import { isArray, isObject } from 'lodash-es';
-import { chatGptRequest, GPT_4O_MINI } from './chatGptRequest';
 
 type Payload = {
   target: string;
