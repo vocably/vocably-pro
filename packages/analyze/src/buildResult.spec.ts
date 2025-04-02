@@ -1,5 +1,6 @@
 import '@vocably/jest';
 import { isReverseAnalysis } from '@vocably/model';
+import { inspect } from '@vocably/node-sulna';
 import { buildResult } from './buildResult';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 
@@ -372,8 +373,7 @@ describe('integration check for translate lambda', () => {
       return;
     }
 
-    // This is a bad translation, but Serbian is poorly supported by ChatGPT
-    expect(result.value.translation.target).toEqual('держал');
+    expect(result.value.translation.target).toEqual('провела');
   });
 
   it('long serbian sentence', async () => {
@@ -711,5 +711,23 @@ describe('integration check for translate lambda', () => {
       'question, issue, wish, request'
     );
     expect(result.value.items[0].definitions.length).toBeGreaterThan(0);
+  });
+
+  it('swahili', async () => {
+    const result = await buildResult({
+      target: 'table',
+      sourceLanguage: 'sw',
+      targetLanguage: 'en',
+    });
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    console.log(inspect(result));
+
+    expect(result.value.items.length).toBeGreaterThan(0);
+    expect(result.value.items[0].source).toEqual('meza');
+    expect(result.value.items[0].partOfSpeech).toEqual('noun');
+    expect(result.value.items[0].translation).toEqual('table');
   });
 });

@@ -1,3 +1,4 @@
+import { google } from '@google-cloud/translate/build/protos/protos';
 import {
   AnalysisItem,
   DirectAnalysis,
@@ -9,9 +10,11 @@ import {
   ValidAnalysisItems,
 } from '@vocably/model';
 import { buildDirectResult } from './buildDirectResult';
+import { combineTranslations } from './combineItems';
 import { makeUniqueItems } from './makeUniqueItems';
 import { reverseTranslate } from './reverseTranslate';
 import { sortByTarget } from './sortByTarget';
+import translation = google.cloud.translation;
 
 type TranslationDirectResult = {
   translation: Translation;
@@ -77,6 +80,40 @@ export const buildReverseResult = async (
   };
 };
 
+const mergeItems = (
+  candidate: AnalysisItem,
+  items: ValidAnalysisItems
+): ValidAnalysisItems => {
+  const itemThatIsMatchedWithTheCandidate = items.find(
+    (item) =>
+      item.partOfSpeech === candidate.partOfSpeech &&
+      item.source === candidate.source
+  );
+
+  if (itemThatIsMatchedWithTheCandidate === undefined) {
+    return [candidate, ...items];
+  }
+
+  const result = items.map((item) => {
+    if (
+      itemThatIsMatchedWithTheCandidate === item &&
+      candidate.translation.toLowerCase() !== item.translation.toLowerCase()
+    ) {
+      return {
+        ...item,
+        translation: combineTranslations(
+          candidate.translation,
+          item.translation
+        ),
+      };
+    }
+
+    return item;
+  });
+
+  return [result[0], ...result.slice(1)];
+};
+
 const builtTranslationItems = (
   translationDirectResults: [
     TranslationDirectResult,
@@ -84,18 +121,21 @@ const builtTranslationItems = (
   ]
 ): ValidAnalysisItems => {
   const results = translationDirectResults.flatMap((result): AnalysisItem[] => {
+    const itemCandidate: AnalysisItem = {
+      source: result.translation.target,
+      translation: result.translation.source,
+      partOfSpeech: result.translation.partOfSpeech,
+      definitions: [],
+    };
+
     if (result.directTranslationResult.success) {
-      return result.directTranslationResult.value.items;
+      return mergeItems(
+        itemCandidate,
+        result.directTranslationResult.value.items
+      );
     }
 
-    return [
-      {
-        source: result.translation.target,
-        translation: result.translation.source,
-        partOfSpeech: result.translation.partOfSpeech,
-        definitions: [],
-      },
-    ];
+    return [itemCandidate];
   });
 
   return [results[0], ...results.slice(1)];
