@@ -11,7 +11,7 @@ describe('integration check for translate lambda', () => {
     return;
   }
 
-  it('translates texts as is when language does not supported by lexicala', async () => {
+  it('translates texts as is when language is not supported by lexicala', async () => {
     const result = await buildResult({
       source: 'labas rytas',
       sourceLanguage: 'lt',
