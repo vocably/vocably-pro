@@ -132,7 +132,7 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
     },
   };
 
-  const [mnemonicResult, regenerateMnemonic] = useMnemonic({
+  const [mnemonicResult, regenerateMnemonicBackendCall] = useMnemonic({
     sourceLanguage,
     targetLanguage,
     card: card.data,
@@ -188,6 +188,20 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
   }
 
   const isHelpVisible = helpIsOpen || !isVisitedResult.value;
+
+  const regenerateMnemonic = async () => {
+    setVotedFor('');
+    postHog.capture('mnemonicGenerate', {
+      sourceLanguage,
+      targetLanguage,
+      card: {
+        id: card.id,
+        source: card.data.source,
+        partOfSpeech: card.data.partOfSpeech,
+      },
+    });
+    await regenerateMnemonicBackendCall();
+  };
 
   return (
     <>
@@ -291,10 +305,7 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
                     <IconButton
                       icon={'reload'}
                       style={{ marginLeft: 'auto' }}
-                      onPress={() => {
-                        setVotedFor('');
-                        regenerateMnemonic();
-                      }}
+                      onPress={regenerateMnemonic}
                     />
                   </View>
                 </View>
