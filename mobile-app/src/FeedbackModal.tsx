@@ -1,4 +1,4 @@
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, Route } from '@react-navigation/native';
 import { sendUserFeedback } from '@vocably/api';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, Platform, ScrollView, View } from 'react-native';
@@ -9,10 +9,11 @@ import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 import { VocablyTextInput } from './VocablyTextInput';
 
 type Props = {
+  route: Route<string, any>;
   navigation: NavigationProp<any>;
 };
 
-export const FeedbackModal: FC<Props> = ({ navigation }) => {
+export const FeedbackModal: FC<Props> = ({ navigation, route }) => {
   const [text, setText] = useState('');
   const [isSending, setIsSending] = useState(false);
   const userEmail = useUserEmail();
@@ -27,6 +28,7 @@ export const FeedbackModal: FC<Props> = ({ navigation }) => {
         platform: 'mobile',
         os: Platform.OS,
         translationPreset,
+        extraRouteParams: route.params,
       },
     });
 
