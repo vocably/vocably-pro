@@ -31,6 +31,7 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
 
   const [upvoting, setUpvoting] = useState(false);
   const [downvoting, setDownvoting] = useState(false);
+  const [votedFor, setVotedFor] = useState('');
 
   const theme = useTheme();
   const postHog = usePostHog();
@@ -53,8 +54,9 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
       },
       mnemonicResult,
     });
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 200));
     setUpvoting(false);
+    setVotedFor('upvoted');
   };
 
   const downvote = async () => {
@@ -69,8 +71,9 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
       },
       mnemonicResult,
     });
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 200));
     setDownvoting(false);
+    setVotedFor('downvoted');
   };
 
   const feedback = () => {
@@ -141,13 +144,19 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
                 </Button>
                 <View style={{ flexDirection: 'row', marginLeft: 'auto' }}>
                   <IconButton
-                    icon={'thumb-up-outline'}
+                    icon={
+                      votedFor === 'upvoted' ? 'thumb-up' : 'thumb-up-outline'
+                    }
                     style={{ marginLeft: 'auto' }}
                     onPress={() => upvote()}
                     loading={upvoting}
                   />
                   <IconButton
-                    icon={'thumb-down-outline'}
+                    icon={
+                      votedFor === 'downvoted'
+                        ? 'thumb-down'
+                        : 'thumb-down-outline'
+                    }
                     style={{ marginLeft: 'auto' }}
                     onPress={() => downvote()}
                     loading={downvoting}
@@ -155,7 +164,10 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
                   <IconButton
                     icon={'reload'}
                     style={{ marginLeft: 'auto' }}
-                    onPress={() => regenerateMnemonic()}
+                    onPress={() => {
+                      setVotedFor('');
+                      regenerateMnemonic();
+                    }}
                   />
                 </View>
               </View>
