@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationProp, Route } from '@react-navigation/native';
 import { CardItem, GoogleLanguage } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
@@ -7,7 +8,19 @@ import Markdown from 'react-native-markdown-display';
 import { Appbar, Button, IconButton, Text, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Loader } from './loaders/Loader';
+import { Displayer } from './study/Displayer';
+import { useAsync } from './useAsync';
 import { useMnemonic } from './useMnemonic';
+
+const isVisited = async (): Promise<boolean> => {
+  return AsyncStorage.getItem('mnemonicIsVisited').then((isVisited) => {
+    return isVisited === 'true';
+  });
+};
+
+const setVisited = async (visited: boolean) => {
+  await AsyncStorage.setItem('mnemonicIsVisited', visited ? 'true' : 'false');
+};
 
 type HelperTranslation = {
   text: string;
@@ -35,9 +48,9 @@ Give it a try, and if you're up for it, let me know what you think.`,
 
 Мнемоники — это приемы и техники, которые помогают запоминать информацию с помощью ассоциаций, рифм, образов или других когнитивных связей.
 
-AI-генератор мнемоник — это эксперементальная функция проекта. Я не уверен, останется ли она в будущем или уйдёт как ненужная.
+AI-генератор мнемоник — это экспериментальная функция проекта. Я не уверен, останется ли она в будущем или уйдёт как ненужная.
 
-Попробуйте воспользоваться этой функциональностью и если появится желание, то сообщите мне что вы о ней думаете.`,
+Попробуйте воспользоваться этой функциональностью и если появится желание, то сообщите мне, что вы о ней думаете.`,
     okay: 'Хорошо',
   },
 
@@ -52,6 +65,30 @@ AI-генератор мнемонік — це експериментальна
 
 Спробуйте скористатися цією функцією, і якщо у вас з’являться думки з цього приводу, поділіться ними зі мною.`,
     okay: 'Добре',
+  },
+  vi: {
+    text: `Một số từ rất khó để nhớ—chúng không chịu bám vào trí nhớ.
+
+Vocably giúp bạn bằng cách tạo ra các phương pháp ghi nhớ cho những từ khó nhớ.
+
+Các phương pháp ghi nhớ là những kỹ thuật giúp ghi nhớ thông qua các liên tưởng, vần điệu, hình ảnh hoặc các liên kết nhận thức khác để việc học trở nên dễ dàng hơn.
+
+Trình tạo phương pháp ghi nhớ AI là một tính năng thử nghiệm. Tôi không chắc liệu tính năng này sẽ còn tồn tại hay sẽ biến mất vì không cần thiết.
+
+Hãy thử xem, và nếu bạn muốn, cho tôi biết ý kiến của bạn nhé.`,
+    okay: `Được rồi`,
+  },
+  tr: {
+    text: `Bazı kelimeleri hatırlamak gerçekten zor—adeta akılda kalmak istemezler.
+
+Vocably, hafıza teknikleri oluşturarak zor kelimeleri hatırlamanıza yardımcı olur.
+
+Hafıza teknikleri, öğrenmeyi kolaylaştırmak için bağlantılar, kafiyeler, görseller veya diğer akılda kalıcı çağrışımlar kullanan yöntemlerdir.
+
+Yapay zeka destekli hafıza tekniği oluşturucu aracımız, deneme aşamasında olan bir özellik. Bu özelliğin kalıcı olup olmayacağından emin değilim; gereksiz olduğu düşünülürse kaldırılabilir.
+
+Deneyin ve bana ne düşündüğünüzü söyleyin.`,
+    okay: `Peki`,
   },
 };
 
@@ -74,6 +111,11 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
   const { sourceLanguage, targetLanguage, card } =
     route.params as MnemonicModalParams;
   const insets = useSafeAreaInsets();
+
+  const [isVisitedResult, mutateIsVisited] = useAsync(
+    () => isVisited(),
+    setVisited
+  );
 
   const [upvoting, setUpvoting] = useState(false);
   const [downvoting, setDownvoting] = useState(false);
@@ -141,14 +183,22 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
 
   const translation = helpText[targetLanguage] ?? helpText['en'];
 
+  if (isVisitedResult.status !== 'loaded') {
+    return <></>;
+  }
+
+  const isHelpVisible = helpIsOpen || !isVisitedResult.value;
+
   return (
     <>
       <Appbar.Header statusBarHeight={0}>
-        <Appbar.Action
-          icon={'help-circle-outline'}
-          size={24}
-          onPress={() => setHelpIsOpen(!helpIsOpen)}
-        />
+        {isVisitedResult.value && (
+          <Appbar.Action
+            icon={'help-circle-outline'}
+            size={24}
+            onPress={() => setHelpIsOpen(!helpIsOpen)}
+          />
+        )}
         <Appbar.Content title="✨ Mnemonics" />
         <Appbar.Action
           icon={'close'}
@@ -165,8 +215,8 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
           flexGrow: 1,
         }}
       >
-        {helpIsOpen && (
-          <View
+        {isHelpVisible && (
+          <Displayer
             style={{
               flex: 1,
               alignItems: 'center',
@@ -178,14 +228,17 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
             <Button
               style={{ width: '100%', marginTop: 24 }}
               mode="outlined"
-              onPress={() => setHelpIsOpen(false)}
+              onPress={() => {
+                setHelpIsOpen(false);
+                mutateIsVisited(true);
+              }}
             >
               {translation.okay}
             </Button>
-          </View>
+          </Displayer>
         )}
-        {!helpIsOpen && (
-          <View
+        {!isHelpVisible && (
+          <Displayer
             style={{
               flex: 1,
               alignItems: 'center',
@@ -268,7 +321,7 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
                 </Button>
               </View>
             )}
-          </View>
+          </Displayer>
         )}
       </ScrollView>
     </>
