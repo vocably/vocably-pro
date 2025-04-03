@@ -191,15 +191,6 @@ export const MnemonicModal: FC<Props> = ({ route, navigation }) => {
 
   const regenerateMnemonic = async () => {
     setVotedFor('');
-    postHog.capture('mnemonicGenerate', {
-      sourceLanguage,
-      targetLanguage,
-      card: {
-        id: card.id,
-        source: card.data.source,
-        partOfSpeech: card.data.partOfSpeech,
-      },
-    });
     await regenerateMnemonicBackendCall();
   };
 
