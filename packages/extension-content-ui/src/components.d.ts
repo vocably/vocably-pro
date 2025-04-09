@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AddCardPayload, AttachTagPayload, AudioPronunciationPayload, Card, DeleteTagPayload, DetachTagPayload, GoogleLanguage, GoogleTTSLanguage, RateInteractionPayload, RemoveCardPayload, Result, TagCandidate, TagItem, TranslationCard, TranslationCards, UpdateCardPayload, UpdateTagPayload } from "@vocably/model";
+export { AddCardPayload, AttachTagPayload, AudioPronunciationPayload, Card, DeleteTagPayload, DetachTagPayload, GoogleLanguage, GoogleTTSLanguage, RateInteractionPayload, RemoveCardPayload, Result, TagCandidate, TagItem, TranslationCard, TranslationCards, UpdateCardPayload, UpdateTagPayload } from "@vocably/model";
 export namespace Components {
     interface VocablyAddCardHint {
     }
@@ -185,7 +186,18 @@ export interface VocablyTranslationCustomEvent<T> extends CustomEvent<T> {
     target: HTMLVocablyTranslationElement;
 }
 declare global {
+    interface HTMLVocablyAddCardHintElementEventMap {
+        "confirm": any;
+    }
     interface HTMLVocablyAddCardHintElement extends Components.VocablyAddCardHint, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLVocablyAddCardHintElementEventMap>(type: K, listener: (this: HTMLVocablyAddCardHintElement, ev: VocablyAddCardHintCustomEvent<HTMLVocablyAddCardHintElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLVocablyAddCardHintElementEventMap>(type: K, listener: (this: HTMLVocablyAddCardHintElement, ev: VocablyAddCardHintCustomEvent<HTMLVocablyAddCardHintElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLVocablyAddCardHintElement: {
         prototype: HTMLVocablyAddCardHintElement;
@@ -221,7 +233,18 @@ declare global {
         prototype: HTMLVocablyCardTranslationElement;
         new (): HTMLVocablyCardTranslationElement;
     };
+    interface HTMLVocablyCloseButtonElementEventMap {
+        "close": void;
+    }
     interface HTMLVocablyCloseButtonElement extends Components.VocablyCloseButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLVocablyCloseButtonElementEventMap>(type: K, listener: (this: HTMLVocablyCloseButtonElement, ev: VocablyCloseButtonCustomEvent<HTMLVocablyCloseButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLVocablyCloseButtonElementEventMap>(type: K, listener: (this: HTMLVocablyCloseButtonElement, ev: VocablyCloseButtonCustomEvent<HTMLVocablyCloseButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLVocablyCloseButtonElement: {
         prototype: HTMLVocablyCloseButtonElement;
@@ -311,7 +334,21 @@ declare global {
         prototype: HTMLVocablyIconWindowCloseElement;
         new (): HTMLVocablyIconWindowCloseElement;
     };
+    interface HTMLVocablyLanguageElementEventMap {
+        "confirm": {
+    sourceLanguage: string;
+    targetLanguage: string;
+  };
+    }
     interface HTMLVocablyLanguageElement extends Components.VocablyLanguage, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLVocablyLanguageElementEventMap>(type: K, listener: (this: HTMLVocablyLanguageElement, ev: VocablyLanguageCustomEvent<HTMLVocablyLanguageElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLVocablyLanguageElementEventMap>(type: K, listener: (this: HTMLVocablyLanguageElement, ev: VocablyLanguageCustomEvent<HTMLVocablyLanguageElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLVocablyLanguageElement: {
         prototype: HTMLVocablyLanguageElement;
@@ -341,7 +378,18 @@ declare global {
         prototype: HTMLVocablyPlaySoundElement;
         new (): HTMLVocablyPlaySoundElement;
     };
+    interface HTMLVocablyPopupElementEventMap {
+        "close": void;
+    }
     interface HTMLVocablyPopupElement extends Components.VocablyPopup, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLVocablyPopupElementEventMap>(type: K, listener: (this: HTMLVocablyPopupElement, ev: VocablyPopupCustomEvent<HTMLVocablyPopupElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLVocablyPopupElementEventMap>(type: K, listener: (this: HTMLVocablyPopupElement, ev: VocablyPopupCustomEvent<HTMLVocablyPopupElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLVocablyPopupElement: {
         prototype: HTMLVocablyPopupElement;
@@ -353,13 +401,35 @@ declare global {
         prototype: HTMLVocablyQrCodeElement;
         new (): HTMLVocablyQrCodeElement;
     };
+    interface HTMLVocablyRateElementEventMap {
+        "userSelected": 'review' | 'later' | 'never' | 'feedback';
+    }
     interface HTMLVocablyRateElement extends Components.VocablyRate, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLVocablyRateElementEventMap>(type: K, listener: (this: HTMLVocablyRateElement, ev: VocablyRateCustomEvent<HTMLVocablyRateElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLVocablyRateElementEventMap>(type: K, listener: (this: HTMLVocablyRateElement, ev: VocablyRateCustomEvent<HTMLVocablyRateElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLVocablyRateElement: {
         prototype: HTMLVocablyRateElement;
         new (): HTMLVocablyRateElement;
     };
+    interface HTMLVocablySignInElementEventMap {
+        "confirm": any;
+    }
     interface HTMLVocablySignInElement extends Components.VocablySignIn, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLVocablySignInElementEventMap>(type: K, listener: (this: HTMLVocablySignInElement, ev: VocablySignInCustomEvent<HTMLVocablySignInElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLVocablySignInElementEventMap>(type: K, listener: (this: HTMLVocablySignInElement, ev: VocablySignInCustomEvent<HTMLVocablySignInElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLVocablySignInElement: {
         prototype: HTMLVocablySignInElement;
@@ -371,13 +441,35 @@ declare global {
         prototype: HTMLVocablySpinnerElement;
         new (): HTMLVocablySpinnerElement;
     };
+    interface HTMLVocablySubscribeElementEventMap {
+        "confirm": any;
+    }
     interface HTMLVocablySubscribeElement extends Components.VocablySubscribe, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLVocablySubscribeElementEventMap>(type: K, listener: (this: HTMLVocablySubscribeElement, ev: VocablySubscribeCustomEvent<HTMLVocablySubscribeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLVocablySubscribeElementEventMap>(type: K, listener: (this: HTMLVocablySubscribeElement, ev: VocablySubscribeCustomEvent<HTMLVocablySubscribeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLVocablySubscribeElement: {
         prototype: HTMLVocablySubscribeElement;
         new (): HTMLVocablySubscribeElement;
     };
+    interface HTMLVocablyTagFormElementEventMap {
+        "hide": void;
+    }
     interface HTMLVocablyTagFormElement extends Components.VocablyTagForm, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLVocablyTagFormElementEventMap>(type: K, listener: (this: HTMLVocablyTagFormElement, ev: VocablyTagFormCustomEvent<HTMLVocablyTagFormElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLVocablyTagFormElementEventMap>(type: K, listener: (this: HTMLVocablyTagFormElement, ev: VocablyTagFormCustomEvent<HTMLVocablyTagFormElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLVocablyTagFormElement: {
         prototype: HTMLVocablyTagFormElement;
@@ -389,7 +481,22 @@ declare global {
         prototype: HTMLVocablyTagsMenuElement;
         new (): HTMLVocablyTagsMenuElement;
     };
+    interface HTMLVocablyTranslationElementEventMap {
+        "ratingInteraction": RateInteractionPayload;
+        "changeSourceLanguage": string;
+        "changeTargetLanguage": string;
+        "removeCard": RemoveCardPayload;
+        "addCard": AddCardPayload;
+    }
     interface HTMLVocablyTranslationElement extends Components.VocablyTranslation, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLVocablyTranslationElementEventMap>(type: K, listener: (this: HTMLVocablyTranslationElement, ev: VocablyTranslationCustomEvent<HTMLVocablyTranslationElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLVocablyTranslationElementEventMap>(type: K, listener: (this: HTMLVocablyTranslationElement, ev: VocablyTranslationCustomEvent<HTMLVocablyTranslationElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLVocablyTranslationElement: {
         prototype: HTMLVocablyTranslationElement;
