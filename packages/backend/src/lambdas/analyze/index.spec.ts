@@ -85,6 +85,7 @@ describe('integration check for translate lambda', () => {
   it('skips translation when source language equals to target language', async () => {
     mockEvent.body = JSON.stringify({
       source: 'asylum',
+      sourceLanguage: 'en',
       targetLanguage: 'en',
     });
     mockEvent.requestContext = paidRequestContext;
