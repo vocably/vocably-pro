@@ -27,17 +27,17 @@ export const explainSentence = async ({
       {
         role: 'system',
         content:
-          'You are a language learning assistant helping upper-intermediate language student to analyse a sentence',
+          'You are a language learning assistant helping language student to analyse a sentence',
       },
       {
         role: 'system',
         content: [
-          `Briefly explain what to pay attention to for proper translation of ${trimLanguage(
+          `Shortly explain what to pay attention to for proper translation of ${trimLanguage(
             languageList[sourceLanguage]
           )} sentence into ${trimLanguage(languageList[targetLanguage])}.`,
           `Provide explanation in ${trimLanguage(
             languageList[targetLanguage]
-          )}.'`,
+          )}'`,
         ].join('\n'),
       },
       {
@@ -46,21 +46,7 @@ export const explainSentence = async ({
       },
     ],
     responseFormat: {
-      type: 'json_schema',
-      json_schema: {
-        name: 'SentenceAnalysis',
-        description:
-          'Sentence analysis, idiomatic phrases and words worth remembering and their parts of speech for each of them.',
-        schema: {
-          $schema: 'http://json-schema.org/draft-07/schema#',
-          type: 'object',
-          properties: {
-            explanation: { type: 'string' },
-          },
-          required: ['explanation'],
-          additionalProperties: false,
-        },
-      },
+      type: 'text',
     },
     model: GPT_4O,
   });
@@ -69,15 +55,10 @@ export const explainSentence = async ({
     return responseResult;
   }
 
-  if (!isExplanation(responseResult.value)) {
-    return {
-      success: false,
-      errorCode: 'FUCKING_ERROR',
-      reason:
-        'The provided ChatGPT response is not a valid explanation object.',
-      extra: responseResult.value,
-    };
-  }
-
-  return responseResult;
+  return {
+    success: true,
+    value: {
+      explanation: responseResult.value,
+    },
+  };
 };
