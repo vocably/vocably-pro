@@ -76,6 +76,7 @@
     "rxjs": "7.5.6",
     "s3-sync-client": "4.3.1",
     "semantic-release": "22.0.12",
+    "showdown": "^2.1.0",
     "stable": "0.1.8",
     "terraform-fmt": "1.0.2",
     "tiny-segmenter": "0.2.0",

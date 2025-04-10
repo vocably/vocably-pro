@@ -90,19 +90,6 @@ export const buildDirectResult = async ({
 
     if (explanationResult.success === true) {
       explanation = explanationResult.value.explanation;
-      translations = [
-        ...translations,
-        ...explanationResult.value.sentenceMembers
-          .filter((senteceMember) => senteceMember.isTranslatable)
-          .map((sentenceMember) => ({
-            source: sentenceMember.source,
-            sourceLanguage: payload.sourceLanguage,
-            target: sentenceMember.translation,
-            targetLanguage: payload.targetLanguage,
-            partOfSpeech: sentenceMember.partOfSpeech,
-            comesFromExplanation: true,
-          })),
-      ];
     }
   }
 

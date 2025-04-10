@@ -34,9 +34,12 @@ import {
   UpdateCardPayload,
   UpdateTagPayload,
 } from '@vocably/model';
+import showdown from 'showdown';
 import { getSelectedTagIds } from './getSelectedTagIds';
 import { isDirectNecessary } from './isDirectNecessary';
 import { sortLanguages } from './sortLanguages';
+
+const mdConverter = new showdown.Converter();
 
 @Component({
   tag: 'vocably-translation',
@@ -431,11 +434,18 @@ export class VocablyTranslation {
                     </div>
                   )}
                   {explanation && (
-                    <div class="vocably-mb-12 explanation">
+                    <div class="vocably-mb-12 explanation-frame">
                       <vocably-icon-ai
-                        style={{ verticalAlign: 'text-top' }}
+                        style={{
+                          marginTop: '1px',
+                          float: 'left',
+                          marginRight: '8px',
+                        }}
                       ></vocably-icon-ai>{' '}
-                      {explanation}
+                      <div
+                        class="explanation"
+                        innerHTML={mdConverter.makeHtml(explanation)}
+                      ></div>
                     </div>
                   )}
                   <div
