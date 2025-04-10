@@ -118,6 +118,13 @@ export const buildDirectResult = async ({
       };
     }
 
+    if (translation.comesFromExplanation) {
+      return {
+        success: true,
+        value: [translationToAnalysisItem(translation)],
+      };
+    }
+
     const trimmedArticle = trimArticle(
       translation.sourceLanguage,
       translation.source
@@ -151,11 +158,6 @@ export const buildDirectResult = async ({
       lexicalaParams = {
         analyzed: 'false',
         morph: 'false',
-      };
-    } else if (translation.comesFromExplanation) {
-      lexicalaParams = {
-        analyzed: 'false',
-        morph: 'true',
       };
     }
 

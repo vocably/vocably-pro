@@ -733,7 +733,8 @@ describe('integration check for translate lambda', () => {
     const result = await buildResult({
       sourceLanguage: 'nl',
       targetLanguage: 'en',
-      source: 'Nieuwbouw',
+      source:
+        'Derde advocaat van Taghi opgepakt op verdenking van deelname aan criminele organisatie',
     });
 
     console.log(inspect(result));
