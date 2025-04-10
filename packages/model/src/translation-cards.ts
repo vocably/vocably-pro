@@ -13,6 +13,7 @@ export type TranslationCard = CardItem | DetachedCardItem;
 
 export type TranslationCards = {
   source: string;
+  explanation: string;
   translation: Translation;
   cards: TranslationCard[];
   tags: TagItem[];

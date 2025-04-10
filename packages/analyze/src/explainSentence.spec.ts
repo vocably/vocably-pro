@@ -13,10 +13,9 @@ describe('explainSentence', () => {
 
   it('somewhat works', async () => {
     const responseResult = await explainSentence({
-      sourceLanguage: 'nl',
-      targetLanguage: 'en',
-      sentence:
-        'Grote reorganisatie bij Tata Steel, 1600 voltijdbanen verdwijnen',
+      sourceLanguage: 'en',
+      targetLanguage: 'ru',
+      sentence: 'Alice was beginning to get very tired of sitting',
     });
 
     console.log(inspect(responseResult));

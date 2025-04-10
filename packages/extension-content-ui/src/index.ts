@@ -5,6 +5,7 @@ export { Components, JSX } from './components';
 const simpletonTranslationResult: Result<TranslationCards> = {
   success: true,
   value: {
+    explanation: '',
     source: 'gemaakt',
     translation: {
       source: 'gemaakt',
@@ -33,6 +34,7 @@ const simpletonTranslationResult: Result<TranslationCards> = {
 const successfulTranslationResult: Result<TranslationCards> = {
   success: true,
   value: {
+    explanation: '',
     source: 'gemaakt',
     translation: {
       source: 'gemaakt',
@@ -83,6 +85,7 @@ const successfulTranslationResult: Result<TranslationCards> = {
 const englishTranslationResult: Result<TranslationCards> = {
   success: true,
   value: {
+    explanation: '',
     cards: [
       {
         data: {
@@ -131,6 +134,8 @@ translationFirstTime.result = {
       target: 'Алиса начала сильно уставать сидеть',
       targetLanguage: 'ru',
     },
+    explanation:
+      'В этом предложении важно обратить внимание на структуру и порядок слов, чтобы правильно передать смысл на русский язык. Фраза "was beginning to get very tired" указывает на постепенное начало действия, что можно передать с помощью конструкции "начинала уставать". Также стоит обратить внимание на глагол "sitting", который в данном контексте переводится как "сидеть". Важно сохранить временную форму и последовательность действий при переводе.',
     cards: [
       {
         data: {

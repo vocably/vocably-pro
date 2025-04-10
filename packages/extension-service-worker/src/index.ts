@@ -269,6 +269,7 @@ export const registerServiceWorker = (
 
       const value = {
         cards,
+        explanation: analysisResult.value.explanation ?? '',
         source: analysisResult.value.source,
         translation: analysisResult.value.translation,
         tags: loadLanguageDeckResult.value.tags,

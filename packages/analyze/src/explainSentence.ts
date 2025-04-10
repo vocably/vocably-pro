@@ -50,15 +50,15 @@ export const explainSentence = async ({
       {
         role: 'system',
         content:
-          'You are a vocabulary app helping upper-intermediate language student to analyse a sentence',
+          'You are a language learning assistant helping upper-intermediate language student to analyse a sentence',
       },
       {
         role: 'system',
         content: [
-          `What to pay attention to for proper translation of ${trimLanguage(
+          `Explain what to pay attention to for proper translation of ${trimLanguage(
             languageList[sourceLanguage]
           )} sentence into ${trimLanguage(languageList[targetLanguage])}.`,
-          `- Extract difficult sentence members and idiomatic phrases`,
+          `- Extract difficult sentence members, idiomatic phrases and interesting words`,
           `- Lowercase`,
           `Provide explanation in ${trimLanguage(
             languageList[targetLanguage]
@@ -75,7 +75,7 @@ export const explainSentence = async ({
       json_schema: {
         name: 'SentenceAnalysis',
         description:
-          'Analyse sentence and output idiomatic phrases and words worth remembering and their parts of speech for each of them.',
+          'Sentence analysis, idiomatic phrases and words worth remembering and their parts of speech for each of them.',
         schema: {
           $schema: 'http://json-schema.org/draft-07/schema#',
           type: 'object',

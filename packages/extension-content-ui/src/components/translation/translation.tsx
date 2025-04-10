@@ -369,6 +369,10 @@ export class VocablyTranslation {
       this.result.success &&
       isDirectNecessary(this.result.value);
 
+    const explanation =
+      (this.result && this.result.success && this.result.value.explanation) ??
+      '';
+
     return (
       <Host data-test="translation-container">
         <div class="vocably-loading-container">
@@ -424,6 +428,14 @@ export class VocablyTranslation {
                         {this.phrase}
                       </span>{' '}
                       means <i>{this.result.value.translation.target}</i>
+                    </div>
+                  )}
+                  {explanation && (
+                    <div class="vocably-mb-12 explanation">
+                      <vocably-icon-ai
+                        style={{ verticalAlign: 'text-top' }}
+                      ></vocably-icon-ai>{' '}
+                      {explanation}
                     </div>
                   )}
                   <div

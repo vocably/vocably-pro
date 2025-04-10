@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+
+:host {
+  --size: 18px;
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+}
+
+.svg {
+  height: 100%;
+  width: auto;
+
+  fill: $v-light-color-body;
+}

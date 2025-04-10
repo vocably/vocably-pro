@@ -124,6 +124,13 @@ $section-margin: 8px;
 $container-padding: $input-padding-y $input-padding-x $input-padding-y
   $input-padding-x;
 
+.explanation {
+  border: $internal-border;
+  border-radius: $v-border-radius;
+  margin-left: -$input-padding-x;
+  padding: $container-padding;
+}
+
 .vocably-cards {
   border: $internal-border;
   border-radius: $v-border-radius;
