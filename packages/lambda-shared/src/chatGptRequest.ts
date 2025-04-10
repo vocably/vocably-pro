@@ -1,6 +1,7 @@
 import { Result, resultify } from '@vocably/model';
 import { get } from 'lodash';
 import type { ChatCompletionMessageParam } from 'openai/resources/chat';
+import { ChatCompletionCreateParamsBase } from 'openai/resources/chat/completions';
 import { getOpenAiClient } from './openAiClient';
 import { parseJson } from './parseJson';
 
@@ -13,7 +14,7 @@ type Options = {
   messages: Array<ChatCompletionMessageParam>;
   model: OpenAiModel;
   timeoutMs?: number;
-  responseFormat?: 'json_object' | 'text';
+  responseFormat?: ChatCompletionCreateParamsBase['response_format'];
   temperature?: number;
 };
 
@@ -21,7 +22,9 @@ export const chatGptRequest = async ({
   messages,
   model,
   timeoutMs = 7000,
-  responseFormat = 'json_object',
+  responseFormat = {
+    type: 'json_object',
+  },
   temperature = 0,
 }: Options): Promise<Result<any>> => {
   const openai = await getOpenAiClient();
@@ -36,9 +39,7 @@ export const chatGptRequest = async ({
       {
         messages: messages,
         model: model,
-        response_format: {
-          type: responseFormat,
-        },
+        response_format: responseFormat,
         temperature,
         top_p: 0,
       },
@@ -64,7 +65,7 @@ export const chatGptRequest = async ({
     return completionResult;
   }
 
-  if (responseFormat === 'text') {
+  if (responseFormat.type === 'text') {
     return {
       success: true,
       value: get(completionResult, 'value.choices[0].message.content', ''),

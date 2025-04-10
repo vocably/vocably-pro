@@ -20,6 +20,8 @@ const buildTranslationResult = (translation: Translation): DirectAnalysis => {
 
   return {
     source: translation.source,
+    sourceLanguage: translation.sourceLanguage,
+    targetLanguage: translation.targetLanguage,
     translation,
     items: [
       {
@@ -105,6 +107,8 @@ export const buildDirectJapaneseResult = async ({
     success: true,
     value: {
       source: translation.source,
+      sourceLanguage: translation.sourceLanguage,
+      targetLanguage: translation.targetLanguage,
       translation,
       items: [analysisItems[0], ...analysisItems.slice(1)],
     },

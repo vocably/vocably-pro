@@ -6,6 +6,7 @@ export type Translation = {
   target: string;
   targetLanguage: GoogleLanguage;
   partOfSpeech?: string;
+  comesFromExplanation?: boolean;
 };
 
 export type DirectAnalyzePayload = {
@@ -47,6 +48,10 @@ export type ValidAnalysisItems = [AnalysisItem, ...AnalysisItem[]];
 
 export type DirectAnalysis = {
   source: string;
+  sourceLanguage: GoogleLanguage;
+  targetLanguage: GoogleLanguage;
+  explanation?: string;
+  // ToDo: Remove
   translation: Translation;
   items: ValidAnalysisItems;
 };

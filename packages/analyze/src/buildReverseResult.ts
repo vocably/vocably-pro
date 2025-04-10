@@ -1,4 +1,3 @@
-import { google } from '@google-cloud/translate/build/protos/protos';
 import {
   AnalysisItem,
   DirectAnalysis,
@@ -10,12 +9,11 @@ import {
   ValidAnalysisItems,
 } from '@vocably/model';
 import { trimArticle } from '@vocably/sulna';
-import { buildDirectResult } from './buildDirectResult';
+import { buildDirectResultLegacy } from './buildDirectResultLegacy';
 import { combineTranslations } from './combineItems';
 import { makeUniqueItems } from './makeUniqueItems';
 import { reverseTranslate } from './reverseTranslate';
 import { sortByTarget } from './sortByTarget';
-import translation = google.cloud.translation;
 
 type TranslationDirectResult = {
   translation: Translation;
@@ -36,7 +34,7 @@ export const buildReverseResult = async (
       async (translation): Promise<TranslationDirectResult> => {
         return {
           translation,
-          directTranslationResult: await buildDirectResult({
+          directTranslationResult: await buildDirectResultLegacy({
             payload: {
               source: translation.target,
               target: languagesWithTarget.includes(payload.sourceLanguage)
@@ -66,6 +64,8 @@ export const buildReverseResult = async (
     value: {
       target: payload.target,
       source: directResults[0].translation.target,
+      sourceLanguage: payload.sourceLanguage,
+      targetLanguage: payload.targetLanguage,
       translation: {
         source: directResults[0].translation.target,
         sourceLanguage: payload.sourceLanguage,

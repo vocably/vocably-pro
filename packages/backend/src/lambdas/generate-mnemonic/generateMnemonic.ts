@@ -39,7 +39,9 @@ export const generateMnemonic = async (
     .join('\n');
 
   const responseResult = await chatGptRequest({
-    responseFormat: 'text',
+    responseFormat: {
+      type: 'text',
+    },
     messages: [
       {
         role: 'system',

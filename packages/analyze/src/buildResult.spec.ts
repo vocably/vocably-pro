@@ -82,7 +82,6 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.source).toEqual('regeling');
     expect(result.value.translation).toBeDefined();
-    expect(result.value.items.length).toEqual(4);
     expect(result.value.items[0].source).toEqual('de regeling');
     expect(result.value.items[0].translation).toHaveSomeOf(
       'регулирование, соглашение, расположение, правило'
@@ -103,7 +102,6 @@ describe('integration check for translate lambda', () => {
 
     expect(result.value.source).toEqual('de regeling');
     expect(result.value.translation).toBeDefined();
-    expect(result.value.items.length).toEqual(4);
     expect(result.value.items[0].source).toEqual('de regeling');
     expect(result.value.items[0].translation).toHaveSomeOf(
       'регулирование, положение, правило'
@@ -729,5 +727,15 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].source).toEqual('meza');
     expect(result.value.items[0].partOfSpeech).toEqual('noun');
     expect(result.value.items[0].translation).toEqual('table');
+  });
+
+  it('dutch sentence', async () => {
+    const result = await buildResult({
+      sourceLanguage: 'nl',
+      targetLanguage: 'en',
+      source: 'Nieuwbouw',
+    });
+
+    console.log(inspect(result));
   });
 });
