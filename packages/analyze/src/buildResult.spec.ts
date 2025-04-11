@@ -729,14 +729,19 @@ describe('integration check for translate lambda', () => {
     expect(result.value.items[0].translation).toEqual('table');
   });
 
-  it('dutch sentence', async () => {
+  it('norwegian cat', async () => {
     const result = await buildResult({
-      sourceLanguage: 'nl',
+      sourceLanguage: 'no',
       targetLanguage: 'en',
-      source:
-        'Derde advocaat van Taghi opgepakt op verdenking van deelname aan criminele organisatie',
+      source: 'katt',
     });
 
     console.log(inspect(result));
+
+    if (result.success === false) {
+      throw 'Unexpected result';
+    }
+
+    expect(result.value.items[0].source).toEqual('en katt');
   });
 });
