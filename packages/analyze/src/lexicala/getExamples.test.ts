@@ -54,7 +54,7 @@ describe('getExamples', () => {
   });
 
   it('works on empty array', () => {
-    const senses = [];
+    const senses: any[] = [];
     expect(getExamples(senses)).toEqual([]);
   });
 

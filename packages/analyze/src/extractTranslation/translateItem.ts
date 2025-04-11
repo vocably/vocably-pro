@@ -28,8 +28,8 @@ export const translateItem = async (
       sourceLanguage: translation.sourceLanguage,
       // @ts-ignore
       targetLanguage: translation.targetLanguage,
-      source: item.headword.text,
-      partOfSpeech: item.headword.pos,
+      source: item.headword.text ?? '',
+      partOfSpeech: item.headword.pos ?? '',
       definitions,
     });
 
@@ -42,8 +42,8 @@ export const translateItem = async (
   }
 
   const translationResult = await translatePartOfSpeech({
-    source: item.headword.text,
-    partOfSpeech: item.headword.pos,
+    source: item.headword.text ?? '',
+    partOfSpeech: item.headword.pos ?? '',
     originalTranslation: translation,
     sourceWithArticle: addArticle(item.language, item.headword),
   });

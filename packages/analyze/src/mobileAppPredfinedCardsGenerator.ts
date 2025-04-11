@@ -542,7 +542,7 @@ const analyzeItemToCardItem = (
     language,
     source: analyzeItem.source,
     ipa: analyzeItem.ipa ?? '',
-    example: join(analyzeItem.examples),
+    example: join(analyzeItem.examples ?? []),
     definition: join(analyzeItem.definitions),
     translation: analyzeItem.translation,
     partOfSpeech: analyzeItem.partOfSpeech ?? '',

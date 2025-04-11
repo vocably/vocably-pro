@@ -41,7 +41,9 @@ export const googleTranslate = async (
   try {
     const [response] = await translationClient.translateText(request);
 
-    if (response.translations.length === 0) {
+    const translations = response.translations ?? [];
+
+    if (translations.length === 0) {
       return {
         success: false,
         errorCode: 'AS_IS_TRANSLATION_UNABLE_TO_TRANSLATE',
@@ -49,7 +51,7 @@ export const googleTranslate = async (
       };
     }
 
-    const translation = response.translations[0];
+    const translation = translations[0];
     const mayBeDetected =
       sourceLanguage ??
       googleTranslateLanguageToLanguage(
@@ -69,7 +71,7 @@ export const googleTranslate = async (
       value: {
         source,
         sourceLanguage: mayBeDetected,
-        target: translation.translatedText,
+        target: translation.translatedText ?? '',
         targetLanguage,
       },
     };

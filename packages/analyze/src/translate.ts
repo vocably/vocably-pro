@@ -16,7 +16,7 @@ import {
 type Payload = {
   source: string;
   targetLanguage: GoogleLanguage;
-  sourceLanguage?: GoogleLanguage;
+  sourceLanguage: GoogleLanguage;
   target?: string;
   context?: string;
   partOfSpeech?: string;

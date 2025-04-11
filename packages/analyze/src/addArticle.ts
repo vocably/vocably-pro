@@ -48,7 +48,7 @@ const languageArticles: Partial<
       (lowercasedWord.startsWith('a') || lowercasedWord.startsWith('ha'))
     ) {
       // Emphasis on the first letter
-      if (['ˈ', "'"].includes(pronunciation.at(0))) {
+      if (['ˈ', "'"].includes(pronunciation.at(0) ?? '')) {
         return 'el ';
       } else if (pronunciation) {
         return 'la ';

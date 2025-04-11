@@ -5,7 +5,8 @@ import {
   Result,
   Translation,
 } from '@vocably/model';
-import { isArray, isObject } from 'lodash-es';
+import { isSafeObject } from '@vocably/sulna';
+import { isArray } from 'lodash-es';
 
 type Payload = {
   target: string;
@@ -92,7 +93,7 @@ export const aiReverseTranslate = async (
 };
 
 const isValidResult = (result: any): result is AiTranslationResult => {
-  if (!isObject(result)) {
+  if (!isSafeObject(result)) {
     return false;
   }
 
@@ -108,7 +109,7 @@ const isValidResult = (result: any): result is AiTranslationResult => {
 
 const isTranslationVariant = (data: any): data is AiTranslationVariant => {
   return (
-    isObject(data) &&
+    isSafeObject(data) &&
     typeof data['translation'] === 'string' &&
     typeof data['partOfSpeech'] === 'string'
   );

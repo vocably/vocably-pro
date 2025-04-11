@@ -5,8 +5,8 @@ import {
   languageList,
   Result,
 } from '@vocably/model';
-import { trimArticle } from '@vocably/sulna';
-import { isArray, isNumber, isObject, isString } from 'lodash-es';
+import { isSafeObject, trimArticle } from '@vocably/sulna';
+import { isArray, isNumber, isString } from 'lodash-es';
 import { getWords } from './isOneWord';
 
 type GptBulkAnalyseItem = {
@@ -16,7 +16,7 @@ type GptBulkAnalyseItem = {
 };
 
 const isGptBulkAnalyseItem = (item: any): item is GptBulkAnalyseItem => {
-  if (!isObject(item)) {
+  if (!isSafeObject(item)) {
     return false;
   }
 
@@ -34,7 +34,7 @@ type GptBulkAnalyzeResult = {
 const isGptBulkAnalyzeResult = (
   result: any
 ): result is GptBulkAnalyzeResult => {
-  if (!isObject(result) && !isArray(result['words'])) {
+  if (!isSafeObject(result) && !isArray(result['words'])) {
     return false;
   }
 

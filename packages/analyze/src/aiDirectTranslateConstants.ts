@@ -1,5 +1,6 @@
 import { ChatGPTLanguage } from '@vocably/model';
-import { isObject, isString } from 'lodash-es';
+import { isSafeObject } from '@vocably/sulna';
+import { isString } from 'lodash-es';
 
 export type AiTranslation = {
   fixedSource: string;
@@ -9,7 +10,7 @@ export type AiTranslation = {
 
 export const isAiTranslation = (value: any): value is AiTranslation => {
   return (
-    isObject(value) &&
+    isSafeObject(value) &&
     isString(value['fixedSource']) &&
     isString(value['translation']) &&
     isString(value['partOfSpeech'])

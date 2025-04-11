@@ -1,10 +1,10 @@
-import { ValidAnalysisItems } from '@vocably/model';
+import { AnalysisItem, ValidAnalysisItems } from '@vocably/model';
 
 export const makeUniqueItems = (
   items: ValidAnalysisItems
 ): ValidAnalysisItems => {
   const hash: Record<string, number> = {};
-  const result = [];
+  const result: AnalysisItem[] = [];
   items.forEach((item) => {
     const hashKey = `${item.source}${item.partOfSpeech}`;
     if (hash[hashKey]) {

@@ -7,6 +7,6 @@ export const extractHeadword = (
 ): Headword =>
   [...headwords].sort(
     (a, b) =>
-      calculateLevenshtein(source, a.text, { useCollator: true }) -
-      calculateLevenshtein(source, b.text, { useCollator: true })
+      calculateLevenshtein(source, a.text ?? '', { useCollator: true }) -
+      calculateLevenshtein(source, b.text ?? '', { useCollator: true })
   )[0];

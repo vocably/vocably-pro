@@ -464,7 +464,7 @@ describe('integration check for translate lambda', () => {
     }
 
     expect(result.value.items[0].examples).toBeDefined();
-    expect(result.value.items[0].examples.length).toBeGreaterThan(0);
+    expect((result.value.items[0].examples ?? []).length).toBeGreaterThan(0);
   });
 
   it('provides ipa in result', async () => {

@@ -337,6 +337,7 @@ export const generateAppOnboardingExamples = async (
     console.log({ targetLanguage });
     const welcomeCardResult = await buildDirectResult({
       payload: {
+        // @ts-ignore
         source: languages[sourceLanguage].welcomeScreenCard,
         sourceLanguage,
         targetLanguage,
@@ -350,6 +351,7 @@ export const generateAppOnboardingExamples = async (
 
     const directTranslationResult = await buildDirectResult({
       payload: {
+        // @ts-ignore
         source: languages[sourceLanguage].directTranslationExample,
         sourceLanguage,
         targetLanguage,
@@ -362,7 +364,9 @@ export const generateAppOnboardingExamples = async (
     }
 
     const reverseTranslationResult = await buildReverseResult({
+      // @ts-ignore
       target:
+        // @ts-ignore
         languages[sourceLanguage].reverseTranslationExample[targetLanguage],
       sourceLanguage,
       targetLanguage,
@@ -375,7 +379,9 @@ export const generateAppOnboardingExamples = async (
 
     const contextTranslationResult = await buildDirectResult({
       payload: {
+        // @ts-ignore
         source: languages[sourceLanguage].contextTranslationExample.word,
+        // @ts-ignore
         context: languages[sourceLanguage].contextTranslationExample.text,
         sourceLanguage,
         targetLanguage,
@@ -393,6 +399,7 @@ export const generateAppOnboardingExamples = async (
         welcomeCardResult.value.items[0]
       ),
       directTranslationExample: {
+        // @ts-ignore
         text: languages[sourceLanguage].directTranslationExample,
         sourceLanguage,
         targetLanguage,
@@ -403,6 +410,7 @@ export const generateAppOnboardingExamples = async (
           .map((item) => analyzeItemToCard(sourceLanguage, item)),
       },
       reverseTranslationExample: {
+        // @ts-ignore
         text: languages[sourceLanguage].reverseTranslationExample[
           targetLanguage
         ],
@@ -415,6 +423,7 @@ export const generateAppOnboardingExamples = async (
           .map((item) => analyzeItemToCard(sourceLanguage, item)),
       },
       contextTranslationExample: {
+        // @ts-ignore
         text: languages[sourceLanguage].contextTranslationExample.text,
         // @ts-ignore
         results: contextTranslationResult.value.items
@@ -441,9 +450,11 @@ const analyzeItemToCard = (
 ): Card => {
   return {
     language,
+    // @ts-ignore
     source: analyzeItem.source,
+    // @ts-ignore
     ipa: analyzeItem.ipa ?? '',
-    example: join(analyzeItem.examples),
+    example: join(analyzeItem.examples ?? []),
     definition: join(analyzeItem.definitions),
     translation: analyzeItem.translation,
     partOfSpeech: analyzeItem.partOfSpeech ?? '',

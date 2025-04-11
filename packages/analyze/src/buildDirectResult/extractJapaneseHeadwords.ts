@@ -10,7 +10,7 @@ export type JapaneseHeadwords = {
 export const extractJapaneseHeadwords = (
   headword: Headword
 ): JapaneseHeadwords => {
-  const romaji = headword.text;
+  const romaji = headword.text ?? '';
   const alternativeScripts = headword.alternative_scripts ?? [];
   const hiragana = alternativeScripts.find((a) => a.type === 'hiragana');
   const kanji = alternativeScripts.find((a) => a.type === 'kanji');

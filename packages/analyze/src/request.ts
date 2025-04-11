@@ -7,7 +7,8 @@ export const request = async (requestOptions: any): Promise<Result<string>> => {
       const body = new Array<Buffer | string>();
       response.on('data', (chunk) => body.push(chunk));
       response.on('end', () => {
-        if (response.statusCode >= 200 && response.statusCode <= 299) {
+        const statusCode = response.statusCode ?? 0;
+        if (statusCode >= 200 && statusCode <= 299) {
           resolve({
             success: true,
             value: body.join(''),
