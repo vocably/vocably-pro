@@ -26,15 +26,14 @@ export const explainSentence = async ({
     messages: [
       {
         role: 'system',
-        content:
-          'You are a language learning assistant helping language student to analyse a sentence',
+        content: `You are a helpful and knowledgeable language tutor. A user is learning ${trimLanguage(
+          languageList[sourceLanguage]
+        )}.`,
       },
       {
         role: 'system',
         content: [
-          `Shortly explain what to pay attention to for proper translation of ${trimLanguage(
-            languageList[sourceLanguage]
-          )} sentence into ${trimLanguage(languageList[targetLanguage])}.`,
+          `Shortly explain what to pay attention to for proper understanding of the submitted sentence.`,
           `Provide explanation in ${trimLanguage(
             languageList[targetLanguage]
           )}'`,
