@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import { AppState } from 'react-native';
 import * as asyncAppStorage from '../asyncAppStorage';
+import { Sentry } from '../BetterSentry';
 import { Error } from '../Error';
 import { Loader } from '../loaders/Loader';
 import { useAsync } from '../useAsync';
@@ -67,16 +68,20 @@ export const LanguagesContainer: FC<Props> = ({
   children,
   refreshLanguagesOnActive = false,
 }) => {
+  const posthog = usePostHog();
   const [listLoadingStatus, setListLoadingStatus] =
     useState<Languages['status']>('loading');
   const [languages, setLanguages] = useState<string[]>([]);
   const [decks, setDecks] = useState<DecksCollection>({});
   const [selectedLanguage, selectLanguage] = useAsync(
-    loadSelectedLanguageStorage,
+    () =>
+      loadSelectedLanguageStorage().catch((error) => {
+        Sentry.captureMessage('loadSelectedLanguageError', { error: error });
+        posthog.capture('loadSelectedLanguageError', { error });
+        throw error;
+      }),
     saveSelectedLanguageToStorage
   );
-
-  const posthog = usePostHog();
 
   const storeDeck = (deck: LanguageContainerDeck) => {
     setDecks({
@@ -113,6 +118,8 @@ export const LanguagesContainer: FC<Props> = ({
     const listResult = await listLanguages();
 
     if (listResult.success === false) {
+      Sentry.captureMessage('listLanguagesError', { ...listResult });
+      posthog.capture('listLanguagesError', { ...listResult });
       setListLoadingStatus('error');
       return;
     }
