@@ -1,4 +1,5 @@
 import { TranslationCards } from '@vocably/model';
+import { trimArticle } from '@vocably/sulna';
 
 export const isDirectNecessary = (analyse: TranslationCards): boolean => {
   if (
@@ -14,7 +15,11 @@ export const isDirectNecessary = (analyse: TranslationCards): boolean => {
   const card = analyse.cards[0].data;
 
   if (
-    analyse.source === card.source &&
+    analyse.source.toLowerCase() ===
+      trimArticle(
+        analyse.translation.sourceLanguage,
+        card.source
+      ).source.toLowerCase() &&
     analyse.translation.target === card.translation
   ) {
     return false;
