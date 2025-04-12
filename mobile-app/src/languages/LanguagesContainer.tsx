@@ -80,7 +80,12 @@ export const LanguagesContainer: FC<Props> = ({
         posthog.capture('loadSelectedLanguageError', { error });
         throw error;
       }),
-    saveSelectedLanguageToStorage
+    (payload) =>
+      saveSelectedLanguageToStorage(payload).catch((error) => {
+        Sentry.captureMessage('storeSelectedLanguageError', { error: error });
+        posthog.capture('storeSelectedLanguageError', { error });
+        throw error;
+      })
   );
 
   const storeDeck = (deck: LanguageContainerDeck) => {
