@@ -64,6 +64,21 @@ const enableSelectionChangeDetection = () => {
 const disableSelectionChangeDetection = () =>
   document.removeEventListener('selectionchange', onTextSelect);
 
+const isInSelection = (element: HTMLElement, selection: Selection) => {
+  if (!selection || selection.rangeCount === 0) {
+    return false;
+  }
+
+  for (let i = 0; i < selection.rangeCount; i++) {
+    const range = selection.getRangeAt(i);
+    if (range.intersectsNode(element)) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
 const isClickableElement = (element: HTMLElement) => {
   if (
     ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'VOCABLY-POPUP'].includes(
@@ -83,7 +98,12 @@ const isClickableElement = (element: HTMLElement) => {
 const doubleClick$ = new Subject<void>();
 
 const onMouseUp = async (event: MouseEvent) => {
-  if (isClickableElement(event.target as HTMLElement)) {
+  const selection = window.getSelection();
+
+  if (
+    isClickableElement(event.target as HTMLElement) &&
+    !isInSelection(event.target as HTMLElement, selection)
+  ) {
     return;
   }
 
@@ -97,7 +117,6 @@ const onMouseUp = async (event: MouseEvent) => {
 
   destroyButton();
 
-  const selection = window.getSelection();
   if (!isValidSelection(selection)) {
     return;
   }
