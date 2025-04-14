@@ -1,6 +1,7 @@
 import {
   addCard,
   analyze,
+  askForRating,
   attachTag,
   deleteTag,
   detachTag,
@@ -11,6 +12,7 @@ import {
   getSettings,
   isLoggedIn,
   removeCard,
+  saveAskForRatingResponse,
   setSettings,
   updateCard,
   updateTag,
@@ -53,7 +55,7 @@ const mockGetInternalSourceLanguage: typeof getInternalSourceLanguage =
   };
 
 const mockAnalyze: typeof analyze = async () => {
-  await timeout(2000);
+  await timeout(200);
   return {
     success: true,
     value: {
@@ -104,6 +106,7 @@ const mockAnalyze: typeof analyze = async () => {
         targetLanguage: 'en',
       },
       tags: [],
+      explanation: 'Explanation example',
     },
   };
 };
@@ -249,6 +252,18 @@ const mockUpdateCard: typeof updateCard = async (payload) => {
   };
 };
 
+const askForRatingMock: typeof askForRating = async (payload) => {
+  await timeout(500);
+
+  return true;
+};
+
+const saveAskForRatingResponseMock: typeof saveAskForRatingResponse = async (
+  payload
+) => {
+  await timeout(500);
+};
+
 export const environment = merge(environmentLocal, {
   production: false,
   analyze: mockAnalyze,
@@ -265,4 +280,6 @@ export const environment = merge(environmentLocal, {
   getAudioPronunciation: mockGetAudioPronunciation,
   getLanguagePairs: mockGetLanguagePairs,
   updateCard: mockUpdateCard,
+  askForRating: askForRatingMock,
+  saveAskForRatingResponse: saveAskForRatingResponseMock,
 });

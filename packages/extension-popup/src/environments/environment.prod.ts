@@ -1,6 +1,7 @@
 import {
   addCard,
   analyze,
+  askForRating,
   attachTag,
   deleteTag,
   detachTag,
@@ -10,6 +11,7 @@ import {
   getSettings,
   isLoggedIn,
   removeCard,
+  saveAskForRatingResponse,
   setSettings,
   updateCard,
   updateTag,
@@ -33,4 +35,6 @@ export const environment = merge(environmentLocal, {
   isLoggedIn: isLoggedIn,
   getInternalSourceLanguage: getInternalSourceLanguage,
   getLanguagePairs: getLanguagePairs,
+  askForRating: askForRating,
+  saveAskForRatingResponse: saveAskForRatingResponse,
 });

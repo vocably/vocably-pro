@@ -1,8 +1,8 @@
+import { browser } from '@vocably/browser';
 import { defineCustomElements } from '@vocably/extension-content-ui/loader';
 import '@webcomponents/custom-elements';
 import { map, merge, Subject, take, timer } from 'rxjs';
 import { api, ApiConfigOptions, configureApi } from './api';
-import { browser } from './browser';
 import { browserEnv } from './browserEnv';
 import { createButton, destroyButton } from './button';
 import {

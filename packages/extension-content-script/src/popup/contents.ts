@@ -1,3 +1,4 @@
+import { detectExtensionPlatform } from '@vocably/browser';
 import {
   AddCardPayload,
   GoogleLanguage,
@@ -6,7 +7,6 @@ import {
 } from '@vocably/model';
 import { api } from '../api';
 import { contentScriptConfiguration } from '../configuration';
-import { detectExtensionPlatform } from '../detectExtensionPlatform';
 import { playAudioPronunciation } from '../playAudioPronunciation';
 
 type Options = {

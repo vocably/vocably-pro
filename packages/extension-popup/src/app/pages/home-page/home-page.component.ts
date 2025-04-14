@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { detectExtensionPlatform } from '@vocably/browser';
 import {
   AddCardPayload,
   AttachTagPayload,
@@ -30,6 +31,8 @@ export class HomePageComponent implements OnInit {
   isSearching: boolean = false;
   isTranslationLoading: boolean = false;
   searchResult: Result<TranslationCards> | null = null;
+  extensionPlatform = detectExtensionPlatform();
+  askForRating: boolean = false;
 
   languagePairsLoaded = false;
   languagePairs: LanguagePairs = {};
@@ -101,6 +104,17 @@ export class HomePageComponent implements OnInit {
 
     this.searchResult = result;
 
+    if (result.success === true) {
+      environment
+        .askForRating({
+          translationResult: result,
+          extensionPlatform: this.extensionPlatform.platform,
+        })
+        .then((result) => {
+          this.askForRating = result;
+        });
+    }
+
     this.isSearching = false;
   }
 
@@ -163,5 +177,12 @@ export class HomePageComponent implements OnInit {
     }
 
     return playDataUrl(result.value.url);
+  }
+
+  async saveAskForRating({ detail: payload }: any) {
+    await environment.saveAskForRatingResponse({
+      extensionPlatform: this.extensionPlatform.platform,
+      rateInteraction: payload,
+    });
   }
 }
