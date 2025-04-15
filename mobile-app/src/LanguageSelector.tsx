@@ -1,5 +1,6 @@
 import { getFullLanguageName } from '@vocably/model';
 import { FC, useContext, useState } from 'react';
+import { PixelRatio } from 'react-native';
 import { Appbar, Menu, useTheme } from 'react-native-paper';
 import { LanguagesContext } from './languages/LanguagesContainer';
 
@@ -21,12 +22,20 @@ export const LanguageSelector: LanguageSelector = () => {
     }, 400);
   };
 
+  const fontScale = PixelRatio.getFontScale();
+
   return (
     <>
       <Menu
         visible={visible}
         onDismiss={closeMenu}
-        anchor={<Appbar.Action icon="earth" onPress={openMenu} />}
+        anchor={
+          <Appbar.Action
+            icon="earth"
+            onPress={openMenu}
+            size={24 * fontScale}
+          />
+        }
       >
         {languages.map((language) => (
           <Menu.Item

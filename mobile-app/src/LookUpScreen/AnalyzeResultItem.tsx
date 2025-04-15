@@ -1,6 +1,6 @@
 import { CardItem, Result, TagItem } from '@vocably/model';
 import React, { FC, useCallback, useState } from 'react';
-import { View } from 'react-native';
+import { PixelRatio, View } from 'react-native';
 import { IconButton, useTheme } from 'react-native-paper';
 import { CardListItem } from '../CardListItem';
 import { Deck } from '../languageDeck/useLanguageDeck';
@@ -51,6 +51,8 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
     setIsSavingTags(false);
   };
 
+  const fontScale = PixelRatio.getFontScale();
+
   return (
     <View
       style={{
@@ -85,6 +87,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
             onPress={toggleCard}
             disabled={isProcessing}
             style={{ margin: 0 }}
+            size={24 * fontScale}
           />
           {item.id && (
             <TagsSelector
@@ -98,6 +101,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
                   onPress={openMenu}
                   disabled={disabled}
                   style={{ margin: 0 }}
+                  size={24 * fontScale}
                 />
               )}
             />

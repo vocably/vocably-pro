@@ -7,7 +7,13 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react';
-import { Alert, Pressable, StyleProp, ViewStyle } from 'react-native';
+import {
+  Alert,
+  PixelRatio,
+  Pressable,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import { useTheme } from 'react-native-paper';
 import Sound from 'react-native-sound';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -73,6 +79,8 @@ export const PlaySound: PlaySound = forwardRef(
       }
     }, [isPlaying, loadedAudio, setIsPlaying]);
 
+    const fontScale = PixelRatio.getFontScale();
+
     return (
       <Pressable
         disabled={isPlaying}
@@ -92,7 +100,7 @@ export const PlaySound: PlaySound = forwardRef(
           style={{
             color: theme.colors.onBackground,
           }}
-          size={size}
+          size={size * fontScale}
         />
       </Pressable>
     );

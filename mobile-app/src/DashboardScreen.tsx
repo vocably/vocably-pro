@@ -17,11 +17,10 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Alert, Pressable, StyleSheet, View } from 'react-native';
+import { Alert, PixelRatio, Pressable, StyleSheet, View } from 'react-native';
 import {
   ActivityIndicator,
   Appbar,
-  Badge,
   Button,
   Chip,
   Text,
@@ -181,6 +180,8 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
 
   const isEmpty = deck.cards.length === 0;
 
+  const fontScale = Math.max(1, PixelRatio.getFontScale());
+
   return (
     <View
       style={{
@@ -213,6 +214,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
             <Appbar.Action
               icon={isSearching ? 'magnify-remove-outline' : 'magnify'}
               onPress={() => setIsSearching(!isSearching)}
+              size={24 * fontScale}
             />
           )}
           {languages.length > 1 && <LanguageSelector />}
@@ -238,7 +240,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                   setSearchText(text);
                 }}
                 style={{
-                  height: 40,
+                  height: 40 * fontScale,
                 }}
               />
             )}
@@ -246,7 +248,8 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               <>
                 <Button
                   style={{
-                    height: 40,
+                    height: 40 * fontScale,
+                    justifyContent: 'center',
                   }}
                   labelStyle={{
                     fontSize: 18,
@@ -263,6 +266,8 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                       position: 'absolute',
                       right: 0,
                       top: 0,
+                      bottom: 0,
+                      justifyContent: 'center',
                     }}
                   >
                     <TagsSelector
@@ -290,7 +295,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                           <Icon
                             name={'tag'}
                             color={theme.colors.onPrimary}
-                            style={{ fontSize: 22 }}
+                            size={22 * fontScale}
                           />
                         </Pressable>
                       )}
@@ -377,6 +382,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               flex: 1,
               display: 'flex',
               flexDirection: 'row',
+              justifyContent: 'center',
               // This is to prevent the swipe menu
               // from flashing occasionally
               borderWidth: 2,
@@ -498,15 +504,26 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
         <Button compact={true} onPress={() => navigation.navigate('EditDeck')}>
           Edit deck
         </Button>
-        <Badge
+        <View
           style={{
             alignSelf: 'center',
             backgroundColor: theme.colors.secondary,
-            color: theme.colors.onSecondary,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 24,
+            minWidth: 24 * fontScale,
+            minHeight: 18 * fontScale,
           }}
         >
-          {cards.length}
-        </Badge>
+          <Text
+            style={{
+              color: theme.colors.onSecondary,
+              fontSize: 14,
+            }}
+          >
+            {cards.length}
+          </Text>
+        </View>
       </View>
     </View>
   );

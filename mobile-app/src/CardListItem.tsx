@@ -2,6 +2,7 @@ import { Card, isGoogleTTSLanguage, TagItem } from '@vocably/model';
 import React, { FC, useState } from 'react';
 import {
   Clipboard,
+  PixelRatio,
   Platform,
   Pressable,
   StyleProp,
@@ -49,6 +50,8 @@ export const CardListItem: FC<Props> = ({
   };
 
   const [copied, setCopied] = useState(false);
+
+  const fontScale = PixelRatio.getFontScale();
 
   return (
     <View style={style}>
@@ -108,7 +111,7 @@ export const CardListItem: FC<Props> = ({
                 >
                   <Icon
                     name="content-copy"
-                    size={16}
+                    size={16 * fontScale}
                     color={theme.colors.onSurface}
                   />
                 </Pressable>
