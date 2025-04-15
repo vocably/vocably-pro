@@ -1,7 +1,7 @@
 import { Result, TagItem } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Alert, Pressable, View } from 'react-native';
+import { Alert, PixelRatio, Pressable, View } from 'react-native';
 import {
   ActivityIndicator,
   Button,
@@ -224,6 +224,8 @@ export const TagsMenu: FC<Props> = ({
 
   const tags = [...newTags, ...existingTags];
 
+  const fontScale = Math.max(1, PixelRatio.getFontScale());
+
   return (
     <>
       <Menu
@@ -265,7 +267,16 @@ export const TagsMenu: FC<Props> = ({
           )}
           {isAllowedToAdd && (
             <Menu.Item
-              leadingIcon={'tag-plus'}
+              leadingIcon={() => (
+                <Icon
+                  name="tag-plus"
+                  size={24}
+                  color={theme.colors.onBackground}
+                  style={{
+                    marginTop: fontScale === 1 ? 0 : 3 * fontScale,
+                  }}
+                />
+              )}
               onPress={() => displayCreateModal()}
               title="Add new tag"
               titleStyle={{
@@ -334,7 +345,6 @@ export const TagsMenu: FC<Props> = ({
                   disabled={isRemovingTagId !== null}
                   style={({ pressed }) => [
                     {
-                      height: SWIPE_MENU_BUTTON_SIZE,
                       display: 'flex',
                       backgroundColor: theme.colors.error,
                       width: SWIPE_MENU_BUTTON_SIZE,
@@ -365,7 +375,6 @@ export const TagsMenu: FC<Props> = ({
                   style={({ pressed }) => [
                     {
                       marginLeft: 'auto',
-                      height: SWIPE_MENU_BUTTON_SIZE,
                       display: 'flex',
                       backgroundColor: theme.colors.primary,
                       width: SWIPE_MENU_BUTTON_SIZE,

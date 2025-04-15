@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { TextInput, View } from 'react-native';
+import { PixelRatio, TextInput, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
 
 type Props = {
@@ -28,6 +28,8 @@ export const VocablyInputText: FC<Props> = ({
     onChange && onChange(value);
   };
 
+  const fontScale = PixelRatio.getFontScale();
+
   return (
     <View
       style={{
@@ -39,7 +41,7 @@ export const VocablyInputText: FC<Props> = ({
           ? theme.colors.primary
           : theme.colors.outlineVariant,
         borderRadius: 8,
-        height: 48,
+        height: 48 * fontScale,
       }}
     >
       <TextInput
