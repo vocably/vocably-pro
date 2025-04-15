@@ -513,12 +513,14 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
             borderRadius: 24,
             minWidth: 24 * fontScale,
             minHeight: 18 * fontScale,
+            paddingHorizontal: 6,
+            paddingVertical: 3,
           }}
         >
           <Text
             style={{
               color: theme.colors.onSecondary,
-              fontSize: 14,
+              fontSize: 12,
             }}
           >
             {cards.length}
