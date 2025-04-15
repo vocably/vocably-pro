@@ -35,7 +35,7 @@ export const updateLanguagePairs = (
               (availableLanguage) =>
                 availableLanguage !== preset.translationLanguage
             ),
-          ]
+          ].slice(0, 3)
         : [preset.translationLanguage],
     },
   };

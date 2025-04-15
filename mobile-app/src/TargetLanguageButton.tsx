@@ -37,9 +37,9 @@ export const TargetLanguageButton: FC<Props> = ({
   };
 
   // @ts-ignore
-  const preferredLanguages = languagePairs[preset.translationLanguage]
+  const preferredLanguages = languagePairs[preset.sourceLanguage]
     ? // @ts-ignore
-      languagePairs[preset.translationLanguage].availableLanguages
+      languagePairs[preset.sourceLanguage].availableLanguages
     : // @ts-ignore
     languageList[deviceLanguage]
     ? [deviceLanguage]
