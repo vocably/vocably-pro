@@ -3,7 +3,7 @@ import { postOnboardingAction } from '@vocably/api';
 import { GoogleLanguage } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useEffect, useRef } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Button, Divider, Text, useTheme } from 'react-native-paper';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -83,119 +83,130 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
       }}
     >
       {showWelcomeForm && (
-        <Displayer
-          style={{ gap: 16, maxWidth: 600, paddingHorizontal: 24 }}
-          ref={onboardingDisplayerRef}
-        >
-          <Text style={{ textAlign: 'center', fontSize: 24, marginBottom: 24 }}>
-            To get started, please answer these questions:
-          </Text>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
+        <Displayer ref={onboardingDisplayerRef} style={{ flexGrow: 1 }}>
+          <ScrollView
+            contentContainerStyle={{
+              flexGrow: 1,
               gap: 16,
+              maxWidth: 600,
+              paddingHorizontal: 24,
+              paddingBottom: 36,
+              justifyContent: 'center',
             }}
           >
             <Text
-              style={{
-                fontSize: 18,
-                flex: 1,
-                textAlign: 'right',
-                color: theme.colors.onBackground,
-              }}
+              style={{ textAlign: 'center', fontSize: 24, marginBottom: 24 }}
             >
-              What language do you study?
+              To get started, please answer these questions:
             </Text>
-            <View style={{ width: '50%' }}>
-              <SourceLanguageButton
-                navigation={navigation}
-                preset={translationPresetState.preset}
-                onChange={setTranslationPreset}
-                languagePairs={languagePairs}
-                emptyText="Select"
-              />
-            </View>
-          </View>
-          <View style={{ alignItems: 'flex-end' }}>
-            <Text>
-              You can study multiple languages. For now, let's pick one.
-            </Text>
-          </View>
-          {translationPresetState.preset.sourceLanguage && (
-            <Animated.View
-              entering={FadeInDown}
+
+            <View
               style={{
+                flexDirection: 'row',
+                alignItems: 'center',
                 gap: 16,
               }}
             >
-              <Divider style={{ width: '100%' }} />
-              <View
+              <Text
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  fontSize: 18,
+                  flex: 1,
+                  textAlign: 'right',
+                  color: theme.colors.onBackground,
+                }}
+              >
+                What language do you study?
+              </Text>
+              <View style={{ width: '50%' }}>
+                <SourceLanguageButton
+                  navigation={navigation}
+                  preset={translationPresetState.preset}
+                  onChange={setTranslationPreset}
+                  languagePairs={languagePairs}
+                  emptyText="Select"
+                />
+              </View>
+            </View>
+            <View style={{ alignItems: 'flex-end' }}>
+              <Text>
+                You can study multiple languages. For now, let's pick one.
+              </Text>
+            </View>
+            {translationPresetState.preset.sourceLanguage && (
+              <Animated.View
+                entering={FadeInDown}
+                style={{
                   gap: 16,
                 }}
               >
-                <Text
+                <Divider style={{ width: '100%' }} />
+                <View
                   style={{
-                    fontSize: 18,
-                    flex: 1,
-                    textAlign: 'right',
-                    color: theme.colors.onBackground,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 16,
                   }}
                 >
-                  What is your mother{'\u00A0'}tongue?
-                </Text>
-                <View style={{ width: '50%' }}>
-                  <TargetLanguageButton
-                    navigation={navigation}
-                    preset={translationPresetState.preset}
-                    onChange={setTranslationPreset}
-                    languagePairs={languagePairs}
-                  />
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      flex: 1,
+                      textAlign: 'right',
+                      color: theme.colors.onBackground,
+                    }}
+                  >
+                    What is your mother{'\u00A0'}tongue?
+                  </Text>
+                  <View style={{ width: '50%' }}>
+                    <TargetLanguageButton
+                      navigation={navigation}
+                      preset={translationPresetState.preset}
+                      onChange={setTranslationPreset}
+                      languagePairs={languagePairs}
+                    />
+                  </View>
                 </View>
-              </View>
-            </Animated.View>
-          )}
-          {isNextButtonVisible && (
-            <Animated.View entering={FadeInDown} style={{ marginTop: 25 }}>
-              <Button
-                mode="contained"
-                onPress={async () => {
-                  onboardingDisplayerRef.current &&
-                    (await onboardingDisplayerRef.current.hide());
+              </Animated.View>
+            )}
+            {isNextButtonVisible && (
+              <Animated.View entering={FadeInDown} style={{ marginTop: 25 }}>
+                <Button
+                  mode="contained"
+                  onPress={async () => {
+                    onboardingDisplayerRef.current &&
+                      (await onboardingDisplayerRef.current.hide());
 
-                  setOnboardingStep('faq');
-                  postOnboardingAction({
-                    name: 'facilityOnboarded',
-                    payload: {
-                      facility,
-                      targetLanguage:
-                        translationPresetState.preset.translationLanguage,
-                    },
-                  }).then();
+                    setOnboardingStep('faq');
+                    postOnboardingAction({
+                      name: 'facilityOnboarded',
+                      payload: {
+                        facility,
+                        targetLanguage:
+                          translationPresetState.preset.translationLanguage,
+                      },
+                    }).then();
 
-                  postHog.capture('welcome_submitted', {
-                    studyLanguage: translationPresetState.preset.sourceLanguage,
-                    nativeLanguage:
-                      translationPresetState.preset.translationLanguage,
-                  });
-                  postHog.capture('$set', {
-                    $set: {
-                      lastSourceLanguage:
+                    postHog.capture('welcome_submitted', {
+                      studyLanguage:
                         translationPresetState.preset.sourceLanguage,
-                      lastTranslationLanguage:
+                      nativeLanguage:
                         translationPresetState.preset.translationLanguage,
-                    },
-                  });
-                }}
-              >
-                Next
-              </Button>
-            </Animated.View>
-          )}
+                    });
+                    postHog.capture('$set', {
+                      $set: {
+                        lastSourceLanguage:
+                          translationPresetState.preset.sourceLanguage,
+                        lastTranslationLanguage:
+                          translationPresetState.preset.translationLanguage,
+                      },
+                    });
+                  }}
+                >
+                  Next
+                </Button>
+              </Animated.View>
+            )}
+          </ScrollView>
         </Displayer>
       )}
       {showSlider && (
