@@ -59,13 +59,15 @@ export const CardFront: FC<Props> = ({ card, autoPlay }) => {
                 text={card.data.source}
                 language={card.data.language}
                 size={24}
+                // @ts-ignore
+                ref={playRef}
                 style={{
                   transform: [
                     {
                       translateY:
                         Platform.OS === 'android'
                           ? 4 * fontScale
-                          : -1 * Math.ceil(fontScale) * Math.floor(fontScale),
+                          : -1.3 * Math.ceil(fontScale) * Math.floor(fontScale),
                     },
                   ],
                 }}
