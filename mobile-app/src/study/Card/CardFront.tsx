@@ -1,6 +1,6 @@
 import { CardItem, isGoogleTTSLanguage } from '@vocably/model';
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { View } from 'react-native';
+import { PixelRatio, Platform, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { CardExample } from '../../CardExample';
 import { PlaySound } from '../../PlaySound';
@@ -34,31 +34,52 @@ export const CardFront: FC<Props> = ({ card, autoPlay }) => {
     setIsAutoPlayed(true);
   }, [isAutoPlayed, autoPlay]);
 
+  const fontScale = PixelRatio.getFontScale();
+
   return (
     <View>
-      <View style={{ flexDirection: 'row' }}>
-        {isGoogleTTSLanguage(card.data.language) && (
-          <PlaySound
-            text={card.data.source}
-            language={card.data.language}
-            size={24}
-            // @ts-ignore
-            ref={playRef}
-            style={{
-              marginRight: 6,
-              alignSelf: 'flex-start',
-              marginTop: 12,
-            }}
-          />
-        )}
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'baseline',
+          flexWrap: 'wrap',
+          width: '100%',
+        }}
+      >
         <Text
           style={{
-            fontSize: 32,
-            color: theme.colors.secondary,
-            marginRight: 8,
+            fontSize: 18,
+            textAlignVertical: 'top',
           }}
         >
-          {card.data.source}
+          {isGoogleTTSLanguage(card.data.language) && (
+            <>
+              <PlaySound
+                text={card.data.source}
+                language={card.data.language}
+                size={24}
+                style={{
+                  transform: [
+                    {
+                      translateY:
+                        Platform.OS === 'android'
+                          ? 4 * fontScale
+                          : -1 * Math.ceil(fontScale) * Math.floor(fontScale),
+                    },
+                  ],
+                }}
+              />{' '}
+            </>
+          )}
+          <Text
+            style={{
+              fontSize: 32,
+              color: theme.colors.secondary,
+            }}
+          >
+            {card.data.source}
+          </Text>
         </Text>
       </View>
       {(card.data.ipa || card.data.partOfSpeech || card.data.g) && (
