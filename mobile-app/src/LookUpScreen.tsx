@@ -66,7 +66,7 @@ const getLoadingText = (translationPreset: Preset) => {
     return `Translating from ${fromLanguageLabel} to ${toLanguageLabel}...`;
   }
 
-  return `Looking up...!`;
+  return `Looking up...`;
 };
 
 type Props = {
