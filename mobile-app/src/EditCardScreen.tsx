@@ -2,7 +2,15 @@ import { NavigationProp, Route } from '@react-navigation/native';
 import { CardItem, TagItem } from '@vocably/model';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, Platform, ScrollView, StyleSheet, View } from 'react-native';
-import { Appbar, Button, Chip, TextInput, useTheme } from 'react-native-paper';
+import {
+  Appbar,
+  Button,
+  Chip,
+  IconButton,
+  Menu,
+  TextInput,
+  useTheme,
+} from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { Loader } from './loaders/Loader';
@@ -11,7 +19,6 @@ import { TagsSelector } from './TagsSelector';
 
 const styles = StyleSheet.create({
   inputItem: {
-    marginBottom: 16,
     textAlign: 'auto',
   },
 });
@@ -104,6 +111,8 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
     );
   };
 
+  const [partOfSpeechMenuVisible, setPartOfSpeechMenuVisible] = useState(false);
+
   if (isDeleting) {
     return (
       <View style={{ flex: 1 }}>
@@ -144,11 +153,12 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
             alignItems: 'stretch',
             justifyContent: 'flex-start',
             padding: mainPadding,
+            gap: 16,
           }}
         >
           <View
             style={{
-              marginBottom: 24,
+              marginBottom: 8,
               alignItems: Platform.OS === 'android' ? 'flex-start' : 'center',
             }}
           >
@@ -205,25 +215,53 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
           <TextInput
             style={styles.inputItem}
             mode={'outlined'}
-            label={'Transcription'}
-            value={cardData.ipa}
-            onChangeText={onTextChange('ipa')}
-            outlineColor={theme.colors.outlineVariant}
-          ></TextInput>
-          <TextInput
-            style={styles.inputItem}
-            mode={'outlined'}
-            label={'Part of Speech'}
-            value={cardData.partOfSpeech}
-            onChangeText={onTextChange('partOfSpeech')}
-            outlineColor={theme.colors.outlineVariant}
-          ></TextInput>
-          <TextInput
-            style={styles.inputItem}
-            mode={'outlined'}
             label={'Translation'}
             value={cardData.translation}
             onChangeText={onTextChange('translation')}
+            outlineColor={theme.colors.outlineVariant}
+          ></TextInput>
+          <View
+            style={{
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}
+          >
+            <TextInput
+              style={[styles.inputItem, { flex: 1 }]}
+              mode={'outlined'}
+              label={'Part of Speech'}
+              value={cardData.partOfSpeech}
+              onChangeText={onTextChange('partOfSpeech')}
+              outlineColor={theme.colors.outlineVariant}
+            ></TextInput>
+            <Menu
+              visible={partOfSpeechMenuVisible}
+              onDismiss={() => setPartOfSpeechMenuVisible(false)}
+              anchor={
+                <IconButton
+                  icon={'menu-down'}
+                  onPress={() => setPartOfSpeechMenuVisible(true)}
+                />
+              }
+            >
+              {['noun', 'verb', 'adjective', 'adverb', 'phrase'].map((pos) => (
+                <Menu.Item
+                  key={pos}
+                  onPress={() => {
+                    onTextChange('partOfSpeech')(pos);
+                    setPartOfSpeechMenuVisible(false);
+                  }}
+                  title={pos}
+                />
+              ))}
+            </Menu>
+          </View>
+          <TextInput
+            style={styles.inputItem}
+            mode={'outlined'}
+            label={'Transcription'}
+            value={cardData.ipa}
+            onChangeText={onTextChange('ipa')}
             outlineColor={theme.colors.outlineVariant}
           ></TextInput>
           <TextInput
