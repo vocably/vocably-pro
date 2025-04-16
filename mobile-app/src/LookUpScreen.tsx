@@ -2,7 +2,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { analyze } from '@vocably/api';
 import { AnalyzePayload, GoogleLanguage, languageList } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import {
   Alert,
   Keyboard,
@@ -94,6 +94,13 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
   const intentData = useShareIntentData();
   const posthog = usePostHog();
 
+  const cancelThePreviousLookUp = () => {
+    if (isAnalyzingPreset && abortControllerRef.current) {
+      abortControllerRef.current?.abort();
+      abortControllerRef.current = null;
+    }
+  };
+
   useEffect(() => {
     if (intentData) {
       setLookUpText(intentData);
@@ -102,17 +109,15 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     if (lookUpText === '') {
+      cancelThePreviousLookUp();
       setLookupResult(undefined);
     }
   }, [lookUpText]);
 
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  const lookUp = useCallback(async () => {
-    if (isAnalyzingPreset && abortControllerRef.current) {
-      abortControllerRef.current?.abort();
-      abortControllerRef.current = null;
-    }
+  const lookUp = async () => {
+    cancelThePreviousLookUp();
 
     if (deck.status !== 'loaded') {
       return;
@@ -161,16 +166,10 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
     setIsAnalyzingPreset(false);
 
     posthog.capture('lookup', payload);
-  }, [
-    translationPresetState,
-    lookUpText,
-    setIsAnalyzingPreset,
-    isAnalyzingPreset,
-    deck,
-  ]);
+  };
 
   useEffect(() => {
-    if (isAnalyzingPreset) {
+    if (translationPresetState.status === 'known' && lookUpText) {
       lookUp();
     }
   }, [translationPresetState]);
