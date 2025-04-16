@@ -1,11 +1,12 @@
-# Vocably — a language-learning tool for intermediate and advanced language users.
+# Vocably — a language-learning tool for active language users.
 
-[![Android](https://img.shields.io/badge/Android-blue)](https://play.google.com/store/apps/details?id=com.vocablypro)
-[![iOS](https://img.shields.io/badge/iOS-blue)](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757)
-[![Google Chrome](https://img.shields.io/badge/Google_Chrome-blue)](https://chromewebstore.google.com/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb)
-[![Safari](https://img.shields.io/badge/Safari-blue)](https://apps.apple.com/app/vocably-for-safari/id6464076425)
+[![Android](https://img.shields.io/badge/Android-app-blue)](https://play.google.com/store/apps/details?id=com.vocablypro)
+[![iOS](https://img.shields.io/badge/iOS-app-blue)](https://apps.apple.com/app/vocably-pro-language-cards/id1641258757)
+[![Google Chrome](https://img.shields.io/badge/Google_Chrome-extension-blue)](https://chromewebstore.google.com/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb)
+[![Safari](https://img.shields.io/badge/Safari-extension-blue)](https://apps.apple.com/app/vocably-for-safari/id6464076425)
+[![Safari](https://img.shields.io/badge/iOS_Safari-extension-blue)](https://vocably.pro/ios-safari-extension.html)
 
-One day you will have to start using a foreign language if you want to become fluent. This will be difficult, I promise. Remember about Vocably. It will ease your pain.
+One day, you'll start using a foreign language — and it will be hard, no matter how much time you've spent on Duolingo or in class. That's when you should remember Vocably. It'll make things easier.
 
 ## How it works
 
