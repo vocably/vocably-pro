@@ -439,6 +439,18 @@ export const OnboardingSlider: FC<Props> = ({
               height: 200,
             }}
           />
+          <Button
+            onPress={() => {
+              navigation.navigate('LookUp');
+              setTimeout(() => {
+                setIsReverse(false);
+              }, 500);
+              posthog.capture('onboardingGoToLookup');
+            }}
+            mode="contained"
+          >
+            Search for some words
+          </Button>
           {languages.length > 0 && (
             <Button
               onPress={() => {
