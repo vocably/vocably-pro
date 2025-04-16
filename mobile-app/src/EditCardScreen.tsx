@@ -4,7 +4,7 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Alert, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { Appbar, Button, Chip, TextInput, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useSelectedDeck } from './languageDeck/useSelectedDeck';
+import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { Loader } from './loaders/Loader';
 import { mainPadding } from './styles';
 import { TagsSelector } from './TagsSelector';
@@ -20,17 +20,19 @@ export type EditCardParams = {
   card: CardItem;
 };
 
-type EditCardScreen = FC<{
+type Props = {
   route: Route<string, any>;
   navigation: NavigationProp<any>;
-}>;
+};
 
-export const EditCardScreen: EditCardScreen = ({ route, navigation }) => {
-  const deck = useSelectedDeck({
+export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
+  const { card } = route.params as EditCardParams;
+
+  const deck = useLanguageDeck({
+    language: card.data.language,
     autoReload: false,
   });
 
-  const { card } = route.params as EditCardParams;
   const [cardData, setCardData] = useState({ ...card.data });
   const [isUpdating, setIsUpdating] = useState(false);
   const [savingTags, setSavingTags] = useState(false);
