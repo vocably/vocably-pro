@@ -1,27 +1,14 @@
 import { NavigationProp, Route } from '@react-navigation/native';
 import { CardItem, TagItem } from '@vocably/model';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Alert, Platform, ScrollView, StyleSheet, View } from 'react-native';
-import {
-  Appbar,
-  Button,
-  Chip,
-  IconButton,
-  Menu,
-  TextInput,
-  useTheme,
-} from 'react-native-paper';
+import { Alert, Platform, ScrollView, View } from 'react-native';
+import { Appbar, Button, Chip, useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { CardForm } from './CardForm';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { Loader } from './loaders/Loader';
 import { mainPadding } from './styles';
 import { TagsSelector } from './TagsSelector';
-
-const styles = StyleSheet.create({
-  inputItem: {
-    textAlign: 'auto',
-  },
-});
 
 export type EditCardParams = {
   card: CardItem;
@@ -51,16 +38,6 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
   useEffect(() => {
     setCardData({ ...card.data });
   }, [card]);
-
-  const onTextChange = useCallback(
-    (paramName: keyof CardItem['data']) => (value: string) => {
-      setCardData((cardData) => ({
-        ...cardData,
-        [paramName]: value,
-      }));
-    },
-    [cardData]
-  );
 
   const onUpdate = useCallback(async () => {
     setIsUpdating(true);
@@ -110,8 +87,6 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
       { cancelable: true }
     );
   };
-
-  const [partOfSpeechMenuVisible, setPartOfSpeechMenuVisible] = useState(false);
 
   if (isDeleting) {
     return (
@@ -204,84 +179,16 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
             )}
           </View>
 
-          <TextInput
-            style={styles.inputItem}
-            mode={'outlined'}
-            label={'Source'}
-            value={cardData.source}
-            onChangeText={onTextChange('source')}
-            outlineColor={theme.colors.outlineVariant}
-          ></TextInput>
-          <TextInput
-            style={styles.inputItem}
-            mode={'outlined'}
-            label={'Translation'}
-            value={cardData.translation}
-            onChangeText={onTextChange('translation')}
-            outlineColor={theme.colors.outlineVariant}
-          ></TextInput>
-          <View
-            style={{
-              alignItems: 'center',
-              flexDirection: 'row',
+          <CardForm
+            card={cardData}
+            onChange={(newCardData) => {
+              setCardData({
+                ...cardData,
+                ...newCardData,
+              });
             }}
-          >
-            <TextInput
-              style={[styles.inputItem, { flex: 1 }]}
-              mode={'outlined'}
-              label={'Part of Speech'}
-              value={cardData.partOfSpeech}
-              onChangeText={onTextChange('partOfSpeech')}
-              outlineColor={theme.colors.outlineVariant}
-            ></TextInput>
-            <Menu
-              visible={partOfSpeechMenuVisible}
-              onDismiss={() => setPartOfSpeechMenuVisible(false)}
-              anchor={
-                <IconButton
-                  icon={'menu-down'}
-                  onPress={() => setPartOfSpeechMenuVisible(true)}
-                />
-              }
-            >
-              {['noun', 'verb', 'adjective', 'adverb', 'phrase'].map((pos) => (
-                <Menu.Item
-                  key={pos}
-                  onPress={() => {
-                    onTextChange('partOfSpeech')(pos);
-                    setPartOfSpeechMenuVisible(false);
-                  }}
-                  title={pos}
-                />
-              ))}
-            </Menu>
-          </View>
-          <TextInput
-            style={styles.inputItem}
-            mode={'outlined'}
-            label={'Transcription'}
-            value={cardData.ipa}
-            onChangeText={onTextChange('ipa')}
-            outlineColor={theme.colors.outlineVariant}
-          ></TextInput>
-          <TextInput
-            style={styles.inputItem}
-            mode={'outlined'}
-            label={'Definition'}
-            value={cardData.definition}
-            multiline={true}
-            onChangeText={onTextChange('definition')}
-            outlineColor={theme.colors.outlineVariant}
-          ></TextInput>
-          <TextInput
-            style={styles.inputItem}
-            mode={'outlined'}
-            label={'Example'}
-            value={cardData.example}
-            multiline={true}
-            onChangeText={onTextChange('example')}
-            outlineColor={theme.colors.outlineVariant}
-          ></TextInput>
+          />
+
           <Button
             icon={'delete'}
             textColor={theme.colors.error}
