@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { InlineLoader } from './loaders/InlineLoader';
+import { Loader } from './loaders/Loader';
 import { Analyze } from './LookUpScreen/AnalyzeResult';
 import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
 import { SearchInput } from './SearchInput';
@@ -202,7 +203,7 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
   };
 
   if (translationPresetState.status === 'unknown') {
-    return <></>;
+    return <Loader>Loading translation preset...</Loader>;
   }
 
   const canTranslate =
