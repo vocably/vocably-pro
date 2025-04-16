@@ -1,6 +1,7 @@
 import { LanguageDeck, Result, TagItem } from '@vocably/model';
 import { deserializeDeck, serializeDeck } from '@vocably/model-operations';
 import { XMLParser } from 'fast-xml-parser';
+import { gzipSync, strToU8 } from 'fflate';
 import { request } from './restClient';
 
 const parser = new XMLParser();
@@ -9,9 +10,16 @@ export const saveLanguageDeck = async (
   languageDeck: LanguageDeck
 ): Promise<Result<null>> => {
   try {
+    const jsonString = JSON.stringify(serializeDeck(languageDeck));
+    const compressed = gzipSync(strToU8(jsonString));
+
     return await request(`/languages/${languageDeck.language}`, {
       method: 'PUT',
-      body: JSON.stringify(serializeDeck(languageDeck)),
+      body: compressed,
+      headers: {
+        'Content-Encoding': 'gzip',
+        'Content-Type': 'application/json',
+      },
     });
   } catch (e) {
     return {
