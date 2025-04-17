@@ -11,8 +11,8 @@ import { NavigationContainer } from '../NavigationContainer';
 import { PostHogProvider } from '../PostHogProvider';
 import { ThemeProvider } from '../ThemeProvider';
 import { TranslationPresetContainer } from '../TranslationPreset/TranslationPresetContainer';
-import { AnimatedLookUpScreen } from './AnimatedLookUpScreen';
 import { Login } from './Login';
+import { ShareIntentLookUpScreen } from './ShareIntentLookUpScreen';
 import { Viewport } from './Viewport';
 
 const Stack = createStackNavigator();
@@ -36,7 +36,7 @@ export const ShareIntentAppBase: FC<Props> = ({ os }) => {
                       <Stack.Navigator>
                         <Stack.Screen
                           name="Vocably"
-                          component={AnimatedLookUpScreen}
+                          component={ShareIntentLookUpScreen}
                           options={{
                             headerShown: true,
                             presentation: 'card',

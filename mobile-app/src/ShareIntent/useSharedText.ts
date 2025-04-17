@@ -5,15 +5,34 @@ import ShareMenu, {
   ShareMenuReactView,
 } from 'react-native-share-menu';
 
-export const useShareIntentData = () => {
-  const [sharedText, setSharedText] = useState<string>('');
+type SharedTextDefined = {
+  status: 'defined';
+  text: string;
+};
+
+type SharedTextUndefined = {
+  status: 'undefined';
+};
+
+type SharedText = SharedTextDefined | SharedTextUndefined;
+
+export const useSharedText = (): SharedText => {
+  const [sharedText, setSharedText] = useState<SharedText>({
+    status: 'undefined',
+  });
 
   const handleShare = useCallback((data?: ShareData) => {
     if (data) {
       if (Array.isArray(data.data)) {
-        setSharedText(data.data.join(', '));
+        setSharedText({
+          status: 'defined',
+          text: data.data.join(', '),
+        });
       } else {
-        setSharedText(extractWord(data.data));
+        setSharedText({
+          status: 'defined',
+          text: extractWord(data.data),
+        });
       }
     }
   }, []);
@@ -22,9 +41,12 @@ export const useShareIntentData = () => {
 
   useEffect(() => {
     if (Platform.OS === 'ios') {
-      ShareMenuReactView.data().then(({ mimeType, data }) => {
-        //@ts-ignore
-        setSharedText(data[0].data);
+      ShareMenuReactView.data().then(({ data }) => {
+        setSharedText({
+          status: 'defined',
+          //@ts-ignore
+          text: data[0].data,
+        });
       });
     } else {
       ShareMenu.getSharedText(handleShare);

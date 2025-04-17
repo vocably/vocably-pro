@@ -20,7 +20,6 @@ import { Loader } from './loaders/Loader';
 import { Analyze } from './LookUpScreen/AnalyzeResult';
 import { TranslationPresetForm } from './LookUpScreen/TranslationPresetForm';
 import { SearchInput } from './SearchInput';
-import { useShareIntentData } from './ShareIntent/useShareIntentData';
 import { Preset } from './TranslationPreset/TranslationPresetContainer';
 import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 import { useAnalyzeOperations } from './useAnalyzeOperations';
@@ -72,13 +71,18 @@ const getLoadingText = (translationPreset: Preset) => {
 
 type Props = {
   navigation: NavigationProp<any>;
+  initialText?: string;
+  isSharedLookUp?: boolean;
 };
 
-export const LookUpScreen: FC<Props> = ({ navigation }) => {
-  const [isAutomaticallyLookedUp, setIsAutomaticallyLookedUp] = useState(false);
+export const LookUpScreen: FC<Props> = ({
+  navigation,
+  initialText = '',
+  isSharedLookUp = false,
+}) => {
   const [translationPresetState, languagePairs, setTranslationPreset] =
     useTranslationPreset();
-  const [lookUpText, setLookUpText] = useState('');
+  const [lookUpText, setLookUpText] = useState(initialText);
   const [isAnalyzingPreset, setIsAnalyzingPreset] = useState<Preset | false>(
     false
   );
@@ -92,21 +96,16 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
         : '',
     autoReload: true,
   });
-  const intentData = useShareIntentData();
   const posthog = usePostHog();
 
   const cancelThePreviousLookUp = () => {
-    if (isAnalyzingPreset && abortControllerRef.current) {
+    if (abortControllerRef.current) {
       abortControllerRef.current?.abort();
       abortControllerRef.current = null;
     }
-  };
 
-  useEffect(() => {
-    if (intentData) {
-      setLookUpText(intentData);
-    }
-  }, [intentData]);
+    setIsAnalyzingPreset(false);
+  };
 
   useEffect(() => {
     if (lookUpText === '') {
@@ -119,6 +118,10 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
 
   const lookUp = async () => {
     cancelThePreviousLookUp();
+
+    if (!lookUpText) {
+      return;
+    }
 
     if (deck.status !== 'loaded') {
       return;
@@ -170,22 +173,17 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
   };
 
   useEffect(() => {
-    if (translationPresetState.status === 'known' && lookUpText) {
+    if (
+      translationPresetState.status === 'known' &&
+      translationPresetState.preset.sourceLanguage &&
+      translationPresetState.preset.translationLanguage &&
+      deck.status === 'loaded' &&
+      lookUpText
+    ) {
+      console.log('Looking up...');
       lookUp();
     }
-  }, [translationPresetState]);
-
-  useEffect(() => {
-    if (
-      !isAutomaticallyLookedUp &&
-      intentData &&
-      lookUpText &&
-      deck.status === 'loaded'
-    ) {
-      setIsAutomaticallyLookedUp(true);
-      lookUp().then();
-    }
-  }, [intentData, lookUpText, deck.status, isAutomaticallyLookedUp, lookUp]);
+  }, [translationPresetState, deck.status]);
 
   const { onAdd, onRemove, onTagsChange } = useAnalyzeOperations({
     deck,
@@ -243,7 +241,8 @@ export const LookUpScreen: FC<Props> = ({ navigation }) => {
           }
         />
       </View>
-      {!isAnalyzingPreset && !lookUpResult && (
+      {/* Don't show this text for the shared LookUp to prevent unpleasant flickering */}
+      {!isSharedLookUp && !isAnalyzingPreset && !lookUpResult && (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View
             style={{
