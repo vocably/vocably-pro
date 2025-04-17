@@ -38,7 +38,6 @@
     "@sentry/react-native": "5.33.2",
     "@shopify/flash-list": "1.6.4",
     "aws-amplify": "^6.13.4",
-    "fflate": "^0.8.2",
     "posthog-react-native": "^3.3.6",
     "react": "18.2.0",
     "react-native": "0.73.7",
