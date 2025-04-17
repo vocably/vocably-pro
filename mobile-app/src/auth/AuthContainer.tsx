@@ -3,6 +3,7 @@ import { getCurrentUser } from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, ReactNode, useEffect, useState } from 'react';
+import { Sentry } from '../BetterSentry';
 import { facility } from '../facility';
 import { notificationsIdentifyUser } from '../notificationsIdentifyUser';
 import { AuthContext, AuthStatus } from './AuthContext';
@@ -51,15 +52,21 @@ export const AuthContainer: FC<{
         });
       });
 
-    return Hub.listen('auth', ({ payload: { event } }) => {
-      if (event === 'signedOut') {
+    return Hub.listen('auth', (event) => {
+      if (event.payload.event === 'tokenRefresh_failure') {
+        posthog.capture('tokenRefreshFailure', { ...event.payload });
+        //@ts-ignore
+        Sentry.captureMessage('tokenRefreshFailure', { ...event.payload });
+      }
+
+      if (event.payload.event === 'signedOut') {
         setAuthStatus({
           status: 'not-logged-in',
         });
         return;
       }
 
-      if (event === 'signedIn') {
+      if (event.payload.event === 'signedIn') {
         notificationsIdentifyUser();
 
         getCurrentUser()
