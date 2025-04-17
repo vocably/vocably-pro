@@ -13,6 +13,7 @@ import * as asyncAppStorage from '../asyncAppStorage';
 import { Sentry } from '../BetterSentry';
 import { Error } from '../Error';
 import { Loader } from '../loaders/Loader';
+import { pingGoogle } from '../pingGoogle';
 import { useAsync } from '../useAsync';
 
 const selectedLanguageStorageKey = 'languagesContainerSelectedLanguage';
@@ -126,6 +127,12 @@ export const LanguagesContainer: FC<Props> = ({
       Sentry.captureMessage('listLanguagesError', { ...listResult });
       posthog.capture('listLanguagesError', { ...listResult });
       setListLoadingStatus('error');
+
+      pingGoogle().then((status) => {
+        Sentry.captureMessage(`pingGoogleStatus_${status}`);
+        posthog.capture('pingGoogleStatus', { status });
+      });
+
       return;
     }
 
