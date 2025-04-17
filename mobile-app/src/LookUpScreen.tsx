@@ -241,8 +241,7 @@ export const LookUpScreen: FC<Props> = ({
           }
         />
       </View>
-      {/* Don't show this text for the shared LookUp to prevent unpleasant flickering */}
-      {!isSharedLookUp && !isAnalyzingPreset && !lookUpResult && (
+      {!isAnalyzingPreset && !lookUpResult && (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View
             style={{
@@ -254,91 +253,96 @@ export const LookUpScreen: FC<Props> = ({
               gap: 8,
             }}
           >
-            {canTranslate && (
-              <View>
-                <Text>
-                  The cards will be saved to your{' '}
-                  {
-                    languageList[
-                      translationPresetState.preset
-                        .sourceLanguage as GoogleLanguage
-                    ]
-                  }{' '}
-                  deck.
-                </Text>
-              </View>
-            )}
-            {canTranslate && !translationPresetState.preset.isReverse && (
-              <Animated.View entering={FadeIn} exiting={FadeOut}>
-                <Text>
-                  To search in{' '}
-                  {
-                    languageList[
-                      translationPresetState.preset
-                        .translationLanguage as GoogleLanguage
-                    ]
-                  }{' '}
-                  for a{' '}
-                  {
-                    languageList[
-                      translationPresetState.preset
-                        .sourceLanguage as GoogleLanguage
-                    ]
-                  }{' '}
-                  word or phrase, turn on reverse translation mode by clicking
-                  this{'\u00A0'}button:{'\u00A0'}
-                  <Text
-                    style={{
-                      backgroundColor: theme.colors.inversePrimary,
-                    }}
-                    onPress={() => setTranslationDirection(true)}
-                  >
-                    <Icon
-                      size={14}
-                      color={theme.colors.primary}
-                      name="arrow-right"
-                    ></Icon>
-                  </Text>
-                </Text>
-              </Animated.View>
-            )}
-
-            {canTranslate && translationPresetState.preset.isReverse && (
-              <Animated.View
-                entering={FadeIn}
-                exiting={FadeOut}
-                style={{ gap: 8 }}
-              >
-                <View>
-                  <Text>Reverse Translation mode is on.</Text>
-                </View>
-                <View>
-                  <Text>
-                    To search in{' '}
-                    {
-                      languageList[
-                        translationPresetState.preset
-                          .sourceLanguage as GoogleLanguage
-                      ]
-                    }
-                    {', '}
-                    turn off reverse translation mode by clicking this{'\u00A0'}
-                    button:{'\u00A0'}
-                    <Text
-                      style={{
-                        backgroundColor: theme.colors.inversePrimary,
-                      }}
-                      onPress={() => setTranslationDirection(false)}
-                    >
-                      <Icon
-                        size={14}
-                        color={theme.colors.primary}
-                        name="arrow-left"
-                      ></Icon>
+            {!isSharedLookUp && (
+              <>
+                {canTranslate && (
+                  <View>
+                    <Text>
+                      The cards will be saved to your{' '}
+                      {
+                        languageList[
+                          translationPresetState.preset
+                            .sourceLanguage as GoogleLanguage
+                        ]
+                      }{' '}
+                      deck.
                     </Text>
-                  </Text>
-                </View>
-              </Animated.View>
+                  </View>
+                )}
+                {canTranslate && !translationPresetState.preset.isReverse && (
+                  <Animated.View entering={FadeIn} exiting={FadeOut}>
+                    <Text>
+                      To search in{' '}
+                      {
+                        languageList[
+                          translationPresetState.preset
+                            .translationLanguage as GoogleLanguage
+                        ]
+                      }{' '}
+                      for a{' '}
+                      {
+                        languageList[
+                          translationPresetState.preset
+                            .sourceLanguage as GoogleLanguage
+                        ]
+                      }{' '}
+                      word or phrase, turn on reverse translation mode by
+                      clicking this{'\u00A0'}button:{'\u00A0'}
+                      <Text
+                        style={{
+                          backgroundColor: theme.colors.inversePrimary,
+                        }}
+                        onPress={() => setTranslationDirection(true)}
+                      >
+                        <Icon
+                          size={14}
+                          color={theme.colors.primary}
+                          name="arrow-right"
+                        ></Icon>
+                      </Text>
+                    </Text>
+                  </Animated.View>
+                )}
+
+                {canTranslate && translationPresetState.preset.isReverse && (
+                  <Animated.View
+                    entering={FadeIn}
+                    exiting={FadeOut}
+                    style={{ gap: 8 }}
+                  >
+                    <View>
+                      <Text>Reverse Translation mode is on.</Text>
+                    </View>
+                    <View>
+                      <Text>
+                        To search in{' '}
+                        {
+                          languageList[
+                            translationPresetState.preset
+                              .sourceLanguage as GoogleLanguage
+                          ]
+                        }
+                        {', '}
+                        turn off reverse translation mode by clicking this
+                        {'\u00A0'}
+                        button:{'\u00A0'}
+                        <Text
+                          style={{
+                            backgroundColor: theme.colors.inversePrimary,
+                          }}
+                          onPress={() => setTranslationDirection(false)}
+                        >
+                          <Icon
+                            size={14}
+                            color={theme.colors.primary}
+                            name="arrow-left"
+                          ></Icon>
+                        </Text>
+                      </Text>
+                    </View>
+                  </Animated.View>
+                )}
+              </>
             )}
           </View>
         </TouchableWithoutFeedback>
