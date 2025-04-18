@@ -5,7 +5,7 @@
  * However, I don't know how to disable minification of web components (StencilJS).
  * Sorry, I didn't look too hard!
  * The code of the entire project is available at:
- * https://github.com/vocably/vocably-pro
+ * https://github.com/vocably/language-learning-tool
  *
  */
 /******/ (() => { // webpackBootstrap
@@ -2532,7 +2532,7 @@ module.exports = webpackAsyncContext;
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -2546,14 +2546,14 @@ module.exports = webpackAsyncContext;
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
@@ -2566,7 +2566,7 @@ module.exports = webpackAsyncContext;
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/ensure chunk */
 /******/ 	(() => {
 /******/ 		// The chunk loading function for additional chunks
@@ -2574,12 +2574,12 @@ module.exports = webpackAsyncContext;
 /******/ 		// in this file, this function is empty here.
 /******/ 		__webpack_require__.e = () => (Promise.resolve());
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -2590,7 +2590,7 @@ module.exports = webpackAsyncContext;
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.

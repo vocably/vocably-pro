@@ -5,7 +5,7 @@
  * However, I don't know how to disable minification of web components (StencilJS).
  * Sorry, I didn't look too hard!
  * The code of the entire project is available at:
- * https://github.com/vocably/vocably-pro
+ * https://github.com/vocably/language-learning-tool
  *
  */
 /******/ (() => { // webpackBootstrap
