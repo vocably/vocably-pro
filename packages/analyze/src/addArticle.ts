@@ -36,6 +36,11 @@ const languageArticles: Partial<
     neuter: 'et ',
     fallback: '',
   },
+  dk: {
+    common: 'en ',
+    neuter: 'et ',
+    fallback: '',
+  },
   es: ({ gender, word, pronunciation, number }) => {
     if (number.toLowerCase() === 'plural') {
       return '';

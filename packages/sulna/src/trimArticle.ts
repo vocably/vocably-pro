@@ -11,6 +11,7 @@ const trimRegexes: Partial<Record<string, RegExp[]>> = {
   it: [/^(il|lo|la|i|gli|le|un|uno|una)\s/i, /^(l)['’‘‛′ʼʹꞌ＇]/i],
   pt: [/^(o|a|os|as|um|uma|uns|umas)\s/i],
   no: [/^(en|ei|et)\s/i],
+  da: [/^(en|et)\s/i],
 };
 
 export const trimArticle = (
