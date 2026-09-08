@@ -64,6 +64,10 @@ const handlePlayerElement = (player: HTMLElement): (() => void) => {
             e.stopPropagation();
           });
 
+          anchor.addEventListener('mouseenter', () => {
+            player.querySelector('video')?.pause();
+          });
+
           anchor.addEventListener('click', async () => {
             const detectedLanguage = await detectLanguage(anchor);
             await createPopup({
