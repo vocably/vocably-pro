@@ -44182,6 +44182,73 @@ const pt_pt = {
     objective_zu: 'zulu',
 };
 
+;// ../browser-i18n/dist/esm/messages/en.js
+const messages_en_en = {
+    // youtube
+    'youtube.press_alt_to_select': 'Press Alt to select text',
+    'youtube.press_option_to_select': 'Press Option ⌥ to select text',
+};
+
+;// ../browser-i18n/dist/esm/messages/ru.js
+const ru_ru = {
+    // youtube
+    'youtube.press_alt_to_select': 'Нажмите Alt чтобы выделить текст',
+    'youtube.press_option_to_select': 'Нажмите Option ⌥ чтобы выделить текст',
+};
+
+;// ../browser-i18n/dist/esm/messages/uk.js
+const uk_uk = {
+    // youtube
+    'youtube.press_alt_to_select': 'Натисніть Alt щоб виділити текст',
+    'youtube.press_option_to_select': 'Натисніть Option ⌥ щоб виділити текст',
+};
+
+;// ../browser-i18n/dist/esm/messages/vi.js
+const messages_vi_vi = {
+    // youtube
+    'youtube.press_alt_to_select': 'Nhấn giữ Alt để chọn văn bản',
+    'youtube.press_option_to_select': 'Nhấn giữ Option ⌥ để chọn văn bản',
+};
+
+;// ../browser-i18n/dist/esm/messages/tr.js
+const messages_tr_tr = {
+    // youtube
+    'youtube.press_alt_to_select': 'Metni seçmek için Alt tuşuna basın',
+    'youtube.press_option_to_select': 'Metni seçmek için Option ⌥ tuşuna basın',
+};
+
+;// ../browser-i18n/dist/esm/messages/es.js
+const messages_es_es = {
+    // youtube
+    'youtube.press_alt_to_select': 'Pulsa Alt para seleccionar el texto',
+    'youtube.press_option_to_select': 'Pulsa Option ⌥ para seleccionar el texto',
+};
+
+;// ../browser-i18n/dist/esm/messages/pt.js
+const messages_pt_pt = {
+    // youtube
+    'youtube.press_alt_to_select': 'Pressione Alt para selecionar o texto',
+    'youtube.press_option_to_select': 'Pressione Option ⌥ para selecionar o texto',
+};
+
+;// ../browser-i18n/dist/esm/messages/index.js
+
+
+
+
+
+
+
+const messageTranslations = {
+    en: messages_en_en,
+    ru: ru_ru,
+    uk: uk_uk,
+    vi: messages_vi_vi,
+    tr: messages_tr_tr,
+    es: messages_es_es,
+    pt: messages_pt_pt,
+};
+
 ;// ../browser-i18n/dist/esm/index.js
 
 
@@ -44249,6 +44316,7 @@ const buildT = (translations) => (key, params) => {
         return str;
     return Object.entries(params).reduce((s, [k, v]) => s.replace(new RegExp(`\\{${k}\\}`, 'g'), String(v)), str);
 };
+
 const languageTranslations = {
     en: en_en,
     ru: ru,
