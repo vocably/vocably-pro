@@ -1,3 +1,7 @@
+import { browser } from '@vocably/browser';
+import { detectLocale } from '@vocably/browser-i18n';
+import { setLocale, t } from '@vocably/extension-content-ui/src/i18n';
+import { api } from './api';
 import { contextLanguages } from './contextLanguages';
 import { detectLanguage } from './detectLanguage';
 import { getContext } from './getContext';
@@ -7,8 +11,13 @@ import { getGlobalRect } from './position';
 import { setYouTubeStyles, youtubeHighlightDuration } from './styles';
 import { extractTokens } from './tokenizer/extractTokens';
 import { destroyButton } from './button';
+import { showSnackbar } from './snackbar';
 
 const ytPlayerTagName = 'ytd-player';
+
+// The distance the cursor has to travel with the button pressed
+// for the movement to be considered a drag attempt.
+const dragThreshold = 5;
 
 const selectableCaptionsClassName = 'vocably-selectable-captions';
 const highlightedCaptionsClassName = 'vocably-selectable-captions-highlighted';
@@ -20,6 +29,61 @@ export const getPlayerElements = (): HTMLElement[] => {
 
 export type InitYouTubeOptions = {
   ytHosts: string[];
+};
+
+let textHintShowed = false;
+
+const showSelectTextHint = async () => {
+  const { locale } = await api.getSettings();
+  setLocale(locale ?? detectLocale());
+
+  showSnackbar(
+    browser.getOS().name === 'macOS'
+      ? t('youtube.press_option_to_select')
+      : t('youtube.press_alt_to_select')
+  );
+
+  textHintShowed = true;
+  setTimeout(() => {
+    textHintShowed = false;
+  }, 1000);
+};
+
+// The captions are not selectable unless Alt (Option) is pressed,
+// so a drag attempt is a good moment to explain how to select them.
+const watchDragAttempt = (event: MouseEvent) => {
+  if (event.altKey) {
+    return;
+  }
+
+  const { clientX: startX, clientY: startY } = event;
+
+  const stopWatching = () => {
+    document.removeEventListener('mousemove', onMouseMove, true);
+    document.removeEventListener('mouseup', stopWatching, true);
+  };
+
+  const onMouseMove = (moveEvent: MouseEvent) => {
+    if (moveEvent.altKey) {
+      stopWatching();
+      return;
+    }
+
+    if (
+      Math.abs(moveEvent.clientX - startX) < dragThreshold &&
+      Math.abs(moveEvent.clientY - startY) < dragThreshold
+    ) {
+      return;
+    }
+
+    stopWatching();
+    showSelectTextHint();
+  };
+
+  // The captions handle mouseup themselves and stop its propagation,
+  // so the listeners have to be attached on the capture phase.
+  document.addEventListener('mouseup', stopWatching, true);
+  document.addEventListener('mousemove', onMouseMove, true);
 };
 
 const handlePlayerElement = (player: HTMLElement): (() => void) => {
@@ -69,6 +133,7 @@ const handlePlayerElement = (player: HTMLElement): (() => void) => {
           anchor.addEventListener('mousedown', (e) => {
             e.preventDefault();
             e.stopPropagation();
+            watchDragAttempt(e);
           });
 
           anchor.addEventListener('mouseup', (e) => {
@@ -81,6 +146,10 @@ const handlePlayerElement = (player: HTMLElement): (() => void) => {
           });
 
           anchor.addEventListener('click', async () => {
+            if (textHintShowed) {
+              return;
+            }
+
             const detectedLanguage = await detectLanguage(anchor);
             await createPopup({
               detectedLanguage,

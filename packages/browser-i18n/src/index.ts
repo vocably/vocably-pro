@@ -90,6 +90,8 @@ export const buildT =
     );
   };
 
+export { messageTranslations } from './messages';
+
 export const languageTranslations: Translations = {
   en,
   ru,

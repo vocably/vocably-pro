@@ -48,3 +48,53 @@ export const setYouTubeStyles = () => {
 `;
   document.head.appendChild(style);
 };
+
+export const snackbarTransitionDuration = 200;
+
+const snackbarClassName = 'vocably-snackbar';
+
+let snackbarStylesAreSet = false;
+
+export const setSnackbarStyles = () => {
+  if (snackbarStylesAreSet) {
+    return;
+  }
+
+  snackbarStylesAreSet = true;
+
+  const style = document.createElement('style');
+  style.innerHTML = `
+  .${snackbarClassName} {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translate(-50%, 8px);
+    box-sizing: border-box;
+    max-width: min(90vw, 400px);
+    padding: 10px 16px;
+    border-radius: 8px;
+    background-color: rgba(32, 33, 36, 0.95);
+    color: #ffffff;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity ${snackbarTransitionDuration}ms ease-in-out,
+      transform ${snackbarTransitionDuration}ms ease-in-out;
+  }
+
+  .${snackbarClassName}.${snackbarClassName}-visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+`;
+  document.head.appendChild(style);
+};
+
+export const snackbarClassNames = {
+  snackbar: snackbarClassName,
+  visible: `${snackbarClassName}-visible`,
+};
