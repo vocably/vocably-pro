@@ -139,15 +139,12 @@ const handlePlayerElement = (player: HTMLElement): (() => void) => {
             e.stopPropagation();
           });
 
-          anchor.addEventListener('mouseenter', () => {
-            videoElement?.pause();
-          });
-
           anchor.addEventListener('click', async () => {
             if (textHintShowed) {
               return;
             }
 
+            videoElement?.pause();
             const detectedLanguage = await detectLanguage(anchor);
             await createPopup({
               detectedLanguage,
