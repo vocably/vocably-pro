@@ -120,9 +120,7 @@ const handlePlayerElement = (player: HTMLElement): (() => void) => {
 
         tokens.forEach((token, index) => {
           if (token.type !== 'word') {
-            const punctuationSpan = document.createElement('span');
-            punctuationSpan.innerText = token.text;
-            span.append(punctuationSpan);
+            span.append(document.createTextNode(token.text));
             return;
           }
 

@@ -8,7 +8,6 @@ export const setYouTubeStyles = () => {
   style.innerHTML = `
   .vocably-word {
     cursor: pointer;
-    display: inline-block;
     position: relative;
     z-index: 0;
 
