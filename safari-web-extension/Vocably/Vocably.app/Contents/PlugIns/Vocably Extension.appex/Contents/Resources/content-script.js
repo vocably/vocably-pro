@@ -18702,13 +18702,15 @@ const tokenize = (text) => {
 };
 
 ;// ../sulna/dist/esm/trimArticle.js
+const frenchLeLa = /^(le|la)\s/i;
+const dropL = /^(l)['’‘‛′ʼʹꞌ＇]/i;
 const trimRegexes = {
     en: [/^(a)\s/i],
     nl: [/^(de|het|de.het|het.de)\s/i],
     de: [/^(der|die|das|ein|eine)\s/i],
     es: [/^(el|la|los|las|el.la|la.el)\s/i],
-    fr: [/^(le|la|les|un|une|des|du|de)\s/i],
-    it: [/^(il|lo|la|i|gli|le|un|uno|una)\s/i, /^(l)['’‘‛′ʼʹꞌ＇]/i],
+    fr: [/^(les|un|une|des|du|de)\s/i, frenchLeLa, dropL],
+    it: [/^(il|lo|la|i|gli|le|un|uno|una)\s/i, dropL],
     pt: [/^(o|a|os|as|um|uma|uns|umas)\s/i],
     no: [/^(en|ei|et)\s/i],
     da: [/^(en|et)\s/i],
@@ -18733,6 +18735,9 @@ const trimArticle = (language, source) => {
     };
 };
 const trimSenselessArticle = (language, source) => {
+    if (language === 'fr') {
+        return source.replace(dropL, '').trim().replace(frenchLeLa, '').trim();
+    }
     if (language !== 'en') {
         return source;
     }
@@ -18892,6 +18897,7 @@ const mapUserStaticMetadata = (metadata) => {
 };
 
 ;// ../model/dist/esm/index.js
+
 
 
 
@@ -22765,15 +22771,50 @@ const isValidSelection = (selection) => {
 };
 
 ;// ../extension-content-script/dist/styles.js
+const youtubeHighlightDuration = 50;
+const primary = `#0050ff`;
+const darkPrimary = `#28a5ff`;
 const setYouTubeStyles = () => {
     const style = document.createElement('style');
     style.innerHTML = `
   .vocably-word {
     cursor: pointer;
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: ${primary};
+      box-shadow: -2px 0 0 ${primary}, 2px 0 0 ${primary};
+      content: '';
+      border-radius: 8px;
+      z-index: -1;
+      opacity: 0;
+      transform: scale(50%);
+      transition: all 100ms ease-in-out;
+    }
+
+    &:hover {
+      color: white;
+
+      &::before {
+        opacity: 1;
+        transform: scale(100%);
+      }
+    }
   }
-  .vocably-word:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
+
+  .vocably-selectable-captions .ytp-caption-segment {
+    transition: text-shadow ${youtubeHighlightDuration}ms ease-in-out;
+  }
+  .vocably-selectable-captions-highlighted .ytp-caption-segment {
+    text-shadow: 0 0 5px ${darkPrimary}, 0 0 10px ${darkPrimary}, 0 0 20px ${darkPrimary},
+      0 0 40px ${darkPrimary} !important;
   }
 `;
     document.head.appendChild(style);
@@ -22926,6 +22967,8 @@ var youtube_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _
 
 
 const ytPlayerTagName = 'ytd-player';
+const selectableCaptionsClassName = 'vocably-selectable-captions';
+const highlightedCaptionsClassName = 'vocably-selectable-captions-highlighted';
 const getPlayerElements = () => {
     const players = document.querySelectorAll(ytPlayerTagName);
     return Array.from(players);
@@ -22971,6 +23014,10 @@ const handlePlayerElement = (player) => {
                         e.preventDefault();
                         e.stopPropagation();
                     });
+                    anchor.addEventListener('mouseenter', () => {
+                        var _a;
+                        (_a = player.querySelector('video')) === null || _a === void 0 ? void 0 : _a.pause();
+                    });
                     anchor.addEventListener('click', () => youtube_awaiter(void 0, void 0, void 0, function* () {
                         var _a;
                         const detectedLanguage = yield detectLanguage(anchor);
@@ -23006,6 +23053,67 @@ const handlePlayerElement = (player) => {
         observer.disconnect();
     };
 };
+const makeCaptionsSelectable = () => {
+    const captionContainerList = [];
+    const captionContainersCloneList = [];
+    getPlayerElements().forEach((player) => {
+        player.style.userSelect = 'auto';
+        player.style.webkitUserSelect = 'auto';
+        const container = player.querySelector('.ytd-player');
+        if (isHtmlElement_isHtmlElement(container)) {
+            container.style.userSelect = 'auto';
+            container.style.webkitUserSelect = 'auto';
+        }
+        const captionContainer = player.querySelector('#ytp-caption-window-container');
+        if (!isHtmlElement_isHtmlElement(captionContainer)) {
+            return;
+        }
+        captionContainer.style.userSelect = 'auto';
+        captionContainer.style.webkitUserSelect = 'auto';
+        const captionContainerClone = captionContainer.cloneNode(true);
+        captionContainerClone.classList.add(selectableCaptionsClassName);
+        captionContainerList.push(captionContainer);
+        captionContainersCloneList.push(captionContainerClone);
+        captionContainer.hidden = true;
+        captionContainer.before(captionContainerClone);
+        captionContainerClone
+            .querySelectorAll('.caption-window')
+            .forEach((captionWindow) => {
+            if (!isHtmlElement_isHtmlElement(captionWindow)) {
+                return;
+            }
+            captionWindow.draggable = false;
+            captionWindow.style.userSelect = 'auto';
+            captionWindow.style.webkitUserSelect = 'auto';
+            captionWindow.querySelectorAll('.captions-text').forEach((element) => {
+                if (!isHtmlElement_isHtmlElement(element)) {
+                    return;
+                }
+                element.style.userSelect = 'auto';
+                element.style.webkitUserSelect = 'auto';
+            });
+            captionWindow
+                .querySelectorAll('.ytp-caption-segment')
+                .forEach((segment) => {
+                if (!isHtmlElement_isHtmlElement(segment)) {
+                    return;
+                }
+                segment.style.cursor = 'text';
+            });
+            captionWindow
+                .querySelectorAll('.vocably-word')
+                .forEach((word) => word.classList.remove('vocably-word'));
+        });
+    });
+    return { captionContainerList, captionContainersCloneList };
+};
+const hasTextSelection = () => {
+    const selection = window.getSelection();
+    if (!selection || selection.isCollapsed) {
+        return false;
+    }
+    return selection.toString().trim() !== '';
+};
 const initYoutube = (options) => youtube_awaiter(void 0, void 0, void 0, function* () {
     if (!options.ytHosts.includes(window.location.host)) {
         return;
@@ -23039,114 +23147,112 @@ const initYoutube = (options) => youtube_awaiter(void 0, void 0, void 0, functio
         subtree: true,
     });
     let isAltDown = false;
+    let isMouseDown = false;
+    let selectableCaptions = null;
+    let fadingOutCaptions = null;
+    let tearDownTimeout = null;
+    let removeCaptionsTimeout = null;
+    const cancelScheduledTearDown = () => {
+        if (tearDownTimeout === null) {
+            return;
+        }
+        clearTimeout(tearDownTimeout);
+        tearDownTimeout = null;
+    };
+    const cancelScheduledRemoval = () => {
+        if (removeCaptionsTimeout !== null) {
+            clearTimeout(removeCaptionsTimeout);
+            removeCaptionsTimeout = null;
+        }
+        const captions = fadingOutCaptions;
+        fadingOutCaptions = null;
+        return captions;
+    };
+    const removeCaptions = (captions) => {
+        captions.captionContainersCloneList.forEach((element) => element.remove());
+        captions.captionContainerList.forEach((element) => (element.hidden = false));
+    };
+    const setUp = () => {
+        var _a;
+        cancelScheduledTearDown();
+        if (selectableCaptions === null) {
+            selectableCaptions = (_a = cancelScheduledRemoval()) !== null && _a !== void 0 ? _a : makeCaptionsSelectable();
+        }
+        selectableCaptions.captionContainersCloneList.forEach((element) => {
+            // Forces a reflow, so the highlight is transitioned in
+            // instead of being applied right away.
+            void element.offsetHeight;
+            element.classList.add(highlightedCaptionsClassName);
+        });
+    };
+    const tearDown = () => {
+        cancelScheduledTearDown();
+        isAltDown = false;
+        isMouseDown = false;
+        if (selectableCaptions === null) {
+            return;
+        }
+        const captions = selectableCaptions;
+        selectableCaptions = null;
+        fadingOutCaptions = captions;
+        captions.captionContainersCloneList.forEach((element) => element.classList.remove(highlightedCaptionsClassName));
+        removeCaptionsTimeout = setTimeout(() => {
+            removeCaptionsTimeout = null;
+            fadingOutCaptions = null;
+            removeCaptions(captions);
+        }, youtubeHighlightDuration);
+    };
+    const isInUse = () => isAltDown || isMouseDown || hasTextSelection();
+    const scheduleTearDown = () => {
+        cancelScheduledTearDown();
+        if (selectableCaptions === null || isInUse()) {
+            return;
+        }
+        tearDownTimeout = setTimeout(() => {
+            tearDownTimeout = null;
+            if (isInUse()) {
+                return;
+            }
+            tearDown();
+        }, 100);
+    };
     document.addEventListener('keydown', (e) => {
         if (e.key !== 'Alt' || isAltDown) {
             return;
         }
         isAltDown = true;
-        let isMouseDown = false;
-        const players = getPlayerElements();
-        let captionContainerList = [];
-        let captionContainersCloneList = [];
-        players.forEach((player) => {
-            player.style.userSelect = 'auto';
-            player.style.webkitUserSelect = 'auto';
-            const container = player.querySelector('.ytd-player');
-            if (isHtmlElement_isHtmlElement(container)) {
-                container.style.userSelect = 'auto';
-                container.style.webkitUserSelect = 'auto';
-            }
-            const captionContainer = player.querySelector('#ytp-caption-window-container');
-            if (!isHtmlElement_isHtmlElement(captionContainer)) {
-                return;
-            }
-            captionContainer.style.userSelect = 'auto';
-            captionContainer.style.webkitUserSelect = 'auto';
-            const captionContainerClone = captionContainer.cloneNode(true);
-            captionContainerList.push(captionContainer);
-            captionContainersCloneList.push(captionContainerClone);
-            captionContainer.hidden = true;
-            captionContainer.before(captionContainerClone);
-            captionContainerClone
-                .querySelectorAll('.caption-window')
-                .forEach((captionWindow) => {
-                if (!isHtmlElement_isHtmlElement(captionWindow)) {
-                    return;
-                }
-                captionWindow.draggable = false;
-                captionWindow.style.userSelect = 'auto';
-                captionWindow.style.webkitUserSelect = 'auto';
-                captionWindow
-                    .querySelectorAll('.captions-text')
-                    .forEach((element) => {
-                    if (!isHtmlElement_isHtmlElement(element)) {
-                        return;
-                    }
-                    element.style.userSelect = 'auto';
-                    element.style.webkitUserSelect = 'auto';
-                });
-                captionWindow
-                    .querySelectorAll('.ytp-caption-segment')
-                    .forEach((segment) => {
-                    if (!isHtmlElement_isHtmlElement(segment)) {
-                        return;
-                    }
-                    segment.style.cursor = 'text';
-                });
-                captionWindow
-                    .querySelectorAll('.vocably-word')
-                    .forEach((word) => word.classList.remove('vocably-word'));
-            });
-        });
-        const onBlur = () => {
+        setUp();
+    });
+    document.addEventListener('keyup', (e) => {
+        if (e.key !== 'Alt' || !isAltDown) {
+            return;
+        }
+        isAltDown = false;
+        scheduleTearDown();
+    });
+    document.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) {
+            return;
+        }
+        isMouseDown = true;
+    });
+    document.addEventListener('mouseup', (e) => {
+        if (e.button !== 0) {
+            return;
+        }
+        isMouseDown = false;
+        scheduleTearDown();
+    });
+    document.addEventListener('selectionchange', () => {
+        scheduleTearDown();
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
             tearDown();
-        };
-        const onVisibilityChange = () => {
-            if (document.hidden) {
-                tearDown();
-            }
-        };
-        document.addEventListener('visibilitychange', onVisibilityChange);
-        window.addEventListener('blur', onBlur);
-        const tearDown = () => {
-            isAltDown = false;
-            captionContainersCloneList.forEach((element) => element.remove());
-            captionContainerList.forEach((element) => (element.hidden = false));
-            document.removeEventListener('keyup', onKeyUp);
-            document.removeEventListener('mouseup', onMouseUp);
-            document.removeEventListener('mousedown', onMouseDown);
-            document.removeEventListener('visibilitychange', onVisibilityChange);
-            window.removeEventListener('blur', onBlur);
-        };
-        const onMouseDown = (e) => {
-            if (e.button !== 0) {
-                return;
-            }
-            isMouseDown = true;
-        };
-        const onMouseUp = (e) => {
-            if (e.button !== 0) {
-                return;
-            }
-            isMouseDown = false;
-            if (isAltDown) {
-                return;
-            }
-            setTimeout(tearDown, 100);
-        };
-        const onKeyUp = (e) => {
-            if (e.key !== 'Alt') {
-                return;
-            }
-            isAltDown = false;
-            if (isMouseDown) {
-                return;
-            }
-            setTimeout(tearDown, 100);
-        };
-        document.addEventListener('keyup', onKeyUp);
-        document.addEventListener('mousedown', onMouseDown);
-        document.addEventListener('mouseup', onMouseUp);
+        }
+    });
+    window.addEventListener('blur', () => {
+        tearDown();
     });
 });
 
@@ -23263,6 +23369,12 @@ const onMouseUp = (event) => dist_awaiter(void 0, void 0, void 0, function* () {
             return;
         }
         const settings = yield api.getSettings();
+        if (settings.showOnSelection) {
+            yield showPopup({
+                isTouchscreen: false,
+            });
+            return;
+        }
         // This is the attempt to make the "Double click" functionality
         // work in Lemur browser on Android.
         // The mouse event is not trusted in Lemur on Android.
@@ -23364,18 +23476,20 @@ const registerContentScript = (...args_1) => dist_awaiter(void 0, [...args_1], v
 
 ;// ./src/content-script.ts
 
-registerContentScript({
-    api: {
-        appBaseUrl: "https://app.vocably.pro",
-    },
-    youTube: { ytHosts: ['www.youtube.com'] },
-    contentScript: {
-        askForRatingEnabled: true,
-        displayMobileLookupButton: false,
-        allowFirstTranslationCongratulation: true,
-        webPaymentLink: "https://app.vocably.pro" + '/subscribe',
-    },
-}).then();
+if (!document.body.classList.contains('vocably-extension-disabled')) {
+    registerContentScript({
+        api: {
+            appBaseUrl: "https://vocably.pro/app",
+        },
+        youTube: { ytHosts: ['www.youtube.com'] },
+        contentScript: {
+            askForRatingEnabled: true,
+            displayMobileLookupButton: false,
+            allowFirstTranslationCongratulation: true,
+            webPaymentLink: "https://vocably.pro/app" + '/subscribe',
+        },
+    }).then();
+}
 
 })();
 

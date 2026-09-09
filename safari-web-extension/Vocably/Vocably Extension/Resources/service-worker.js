@@ -38001,13 +38001,15 @@ const explode = (lines) => {
 };
 
 ;// ../sulna/dist/esm/trimArticle.js
+const frenchLeLa = /^(le|la)\s/i;
+const dropL = /^(l)['’‘‛′ʼʹꞌ＇]/i;
 const trimRegexes = {
     en: [/^(a)\s/i],
     nl: [/^(de|het|de.het|het.de)\s/i],
     de: [/^(der|die|das|ein|eine)\s/i],
     es: [/^(el|la|los|las|el.la|la.el)\s/i],
-    fr: [/^(le|la|les|un|une|des|du|de)\s/i],
-    it: [/^(il|lo|la|i|gli|le|un|uno|una)\s/i, /^(l)['’‘‛′ʼʹꞌ＇]/i],
+    fr: [/^(les|un|une|des|du|de)\s/i, frenchLeLa, dropL],
+    it: [/^(il|lo|la|i|gli|le|un|uno|una)\s/i, dropL],
     pt: [/^(o|a|os|as|um|uma|uns|umas)\s/i],
     no: [/^(en|ei|et)\s/i],
     da: [/^(en|et)\s/i],
@@ -38032,6 +38034,9 @@ const trimArticle = (language, source) => {
     };
 };
 const trimSenselessArticle = (language, source) => {
+    if (language === 'fr') {
+        return source.replace(dropL, '').trim().replace(frenchLeLa, '').trim();
+    }
     if (language !== 'en') {
         return source;
     }
@@ -38189,7 +38194,13 @@ const mapUserStaticMetadata = (metadata) => {
     return mergeUserStaticMetadata(defaultUserStaticMetadata, metadata);
 };
 
+;// ../model/dist/esm/tts.js
+const isTTSResponse = (payload) => {
+    return typeof payload.audioContent === 'string';
+};
+
 ;// ../model/dist/esm/index.js
+
 
 
 
@@ -38680,7 +38691,7 @@ const request = async (url, init) => {
             };
         }
         if (response.headers.has('Content-Type') &&
-            response.headers.get('Content-Type') === 'application/json' &&
+            response.headers.get('Content-Type').startsWith('application/json') &&
             response.headers.get('Content-Length') !== '0') {
             return {
                 success: true,
@@ -39160,8 +39171,7 @@ const grade = (item, score, studyStrategy, createdTimestamp, now = new Date()) =
             (item.repetition + 1) % studyStrategy.length === 0) {
             nextInterval =
                 isStrongStep && !hasStudiedToday
-                    ? Math.max(item.interval, Math.min(365, Math.round(item.interval * item.eFactor)) -
-                        daysDifference)
+                    ? Math.max(item.interval, Math.round(item.interval * item.eFactor) - daysDifference)
                     : item.interval;
             nextRepetition = item.repetition + 1;
             dueDate = isStrongStep
@@ -39204,10 +39214,14 @@ const grade = (item, score, studyStrategy, createdTimestamp, now = new Date()) =
         firstStudied = createdTimestamp;
     }
     return {
-        interval: nextInterval,
         repetition: nextRepetition,
-        eFactor: Math.round(nextEFactor * 100) / 100,
-        dueDate: dueDate,
+        interval: daysDifference <= 1 || item.interval > nextInterval
+            ? nextInterval
+            : item.interval,
+        eFactor: daysDifference <= 1 || item.eFactor > nextEFactor
+            ? Math.round(nextEFactor * 100) / 100
+            : item.eFactor,
+        dueDate: daysDifference <= 1 || item.dueDate > dueDate ? dueDate : item.dueDate,
         state: nextState,
         firstStudied: firstStudied,
         lastStudied: new Date().getTime(),
@@ -39606,12 +39620,27 @@ const configureApi = (options) => {
 
 
 const restClient_request = async (url, init) => {
-    const headers = {
-        Authorization: `Bearer ${await apiOptions.getJwtToken()}`,
+    const token = await apiOptions.getJwtToken();
+    let headers = {
+        Authorization: `Bearer ${token}`,
     };
-    const result = await request(apiOptions.baseUrl + url, lodash_es_merge(init, {
+    let result = await request(apiOptions.baseUrl + url, lodash_es_merge(init, {
         headers,
     }));
+    if (!result.success && result.errorCode === 'API_REQUEST_UNAUTHORIZED') {
+        console.warn(`API_REQUEST_UNAUTHORIZED, retrying in 2 seconds...`, {
+            tokenLength: token.length,
+            result,
+        });
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        headers = {
+            Authorization: `Bearer ${await apiOptions.getJwtToken()}`,
+        };
+        result = await request(apiOptions.baseUrl + url, lodash_es_merge(init, {
+            headers,
+        }));
+        console.debug('retry result', result);
+    }
     if (!result.success && apiOptions.onError) {
         apiOptions.onError(result);
     }
@@ -39997,10 +40026,11 @@ const postOnboardingAction = async (action) => {
 };
 
 ;// ../api/dist/esm/playSound.js
+/* unused harmony import specifier */ var playSound_request;
 
 const playSound = async (payload) => {
     try {
-        return await restClient_request('/audio?' + new URLSearchParams(payload), {
+        return await playSound_request('/audio?' + new URLSearchParams(payload), {
             method: 'GET',
         });
     }
@@ -40437,7 +40467,31 @@ const publicFixGrammar = async (payload, abortController) => {
     }
 };
 
+;// ../api/dist/esm/tts.js
+
+
+const tts = async (baseUrl, payload, abortController) => {
+    const response = await request(baseUrl + '/tts', {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        signal: abortController?.signal,
+    });
+    if (response.success === false) {
+        return response;
+    }
+    if (!isTTSResponse(response.value)) {
+        return {
+            success: false,
+            reason: 'The TTS response is invalid.',
+            errorCode: 'TTS_ERROR',
+            extra: response.value,
+        };
+    }
+    return response;
+};
+
 ;// ../api/dist/esm/index.js
+
 
 
 
@@ -44211,6 +44265,7 @@ const languageTranslations = {
 
 const defaultSettings = {
     showOnDoubleClick: false,
+    showOnSelection: false,
     autoPlay: false,
     hideSelectionButton: false,
     autodetectLanguage: false,
@@ -44302,6 +44357,7 @@ const registerServiceWorker = (registerServiceWorkerOptions) => {
         autocapture: false,
         disable_session_recording: true,
         disable_surveys: true,
+        mask_personal_data_properties: true,
         before_send: (event) => {
             if (event && event.properties) {
                 // 1. Remove standard device metadata properties that can aid fingerprinting
@@ -44567,7 +44623,19 @@ const registerServiceWorker = (registerServiceWorkerOptions) => {
         return sendResponse();
     });
     onGetAudioPronunciation(async (sendResponse, payload) => {
-        return sendResponse(await playSound(payload));
+        const ttsResult = await tts(registerServiceWorkerOptions.api.baseUrl, {
+            text: payload.text,
+            language: payload.language,
+        });
+        if (ttsResult.success === false) {
+            return sendResponse(ttsResult);
+        }
+        return sendResponse({
+            success: true,
+            value: {
+                url: 'data:audio/mpeg;base64,' + ttsResult.value.audioContent,
+            },
+        });
     });
     onAskForRating(async (sendResponse, payload) => {
         if (payload.translationResult.success === false) {
@@ -44997,6 +45065,15 @@ const browserEnv_hasOffscreen = (browserEnv) => {
 };
 
 ;// ./src/service-worker.ts
+var service_worker_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 
 
 
@@ -45019,7 +45096,6 @@ registerServiceWorker({
         },
     },
     facility: 'chrome-or-safari',
-    unlimitedMaxCards: true,
 });
 src_browserEnv_browserEnv.contextMenus.create({
     id: 'context-menu-item',
@@ -45031,6 +45107,18 @@ src_browserEnv_browserEnv.contextMenus.onClicked.addListener((info, tab) => {
         action: 'contextMenuTranslateClicked',
     });
 });
+chrome.runtime.onInstalled.addListener((details) => service_worker_awaiter(void 0, void 0, void 0, function* () {
+    if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+        yield chrome.tabs.create({
+            url: `${"https://vocably.pro/app"}/page/welcome`,
+        });
+    }
+}));
+chrome.runtime.setUninstallURL('https://app.vocably.pro/page/uninstall');
+// @ts-ignore
+window.clearStorage = () => {
+    chrome.storage.sync.clear();
+};
 
 })();
 
