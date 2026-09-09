@@ -7,9 +7,12 @@ export const setYouTubeStyles = () => {
   const style = document.createElement('style');
   style.innerHTML = `
   .vocably-word {
-    cursor: pointer;
     position: relative;
     z-index: 0;
+
+    &:not(.vocably-word-disabled) {
+      cursor: pointer;
+    }
 
     &::before {
       position: absolute;
@@ -27,7 +30,7 @@ export const setYouTubeStyles = () => {
       transition: all 100ms ease-in-out;
     }
 
-    &:hover {
+    &:not(.vocably-word-disabled):hover {
       color: white;
 
       &::before {

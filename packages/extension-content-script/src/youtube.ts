@@ -256,7 +256,7 @@ const makeCaptionsSelectable = (): SelectableCaptions => {
 
         captionWindow
           .querySelectorAll('.vocably-word')
-          .forEach((word) => word.classList.remove('vocably-word'));
+          .forEach((word) => word.classList.add('vocably-word-disabled'));
       });
   });
 
