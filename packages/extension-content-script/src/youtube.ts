@@ -2,10 +2,11 @@ import { contextLanguages } from './contextLanguages';
 import { detectLanguage } from './detectLanguage';
 import { getContext } from './getContext';
 import { isHtmlElement } from './isHtmlElement';
-import { createPopup } from './popup';
+import { createPopup, destroyAllOverlays } from './popup';
 import { getGlobalRect } from './position';
 import { setYouTubeStyles, youtubeHighlightDuration } from './styles';
 import { extractTokens } from './tokenizer/extractTokens';
+import { destroyButton } from './button';
 
 const ytPlayerTagName = 'ytd-player';
 
@@ -22,6 +23,8 @@ export type InitYouTubeOptions = {
 };
 
 const handlePlayerElement = (player: HTMLElement): (() => void) => {
+  let videoElement: HTMLVideoElement | null = null;
+
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       if (mutation.type !== 'childList') return;
@@ -29,6 +32,15 @@ const handlePlayerElement = (player: HTMLElement): (() => void) => {
       if (!isHtmlElement(mutation.target)) return;
       if (!mutation.target.classList) return;
       if (!mutation.target.classList.contains('ytp-caption-segment')) return;
+
+      if (!videoElement) {
+        videoElement = player.querySelector('video');
+        videoElement?.addEventListener('play', () => {
+          window.getSelection()?.removeAllRanges();
+          destroyAllOverlays();
+          destroyButton();
+        });
+      }
 
       mutation.addedNodes.forEach((node) => {
         if (isHtmlElement(node) && node.classList.contains('replaced')) return;
@@ -65,7 +77,7 @@ const handlePlayerElement = (player: HTMLElement): (() => void) => {
           });
 
           anchor.addEventListener('mouseenter', () => {
-            player.querySelector('video')?.pause();
+            videoElement?.pause();
           });
 
           anchor.addEventListener('click', async () => {
