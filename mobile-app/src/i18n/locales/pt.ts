@@ -28,7 +28,7 @@ const translations: BaseTranslations = {
   },
   nav: {
     myCards: 'Meus cartões',
-    lookUp: 'Buscar',
+    lookUp: 'Dicionário',
     tips: 'Dicas',
     settings: 'Configurações',
     studySettings: 'Configurações de estudo',
@@ -218,11 +218,11 @@ const translations: BaseTranslations = {
     empty: {
       noCardsYet: 'Você ainda não tem cartões de estudo.',
       headOverToLookUp:
-        'Vá para a aba Buscar para encontrar e adicionar palavras novas. O Vocably é um dicionário com um sistema de aprendizado integrado.',
+        'Vá à aba Dicionário para encontrar e adicionar novas palavras. O dicionário do Vocably é movido a IA e é bem inteligente.',
       headOverToGenerator:
-        'Ou use o gerador de cartões para criar alguns cartões de estudo.',
-      goToLookUp: 'Ir para Buscar',
-      goToGenerator: 'Utilizar o gerador de cartões',
+        'Ou use o gerador de cartões com IA para criar uma lista de palavras para estudar.',
+      goToLookUp: 'Ir para o dicionário',
+      goToGenerator: 'Utilizar o gerador de cartões com IA',
       noCardsForSearch:
         'Nenhum cartão encontrado para <bold>{{searchText}}</bold>.',
       noCardsForTag:

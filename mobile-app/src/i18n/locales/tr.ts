@@ -28,7 +28,7 @@ const translations: BaseTranslations = {
   },
   nav: {
     myCards: 'Kartlarım',
-    lookUp: 'Ara',
+    lookUp: 'Sözlük',
     tips: 'İpuçları',
     settings: 'Ayarlar',
     studySettings: 'Çalışma ayarları',
@@ -218,11 +218,11 @@ const translations: BaseTranslations = {
     empty: {
       noCardsYet: 'Henüz çalışma kartın yok.',
       headOverToLookUp:
-        'Yeni kelimeler bulup eklemek için Ara sekmesine geç. Vocably, yerleşik bir öğrenme sistemine sahip bir sözlüktür.',
+        "Yeni kelimeler bulup eklemek için Sözlük sekmesine geç. Vocably'nin sözlüğü yapay zekâyla çalışır ve oldukça akıllıdır.",
       headOverToGenerator:
-        'Ya da kart oluşturucuyu kullanarak çalışma kartları oluştur.',
-      goToLookUp: "Ara'ya git",
-      goToGenerator: 'Kart oluşturucuyu kullan',
+        'Ya da AI kart oluşturucuyu kullanarak çalışılacak kelimelerin listesini oluştur.',
+      goToLookUp: 'Sözlüğe git',
+      goToGenerator: 'AI kart oluşturucuyu kullan',
       noCardsForSearch: '<bold>{{searchText}}</bold> için kart bulunamadı.',
       noCardsForTag: '<bold>{{tagTitle}}</bold> etiketli kartın yok.',
       noCardsForTags: 'Seçili etiketler için kart bulunamadı.',

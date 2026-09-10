@@ -28,7 +28,7 @@ const translations: BaseTranslations = {
   },
   nav: {
     myCards: 'Thẻ của tôi',
-    lookUp: 'Tra cứu',
+    lookUp: 'Từ điển',
     tips: 'Mẹo',
     settings: 'Cài đặt',
     studySettings: 'Cài đặt học tập',
@@ -212,11 +212,11 @@ const translations: BaseTranslations = {
     empty: {
       noCardsYet: 'Bạn chưa có thẻ ghi nhớ nào.',
       headOverToLookUp:
-        'Hãy chuyển sang tab Tra cứu để tìm và thêm từ mới. Vocably là từ điển tích hợp hệ thống học tập.',
+        'Hãy chuyển sang tab Từ điển để tìm và thêm từ mới. Từ điển trong Vocably được hỗ trợ bởi AI và khá thông minh.',
       headOverToGenerator:
-        'Hoặc dùng trình tạo thẻ học để tạo một vài thẻ học.',
-      goToLookUp: 'Đến Tra cứu',
-      goToGenerator: 'Sử dụng trình tạo thẻ học',
+        'Hoặc dùng trình tạo thẻ học bằng AI để tạo danh sách các từ cần học.',
+      goToLookUp: 'Đến Từ điển',
+      goToGenerator: 'Sử dụng trình tạo thẻ học bằng AI',
       noCardsForSearch:
         'Không tìm thấy thẻ nào cho <bold>{{searchText}}</bold>.',
       noCardsForTag:

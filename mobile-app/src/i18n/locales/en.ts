@@ -27,7 +27,7 @@ const translations = {
   },
   nav: {
     myCards: 'My cards',
-    lookUp: 'Look up',
+    lookUp: 'Dictionary',
     tips: 'Tips',
     settings: 'Settings',
     studySettings: 'Study settings',
@@ -217,11 +217,11 @@ const translations = {
     empty: {
       noCardsYet: 'You have no study cards yet.',
       headOverToLookUp:
-        'Head over to the Look Up tab to find and add some new words. Vocably is a dictionary with a built-in learning system.',
+        'Go to the Dictionary tab to find and add some new words. The dictionary in Vocably is powered by AI and is pretty smart.',
       headOverToGenerator:
-        'Or use the card generator to create some study cards.',
-      goToLookUp: 'Go to Look up',
-      goToGenerator: 'Use card generator',
+        'Or use the AI card generator to create a list of words to study.',
+      goToLookUp: 'Go to dictionary',
+      goToGenerator: 'Use AI card generator',
       noCardsForSearch: 'No cards found for <bold>{{searchText}}</bold>.',
       noCardsForTag:
         "You don't have any cards tagged with <bold>{{tagTitle}}</bold>.",
