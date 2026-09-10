@@ -220,9 +220,9 @@ const translations: BaseTranslations = {
       headOverToLookUp:
         'Vá à aba Dicionário para encontrar e adicionar novas palavras. O dicionário do Vocably é movido a IA e é bem inteligente.',
       headOverToGenerator:
-        'Ou use o gerador de cartões para criar uma lista de palavras para estudar.',
+        'Ou use o gerador de cartões com IA para criar uma lista de palavras para estudar.',
       goToLookUp: 'Ir para o dicionário',
-      goToGenerator: 'Utilizar o gerador de cartões',
+      goToGenerator: 'Utilizar o gerador de cartões com IA',
       noCardsForSearch:
         'Nenhum cartão encontrado para <bold>{{searchText}}</bold>.',
       noCardsForTag:

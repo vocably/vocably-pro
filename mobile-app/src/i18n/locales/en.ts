@@ -219,9 +219,9 @@ const translations = {
       headOverToLookUp:
         'Go to the Dictionary tab to find and add some new words. The dictionary in Vocably is powered by AI and is pretty smart.',
       headOverToGenerator:
-        'Or use the card generator to create a list of words to study.',
+        'Or use the AI card generator to create a list of words to study.',
       goToLookUp: 'Go to dictionary',
-      goToGenerator: 'Use card generator',
+      goToGenerator: 'Use AI card generator',
       noCardsForSearch: 'No cards found for <bold>{{searchText}}</bold>.',
       noCardsForTag:
         "You don't have any cards tagged with <bold>{{tagTitle}}</bold>.",

@@ -220,9 +220,9 @@ const translations: BaseTranslations = {
       headOverToLookUp:
         "Yeni kelimeler bulup eklemek için Sözlük sekmesine geç. Vocably'nin sözlüğü yapay zekâyla çalışır ve oldukça akıllıdır.",
       headOverToGenerator:
-        'Ya da kart oluşturucuyu kullanarak çalışılacak kelimelerin listesini oluştur.',
+        'Ya da AI kart oluşturucuyu kullanarak çalışılacak kelimelerin listesini oluştur.',
       goToLookUp: 'Sözlüğe git',
-      goToGenerator: 'Kart oluşturucuyu kullan',
+      goToGenerator: 'AI kart oluşturucuyu kullan',
       noCardsForSearch: '<bold>{{searchText}}</bold> için kart bulunamadı.',
       noCardsForTag: '<bold>{{tagTitle}}</bold> etiketli kartın yok.',
       noCardsForTags: 'Seçili etiketler için kart bulunamadı.',

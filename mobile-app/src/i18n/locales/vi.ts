@@ -214,9 +214,9 @@ const translations: BaseTranslations = {
       headOverToLookUp:
         'Hãy chuyển sang tab Từ điển để tìm và thêm từ mới. Từ điển trong Vocably được hỗ trợ bởi AI và khá thông minh.',
       headOverToGenerator:
-        'Hoặc dùng trình tạo thẻ học để tạo danh sách các từ cần học.',
+        'Hoặc dùng trình tạo thẻ học bằng AI để tạo danh sách các từ cần học.',
       goToLookUp: 'Đến Từ điển',
-      goToGenerator: 'Sử dụng trình tạo thẻ học',
+      goToGenerator: 'Sử dụng trình tạo thẻ học bằng AI',
       noCardsForSearch:
         'Không tìm thấy thẻ nào cho <bold>{{searchText}}</bold>.',
       noCardsForTag:
