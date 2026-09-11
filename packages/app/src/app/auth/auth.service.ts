@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Auth, CognitoUser } from '@aws-amplify/auth';
 import { mapUserAttributes, UserData } from '@vocably/model';
-import { get } from 'lodash-es';
+import {
+  AuthUser,
+  fetchAuthSession,
+  fetchUserAttributes,
+  getCurrentUser,
+  signInWithRedirect,
+  signOut,
+} from 'aws-amplify/auth';
 import {
   catchError,
   from,
@@ -20,14 +26,14 @@ import {
 })
 export class AuthService {
   isLoggedIn$ = new ReplaySubject<boolean>(1);
-  currentUser$ = new ReplaySubject<CognitoUser>(1);
+  currentUser$ = new ReplaySubject<AuthUser>(1);
   userData$ = new ReplaySubject<UserData>(1);
 
   fetchUserData$ = this.currentUser$.pipe(
     switchMap(async (user) => {
       return {
-        user,
-        attributes: await Auth.userAttributes(user),
+        username: user.username,
+        attributes: await fetchUserAttributes(),
       };
     }),
     map(mapUserAttributes)
@@ -50,8 +56,8 @@ export class AuthService {
   private refreshUserData$ = new Subject();
 
   constructor() {
-    from(Auth.currentAuthenticatedUser())
-      .pipe(catchError(() => of(false)))
+    from(getCurrentUser())
+      .pipe(catchError(() => of(false as const)))
       .subscribe((userOrFalse) => {
         this.isLoggedIn$.next(userOrFalse !== false);
         if (userOrFalse === false) {
@@ -72,42 +78,22 @@ export class AuthService {
   }
 
   async signIn() {
-    return Auth.federatedSignIn();
+    return signInWithRedirect();
   }
 
   async signOut() {
     localStorage.removeItem('onboardedLanguages');
-    return Auth.signOut();
+    return signOut();
   }
 
   async refreshToken(): Promise<void> {
-    const cognitoUser = await Auth.currentAuthenticatedUser();
-    const currentSession = await Auth.currentSession();
-    return new Promise((resolve, reject) => {
-      cognitoUser.refreshSession(
-        currentSession.getRefreshToken(),
-        (error: any) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve();
-          }
-        }
-      );
-    });
+    await fetchAuthSession({ forceRefresh: true });
   }
 
   async isPaidGroup(): Promise<boolean> {
-    const user = await Auth.currentAuthenticatedUser().catch(() => false);
+    const session = await fetchAuthSession().catch(() => null);
+    const groups = session?.tokens?.accessToken?.payload['cognito:groups'];
 
-    if (!user) {
-      return false;
-    }
-
-    return get(
-      user,
-      'signInUserSession.accessToken.payload.cognito:groups',
-      []
-    ).includes('paid');
+    return Array.isArray(groups) && groups.includes('paid');
   }
 }

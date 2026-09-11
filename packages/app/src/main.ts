@@ -2,7 +2,9 @@ import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import '@sneas/telephone/iphone-16-max';
 
-import { Auth } from '@aws-amplify/auth';
+import { Amplify } from 'aws-amplify';
+import { fetchAuthSession } from 'aws-amplify/auth';
+import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito';
 import { initializePaddle } from '@paddle/paddle-js';
 import * as Sentry from '@sentry/angular';
 
@@ -10,7 +12,7 @@ import { configureApi } from '@vocably/api';
 import posthog from 'posthog-js';
 import { maintainAppSize } from './app-size';
 import { AppModule } from './app/app.module';
-import { authConfig } from './auth-config';
+import { authConfig, authStorage } from './auth-config';
 import { environment } from './environments/environment';
 import { setupFirefoxVariables } from './firefox';
 
@@ -67,12 +69,16 @@ if (environment.production) {
   enableProdMode();
 }
 
-Auth.configure(authConfig);
+Amplify.configure({ Auth: authConfig });
+// Must follow `Amplify.configure`, which installs the default token storage.
+cognitoUserPoolsTokenProvider.setKeyValueStorage(authStorage);
 
 configureApi({
   ...environment.api,
   getJwtToken: () =>
-    Auth.currentSession().then((session) => session.getIdToken().getJwtToken()),
+    fetchAuthSession().then(
+      (session) => session.tokens?.idToken?.toString() ?? ''
+    ),
 });
 
 maintainAppSize();
