@@ -1,6 +1,6 @@
+import { ResourcesConfig } from '@aws-amplify/core';
 import { AppAuthStorage } from '@vocably/pontis';
 import { appBaseUrl } from './app-base-url';
-import { merge } from 'lodash-es';
 import { environment } from './environments/environment';
 import { extensionId } from './extension';
 import { isFirefox } from './firefox';
@@ -30,17 +30,34 @@ const constructRedirectSignInUrl = (): string => {
   return appBaseUrl + `/${manualSignInConfirmationPath}`;
 };
 
-export const authConfig = {
-  storage: isFirefox
-    ? new FirefoxAppAuthStorage()
-    : new AppAuthStorage(extensionId),
-  ...merge(
-    {
+/**
+ * The storage backing the Cognito tokens. Shared with the browser extension so
+ * that signing in on either side signs in on both.
+ *
+ * Amplify v6 takes it through `cognitoUserPoolsTokenProvider` rather than
+ * through the config object, so it is exported separately.
+ */
+export const authStorage = isFirefox
+  ? new FirefoxAppAuthStorage()
+  : new AppAuthStorage(extensionId);
+
+/**
+ * `environment.auth` keeps the shape Terraform generates (see
+ * `platform/environments.tf`), so it is mapped onto Amplify v6's
+ * `ResourcesConfig` here rather than reshaped at the source.
+ */
+export const authConfig: ResourcesConfig['Auth'] = {
+  Cognito: {
+    userPoolId: environment.auth.userPoolId,
+    userPoolClientId: environment.auth.userPoolWebClientId,
+    loginWith: {
       oauth: {
-        redirectSignIn: constructRedirectSignInUrl(),
-        redirectSignOut: appBaseUrl,
+        domain: environment.auth.oauth.domain,
+        scopes: environment.auth.oauth.scope,
+        redirectSignIn: [constructRedirectSignInUrl()],
+        redirectSignOut: [appBaseUrl],
+        responseType: 'code',
       },
     },
-    environment.auth
-  ),
+  },
 };
