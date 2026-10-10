@@ -73,7 +73,7 @@ for (let file of files) {
 
     // Create the folder structure if it doesn't exist
     mkdirSync(dirname(filePath), { recursive: true });
-    writeFileSync(filePath, JSON.stringify(translationResult.value));
+    writeFileSync(filePath, translationResult.value.join('\n'));
   }
 
   const theNameOfFile = file.split('/').pop();
