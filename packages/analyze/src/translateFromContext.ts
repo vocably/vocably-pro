@@ -78,7 +78,7 @@ export const translateFromContextGemini = async (
           `The first input is context`,
           `The second input is a ${payload.inputType}`,
           `Only respond in JSON format with an object containing the following properties:`,
-          `- source - "${safeSource}" translated in ${safeSourceLanguage}`,
+          `- source - ${payload.inputType} "${safeSource}" translated in ${safeSourceLanguage}`,
           `- target - "${safeSource}" in ${safeTargetLanguage}`,
           `- partOfSpeech - part of speech of "${safeSource}" in English`,
           `- lemma - ${safeSourceLanguage} lemma or infinitive`,
