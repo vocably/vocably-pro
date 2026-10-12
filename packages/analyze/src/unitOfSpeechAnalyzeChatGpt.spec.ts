@@ -1,5 +1,6 @@
 import '@vocably/jest';
 import { gptAnalyse } from './unitOfSpeechAnalyzeChatGpt';
+import { MAX_FREQUENCY, MIN_FREQUENCY } from './unitOfSpeechAnalyse';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 
 configureTestAnalyzer();
@@ -244,4 +245,61 @@ describe('unit of speech analyze chatgpt', () => {
       'ich laufe, du läufst, er/sie/es läuft'
     );
   }, 10_000_000);
+
+  describe('frequency', () => {
+    const expectValidFrequency = (frequency: number | undefined) => {
+      expect(frequency).toBeDefined();
+      expect(Number.isInteger(frequency)).toEqual(true);
+      expect(frequency).toBeGreaterThanOrEqual(MIN_FREQUENCY);
+      expect(frequency).toBeLessThanOrEqual(MAX_FREQUENCY);
+    };
+
+    it('rates a common word as frequent', async () => {
+      const result = await gptAnalyse({
+        source: 'house',
+        partOfSpeech: 'noun',
+        sourceLanguage: 'en',
+      });
+      expect(result.success).toBeTruthy();
+
+      if (!result.success) {
+        return;
+      }
+
+      expectValidFrequency(result.value.frequency);
+      expect(result.value.frequency).toBeGreaterThanOrEqual(8);
+    }, 10_000_000);
+
+    it('rates a rare word as infrequent', async () => {
+      const result = await gptAnalyse({
+        source: 'perambulation',
+        partOfSpeech: 'noun',
+        sourceLanguage: 'en',
+      });
+      expect(result.success).toBeTruthy();
+
+      if (!result.success) {
+        return;
+      }
+
+      expectValidFrequency(result.value.frequency);
+      expect(result.value.frequency).toBeLessThanOrEqual(4);
+    }, 10_000_000);
+
+    it('rates a common non-English word as frequent', async () => {
+      const result = await gptAnalyse({
+        source: 'Haus',
+        partOfSpeech: 'noun',
+        sourceLanguage: 'de',
+      });
+      expect(result.success).toBeTruthy();
+
+      if (!result.success) {
+        return;
+      }
+
+      expectValidFrequency(result.value.frequency);
+      expect(result.value.frequency).toBeGreaterThanOrEqual(8);
+    }, 10_000_000);
+  });
 });

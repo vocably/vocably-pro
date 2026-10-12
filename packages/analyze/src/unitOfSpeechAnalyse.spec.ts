@@ -1,5 +1,10 @@
 import '@vocably/jest';
-import { aiAnalyse, getAnalyseCacheFileName } from './unitOfSpeechAnalyse';
+import {
+  aiAnalyse,
+  getAnalyseCacheFileName,
+  MAX_FREQUENCY,
+  MIN_FREQUENCY,
+} from './unitOfSpeechAnalyse';
 import { configureTestAnalyzer } from './test/configureTestAnalyzer';
 
 configureTestAnalyzer();
@@ -23,6 +28,28 @@ describe('unit of speech analyze', () => {
         return;
       }
       expect(result.value.gender).toEqual('feminine');
+    }, 10_000_000);
+
+    it('returns frequency within the range', async () => {
+      const result = await aiAnalyse({
+        source: 'house',
+        partOfSpeech: 'noun',
+        sourceLanguage: 'en',
+      });
+      expect(result.success).toBeTruthy();
+
+      if (!result.success) {
+        return;
+      }
+
+      // Analyses cached in S3 before frequency was introduced don't have it.
+      if (result.value.frequency === undefined) {
+        return;
+      }
+
+      expect(Number.isInteger(result.value.frequency)).toEqual(true);
+      expect(result.value.frequency).toBeGreaterThanOrEqual(MIN_FREQUENCY);
+      expect(result.value.frequency).toBeLessThanOrEqual(MAX_FREQUENCY);
     }, 10_000_000);
   });
 

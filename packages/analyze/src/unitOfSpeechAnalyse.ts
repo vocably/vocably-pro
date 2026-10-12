@@ -34,6 +34,7 @@ export type AiAnalysis = {
   presentTenses?: string;
   isIrregular?: boolean;
   pluralForm?: string;
+  frequency?: number;
 };
 
 export const isAiAnalysis = (result: any): result is AiAnalysis => {
@@ -118,6 +119,29 @@ const pastTensePrompts: Partial<Record<GoogleLanguage, string>> = {
 
 const presentTensePrompts: Partial<Record<GoogleLanguage, string>> = {
   de: 'present simple tense for ich, du, er/sie/es',
+};
+
+export const MIN_FREQUENCY = 1;
+export const MAX_FREQUENCY = 10;
+
+export const getFrequencyPrompt = (
+  languageName: string,
+  partOfSpeech: string
+): string =>
+  `how commonly the ${partOfSpeech} is used in everyday ${languageName}. Integer from ${MIN_FREQUENCY} (rare, specialized or archaic) to ${MAX_FREQUENCY} (one of the most common words)`;
+
+export const sanitizeFrequency = (value: unknown): number | undefined => {
+  const numericValue =
+    isString(value) && value.trim() !== '' ? Number(value) : value;
+
+  if (typeof numericValue !== 'number' || !Number.isFinite(numericValue)) {
+    return undefined;
+  }
+
+  return Math.min(
+    MAX_FREQUENCY,
+    Math.max(MIN_FREQUENCY, Math.round(numericValue))
+  );
 };
 
 export const sanitizeEnglishPastTenses = (
@@ -210,6 +234,13 @@ export const sanitizeAiAnalyseResult = (
     output.gender = result.gender;
   } else {
     delete output.gender;
+  }
+
+  const frequency = sanitizeFrequency(result.frequency);
+  if (frequency === undefined) {
+    delete output.frequency;
+  } else {
+    output.frequency = frequency;
   }
 
   if (isTense(result.tense)) {

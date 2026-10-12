@@ -18,6 +18,7 @@ import {
   AiAnalysePayload,
   AiAnalysis,
   convertInternalToExternal,
+  getFrequencyPrompt,
   getInflectionsPrompt,
   InflectionKey,
   isInternalAiAnalysis,
@@ -25,7 +26,7 @@ import {
 } from './unitOfSpeechAnalyse';
 
 type JsonSchemaProperty = {
-  type: 'string' | 'boolean' | 'array' | 'object';
+  type: 'string' | 'boolean' | 'integer' | 'array' | 'object';
   description?: string;
   enum?: string[];
   items?: JsonSchemaProperty;
@@ -165,6 +166,10 @@ const getGeminiGenerateContentParameters = ({
             description: `plural or singular English only`,
             enum: ['singular', 'plural'],
           },
+          frequency: {
+            type: 'integer',
+            description: getFrequencyPrompt(languageName, partOfSpeech),
+          },
           ...inflectionProperties,
           ...(genders.length > 0
             ? {
@@ -186,6 +191,7 @@ const getGeminiGenerateContentParameters = ({
           'lemmaPos',
           'synonyms',
           'number',
+          'frequency',
           // pluralForm stays optional so that the model can omit it for the
           // words which have no plural form.
           ...Object.keys(inflections).filter((key) => key !== 'pluralForm'),

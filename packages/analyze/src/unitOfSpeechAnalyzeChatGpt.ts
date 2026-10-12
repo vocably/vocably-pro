@@ -9,6 +9,7 @@ import {
   AiAnalysePayload,
   AiAnalysis,
   convertInternalToExternal,
+  getFrequencyPrompt,
   getInflectionsPrompt,
   isInternalAiAnalysis,
   sanitizeAiAnalyseResult,
@@ -52,6 +53,7 @@ export const getGptAnalyseChatGptBody = ({
     `synonyms - short list of ${partOfSpeech} synonyms`,
     `number - plural or singular English only`,
     `exists - does the ${partOfSpeech} exist in ${languageName}? true or false`,
+    `frequency - ${getFrequencyPrompt(languageName, partOfSpeech)}`,
     ...Object.entries(inflections).map(([key, value]) => `${key} - ${value}`),
     genders.length > 0 ? `gender - ${genders.join(', ')}, or other` : ``,
   ]
