@@ -1,6 +1,7 @@
 import { languageTranslations } from '@vocably/i18n';
 
 export const vi = {
+  'common.redirecting': 'Đang chuyển hướng...',
   'welcome.install_extension': 'Cài đặt hoặc bật tiện ích mở rộng',
   'welcome.install_title': 'Sắp xong rồi',
   'welcome.install_lead':
@@ -149,7 +150,6 @@ export const vi = {
   'auth.sign_in_success.tab_can_close': 'Tab này có thể đóng bây giờ.',
   'auth.sign_in_success.close_tab': 'Đóng tab này',
   'auth.sign_in_success.show_how': 'Chỉ cho tôi cách Vocably hoạt động',
-  'auth.sign_in_success.redirecting': 'Đang chuyển hướng...',
   'auth.sign_out.signed_out': 'Bạn đã đăng xuất thành công.',
   'auth.sign_out.go_to_sign_in': 'Đến trang đăng nhập',
 

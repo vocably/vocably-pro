@@ -1,6 +1,7 @@
 import { languageTranslations } from '@vocably/i18n';
 
 export const tr = {
+  'common.redirecting': 'Yönlendiriliyor...',
   'welcome.install_extension': 'Uzantıyı yükle veya etkinleştir',
   'welcome.install_title': 'Neredeyse hazırsınız',
   'welcome.install_lead':
@@ -159,7 +160,6 @@ export const tr = {
   'auth.sign_in_success.tab_can_close': 'Bu sekme artık kapatılabilir.',
   'auth.sign_in_success.close_tab': 'Bu sekmeyi kapat',
   'auth.sign_in_success.show_how': "Vocably'nin nasıl çalıştığını göster",
-  'auth.sign_in_success.redirecting': 'Yönlendiriliyor...',
   'auth.sign_out.signed_out': 'Başarıyla çıkış yaptınız.',
   'auth.sign_out.go_to_sign_in': 'Giriş sayfasına git',
 

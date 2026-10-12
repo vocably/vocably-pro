@@ -1,6 +1,7 @@
 import { languageTranslations } from '@vocably/i18n';
 
 export const ru = {
+  'common.redirecting': 'Перенаправление...',
   'welcome.install_extension': 'Установить или включить расширение',
   'welcome.install_title': 'Почти готово',
   'welcome.install_lead':
@@ -156,7 +157,6 @@ export const ru = {
   'auth.sign_in_success.tab_can_close': 'Эту вкладку можно закрыть.',
   'auth.sign_in_success.close_tab': 'Закрыть эту вкладку',
   'auth.sign_in_success.show_how': 'Покажи, как работает Vocably',
-  'auth.sign_in_success.redirecting': 'Перенаправление...',
   'auth.sign_out.signed_out': 'Вы успешно вышли из системы.',
   'auth.sign_out.go_to_sign_in': 'Перейти на страницу входа',
 

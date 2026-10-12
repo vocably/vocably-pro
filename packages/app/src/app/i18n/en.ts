@@ -1,6 +1,7 @@
 import { languageTranslations } from '@vocably/i18n';
 
 export const en = {
+  'common.redirecting': 'Redirecting...',
   'welcome.install_extension': 'Install or enable the extension',
   'welcome.install_title': "You're almost there",
   'welcome.install_lead':
@@ -155,7 +156,6 @@ export const en = {
   'auth.sign_in_success.tab_can_close': 'This tab can be closed now.',
   'auth.sign_in_success.close_tab': 'Close this tab',
   'auth.sign_in_success.show_how': 'Show me how Vocably works',
-  'auth.sign_in_success.redirecting': 'Redirecting...',
   'auth.sign_out.signed_out': 'You have been successfully signed out.',
   'auth.sign_out.go_to_sign_in': 'Go to sign in page',
 
