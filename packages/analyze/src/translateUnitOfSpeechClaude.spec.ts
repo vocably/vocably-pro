@@ -112,4 +112,25 @@ describe('translateUnitOfSpeechClaude', () => {
 
     expect(translationResult.value.length).not.toBeGreaterThanOrEqual(10);
   });
+
+  it('en to hindi', async () => {
+    const translationResult = await translateUnitOfSpeechClaude({
+      source: 'perennial',
+      partOfSpeech: 'adjective',
+      sourceLanguage: 'en',
+      targetLanguage: 'hi',
+      definitions: [
+        'lasting or existing for a long or apparently infinite time',
+        'enduring or continually recurring',
+      ],
+      examples: ['a perennial plant', 'a perennial issue'],
+    });
+
+    expect(translationResult.success).toEqual(true);
+    if (!translationResult.success) {
+      return;
+    }
+
+    expect(translationResult.value[0]).toEqual('बारहमासी');
+  });
 });
