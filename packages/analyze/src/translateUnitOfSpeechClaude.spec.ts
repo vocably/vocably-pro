@@ -133,4 +133,27 @@ describe('translateUnitOfSpeechClaude', () => {
 
     expect(translationResult.value[0]).toEqual('बारहमासी');
   });
+
+  it('en to turkish', async () => {
+    const translationResult = await translateUnitOfSpeechClaude({
+      source: 'perennial',
+      partOfSpeech: 'adjective',
+      sourceLanguage: 'en',
+      targetLanguage: 'tr',
+      definitions: [
+        'lasting or existing for a long or apparently infinite time',
+        'enduring or continually recurring',
+      ],
+      examples: ['a perennial plant', 'a perennial issue'],
+    });
+
+    expect(translationResult.success).toEqual(true);
+    if (!translationResult.success) {
+      return;
+    }
+
+    console.log(translationResult.value);
+
+    expect(translationResult.value[0]).toEqual('çok yıllık');
+  });
 });

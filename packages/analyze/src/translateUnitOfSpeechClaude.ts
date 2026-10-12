@@ -10,7 +10,7 @@ import {
   TranslateUnitOfSpeechPayload as Payload,
 } from './translateUnitOfSpeechAi';
 
-const CLAUDE_MODEL = 'claude-haiku-5-5';
+const CLAUDE_MODEL = 'claude-sonnet-5-5';
 
 type ClaudeTranslationParams = Anthropic.MessageCreateParamsNonStreaming;
 
