@@ -105,18 +105,21 @@ export class CardComponent {
   }
 
   @HostListener('document:keydown.arrowLeft', ['$event'])
+  @HostListener('document:keydown.1', ['$event'])
   onArrowLeft(event) {
     event.preventDefault();
     this.userAnswer = 1;
   }
 
   @HostListener('document:keydown.arrowRight', ['$event'])
+  @HostListener('document:keydown.3', ['$event'])
   arrowRight(event) {
     event.preventDefault();
     this.userAnswer = 5;
   }
 
   @HostListener('document:keydown.arrowDown', ['$event'])
+  @HostListener('document:keydown.2', ['$event'])
   arrowDown(event) {
     event.preventDefault();
     this.userAnswer = 3;
