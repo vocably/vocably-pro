@@ -68,7 +68,7 @@ if (modifiedFiles.length > 0) {
   console.log(`Uploading ${modifiedFiles.length} files`);
 }
 
-for (const batch of chunk(modifiedFiles, 50)) {
+for (const batch of chunk(modifiedFiles, 20)) {
   await Promise.allSettled(
     batch.map((file) =>
       execute(`aws s3 cp ${quotePath(file)} ${quotePath(s3Path + file)}`, {
