@@ -603,15 +603,8 @@ export class VocablyTranslationCards {
                     }}
                   >
                     <div class="vocably-sign-in-cover-panel">
-                      <vocably-close-button
-                        class="vocably-sign-in-cover-close"
-                        onClose={(event) => {
-                          // Otherwise the whole popup is being closed
-                          event.stopPropagation();
-                          this.hideSignIn();
-                        }}
-                      />
                       <vocably-sign-in
+                        onDismiss={this.hideSignIn}
                         source={card.data.source}
                         sourceLanguage={this.translationCards.sourceLanguage}
                         targetLanguage={this.translationCards.targetLanguage}

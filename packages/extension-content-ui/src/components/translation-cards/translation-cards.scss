@@ -236,22 +236,14 @@ $sign-in-slide-duration: 300ms;
 }
 
 .vocably-sign-in-cover-panel {
-  position: relative;
   box-sizing: border-box;
   height: 100%;
-  padding-top: 48px;
   background: $v-light-color-body-bg;
   animation: vocably-sign-in-slide-in $sign-in-slide-duration ease-out;
 }
 
 .vocably-sign-in-cover-hiding .vocably-sign-in-cover-panel {
   animation: vocably-sign-in-slide-out $sign-in-slide-duration ease-in forwards;
-}
-
-.vocably-sign-in-cover-close {
-  position: absolute;
-  top: 4px;
-  right: 4px;
 }
 
 @keyframes vocably-sign-in-slide-in {

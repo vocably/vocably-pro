@@ -82,6 +82,7 @@ const interpolate = (template: string, params: Record<string, any>) =>
 export class VocablySignIn {
   @Element() el: HTMLElement;
   @Event() confirm: EventEmitter;
+  @Event() dismiss: EventEmitter<void>;
   @Prop() source: string | undefined;
   @Prop() sourceLanguage: GoogleLanguage = 'en';
   @Prop() targetLanguage: GoogleLanguage = 'en';
@@ -114,28 +115,38 @@ export class VocablySignIn {
     return (
       <Host data-test="sign-in">
         <div class="container">
-          <div class="platforms">
-            <span class="platforms-label">{t('sign_in.platforms')}</span>
-            <ul class="platforms-list">
-              {platforms.map((platform) => (
-                <li
-                  class="platform"
-                  key={platform.name}
-                  data-name={platform.name}
-                  tabIndex={0}
-                  aria-label={platform.name}
-                >
-                  <svg
-                    class="platform-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
+          <div class="top">
+            <div class="platforms">
+              <span class="platforms-label">{t('sign_in.platforms')}</span>
+              <ul class="platforms-list">
+                {platforms.map((platform) => (
+                  <li
+                    class="platform"
+                    key={platform.name}
+                    data-name={platform.name}
+                    tabIndex={0}
+                    aria-label={platform.name}
                   >
-                    <path d={platform.icon} />
-                  </svg>
-                </li>
-              ))}
-            </ul>
+                    <svg
+                      class="platform-icon"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path d={platform.icon} />
+                    </svg>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <vocably-close-button
+              class="close"
+              onClose={(event) => {
+                // Otherwise the whole popup is being closed
+                event.stopPropagation();
+                this.dismiss.emit();
+              }}
+            />
           </div>
           <div class="header">
             <div class="title">{this.renderTitle()}</div>
