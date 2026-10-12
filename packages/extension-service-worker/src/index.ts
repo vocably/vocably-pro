@@ -31,6 +31,7 @@ import {
   onGetLocationLanguageRequest,
   onGetCardsLimitRequest,
   onGetProxyLanguage,
+  onGetSettingsExternalRequest,
   onGetSettingsRequest,
   onGetSourceLanguage,
   onGetUserEmail,
@@ -49,6 +50,7 @@ import {
   onSetInternalProxyLanguage,
   onSetInternalSourceLanguage,
   onSetProxyLanguage,
+  onSetSettingsExternalRequest,
   onSetSettingsRequest,
   onSetSourceLanguage,
   onSetUserKnowsHowToAdd,
@@ -644,6 +646,14 @@ export const registerServiceWorker = (
   });
 
   onSetSettingsRequest(async (sendResponse, partialSettings) => {
+    return sendResponse(await setSettings(partialSettings));
+  });
+
+  onGetSettingsExternalRequest(async (sendResponse) => {
+    return sendResponse(await getSettings());
+  });
+
+  onSetSettingsExternalRequest(async (sendResponse, partialSettings) => {
     return sendResponse(await setSettings(partialSettings));
   });
 

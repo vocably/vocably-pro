@@ -57,6 +57,14 @@ export const [setSettings, onSetSettingsRequest] = createScopedMessage<
   ExtensionSettings
 >('setSettings');
 
+export const [getSettingsExternal, onGetSettingsExternalRequest] =
+  createExternalMessage<void, ExtensionSettings>('vocably.getSettingsExternal');
+
+export const [setSettingsExternal, onSetSettingsExternalRequest] =
+  createExternalMessage<Partial<ExtensionSettings>, ExtensionSettings>(
+    'vocably.setSettingsExternal'
+  );
+
 export const [isActive, onIsActiveRequest] = createScopedMessage<void, boolean>(
   'isActive'
 );
