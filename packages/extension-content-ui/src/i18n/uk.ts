@@ -105,4 +105,14 @@ export const uk = {
   'card_source.frequency_1': 'Рідковживане слово',
   'card_source.frequency_2': 'Досить поширене слово',
   'card_source.frequency_3': 'Поширене слово',
+  // frequency-hint
+  'frequency_hint.score': 'Оцінка {score}/{max}',
+  'frequency_hint.description':
+    'Показує, як часто це слово трапляється в повсякденному мовленні: від 1 (рідко) до {max} (дуже часто). Вивчайте спершу поширені слова — так ви швидше почнете розуміти більше.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'Частотність слів — функція Premium: завжди доступна користувачам Premium і обмежено доступна в безкоштовній версії.',
+  'frequency_hint.premium_paid': 'У вас Premium, тож вона завжди увімкнена.',
+  'frequency_hint.premium_free':
+    'Оформіть Premium, щоб бачити її для кожного слова.',
 };

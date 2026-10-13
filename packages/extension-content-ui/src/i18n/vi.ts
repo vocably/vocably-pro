@@ -103,4 +103,14 @@ export const vi = {
   'card_source.frequency_1': 'Từ hiếm gặp',
   'card_source.frequency_2': 'Từ khá phổ biến',
   'card_source.frequency_3': 'Từ phổ biến',
+  // frequency-hint
+  'frequency_hint.score': 'Điểm {score}/{max}',
+  'frequency_hint.description':
+    'Cho biết từ này xuất hiện thường xuyên thế nào trong ngôn ngữ hằng ngày, từ 1 (hiếm) đến {max} (rất phổ biến). Hãy học các từ phổ biến trước để hiểu nhiều hơn, nhanh hơn.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'Tần suất từ là tính năng Premium: luôn có sẵn cho người dùng Premium và có giới hạn với người dùng miễn phí.',
+  'frequency_hint.premium_paid':
+    'Bạn đang dùng Premium nên tính năng này luôn bật.',
+  'frequency_hint.premium_free': 'Nâng cấp lên Premium để xem cho mọi từ.',
 };

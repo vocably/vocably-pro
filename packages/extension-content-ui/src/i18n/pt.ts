@@ -106,4 +106,14 @@ export const pt = {
   'card_source.frequency_1': 'Palavra rara',
   'card_source.frequency_2': 'Palavra razoavelmente comum',
   'card_source.frequency_3': 'Palavra comum',
+  // frequency-hint
+  'frequency_hint.score': 'Pontuação {score}/{max}',
+  'frequency_hint.description':
+    'Indica com que frequência esta palavra aparece na linguagem do dia a dia, de 1 (rara) a {max} (muito comum). Aprenda primeiro as palavras comuns para entender mais, mais rápido.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'A frequência de palavras é um recurso Premium: sempre disponível para usuários Premium e com disponibilidade limitada para usuários gratuitos.',
+  'frequency_hint.premium_paid': 'Você tem Premium, então está sempre ativo.',
+  'frequency_hint.premium_free':
+    'Assine o Premium para vê-la em todas as palavras.',
 };

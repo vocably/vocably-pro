@@ -103,4 +103,13 @@ export const en = {
   'card_source.frequency_1': 'Rare word',
   'card_source.frequency_2': 'Fairly common word',
   'card_source.frequency_3': 'Common word',
+  // frequency-hint
+  'frequency_hint.score': 'Score {score}/{max}',
+  'frequency_hint.description':
+    'How often this word appears in everyday language, from 1 (rare) to {max} (very common). Learn common words first to understand more, faster.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'Word frequency is a Premium feature: always available to Premium users, with limited availability for free users.',
+  'frequency_hint.premium_paid': 'You have Premium, so it is always on.',
+  'frequency_hint.premium_free': 'Upgrade to Premium to see it for every word.',
 };

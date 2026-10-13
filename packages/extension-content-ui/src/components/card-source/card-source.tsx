@@ -6,6 +6,7 @@ import {
   h,
   Host,
   Prop,
+  State,
 } from '@stencil/core';
 import {
   AudioPronunciationPayload,
@@ -15,21 +16,15 @@ import {
 } from '@vocably/model';
 import { isGoodPlural, sanitizeTranscript } from '@vocably/sulna';
 import { subscribeToLocale, t } from '../../i18n';
+import { frequencyToLevel } from '../frequency-hint/frequency';
 
 const FREQUENCY_DOTS = 3;
 
-// Frequency comes as 1 (rare) to 10 (most common).
-const frequencyToLevel = (frequency: number): 1 | 2 | 3 => {
-  if (frequency >= 8) {
-    return 3;
-  }
+// Lets the pointer cross the gap between the indicator and the hint, so the
+// hint text can be selected.
+const HINT_HIDE_DELAY = 200;
 
-  if (frequency >= 4) {
-    return 2;
-  }
-
-  return 1;
-};
+let hintIdCounter = 0;
 
 @Component({
   tag: 'vocably-card-source',
@@ -39,11 +34,26 @@ const frequencyToLevel = (frequency: number): 1 | 2 | 3 => {
 export class VocablyCardSource {
   @Element() el: HTMLElement;
   @Prop() card: TranslationCard;
+  @Prop() isPaid: boolean = false;
   @Prop() playAudioPronunciation: (
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
 
+  @State() isFrequencyHintVisible = false;
+
   private unsubLocale: (() => void) | undefined;
+  private frequencyEl: HTMLElement | undefined;
+  private hideHintTimeout: ReturnType<typeof setTimeout> | undefined;
+  // The hint stays open while any of these holds. A text selection started in
+  // the hint keeps it open until the button is released, even if the pointer
+  // leaves the hint while dragging.
+  private hintHolders = {
+    anchorHover: false,
+    anchorFocus: false,
+    hintHover: false,
+    hintSelection: false,
+  };
+  private frequencyHintId = `vocably-frequency-hint-${++hintIdCounter}`;
 
   connectedCallback() {
     this.unsubLocale = subscribeToLocale(this.el, () => forceUpdate(this.el));
@@ -51,7 +61,38 @@ export class VocablyCardSource {
 
   disconnectedCallback() {
     this.unsubLocale?.();
+    clearTimeout(this.hideHintTimeout);
+    document.removeEventListener('mouseup', this.onHintSelectionEnd, true);
   }
+
+  private holdFrequencyHint(
+    holder: keyof VocablyCardSource['hintHolders'],
+    isHolding: boolean
+  ) {
+    this.hintHolders[holder] = isHolding;
+    clearTimeout(this.hideHintTimeout);
+
+    if (isHolding) {
+      this.isFrequencyHintVisible = true;
+      return;
+    }
+
+    this.hideHintTimeout = setTimeout(() => {
+      if (!Object.values(this.hintHolders).some(Boolean)) {
+        this.isFrequencyHintVisible = false;
+      }
+    }, HINT_HIDE_DELAY);
+  }
+
+  private onHintSelectionStart = () => {
+    this.holdFrequencyHint('hintSelection', true);
+    document.addEventListener('mouseup', this.onHintSelectionEnd, true);
+  };
+
+  private onHintSelectionEnd = () => {
+    document.removeEventListener('mouseup', this.onHintSelectionEnd, true);
+    this.holdFrequencyHint('hintSelection', false);
+  };
 
   private renderFrequency(frequency: number) {
     const level = frequencyToLevel(frequency);
@@ -62,9 +103,15 @@ export class VocablyCardSource {
         <span class="vocably-invisible-space">&nbsp;</span>
         <span
           class="vocably-frequency vocably-translation-margin-left"
-          title={label}
           aria-label={label}
+          aria-describedby={this.frequencyHintId}
           role="img"
+          tabIndex={0}
+          ref={(el) => (this.frequencyEl = el)}
+          onMouseEnter={() => this.holdFrequencyHint('anchorHover', true)}
+          onMouseLeave={() => this.holdFrequencyHint('anchorHover', false)}
+          onFocus={() => this.holdFrequencyHint('anchorFocus', true)}
+          onBlur={() => this.holdFrequencyHint('anchorFocus', false)}
         >
           {Array.from({ length: FREQUENCY_DOTS }, (_, index) => (
             <span
@@ -75,6 +122,16 @@ export class VocablyCardSource {
             />
           ))}
         </span>
+        <vocably-frequency-hint
+          id={this.frequencyHintId}
+          frequency={frequency}
+          isPaid={this.isPaid}
+          visible={this.isFrequencyHintVisible}
+          anchor={this.frequencyEl}
+          onMouseEnter={() => this.holdFrequencyHint('hintHover', true)}
+          onMouseLeave={() => this.holdFrequencyHint('hintHover', false)}
+          onMouseDown={this.onHintSelectionStart}
+        />
       </Fragment>
     );
   }

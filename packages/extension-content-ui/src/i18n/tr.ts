@@ -108,4 +108,14 @@ export const tr = {
   'card_source.frequency_1': 'Nadir kelime',
   'card_source.frequency_2': 'Oldukça yaygın kelime',
   'card_source.frequency_3': 'Yaygın kelime',
+  // frequency-hint
+  'frequency_hint.score': 'Puan {score}/{max}',
+  'frequency_hint.description':
+    'Bu kelimenin günlük dilde ne sıklıkla geçtiğini gösterir: 1 (nadir) ile {max} (çok yaygın) arasında. Daha hızlı daha fazlasını anlamak için önce yaygın kelimeleri öğrenin.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'Kelime sıklığı bir Premium özelliğidir: Premium kullanıcılar için her zaman, ücretsiz kullanıcılar için sınırlı olarak kullanılabilir.',
+  'frequency_hint.premium_paid':
+    "Premium'a sahipsiniz, bu yüzden her zaman açık.",
+  'frequency_hint.premium_free': "Her kelimede görmek için Premium'a geçin.",
 };

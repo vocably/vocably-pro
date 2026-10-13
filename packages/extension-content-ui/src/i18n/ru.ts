@@ -105,4 +105,14 @@ export const ru = {
   'card_source.frequency_1': 'Редкое слово',
   'card_source.frequency_2': 'Довольно распространённое слово',
   'card_source.frequency_3': 'Распространённое слово',
+  // frequency-hint
+  'frequency_hint.score': 'Оценка {score}/{max}',
+  'frequency_hint.description':
+    'Показывает, как часто это слово встречается в повседневной речи: от 1 (редко) до {max} (очень часто). Учите сначала частые слова — так вы быстрее начнёте понимать больше.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'Частотность слов — функция Premium: всегда доступна пользователям Premium и ограниченно доступна в бесплатной версии.',
+  'frequency_hint.premium_paid': 'У вас Premium, поэтому она всегда включена.',
+  'frequency_hint.premium_free':
+    'Оформите Premium, чтобы видеть её для каждого слова.',
 };

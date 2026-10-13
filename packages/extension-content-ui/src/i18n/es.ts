@@ -110,4 +110,14 @@ export const es = {
   'card_source.frequency_1': 'Palabra poco común',
   'card_source.frequency_2': 'Palabra bastante común',
   'card_source.frequency_3': 'Palabra común',
+  // frequency-hint
+  'frequency_hint.score': 'Puntuación {score}/{max}',
+  'frequency_hint.description':
+    'Indica con qué frecuencia aparece esta palabra en el lenguaje cotidiano, de 1 (rara) a {max} (muy común). Aprende primero las palabras comunes para entender más, más rápido.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'La frecuencia de palabras es una función Premium: siempre disponible para usuarios Premium y con disponibilidad limitada para usuarios gratuitos.',
+  'frequency_hint.premium_paid': 'Tienes Premium, así que siempre está activa.',
+  'frequency_hint.premium_free':
+    'Hazte Premium para verla en todas las palabras.',
 };

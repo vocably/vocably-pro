@@ -103,6 +103,12 @@ export class VocablyTranslationCards {
   private unsubLocale: (() => void) | undefined;
   private signInHideTimeout: ReturnType<typeof setTimeout> | undefined;
 
+  // Signed out visitors get 'unlimited' as well, so the limit alone does not
+  // tell a premium user apart.
+  private get isPaid(): boolean {
+    return this.isLoggedInUser && this.cardsLimit === 'unlimited';
+  }
+
   connectedCallback() {
     this.unsubLocale = subscribeToLocale(this.el, () => forceUpdate(this.el));
   }
@@ -536,6 +542,7 @@ export class VocablyTranslationCards {
                 <div class="vocably-safe-action-area">
                   <vocably-card-source
                     card={card}
+                    isPaid={this.isPaid}
                     playAudioPronunciation={this.playAudioPronunciation}
                     style={{
                       marginBottom: '6px',
