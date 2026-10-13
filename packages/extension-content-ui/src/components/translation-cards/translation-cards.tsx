@@ -543,6 +543,9 @@ export class VocablyTranslationCards {
                   <vocably-card-source
                     card={card}
                     isPaid={this.isPaid}
+                    isLoggedIn={this.isLoggedInUser}
+                    paymentLink={this.paymentLink}
+                    onWatchMePaying={() => this.watchMePaying.emit()}
                     playAudioPronunciation={this.playAudioPronunciation}
                     style={{
                       marginBottom: '6px',

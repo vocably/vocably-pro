@@ -109,11 +109,8 @@ export const pt = {
   // frequency-hint
   'frequency_hint.score': 'Pontuação {score}/{max}',
   'frequency_hint.description':
-    'Indica com que frequência esta palavra aparece na linguagem do dia a dia, de 1 (rara) a {max} (muito comum). Aprenda primeiro as palavras comuns para entender mais, mais rápido.',
+    'Um pequeno grupo de palavras comuns forma a maior parte do que você lê e ouve. Aprenda-as primeiro e você começará a entender o idioma muito antes.',
   'frequency_hint.premium_badge': 'Premium',
   'frequency_hint.premium':
-    'A frequência de palavras é um recurso Premium: sempre disponível para usuários Premium e com disponibilidade limitada para usuários gratuitos.',
-  'frequency_hint.premium_paid': 'Você tem Premium, então está sempre ativo.',
-  'frequency_hint.premium_free':
-    'Assine o Premium para vê-la em todas as palavras.',
+    'A frequência de palavras é um recurso Premium. Usuários gratuitos podem experimentá-la, e com o Premium você a vê em cada palavra que pesquisa.',
 };

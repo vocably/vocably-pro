@@ -106,11 +106,8 @@ export const vi = {
   // frequency-hint
   'frequency_hint.score': 'Điểm {score}/{max}',
   'frequency_hint.description':
-    'Cho biết từ này xuất hiện thường xuyên thế nào trong ngôn ngữ hằng ngày, từ 1 (hiếm) đến {max} (rất phổ biến). Hãy học các từ phổ biến trước để hiểu nhiều hơn, nhanh hơn.',
+    'Một nhóm nhỏ từ phổ biến chiếm phần lớn những gì bạn đọc và nghe. Hãy học chúng trước, bạn sẽ bắt đầu hiểu ngôn ngữ sớm hơn nhiều.',
   'frequency_hint.premium_badge': 'Premium',
   'frequency_hint.premium':
-    'Tần suất từ là tính năng Premium: luôn có sẵn cho người dùng Premium và có giới hạn với người dùng miễn phí.',
-  'frequency_hint.premium_paid':
-    'Bạn đang dùng Premium nên tính năng này luôn bật.',
-  'frequency_hint.premium_free': 'Nâng cấp lên Premium để xem cho mọi từ.',
+    'Tần suất từ là tính năng Premium. Người dùng miễn phí có thể dùng thử, còn với Premium bạn sẽ thấy nó ở mọi từ bạn tra.',
 };

@@ -1,6 +1,8 @@
 import {
   Component,
   Element,
+  Event,
+  EventEmitter,
   forceUpdate,
   h,
   Host,
@@ -32,9 +34,13 @@ export class VocablyFrequencyHint {
   // 1 (rare) to 10 (most common)
   @Prop() frequency: number;
   @Prop() isPaid: boolean = false;
+  @Prop() isLoggedIn: boolean = false;
+  @Prop() paymentLink: string = '';
   @Prop() visible: boolean = false;
   // The element the arrow points to.
   @Prop() anchor: HTMLElement | undefined;
+
+  @Event({ bubbles: false }) watchMePaying: EventEmitter<void>;
 
   private unsubLocale: (() => void) | undefined;
 
@@ -146,21 +152,28 @@ export class VocablyFrequencyHint {
             />
           </div>
           <div class="vocably-frequency-hint-text">
-            {t('frequency_hint.description', { max: MAX_FREQUENCY })}
+            {t('frequency_hint.description')}
           </div>
-          <div class="vocably-frequency-hint-premium">
-            <span class="vocably-frequency-hint-badge">
-              {t('frequency_hint.premium_badge')}
-            </span>
-            <span class="vocably-frequency-hint-text">
-              {t('frequency_hint.premium')}{' '}
-              <span class="vocably-frequency-hint-strong">
-                {this.isPaid
-                  ? t('frequency_hint.premium_paid')
-                  : t('frequency_hint.premium_free')}
+          {!this.isPaid && (
+            <div class="vocably-frequency-hint-premium">
+              <span class="vocably-frequency-hint-badge">
+                {t('frequency_hint.premium_badge')}
               </span>
-            </span>
-          </div>
+              <span class="vocably-frequency-hint-text">
+                {t('frequency_hint.premium')}
+              </span>
+              {this.isLoggedIn && this.paymentLink && (
+                <a
+                  href={this.paymentLink}
+                  target="_blank"
+                  class="vocably-frequency-hint-upgrade"
+                  onClick={() => this.watchMePaying.emit()}
+                >
+                  {t('translation.upgrade')}
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </Host>
     );

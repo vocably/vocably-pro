@@ -2,6 +2,8 @@ import {
   Build,
   Component,
   Element,
+  Event,
+  EventEmitter,
   forceUpdate,
   Fragment,
   h,
@@ -36,9 +38,13 @@ export class VocablyCardSource {
   @Element() el: HTMLElement;
   @Prop() card: TranslationCard;
   @Prop() isPaid: boolean = false;
+  @Prop() isLoggedIn: boolean = false;
+  @Prop() paymentLink: string = '';
   @Prop() playAudioPronunciation: (
     payload: AudioPronunciationPayload
   ) => Promise<Result<true>>;
+
+  @Event({ bubbles: false }) watchMePaying: EventEmitter<void>;
 
   @State() isFrequencyHintVisible = false;
 
@@ -132,6 +138,9 @@ export class VocablyCardSource {
             id={this.frequencyHintId}
             frequency={frequency}
             isPaid={this.isPaid}
+            isLoggedIn={this.isLoggedIn}
+            paymentLink={this.paymentLink}
+            onWatchMePaying={() => this.watchMePaying.emit()}
             visible={this.isFrequencyHintVisible}
             anchor={this.frequencyEl}
             onMouseEnter={() => this.holdFrequencyHint('hintHover', true)}

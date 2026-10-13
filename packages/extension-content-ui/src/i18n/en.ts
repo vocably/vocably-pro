@@ -106,10 +106,8 @@ export const en = {
   // frequency-hint
   'frequency_hint.score': 'Score {score}/{max}',
   'frequency_hint.description':
-    'How often this word appears in everyday language, from 1 (rare) to {max} (very common). Learn common words first to understand more, faster.',
+    'A small set of common words makes up most of what you read and hear. Learn them first, and you will start understanding the language much sooner.',
   'frequency_hint.premium_badge': 'Premium',
   'frequency_hint.premium':
-    'Word frequency is a Premium feature: always available to Premium users, with limited availability for free users.',
-  'frequency_hint.premium_paid': 'You have Premium, so it is always on.',
-  'frequency_hint.premium_free': 'Upgrade to Premium to see it for every word.',
+    'Word frequency is a Premium feature. Free users get a taste of it, while Premium users see it for every word they look up.',
 };
