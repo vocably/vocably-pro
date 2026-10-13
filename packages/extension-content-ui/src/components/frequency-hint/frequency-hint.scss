@@ -1,0 +1,215 @@
+@use 'sass:math';
+@import '../../styles/component';
+
+$hint-bg: #1d2230;
+$hint-arrow-size: 10px;
+$hint-duration: 180ms;
+$hint-easing: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+vocably-frequency-hint {
+  --arrow-x: 50%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  display: block;
+  box-sizing: border-box;
+  width: 264px;
+  max-width: calc(100vw - 16px);
+  pointer-events: none;
+
+  // Reddit sets visibility: hidden for custom elements
+  visibility: visible !important;
+
+  // The host is measured to position the hint, so it must not be transformed.
+  // The appearance animation lives on the bubble.
+  .vocably-frequency-hint-bubble {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.96);
+    transform-origin: var(--arrow-x) top;
+    transition:
+      opacity $hint-duration ease-out,
+      transform $hint-duration $hint-easing;
+  }
+
+  &[data-placement='above'] .vocably-frequency-hint-bubble {
+    transform: translateY(4px) scale(0.96);
+    transform-origin: var(--arrow-x) bottom;
+  }
+
+  &.vocably-frequency-hint-visible {
+    pointer-events: auto;
+
+    .vocably-frequency-hint-bubble {
+      opacity: 1;
+      transform: none;
+      transition-delay: 80ms;
+    }
+
+    .vocably-frequency-hint-scale-fill {
+      transform: scaleX(1);
+    }
+  }
+
+  .vocably-frequency-hint-bubble {
+    position: relative;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: $hint-bg;
+    color: rgba(255, 255, 255, 0.78);
+    font-family: $font-family;
+    font-size: 13px;
+    line-height: 18px;
+    text-align: left;
+    white-space: normal;
+    cursor: text;
+    user-select: text;
+    -webkit-user-select: text;
+
+    ::selection {
+      background: rgba(111, 155, 255, 0.45);
+      color: #ffffff;
+    }
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.16),
+      0 10px 28px -6px rgba(15, 23, 42, 0.4);
+
+    // The arrow
+    &::before {
+      content: '';
+      position: absolute;
+      top: -(math.div($hint-arrow-size, 2) - 1px);
+      left: var(--arrow-x);
+      width: $hint-arrow-size;
+      height: $hint-arrow-size;
+      margin-left: -(math.div($hint-arrow-size, 2));
+      border-radius: 2px;
+      background: $hint-bg;
+      transform: rotate(45deg);
+    }
+  }
+
+  &[data-placement='above'] .vocably-frequency-hint-bubble::before {
+    top: auto;
+    bottom: -(math.div($hint-arrow-size, 2) - 1px);
+  }
+
+  .vocably-frequency-hint-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .vocably-frequency-hint-title {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .vocably-frequency-hint-score {
+    color: rgba(255, 255, 255, 0.6);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .vocably-frequency-hint-scale {
+    height: 4px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.14);
+    overflow: hidden;
+  }
+
+  .vocably-frequency-hint-scale-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #6f9bff, $v-light-color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms $hint-easing 160ms;
+  }
+
+  .vocably-frequency-hint-text {
+    display: block;
+  }
+
+  .vocably-frequency-hint-strong {
+    color: #ffffff;
+  }
+
+  .vocably-frequency-hint-premium {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .vocably-frequency-hint-badge {
+    display: inline-block;
+    margin-bottom: 6px;
+    padding: 1px 8px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #4d85ff, $v-light-color-primary);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0.04em;
+    user-select: none;
+    -webkit-user-select: none;
+    text-transform: uppercase;
+  }
+
+  .vocably-frequency-hint-upgrade {
+    display: block;
+    margin-top: 10px;
+    padding: 7px 12px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #ffd66b, #f2a93b);
+    box-shadow: 0 4px 14px -4px rgba(242, 169, 59, 0.6);
+    color: #3a2600 !important;
+    font-family: $font-family;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition:
+      filter 150ms ease-out,
+      transform 150ms ease-out,
+      box-shadow 150ms ease-out;
+
+    &:hover,
+    &:focus-visible {
+      filter: brightness(1.06);
+      box-shadow: 0 6px 18px -4px rgba(242, 169, 59, 0.75);
+      transform: translateY(-1px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
+    }
+
+    &:active {
+      filter: brightness(0.96);
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vocably-frequency-hint-bubble,
+    &[data-placement='above'] .vocably-frequency-hint-bubble,
+    .vocably-frequency-hint-scale-fill,
+    .vocably-frequency-hint-upgrade {
+      transition: opacity $hint-duration ease-out;
+      transform: none;
+    }
+  }
+}

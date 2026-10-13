@@ -69,6 +69,7 @@ export type Card = {
   definition: string;
   translation: string;
   partOfSpeech: string;
+  frequency?: number; // 1 (rare) to 10 (most common)
   tags: TagItem[];
 };
 

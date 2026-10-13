@@ -104,4 +104,15 @@ export const tr = {
   'tags_menu.add': 'Yeni etiket ekle',
   'tags_menu.edit': 'Etiketi düzenle',
   'tags_menu.error': 'Etiket işlemi tamamlanamadı. Lütfen tekrar deneyin.',
+  // card-source
+  'card_source.frequency_1': 'Nadir kelime',
+  'card_source.frequency_2': 'Oldukça yaygın kelime',
+  'card_source.frequency_3': 'Yaygın kelime',
+  // frequency-hint
+  'frequency_hint.score': 'Puan {score}/{max}',
+  'frequency_hint.description':
+    'Okuduğunuz ve duyduğunuz şeylerin çoğu, az sayıda yaygın kelimeden oluşur. Önce onları öğrenin, dili çok daha erken anlamaya başlayın.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'Kelime sıklığı bir Premium özelliğidir. Ücretsiz kullanıcılar onu deneyebilir, Premium ile ise aradığınız her kelimede görürsünüz.',
 };

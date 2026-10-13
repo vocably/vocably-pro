@@ -99,4 +99,15 @@ export const en = {
   'tags_menu.add': 'Add new tag',
   'tags_menu.edit': 'Edit Tag',
   'tags_menu.error': 'Unable to complete the tag operation. Please try again.',
+  // card-source
+  'card_source.frequency_1': 'Rare word',
+  'card_source.frequency_2': 'Fairly common word',
+  'card_source.frequency_3': 'Common word',
+  // frequency-hint
+  'frequency_hint.score': 'Score {score}/{max}',
+  'frequency_hint.description':
+    'A small set of common words makes up most of what you read and hear. Learn them first, and you will start understanding the language much sooner.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'Word frequency is a Premium feature. Free users get a taste of it, while Premium users see it for every word they look up.',
 };

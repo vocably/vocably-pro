@@ -99,4 +99,15 @@ export const vi = {
   'tags_menu.edit': 'Chỉnh sửa thẻ tag',
   'tags_menu.error':
     'Không thể hoàn thành thao tác với thẻ tag. Vui lòng thử lại.',
+  // card-source
+  'card_source.frequency_1': 'Từ hiếm gặp',
+  'card_source.frequency_2': 'Từ khá phổ biến',
+  'card_source.frequency_3': 'Từ phổ biến',
+  // frequency-hint
+  'frequency_hint.score': 'Điểm {score}/{max}',
+  'frequency_hint.description':
+    'Một nhóm nhỏ từ phổ biến chiếm phần lớn những gì bạn đọc và nghe. Hãy học chúng trước, bạn sẽ bắt đầu hiểu ngôn ngữ sớm hơn nhiều.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'Tần suất từ là tính năng Premium. Người dùng miễn phí có thể dùng thử, còn với Premium bạn sẽ thấy nó ở mọi từ bạn tra.',
 };

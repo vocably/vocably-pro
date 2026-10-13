@@ -101,4 +101,15 @@ export const ru = {
   'tags_menu.edit': 'Редактировать тег',
   'tags_menu.error':
     'Не удалось выполнить операцию с тегом. Пожалуйста, попробуйте снова.',
+  // card-source
+  'card_source.frequency_1': 'Редкое слово',
+  'card_source.frequency_2': 'Довольно распространённое слово',
+  'card_source.frequency_3': 'Распространённое слово',
+  // frequency-hint
+  'frequency_hint.score': 'Оценка {score}/{max}',
+  'frequency_hint.description':
+    'Небольшой набор частых слов составляет большую часть того, что вы читаете и слышите. Выучите их первыми — и вы начнёте понимать язык гораздо раньше.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'Частотность слов — функция Premium. Бесплатно её можно попробовать, а с Premium она доступна для каждого слова, которое вы ищете.',
 };

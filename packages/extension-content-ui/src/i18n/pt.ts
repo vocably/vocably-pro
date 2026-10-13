@@ -102,4 +102,15 @@ export const pt = {
   'tags_menu.edit': 'Editar tag',
   'tags_menu.error':
     'Não foi possível concluir a operação de tag. Por favor, tente novamente.',
+  // card-source
+  'card_source.frequency_1': 'Palavra rara',
+  'card_source.frequency_2': 'Palavra razoavelmente comum',
+  'card_source.frequency_3': 'Palavra comum',
+  // frequency-hint
+  'frequency_hint.score': 'Pontuação {score}/{max}',
+  'frequency_hint.description':
+    'Um pequeno grupo de palavras comuns forma a maior parte do que você lê e ouve. Aprenda-as primeiro e você começará a entender o idioma muito antes.',
+  'frequency_hint.premium_badge': 'Premium',
+  'frequency_hint.premium':
+    'A frequência de palavras é um recurso Premium. Usuários gratuitos podem experimentá-la, e com o Premium você a vê em cada palavra que pesquisa.',
 };
