@@ -373,6 +373,7 @@ const translations: BaseTranslations = {
       gotIt: '¡Lo tengo!',
     },
     arrangeByLetters: {
+      clearAll: 'Borrar todo',
       showMeTheAnswer: 'Mostrar la respuesta',
     },
     cardBack: {

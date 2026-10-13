@@ -384,6 +384,7 @@ const translations: BaseTranslations = {
       gotIt: 'Знаю!',
     },
     arrangeByLetters: {
+      clearAll: 'Очистити все',
       showMeTheAnswer: 'Показати відповідь',
     },
     cardBack: {
