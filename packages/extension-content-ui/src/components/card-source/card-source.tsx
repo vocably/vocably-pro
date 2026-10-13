@@ -18,7 +18,7 @@ import { isGoodPlural, sanitizeTranscript } from '@vocably/sulna';
 import { subscribeToLocale, t } from '../../i18n';
 import { frequencyToLevel } from '../frequency-hint/frequency';
 
-const FREQUENCY_DOTS = 3;
+const FREQUENCY_BARS = 3;
 
 // Lets the pointer cross the gap between the indicator and the hint, so the
 // hint text can be selected.
@@ -116,11 +116,11 @@ export class VocablyCardSource {
           onFocus={() => this.holdFrequencyHint('anchorFocus', true)}
           onBlur={() => this.holdFrequencyHint('anchorFocus', false)}
         >
-          {Array.from({ length: FREQUENCY_DOTS }, (_, index) => (
+          {Array.from({ length: FREQUENCY_BARS }, (_, index) => (
             <span
               class={{
-                'vocably-frequency-dot': true,
-                'vocably-frequency-dot-filled': index < level,
+                'vocably-frequency-bar': true,
+                'vocably-frequency-bar-filled': index < level,
               }}
             />
           ))}

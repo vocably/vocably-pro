@@ -16,10 +16,11 @@ vocably-card-source {
 
     position: relative;
     display: inline-flex;
-    align-items: center;
-    gap: 3px;
+    // Bars grow from a shared baseline, like a signal-strength meter.
+    align-items: flex-end;
+    gap: 2px;
     vertical-align: middle;
-    // A pill around the dots, offset by negative margins so it doesn't move
+    // A pill around the bars, offset by negative margins so it doesn't move
     // the surrounding text.
     padding: $padding-y $padding-x;
     margin: (-$padding-y) (-$padding-x) (-$padding-y) (8px - $padding-x);
@@ -42,18 +43,30 @@ vocably-card-source {
     }
   }
 
-  .vocably-frequency-dot {
+  .vocably-frequency-bar {
     display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+    width: 3px;
+    border-radius: 1px;
     background-color: rgba($v-light-color-primary, 0.15);
+    transform-origin: bottom;
     transition:
       background-color 150ms ease-out,
       transform 150ms ease-out;
+
+    &:nth-child(1) {
+      height: 5px;
+    }
+
+    &:nth-child(2) {
+      height: 8px;
+    }
+
+    &:nth-child(3) {
+      height: 11px;
+    }
   }
 
-  .vocably-frequency-dot-filled {
+  .vocably-frequency-bar-filled {
     background-color: rgba($v-light-color-primary, 0.55);
   }
 
@@ -61,12 +74,12 @@ vocably-card-source {
   .vocably-frequency-active {
     background-color: rgba($v-light-color-primary, 0.1);
 
-    .vocably-frequency-dot {
+    .vocably-frequency-bar {
       background-color: rgba($v-light-color-primary, 0.25);
-      transform: scale(1.15);
+      transform: scaleY(1.1);
     }
 
-    .vocably-frequency-dot-filled {
+    .vocably-frequency-bar-filled {
       background-color: $v-light-color-primary;
     }
   }
