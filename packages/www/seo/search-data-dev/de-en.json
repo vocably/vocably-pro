@@ -23,6 +23,7 @@
           "Der Apfel fällt nicht weit vom Stamm."
         ],
         "partOfSpeech": "noun",
+        "frequency": 7,
         "ipa": "ˈapfəl",
         "g": "masculine",
         "number": "singular",
@@ -58,6 +59,7 @@
           "Die militärische Übung dauerte drei Tage."
         ],
         "partOfSpeech": "noun",
+        "frequency": 7,
         "ipa": "ˈyːbʊŋ",
         "g": "feminine",
         "number": "singular",
@@ -78,6 +80,7 @@
           "Das übt einen großen Reiz auf mich aus."
         ],
         "partOfSpeech": "verb",
+        "frequency": 6,
         "ipa": "ˈyːbən",
         "number": "singular",
         "pastTenses": "übte, hat geübt",
@@ -98,6 +101,7 @@
           "Wir haben gestern Sport getrieben."
         ],
         "partOfSpeech": "verb",
+        "frequency": 6,
         "ipa": "ˈʃpɔʁt ˈtraɪ̯bn̩",
         "number": "singular",
         "pastTenses": "hat Sport getrieben, trieb Sport",
@@ -134,6 +138,7 @@
           "Kraft aus der Natur schöpfen."
         ],
         "partOfSpeech": "verb",
+        "frequency": 3,
         "ipa": "ˈʃœp͡fn̩",
         "pastTenses": "schöpfte, hat geschöpft",
         "presentTenses": "ich schöpfe, du schöpfst, er/sie/es schöpft",
