@@ -68,6 +68,10 @@ export const aiAnalysisToItem = ({
     analysisItem.tense = aiAnalysis.tense;
   }
 
+  if (aiAnalysis.frequency !== undefined) {
+    analysisItem.frequency = aiAnalysis.frequency;
+  }
+
   return analysisItem;
 };
 

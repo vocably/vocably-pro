@@ -75,6 +75,7 @@ export type AnalysisItem = {
   pastTenses?: string;
   presentTenses?: string;
   pluralForm?: string;
+  frequency?: number; // 1 (rare) to 10 (most common)
 };
 
 export type ValidAnalysisItems = [AnalysisItem, ...AnalysisItem[]];
