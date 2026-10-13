@@ -102,4 +102,8 @@ export const pt = {
   'tags_menu.edit': 'Editar tag',
   'tags_menu.error':
     'Não foi possível concluir a operação de tag. Por favor, tente novamente.',
+  // card-source
+  'card_source.frequency_1': 'Palavra rara',
+  'card_source.frequency_2': 'Palavra razoavelmente comum',
+  'card_source.frequency_3': 'Palavra comum',
 };

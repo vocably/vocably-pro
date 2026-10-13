@@ -101,4 +101,8 @@ export const ru = {
   'tags_menu.edit': 'Редактировать тег',
   'tags_menu.error':
     'Не удалось выполнить операцию с тегом. Пожалуйста, попробуйте снова.',
+  // card-source
+  'card_source.frequency_1': 'Редкое слово',
+  'card_source.frequency_2': 'Довольно распространённое слово',
+  'card_source.frequency_3': 'Распространённое слово',
 };

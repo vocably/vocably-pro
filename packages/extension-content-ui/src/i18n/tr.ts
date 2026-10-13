@@ -104,4 +104,8 @@ export const tr = {
   'tags_menu.add': 'Yeni etiket ekle',
   'tags_menu.edit': 'Etiketi düzenle',
   'tags_menu.error': 'Etiket işlemi tamamlanamadı. Lütfen tekrar deneyin.',
+  // card-source
+  'card_source.frequency_1': 'Nadir kelime',
+  'card_source.frequency_2': 'Oldukça yaygın kelime',
+  'card_source.frequency_3': 'Yaygın kelime',
 };

@@ -101,4 +101,8 @@ export const uk = {
   'tags_menu.edit': 'Редагувати тег',
   'tags_menu.error':
     'Не вдалося виконати операцію з тегом. Будь ласка, спробуйте ще раз.',
+  // card-source
+  'card_source.frequency_1': 'Рідковживане слово',
+  'card_source.frequency_2': 'Досить поширене слово',
+  'card_source.frequency_3': 'Поширене слово',
 };

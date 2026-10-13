@@ -26,7 +26,7 @@ export const analysisItemToCard = ({
     tense: analysisItem.tense,
     pluralForm: analysisItem.pluralForm,
     tags: [],
-    ...pick(analysisItem, ['g']),
+    ...pick(analysisItem, ['g', 'frequency']),
     ...createSrsItem(),
   };
 };

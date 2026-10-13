@@ -99,4 +99,8 @@ export const en = {
   'tags_menu.add': 'Add new tag',
   'tags_menu.edit': 'Edit Tag',
   'tags_menu.error': 'Unable to complete the tag operation. Please try again.',
+  // card-source
+  'card_source.frequency_1': 'Rare word',
+  'card_source.frequency_2': 'Fairly common word',
+  'card_source.frequency_3': 'Common word',
 };

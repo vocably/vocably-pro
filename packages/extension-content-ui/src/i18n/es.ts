@@ -106,4 +106,8 @@ export const es = {
   'tags_menu.edit': 'Editar etiqueta',
   'tags_menu.error':
     'No se pudo completar la operación de etiqueta. Por favor, inténtalo de nuevo.',
+  // card-source
+  'card_source.frequency_1': 'Palabra poco común',
+  'card_source.frequency_2': 'Palabra bastante común',
+  'card_source.frequency_3': 'Palabra común',
 };

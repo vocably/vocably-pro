@@ -99,4 +99,8 @@ export const vi = {
   'tags_menu.edit': 'Chỉnh sửa thẻ tag',
   'tags_menu.error':
     'Không thể hoàn thành thao tác với thẻ tag. Vui lòng thử lại.',
+  // card-source
+  'card_source.frequency_1': 'Từ hiếm gặp',
+  'card_source.frequency_2': 'Từ khá phổ biến',
+  'card_source.frequency_3': 'Từ phổ biến',
 };

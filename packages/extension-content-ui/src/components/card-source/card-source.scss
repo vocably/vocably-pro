@@ -9,4 +9,23 @@ vocably-card-source {
   .vocably-translation-margin-left {
     margin-left: 8px;
   }
+
+  .vocably-frequency {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    vertical-align: middle;
+  }
+
+  .vocably-frequency-dot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba($v-light-color-primary, 0.15);
+  }
+
+  .vocably-frequency-dot-filled {
+    background-color: rgba($v-light-color-primary, 0.55);
+  }
 }
