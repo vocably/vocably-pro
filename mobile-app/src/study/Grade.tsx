@@ -1,6 +1,7 @@
 import { CardItem, DeckSettings, StudyFlowType } from '@vocably/model';
 import { craftTheStrategy, SrsScore } from '@vocably/srs';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { usePlaySound } from '../PlaySoundContainer';
 import { ArrangeByLetters } from './ArrangeByLetters';
 import { Card } from './Card';
 import { MultiChoice } from './MultiChoice';
@@ -27,6 +28,10 @@ export const Grade: FC<Props> = ({
   prerenderedCards,
   deckSettings,
 }) => {
+  const { stop } = usePlaySound();
+
+  useEffect(() => stop, [stop]);
+
   const { immediateStep } = craftTheStrategy({
     studySteps,
     card,
