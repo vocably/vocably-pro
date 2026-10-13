@@ -11,10 +11,35 @@ vocably-card-source {
   }
 
   .vocably-frequency {
+    $padding-x: 6px;
+    $padding-y: 4px;
+
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 3px;
     vertical-align: middle;
+    // A pill around the dots, offset by negative margins so it doesn't move
+    // the surrounding text.
+    padding: $padding-y $padding-x;
+    margin: (-$padding-y) (-$padding-x) (-$padding-y) (8px - $padding-x);
+    border-radius: 10px;
+    cursor: help;
+    outline: none;
+    transition: background-color 150ms ease-out;
+    -webkit-tap-highlight-color: transparent;
+
+    // Stretches the hit area further up and down, so the small indicator is
+    // easy to point at.
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -6px -2px;
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 2px rgba($v-light-color-primary, 0.4);
+    }
   }
 
   .vocably-frequency-dot {
@@ -23,9 +48,26 @@ vocably-card-source {
     height: 6px;
     border-radius: 50%;
     background-color: rgba($v-light-color-primary, 0.15);
+    transition:
+      background-color 150ms ease-out,
+      transform 150ms ease-out;
   }
 
   .vocably-frequency-dot-filled {
     background-color: rgba($v-light-color-primary, 0.55);
+  }
+
+  // Hovered, tapped or with its hint open
+  .vocably-frequency-active {
+    background-color: rgba($v-light-color-primary, 0.1);
+
+    .vocably-frequency-dot {
+      background-color: rgba($v-light-color-primary, 0.25);
+      transform: scale(1.15);
+    }
+
+    .vocably-frequency-dot-filled {
+      background-color: $v-light-color-primary;
+    }
   }
 }

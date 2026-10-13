@@ -11,7 +11,7 @@ import { subscribeToLocale, t } from '../../i18n';
 import { frequencyToLevel, MAX_FREQUENCY } from './frequency';
 
 // Gap between the anchor and the tip of the arrow.
-const ANCHOR_GAP = 10;
+const ANCHOR_GAP = 6;
 // Minimum distance between the hint and the viewport edges.
 const VIEWPORT_MARGIN = 8;
 // Keeps the arrow away from the rounded corners of the bubble.

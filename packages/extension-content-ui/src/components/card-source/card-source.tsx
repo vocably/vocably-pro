@@ -102,7 +102,10 @@ export class VocablyCardSource {
       <Fragment>
         <span class="vocably-invisible-space">&nbsp;</span>
         <span
-          class="vocably-frequency vocably-translation-margin-left"
+          class={{
+            'vocably-frequency': true,
+            'vocably-frequency-active': this.isFrequencyHintVisible,
+          }}
           aria-label={label}
           aria-describedby={this.frequencyHintId}
           role="img"
