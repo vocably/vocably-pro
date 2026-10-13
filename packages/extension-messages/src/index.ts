@@ -129,6 +129,16 @@ export const [getLanguagePairs, onGetLanguagePairs] = createScopedMessage<
   LanguagePairs
 >('getLanguagePairs');
 
+export const [getExternalLanguagePairs, onGetExternalLanguagePairs] =
+  createExternalMessage<void, LanguagePairs>(
+    'vocably.getExternalLanguagePairs'
+  );
+
+export const [setExternalLanguagePairs, onSetExternalLanguagePairs] =
+  createExternalMessage<LanguagePairs, void>(
+    'vocably.setExternalLanguagePairs'
+  );
+
 export const [ping, onPing] = createScopedMessage<void, string>('ping');
 
 export const [getInternalProxyLanguage, onGetInternalProxyLanuage] =

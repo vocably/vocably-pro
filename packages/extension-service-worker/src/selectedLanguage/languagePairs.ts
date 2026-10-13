@@ -50,6 +50,15 @@ export const addLanguagePair = async (
   await saveLanguagePairs();
 };
 
+export const setLanguagePairs = async (newLanguagePairs: LanguagePairs) => {
+  for (const key of Object.keys(languagePairs) as GoogleLanguage[]) {
+    delete languagePairs[key];
+  }
+  Object.assign(languagePairs, newLanguagePairs);
+
+  await saveLanguagePairs();
+};
+
 export const getLanguagePair = (
   language: GoogleLanguage
 ): LanguagePair | undefined => {

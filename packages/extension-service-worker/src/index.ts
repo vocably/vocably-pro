@@ -49,6 +49,8 @@ import {
   onSaveLocationLanguageRequest,
   onSetInternalProxyLanguage,
   onSetInternalSourceLanguage,
+  onSetExternalLanguagePairs,
+  onGetExternalLanguagePairs,
   onSetProxyLanguage,
   onSetSettingsExternalRequest,
   onSetSettingsRequest,
@@ -94,6 +96,7 @@ import { getLocationLanguage, storeLocationLanguage } from './locationLanguage';
 import {
   getLanguagePair,
   languagePairs,
+  setLanguagePairs,
 } from './selectedLanguage/languagePairs';
 import {
   getProxyLanguage,
@@ -909,6 +912,15 @@ export const registerServiceWorker = (
 
   onGetLanguagePairs(async (sendResponse) => {
     return sendResponse(languagePairs);
+  });
+
+  onGetExternalLanguagePairs(async (sendResponse) => {
+    return sendResponse(languagePairs);
+  });
+
+  onSetExternalLanguagePairs(async (sendResponse, newLanguagePairs) => {
+    await setLanguagePairs(newLanguagePairs);
+    return sendResponse();
   });
 
   onAnalyzeUnitsOfSpeech(async (sendResponse, payload) => {
