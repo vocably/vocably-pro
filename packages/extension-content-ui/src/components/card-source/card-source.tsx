@@ -1,4 +1,5 @@
 import {
+  Build,
   Component,
   Element,
   forceUpdate,
@@ -107,7 +108,7 @@ export class VocablyCardSource {
             'vocably-frequency-active': this.isFrequencyHintVisible,
           }}
           aria-label={label}
-          aria-describedby={this.frequencyHintId}
+          aria-describedby={Build.isBrowser ? this.frequencyHintId : undefined}
           role="img"
           tabIndex={0}
           ref={(el) => (this.frequencyEl = el)}
@@ -125,16 +126,19 @@ export class VocablyCardSource {
             />
           ))}
         </span>
-        <vocably-frequency-hint
-          id={this.frequencyHintId}
-          frequency={frequency}
-          isPaid={this.isPaid}
-          visible={this.isFrequencyHintVisible}
-          anchor={this.frequencyEl}
-          onMouseEnter={() => this.holdFrequencyHint('hintHover', true)}
-          onMouseLeave={() => this.holdFrequencyHint('hintHover', false)}
-          onMouseDown={this.onHintSelectionStart}
-        />
+        {/* Rendered only on the client to keep the hint out of SSR output. */}
+        {Build.isBrowser && (
+          <vocably-frequency-hint
+            id={this.frequencyHintId}
+            frequency={frequency}
+            isPaid={this.isPaid}
+            visible={this.isFrequencyHintVisible}
+            anchor={this.frequencyEl}
+            onMouseEnter={() => this.holdFrequencyHint('hintHover', true)}
+            onMouseLeave={() => this.holdFrequencyHint('hintHover', false)}
+            onMouseDown={this.onHintSelectionStart}
+          />
+        )}
       </Fragment>
     );
   }
