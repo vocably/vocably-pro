@@ -15,6 +15,7 @@ vocably-card-source {
     $padding-y: 4px;
 
     position: relative;
+    top: -0.08em;
     display: inline-flex;
     // Bars grow from a shared baseline, like a signal-strength meter.
     align-items: flex-end;

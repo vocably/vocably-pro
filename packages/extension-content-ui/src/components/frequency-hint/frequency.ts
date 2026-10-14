@@ -6,7 +6,7 @@ export const frequencyToLevel = (frequency: number): 1 | 2 | 3 => {
     return 3;
   }
 
-  if (frequency >= 4) {
+  if (frequency >= 5) {
     return 2;
   }
 
