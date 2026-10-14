@@ -327,7 +327,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.searchResult = await environment.removeCard(payload);
     this.isTranslationLoading = false;
   }
-  onFrequencyHover({ detail }: CustomEvent<FrequencyHoverPayload>) {
+  onFrequencyHover(event: Event) {
+    const { detail } = event as CustomEvent<FrequencyHoverPayload>;
     environment.analyticsCapture('frequencyHintHovered', detail);
   }
 
