@@ -4,12 +4,14 @@ import {
   type getClaudeTranslationBatchItem,
 } from '@vocably/analyze';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { type FrequencyPayload } from './claude-frequency-utils.js';
 
 export const languagesDir = './../../vocably-languages';
 export const claudePayloadsDir = './data/claude-payloads';
 export const claudeBatchPrefix = 'claude-';
 export const claudeTranslateBatchPrefix = `${claudeBatchPrefix}translate-`;
 export const claudeAnalyzeBatchPrefix = `${claudeBatchPrefix}analyze-`;
+export const claudeFrequencyBatchPrefix = `${claudeBatchPrefix}frequency-`;
 
 const claudeJobsFile = './claude-jobs.jsonl';
 
@@ -30,6 +32,12 @@ export type AnalyzeUnitOfSpeechPayload = Parameters<
 >[0];
 
 export type ClaudeAnalyzePayloads = Record<string, AnalyzeUnitOfSpeechPayload>;
+
+// `file` is the unit of speech file path relative to `languagesDir`.
+export type ClaudeFrequencyPayloads = Record<
+  string,
+  FrequencyPayload & { file: string }
+>;
 
 export const createClaudeClient = () =>
   new Anthropic({
