@@ -1,5 +1,6 @@
 import { defineCustomElements } from '@vocably/extension-content-ui/loader';
 import { SearchValues } from '@vocably/extension-content-ui/src/components/search-form/types';
+import { FrequencyHoverPayload } from '@vocably/extension-content-ui/src/components/card-source/types';
 import {
   AddCardPayload,
   Analysis,
@@ -237,6 +238,13 @@ const wireTranslation = (translation: HTMLVocablyTranslationElement) => {
       if (result.success === true) {
         rememberKnowsHowToAdd();
       }
+    }
+  );
+
+  translation.addEventListener(
+    'frequencyHover',
+    ({ detail }: CustomEvent<FrequencyHoverPayload>) => {
+      posthog.capture('search-frequency-hovered', detail);
     }
   );
 

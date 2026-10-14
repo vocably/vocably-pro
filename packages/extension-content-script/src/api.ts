@@ -32,6 +32,7 @@ import {
   updateTag,
   analyzeUnitsOfSpeech,
   loadLanguageDeck,
+  analyticsCapture,
 } from '@vocably/extension-messages';
 
 export const api = {
@@ -69,6 +70,7 @@ export const api = {
   explain,
   analyzeUnitsOfSpeech,
   loadLanguageDeck,
+  analyticsCapture,
 };
 
 export type ApiConfigOptions = Partial<typeof api>;

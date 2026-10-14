@@ -20,6 +20,7 @@ import {
 import { isGoodPlural, sanitizeTranscript } from '@vocably/sulna';
 import { subscribeToLocale, t } from '../../i18n';
 import { frequencyToLevel } from '../frequency-hint/frequency';
+import { FrequencyHoverPayload } from './types';
 
 const FREQUENCY_BARS = 3;
 
@@ -45,6 +46,9 @@ export class VocablyCardSource {
   ) => Promise<Result<true>>;
 
   @Event({ bubbles: false }) watchMePaying: EventEmitter<void>;
+  // Bubbles out of the shadow roots, so whoever renders `vocably-translation`
+  // can report it to analytics.
+  @Event() frequencyHover: EventEmitter<FrequencyHoverPayload>;
 
   @State() isFrequencyHintVisible = false;
 
@@ -118,7 +122,18 @@ export class VocablyCardSource {
           role="img"
           tabIndex={0}
           ref={(el) => (this.frequencyEl = el)}
-          onMouseEnter={() => this.holdFrequencyHint('anchorHover', true)}
+          onMouseEnter={() => {
+            // Moving back from the hint to the indicator isn't a new hover.
+            if (!this.isFrequencyHintVisible) {
+              this.frequencyHover.emit({
+                source: this.card.data.source,
+                language: this.card.data.language,
+                frequency,
+                level,
+              });
+            }
+            this.holdFrequencyHint('anchorHover', true);
+          }}
           onMouseLeave={() => this.holdFrequencyHint('anchorHover', false)}
           onFocus={() => this.holdFrequencyHint('anchorFocus', true)}
           onBlur={() => this.holdFrequencyHint('anchorFocus', false)}

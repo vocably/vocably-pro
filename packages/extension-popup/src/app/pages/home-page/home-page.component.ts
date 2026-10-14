@@ -11,6 +11,7 @@ import { IonicModule } from '@ionic/angular';
 import { TranslatePipe } from '../../translate.pipe';
 import { detectExtensionPlatform } from '@vocably/browser';
 import { SearchValues } from '@vocably/extension-content-ui/src/components/search-form/types';
+import { FrequencyHoverPayload } from '@vocably/extension-content-ui/src/components/card-source/types';
 import {
   AddCardPayload,
   AttachTagPayload,
@@ -326,6 +327,10 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.searchResult = await environment.removeCard(payload);
     this.isTranslationLoading = false;
   }
+  onFrequencyHover({ detail }: CustomEvent<FrequencyHoverPayload>) {
+    environment.analyticsCapture('frequencyHintHovered', detail);
+  }
+
   async attachTag(payload: AttachTagPayload) {
     this.isTranslationLoading = true;
     this.searchResult = await environment.attachTag(payload);

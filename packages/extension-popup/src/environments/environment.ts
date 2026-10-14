@@ -1,5 +1,6 @@
 import {
   addCard,
+  analyticsCapture,
   analyze,
   analyzeUnitsOfSpeech,
   askForRating,
@@ -357,6 +358,13 @@ const mockAnalyzeUnitsOfSpeech: typeof analyzeUnitsOfSpeech = async (
   };
 };
 
+const mockAnalyticsCapture: typeof analyticsCapture = async (
+  event,
+  properties
+) => {
+  console.log('Analytics capture', event, properties);
+};
+
 export const environment = merge(environmentLocal, {
   production: false,
   analyze: mockAnalyze,
@@ -380,4 +388,5 @@ export const environment = merge(environmentLocal, {
   saveAskForRatingResponse: saveAskForRatingResponseMock,
   getCardsLimit: getCardsLimitMock,
   analyzeUnitsOfSpeech: mockAnalyzeUnitsOfSpeech,
+  analyticsCapture: mockAnalyticsCapture,
 });

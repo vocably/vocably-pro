@@ -6,6 +6,7 @@ import {
   RateInteractionPayload,
   RemoveCardPayload,
 } from '@vocably/model';
+import { FrequencyHoverPayload } from '@vocably/extension-content-ui/src/components/card-source/types';
 import { chunk, isString } from 'lodash-es';
 import { api } from '../api';
 import { contentScriptConfiguration } from '../configuration';
@@ -269,6 +270,14 @@ export const setContents = async ({
         }
       }, 10_000);
     });
+
+    // @ts-ignore
+    translation.addEventListener(
+      'frequencyHover',
+      ({ detail }: CustomEvent<FrequencyHoverPayload>) => {
+        api.analyticsCapture('frequencyHintHovered', detail);
+      }
+    );
 
     translation.addEventListener('retry', async () => {
       translation.isRetrying = true;

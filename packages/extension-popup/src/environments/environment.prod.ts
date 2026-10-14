@@ -1,5 +1,6 @@
 import {
   addCard,
+  analyticsCapture,
   analyze,
   analyzeUnitsOfSpeech,
   askForRating,
@@ -47,4 +48,5 @@ export const environment = merge(environmentLocal, {
   saveAskForRatingResponse: saveAskForRatingResponse,
   getCardsLimit: getCardsLimit,
   analyzeUnitsOfSpeech: analyzeUnitsOfSpeech,
+  analyticsCapture: analyticsCapture,
 });
