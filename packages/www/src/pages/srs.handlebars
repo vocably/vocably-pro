@@ -2,34 +2,325 @@
   title='How Vocably decides which cards to show during a study session'
   url='/srs.html'
 }}
+  <style>
+    /* Long-form explainer layout for srs.html. */
+
+    .srs {
+      max-width: 40rem;
+      margin: 0 auto;
+      padding-top: 2rem;
+      font-size: 1.2rem;
+      line-height: 1.75;
+      color: var(--v-color-emphasize);
+
+      & p {
+        margin-bottom: 1.4rem;
+      }
+
+      & p a {
+        color: inherit;
+        text-decoration-color: rgba(var(--v-color-primary-rgb), 0.4);
+        text-underline-offset: 0.2em;
+
+        &:hover {
+          text-decoration-color: var(--v-color-primary);
+        }
+      }
+    }
+
+    .srs-kicker {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      color: var(--v-color-primary);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+
+      &::before {
+        content: '';
+        width: 2rem;
+        height: 2px;
+        background: currentColor;
+      }
+    }
+
+    .srs-title {
+      text-wrap: balance;
+      margin: 0 0 1.75rem;
+      font-size: clamp(2.25rem, 6vw, 3.25rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .srs-intro {
+      margin-bottom: 0;
+      font-size: 1.4rem;
+      line-height: 1.6;
+      color: var(--v-color-body);
+    }
+
+    .srs-point {
+      margin-top: 4.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--v-color-border-muted);
+    }
+
+    .srs-swipes:last-child,
+    .srs-ladder:last-child {
+      margin-bottom: 0;
+    }
+
+    /* The next section's top border closes it. */
+    .srs-swipes:last-child {
+      border-bottom: 0;
+    }
+
+    .srs-point-number {
+      display: block;
+      margin-bottom: 0.75rem;
+      color: var(--v-color-primary);
+      font-family: var(--v-headings-font-family);
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.05em;
+    }
+
+    .srs-point-title {
+      text-wrap: balance;
+      margin: 0 0 1.5rem;
+      font-size: clamp(1.5rem, 3.5vw, 1.9rem);
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    .srs-swipes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 0.5rem 0 2rem;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--v-color-border-muted);
+      border-bottom: 1px solid var(--v-color-border-muted);
+
+      & li {
+        padding: 1.5rem 1.25rem;
+
+        &:first-child {
+          padding-left: 0;
+        }
+
+        &:last-child {
+          padding-right: 0;
+        }
+
+        & + li {
+          border-left: 1px solid var(--v-color-border-muted);
+        }
+      }
+
+      & i {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        margin-bottom: 0.9rem;
+        border-radius: 50%;
+        background: rgba(var(--v-color-primary-rgb), 0.1);
+        color: var(--v-color-primary);
+        font-size: 1.1rem;
+      }
+
+      & strong {
+        display: block;
+        font-family: var(--v-headings-font-family);
+        font-size: 1.1rem;
+        font-weight: 600;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+      }
+
+      & span {
+        display: block;
+        margin-top: 0.4rem;
+        font-size: 1rem;
+        line-height: 1.45;
+        color: var(--v-color-body);
+      }
+    }
+
+    .srs-ladder {
+      position: relative;
+      margin: 0.5rem 0 2rem;
+      padding: 0;
+      list-style: none;
+
+      /* The line connecting the steps. */
+      &::before {
+        content: '';
+        position: absolute;
+        top: 1.4rem;
+        bottom: 1.4rem;
+        left: 0.4rem;
+        width: 2px;
+        background: linear-gradient(
+          to bottom,
+          rgba(var(--v-color-primary-rgb), 0.15),
+          var(--v-color-primary)
+        );
+      }
+
+      & li {
+        position: relative;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.7rem 0 0.7rem 2rem;
+        border-bottom: 1px solid var(--v-color-border-muted);
+        font-size: 1.05rem;
+        line-height: 1.4;
+
+        &:last-child {
+          border-bottom: 0;
+        }
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 0;
+          width: calc(0.8rem + 2px);
+          height: calc(0.8rem + 2px);
+          border: 2px solid var(--v-color-primary);
+          border-radius: 50%;
+          background: var(--v-color-body-bg);
+          transform: translateY(-50%);
+        }
+
+        &:last-child::before {
+          background: var(--v-color-primary);
+        }
+      }
+
+      & span {
+        color: var(--v-color-body);
+      }
+
+      & strong {
+        flex-shrink: 0;
+        font-family: var(--v-headings-font-family);
+        font-weight: 600;
+        font-variant-numeric: tabular-nums;
+        color: var(--v-color-primary);
+      }
+    }
+
+    @media (width < 576px) {
+      .srs {
+        padding-top: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .srs-intro {
+        font-size: 1.2rem;
+      }
+
+      .srs-point {
+        margin-top: 3.5rem;
+      }
+
+      .srs-swipes {
+        grid-template-columns: 1fr;
+
+        & li {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          column-gap: 1rem;
+          padding: 1.25rem 0;
+
+          & + li {
+            border-left: 0;
+            border-top: 1px solid var(--v-color-border-muted);
+          }
+        }
+
+        & i {
+          grid-row: span 2;
+          margin-bottom: 0;
+        }
+
+        & span {
+          margin-top: 0.2rem;
+        }
+      }
+    }
+  </style>
+
   {{#> text-container }}
-    <h1>How Vocably decides which cards to show during a study session</h1>
+    <article class="srs">
+      <header>
+        <p class="srs-kicker">Spaced repetition</p>
+        <h1 class="srs-title">How Vocably decides which cards to show during a study session</h1>
+        <p class="srs-intro">Vocably is designed to handle extensive collections of cards &ndash; hundreds or even thousands. You never have to review all of them at once.</p>
+      </header>
 
-    <p>
-      Vocably is designed to handle extensive collections of cards — hundreds or even thousands.
-    </p>
+      <section class="srs-point">
+        <span class="srs-point-number" aria-hidden="true">01</span>
+        <h2 class="srs-point-title">Reviewing every card in every session doesn't scale.</h2>
 
-    <p>
-      Once your collection hits a certain size (say, 30 or 100 cards), reviewing all of them in a single study session is not practical.
-    </p>
+        <p>Once your collection hits a certain size (say, 30 or 100 cards), reviewing all of them in a single study session is not practical.</p>
 
-    <p>
-      Thankfully, you don’t have to. With the help of a smart sorting algorithm called <a href="https://en.wikipedia.org/wiki/SuperMemo">SuperMemo</a>, created in 1985 based on research on long-term memory, Vocably shows you only the cards that need reviewing — like new cards or ones you haven’t studied in a while.
-    </p>
+        <p>Thankfully, you don&rsquo;t have to. With the help of a smart sorting algorithm called <a href="https://en.wikipedia.org/wiki/SuperMemo" target="_blank" rel="external nofollow noopener">SuperMemo</a>, created in 1985 based on research on long-term memory, Vocably shows you only the cards that need reviewing &ndash; like new cards or ones you haven&rsquo;t studied in a while.</p>
+      </section>
 
-    <p>
-      Every time you swipe a card (left, right, or down), the algorithm adjusts when to show it again based on how you swiped.
-    </p>
+      <section class="srs-point">
+        <span class="srs-point-number" aria-hidden="true">02</span>
+        <h2 class="srs-point-title">Every swipe tells the algorithm when to show the card again.</h2>
 
-    <p>
-      For example, if you swipe left, the card will reappear the next day or soon after. Swiping right signals that you know the card, so it’ll show up in a few days. If you swipe right again in a few days, the algorithm will push it back further—maybe even a month. Over time, if you keep swiping right, some cards might not come up again for years.
-    </p>
+        <p>Every time you swipe a card, the algorithm adjusts when to show it again based on how you swiped.</p>
 
-    <p>
-      With SuperMemo, you’ll focus on the cards you need to work on while occasionally reviewing the ones you know, helping you lock them into memory.
-    </p>
+        <ul class="srs-swipes">
+          <li>
+            <i class="bi bi-arrow-left" aria-hidden="true"></i>
+            <strong>Swipe left</strong>
+            <span>You don&rsquo;t know it yet. The card comes back the next day or soon after.</span>
+          </li>
+          <li>
+            <i class="bi bi-arrow-down" aria-hidden="true"></i>
+            <strong>Swipe down</strong>
+            <span>You&rsquo;re not sure. The card comes back the next day without losing its progress.</span>
+          </li>
+          <li>
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            <strong>Swipe right</strong>
+            <span>You know it. The card shows up again in a few days.</span>
+          </li>
+        </ul>
+      </section>
 
+      <section class="srs-point">
+        <span class="srs-point-number" aria-hidden="true">03</span>
+        <h2 class="srs-point-title">The better you know a card, the less often you see it.</h2>
+
+        <p>If you swipe right again in a few days, the algorithm will push the card back further. Over time, if you keep swiping right, some cards might not come up again for years.</p>
+
+        <ol class="srs-ladder">
+          <li><span>New card</span><strong>Today</strong></li>
+          <li><span>Swiped right</span><strong>In a few days</strong></li>
+          <li><span>Swiped right again</span><strong>In a month</strong></li>
+          <li><span>Keep swiping right</span><strong>In years</strong></li>
+        </ol>
+
+        <p>With SuperMemo, you&rsquo;ll focus on the cards you need to work on while occasionally reviewing the ones you know, helping you lock them into memory.</p>
+      </section>
+    </article>
   {{/text-container}}
 
 {{/layout}}
-
