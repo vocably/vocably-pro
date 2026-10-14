@@ -168,6 +168,8 @@ export class VocablyCardSource {
           />
         )}
         <span class="vocably-emphasized">{this.card.data.source}</span>
+        {typeof this.card.data.frequency === 'number' &&
+          this.renderFrequency(this.card.data.frequency)}
         {this.card.data.ipa && (
           <Fragment>
             <span class="vocably-invisible-space">&nbsp;</span>
@@ -192,8 +194,6 @@ export class VocablyCardSource {
             </span>
           </Fragment>
         )}
-        {typeof this.card.data.frequency === 'number' &&
-          this.renderFrequency(this.card.data.frequency)}
         {this.card.data.presentTenses && (
           <Fragment>
             {past && <br />}
