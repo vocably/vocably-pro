@@ -143,6 +143,17 @@
         border-bottom: 1px solid var(--v-color-border-muted);
         font-size: 1.05rem;
         line-height: 1.45;
+
+        &:last-child {
+          border-bottom: 0;
+        }
+
+        /* In two columns, the first item of the last row is at the bottom too. */
+        @media (width >= 576px) {
+          &:nth-child(odd):nth-last-child(-n + 2) {
+            border-bottom: 0;
+          }
+        }
       }
 
       & i {
@@ -213,16 +224,16 @@
         <span class="llh-point-number" aria-hidden="true">01</span>
         <h2 class="llh-point-title">Language learning requires thousands of hours of practice and thousands of words to learn.</h2>
 
-        <p>To reach fluency (B2 in <a href="https://en.wikipedia.org/wiki/Common_European_Framework_of_Reference_for_Languages" target="_blank">CEFR</a> terms), a person must:</p>
+        <p>The <a href="https://www.dliflc.edu/about/" target="_blank" rel="external nofollow noopener">US Defense Language Institute</a> teaches languages seven hours a day, five days a week, for 36 to 64 weeks, with two to three hours of homework every night. That's what it takes for students to <a href="https://www.dliflc.edu/?p=32301" target="_blank" rel="external nofollow noopener">graduate at level 2/2/1+</a> on the <a href="https://en.wikipedia.org/wiki/ILR_scale" target="_blank" rel="external nofollow noopener">ILR scale</a>: &ldquo;limited working proficiency&rdquo; in listening and reading, and a step below it in speaking. To understand native speakers and books without help, a learner needs to know thousands of <a href="https://www.wgtn.ac.nz/__data/assets/pdf_file/0018/1626120/2006-How-large-a-vocab.pdf" target="_blank" rel="external nofollow noopener">word families</a>.</p>
 
         <dl class="llh-figures">
           <div>
-            <dt>800&ndash;2,000</dt>
-            <dd>hours of study and practice</dd>
+            <dt>1,260&ndash;2,240</dt>
+            <dd>hours of full-time classes, homework not included</dd>
           </div>
           <div>
-            <dt>6,000&ndash;8,000</dt>
-            <dd>words learned</dd>
+            <dt>6,000&ndash;9,000</dt>
+            <dd>word families to understand speech and written text</dd>
           </div>
         </dl>
 
