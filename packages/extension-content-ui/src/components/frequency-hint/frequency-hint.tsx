@@ -18,6 +18,9 @@ const ANCHOR_GAP = 6;
 const VIEWPORT_MARGIN = 8;
 // Keeps the arrow away from the rounded corners of the bubble.
 const ARROW_EDGE_OFFSET = 14;
+// The hint never shrinks below this height to fit the viewport; it overflows
+// the viewport instead.
+const MIN_SCROLLABLE_HEIGHT = 80;
 
 /**
  * Explains the frequency indicator of a card. It is positioned against the
@@ -43,6 +46,7 @@ export class VocablyFrequencyHint {
   @Event({ bubbles: false }) watchMePaying: EventEmitter<void>;
 
   private unsubLocale: (() => void) | undefined;
+  private contentEl: HTMLElement | undefined;
 
   connectedCallback() {
     this.unsubLocale = subscribeToLocale(this.el, () => forceUpdate(this.el));
@@ -72,22 +76,31 @@ export class VocablyFrequencyHint {
   }
 
   private listenToViewport() {
-    window.addEventListener('scroll', this.position, true);
+    window.addEventListener('scroll', this.onScroll, true);
     window.addEventListener('resize', this.position);
   }
 
   private stopListeningToViewport() {
-    window.removeEventListener('scroll', this.position, true);
+    window.removeEventListener('scroll', this.onScroll, true);
     window.removeEventListener('resize', this.position);
   }
 
+  private onScroll = (event: Event) => {
+    // Scrolling the hint content itself doesn't move the anchor.
+    if (event.target instanceof Node && this.el.contains(event.target)) {
+      return;
+    }
+
+    this.position();
+  };
+
   private position = () => {
-    if (!this.anchor) {
+    if (!this.anchor || !this.contentEl) {
       return;
     }
 
     const anchorRect = this.anchor.getBoundingClientRect();
-    const { offsetWidth: width, offsetHeight: height } = this.el;
+    const { offsetWidth: width } = this.el;
     const viewportWidth = document.documentElement.clientWidth;
     const viewportHeight = document.documentElement.clientHeight;
 
@@ -101,11 +114,35 @@ export class VocablyFrequencyHint {
       width - ARROW_EDGE_OFFSET
     );
 
-    const fitsBelow =
-      anchorRect.bottom + ANCHOR_GAP + height <=
-      viewportHeight - VIEWPORT_MARGIN;
-    const fitsAbove = anchorRect.top - ANCHOR_GAP - height >= VIEWPORT_MARGIN;
-    const placement = fitsBelow || !fitsAbove ? 'below' : 'above';
+    // The height the hint takes when it isn't limited by max-height.
+    const fullHeight =
+      this.el.offsetHeight -
+      this.contentEl.clientHeight +
+      this.contentEl.scrollHeight;
+    const spaceBelow =
+      viewportHeight - VIEWPORT_MARGIN - anchorRect.bottom - ANCHOR_GAP;
+    const spaceAbove = anchorRect.top - ANCHOR_GAP - VIEWPORT_MARGIN;
+
+    let placement: 'below' | 'above';
+    if (fullHeight <= spaceBelow) {
+      placement = 'below';
+    } else if (fullHeight <= spaceAbove) {
+      placement = 'above';
+    } else {
+      // The hint fits on neither side (e.g. in the short extension popup),
+      // so it takes the roomier side and its content scrolls.
+      placement = spaceBelow >= spaceAbove ? 'below' : 'above';
+    }
+
+    const availableHeight = Math.max(
+      placement === 'below' ? spaceBelow : spaceAbove,
+      MIN_SCROLLABLE_HEIGHT
+    );
+    const chromeHeight = fullHeight - this.contentEl.scrollHeight;
+    this.contentEl.style.maxHeight =
+      fullHeight > availableHeight ? `${availableHeight - chromeHeight}px` : '';
+    const height = this.el.offsetHeight;
+
     const top =
       placement === 'below'
         ? anchorRect.bottom + ANCHOR_GAP
@@ -137,43 +174,48 @@ export class VocablyFrequencyHint {
         class={{ 'vocably-frequency-hint-visible': this.visible }}
       >
         <div class="vocably-frequency-hint-bubble">
-          <div class="vocably-frequency-hint-header">
-            <span class="vocably-frequency-hint-title">
-              {t(`card_source.frequency_${level}`)}
-            </span>
-            <span class="vocably-frequency-hint-score">
-              {t('frequency_hint.score', { score, max: MAX_FREQUENCY })}
-            </span>
-          </div>
-          <div class="vocably-frequency-hint-scale">
-            <div
-              class="vocably-frequency-hint-scale-fill"
-              style={{ width: `${(score / MAX_FREQUENCY) * 100}%` }}
-            />
-          </div>
-          <div class="vocably-frequency-hint-text">
-            {t('frequency_hint.description')}
-          </div>
-          {!this.isPaid && (
-            <div class="vocably-frequency-hint-premium">
-              <span class="vocably-frequency-hint-badge">
-                {t('frequency_hint.premium_badge')}
+          <div
+            class="vocably-frequency-hint-content"
+            ref={(el) => (this.contentEl = el)}
+          >
+            <div class="vocably-frequency-hint-header">
+              <span class="vocably-frequency-hint-title">
+                {t(`card_source.frequency_${level}`)}
               </span>
-              <span class="vocably-frequency-hint-text">
-                {t('frequency_hint.premium')}
+              <span class="vocably-frequency-hint-score">
+                {t('frequency_hint.score', { score, max: MAX_FREQUENCY })}
               </span>
-              {this.isLoggedIn && this.paymentLink && (
-                <a
-                  href={this.paymentLink}
-                  target="_blank"
-                  class="vocably-frequency-hint-upgrade"
-                  onClick={() => this.watchMePaying.emit()}
-                >
-                  {t('translation.upgrade')}
-                </a>
-              )}
             </div>
-          )}
+            <div class="vocably-frequency-hint-scale">
+              <div
+                class="vocably-frequency-hint-scale-fill"
+                style={{ width: `${(score / MAX_FREQUENCY) * 100}%` }}
+              />
+            </div>
+            <div class="vocably-frequency-hint-text">
+              {t('frequency_hint.description')}
+            </div>
+            {!this.isPaid && (
+              <div class="vocably-frequency-hint-premium">
+                <span class="vocably-frequency-hint-badge">
+                  {t('frequency_hint.premium_badge')}
+                </span>
+                <span class="vocably-frequency-hint-text">
+                  {t('frequency_hint.premium')}
+                </span>
+                {this.isLoggedIn && this.paymentLink && (
+                  <a
+                    href={this.paymentLink}
+                    target="_blank"
+                    class="vocably-frequency-hint-upgrade"
+                    onClick={() => this.watchMePaying.emit()}
+                  >
+                    {t('translation.upgrade')}
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </Host>
     );

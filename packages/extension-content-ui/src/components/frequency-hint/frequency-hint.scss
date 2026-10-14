@@ -55,7 +55,6 @@ vocably-frequency-hint {
   .vocably-frequency-hint-bubble {
     position: relative;
     box-sizing: border-box;
-    padding: 12px 14px;
     border-radius: 12px;
     background: $hint-bg;
     color: rgba(255, 255, 255, 0.78);
@@ -89,6 +88,18 @@ vocably-frequency-hint {
       background: $hint-bg;
       transform: rotate(45deg);
     }
+  }
+
+  // Scrolls when the viewport is too short for the whole hint. It is separate
+  // from the bubble, which can't clip its overflow without clipping the arrow.
+  .vocably-frequency-hint-content {
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border-radius: inherit;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
   }
 
   &[data-placement='above'] .vocably-frequency-hint-bubble::before {
