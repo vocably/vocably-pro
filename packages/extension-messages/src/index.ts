@@ -269,3 +269,20 @@ export const [loadLanguageDeck, onLoadLanguageDeck] = createScopedMessage<
   GoogleLanguage,
   Result<LanguageDeck>
 >('loadLanguageDeck');
+
+export type AnalyticsCapturePayload = {
+  event: string;
+  properties?: Record<string, unknown>;
+};
+
+const [sendAnalyticsCapture, onAnalyticsCapture] = createScopedMessage<
+  AnalyticsCapturePayload,
+  void
+>('analyticsCapture');
+
+export const analyticsCapture = (
+  event: string,
+  properties?: Record<string, unknown>
+) => sendAnalyticsCapture({ event, properties });
+
+export { onAnalyticsCapture };

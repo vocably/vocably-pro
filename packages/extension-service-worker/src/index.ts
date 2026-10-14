@@ -61,6 +61,7 @@ import {
   playAudioPronunciationOffscreen,
   onAnalyzeUnitsOfSpeech,
   onLoadLanguageDeck,
+  onAnalyticsCapture,
 } from '@vocably/extension-messages';
 import {
   Analysis,
@@ -461,6 +462,11 @@ export const registerServiceWorker = (
   onLoadLanguageDeck(async (sendResponse, language) =>
     sendResponse(await loadLanguageDeck(language))
   );
+
+  onAnalyticsCapture(async (sendResponse, { event, properties }) => {
+    posthog.capture(event, properties);
+    return sendResponse();
+  });
 
   onListTargetLanguagesRequest(async (sendResponse) => {
     const sourceLanguage = await getSourceLanguage();
