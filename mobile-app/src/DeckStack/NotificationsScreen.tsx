@@ -14,7 +14,7 @@ import { Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { InlineLoader } from '../loaders/InlineLoader';
-import { notificationsIdentifyUser } from '../notificationsIdentifyUser';
+import { registerPushToken } from '../registerPushToken';
 import { CustomScrollView } from '../ui/CustomScrollView';
 import { CustomSurface } from '../ui/CustomSurface';
 import { ListItem } from '../ui/ListItem';
@@ -94,7 +94,7 @@ export const NotificationsScreen: FC<Props> = () => {
         }
 
         if (enabled) {
-          notificationsIdentifyUser();
+          registerPushToken();
           await enableNotificationIfNecessary(language);
         }
 

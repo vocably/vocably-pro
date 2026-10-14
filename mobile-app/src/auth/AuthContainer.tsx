@@ -18,7 +18,7 @@ import { Sentry } from '../BetterSentry';
 import { facility } from '../facility';
 import { forcefulSignOut } from '../forcefulSignOut';
 import { Loader } from '../loaders/Loader';
-import { notificationsIdentifyUser } from '../notificationsIdentifyUser';
+import { registerPushToken } from '../registerPushToken';
 import { useAsync } from '../useAsync';
 import { getSessionAttributes } from './getSessionAttributes';
 import { apiEventBus } from '../apiEventBus';
@@ -324,7 +324,7 @@ export const AuthContainer: FC<{
         return;
       }
 
-      await notificationsIdentifyUser();
+      await registerPushToken();
       const fetchSessionResult = await resultify(safeFetchAuthSession(), {
         reason: 'Unable to fetch auth session.',
       });

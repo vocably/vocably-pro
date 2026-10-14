@@ -90,6 +90,7 @@ resource "aws_api_gateway_deployment" "deployment" {
       md5(file("${path.module}/api-user-feedback.tf")),
       md5(file("${path.module}/api-notification-time.tf")),
       md5(file("${path.module}/api-recalibrate-notifications.tf")),
+      md5(file("${path.module}/api-push-token.tf")),
       md5(file("${path.module}/api-chat-with-card.tf")),
       md5(file("${path.module}/api-tts.tf")),
       aws_lambda_function.analyze.last_modified,
@@ -104,6 +105,7 @@ resource "aws_api_gateway_deployment" "deployment" {
       aws_lambda_function.set_notification_time.last_modified,
       aws_lambda_function.delete_notification_time.last_modified,
       aws_lambda_function.recalibrate_notifications.last_modified,
+      aws_lambda_function.register_push_token.last_modified,
       aws_lambda_function.chat_with_card.last_modified,
     ]))
   }
@@ -118,6 +120,7 @@ resource "aws_api_gateway_deployment" "deployment" {
     aws_api_gateway_integration.set_notification_time,
     aws_api_gateway_integration.delete_notification_time,
     aws_api_gateway_integration.recalibrate_notifications,
+    aws_api_gateway_integration.register_push_token,
     aws_api_gateway_integration.play_sound,
     aws_api_gateway_integration.user_feedback,
     aws_api_gateway_integration.put_language,
