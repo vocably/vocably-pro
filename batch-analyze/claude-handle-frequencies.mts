@@ -1,8 +1,10 @@
 #!/usr/bin/env -S npx vite-node
 
 // Writes the frequencies from the downloaded Claude batch results
-// into the unit of speech files, then commits, pushes and syncs
-// every affected language repo.
+// into the unit of speech files, then commits and pushes every
+// affected language repo. Syncing runs only with --sync.
+//
+// Usage: ./claude-handle-frequencies.mts [--sync]
 
 import type Anthropic from '@anthropic-ai/sdk';
 import { type GoogleLanguage } from '@vocably/model';
@@ -25,6 +27,8 @@ import { handleClaudeFrequencyResponse } from './claude-frequency-utils.js';
 import { checkEnvironment, execute, listFiles } from './utils.js';
 
 config();
+
+const shouldSync = process.argv.slice(2).includes('--sync');
 
 const files = (await listFiles('./data/results')).filter((file) =>
   getFileName(file).startsWith(claudeFrequencyBatchPrefix)
@@ -113,12 +117,12 @@ for (const file of files) {
   renameSync(file, `./data/processed/${getFileName(file)}`);
 }
 
-if (affectedLanguages.size > 0) {
+if (shouldSync && affectedLanguages.size > 0) {
   checkEnvironment();
 }
 
 for (const language of affectedLanguages) {
-  console.log(`Committing and syncing ${language}`);
+  console.log(`Committing${shouldSync ? ' and syncing' : ''} ${language}`);
 
   const repoDir = `${languagesDir}/${language.toLowerCase()}`;
 
@@ -127,8 +131,10 @@ for (const language of affectedLanguages) {
     await execute(`git commit -m 'feat: frequency' && git push`, {
       cwd: repoDir,
     });
-    await execute(`./sync.mts ${language}`, { cwd: '../sync-server' });
+    if (shouldSync) {
+      await execute(`./sync.mts ${language}`, { cwd: '../sync-server' });
+    }
   } catch (e) {
-    console.error(`Unable to commit and sync ${language}: ${e}`);
+    console.error(`Unable to commit or sync ${language}: ${e}`);
   }
 }
