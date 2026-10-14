@@ -21,7 +21,10 @@ export const execute = async (
   options?: ExecOptions
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
-    const process = exec(command, options, (error, stdout, stderr) => {
+    // Output is streamed below, so the buffer limit (1MB by default)
+    // only causes long-running commands like sync to be killed.
+    const execOptions = { maxBuffer: Infinity, ...options };
+    const process = exec(command, execOptions, (error, stdout, stderr) => {
       if (error) {
         reject(
           new Error(`Exit Code ${error.code}: ${stderr || error.message}`)
