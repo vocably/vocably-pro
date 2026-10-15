@@ -220289,6 +220289,23 @@
         "presentTenses": "ich creme ein, du cremst ein, er/sie/es cremt ein",
         "tense": "present",
         "frequency": 1
+      },
+      {
+        "source": "cremig",
+        "translation": "creamy, rich",
+        "definitions": [
+          "Von der Konsistenz einer Creme; dickflüssig und glatt.",
+          "Reichhaltig und weich im Geschmack oder in der Textur."
+        ],
+        "examples": [
+          "Die Suppe ist sehr cremig.",
+          "Ein cremiger Käse.",
+          "Die Soße hat eine cremige Konsistenz."
+        ],
+        "partOfSpeech": "adjective",
+        "ipa": "ˈkʁeːmɪç",
+        "number": "singular",
+        "frequency": 4
       }
     ],
     "detectedInputType": "word",
@@ -236974,6 +236991,27 @@
         "presentTenses": "ich datiere, du datierst, er/sie/es datiert",
         "tense": "present",
         "frequency": 3
+      },
+      {
+        "source": "verabreden",
+        "translation": "to arrange to meet, to make an appointment, to agree on",
+        "definitions": [
+          "Eine Vereinbarung treffen, sich zu treffen",
+          "Einen Termin vereinbaren",
+          "Sich auf etwas einigen"
+        ],
+        "examples": [
+          "Wir wollen uns morgen verabreden.",
+          "Ich habe mich mit Freunden verabredet.",
+          "Sie verabreden sich oft im Café."
+        ],
+        "partOfSpeech": "verb",
+        "ipa": "fɛɐ̯ˈʔapˌʁeːdn̩",
+        "number": "plural",
+        "pastTenses": "verabredete, hat verabredet",
+        "presentTenses": "ich verabrede, du verabredest, er/sie/es verabredet",
+        "tense": "present",
+        "frequency": 6
       }
     ],
     "detectedInputType": "word",
@@ -398289,6 +398327,25 @@
         "g": "neuter",
         "number": "singular",
         "pluralForm": "die sozialen Geschlechter"
+      },
+      {
+        "source": "das Genus",
+        "translation": "gender, genus",
+        "definitions": [
+          "Grammatisches Geschlecht eines Substantivs.",
+          "In der Biologie eine systematische Einheit zwischen Familie und Art."
+        ],
+        "examples": [
+          "Das Genus bestimmen.",
+          "Genus und Numerus.",
+          "Gattung oder Genus."
+        ],
+        "partOfSpeech": "noun",
+        "ipa": "ˈɡeːnʊs",
+        "g": "neuter",
+        "number": "singular",
+        "pluralForm": "die Genera",
+        "frequency": 4
       }
     ],
     "detectedInputType": "word",
@@ -410895,6 +410952,27 @@
         "presentTenses": "ich gehe ab, du gehst ab, er/sie/es geht ab",
         "tense": "present",
         "frequency": 6
+      },
+      {
+        "source": "läuten",
+        "translation": "ring, chime, toll",
+        "definitions": [
+          "Einen Klang erzeugen, indem man eine Glocke betätigt.",
+          "Einen Alarm oder eine Warnung durch Glocken signalisieren.",
+          "Jemanden durch Klingeln anrufen oder benachrichtigen."
+        ],
+        "examples": [
+          "Die Kirchenglocken läuten jeden Sonntag.",
+          "Es läutet an der Tür.",
+          "Der Wecker läutet um sechs Uhr."
+        ],
+        "partOfSpeech": "verb",
+        "ipa": "ˈlɔɪ̯tn̩",
+        "number": "singular",
+        "pastTenses": "hat geläutet, läutete",
+        "presentTenses": "ich läute, du läutest, er/sie/es läutet",
+        "tense": "present",
+        "frequency": 4
       }
     ],
     "detectedInputType": "word",
@@ -595936,6 +596014,26 @@
         "presentTenses": "ich beobachte, du beobachtest, er/sie/es beobachtet",
         "tense": "present",
         "frequency": 7
+      },
+      {
+        "source": "beaufsichtigen",
+        "translation": "to supervise, to oversee",
+        "definitions": [
+          "jemanden oder etwas überwachen, um die Ordnung oder Sicherheit zu gewährleisten",
+          "die Aufsicht über jemanden oder etwas führen"
+        ],
+        "examples": [
+          "Die Lehrerin muss die Schüler beaufsichtigen.",
+          "Er beaufsichtigt die Baustelle.",
+          "Werden die Kinder beaufsichtigt?"
+        ],
+        "partOfSpeech": "verb",
+        "ipa": "bəˈʔaʊ̯fˌzɪçtɪɡn̩",
+        "number": "singular",
+        "pastTenses": "beaufsichtigte, hat beaufsichtigt",
+        "presentTenses": "ich beaufsichtige, du beaufsichtigst, er/sie/es beaufsichtigt",
+        "tense": "present",
+        "frequency": 4
       }
     ],
     "detectedInputType": "word",
@@ -819326,6 +819424,26 @@
         "number": "singular",
         "pluralForm": "die Sexes",
         "frequency": 6
+      },
+      {
+        "source": "das Geschlecht",
+        "translation": "sex, gender, lineage",
+        "definitions": [
+          "Biologische Einteilung von Lebewesen in männlich, weiblich oder divers.",
+          "Gesamtheit von Personen mit gemeinsamer Abstammung; Sippe oder Familie.",
+          "Grammatische Kategorie zur Klassifizierung von Substantiven (Genus)."
+        ],
+        "examples": [
+          "Das männliche Geschlecht.",
+          "Ein altes Adelsgeschlecht.",
+          "Das grammatische Geschlecht bestimmen."
+        ],
+        "partOfSpeech": "noun",
+        "ipa": "ɡəˈʃlɛçt",
+        "g": "neuter",
+        "number": "singular",
+        "pluralForm": "die Geschlechter",
+        "frequency": 8
       }
     ],
     "detectedInputType": "word",
@@ -919892,6 +920010,45 @@
         "presentTenses": "ich unterbreite, du unterbreitest, er/sie/es unterbreitet",
         "tense": "present",
         "frequency": 3
+      },
+      {
+        "source": "empfindlich",
+        "translation": "sensitive, delicate",
+        "definitions": [
+          "leicht verletzbar oder reizbar",
+          "sehr sensibel gegenüber äußeren Einflüssen"
+        ],
+        "examples": [
+          "eine empfindliche Haut",
+          "empfindlich auf Kritik reagieren"
+        ],
+        "partOfSpeech": "adjective",
+        "ipa": "ʔɛmpˈfɪntlɪç",
+        "number": "singular",
+        "frequency": 5
+      },
+      {
+        "source": "ausschreiben",
+        "translation": "to announce publicly, to tender, to write out, to spell out",
+        "definitions": [
+          "etwas öffentlich bekannt machen, zur Teilnahme auffordern (z.B. einen Wettbewerb, eine Stelle)",
+          "etwas vollständig oder detailliert aufschreiben",
+          "etwas bis zum Ende schreiben, fertigschreiben",
+          "etwas durch Schreiben entfernen oder tilgen (veraltet)"
+        ],
+        "examples": [
+          "Die Stadt wird den Bau der neuen Brücke ausschreiben.",
+          "Bitte die Abkürzungen ausschreiben.",
+          "Er musste den ganzen Text ausschreiben.",
+          "Man konnte die Schuld nicht ausschreiben."
+        ],
+        "partOfSpeech": "verb",
+        "ipa": "ˈaʊ̯sˌʃʁaɪ̯bn̩",
+        "number": "singular",
+        "pastTenses": "schrieb aus, hat ausgeschrieben",
+        "presentTenses": "ich schreibe aus, du schreibst aus, er/sie/es schreibt aus",
+        "tense": "present",
+        "frequency": 5
       }
     ],
     "detectedInputType": "word",

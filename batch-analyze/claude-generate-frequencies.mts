@@ -45,7 +45,16 @@ const languageArgs = args.filter((arg) => arg !== '--sync');
 const googleLanguages = Object.keys(languageList) as GoogleLanguage[];
 
 // Skipped when walking all the repos. Passing one explicitly still processes it.
-const excludedLanguages: GoogleLanguage[] = ['af', 'hu', 'ru', 'de', 'nl'];
+const excludedLanguages: GoogleLanguage[] = [
+  'af',
+  'hu',
+  'ru',
+  'de',
+  'nl',
+  'en',
+  'fr',
+  'it',
+];
 
 // Repo folders are lowercased language codes (e.g. pt-pt for pt-PT).
 const toGoogleLanguage = (value: string): GoogleLanguage | undefined =>
