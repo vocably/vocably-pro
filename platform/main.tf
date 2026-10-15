@@ -9,8 +9,11 @@ terraform {
 
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
-      version = "~> 6.0"
+      source = "hashicorp/aws"
+      # v6.69.0 regression: "decomposing response: bufio.Scanner: token too long"
+      # breaks aws_cognito_managed_login_branding reads.
+      # https://github.com/hashicorp/terraform-provider-aws/issues/50481
+      version = "~> 6.0, < 6.69.0"
     }
   }
 }
