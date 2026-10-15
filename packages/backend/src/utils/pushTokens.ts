@@ -51,7 +51,11 @@ export const getPushTokensBySub = async (
       new QueryCommand({
         TableName: process.env.PUSH_TOKENS_DYNAMO_TABLE,
         IndexName: 'SubIndex',
-        KeyConditionExpression: 'Sub = :sub',
+        // "Sub" is a DynamoDB reserved word, so it must be aliased.
+        KeyConditionExpression: '#sub = :sub',
+        ExpressionAttributeNames: {
+          '#sub': 'Sub',
+        },
         ExpressionAttributeValues: {
           ':sub': { S: sub },
         },
