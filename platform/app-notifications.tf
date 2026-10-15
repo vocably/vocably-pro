@@ -163,6 +163,7 @@ resource "aws_lambda_function" "notifications_sender" {
   handler          = "notifications-sender.notificationsSender"
   source_code_hash = data.archive_file.backend_build.output_base64sha256
   runtime          = "nodejs22.x"
+  timeout          = 15
 }
 
 resource "aws_cloudwatch_log_group" "notifications_sender" {
