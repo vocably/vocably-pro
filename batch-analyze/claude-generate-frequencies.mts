@@ -54,6 +54,12 @@ const excludedLanguages: GoogleLanguage[] = [
   'en',
   'fr',
   'it',
+  'pt',
+  'es',
+  'el',
+  'no',
+  'da',
+  'en-GB',
 ];
 
 // Repo folders are lowercased language codes (e.g. pt-pt for pt-PT).
