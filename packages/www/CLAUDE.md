@@ -13,3 +13,8 @@
 - Every change in `packages/www` must be validated in the browser on http://localhost:8050 before reporting it done.
 - The dev server is started with `npm start` from `packages/www` (webpack dev server on port 8050). Check whether it's already running first; start it in the background if not.
 - Open the affected page(s), check that the change renders as intended (desktop and ~400px mobile width when layout is touched), and check the console for errors.
+
+## Sitemap
+
+- A page's `lastmod` in `sitemap-main.xml` is the date of the last git commit touching its `.handlebars` file (`seo/buildMainSitemap.ts`); changed `lastmod` values are also submitted to IndexNow on deploy.
+- To change a page without bumping its `lastmod` (e.g. visual-only changes), put `[skip sitemap]` in the commit message.

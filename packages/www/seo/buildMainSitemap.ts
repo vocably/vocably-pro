@@ -36,13 +36,17 @@ ${pages
 `;
 };
 
+// Commits with this marker in the message don't bump the page's lastmod
+// (e.g. visual-only changes that shouldn't be announced to search engines).
+const skipSitemapMarker = '[skip sitemap]';
+
 // @ts-ignore
 const getGitLastModifiedDate = memoize(
   (filePaths: string[]): string => {
     let dates: string[] = [];
     for (const filePath of filePaths) {
       // Execute Git command to get the last commit date for the file
-      const command = `git log -1 --format="%ci" -- "${filePath}"`;
+      const command = `git log -1 --format="%ci" --fixed-strings --invert-grep --grep="${skipSitemapMarker}" -- "${filePath}"`;
       const output = execSync(command, { encoding: 'utf8' }).trim();
 
       const date = output.replace(' ', 'T').replace(/:\d\d .+$/, '+01:00');

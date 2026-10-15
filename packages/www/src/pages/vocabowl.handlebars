@@ -4,67 +4,211 @@
   metaDescription="Move beyond passive learning. Discover VocabOwl and use Vocably's smart dictionary and learning system to master real-world vocabulary through active translation."
   noCta=true
 }}
-  <div class="container-md mb-5">
-    <h1>The VocabOwl Test.</h1>
+  <style>
+    .vo-hero {
+      padding-top: 2rem;
+      padding-bottom: 2.5rem;
+    }
 
-    <style>
-      .is-down {
-        background-color: #f8d7da;
-        color: #721c24;
-        padding: 2rem;
-        border-radius: 0.5rem;
-        margin-bottom: 2rem;
+    .vo-title {
+      font-size: clamp(2.25rem, 5.5vw, 3.5rem);
+      font-weight: 600;
+      max-width: 40rem;
+      margin: 0 auto 1.25rem;
+    }
 
-        p {
-          margin-bottom: 1rem;
-        }
+    .vo-lead {
+      max-width: 36rem;
+      margin: 0 auto;
+      font-size: 1.25rem;
+    }
+
+    .vo-wrap {
+      max-width: 56rem;
+      margin: 0 auto;
+    }
+
+    .vo-status {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 4rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 94, 94, 0.25);
+      background: rgba(255, 94, 94, 0.06);
+      font-size: 1rem;
+
+      & > i {
+        flex-shrink: 0;
+        color: var(--v-color-danger-active);
+        font-size: 1.3rem;
+        line-height: 1.3;
       }
-    </style>
 
-    <div class="is-down">
-      <p style="font-size: 80%">3 July, 2026</p>
-      <p>The VocabOwl Test is currently unavailable. It seems like its creator has deleted the website.</p>
-      <div>I will update this page if the VocabOwl site is back.</div>
-    </div>
+      & p {
+        margin-bottom: 0.35rem;
+      }
+    }
 
-    <p>
+    .vo-status-date {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--v-color-danger-active);
+    }
+
+    .vo-section {
+      margin-bottom: 5rem;
+    }
+
+    .vo-section-title {
+      font-size: clamp(1.5rem, 3.2vw, 2rem);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    .vo-story {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      font-size: 1.15rem;
+      line-height: 1.6;
+
+      @media (width >= 768px) {
+        grid-template-columns: 1fr 19rem;
+        gap: 4rem;
+      }
+
+      & p {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .vo-shot {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+
+      & img {
+        display: block;
+        width: 100%;
+        max-width: 19rem;
+        height: auto;
+        padding: 1rem;
+        background: #fff;
+        border-radius: 1.5rem;
+        border: 1px solid var(--v-color-border-muted);
+        box-shadow: 0 1rem 2.5rem rgba(var(--v-color-primary-rgb), 0.12);
+      }
+    }
+
+    .vo-try {
+      padding: 3rem 1.5rem;
+      border-radius: 1.5rem;
+      background: rgba(var(--v-color-primary-rgb), 0.04);
+      text-align: center;
+
+      @media (width >= 768px) {
+        padding: 3.5rem 4rem;
+      }
+
+      & > p {
+        max-width: 34rem;
+        margin: 0 auto 2rem;
+        font-size: 1.15rem;
+      }
+    }
+
+    .vo-text {
+      font-size: 1.15rem;
+      line-height: 1.6;
+    }
+
+    .vo-try-form {
+      max-width: 36rem;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .vo-cta {
+      max-width: 36rem;
+      margin: 0 auto;
+      text-align: center;
+
+      & > p {
+        font-size: 1.15rem;
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+
+  <section class="vo-hero container-md text-center">
+    <h1 class="vo-title">The VocabOwl Test.</h1>
+    <p class="vo-lead">
       Find out exactly how many words you know — try the <a href="https://vocabowl-870366514258.us-west1.run.app/" rel="nofollow noopener" target="_blank">VocabOwl Quiz here<i class="bi bi-box-arrow-up-right ms-2"></i></a>.
     </p>
+  </section>
 
-    <h2>Finished the test? Come back here to grow your vocabulary naturally, without disrupting your day.</h2>
+  <div class="container-md mb-5">
+    <div class="vo-wrap">
+      <div class="vo-status" role="status">
+        <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+        <div>
+          <span class="vo-status-date">3 July, 2026</span>
+          <p>The VocabOwl Test is currently unavailable. It seems like its creator has deleted the website.</p>
+          <p>I will update this page if the VocabOwl site is back.</p>
+        </div>
+      </div>
 
-    <p>
-      Chances are, you've already spotted these essential VocabOwl words in your daily English interactions.
-    </p>
+      <section class="vo-section">
+        <div class="vo-story">
+          <div>
+            <h2 class="vo-section-title">Finished the test? Come back here to grow your vocabulary naturally, without disrupting your day.</h2>
+            <p>
+              Chances are, you've already spotted these essential VocabOwl words in your daily English interactions.
+            </p>
+            <p>
+              You might have encountered these words before and found them intriguing. The trouble is, without a clear anchor, they rarely stick around for long.
+            </p>
+          </div>
+          <figure class="vo-shot">
+            <img
+              width="416"
+              height="674"
+              alt="The screenshot of VocabOwl with the word Facetious answered incorrectly."
+              src="/assets/facetious.png"
+            />
+          </figure>
+        </div>
+      </section>
 
-    <p>
-      <img style="max-width: 416px; width: 100%;" alt="The screenshot of VocabOwl with the word Facetious answered incorrectly." src="/assets/facetious.png" />
-    </p>
+      <section class="vo-section vo-text">
+        <p>
+          The next time an interesting new word catches your eye, use Vocably to lock it into your memory. Vocably is a combination of a dictionary and a learning system available in your browser (<a href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb" class="link-secondary" target="_blank">Chrome</a>, <a href="https://microsoftedge.microsoft.com/addons/detail/dahphaiflimmafjchchidjmgidlkajho" class="link-secondary" target="_blank">Edge</a>, <a href="https://apps.apple.com/app/id6464076425" class="link-secondary" target="_blank">Safari</a>, <a href="/ios-safari-extension.html" class="link-secondary" target="_blank">iOS Safari</a>) and on mobile (<a href="https://apps.apple.com/app/vocably-pro-language-cards/id1641258757" class="link-secondary" target="_blank">iOS</a>, <a href="https://play.google.com/store/apps/details?id=com.vocablypro" class="link-secondary" target="_blank">Android</a>).
+        </p>
+      </section>
 
-    <p>
-      You might have encountered these words before and found them intriguing. The trouble is, without a clear anchor, they rarely stick around for long.
-    </p>
+      <section class="vo-section vo-try">
+        <p>Feel free to try the Vocably dictionary online:</p>
+        <div class="vo-try-form">
+          {{> search-form-light
+            sourceLanguage='en'
+            query='facetious'
+          }}
+        </div>
+      </section>
 
-    <p>
-      The next time an interesting new word catches your eye, use Vocably to lock it into your memory. Vocably is a combination of a dictionary and a learning system available in your browser (<a href="https://chrome.google.com/webstore/detail/vocably/baocigmmhhdemijfjnjdidbkfgpgogmb" class="link-secondary" target="_blank">Chrome</a>, <a href="https://microsoftedge.microsoft.com/addons/detail/dahphaiflimmafjchchidjmgidlkajho" class="link-secondary" target="_blank">Edge</a>, <a href="https://apps.apple.com/app/id6464076425" class="link-secondary" target="_blank">Safari</a>, <a href="/ios-safari-extension.html" class="link-secondary" target="_blank">iOS Safari</a>) and on mobile (<a href="https://apps.apple.com/app/vocably-pro-language-cards/id1641258757" class="link-secondary" target="_blank">iOS</a>, <a href="https://play.google.com/store/apps/details?id=com.vocablypro" class="link-secondary" target="_blank">Android</a>).
-    </p>
-
-    <p>Feel free to try the Vocably dictionary online:</p>
-
-    <div class="my-5">
-      {{> search-form-light
-        sourceLanguage='en'
-        query='facetious'
-      }}
-    </div>
-
-    <p>
-      Vocably does more than look up words — it helps you keep them. Instantly save new discoveries to your personal cloud collection, study them seamlessly across all your devices, and transform unfamiliar words into a natural part of your everyday vocabulary.
-    </p>
-
-    <div class="mt-5">
-      {{> cta }}
+      <section class="vo-cta">
+        <p>
+          Vocably does more than look up words — it helps you keep them. Instantly save new discoveries to your personal cloud collection, study them seamlessly across all your devices, and transform unfamiliar words into a natural part of your everyday vocabulary.
+        </p>
+        {{> cta }}
+      </section>
     </div>
   </div>
 {{/layout}}
-
