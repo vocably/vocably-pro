@@ -110,8 +110,12 @@ export const tr = {
   'card_source.frequency_3': 'Yaygın kelime',
   // frequency-hint
   'frequency_hint.score': 'Puan {score}/{max}',
-  'frequency_hint.description':
-    'Okuduğunuz ve duyduğunuz şeylerin çoğu, az sayıda yaygın kelimeden oluşur. Önce onları öğrenin, dili çok daha erken anlamaya başlayın.',
+  'frequency_hint.description_1':
+    'Bu kelimeyle nadiren karşılaşırsınız. Ama onu bilmek konuşmanıza özel bir çekicilik katar ve sizi öne çıkarır.',
+  'frequency_hint.description_2':
+    'Bu kelimeyle zaman zaman karşılaşırsınız. En yaygın kelimeleri öğrendikten sonra öğrenmeye değer.',
+  'frequency_hint.description_3':
+    'Bu kelime sürekli okuduğunuz ve duyduğunuz kelimelerden biridir. Öğrenmek hemen fayda sağlar.',
   'frequency_hint.premium_badge': 'Premium',
   'frequency_hint.premium':
     'Kelime sıklığı bir Premium özelliğidir. Ücretsiz kullanıcılar onu deneyebilir, Premium ile ise aradığınız her kelimede görürsünüz.',

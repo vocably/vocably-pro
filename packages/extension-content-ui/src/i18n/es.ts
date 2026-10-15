@@ -112,8 +112,12 @@ export const es = {
   'card_source.frequency_3': 'Palabra común',
   // frequency-hint
   'frequency_hint.score': 'Puntuación {score}/{max}',
-  'frequency_hint.description':
-    'Un pequeño grupo de palabras comunes forma la mayor parte de lo que lees y escuchas. Apréndelas primero y empezarás a entender el idioma mucho antes.',
+  'frequency_hint.description_1':
+    'Rara vez te encontrarás con esta palabra. Conocerla le da un encanto especial a tu forma de hablar y la hace destacar.',
+  'frequency_hint.description_2':
+    'Te encontrarás con esta palabra de vez en cuando. Vale la pena aprenderla una vez que conozcas las palabras más comunes.',
+  'frequency_hint.description_3':
+    'Esta palabra está entre las que lees y escuchas todo el tiempo. Aprenderla da resultados de inmediato.',
   'frequency_hint.premium_badge': 'Premium',
   'frequency_hint.premium':
     'La frecuencia de palabras es una función Premium. Los usuarios gratuitos pueden probarla, y con Premium la ves en cada palabra que buscas.',

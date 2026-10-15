@@ -193,7 +193,7 @@ export class VocablyFrequencyHint {
               />
             </div>
             <div class="vocably-frequency-hint-text">
-              {t('frequency_hint.description')}
+              {t(`frequency_hint.description_${level}`)}
             </div>
             {!this.isPaid && (
               <div class="vocably-frequency-hint-premium">

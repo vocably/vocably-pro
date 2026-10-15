@@ -105,8 +105,12 @@ export const vi = {
   'card_source.frequency_3': 'Từ phổ biến',
   // frequency-hint
   'frequency_hint.score': 'Điểm {score}/{max}',
-  'frequency_hint.description':
-    'Một nhóm nhỏ từ phổ biến chiếm phần lớn những gì bạn đọc và nghe. Hãy học chúng trước, bạn sẽ bắt đầu hiểu ngôn ngữ sớm hơn nhiều.',
+  'frequency_hint.description_1':
+    'Bạn sẽ hiếm khi gặp từ này. Nhưng biết nó sẽ mang lại nét duyên riêng cho lời nói của bạn và giúp bạn nổi bật.',
+  'frequency_hint.description_2':
+    'Bạn sẽ thỉnh thoảng gặp từ này. Đáng để học sau khi bạn đã biết những từ phổ biến nhất.',
+  'frequency_hint.description_3':
+    'Từ này nằm trong số những từ bạn đọc và nghe thường xuyên. Học nó sẽ mang lại lợi ích ngay lập tức.',
   'frequency_hint.premium_badge': 'Premium',
   'frequency_hint.premium':
     'Tần suất từ là tính năng Premium. Người dùng miễn phí có thể dùng thử, còn với Premium bạn sẽ thấy nó ở mọi từ bạn tra.',

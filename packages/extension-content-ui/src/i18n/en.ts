@@ -105,8 +105,12 @@ export const en = {
   'card_source.frequency_3': 'Common word',
   // frequency-hint
   'frequency_hint.score': 'Score {score}/{max}',
-  'frequency_hint.description':
-    'A small set of common words makes up most of what you read and hear. Learn them first, and you will start understanding the language much sooner.',
+  'frequency_hint.description_1':
+    'You will rarely come across this word. Knowing it adds a special charm to your speech and makes it stand out.',
+  'frequency_hint.description_2':
+    'You will meet this word from time to time. It is worth learning once you know the most common words.',
+  'frequency_hint.description_3':
+    'This word is among those you read and hear all the time. Learning it pays off right away.',
   'frequency_hint.premium_badge': 'Premium',
   'frequency_hint.premium':
     'Word frequency is a Premium feature. Free users get a taste of it, while Premium users see it for every word they look up.',
