@@ -41,7 +41,24 @@ const getLegacyAddresses = async (sub: string): Promise<Address[]> => {
       })
     );
 
-    return (result.EndpointsResponse?.Item ?? [])
+    const endpoints = result.EndpointsResponse?.Item ?? [];
+    console.log(
+      'Legacy Pinpoint endpoints',
+      inspect({
+        sub,
+        applicationId: process.env.MOBILE_APP_PINPOINT_PROJECT_ID,
+        endpoints: endpoints.map((endpoint) => ({
+          id: endpoint.Id,
+          address: endpoint.Address,
+          channelType: endpoint.ChannelType,
+          endpointStatus: endpoint.EndpointStatus,
+          optOut: endpoint.OptOut,
+          effectiveDate: endpoint.EffectiveDate,
+        })),
+      })
+    );
+
+    return endpoints
       .filter(
         (endpoint) =>
           endpoint.Address &&
@@ -55,7 +72,9 @@ const getLegacyAddresses = async (sub: string): Promise<Address[]> => {
         channelType: endpoint.ChannelType as PushChannelType,
       }));
   } catch (error) {
-    console.log('Unable to get legacy Pinpoint endpoints', inspect(error));
+    // Not using inspect() here: it goes through JSON.stringify,
+    // which turns Error instances into {}.
+    console.error('Unable to get legacy Pinpoint endpoints', sub, error);
     return [];
   }
 };
@@ -68,6 +87,11 @@ const getAddresses = async (sub: string): Promise<Result<Address[]>> => {
 
   // Both sources contain raw APNs/FCM device tokens, so the address
   // is used as a key to send exactly one message per device.
+  console.log(
+    'Stored push tokens',
+    inspect({ sub, tokens: storedTokensResult.value })
+  );
+
   const addresses = new Map<string, Address>();
   for (const storedToken of storedTokensResult.value) {
     addresses.set(storedToken.token, {
@@ -76,8 +100,18 @@ const getAddresses = async (sub: string): Promise<Result<Address[]>> => {
     });
   }
 
-  for (const legacyAddress of await getLegacyAddresses(sub)) {
+  const legacyAddresses = await getLegacyAddresses(sub);
+  console.log(
+    'Legacy addresses after filtering',
+    inspect({ sub, legacyAddresses })
+  );
+
+  for (const legacyAddress of legacyAddresses) {
     if (addresses.has(legacyAddress.address)) {
+      console.log('Legacy address is already stored', {
+        sub,
+        address: legacyAddress.address,
+      });
       continue;
     }
 
@@ -88,6 +122,11 @@ const getAddresses = async (sub: string): Promise<Result<Address[]>> => {
       continue;
     }
     if (ownerResult.value !== undefined && ownerResult.value !== sub) {
+      console.log('Legacy address belongs to another user, skipping', {
+        sub,
+        owner: ownerResult.value,
+        address: legacyAddress.address,
+      });
       continue;
     }
 
@@ -110,6 +149,7 @@ export const sendPushMessage = async (
   }
 
   const addresses = addressesResult.value;
+  console.log('Sending push message', inspect({ sub, addresses, body }));
 
   if (addresses.length === 0) {
     console.log('No push addresses found for the user', sub);
@@ -167,7 +207,7 @@ export const sendPushMessage = async (
       value: null,
     };
   } catch (error) {
-    console.error('Error sending message:', error);
+    console.error('Error sending message:', sub, error);
     return {
       success: false,
       errorCode: 'NOTIFICATIONS_PUSH_ERROR',

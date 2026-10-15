@@ -25,6 +25,7 @@ export const sendNotifications = async (): Promise<Result<any>> => {
   );
 
   if (notificationItemsResult.success === false) {
+    console.error('Get notification items error', notificationItemsResult);
     return notificationItemsResult;
   }
 
@@ -32,6 +33,11 @@ export const sendNotifications = async (): Promise<Result<any>> => {
 
   for (let item of notificationItemsResult.value) {
     const sub = item.Sub.S;
+    console.log('Processing notification item', {
+      id: item.ID.S,
+      sub,
+      language: item.Language.S,
+    });
     const cardsDeckResult = await getDeck(sub, item.Language.S);
     if (cardsDeckResult.success === false) {
       console.error('Get card deck error', cardsDeckResult);
@@ -59,6 +65,8 @@ export const sendNotifications = async (): Promise<Result<any>> => {
       );
     }
   }
+
+  console.log('Notifications sending finished');
 
   return {
     success: true,
