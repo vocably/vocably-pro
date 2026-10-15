@@ -40,14 +40,28 @@ ${pages
 // (e.g. visual-only changes that shouldn't be announced to search engines).
 const skipSitemapMarker = '[skip sitemap]';
 
+// Commits that don't bump lastmod of any page, for commits that already
+// landed without the marker. Full or abbreviated hashes.
+const ignoredCommits = [
+  '93f346ee', // fix(notifications): stray vocabowl style tweak
+];
+
+const isIgnoredCommit = (hash: string) =>
+  ignoredCommits.some((ignored) => hash.startsWith(ignored));
+
 // @ts-ignore
 const getGitLastModifiedDate = memoize(
   (filePaths: string[]): string => {
     let dates: string[] = [];
     for (const filePath of filePaths) {
       // Execute Git command to get the last commit date for the file
-      const command = `git log -1 --format="%ci" --fixed-strings --invert-grep --grep="${skipSitemapMarker}" -- "${filePath}"`;
-      const output = execSync(command, { encoding: 'utf8' }).trim();
+      const command = `git log --format="%H %ci" --fixed-strings --invert-grep --grep="${skipSitemapMarker}" -- "${filePath}"`;
+      const output =
+        execSync(command, { encoding: 'utf8' })
+          .split('\n')
+          .map((line) => line.trim())
+          .find((line) => line && !isIgnoredCommit(line.split(' ')[0]))
+          ?.replace(/^\S+ /, '') ?? '';
 
       const date = output.replace(' ', 'T').replace(/:\d\d .+$/, '+01:00');
 

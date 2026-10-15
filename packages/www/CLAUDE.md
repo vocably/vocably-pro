@@ -18,3 +18,4 @@
 
 - A page's `lastmod` in `sitemap-main.xml` is the date of the last git commit touching its `.handlebars` file (`seo/buildMainSitemap.ts`); changed `lastmod` values are also submitted to IndexNow on deploy.
 - To change a page without bumping its `lastmod` (e.g. visual-only changes), put `[skip sitemap]` in the commit message.
+- If a commit already landed without the marker, add its hash to `ignoredCommits` in `seo/buildMainSitemap.ts` — it's then ignored for every page's `lastmod`.
