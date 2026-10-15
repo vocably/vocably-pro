@@ -44,6 +44,8 @@ const skipSitemapMarker = '[skip sitemap]';
 // landed without the marker. Full or abbreviated hashes.
 const ignoredCommits = [
   '93f346ee', // fix(notifications): stray vocabowl style tweak
+  'dc774b4b40f58da9a9ace0f0d726a5dbf8d17b8a', // feat(www): robot-friendly message
+  'f058ceda368b37c6494f03775392cfc38fde0217', // feat(www): better-looking cta button
 ];
 
 const isIgnoredCommit = (hash: string) =>
