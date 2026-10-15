@@ -175,8 +175,13 @@
             border-radius: 8px;
             padding-left: 12px;
             padding-right: 12px;
-            margin-right: 0.3rem;
             cursor: default;
+
+            /* Words are rendered as pseudo-content so they are neither selected nor copied;
+               the visually hidden text next to the carousel provides the readable sentence. */
+            span::before {
+              content: attr(data-word);
+            }
 
             span {
               line-height: var(--height);
@@ -192,7 +197,7 @@
         </style>
         <ul style="list-style: none; padding-left: 0;">
           <li>
-            <div class="word-carousel" id="word-carousel" data-bs-toggle="tooltip" data-bs-title="Vocably is an ecosystem for people who use a foreign language in real life."><span>Read</span><span>Surf</span><span>Speak</span><span>Think</span></div>in a foreign language.
+            <div class="word-carousel" id="word-carousel" aria-hidden="true" data-bs-toggle="tooltip" data-bs-title="Vocably is an ecosystem for people who use a foreign language in real life."><span data-word="Read"></span><span data-word="Surf"></span><span data-word="Speak"></span><span data-word="Think"></span></div><span class="visually-hidden">Read, surf, speak, and think</span> in a foreign language.
           </li>
           <li>
             <i class="bi bi-cloud align-middle"></i>
