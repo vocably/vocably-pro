@@ -1,6 +1,7 @@
 import {
   GetNotificationTimeResult,
   RecalibrateNotificationsPayload,
+  RegisterPushTokenPayload,
   Result,
   SetNotificationTimePayload,
 } from '@vocably/model';
@@ -87,6 +88,24 @@ export const recalibrateNotifications = async (
       success: false,
       errorCode: 'RECALIBRATE_NOTIFICATIONS_REQUEST_FAILED',
       reason: 'Recalibrate notification request failed.',
+      extra: e,
+    };
+  }
+};
+
+export const registerPushToken = async (
+  payload: RegisterPushTokenPayload
+): Promise<Result<any>> => {
+  try {
+    return await request('/push-token', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  } catch (e) {
+    return {
+      success: false,
+      errorCode: 'REGISTER_PUSH_TOKEN_REQUEST_FAILED',
+      reason: 'Register push token request failed.',
       extra: e,
     };
   }

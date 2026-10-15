@@ -46,6 +46,33 @@ resource "aws_dynamodb_table" "notifications" {
   }
 }
 
+resource "aws_dynamodb_table" "push_tokens" {
+  name         = "vocably-${terraform.workspace}-push-tokens"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "Token"
+
+  attribute {
+    name = "Token"
+    type = "S"
+  }
+
+  attribute {
+    name = "Sub"
+    type = "S"
+  }
+
+  ttl {
+    attribute_name = "TTL"
+    enabled        = true
+  }
+
+  global_secondary_index {
+    name            = "SubIndex"
+    hash_key        = "Sub"
+    projection_type = "ALL"
+  }
+}
+
 resource "aws_iam_role" "notifications_sender_lambda_execution" {
   name               = "vocably-${terraform.workspace}-notifications-sender-lambda-execution"
   assume_role_policy = <<EOF
@@ -101,13 +128,22 @@ resource "aws_iam_policy" "notifications_sender_lambda_execution" {
         "Resource" : "${aws_s3_bucket.cards.arn}*"
       },
       {
+        "Sid" : "DynamoPushTokens",
+        "Effect" : "Allow",
+        "Action" : [
+          "dynamodb:GetItem",
+          "dynamodb:Query",
+          "dynamodb:DeleteItem"
+        ],
+        "Resource" : "${aws_dynamodb_table.push_tokens.arn}*"
+      },
+      {
         "Sid" : "PinpointNotifications",
         "Effect" : "Allow",
         "Action" : [
           "mobiletargeting:SendMessages",
-          "mobiletargeting:SendUsersMessages",
-          "mobiletargeting:GetApp",
-          "mobiletargeting:GetCampaigns"
+          // TODO: remove after Pinpoint endpoints shut down on Oct 30, 2026.
+          "mobiletargeting:GetUserEndpoints"
         ],
         "Resource" : "${aws_pinpoint_app.mobile_app.arn}*"
       },

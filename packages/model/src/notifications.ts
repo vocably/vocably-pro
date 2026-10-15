@@ -28,3 +28,10 @@ export type SetNotificationTimePayload = {
 export type RecalibrateNotificationsPayload = {
   IANATimezone: string;
 };
+
+export type PushChannelType = 'APNS' | 'APNS_SANDBOX' | 'GCM';
+
+export type RegisterPushTokenPayload = {
+  token: string;
+  channelType: PushChannelType;
+};

@@ -7,7 +7,7 @@ import {
   roundNotificationDate,
 } from './notificationDate';
 import { getNotificationItems, updateSentTimestamp } from './notificationItems';
-import { sendPinpointMessage } from './sendPinpointMessage';
+import { sendPushMessage } from './sendPushMessage';
 
 export const sendNotifications = async (): Promise<Result<any>> => {
   const notificationDate = roundNotificationDate(new Date());
@@ -47,7 +47,7 @@ export const sendNotifications = async (): Promise<Result<any>> => {
       continue;
     }
 
-    const sendMessageResult = await sendPinpointMessage(
+    const sendMessageResult = await sendPushMessage(
       sub,
       getBody(cardsDeckResult.value)
     );

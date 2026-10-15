@@ -25,7 +25,7 @@ import 'react-native-get-random-values';
 import 'react-native-url-polyfill/auto';
 import { AuthStorage } from './src/auth/AuthStorage';
 import { awsConfig } from './src/aws-config';
-import { notificationsIdentifyUser } from './src/notificationsIdentifyUser';
+import { registerPushToken, setPushToken } from './src/registerPushToken';
 
 Amplify.configure(awsConfig);
 cognitoUserPoolsTokenProvider.setKeyValueStorage(new AuthStorage());
@@ -42,7 +42,8 @@ initializePushNotifications();
 
 onTokenReceived((token) => {
   console.log('New token received', token);
-  notificationsIdentifyUser();
+  setPushToken(token);
+  registerPushToken();
 });
 
 AppRegistry.registerComponent(appName, () => App);
