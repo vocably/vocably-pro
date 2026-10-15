@@ -188,12 +188,6 @@ tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl);
 });
 
-if (!browser.satisfies({ safari: '>=0' })) {
-  document
-    .querySelectorAll('.cta-button')
-    .forEach((button) => button.classList.add('cta-button-non-safari'));
-}
-
 // Search form
 
 const getSourceLanguage = () => {
