@@ -98,7 +98,7 @@ export const CardListItemHeader: FC<Props> = ({
                 isSharedLookup={isSharedLookup}
                 style={{
                   transform: [
-                    { translateY: Platform.OS === 'android' ? 2 : -3 },
+                    { translateY: Platform.OS === 'android' ? 1 : -3 },
                   ],
                 }}
               />
