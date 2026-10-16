@@ -19,6 +19,9 @@ const translations = {
     presentTenses: '(present: {{value}})',
     pastTenses: '(past: {{value}})',
     plural: '(plural: {{value}})',
+    frequency_1: 'Rare word',
+    frequency_2: 'Fairly common word',
+    frequency_3: 'Common word',
     examples: 'Examples',
     lookUpWithVocably: 'Look Up with Vocably',
   },
@@ -712,6 +715,19 @@ const translations = {
       '5': 'Fri',
       '6': 'Sat',
     },
+  },
+  frequencyHint: {
+    score: 'Score {{score}}/{{max}}',
+    description_1:
+      'You will rarely come across this word. Knowing it adds a special charm to your speech and makes it stand out.',
+    description_2:
+      'You will meet this word from time to time. It is worth learning once you know the most common words.',
+    description_3:
+      'This word is among those you read and hear all the time. Learning it pays off right away.',
+    premiumBadge: 'Premium',
+    premium:
+      'Word frequency is a Premium feature. Free users get a taste of it, while Premium users see it for every word they look up.',
+    accessibilityHint: 'Shows what the frequency means',
   },
   language: languageTranslations.en,
 };

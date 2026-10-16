@@ -117,11 +117,13 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
           aiButton={isSharedLookup ? 'none' : 'bright'}
           onLookUpModalOpen={onLookUpModalOpen}
           disabledModalLookup={isSharedLookup}
+          showFrequency={true}
+          isSharedLookup={isSharedLookup}
         />
         {!hideOperations && (
           <View
             style={{
-              marginTop: 16,
+              marginTop: Platform.OS === 'android' ? 17 : 19,
               // To prevent jumping
               height: 90,
             }}

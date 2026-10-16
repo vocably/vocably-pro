@@ -20,6 +20,9 @@ const translations: BaseTranslations = {
     presentTenses: '(presente: {{value}})',
     pastTenses: '(passado: {{value}})',
     plural: '(plural: {{value}})',
+    frequency_1: 'Palavra rara',
+    frequency_2: 'Palavra razoavelmente comum',
+    frequency_3: 'Palavra comum',
     examples: 'Exemplos',
     lookUpWithVocably: 'Traduzir com o Vocably',
   },
@@ -711,6 +714,19 @@ const translations: BaseTranslations = {
       '5': 'Sex',
       '6': 'Sáb',
     },
+  },
+  frequencyHint: {
+    score: 'Pontuação {{score}}/{{max}}',
+    description_1:
+      'Você raramente vai encontrar esta palavra. Conhecê-la dá um charme especial à sua fala e a faz se destacar.',
+    description_2:
+      'Você vai encontrar esta palavra de vez em quando. Vale a pena aprendê-la depois de conhecer as palavras mais comuns.',
+    description_3:
+      'Esta palavra está entre as que você lê e ouve o tempo todo. Aprendê-la traz resultados imediatamente.',
+    premiumBadge: 'Premium',
+    premium:
+      'A frequência de palavras é um recurso Premium. Usuários gratuitos podem experimentá-la, e com o Premium você a vê em cada palavra que pesquisa.',
+    accessibilityHint: 'Mostra o que significa a frequência',
   },
   language: languageTranslations.pt,
 };

@@ -20,6 +20,9 @@ const translations: BaseTranslations = {
     presentTenses: '(теперішній: {{value}})',
     pastTenses: '(минулий: {{value}})',
     plural: '(мн.: {{value}})',
+    frequency_1: 'Рідковживане слово',
+    frequency_2: 'Досить поширене слово',
+    frequency_3: 'Поширене слово',
     examples: 'Приклади',
     lookUpWithVocably: 'Перекласти в Вокеблі',
   },
@@ -728,6 +731,19 @@ const translations: BaseTranslations = {
       '5': 'Пт',
       '6': 'Сб',
     },
+  },
+  frequencyHint: {
+    score: 'Оцінка {{score}}/{{max}}',
+    description_1:
+      'Це слово трапляється рідко. Зате воно додасть вашому мовленню особливого шарму й зробить його яскравішим.',
+    description_2:
+      'Це слово трапляється час від часу. Його варто вивчити, коли ви вже знаєте найпоширеніші слова.',
+    description_3:
+      'Це слово з тих, що ви постійно читаєте й чуєте. Вивчивши його, ви одразу відчуєте користь.',
+    premiumBadge: 'Premium',
+    premium:
+      'Частотність слів — функція Premium. Безкоштовно її можна спробувати, а з Premium вона доступна для кожного слова, яке ви шукаєте.',
+    accessibilityHint: 'Показує, що означає частотність',
   },
   language: languageTranslations.uk,
 };

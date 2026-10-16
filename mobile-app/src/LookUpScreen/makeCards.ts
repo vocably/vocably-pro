@@ -18,6 +18,7 @@ export const makeCards = (analysis: Analysis): Card[] => {
       'pastTenses',
       'number',
       'pluralForm',
+      'frequency',
     ]),
     tags: [],
   }));

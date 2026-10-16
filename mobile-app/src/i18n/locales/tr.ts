@@ -20,6 +20,9 @@ const translations: BaseTranslations = {
     presentTenses: '(şimdiki: {{value}})',
     pastTenses: '(geçmiş: {{value}})',
     plural: '(çoğul: {{value}})',
+    frequency_1: 'Nadir kelime',
+    frequency_2: 'Oldukça yaygın kelime',
+    frequency_3: 'Yaygın kelime',
     examples: 'Örnekler',
     lookUpWithVocably: 'Vocably ile çevir',
   },
@@ -709,6 +712,19 @@ const translations: BaseTranslations = {
       '5': 'Cum',
       '6': 'Cmt',
     },
+  },
+  frequencyHint: {
+    score: 'Puan {{score}}/{{max}}',
+    description_1:
+      'Bu kelimeyle nadiren karşılaşırsınız. Ama onu bilmek konuşmanıza özel bir çekicilik katar ve sizi öne çıkarır.',
+    description_2:
+      'Bu kelimeyle zaman zaman karşılaşırsınız. En yaygın kelimeleri öğrendikten sonra öğrenmeye değer.',
+    description_3:
+      'Bu kelime sürekli okuduğunuz ve duyduğunuz kelimelerden biridir. Öğrenmek hemen fayda sağlar.',
+    premiumBadge: 'Premium',
+    premium:
+      'Kelime sıklığı bir Premium özelliğidir. Ücretsiz kullanıcılar onu deneyebilir, Premium ile ise aradığınız her kelimede görürsünüz.',
+    accessibilityHint: 'Sıklığın ne anlama geldiğini gösterir',
   },
   language: languageTranslations.tr,
 };

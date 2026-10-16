@@ -20,6 +20,9 @@ const translations: BaseTranslations = {
     presentTenses: '(настоящее: {{value}})',
     pastTenses: '(прошедшее: {{value}})',
     plural: '(мн.ч.: {{value}})',
+    frequency_1: 'Редкое слово',
+    frequency_2: 'Довольно распространённое слово',
+    frequency_3: 'Распространённое слово',
     examples: 'Примеры',
     lookUpWithVocably: 'Перевести в Вокебли',
   },
@@ -731,6 +734,19 @@ const translations: BaseTranslations = {
       '5': 'Пт',
       '6': 'Сб',
     },
+  },
+  frequencyHint: {
+    score: 'Оценка {{score}}/{{max}}',
+    description_1:
+      'Это слово встречается редко. Зато оно придаст вашей речи особый шарм и сделает её ярче.',
+    description_2:
+      'Это слово встречается время от времени. Его стоит выучить, когда вы уже знаете самые частые слова.',
+    description_3:
+      'Это слово из тех, что вы постоянно читаете и слышите. Выучив его, вы сразу почувствуете пользу.',
+    premiumBadge: 'Premium',
+    premium:
+      'Частотность слов — функция Premium. Бесплатно её можно попробовать, а с Premium она доступна для каждого слова, которое вы ищете.',
+    accessibilityHint: 'Показывает, что означает частотность',
   },
   language: languageTranslations.ru,
 };

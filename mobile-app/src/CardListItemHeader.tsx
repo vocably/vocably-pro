@@ -7,12 +7,15 @@ import { useTranslation } from 'react-i18next';
 import { PixelRatio, Platform, Pressable, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { FrequencyIndicator } from './FrequencyIndicator';
 import { PlaySound } from './PlaySound';
 
 type Props = {
   card: Card;
   allowCopy: boolean;
   aiButton: 'dimmed' | 'bright' | 'none';
+  showFrequency: boolean;
+  isSharedLookup?: boolean;
   onCopy: () => void;
 };
 
@@ -23,6 +26,8 @@ export const CardListItemHeader: FC<Props> = ({
   card,
   allowCopy,
   aiButton,
+  showFrequency,
+  isSharedLookup = false,
   onCopy,
 }) => {
   const { t } = useTranslation();
@@ -81,11 +86,31 @@ export const CardListItemHeader: FC<Props> = ({
           >
             {card.source}
           </Text>
+          {showFrequency && typeof card.frequency === 'number' && (
+            <>
+              {'\u00A0'}
+              {'\u00A0'}
+              {'\u00A0'}
+              <FrequencyIndicator
+                frequency={card.frequency}
+                source={card.source}
+                language={card.language}
+                isSharedLookup={isSharedLookup}
+                style={{
+                  transform: [
+                    { translateY: Platform.OS === 'android' ? 1 : -3 },
+                  ],
+                }}
+              />
+              {'\u00A0'}
+            </>
+          )}
           {allowCopy && (
             <>
               {'\u00A0'}
+              {'\u00A0'}
               <Pressable
-                hitSlop={10}
+                hitSlop={5}
                 onPress={() => {
                   Clipboard.setString(card.source);
                   onCopy();
