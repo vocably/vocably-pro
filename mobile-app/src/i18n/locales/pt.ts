@@ -720,7 +720,7 @@ const translations: BaseTranslations = {
     description_1:
       'Você raramente vai encontrar esta palavra. Conhecê-la dá um charme especial à sua fala e a faz se destacar.',
     description_2:
-      'Você vai encontrar esta palavra de vez em quando. Vale a pena aprendê-la depois de conhecer as palavras mais comuns.',
+      'Você vai encontrar esta palavra de vez em quando. Vale a pena aprendê-la.',
     description_3:
       'Esta palavra está entre as que você lê e ouve o tempo todo. Aprendê-la traz resultados imediatamente.',
     premiumBadge: 'Premium',

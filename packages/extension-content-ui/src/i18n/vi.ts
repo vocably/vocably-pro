@@ -108,7 +108,7 @@ export const vi = {
   'frequency_hint.description_1':
     'Bạn sẽ hiếm khi gặp từ này. Nhưng biết nó sẽ mang lại nét duyên riêng cho lời nói của bạn và giúp bạn nổi bật.',
   'frequency_hint.description_2':
-    'Bạn sẽ thỉnh thoảng gặp từ này. Đáng để học sau khi bạn đã biết những từ phổ biến nhất.',
+    'Bạn sẽ thỉnh thoảng gặp từ này. Đáng để học từ này.',
   'frequency_hint.description_3':
     'Từ này nằm trong số những từ bạn đọc và nghe thường xuyên. Học nó sẽ mang lại lợi ích ngay lập tức.',
   'frequency_hint.premium_badge': 'Premium',

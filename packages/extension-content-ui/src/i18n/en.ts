@@ -108,7 +108,7 @@ export const en = {
   'frequency_hint.description_1':
     'You will rarely come across this word. Knowing it adds a special charm to your speech and makes it stand out.',
   'frequency_hint.description_2':
-    'You will meet this word from time to time. It is worth learning once you know the most common words.',
+    'You will meet this word from time to time. It is worth learning it.',
   'frequency_hint.description_3':
     'This word is among those you read and hear all the time. Learning it pays off right away.',
   'frequency_hint.premium_badge': 'Premium',

@@ -115,7 +115,7 @@ export const es = {
   'frequency_hint.description_1':
     'Rara vez te encontrarás con esta palabra. Conocerla le da un encanto especial a tu forma de hablar y la hace destacar.',
   'frequency_hint.description_2':
-    'Te encontrarás con esta palabra de vez en cuando. Vale la pena aprenderla una vez que conozcas las palabras más comunes.',
+    'Te encontrarás con esta palabra de vez en cuando. Vale la pena aprenderla.',
   'frequency_hint.description_3':
     'Esta palabra está entre las que lees y escuchas todo el tiempo. Aprenderla da resultados de inmediato.',
   'frequency_hint.premium_badge': 'Premium',

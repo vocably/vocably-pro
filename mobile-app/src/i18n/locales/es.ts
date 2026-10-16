@@ -723,7 +723,7 @@ const translations: BaseTranslations = {
     description_1:
       'Rara vez te encontrarás con esta palabra. Conocerla le da un encanto especial a tu forma de hablar y la hace destacar.',
     description_2:
-      'Te encontrarás con esta palabra de vez en cuando. Vale la pena aprenderla una vez que conozcas las palabras más comunes.',
+      'Te encontrarás con esta palabra de vez en cuando. Vale la pena aprenderla.',
     description_3:
       'Esta palabra está entre las que lees y escuchas todo el tiempo. Aprenderla da resultados de inmediato.',
     premiumBadge: 'Premium',

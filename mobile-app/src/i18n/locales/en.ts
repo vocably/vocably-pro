@@ -721,7 +721,7 @@ const translations = {
     description_1:
       'You will rarely come across this word. Knowing it adds a special charm to your speech and makes it stand out.',
     description_2:
-      'You will meet this word from time to time. It is worth learning once you know the most common words.',
+      'You will meet this word from time to time. It is worth learning it.',
     description_3:
       'This word is among those you read and hear all the time. Learning it pays off right away.',
     premiumBadge: 'Premium',

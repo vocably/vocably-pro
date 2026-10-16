@@ -717,8 +717,7 @@ const translations: BaseTranslations = {
     score: 'Puan {{score}}/{{max}}',
     description_1:
       'Bu kelimeyle nadiren karşılaşırsınız. Ama onu bilmek konuşmanıza özel bir çekicilik katar ve sizi öne çıkarır.',
-    description_2:
-      'Bu kelimeyle zaman zaman karşılaşırsınız. En yaygın kelimeleri öğrendikten sonra öğrenmeye değer.',
+    description_2: 'Bu kelimeyle zaman zaman karşılaşırsınız. Öğrenmeye değer.',
     description_3:
       'Bu kelime sürekli okuduğunuz ve duyduğunuz kelimelerden biridir. Öğrenmek hemen fayda sağlar.',
     premiumBadge: 'Premium',

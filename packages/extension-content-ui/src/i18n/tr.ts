@@ -113,7 +113,7 @@ export const tr = {
   'frequency_hint.description_1':
     'Bu kelimeyle nadiren karşılaşırsınız. Ama onu bilmek konuşmanıza özel bir çekicilik katar ve sizi öne çıkarır.',
   'frequency_hint.description_2':
-    'Bu kelimeyle zaman zaman karşılaşırsınız. En yaygın kelimeleri öğrendikten sonra öğrenmeye değer.',
+    'Bu kelimeyle zaman zaman karşılaşırsınız. Öğrenmeye değer.',
   'frequency_hint.description_3':
     'Bu kelime sürekli okuduğunuz ve duyduğunuz kelimelerden biridir. Öğrenmek hemen fayda sağlar.',
   'frequency_hint.premium_badge': 'Premium',
