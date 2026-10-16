@@ -236,7 +236,7 @@ export const FrequencyHint: FC<Props> = ({
           <View
             style={[
               styles.scale,
-              { backgroundColor: theme.colors.surfaceVariant },
+              { backgroundColor: theme.colors.elevation.level5 },
             ]}
           >
             <Animated.View

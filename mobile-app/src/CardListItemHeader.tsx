@@ -86,8 +86,9 @@ export const CardListItemHeader: FC<Props> = ({
           >
             {card.source}
           </Text>
-          {typeof card.frequency === 'number' && (
+          {showFrequency && typeof card.frequency === 'number' && (
             <>
+              {'\u00A0'}
               {'\u00A0'}
               {'\u00A0'}
               <FrequencyIndicator
@@ -101,6 +102,7 @@ export const CardListItemHeader: FC<Props> = ({
                   ],
                 }}
               />
+              {'\u00A0'}
             </>
           )}
           {allowCopy && (
