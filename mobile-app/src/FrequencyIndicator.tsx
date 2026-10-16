@@ -117,7 +117,7 @@ export const FrequencyIndicator: FC<Props> = ({
                       index < level
                         ? isActive
                           ? 1
-                          : 0.55
+                          : 0.8
                         : isActive
                           ? 0.25
                           : 0.15,
