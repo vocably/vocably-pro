@@ -117,6 +117,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
           aiButton={isSharedLookup ? 'none' : 'bright'}
           onLookUpModalOpen={onLookUpModalOpen}
           disabledModalLookup={isSharedLookup}
+          showFrequency={true}
         />
         {!hideOperations && (
           <View
