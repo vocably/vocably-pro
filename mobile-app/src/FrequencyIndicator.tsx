@@ -64,6 +64,16 @@ export const FrequencyIndicator: FC<Props> = ({
     });
   };
 
+  const trackUpgrade = () => {
+    posthog.capture('frequencyHintUpgradeClicked', {
+      source,
+      language,
+      frequency,
+      level,
+      isSharedLookup,
+    });
+  };
+
   return (
     // The drawer modal lives in this wrapper rather than in the text the
     // indicator is inlined into.
@@ -134,6 +144,7 @@ export const FrequencyIndicator: FC<Props> = ({
         visible={isHintVisible}
         isSharedLookup={isSharedLookup}
         onClose={() => setIsHintVisible(false)}
+        onUpgradePress={trackUpgrade}
       />
     </View>
   );

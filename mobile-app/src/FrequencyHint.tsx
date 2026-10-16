@@ -40,6 +40,7 @@ type Props = {
   visible: boolean;
   isSharedLookup: boolean;
   onClose: () => void;
+  onUpgradePress?: () => void;
 };
 
 /**
@@ -52,6 +53,7 @@ export const FrequencyHint: FC<Props> = ({
   visible,
   isSharedLookup,
   onClose,
+  onUpgradePress,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -145,6 +147,8 @@ export const FrequencyHint: FC<Props> = ({
   ).current;
 
   const upgrade = async () => {
+    onUpgradePress?.();
+
     if (!isSharedLookup) {
       afterDismissRef.current = () => presentPaywall();
       onClose();
