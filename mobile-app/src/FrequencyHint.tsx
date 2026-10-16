@@ -14,7 +14,10 @@ import {
   View,
 } from 'react-native';
 import { Button, Text, useTheme } from 'react-native-paper';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import { mainPadding } from './styles';
 import { usePremium } from './usePremium';
 import { usePresentPaywall } from './usePresentPaywall';
@@ -54,7 +57,6 @@ export const FrequencyHint: FC<Props> = ({
   const theme = useTheme();
   const isPremium = usePremium();
   const presentPaywall = usePresentPaywall();
-  const insets = useSafeAreaInsets();
   const { height: screenHeight } = useWindowDimensions();
 
   // The modal stays mounted while the drawer slides out.
@@ -170,143 +172,153 @@ export const FrequencyHint: FC<Props> = ({
       onRequestClose={onClose}
       onDismiss={runAfterDismiss}
     >
-      <Animated.View
-        style={[
-          StyleSheet.absoluteFill,
-          { backgroundColor: theme.colors.backdrop, opacity: progress },
-        ]}
-      >
-        <Pressable
-          style={StyleSheet.absoluteFill}
-          onPress={onClose}
-          accessibilityRole="button"
-          accessibilityLabel={t('common.close')}
-        />
-      </Animated.View>
-      <Animated.View
-        accessibilityViewIsModal
-        onLayout={(event) => setDrawerHeight(event.nativeEvent.layout.height)}
-        style={[
-          styles.drawer,
-          {
-            maxHeight: screenHeight * MAX_HEIGHT_RATIO,
-            paddingBottom: insets.bottom + 16,
-            backgroundColor: theme.colors.elevation.level1,
-            transform: [
-              {
-                translateY: Animated.add(
-                  progress.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [drawerHeight, 0],
-                  }),
-                  dragY
-                ),
-              },
-            ],
-          },
-        ]}
-      >
-        <View {...panResponder.panHandlers} style={styles.handleArea}>
-          <View
-            style={[
-              styles.handle,
-              { backgroundColor: theme.colors.onSurfaceVariant },
-            ]}
-          />
-        </View>
-        <ScrollView
-          bounces={false}
-          style={styles.content}
-          contentContainerStyle={styles.contentContainer}
+      {/* The app isn't edge-to-edge on Android, so the insets of the app's
+          provider are zero there, while this modal draws under the
+          navigation bar. Its own provider measures the modal's window. */}
+      <SafeAreaProvider>
+        <Animated.View
+          style={[
+            StyleSheet.absoluteFill,
+            { backgroundColor: theme.colors.backdrop, opacity: progress },
+          ]}
         >
-          <View style={styles.header}>
-            <Text
-              variant="titleLarge"
-              style={[styles.title, { color: theme.colors.onSurface }]}
-            >
-              {t(`common.frequency_${level}`)}
-            </Text>
-            <Text
-              variant="titleMedium"
-              style={[styles.score, { color: theme.colors.onSurfaceVariant }]}
-            >
-              {t('frequencyHint.score', { score, max: MAX_FREQUENCY })}
-            </Text>
-          </View>
-          <View
-            style={[
-              styles.scale,
-              { backgroundColor: theme.colors.elevation.level5 },
-            ]}
-          >
-            <Animated.View
-              style={[
-                styles.scaleFill,
+          <Pressable
+            style={StyleSheet.absoluteFill}
+            onPress={onClose}
+            accessibilityRole="button"
+            accessibilityLabel={t('common.close')}
+          />
+        </Animated.View>
+        <Animated.View
+          accessibilityViewIsModal
+          onLayout={(event) => setDrawerHeight(event.nativeEvent.layout.height)}
+          style={[
+            styles.drawer,
+            {
+              maxHeight: screenHeight * MAX_HEIGHT_RATIO,
+              backgroundColor: theme.colors.elevation.level1,
+              transform: [
                 {
-                  width: `${(score / MAX_FREQUENCY) * 100}%`,
-                  backgroundColor: theme.colors.primary,
-                  transform: [{ scaleX: scaleFill }],
+                  translateY: Animated.add(
+                    progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [drawerHeight, 0],
+                    }),
+                    dragY
+                  ),
                 },
+              ],
+            },
+          ]}
+        >
+          <View {...panResponder.panHandlers} style={styles.handleArea}>
+            <View
+              style={[
+                styles.handle,
+                { backgroundColor: theme.colors.onSurfaceVariant },
               ]}
             />
           </View>
-          <Text
-            variant="bodyLarge"
-            style={{ color: theme.colors.onSurfaceVariant }}
+          <ScrollView
+            bounces={false}
+            style={styles.content}
+            contentContainerStyle={styles.contentContainer}
           >
-            {t(`frequencyHint.description_${level}`)}
-          </Text>
-          {!isPremium && (
+            <View style={styles.header}>
+              <Text
+                variant="titleLarge"
+                style={[styles.title, { color: theme.colors.onSurface }]}
+              >
+                {t(`common.frequency_${level}`)}
+              </Text>
+              <Text
+                variant="titleMedium"
+                style={[styles.score, { color: theme.colors.onSurfaceVariant }]}
+              >
+                {t('frequencyHint.score', { score, max: MAX_FREQUENCY })}
+              </Text>
+            </View>
             <View
               style={[
-                styles.premium,
-                { borderTopColor: theme.colors.outlineVariant },
+                styles.scale,
+                { backgroundColor: theme.colors.elevation.level5 },
               ]}
             >
+              <Animated.View
+                style={[
+                  styles.scaleFill,
+                  {
+                    width: `${(score / MAX_FREQUENCY) * 100}%`,
+                    backgroundColor: theme.colors.primary,
+                    transform: [{ scaleX: scaleFill }],
+                  },
+                ]}
+              />
+            </View>
+            <Text
+              variant="bodyLarge"
+              style={{ color: theme.colors.onSurfaceVariant }}
+            >
+              {t(`frequencyHint.description_${level}`)}
+            </Text>
+            {!isPremium && (
               <View
                 style={[
-                  styles.badge,
-                  { backgroundColor: theme.colors.primaryContainer },
+                  styles.premium,
+                  { borderTopColor: theme.colors.outlineVariant },
                 ]}
               >
-                <Text
-                  variant="labelMedium"
+                <View
                   style={[
-                    styles.badgeText,
-                    { color: theme.colors.onPrimaryContainer },
+                    styles.badge,
+                    { backgroundColor: theme.colors.primaryContainer },
                   ]}
                 >
-                  {t('frequencyHint.premiumBadge')}
-                </Text>
-              </View>
-              <Text
-                variant="bodyLarge"
-                style={{ color: theme.colors.onSurfaceVariant }}
-              >
-                {t('frequencyHint.premium')}
-              </Text>
-              {showSettingsHint ? (
+                  <Text
+                    variant="labelMedium"
+                    style={[
+                      styles.badgeText,
+                      { color: theme.colors.onPrimaryContainer },
+                    ]}
+                  >
+                    {t('frequencyHint.premiumBadge')}
+                  </Text>
+                </View>
                 <Text
                   variant="bodyLarge"
-                  style={[styles.action, { color: theme.colors.onSurface }]}
+                  style={{ color: theme.colors.onSurfaceVariant }}
                 >
-                  {t('cardsLimit.openVocablySettings')}
+                  {t('frequencyHint.premium')}
                 </Text>
-              ) : (
-                <Button
-                  mode="contained"
-                  onPress={upgrade}
-                  style={styles.action}
-                >
-                  {t('cardsLimit.upgradeToPremium')}
-                </Button>
-              )}
-            </View>
-          )}
-        </ScrollView>
-      </Animated.View>
+                {showSettingsHint ? (
+                  <Text
+                    variant="bodyLarge"
+                    style={[styles.action, { color: theme.colors.onSurface }]}
+                  >
+                    {t('cardsLimit.openVocablySettings')}
+                  </Text>
+                ) : (
+                  <Button
+                    mode="contained"
+                    onPress={upgrade}
+                    style={styles.action}
+                  >
+                    {t('cardsLimit.upgradeToPremium')}
+                  </Button>
+                )}
+              </View>
+            )}
+          </ScrollView>
+          <BottomInset />
+        </Animated.View>
+      </SafeAreaProvider>
     </Modal>
   );
+};
+
+const BottomInset: FC = () => {
+  const insets = useSafeAreaInsets();
+  return <View style={{ height: insets.bottom }} />;
 };
 
 const styles = StyleSheet.create({
@@ -315,6 +327,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+    paddingBottom: 16,
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
     shadowColor: '#000000',
