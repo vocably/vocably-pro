@@ -14,7 +14,6 @@ type Props = {
   maskSource?: boolean;
   showInflections?: boolean;
   onPress?: () => unknown;
-  onLookUpModalOpen?: () => void;
   lookUpDisabled?: boolean;
   hideDefinitions?: boolean;
   enrichWithPartOfSpeech?: boolean;
@@ -35,7 +34,6 @@ export const CardDefinition: FC<Props> = ({
   maskSource = false,
   showInflections = false,
   onPress,
-  onLookUpModalOpen,
   lookUpDisabled = false,
   hideDefinitions = false,
   enrichWithPartOfSpeech = false,
@@ -132,7 +130,6 @@ export const CardDefinition: FC<Props> = ({
                       navigation.push('LookUpModal', {
                         text: item.text,
                       });
-                      onLookUpModalOpen && onLookUpModalOpen();
                     }
                   : undefined
               }

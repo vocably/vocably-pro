@@ -23,7 +23,6 @@ type Props = {
   showExamples?: boolean;
   savingTagsInProgress?: boolean;
   onTagsChange?: (tags: TagItem[]) => Promise<any>;
-  onLookUpModalOpen?: () => void;
   allowCopy?: boolean;
   aiButton?: 'dimmed' | 'bright' | 'none';
   disabledModalLookup?: boolean;
@@ -38,7 +37,6 @@ export const CardListItem: FC<Props> = ({
   showExamples = false,
   savingTagsInProgress = false,
   onTagsChange = () => null,
-  onLookUpModalOpen,
   allowCopy = false,
   aiButton = 'dimmed',
   disabledModalLookup = false,
@@ -94,7 +92,6 @@ export const CardListItem: FC<Props> = ({
       <View style={{ marginTop: 8 }}>
         <CardDefinition
           card={card}
-          onLookUpModalOpen={onLookUpModalOpen}
           lookUpDisabled={disabledModalLookup}
           hideDefinitions={hideDefinitions}
         />
@@ -103,7 +100,6 @@ export const CardListItem: FC<Props> = ({
         <View style={{ marginTop: 8 }}>
           <Text style={{ fontWeight: 'bold' }}>{t('common.examples')}</Text>
           <CardExample
-            onLookUpModalOpen={onLookUpModalOpen}
             example={card.example}
             language={card.language}
             lookUpDisabled={disabledModalLookup}

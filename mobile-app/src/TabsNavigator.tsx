@@ -6,6 +6,7 @@ import { useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { DeckStack } from './DeckStack';
 import { LookUpScreen } from './LookUpScreen';
+import { requestLookUpFocus } from './LookUpScreen/lookUpFocusRequest';
 import { SettingsStack } from './Settings/SettingsStack';
 import { TipsStack } from './Tips/TipsStack';
 import { useWelcomeRequired } from './useWelcomeRequired';
@@ -87,6 +88,9 @@ export const TabsNavigator: FC<Props> = ({ navigation }) => {
         <Tabs.Screen
           name="LookUp"
           component={LookUpScreen}
+          listeners={{
+            tabPress: requestLookUpFocus,
+          }}
           options={{
             headerShown: false,
             title: t('nav.lookUp'),

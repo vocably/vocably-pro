@@ -34,7 +34,6 @@ type Props = {
   cardsLimit: CardsLimit;
   isSharedLookup: boolean;
   alwaysShowSeparator?: boolean;
-  onLookUpModalOpen?: () => void;
   requestFeedback?: boolean;
 };
 
@@ -50,7 +49,6 @@ export const AnalyzeResult: FC<Props> = ({
   rightInset = 0,
   isSharedLookup = false,
   alwaysShowSeparator = false,
-  onLookUpModalOpen,
   requestFeedback = false,
 }) => {
   const associatedCards = associateCards(makeCards(analysis), cards);
@@ -93,7 +91,6 @@ export const AnalyzeResult: FC<Props> = ({
             deck={deck}
             cardsLimit={cardsLimit}
             isSharedLookup={isSharedLookup}
-            onLookUpModalOpen={onLookUpModalOpen}
           />
           {!isSharedLookup &&
             requestFeedback &&

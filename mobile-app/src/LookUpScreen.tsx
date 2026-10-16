@@ -41,6 +41,10 @@ import { Thinking } from './Chat/Thinking';
 import { TranslationPresetFormCompact } from './TranslationPresetFormCompact';
 import { EnrichedMarkdownText } from 'react-native-enriched-markdown';
 import { greeting } from './LookUpScreen/greeting';
+import {
+  consumeLookUpFocusRequest,
+  onLookUpFocusRequest,
+} from './LookUpScreen/lookUpFocusRequest';
 
 const padding = 16;
 
@@ -89,7 +93,6 @@ export const LookUpScreen: FC<Props> = ({
   const translationPresetState = useTranslationPreset();
   const { t } = useTranslation();
   const [lookUpText, setLookUpText] = useState(initialText);
-  const [noFocusOnReturn, setNoFocusOnReturn] = useState(false);
   const [isAnalyzingPreset, setIsAnalyzingPreset] = useState<Preset | false>(
     false
   );
@@ -127,14 +130,24 @@ export const LookUpScreen: FC<Props> = ({
   const searchInputRef = useRef<SearchInputRef>(null);
 
   useEffect(() => {
-    return navigation.addListener('focus', () => {
-      if (searchInputRef.current && !noFocusOnReturn && !isModal) {
-        searchInputRef.current.focus();
-      }
+    if (isModal || isSharedLookUp) {
+      return;
+    }
 
-      setNoFocusOnReturn(false);
-    });
-  }, [noFocusOnReturn]);
+    const focusIfRequested = () => {
+      if (navigation.isFocused() && consumeLookUpFocusRequest()) {
+        searchInputRef.current?.focus();
+      }
+    };
+
+    const unsubscribeFocus = navigation.addListener('focus', focusIfRequested);
+    const unsubscribeRequest = onLookUpFocusRequest(focusIfRequested);
+
+    return () => {
+      unsubscribeFocus();
+      unsubscribeRequest();
+    };
+  }, [navigation, isModal, isSharedLookUp]);
 
   useEffect(() => {
     if (lookUpText === '') {
@@ -267,10 +280,6 @@ export const LookUpScreen: FC<Props> = ({
   if (translationPresetState.status === 'unknown') {
     return <Loader>{t('lookUp.loadingPreset')}</Loader>;
   }
-
-  const onLookUpModalOpen = () => {
-    setNoFocusOnReturn(true);
-  };
 
   return (
     <KeyboardAvoidingView
@@ -430,7 +439,6 @@ export const LookUpScreen: FC<Props> = ({
                       }}
                       mode={'outlined'}
                       onPress={() => {
-                        setNoFocusOnReturn(true);
                         if (searchInputRef.current) {
                           searchInputRef.current.blur();
                         }
@@ -487,7 +495,6 @@ export const LookUpScreen: FC<Props> = ({
                     }}
                     mode={'outlined'}
                     onPress={() => {
-                      setNoFocusOnReturn(true);
                       if (searchInputRef.current) {
                         searchInputRef.current.blur();
                       }
@@ -577,7 +584,6 @@ export const LookUpScreen: FC<Props> = ({
                   onTagsChange={onTagsChange}
                   deck={deck}
                   isSharedLookup={isSharedLookUp}
-                  onLookUpModalOpen={onLookUpModalOpen}
                   requestFeedback={true}
                 />
                 {explainStatus.status === 'loading' && (
