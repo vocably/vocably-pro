@@ -29,6 +29,7 @@ type Props = {
   disabledModalLookup?: boolean;
   hideDefinitions?: boolean;
   showFrequency?: boolean;
+  isSharedLookup?: boolean;
 };
 
 export const CardListItem: FC<Props> = ({
@@ -43,6 +44,7 @@ export const CardListItem: FC<Props> = ({
   disabledModalLookup = false,
   hideDefinitions = false,
   showFrequency = false,
+  isSharedLookup = false,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -72,6 +74,7 @@ export const CardListItem: FC<Props> = ({
           allowCopy={allowCopy}
           aiButton={aiButton}
           showFrequency={showFrequency}
+          isSharedLookup={isSharedLookup}
           onCopy={onCopy}
         />
       )}

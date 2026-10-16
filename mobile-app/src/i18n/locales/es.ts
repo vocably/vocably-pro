@@ -718,6 +718,19 @@ const translations: BaseTranslations = {
       '6': 'Sáb',
     },
   },
+  frequencyHint: {
+    score: 'Puntuación {{score}}/{{max}}',
+    description_1:
+      'Rara vez te encontrarás con esta palabra. Conocerla le da un encanto especial a tu forma de hablar y la hace destacar.',
+    description_2:
+      'Te encontrarás con esta palabra de vez en cuando. Vale la pena aprenderla una vez que conozcas las palabras más comunes.',
+    description_3:
+      'Esta palabra está entre las que lees y escuchas todo el tiempo. Aprenderla da resultados de inmediato.',
+    premiumBadge: 'Premium',
+    premium:
+      'La frecuencia de palabras es una función Premium. Los usuarios gratuitos pueden probarla, y con Premium la ves en cada palabra que buscas.',
+    accessibilityHint: 'Muestra qué significa la frecuencia',
+  },
   language: languageTranslations.es,
 };
 

@@ -15,6 +15,7 @@ type Props = {
   allowCopy: boolean;
   aiButton: 'dimmed' | 'bright' | 'none';
   showFrequency: boolean;
+  isSharedLookup?: boolean;
   onCopy: () => void;
 };
 
@@ -26,6 +27,7 @@ export const CardListItemHeader: FC<Props> = ({
   allowCopy,
   aiButton,
   showFrequency,
+  isSharedLookup = false,
   onCopy,
 }) => {
   const { t } = useTranslation();
@@ -90,9 +92,12 @@ export const CardListItemHeader: FC<Props> = ({
               {'\u00A0'}
               <FrequencyIndicator
                 frequency={card.frequency}
+                source={card.source}
+                language={card.language}
+                isSharedLookup={isSharedLookup}
                 style={{
                   transform: [
-                    { translateY: Platform.OS === 'android' ? 4 : -3 },
+                    { translateY: Platform.OS === 'android' ? 2 : -3 },
                   ],
                 }}
               />

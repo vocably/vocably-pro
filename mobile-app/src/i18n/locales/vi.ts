@@ -701,6 +701,19 @@ const translations: BaseTranslations = {
       '6': 'T7',
     },
   },
+  frequencyHint: {
+    score: 'Điểm {{score}}/{{max}}',
+    description_1:
+      'Bạn sẽ hiếm khi gặp từ này. Nhưng biết nó sẽ mang lại nét duyên riêng cho lời nói của bạn và giúp bạn nổi bật.',
+    description_2:
+      'Bạn sẽ thỉnh thoảng gặp từ này. Đáng để học sau khi bạn đã biết những từ phổ biến nhất.',
+    description_3:
+      'Từ này nằm trong số những từ bạn đọc và nghe thường xuyên. Học nó sẽ mang lại lợi ích ngay lập tức.',
+    premiumBadge: 'Premium',
+    premium:
+      'Tần suất từ là tính năng Premium. Người dùng miễn phí có thể dùng thử, còn với Premium bạn sẽ thấy nó ở mọi từ bạn tra.',
+    accessibilityHint: 'Hiển thị ý nghĩa của tần suất',
+  },
   language: languageTranslations.vi,
 };
 

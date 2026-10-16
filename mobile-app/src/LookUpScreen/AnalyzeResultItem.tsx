@@ -118,6 +118,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
           onLookUpModalOpen={onLookUpModalOpen}
           disabledModalLookup={isSharedLookup}
           showFrequency={true}
+          isSharedLookup={isSharedLookup}
         />
         {!hideOperations && (
           <View

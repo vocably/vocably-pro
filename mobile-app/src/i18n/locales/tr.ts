@@ -713,6 +713,19 @@ const translations: BaseTranslations = {
       '6': 'Cmt',
     },
   },
+  frequencyHint: {
+    score: 'Puan {{score}}/{{max}}',
+    description_1:
+      'Bu kelimeyle nadiren karşılaşırsınız. Ama onu bilmek konuşmanıza özel bir çekicilik katar ve sizi öne çıkarır.',
+    description_2:
+      'Bu kelimeyle zaman zaman karşılaşırsınız. En yaygın kelimeleri öğrendikten sonra öğrenmeye değer.',
+    description_3:
+      'Bu kelime sürekli okuduğunuz ve duyduğunuz kelimelerden biridir. Öğrenmek hemen fayda sağlar.',
+    premiumBadge: 'Premium',
+    premium:
+      'Kelime sıklığı bir Premium özelliğidir. Ücretsiz kullanıcılar onu deneyebilir, Premium ile ise aradığınız her kelimede görürsünüz.',
+    accessibilityHint: 'Sıklığın ne anlama geldiğini gösterir',
+  },
   language: languageTranslations.tr,
 };
 
