@@ -2,6 +2,7 @@ import { GoogleTTSLanguage, Result } from '@vocably/model';
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import {
   ColorValue,
+  Insets,
   PixelRatio,
   Pressable,
   StyleProp,
@@ -22,7 +23,7 @@ type Props = {
   language: GoogleTTSLanguage;
   disabled?: boolean;
   size?: number;
-  hitSlop?: number;
+  hitSlop?: number | Insets;
   style?: StyleProp<ViewStyle>;
   color?: ColorValue;
 };

@@ -66,6 +66,8 @@ export const CardListItem: FC<Props> = ({
           card={card}
           allowCopy={allowCopy}
           aiButton={aiButton}
+          showFrequency={showFrequency}
+          isSharedLookup={isSharedLookup}
           onCopy={onCopy}
         />
       ) : (

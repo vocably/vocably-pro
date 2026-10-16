@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { PixelRatio, Platform, View } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { FrequencyIndicator } from './FrequencyIndicator';
 import { PlaySound } from './PlaySound';
 import { isolate } from './isolate';
 
@@ -16,18 +17,23 @@ type Props = {
   card: Card;
   allowCopy: boolean;
   aiButton: 'dimmed' | 'bright' | 'none';
+  showFrequency: boolean;
+  isSharedLookup?: boolean;
   onCopy: () => void;
 };
 
 // The header is a single LTR paragraph (LRM forces the direction). RTL pieces
 // are wrapped with isolate() so they keep their own direction without
 // reordering the rest of the line.
-// Everything except the play button is nested Text: RN mispositions inline
-// views that follow wrapped RTL text.
+// Everything except the play button and the frequency indicator is nested
+// Text: RN mispositions inline views that follow RTL text, so both views come
+// before the source.
 export const CardListItemHeaderRtl: FC<Props> = ({
   card,
   allowCopy,
   aiButton,
+  showFrequency,
+  isSharedLookup = false,
   onCopy,
 }) => {
   const { t } = useTranslation();
@@ -36,6 +42,8 @@ export const CardListItemHeaderRtl: FC<Props> = ({
   const [pressedIcon, setPressedIcon] = useState<'copy' | 'ai' | null>(null);
 
   const fontScale = PixelRatio.getFontScale();
+
+  const hasFrequency = showFrequency && typeof card.frequency === 'number';
 
   const present = card.presentTenses
     ? t('common.presentTenses', { value: isolate(card.presentTenses) })
@@ -57,11 +65,35 @@ export const CardListItemHeaderRtl: FC<Props> = ({
               text={card.source}
               language={card.language}
               size={22}
+              // Keep the play button's hit area off the frequency indicator
+              // right next to it.
+              hitSlop={
+                hasFrequency
+                  ? { top: 20, bottom: 20, left: 20, right: 4 }
+                  : undefined
+              }
               style={{
                 transform: [{ translateY: Platform.OS === 'android' ? 6 : 2 }],
                 justifyContent: 'center',
               }}
-            />{' '}
+            />
+            {hasFrequency ? '\u00A0\u00A0\u00A0' : ' '}
+          </>
+        )}
+        {hasFrequency && (
+          <>
+            <FrequencyIndicator
+              frequency={card.frequency!}
+              source={card.source}
+              language={card.language}
+              isSharedLookup={isSharedLookup}
+              style={{
+                transform: [{ translateY: Platform.OS === 'android' ? 1 : -3 }],
+              }}
+            />
+            {'\u00A0'}
+            {'\u00A0'}
+            {'\u00A0'}
           </>
         )}
         <Text
