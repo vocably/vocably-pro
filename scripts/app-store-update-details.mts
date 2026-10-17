@@ -5,9 +5,9 @@
 //   ./scripts/update-app-store-details.mts [--dry-run]
 //
 // For every interface language in `details` it sets the name and subtitle on
-// the editable app info, and the description, promotional text and "What's
-// New" on the editable App Store version. Only the fields that differ from
-// App Store Connect are sent.
+// the editable app info, and the description, keywords and promotional text
+// on the editable App Store version. Only the fields that differ from App
+// Store Connect are sent. "What's New" is set by app-store-update-whats-new.mts.
 //
 // Needs an App Store Connect API key with the App Manager or Admin role:
 // APP_STORE_CONNECT_API_KEY_KEY_ID, APP_STORE_CONNECT_API_KEY_ISSUER_ID and
@@ -37,9 +37,6 @@ type Details = {
   keywords: string;
   // Max 170 characters. Can be changed without submitting a new version.
   promo: string;
-  // Max 4000 characters, outro included. Ignored by Apple for the very first
-  // version.
-  whatsNew: string;
 };
 
 const eula =
@@ -78,7 +75,6 @@ Terms of Use (EULA): ${eula}`,
     keywords:
       'translator,english,german,spanish,french,italian,danish,dutch,norwegian,finnish,swedish,korean,greek',
     promo: '',
-    whatsNew: '- Visual tweaks for your aesthetic pleasure.',
   },
   ru: {
     name: 'Vocably: словарь и карточки',
@@ -112,7 +108,6 @@ Terms of Use (EULA): ${eula}`,
     keywords:
       'словарь,переводчик,обучение,английский,немецкий,французский,испанский,итальянский,голландский,слова',
     promo: '',
-    whatsNew: '- Визуальные улучшения для вашего эстетического удовольствия.',
   },
   uk: {
     name: 'Vocably: словник і картки',
@@ -146,7 +141,6 @@ Terms of Use (EULA): ${eula}`,
     keywords:
       'перекладач,англійська,німецька,іспанська,французька,італійська,польська,слова,мови,навчання',
     promo: '',
-    whatsNew: '- Візуальні покращення для вашої естетичної насолоди.',
   },
   es: {
     name: 'Vocably: diccionario y fichas',
@@ -180,7 +174,6 @@ Condiciones de uso (EULA): ${eula}`,
     keywords:
       'traductor,inglés,alemán,francés,italiano,portugués,idiomas,palabras,aprender,tarjetas',
     promo: '',
-    whatsNew: '- Retoques visuales para tu placer estético.',
   },
   pt: {
     name: 'Vocably: dicionário e cartões',
@@ -214,7 +207,6 @@ Termos de Uso (EULA): ${eula}`,
     keywords:
       'tradutor,inglês,espanhol,alemão,francês,italiano,idiomas,palavras,aprender,flashcards',
     promo: '',
-    whatsNew: '- Ajustes visuais para o seu prazer estético.',
   },
   tr: {
     name: 'Vocably: Sözlük ve Kartlar',
@@ -248,7 +240,6 @@ Kullanım Koşulları (EULA): ${eula}`,
     keywords:
       'çevirmen,ingilizce,almanca,ispanyolca,fransızca,italyanca,rusça,dil,öğrenme,flashcard',
     promo: '',
-    whatsNew: '- Estetik zevkiniz için görsel iyileştirmeler.',
   },
   vi: {
     name: 'Vocably: Từ điển & Flashcard',
@@ -282,26 +273,8 @@ Thành thạo một ngôn ngữ nghĩa là sử dụng nó và nhớ từng từ
     keywords:
       'tiếng anh,tiếng hàn,tiếng nhật,tiếng trung,tiếng pháp,tiếng đức,ngoại ngữ,từ mới,phát âm',
     promo: '',
-    whatsNew: '- Tinh chỉnh giao diện để bạn thêm phần thích mắt.',
   },
 };
-
-// Appended to every "What's New".
-const whatsNewOutro: Record<string, string> = {
-  en: 'Vocably is improving, folks!',
-  ru: 'Vocably становится лучше, друзья!',
-  uk: 'Vocably стає кращим, друзі!',
-  es: '¡Vocably sigue mejorando, amigos!',
-  pt: 'O Vocably está melhorando, pessoal!',
-  tr: 'Vocably gelişiyor, arkadaşlar!',
-  vi: 'Vocably đang ngày càng tốt hơn, các bạn ơi!',
-};
-
-for (const [language, fields] of Object.entries(details)) {
-  fields.whatsNew = [fields.whatsNew, whatsNewOutro[language]]
-    .filter(Boolean)
-    .join('\n\n');
-}
 
 // Interface language → App Store localizations it is written to.
 const localeMap: Record<string, string[]> = {
@@ -320,7 +293,6 @@ const limits: Record<keyof Details, number> = {
   description: 4000,
   keywords: 100,
   promo: 170,
-  whatsNew: 4000,
 };
 
 // App Store version states whose metadata can still be edited.
@@ -343,12 +315,8 @@ const dryRun = process.argv.includes('--dry-run');
 
 const problems = Object.entries(details).flatMap(([language, fields]) => [
   ...(localeMap[language] ? [] : [`${language}: no App Store locale`]),
-  ...(whatsNewOutro[language] ? [] : [`${language}: no What's New outro`]),
   ...(Object.keys(limits) as (keyof Details)[])
-    .filter(
-      (field) =>
-        fields[field].trim() === '' && field !== 'whatsNew' && field !== 'promo'
-    )
+    .filter((field) => fields[field].trim() === '' && field !== 'promo')
     .map((field) => `${language}.${field} is empty`),
   ...(Object.entries(limits) as [keyof Details, number][])
     .filter(([field, limit]) => fields[field].length > limit)
@@ -561,14 +529,13 @@ for (const [language, fields] of Object.entries(details)) {
     );
 
     await save(
-      'description, keywords, promo & what’s new',
+      'description, keywords & promo',
       'appStoreVersionLocalizations',
       versionLocalizations.find((l) => l.attributes.locale === locale),
       {
         description: fields.description,
         keywords: fields.keywords,
         promotionalText: fields.promo,
-        ...(fields.whatsNew ? { whatsNew: fields.whatsNew } : {}),
       },
       {
         name: 'appStoreVersion',
