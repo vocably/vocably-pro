@@ -288,6 +288,9 @@ export const es = {
     'no puedes agregar más de {{count}} tarjetas por día',
   'membership_selector.unlimited':
     'puedes agregar todas las tarjetas que quieras',
+  'membership_selector.frequency_indicator': 'Indicador de frecuencia',
+  'membership_selector.limited': 'Limitado',
+  'membership_selector.unlimited_short': 'Ilimitado',
   'membership_selector.social_proof':
     'Vocably es la única herramienta que se enfoca completamente en las necesidades de las personas que aprenden idiomas activamente. Es un producto nuevo, pero ya cientos de personas lo usan para practicar idiomas en el mundo real.',
   'membership_selector.per_month': 'Por mes',

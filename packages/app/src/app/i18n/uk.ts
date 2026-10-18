@@ -285,6 +285,9 @@ export const uk = {
   'membership_selector.cards_per_day':
     'можна додавати не більше {{count}} карток на день',
   'membership_selector.unlimited': 'можна додавати скільки завгодно карток',
+  'membership_selector.frequency_indicator': 'Індикатор частотності',
+  'membership_selector.limited': 'Обмежено',
+  'membership_selector.unlimited_short': 'Без обмежень',
   'membership_selector.social_proof':
     'Vocably — єдиний інструмент, повністю орієнтований на потреби людей, активно вивчаючих мови. Це новий продукт, але вже сотні людей використовують його для практики мови в реальних умовах.',
   'membership_selector.per_month': 'На місяць',

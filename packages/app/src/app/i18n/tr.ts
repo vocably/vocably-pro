@@ -286,6 +286,9 @@ export const tr = {
   'membership_selector.cards_per_day':
     'günde en fazla {{count}} kart ekleyebilirsiniz',
   'membership_selector.unlimited': 'istediğiniz kadar kart ekleyebilirsiniz',
+  'membership_selector.frequency_indicator': 'Sıklık göstergesi',
+  'membership_selector.limited': 'Sınırlı',
+  'membership_selector.unlimited_short': 'Sınırsız',
   'membership_selector.social_proof':
     'Vocably, dil öğrenimini aktif olarak sürdüren insanların ihtiyaçlarına tamamen odaklanan tek araçtır. Yeni bir ürün olmakla birlikte, yüzlerce kişi onu gerçek dünya dil pratiği için kullanıyor.',
   'membership_selector.per_month': 'Aylık',

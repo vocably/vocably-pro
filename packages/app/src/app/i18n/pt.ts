@@ -282,6 +282,9 @@ export const pt = {
   'membership_selector.cards_per_day':
     'você não pode adicionar mais de {{count}} cartões por dia',
   'membership_selector.unlimited': 'você pode adicionar quantos cartões quiser',
+  'membership_selector.frequency_indicator': 'Indicador de frequência',
+  'membership_selector.limited': 'Limitado',
+  'membership_selector.unlimited_short': 'Ilimitado',
   'membership_selector.social_proof':
     'O Vocably é a única ferramenta que se concentra totalmente nas necessidades de pessoas que estão ativamente aprendendo idiomas. É um produto novo, mas centenas de pessoas já o usam para prática de idiomas no mundo real.',
   'membership_selector.per_month': 'Por mês',
