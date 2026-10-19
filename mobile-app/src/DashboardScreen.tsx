@@ -649,6 +649,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                           <IconButton
                             style={{ marginLeft: 'auto', marginVertical: -8 }}
                             icon="school-outline"
+                            size={20}
                             iconColor={theme.colors.primary}
                             onPress={() => {
                               postHog.capture('studyNeverStudied');
@@ -665,6 +666,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                           <IconButton
                             style={{ marginLeft: 'auto', marginVertical: -8 }}
                             icon="school-outline"
+                            size={20}
                             iconColor={theme.colors.primary}
                             onPress={() => {
                               postHog.capture('studyForTomorrow', {
