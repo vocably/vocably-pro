@@ -31,6 +31,7 @@ import { SearchInput, SearchInputRef } from './SearchInput';
 import { mainPadding } from './styles';
 import { Preset } from './TranslationPreset/TranslationPresetContainer';
 import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
+import { Collapsible } from './ui/Collapsible';
 import { ScreenLayout } from './ui/ScreenLayout';
 import { useAnalyzeOperations } from './useAnalyzeOperations';
 import { useCardsLimit } from './useCardsLimit';
@@ -51,7 +52,7 @@ import { useLookUpCount } from './LookUpScreen/useLookUpCount';
 const padding = 16;
 
 // The search hint disappears once the user has made this many look ups.
-const searchHintLookUpLimit = 10;
+const searchHintLookUpLimit = 100;
 
 const hello = [
   'hello',
@@ -400,26 +401,23 @@ export const LookUpScreen: FC<Props> = ({
                   !translationPresetState.preset.translationLanguage
                 }
               />
-              {!isSharedLookUp &&
-                lookUpText === '' &&
-                lookUpCount.count !== undefined &&
-                lookUpCount.count < searchHintLookUpLimit && (
-                  <Animated.View
-                    entering={FadeIn.duration(200)}
-                    exiting={FadeOut.duration(150)}
-                  >
-                    <SearchHint
-                      style={{ marginTop: 12, marginLeft: 8 }}
-                      sourceLanguage={
-                        translationPresetState.preset.sourceLanguage
-                      }
-                      targetLanguage={
-                        translationPresetState.preset.translationLanguage
-                      }
-                      onPress={lookUpExampleWord}
-                    />
-                  </Animated.View>
-                )}
+              <Collapsible
+                visible={
+                  !isSharedLookUp &&
+                  lookUpText === '' &&
+                  lookUpCount.count !== undefined &&
+                  lookUpCount.count < searchHintLookUpLimit
+                }
+              >
+                <SearchHint
+                  style={{ marginTop: 12, marginLeft: 8 }}
+                  sourceLanguage={translationPresetState.preset.sourceLanguage}
+                  targetLanguage={
+                    translationPresetState.preset.translationLanguage
+                  }
+                  onPress={lookUpExampleWord}
+                />
+              </Collapsible>
             </View>
           </Surface>
         }
