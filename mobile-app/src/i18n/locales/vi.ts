@@ -318,6 +318,8 @@ const translations: BaseTranslations = {
     conductingAnalysis: 'Đang phân tích kỹ hơn...',
     selectLanguageLearning: 'Chọn ngôn ngữ bạn đang học.',
     selectMotherTongue: 'Chọn tiếng mẹ đẻ của bạn',
+    searchHintForExample: 'Ví dụ:',
+    searchHintOr: 'hoặc',
   },
   notifications: {
     checking: 'Đang kiểm tra...',

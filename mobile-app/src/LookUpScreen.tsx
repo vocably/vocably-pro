@@ -45,8 +45,13 @@ import {
   consumeLookUpFocusRequest,
   onLookUpFocusRequest,
 } from './LookUpScreen/lookUpFocusRequest';
+import { SearchHint } from './LookUpScreen/SearchHint';
+import { useLookUpCount } from './LookUpScreen/useLookUpCount';
 
 const padding = 16;
+
+// The search hint disappears once the user has made this many look ups.
+const searchHintLookUpLimit = 10;
 
 const hello = [
   'hello',
@@ -117,6 +122,8 @@ export const LookUpScreen: FC<Props> = ({
 
   const posthog = usePostHog();
 
+  const lookUpCount = useLookUpCount();
+
   const cancelThePreviousLookUp = () => {
     if (abortControllerRef.current) {
       abortControllerRef.current?.abort();
@@ -161,10 +168,13 @@ export const LookUpScreen: FC<Props> = ({
 
   const [showHelloMessage, setShowHelloMessage] = useState(false);
 
-  const lookUp = async () => {
+  const lookUp = async (
+    text: string = lookUpText,
+    { isDirect = false }: { isDirect?: boolean } = {}
+  ) => {
     cancelThePreviousLookUp();
 
-    if (!lookUpText) {
+    if (!text) {
       return;
     }
 
@@ -172,7 +182,7 @@ export const LookUpScreen: FC<Props> = ({
       return;
     }
 
-    if (hello.includes(lookUpText.toLowerCase())) {
+    if (hello.includes(text.toLowerCase())) {
       posthog.capture('greetingShowedUp');
       setShowHelloMessage(true);
     }
@@ -185,9 +195,9 @@ export const LookUpScreen: FC<Props> = ({
     });
     // @ts-ignore
     const payload: AnalyzePayload = {
-      [translationPresetState.preset.isReverse && !isModal
+      [translationPresetState.preset.isReverse && !isModal && !isDirect
         ? 'target'
-        : 'source']: lookUpText,
+        : 'source']: text,
       sourceLanguage: translationPresetState.preset
         .sourceLanguage as GoogleLanguage,
       targetLanguage: translationPresetState.preset
@@ -218,6 +228,10 @@ export const LookUpScreen: FC<Props> = ({
     setIsAnalyzingPreset(false);
 
     posthog.capture('lookup', payload);
+
+    if (lookupResult.success) {
+      lookUpCount.increment();
+    }
 
     // Explain
 
@@ -276,6 +290,13 @@ export const LookUpScreen: FC<Props> = ({
   const { onAdd, onRemove, onTagsChange } = useAnalyzeOperations({
     deck,
   });
+
+  const lookUpExampleWord = (word: string) => {
+    setLookUpText(word);
+    // Example words are always looked up as a direct translation,
+    // regardless of the preset direction
+    lookUp(word, { isDirect: true });
+  };
 
   if (translationPresetState.status === 'unknown') {
     return <Loader>{t('lookUp.loadingPreset')}</Loader>;
@@ -379,6 +400,26 @@ export const LookUpScreen: FC<Props> = ({
                   !translationPresetState.preset.translationLanguage
                 }
               />
+              {!isSharedLookUp &&
+                lookUpText === '' &&
+                lookUpCount.count !== undefined &&
+                lookUpCount.count < searchHintLookUpLimit && (
+                  <Animated.View
+                    entering={FadeIn.duration(200)}
+                    exiting={FadeOut.duration(150)}
+                  >
+                    <SearchHint
+                      style={{ marginTop: 12, marginLeft: 8 }}
+                      sourceLanguage={
+                        translationPresetState.preset.sourceLanguage
+                      }
+                      targetLanguage={
+                        translationPresetState.preset.translationLanguage
+                      }
+                      onPress={lookUpExampleWord}
+                    />
+                  </Animated.View>
+                )}
             </View>
           </Surface>
         }

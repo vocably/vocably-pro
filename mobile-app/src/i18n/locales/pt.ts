@@ -327,6 +327,8 @@ const translations: BaseTranslations = {
     conductingAnalysis: 'Fazendo uma análise mais detalhada...',
     selectLanguageLearning: 'Selecione o idioma que você está aprendendo.',
     selectMotherTongue: 'Selecione sua língua materna',
+    searchHintForExample: 'Por exemplo:',
+    searchHintOr: 'ou',
   },
   notifications: {
     checking: 'Verificando...',

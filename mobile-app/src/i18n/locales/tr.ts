@@ -325,6 +325,8 @@ const translations: BaseTranslations = {
     conductingAnalysis: 'Daha ayrıntılı analiz yapılıyor...',
     selectLanguageLearning: 'Öğrendiğin dili seç.',
     selectMotherTongue: 'Anadilini seç',
+    searchHintForExample: 'Örneğin:',
+    searchHintOr: 'veya',
   },
   notifications: {
     checking: 'Kontrol ediliyor...',

@@ -340,6 +340,8 @@ const translations: BaseTranslations = {
     conductingAnalysis: 'Проводжу детальний аналіз...',
     selectLanguageLearning: 'Оберіть мову, яку ви вивчаєте.',
     selectMotherTongue: 'Оберіть вашу рідну мову',
+    searchHintForExample: 'Наприклад:',
+    searchHintOr: 'або',
   },
   notifications: {
     checking: 'Перевіряю...',
