@@ -644,39 +644,38 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                         size={24}
                         color={theme.colors.onBackground}
                       />
-                      {section.section.id === 'notStarted' && (
-                        <IconButton
-                          style={{ marginLeft: 'auto', marginVertical: -8 }}
-                          icon="school-outline"
-                          iconColor={theme.colors.primary}
-                          onPress={() => {
-                            postHog.capture('studyNeverStudied');
-                            navigation.navigate('Study', {
-                              planSection: section.section.id,
-                            });
-                          }}
-                        />
-                      )}
-                      {section.section.id === 'tomorrow' && (
-                        <IconButton
-                          style={{ marginLeft: 'auto', marginVertical: -8 }}
-                          icon="school-outline"
-                          iconColor={theme.colors.primary}
-                          disabled={
-                            section.section.all.filter(
-                              hasStudied(now.getTime())
-                            ).length === 0
-                          }
-                          onPress={() => {
-                            postHog.capture('studyForTomorrow', {
-                              items: section.section.all.length,
-                            });
-                            navigation.navigate('Study', {
-                              planSection: section.section.id,
-                            });
-                          }}
-                        />
-                      )}
+                      {sections.length > 1 &&
+                        section.section.id === 'notStarted' && (
+                          <IconButton
+                            style={{ marginLeft: 'auto', marginVertical: -8 }}
+                            icon="school-outline"
+                            iconColor={theme.colors.primary}
+                            onPress={() => {
+                              postHog.capture('studyNeverStudied');
+                              navigation.navigate('Study', {
+                                planSection: section.section.id,
+                              });
+                            }}
+                          />
+                        )}
+                      {sections.length > 1 &&
+                        section.section.id === 'tomorrow' &&
+                        section.section.all.filter(hasStudied(now.getTime()))
+                          .length > 0 && (
+                          <IconButton
+                            style={{ marginLeft: 'auto', marginVertical: -8 }}
+                            icon="school-outline"
+                            iconColor={theme.colors.primary}
+                            onPress={() => {
+                              postHog.capture('studyForTomorrow', {
+                                items: section.section.all.length,
+                              });
+                              navigation.navigate('Study', {
+                                planSection: section.section.id,
+                              });
+                            }}
+                          />
+                        )}
                     </View>
                   </TouchableRipple>
                 </>
