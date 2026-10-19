@@ -165,6 +165,7 @@ export const SettingsScreen: FC<Props> = ({ navigation }) => {
               title={t('settings.createAccount')}
               onPress={onCreateAccount}
               leftIcon="plus"
+              rightIcon=""
             />
             <Divider />
           </>
