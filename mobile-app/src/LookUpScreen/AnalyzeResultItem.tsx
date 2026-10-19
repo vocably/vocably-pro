@@ -107,7 +107,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
       >
         <CardListItem
           card={item.card}
-          style={{ flex: 1, paddingVertical: 16 }}
+          style={{ flex: 1, paddingTop: 12, paddingBottom: 16 }}
           showExamples={true}
           savingTagsInProgress={isSavingTags}
           onTagsChange={onTagsChange}
@@ -120,7 +120,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
         {!hideOperations && (
           <View
             style={{
-              marginTop: Platform.OS === 'android' ? 17 : 19,
+              marginTop: Platform.OS === 'android' ? 13 : 15,
               // To prevent jumping
               height: 90,
             }}

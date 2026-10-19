@@ -695,7 +695,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                   justifyContent: 'center',
                   paddingHorizontal: mainPadding,
                   paddingBottom: 16,
-                  paddingTop: 16,
+                  paddingTop: 12,
                 }}
               >
                 <CardListItem
