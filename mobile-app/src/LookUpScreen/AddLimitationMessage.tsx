@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Linking, View } from 'react-native';
 import { Button, Dialog, Portal, Text, useTheme } from 'react-native-paper';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { mainPadding } from '../styles';
 import { usePresentPaywall } from '../usePresentPaywall';
 
@@ -94,7 +95,13 @@ export const AddLimitationMessage: FC<Props> = ({
             }}
           />
         </Text>
-        <Button mode="contained" onPress={upgradeClick}>
+        <Button
+          mode="contained"
+          onPress={upgradeClick}
+          icon={({ size, color }) => (
+            <MaterialIcon name="workspace-premium" size={size} color={color} />
+          )}
+        >
           {t('cardsLimit.upgradeToPremium')}
         </Button>
       </View>

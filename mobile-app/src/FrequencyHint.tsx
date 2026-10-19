@@ -18,6 +18,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { mainPadding } from './styles';
 import { usePremium } from './usePremium';
 import { usePresentPaywall } from './usePresentPaywall';
@@ -305,6 +306,13 @@ export const FrequencyHint: FC<Props> = ({
                   <Button
                     mode="contained"
                     onPress={upgrade}
+                    icon={({ size, color }) => (
+                      <MaterialIcon
+                        name="workspace-premium"
+                        size={size}
+                        color={color}
+                      />
+                    )}
                     style={styles.action}
                   >
                     {t('cardsLimit.upgradeToPremium')}
