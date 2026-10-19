@@ -167,18 +167,46 @@ export const LoginModal: FC<Props> = ({ route }) => {
         paddingBottom: insets.bottom + mainPadding,
       }}
     >
-      <View style={{ width: '90%', gap: 8, marginBottom: 32, marginTop: 32 }}>
-        <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
+      <View
+        style={{
+          width: '90%',
+          gap: 8,
+          marginBottom: 32,
+          marginTop: 32,
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: 12,
+            alignItems: 'center',
+            paddingRight: 24,
+          }}
+        >
           <Icon name="cloud-outline" size={24} color={listColor} />
           <Text style={textStyle}>{t('loginModal.syncAcrossDevices')}</Text>
         </View>
         <Divider />
-        <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: 12,
+            alignItems: 'center',
+            paddingRight: 24,
+          }}
+        >
           <Icon name="puzzle-outline" size={24} color={listColor} />
           <Text style={textStyle}>{t('loginModal.useBrowserExtensions')}</Text>
         </View>
         <Divider />
-        <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: 12,
+            alignItems: 'center',
+            paddingRight: 24,
+          }}
+        >
           <Icon name="file-delimited-outline" size={24} color={listColor} />
           <Text style={textStyle}>{t('loginModal.importExportCsv')}</Text>
         </View>
