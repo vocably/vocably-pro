@@ -437,6 +437,14 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                     fontSize: 18,
                   }}
                   mode={'contained'}
+                  icon={({ color }) => (
+                    <Icon
+                      name="school-outline"
+                      size={20}
+                      color={color}
+                      style={{ transform: [{ translateY: -1 }] }}
+                    />
+                  )}
                   onPress={() => navigation.navigate('Study')}
                   disabled={cards.length === 0}
                 >
