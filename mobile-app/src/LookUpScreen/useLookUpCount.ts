@@ -1,15 +1,13 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { getItem, setItem } from '../asyncAppStorage';
 
 const LOOK_UP_COUNT_KEY = 'lookUpCount';
 
 const getLookUpCount = () =>
-  AsyncStorage.getItem(LOOK_UP_COUNT_KEY).then(
-    (value) => parseInt(value ?? '0', 10) || 0
-  );
+  getItem(LOOK_UP_COUNT_KEY).then((value) => parseInt(value ?? '0', 10) || 0);
 
 const storeLookUpCount = (count: number) =>
-  AsyncStorage.setItem(LOOK_UP_COUNT_KEY, count.toString());
+  setItem(LOOK_UP_COUNT_KEY, count.toString());
 
 /**
  * `count` is undefined until the stored value is loaded.
