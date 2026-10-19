@@ -1,6 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard';
 import React, {
   forwardRef,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -40,6 +41,37 @@ export const SearchInput = forwardRef<SearchInputRef, Props>(
     const [clipboardHasText, setClipboardHasText] = useState(false);
     const theme = useAppTheme();
     const inputRef = useRef<TextInput>(null);
+
+    // The input is uncontrolled: passing `value` to TextInput makes RN push
+    // text back to the native view on every change, which breaks iOS dictation.
+    // `textRef` mirrors the native text, `text` drives the buttons.
+    const textRef = useRef(value);
+    const [text, setText] = useState(value);
+    // Bumping the key remounts TextInput so it picks up a new defaultValue.
+    const [inputKey, setInputKey] = useState(0);
+    const [autoFocus, setAutoFocus] = useState(false);
+
+    const updateText = (newText: string) => {
+      textRef.current = newText;
+      setText(newText);
+    };
+
+    const replaceNativeText = (newText: string) => {
+      updateText(newText);
+      setAutoFocus(inputRef.current?.isFocused() ?? false);
+      setInputKey((key) => key + 1);
+    };
+
+    useEffect(() => {
+      if (value !== textRef.current) {
+        replaceNativeText(value);
+      }
+    }, [value]);
+
+    const handleChangeText = (newText: string) => {
+      updateText(newText);
+      onChange(newText);
+    };
 
     const focusAnimation = useRef(new Animated.Value(0)).current;
 
@@ -83,10 +115,11 @@ export const SearchInput = forwardRef<SearchInputRef, Props>(
 
     const setTextFromClipboard = async () => {
       const clipboardText = await Clipboard.getString();
+      replaceNativeText(clipboardText);
       onChange(clipboardText);
     };
 
-    const isSearchDisabled = value === '';
+    const isSearchDisabled = text === '';
     return (
       <Animated.View
         style={{
@@ -101,7 +134,9 @@ export const SearchInput = forwardRef<SearchInputRef, Props>(
         }}
       >
         <TextInput
+          key={inputKey}
           ref={inputRef}
+          autoFocus={autoFocus}
           style={{
             flex: 1,
             color: theme.colors.secondary,
@@ -119,15 +154,15 @@ export const SearchInput = forwardRef<SearchInputRef, Props>(
           onBlur={() => {
             handleBlur();
           }}
-          value={value}
+          defaultValue={textRef.current}
           autoCapitalize={'none'}
-          onChangeText={onChange}
+          onChangeText={handleChangeText}
           placeholder={placeholder}
           placeholderTextColor={theme.colors.tertiary}
           returnKeyType={'search'}
-          onSubmitEditing={() => onSubmit(value)}
+          onSubmitEditing={() => onSubmit(textRef.current)}
         />
-        {pasteFromClipboard && !value && clipboardHasText && (
+        {pasteFromClipboard && !text && clipboardHasText && (
           <IconButton
             icon={'content-paste'}
             mode="contained"
@@ -137,13 +172,14 @@ export const SearchInput = forwardRef<SearchInputRef, Props>(
             size={20}
           />
         )}
-        {value && (
+        {text !== '' && (
           <IconButton
             icon={'close-circle'}
             mode="contained"
             iconColor={theme.colors.inputIconColor}
             onPress={() => {
-              onChange('');
+              inputRef.current?.clear();
+              handleChangeText('');
               inputRef.current?.focus();
             }}
             style={{ backgroundColor: 'transparent' }}
@@ -159,7 +195,7 @@ export const SearchInput = forwardRef<SearchInputRef, Props>(
           }}
           onPress={() => {
             if (!isSearchDisabled) {
-              onSubmit(value);
+              onSubmit(textRef.current);
             } else {
               inputRef.current?.focus();
             }
