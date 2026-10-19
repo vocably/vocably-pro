@@ -432,7 +432,7 @@ export const LookUpScreen: FC<Props> = ({
                     />
 
                     <Button
-                      icon={'robot-outline'}
+                      icon={'palette-swatch-outline'}
                       textColor={theme.colors.onBackground}
                       style={{
                         borderColor: theme.colors.onBackground,
@@ -488,7 +488,7 @@ export const LookUpScreen: FC<Props> = ({
                     {t('lookUp.lookingForCollections')}
                   </Text>
                   <Button
-                    icon={'robot-outline'}
+                    icon={'palette-swatch-outline'}
                     textColor={theme.colors.onBackground}
                     style={{
                       borderColor: theme.colors.onBackground,

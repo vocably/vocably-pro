@@ -903,7 +903,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                       />
                       <Divider />
                       <ListItem
-                        leftIcon="robot-outline"
+                        leftIcon="palette-swatch-outline"
                         order="last"
                         title={t('dashboard.empty.goToGenerator')}
                         onPress={() => {
