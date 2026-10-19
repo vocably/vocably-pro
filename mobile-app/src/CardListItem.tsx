@@ -5,12 +5,12 @@ import { StyleProp, View, ViewStyle } from 'react-native';
 import {
   ActivityIndicator,
   Chip,
-  Divider,
   Portal,
   Snackbar,
   Text,
   useTheme,
 } from 'react-native-paper';
+import { Divider } from './ui/Divider';
 import { CardDefinition } from './CardDefinition';
 import { CardExample } from './CardExample';
 import { CardListItemHeader } from './CardListItemHeader';

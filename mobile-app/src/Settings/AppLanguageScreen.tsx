@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Divider } from 'react-native-paper';
+import { Divider } from '../ui/Divider';
 import { i18n } from '../i18n';
 import { setAppLocaleOverride } from '../i18n/storage';
 import { SUPPORTED_LOCALES, SupportedLocale } from '../i18n/supportedLocales';

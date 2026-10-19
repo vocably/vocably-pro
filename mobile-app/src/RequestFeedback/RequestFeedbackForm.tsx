@@ -3,7 +3,8 @@ import { RateInteractionPayload } from '@vocably/model';
 import React, { FC } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Button, Divider, Text, useTheme } from 'react-native-paper';
+import { Button, Text, useTheme } from 'react-native-paper';
+import { Divider } from '../ui/Divider';
 import { mobileStoreName } from '../mobilePlatform';
 
 export type Props = {

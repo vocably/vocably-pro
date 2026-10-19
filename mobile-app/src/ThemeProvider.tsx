@@ -20,6 +20,7 @@ export type AppTheme = MD3Theme & {
     transparentSurface: string;
     primaryVariant: string;
     aboveElevation: string;
+    divider: string;
   };
 };
 
@@ -54,6 +55,7 @@ export const lightTheme: AppTheme = {
     surfaceVariant: 'rgb(251, 251, 251)',
     inversePrimary: 'rgba(0, 80, 255, 0.1)',
     aboveElevation: 'rgb(255, 255, 255)',
+    divider: 'rgb(170, 170, 170)',
     elevation: {
       level0: 'rgb(255, 255, 255)',
       level1: 'rgb(252, 252, 252)',
@@ -95,6 +97,7 @@ const darkTheme: AppTheme = {
     surfaceVariant: 'rgb(59, 59, 59)',
     inversePrimary: 'rgba(40, 165, 255, 0.1)',
     aboveElevation: 'rgb(75, 75, 75)',
+    divider: 'rgb(107, 106, 106)',
     elevation: {
       level0: 'rgb(37, 37, 37)',
       level1: 'rgb(50, 50, 50)',

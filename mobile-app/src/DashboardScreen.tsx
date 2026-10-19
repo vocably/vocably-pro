@@ -27,13 +27,13 @@ import {
   Appbar,
   Button,
   Chip,
-  Divider,
   IconButton,
   Surface,
   Text,
   TouchableRipple,
   useTheme,
 } from 'react-native-paper';
+import { Divider } from './ui/Divider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

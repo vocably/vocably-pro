@@ -3,13 +3,8 @@ import { getFullLanguageName } from '@vocably/model';
 import { FC, useContext, useState } from 'react';
 import { PixelRatio, StyleProp, View, ViewStyle } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import {
-  Divider,
-  Menu,
-  Text,
-  TouchableRipple,
-  useTheme,
-} from 'react-native-paper';
+import { Menu, Text, TouchableRipple, useTheme } from 'react-native-paper';
+import { Divider } from './ui/Divider';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LanguagesContext } from './languages/LanguagesContainer';
 import { popularLanguages } from './SourceLanguageButton';

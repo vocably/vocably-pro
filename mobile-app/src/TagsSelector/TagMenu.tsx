@@ -13,13 +13,13 @@ import {
   ActivityIndicator,
   Button,
   Dialog,
-  Divider,
   Menu,
   Portal,
   Text,
   TouchableRipple,
   useTheme,
 } from 'react-native-paper';
+import { Divider } from '../ui/Divider';
 import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { swipeListButtonPressOpacity } from '../stupidConstants';
