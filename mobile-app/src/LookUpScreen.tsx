@@ -52,7 +52,7 @@ import { useLookUpCount } from './LookUpScreen/useLookUpCount';
 const padding = 16;
 
 // The search hint disappears once the user has made this many look ups.
-const searchHintLookUpLimit = 100;
+const searchHintLookUpLimit = 10;
 
 const hello = [
   'hello',
