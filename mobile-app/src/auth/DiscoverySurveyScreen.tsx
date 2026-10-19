@@ -179,7 +179,7 @@ export const DiscoverySurveyScreen: FC<Props> = ({ route }) => {
                   fontSize: 18,
                   color: theme.colors.onBackground,
                 }}
-                placeholderTextColor={theme.colors.tertiary}
+                placeholderTextColor={theme.colors.inputPlaceholderColor}
               />
             </View>
             <Button mode="elevated" elevation={1} onPress={onNext}>

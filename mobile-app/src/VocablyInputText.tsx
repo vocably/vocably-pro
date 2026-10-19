@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { PixelRatio, TextInput, View } from 'react-native';
-import { useTheme } from 'react-native-paper';
+import { useAppTheme } from './ThemeProvider';
 
 type Props = {
   value?: string;
@@ -19,7 +19,7 @@ export const VocablyInputText: FC<Props> = ({
 }) => {
   const [value, setValue] = useState(initialValue);
   const [isFocused, setIsFocused] = useState(false);
-  const theme = useTheme();
+  const theme = useAppTheme();
 
   const submit = () => {
     onSubmit && onSubmit(value);
@@ -55,6 +55,7 @@ export const VocablyInputText: FC<Props> = ({
           fontSize: 18,
         }}
         placeholder={placeholder}
+        placeholderTextColor={theme.colors.inputPlaceholderColor}
         autoFocus={autoFocus}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}

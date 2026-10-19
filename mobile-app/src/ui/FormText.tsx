@@ -87,7 +87,7 @@ export const FormText: FC<Props> = ({
             },
             inputStyle,
           ]}
-          placeholderTextColor={theme.colors.tertiary}
+          placeholderTextColor={theme.colors.inputPlaceholderColor}
           {...textInputProps}
           onFocus={onFocusReloaded}
           onBlur={onBlurReloaded}

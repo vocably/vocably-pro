@@ -16,6 +16,7 @@ export type AppTheme = MD3Theme & {
     inputBg: string;
     inputBgFocused: string;
     inputIconColor: string;
+    inputPlaceholderColor: string;
     transparentSurface: string;
     primaryVariant: string;
     aboveElevation: string;
@@ -33,9 +34,10 @@ export const lightTheme: AppTheme = {
     surface: 'rgb(255, 255, 255)',
     transparentSurface: 'rgba(255, 255, 255, 0)',
     onSurface: 'rgb(106, 106, 106)',
-    inputBg: 'rgba(106, 106, 106, 0.05)',
-    inputBgFocused: 'rgba(106, 106, 106, 0.14)',
+    inputBg: 'rgba(106, 106, 106, 0.1)',
+    inputBgFocused: 'rgba(106, 106, 106, 0.18)',
     inputIconColor: 'rgba(106, 106, 106, 0.6)',
+    inputPlaceholderColor: 'rgb(170, 170, 170)',
     primary: 'rgb(0, 80, 255)',
     primaryVariant: 'rgb(66, 24, 178)',
     onPrimary: 'rgb(255, 255, 255)',
@@ -76,6 +78,7 @@ const darkTheme: AppTheme = {
     inputBg: 'rgba(186, 186, 186, 0.1)',
     inputBgFocused: 'rgba(186, 186, 186, 0.2)',
     inputIconColor: 'rgba(255, 255, 255, 0.5)',
+    inputPlaceholderColor: 'rgb(111, 108, 108)',
     primary: 'rgb(40, 165, 255)',
     primaryVariant: 'rgb(1,95,165)',
     onPrimary: 'rgb(255, 255, 255)',

@@ -204,7 +204,7 @@ export const ChatTextInput = forwardRef<ChatTextInputRef, Props>(
             autoCapitalize={'none'}
             onChangeText={handleChangeText}
             placeholder={placeholder}
-            placeholderTextColor={theme.colors.tertiary}
+            placeholderTextColor={theme.colors.inputPlaceholderColor}
             returnKeyType={'search'}
             onSubmitEditing={() => onSubmit(valueRef.current)}
             autoFocus={autoFocus}

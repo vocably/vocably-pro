@@ -158,7 +158,7 @@ export const SearchInput = forwardRef<SearchInputRef, Props>(
           autoCapitalize={'none'}
           onChangeText={handleChangeText}
           placeholder={placeholder}
-          placeholderTextColor={theme.colors.tertiary}
+          placeholderTextColor={theme.colors.inputPlaceholderColor}
           returnKeyType={'search'}
           onSubmitEditing={() => onSubmit(textRef.current)}
         />
