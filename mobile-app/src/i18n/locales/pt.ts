@@ -202,11 +202,9 @@ const translations: BaseTranslations = {
   dashboard: {
     loadingCards: 'Carregando cartões...',
     study: 'Estudar',
-    studySection: 'Estudar',
     studySelectedTags: 'Estudar',
     tagsLabel: 'Tags:',
     cardsWithNoTags: 'Cartões sem tags',
-    cantWait: 'Estudar agora',
     deleteCardFailedTitle: 'Erro: falha ao excluir o cartão',
     deleteCardFailedMessage:
       'Opa! Algo deu errado ao tentar excluir o cartão. Tente novamente mais tarde.',

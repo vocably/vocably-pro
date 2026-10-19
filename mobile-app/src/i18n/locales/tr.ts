@@ -202,11 +202,9 @@ const translations: BaseTranslations = {
   dashboard: {
     loadingCards: 'Kartlar yükleniyor...',
     study: 'Çalış',
-    studySection: 'Çalış',
     studySelectedTags: 'Çalış',
     tagsLabel: 'Etiketler:',
     cardsWithNoTags: 'Etiketsiz kartlar',
-    cantWait: 'Şimdi çalış',
     deleteCardFailedTitle: 'Hata: Kart silinemedi',
     deleteCardFailedMessage:
       'Hay aksi! Kart silinmeye çalışılırken bir şeyler ters gitti. Lütfen daha sonra tekrar dene.',

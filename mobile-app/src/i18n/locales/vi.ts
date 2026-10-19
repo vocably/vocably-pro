@@ -196,11 +196,9 @@ const translations: BaseTranslations = {
   dashboard: {
     loadingCards: 'Đang tải thẻ...',
     study: 'Học',
-    studySection: 'Học',
     studySelectedTags: 'Học',
     tagsLabel: 'Tag:',
     cardsWithNoTags: 'Thẻ không có tag',
-    cantWait: 'Học ngay',
     deleteCardFailedTitle: 'Lỗi: không thể xóa thẻ',
     deleteCardFailedMessage:
       'Rất tiếc! Đã có lỗi xảy ra khi xóa thẻ. Vui lòng thử lại sau.',

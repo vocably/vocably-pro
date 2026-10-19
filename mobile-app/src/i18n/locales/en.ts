@@ -201,11 +201,9 @@ const translations = {
   dashboard: {
     loadingCards: 'Loading cards...',
     study: 'Study',
-    studySection: 'Study',
     studySelectedTags: 'Study selected tags',
     tagsLabel: 'Tags:',
     cardsWithNoTags: 'Cards with no tags',
-    cantWait: 'Study now',
     deleteCardFailedTitle: 'Error: Card deletion failed',
     deleteCardFailedMessage:
       'Oops! Something went wrong while attempting to delete the card. Please try again later.',

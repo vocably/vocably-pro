@@ -211,11 +211,9 @@ const translations: BaseTranslations = {
   dashboard: {
     loadingCards: 'Завантажую картки...',
     study: 'Навчання',
-    studySection: 'Вчити',
     studySelectedTags: 'Навчання',
     tagsLabel: 'Теги:',
     cardsWithNoTags: 'Картки без тегів',
-    cantWait: 'Вчити зараз',
     deleteCardFailedTitle: 'Помилка: не вдалося видалити картку',
     deleteCardFailedMessage:
       'Ой! Щось пішло не так під час видалення картки. Спробуйте пізніше.',

@@ -28,6 +28,7 @@ import {
   Button,
   Chip,
   Divider,
+  IconButton,
   Surface,
   Text,
   TouchableRipple,
@@ -644,29 +645,23 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                         color={theme.colors.onBackground}
                       />
                       {section.section.id === 'notStarted' && (
-                        <Button
-                          style={{ marginLeft: 'auto' }}
-                          labelStyle={{
-                            fontSize: 14 * fontSizeMultiplier,
-                          }}
-                          compact={true}
+                        <IconButton
+                          style={{ marginLeft: 'auto', marginVertical: -8 }}
+                          icon="school-outline"
+                          iconColor={theme.colors.primary}
                           onPress={() => {
                             postHog.capture('studyNeverStudied');
                             navigation.navigate('Study', {
                               planSection: section.section.id,
                             });
                           }}
-                        >
-                          {t('dashboard.studySection')}
-                        </Button>
+                        />
                       )}
                       {section.section.id === 'tomorrow' && (
-                        <Button
-                          style={{ marginLeft: 'auto' }}
-                          labelStyle={{
-                            fontSize: 14 * fontSizeMultiplier,
-                          }}
-                          compact={true}
+                        <IconButton
+                          style={{ marginLeft: 'auto', marginVertical: -8 }}
+                          icon="school-outline"
+                          iconColor={theme.colors.primary}
                           disabled={
                             section.section.all.filter(
                               hasStudied(now.getTime())
@@ -680,9 +675,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                               planSection: section.section.id,
                             });
                           }}
-                        >
-                          {t('dashboard.cantWait')}
-                        </Button>
+                        />
                       )}
                     </View>
                   </TouchableRipple>

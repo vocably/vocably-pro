@@ -212,11 +212,9 @@ const translations: BaseTranslations = {
   dashboard: {
     loadingCards: 'Загружаю карточки...',
     study: 'Обучение',
-    studySection: 'Изучать',
     studySelectedTags: 'Обучение',
     tagsLabel: 'Теги:',
     cardsWithNoTags: 'Карточки без тегов',
-    cantWait: 'Изучать сейчас',
     deleteCardFailedTitle: 'Ошибка: не удалось удалить карточку',
     deleteCardFailedMessage:
       'Что-то пошло не так при попытке удалить карточку. Попробуйте ещё раз.',
