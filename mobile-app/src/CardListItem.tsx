@@ -24,7 +24,7 @@ type Props = {
   savingTagsInProgress?: boolean;
   onTagsChange?: (tags: TagItem[]) => Promise<any>;
   allowCopy?: boolean;
-  aiButton?: 'dimmed' | 'bright' | 'none';
+  aiButton?: 'dimmed' | 'none';
   disabledModalLookup?: boolean;
   hideDefinitions?: boolean;
   showFrequency?: boolean;
