@@ -2200,8 +2200,6 @@ PODS:
   - RNPurchases (10.9.1):
     - PurchasesHybridCommon (= 18.37.0)
     - React-Core
-  - RNReactNativeSharedGroupPreferences (1.1.24):
-    - React
   - RNReanimated (4.3.1):
     - hermes-engine
     - RCTRequired
@@ -2609,7 +2607,6 @@ DEPENDENCIES:
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNPaywalls (from `../node_modules/react-native-purchases-ui`)
   - RNPurchases (from `../node_modules/react-native-purchases`)
-  - RNReactNativeSharedGroupPreferences (from `../node_modules/react-native-shared-group-preferences`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - "RNSentry (from `../node_modules/@sentry/react-native`)"
@@ -2823,8 +2820,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-purchases-ui"
   RNPurchases:
     :path: "../node_modules/react-native-purchases"
-  RNReactNativeSharedGroupPreferences:
-    :path: "../node_modules/react-native-shared-group-preferences"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -2947,7 +2942,6 @@ SPEC CHECKSUMS:
   RNLocalize: fa9d5dd7dec63e4956c0faf118ac3ff941ba84b2
   RNPaywalls: 660b29b1fb64fd90776a21b4005631d43e2e3e9c
   RNPurchases: 2575285384b5e4705a0aca11dfd0791c8484f216
-  RNReactNativeSharedGroupPreferences: d4869af3c7757405b6b5ac633d0ef5f9886a9be7
   RNReanimated: f735b1747a7a93bda7ca102c6d37a3cf54b6d5e8
   RNScreens: 991cc417cd396602a6cf59a42139e5a9d91462a9
   RNSentry: 75c4d13ce357c077976a57a84eacdaf72d859963
