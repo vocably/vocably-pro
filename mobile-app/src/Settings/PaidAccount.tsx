@@ -4,6 +4,7 @@ import { Linking, StyleProp, View, ViewStyle } from 'react-native';
 import { Trans, useTranslation } from 'react-i18next';
 import { Button, Dialog, Portal, Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { mobileStoreName, mobileStoreUrl } from '../mobilePlatform';
 
 type Props = {
@@ -29,8 +30,8 @@ export const PaidAccount: FC<Props> = ({ style }) => {
             flexWrap: 'wrap',
           }}
         >
-          <Icon
-            name={'crown-outline'}
+          <MaterialIcon
+            name={'workspace-premium'}
             size={24}
             color={theme.colors.onSurface}
           />

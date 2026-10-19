@@ -40,6 +40,7 @@ import { useStreakHasBeenShown } from './useStreakHasBeenShown';
 import { useTranslationLanguage } from './useTranslationLanguage';
 import { usePremium } from '../usePremium';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { usePresentPaywall } from '../usePresentPaywall';
 
 const srsFieldsObject: Record<keyof SrsItem, true> = {
@@ -494,8 +495,8 @@ export const StudyScreen: Props = ({ route, navigation }) => {
                       justifyContent: 'center',
                     }}
                   >
-                    <Icon
-                      name="crown-outline"
+                    <MaterialIcon
+                      name="workspace-premium"
                       size={12}
                       color={theme.colors.primary}
                       style={{

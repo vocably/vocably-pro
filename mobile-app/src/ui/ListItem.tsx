@@ -2,10 +2,12 @@ import { FC, useState } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { Text, TouchableRipple, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
   leftIcon?: string;
+  leftIconSet?: 'material-community' | 'material';
   title: string;
   rightIcon?: string;
   color?: string;
@@ -21,6 +23,7 @@ const RIGHT_ICON_WIDTH = 48;
 export const ListItem: FC<Props> = ({
   style,
   leftIcon,
+  leftIconSet = 'material-community',
   rightIcon = 'menu-right',
   color,
   onPress,
@@ -29,6 +32,7 @@ export const ListItem: FC<Props> = ({
   order = 'single',
 }) => {
   const theme = useTheme();
+  const LeftIcon = leftIconSet === 'material' ? MaterialIcon : Icon;
   const [itemWidth, setItemWidth] = useState(0);
 
   return (
@@ -69,7 +73,7 @@ export const ListItem: FC<Props> = ({
               width: LEFT_ICON_WIDTH,
             }}
           >
-            <Icon
+            <LeftIcon
               name={leftIcon}
               size={24}
               color={color ?? theme.colors.onBackground}

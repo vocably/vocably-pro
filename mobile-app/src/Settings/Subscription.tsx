@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from 'react-native-paper';
 import { CustomerInfo } from 'react-native-purchases';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { AuthContext } from '../auth/AuthContainer';
 import { CustomerInfoContext } from '../CustomerInfoContainer';
 import { InlineLoader } from '../loaders/InlineLoader';
@@ -64,8 +65,8 @@ export const Subscription: FC<Props> = ({
                   alignItems: 'center',
                 }}
               >
-                <Icon
-                  name={'crown-outline'}
+                <MaterialIcon
+                  name={'workspace-premium'}
                   size={24}
                   color={theme.colors.onSurface}
                 />
@@ -80,7 +81,8 @@ export const Subscription: FC<Props> = ({
           {!isPremium(customerInfoStatus.customerInformation) && (
             <ListItem
               order={isInGroup ? 'last' : 'single'}
-              leftIcon="crown-outline"
+              leftIcon="workspace-premium"
+              leftIconSet="material"
               rightIcon=""
               title={t('subscription.goPremium')}
               onPress={() => presentPaywall('mobile-premium')}

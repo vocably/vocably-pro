@@ -12,6 +12,7 @@ import Sortable, {
   SortableGridRenderItem,
 } from 'react-native-sortables';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { ImmediateStep } from '../../../packages/srs/src/craftTheStrategy';
 import { getMultiChoice } from '../../../packages/srs/src/getMultiChoice';
 import { isSuitableForArrangingByLetters } from '../../../packages/srs/src/isSuitableForArrangingByLetters';
@@ -275,8 +276,8 @@ export const StudySteps: FC<Props> = ({ style, scrollableRef }) => {
                       }}
                       onPress={() => presentPaywall()}
                     >
-                      <Icon
-                        name="crown"
+                      <MaterialIcon
+                        name="workspace-premium"
                         color={theme.colors.primary}
                         size={16}
                       />
