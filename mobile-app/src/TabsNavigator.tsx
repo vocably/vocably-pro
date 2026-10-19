@@ -8,7 +8,7 @@ import { DeckStack } from './DeckStack';
 import { LookUpScreen } from './LookUpScreen';
 import { requestLookUpFocus } from './LookUpScreen/lookUpFocusRequest';
 import { SettingsStack } from './Settings/SettingsStack';
-import { TipsStack } from './Tips/TipsStack';
+import { ToolsStack } from './Tools/ToolsStack';
 import { useWelcomeRequired } from './useWelcomeRequired';
 import { usePostHog } from 'posthog-react-native';
 import { getAll } from './asyncAppStorage';
@@ -100,13 +100,13 @@ export const TabsNavigator: FC<Props> = ({ navigation }) => {
           }}
         />
         <Tabs.Screen
-          name="Tips"
-          component={TipsStack}
+          name="Tools"
+          component={ToolsStack}
           options={{
             headerShown: false,
-            title: t('nav.tips'),
+            title: t('nav.tools'),
             tabBarIcon: ({ color }) => (
-              <Icon name="information-outline" color={color} size={24} />
+              <Icon name="toolbox-outline" color={color} size={24} />
             ),
           }}
         />

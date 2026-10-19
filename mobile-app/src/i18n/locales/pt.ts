@@ -32,7 +32,7 @@ const translations: BaseTranslations = {
   nav: {
     myCards: 'Meus cartões',
     lookUp: 'Dicionário',
-    tips: 'Dicas',
+    tools: 'Ferramentas',
     settings: 'Configurações',
     studySettings: 'Configurações de estudo',
     editCard: 'Editar cartão',
@@ -620,6 +620,8 @@ const translations: BaseTranslations = {
   },
   tips: {
     menu: {
+      aiCardGenerator: 'Gerador de cartões com IA',
+      tipsHeader: 'Dicas',
       editCards: 'Editar cartões',
       groupCards: 'Agrupar cartões (em pastas)',
       importExportCsv: 'Importar e exportar CSV',
@@ -630,8 +632,7 @@ const translations: BaseTranslations = {
         'Traduza qualquer palavra em qualquer site com a extensão do Vocably para iOS Safari.',
       desktopExtension:
         'Usa Chrome ou Safari no computador? Experimente a extensão do Vocably.',
-      grammarChecker:
-        'Experimente a nova ferramenta de verificação gramatical. Ela não só corrigirá seus erros, mas também explicará o porquê.',
+      grammarChecker: 'Verificador gramatical',
       provideFeedback: 'Enviar feedback',
       feedbackBody:
         'Está faltando alguma funcionalidade importante ou só quer compartilhar sua opinião sobre o Vocably? Ficarei feliz em ouvir você.',

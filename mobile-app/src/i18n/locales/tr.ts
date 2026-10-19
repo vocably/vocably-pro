@@ -32,7 +32,7 @@ const translations: BaseTranslations = {
   nav: {
     myCards: 'Kartlarım',
     lookUp: 'Sözlük',
-    tips: 'İpuçları',
+    tools: 'Araçlar',
     settings: 'Ayarlar',
     studySettings: 'Çalışma ayarları',
     editCard: 'Kartı düzenle',
@@ -618,6 +618,8 @@ const translations: BaseTranslations = {
   },
   tips: {
     menu: {
+      aiCardGenerator: 'AI kart oluşturucu',
+      tipsHeader: 'İpuçları',
       editCards: 'Kartları düzenle',
       groupCards: 'Kartları grupla (klasörlerde)',
       importExportCsv: 'CSV içe ve dışa aktar',
@@ -628,8 +630,7 @@ const translations: BaseTranslations = {
         'Vocably iOS Safari uzantısıyla herhangi bir web sitesinde herhangi bir kelimeyi çevir.',
       desktopExtension:
         'Bilgisayarında Chrome veya Safari mi kullanıyorsun? Vocably uzantısını dene.',
-      grammarChecker:
-        'Yeni dilbilgisi denetleyici aracını dene. Yalnızca hatalarını düzeltmekle kalmaz, nedenini de açıklar.',
+      grammarChecker: 'Dilbilgisi denetleyici',
       provideFeedback: 'Geri bildirim gönder',
       feedbackBody:
         'Önemli bir özellik mi eksik veya Vocably hakkındaki düşüncelerini benimle paylaşmak mı istiyorsun? Senden haber almayı çok isterim.',

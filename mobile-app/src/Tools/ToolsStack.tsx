@@ -6,12 +6,12 @@ import { HowToEditCardsScreen } from './HowToEditCardsScreen';
 import { HowToGroupCardsScreen } from './HowToGroupCardsScreen';
 import { HowToImportAndExportScreen } from './HowToImportAndExportScreen';
 import { HowToViewStudyStatisticsScreen } from './HowToViewStudyStatisticsScreen';
-import { TipsScreen } from './TipsScreen';
+import { ToolsScreen } from './ToolsScreen';
 import { useTranslation } from 'react-i18next';
 
 const Stack = createStackNavigator();
 
-export const TipsStack: FC = () => {
+export const ToolsStack: FC = () => {
   const { t } = useTranslation();
   return (
     <Stack.Navigator
@@ -23,9 +23,9 @@ export const TipsStack: FC = () => {
       <Stack.Screen
         name="MainMenu"
         options={{
-          title: t('nav.tips'),
+          title: t('nav.tools'),
         }}
-        component={TipsScreen}
+        component={ToolsScreen}
       />
 
       <Stack.Screen

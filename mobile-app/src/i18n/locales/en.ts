@@ -31,7 +31,7 @@ const translations = {
   nav: {
     myCards: 'My cards',
     lookUp: 'Dictionary',
-    tips: 'Tips',
+    tools: 'Tools',
     settings: 'Settings',
     studySettings: 'Study settings',
     editCard: 'Edit card',
@@ -620,6 +620,8 @@ const translations = {
   },
   tips: {
     menu: {
+      aiCardGenerator: 'AI card generator',
+      tipsHeader: 'Tips',
       editCards: 'Edit cards',
       groupCards: 'Group cards (in folders)',
       importExportCsv: 'Import and export CSV',
@@ -630,8 +632,7 @@ const translations = {
         'Translate any word on any website with Vocably iOS Safari Extension.',
       desktopExtension:
         'Are you using Chrome or Safari on your computer? Try the Vocably extension.',
-      grammarChecker:
-        'Try the new grammar checker tool. It will not only fix your mistakes but also explain why.',
+      grammarChecker: 'Grammar checker',
       provideFeedback: 'Provide feedback',
       feedbackBody:
         'Are you missing any crucial feature or simply want to share your opinion about Vocably with me? I would love to hear from you.',

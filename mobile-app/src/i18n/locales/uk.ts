@@ -32,7 +32,7 @@ const translations: BaseTranslations = {
   nav: {
     myCards: 'Картки',
     lookUp: 'Словник',
-    tips: 'Підказки',
+    tools: 'Інструменти',
     settings: 'Налаштування',
     studySettings: 'Налаштування навчання',
     editCard: 'Редагування картки',
@@ -635,6 +635,8 @@ const translations: BaseTranslations = {
   },
   tips: {
     menu: {
+      aiCardGenerator: 'AI-генератор карток',
+      tipsHeader: 'Підказки',
       editCards: 'Редагувати картки',
       groupCards: 'Групувати картки (у папках)',
       importExportCsv: 'Імпорт та експорт CSV',
@@ -645,8 +647,7 @@ const translations: BaseTranslations = {
         'Перекладайте будь-які слова на будь-яких сайтах за допомогою розширення Вокеблі для iOS Safari.',
       desktopExtension:
         'Користуєтесь Chrome чи Safari на компʼютері? Спробуйте розширення Вокеблі.',
-      grammarChecker:
-        'Спробуйте новий інструмент перевірки граматики. Він не лише виправить помилки, а й пояснить чому.',
+      grammarChecker: 'Перевірка граматики',
       provideFeedback: 'Звʼязатися з розробником',
       feedbackBody:
         'Бракує важливої функції або хочете поділитися думкою про Вокеблі? Я буду радий вашому повідомленню.',

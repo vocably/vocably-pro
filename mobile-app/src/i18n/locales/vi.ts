@@ -32,7 +32,7 @@ const translations: BaseTranslations = {
   nav: {
     myCards: 'Thẻ của tôi',
     lookUp: 'Từ điển',
-    tips: 'Mẹo',
+    tools: 'Công cụ',
     settings: 'Cài đặt',
     studySettings: 'Cài đặt học tập',
     editCard: 'Chỉnh sửa thẻ',
@@ -606,6 +606,8 @@ const translations: BaseTranslations = {
   },
   tips: {
     menu: {
+      aiCardGenerator: 'Trình tạo thẻ bằng AI',
+      tipsHeader: 'Mẹo',
       editCards: 'Chỉnh sửa thẻ',
       groupCards: 'Nhóm thẻ (theo thư mục)',
       importExportCsv: 'Nhập và xuất CSV',
@@ -616,8 +618,7 @@ const translations: BaseTranslations = {
         'Dịch bất kỳ từ nào trên bất kỳ trang web nào với tiện ích Vocably cho iOS Safari.',
       desktopExtension:
         'Bạn dùng Chrome hay Safari trên máy tính? Hãy thử tiện ích mở rộng Vocably.',
-      grammarChecker:
-        'Hãy thử công cụ kiểm tra ngữ pháp mới. Nó không chỉ sửa lỗi mà còn giải thích tại sao.',
+      grammarChecker: 'Kiểm tra ngữ pháp',
       provideFeedback: 'Gửi phản hồi',
       feedbackBody:
         'Bạn thấy thiếu tính năng quan trọng nào hay chỉ muốn chia sẻ ý kiến về Vocably? Tôi rất muốn nghe từ bạn.',

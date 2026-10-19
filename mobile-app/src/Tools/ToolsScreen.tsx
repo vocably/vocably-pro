@@ -27,7 +27,7 @@ const grammarCheckerExamples: Partial<Record<GoogleLanguage, string>> = {
   pt: 'Estou a trabalhar agora.',
 };
 
-export const TipsScreen: FC<Props> = () => {
+export const ToolsScreen: FC<Props> = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const posthog = usePostHog();
@@ -62,88 +62,11 @@ export const TipsScreen: FC<Props> = () => {
       <CustomSurface style={{ marginBottom: 32 }}>
         <ListItem
           order="first"
-          title={t('tips.menu.editCards')}
+          leftIcon="palette-swatch-outline"
+          title={t('tips.menu.aiCardGenerator')}
           onPress={() => {
-            navigation.navigate('HowToEditCards');
-            posthog.capture('tip-edit-card-clicked');
-          }}
-          leftIcon="pencil-outline"
-          rightIcon="menu-right"
-        ></ListItem>
-        <Divider style={{ alignSelf: 'stretch' }} />
-        <ListItem
-          order="middle"
-          title={t('tips.menu.groupCards')}
-          onPress={() => {
-            navigation.navigate('HowToGroupCards');
-            posthog.capture('tip-group-cards-clicked');
-          }}
-          leftIcon="folder-outline"
-          rightIcon="menu-right"
-        ></ListItem>
-        <Divider style={{ alignSelf: 'stretch' }} />
-        <ListItem
-          order="middle"
-          title={t('tips.menu.importExportCsv')}
-          onPress={() => {
-            navigation.navigate('HowToImportAndExport');
-            posthog.capture('tip-import-export-clicked');
-          }}
-          leftIcon={'swap-vertical'}
-          rightIcon="menu-right"
-        ></ListItem>
-        <Divider style={{ alignSelf: 'stretch' }} />
-        <ListItem
-          order="last"
-          title={t('tips.menu.studyPlan')}
-          onPress={() => {
-            navigation.navigate('HowToViewStudyStatistics');
-            posthog.capture('tip-view-stats-clicked');
-          }}
-          leftIcon="chart-box-outline"
-          rightIcon="menu-right"
-        ></ListItem>
-      </CustomSurface>
-
-      <CustomSurface style={{ marginBottom: 32 }}>
-        {Platform.OS === 'android' && (
-          <ListItem
-            order="first"
-            title={t('tips.menu.androidTranslate')}
-            onPress={() => {
-              posthog.capture('tip-android-translate-clicked');
-              Linking.openURL(
-                `https://app.vocably.pro/page/android-translate/${languagePreset}`
-              );
-            }}
-            leftIcon="android"
-            rightIcon="menu-right"
-          ></ListItem>
-        )}
-        {Platform.OS === 'ios' && (
-          <ListItem
-            order="first"
-            title={t('tips.menu.iosTranslate')}
-            onPress={() => {
-              {
-                posthog.capture('tip-ios-translate-clicked');
-                Linking.openURL(
-                  `https://app.vocably.pro/page/ios-extension/${languagePreset}`
-                );
-              }
-            }}
-            leftIcon="apple-safari"
-            rightIcon="menu-right"
-          ></ListItem>
-        )}
-        <Divider style={{ alignSelf: 'stretch' }} />
-        <ListItem
-          leftIcon="laptop"
-          order="middle"
-          title={t('tips.menu.desktopExtension')}
-          onPress={() => {
-            posthog.capture('tip-desktop-extension-clicked');
-            Linking.openURL(`https://vocably.pro`);
+            posthog.capture('tool-card-generator-clicked');
+            navigation.navigate('GenerateCards');
           }}
         ></ListItem>
         <Divider style={{ alignSelf: 'stretch' }} />
@@ -188,6 +111,101 @@ export const TipsScreen: FC<Props> = () => {
 
             Linking.openURL(url.toString());
           }}
+        ></ListItem>
+      </CustomSurface>
+
+      <CustomSurface style={{ marginBottom: 32 }}>
+        {Platform.OS === 'android' && (
+          <ListItem
+            order="first"
+            title={t('tips.menu.androidTranslate')}
+            onPress={() => {
+              posthog.capture('tip-android-translate-clicked');
+              Linking.openURL(
+                `https://app.vocably.pro/page/android-translate/${languagePreset}`
+              );
+            }}
+            leftIcon="android"
+            rightIcon="menu-right"
+          ></ListItem>
+        )}
+        {Platform.OS === 'ios' && (
+          <ListItem
+            order="first"
+            title={t('tips.menu.iosTranslate')}
+            onPress={() => {
+              {
+                posthog.capture('tip-ios-translate-clicked');
+                Linking.openURL(
+                  `https://app.vocably.pro/page/ios-extension/${languagePreset}`
+                );
+              }
+            }}
+            leftIcon="apple-safari"
+            rightIcon="menu-right"
+          ></ListItem>
+        )}
+        <Divider style={{ alignSelf: 'stretch' }} />
+        <ListItem
+          leftIcon="laptop"
+          order="last"
+          title={t('tips.menu.desktopExtension')}
+          onPress={() => {
+            posthog.capture('tip-desktop-extension-clicked');
+            Linking.openURL(`https://vocably.pro`);
+          }}
+        ></ListItem>
+      </CustomSurface>
+
+      <Text
+        variant="titleMedium"
+        style={{ paddingHorizontal: 16, marginBottom: 8 }}
+      >
+        {t('tips.menu.tipsHeader')}
+      </Text>
+      <CustomSurface style={{ marginBottom: 32 }}>
+        <ListItem
+          order="first"
+          title={t('tips.menu.editCards')}
+          onPress={() => {
+            navigation.navigate('HowToEditCards');
+            posthog.capture('tip-edit-card-clicked');
+          }}
+          leftIcon="pencil-outline"
+          rightIcon="menu-right"
+        ></ListItem>
+        <Divider style={{ alignSelf: 'stretch' }} />
+        <ListItem
+          order="middle"
+          title={t('tips.menu.groupCards')}
+          onPress={() => {
+            navigation.navigate('HowToGroupCards');
+            posthog.capture('tip-group-cards-clicked');
+          }}
+          leftIcon="folder-outline"
+          rightIcon="menu-right"
+        ></ListItem>
+        <Divider style={{ alignSelf: 'stretch' }} />
+        <ListItem
+          order="middle"
+          title={t('tips.menu.importExportCsv')}
+          onPress={() => {
+            navigation.navigate('HowToImportAndExport');
+            posthog.capture('tip-import-export-clicked');
+          }}
+          leftIcon={'swap-vertical'}
+          rightIcon="menu-right"
+        ></ListItem>
+        <Divider style={{ alignSelf: 'stretch' }} />
+        <ListItem
+          order="last"
+          title={t('tips.menu.studyPlan')}
+          onPress={() => {
+            navigation.navigate('HowToViewStudyStatistics');
+            posthog.capture('tip-view-stats-clicked');
+          }}
+          leftIcon="chart-box-outline"
+          rightIcon="menu-right"
         ></ListItem>
       </CustomSurface>
 
