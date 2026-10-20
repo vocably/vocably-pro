@@ -37,6 +37,20 @@ export const formats: AssetFormat[] = [
     height: 1024,
   },
   {
+    id: 'ios-header',
+    store: 'app-store',
+    name: 'Header',
+    width: 5244,
+    height: 2950,
+  },
+  {
+    id: 'ios-search-results',
+    store: 'app-store',
+    name: 'Search results',
+    width: 5244,
+    height: 2950,
+  },
+  {
     id: 'play-phone',
     store: 'google-play',
     name: 'Phone screenshot',
