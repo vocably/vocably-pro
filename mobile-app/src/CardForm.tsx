@@ -35,19 +35,28 @@ export const CardForm: FC<Props> = ({ card, onChange }) => {
     'phrase',
   ] as const;
 
+  const fieldStyle = { gap: 6 };
+  const labelStyle = { marginLeft: 8 };
+
   return (
-    <View style={{ gap: 8 }}>
+    <View style={{ gap: 16 }}>
       <FormText
+        style={fieldStyle}
+        labelStyle={labelStyle}
         label={t('cardForm.wordOrPhrase')}
         value={card.source}
         onChangeText={onTextChange('source')}
       />
       <FormText
+        style={fieldStyle}
+        labelStyle={labelStyle}
         label={t('cardForm.translation')}
         value={card.translation}
         onChangeText={onTextChange('translation')}
       />
       <FormText
+        style={fieldStyle}
+        labelStyle={labelStyle}
         label={t('cardForm.partOfSpeech')}
         value={card.partOfSpeech}
         onChangeText={onTextChange('partOfSpeech')}
@@ -83,17 +92,23 @@ export const CardForm: FC<Props> = ({ card, onChange }) => {
         }
       />
       <FormText
+        style={fieldStyle}
+        labelStyle={labelStyle}
         label={t('cardForm.transcriptionIpa')}
         value={card.ipa}
         onChangeText={onTextChange('ipa')}
       />
       <FormText
+        style={fieldStyle}
+        labelStyle={labelStyle}
         label={t('cardForm.definition')}
         value={card.definition}
         multiline={true}
         onChangeText={onTextChange('definition')}
       />
       <FormText
+        style={fieldStyle}
+        labelStyle={labelStyle}
         label={t('cardForm.example')}
         value={card.example}
         multiline={true}

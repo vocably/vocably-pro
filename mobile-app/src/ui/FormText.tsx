@@ -3,16 +3,19 @@ import {
   Animated,
   TextInput,
   TextInputProps,
+  TextStyle,
   View,
   ViewStyle,
 } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useAppTheme } from '../ThemeProvider';
+import { darkShadows, lightShadows } from './CustomSurface';
 
 type Props = TextInputProps & {
   style?: ViewStyle;
   inputStyle?: TextInputProps['style'];
   label?: string;
+  labelStyle?: TextStyle;
   right?: ReactNode;
 };
 
@@ -22,6 +25,7 @@ export const FormText: FC<Props> = ({
   onBlur,
   inputStyle,
   label,
+  labelStyle,
   right,
   ...textInputProps
 }) => {
@@ -52,9 +56,14 @@ export const FormText: FC<Props> = ({
     [onBlur, focusAnimation]
   );
 
-  const backgroundColor = focusAnimation.interpolate({
+  // Solid surface so the shadow reads as a raised field; focus is shown
+  // with a primary-tinted border instead of a darker fill.
+  const borderColor = focusAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [theme.colors.inputBg, theme.colors.inputBgFocused],
+    outputRange: [
+      theme.dark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(16, 24, 40, 0.06)',
+      theme.colors.primary,
+    ],
   });
 
   return (
@@ -66,11 +75,16 @@ export const FormText: FC<Props> = ({
         style,
       ]}
     >
-      {label && <Text>{label}</Text>}
+      {label && <Text style={labelStyle}>{label}</Text>}
       <Animated.View
         style={{
-          backgroundColor,
+          backgroundColor: theme.dark
+            ? theme.colors.elevation.level2
+            : theme.colors.surface,
           borderRadius: 16,
+          borderWidth: 1,
+          borderColor,
+          boxShadow: (theme.dark ? darkShadows : lightShadows)[2],
           paddingHorizontal: 12,
           flexDirection: 'row',
         }}
