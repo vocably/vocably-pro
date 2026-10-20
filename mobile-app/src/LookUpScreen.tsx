@@ -366,13 +366,15 @@ export const LookUpScreen: FC<Props> = ({
     >
       <ScreenLayout
         header={
-          <Surface
+          <CustomSurface
             elevation={1}
             style={{
               paddingTop: !isModal ? insets.top : 0,
               paddingLeft: insets.left,
               paddingRight: insets.right,
               paddingBottom: 24,
+              backgroundColor: theme.colors.elevation.level1,
+              borderRadius: 0,
             }}
           >
             {isSharedLookUp && (
@@ -476,7 +478,7 @@ export const LookUpScreen: FC<Props> = ({
                 />
               </Collapsible>
             </View>
-          </Surface>
+          </CustomSurface>
         }
         content={
           <ScrollView
