@@ -154,6 +154,7 @@ export const LookUpScreen: FC<Props> = ({
   };
 
   const searchInputRef = useRef<SearchInputRef>(null);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   useEffect(() => {
     if (isModal || isSharedLookUp) {
@@ -448,6 +449,9 @@ export const LookUpScreen: FC<Props> = ({
                 placeholder={t('lookUp.searchPlaceholder')}
                 onChange={setLookUpText}
                 onSubmit={lookUp}
+                onClear={() =>
+                  scrollViewRef.current?.scrollTo({ y: 0, animated: false })
+                }
                 pasteFromClipboard={true}
                 disabled={
                   !translationPresetState.preset.sourceLanguage ||
@@ -476,6 +480,7 @@ export const LookUpScreen: FC<Props> = ({
         }
         content={
           <ScrollView
+            ref={scrollViewRef}
             contentContainerStyle={{
               paddingBottom: insets.bottom + padding - 2,
             }}

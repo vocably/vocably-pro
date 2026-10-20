@@ -18,6 +18,7 @@ type Props = {
   disabled?: boolean;
   multiline?: boolean;
   pasteFromClipboard?: boolean;
+  onClear?: () => void;
 };
 
 export type SearchInputRef = {
@@ -35,6 +36,7 @@ export const SearchInput = forwardRef<SearchInputRef, Props>(
       disabled = false,
       multiline = false,
       pasteFromClipboard = false,
+      onClear,
     },
     ref
   ) => {
@@ -180,6 +182,7 @@ export const SearchInput = forwardRef<SearchInputRef, Props>(
             onPress={() => {
               inputRef.current?.clear();
               handleChangeText('');
+              onClear?.();
               inputRef.current?.focus();
             }}
             style={{ backgroundColor: 'transparent' }}
