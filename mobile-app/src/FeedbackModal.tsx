@@ -125,7 +125,7 @@ export const FeedbackModal: FC<Props> = ({ navigation, route }) => {
         )}
       </View>
       <FormText
-        label={t('feedback.yourMessage')}
+        placeholder={t('feedback.messagePlaceholder')}
         multiline
         inputStyle={{ minHeight: 128 }}
         onChangeText={setText}

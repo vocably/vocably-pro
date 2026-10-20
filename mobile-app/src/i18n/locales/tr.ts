@@ -91,7 +91,7 @@ const translations: BaseTranslations = {
       'Kayıt sırasında özel bir Apple e-postası paylaşmışsın gibi görünüyor, ama merak etme — sorunsuz çalışmalı.',
     provideEmail:
       'Geri bildirimine kişisel bir yanıt verebilmem için lütfen e-posta adresini yaz.',
-    yourMessage: 'Mesajın',
+    messagePlaceholder: 'Mesajını buraya yaz',
   },
   error: {
     clearData: {

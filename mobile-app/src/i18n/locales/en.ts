@@ -90,7 +90,7 @@ const translations = {
       'It looks like you shared a private Apple email with me during registration, but no worries — it should work just fine.',
     provideEmail:
       'Please provide your email address so I can send a personal reply to your feedback.',
-    yourMessage: 'Your message',
+    messagePlaceholder: 'Type your message here',
   },
   error: {
     clearData: {

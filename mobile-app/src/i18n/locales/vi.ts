@@ -90,7 +90,7 @@ const translations: BaseTranslations = {
       'Có vẻ bạn đã chia sẻ địa chỉ email riêng tư của Apple khi đăng ký, nhưng đừng lo — nó vẫn hoạt động bình thường.',
     provideEmail:
       'Vui lòng cung cấp địa chỉ email để tôi có thể gửi phản hồi cá nhân cho bạn.',
-    yourMessage: 'Tin nhắn của bạn',
+    messagePlaceholder: 'Nhập tin nhắn của bạn tại đây',
   },
   error: {
     clearData: {

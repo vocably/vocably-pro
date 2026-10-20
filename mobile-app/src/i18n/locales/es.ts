@@ -90,7 +90,7 @@ const translations: BaseTranslations = {
       'Parece que compartiste un correo privado de Apple al registrarte, pero tranquilo, debería funcionar bien.',
     provideEmail:
       'Por favor, indica tu correo electrónico para que pueda enviarte una respuesta personal.',
-    yourMessage: 'Tu mensaje',
+    messagePlaceholder: 'Escribe tu mensaje aquí',
   },
   error: {
     clearData: {
