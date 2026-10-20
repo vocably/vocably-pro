@@ -597,6 +597,7 @@ const translations: BaseTranslations = {
   discoverySurvey: {
     screenTitle: 'Câu hỏi cuối',
     question: 'Bạn biết đến Vocably bằng cách nào?',
+    hint: 'Chỉ một chạm là xong. Điều này giúp Vocably đến với nhiều người dùng như bạn hơn.',
     whatIsIt: 'Cụ thể là gì?',
     typePlaceholder: 'Nhập ở đây',
     sources: {

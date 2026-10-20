@@ -611,6 +611,7 @@ const translations = {
   discoverySurvey: {
     screenTitle: 'Last question',
     question: 'How did you hear about Vocably?',
+    hint: "One tap and you're in. It helps Vocably reach more users like you.",
     whatIsIt: 'What is it?',
     typePlaceholder: 'Type here',
     sources: {

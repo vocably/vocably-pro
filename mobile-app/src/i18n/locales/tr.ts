@@ -609,6 +609,7 @@ const translations: BaseTranslations = {
   discoverySurvey: {
     screenTitle: 'Son soru',
     question: "Vocably'yi nasıl duydun?",
+    hint: "Tek dokunuş yeterli. Bu, Vocably'nin senin gibi daha fazla kullanıcıya ulaşmasına yardımcı olur.",
     whatIsIt: 'Tam olarak nasıl?',
     typePlaceholder: 'Buraya yaz',
     sources: {

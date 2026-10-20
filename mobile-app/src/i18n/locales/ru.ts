@@ -628,6 +628,7 @@ const translations: BaseTranslations = {
   discoverySurvey: {
     screenTitle: 'Последний вопрос',
     question: 'Как вы узнали о Вокебли?',
+    hint: 'Одно касание — и готово. Это помогает Вокебли находить больше таких же пользователей, как вы.',
     whatIsIt: 'Как именно?',
     typePlaceholder: 'Введите здесь',
     sources: {

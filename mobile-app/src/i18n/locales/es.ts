@@ -615,6 +615,7 @@ const translations: BaseTranslations = {
   discoverySurvey: {
     screenTitle: 'Última pregunta',
     question: '¿Cómo conociste Vocably?',
+    hint: 'Un toque y listo. Ayuda a que Vocably llegue a más usuarios como tú.',
     whatIsIt: '¿De qué forma?',
     typePlaceholder: 'Escribe aquí',
     sources: {
