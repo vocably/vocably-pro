@@ -1,13 +1,7 @@
 import { Result, TagItem } from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import {
-  Alert,
-  PixelRatio,
-  Pressable,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import { Alert, Pressable, useWindowDimensions, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import {
   ActivityIndicator,
@@ -237,8 +231,6 @@ export const TagsMenu: FC<Props> = ({
 
   const tags = [...newTags, ...existingTags];
 
-  const fontScale = Math.max(1, PixelRatio.getFontScale());
-
   return (
     <>
       <Menu
@@ -250,6 +242,7 @@ export const TagsMenu: FC<Props> = ({
         contentStyle={{
           width: MENU_WIDTH,
           maxHeight: height * 0.5,
+          borderRadius: 8,
         }}
         anchor={
           <TagMenuAnchor
@@ -277,23 +270,33 @@ export const TagsMenu: FC<Props> = ({
             </>
           )}
           {isAllowedToAdd && (
-            <Menu.Item
-              leadingIcon={() => (
+            <TouchableRipple onPress={() => displayCreateModal()}>
+              <View
+                style={{
+                  padding: 12,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
                 <Icon
                   name="tag-plus"
                   size={24}
                   color={theme.colors.onBackground}
                   style={{
-                    marginTop: fontScale === 1 ? 0 : 3 * fontScale,
+                    marginRight: 12,
                   }}
                 />
-              )}
-              onPress={() => displayCreateModal()}
-              title={t('tagMenu.addNewTag')}
-              titleStyle={{
-                fontSize: ITEM_FONT_SIZE,
-              }}
-            />
+                <Text
+                  style={{
+                    fontSize: ITEM_FONT_SIZE,
+                    flexGrow: 1,
+                  }}
+                >
+                  {t('tagMenu.addNewTag')}
+                </Text>
+              </View>
+            </TouchableRipple>
           )}
           {isAllowedToAdd && tags.length > 0 && <Divider />}
           <SwipeListView<Tag>

@@ -59,6 +59,9 @@ export const LanguageSelector: FC<Props> = ({ style }) => {
       <Menu
         visible={visible}
         onDismiss={closeMenu}
+        contentStyle={{
+          borderRadius: 8,
+        }}
         anchor={
           <TouchableRipple
             hitSlop={24}

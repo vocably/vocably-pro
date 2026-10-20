@@ -55,6 +55,9 @@ export const CardForm: FC<Props> = ({ card, onChange }) => {
           <Menu
             visible={partOfSpeechMenuVisible}
             onDismiss={() => setPartOfSpeechMenuVisible(false)}
+            contentStyle={{
+              borderRadius: 8,
+            }}
             anchor={
               <IconButton
                 icon={'menu-down'}
