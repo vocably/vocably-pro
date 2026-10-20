@@ -24,7 +24,6 @@ import Animated, {
   SlideOutUp,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/FontAwesome6';
 import { analyze } from './api';
 import { CardSkeletonLoader } from './CardSkeletonLoader';
 import { exitSharedScreen } from './exitSharedScreen';
@@ -37,6 +36,9 @@ import { mainPadding } from './styles';
 import { Preset } from './TranslationPreset/TranslationPresetContainer';
 import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 import { Collapsible } from './ui/Collapsible';
+import { CustomSurface } from './ui/CustomSurface';
+import { Divider } from './ui/Divider';
+import { ListItem } from './ui/ListItem';
 import { ScreenLayout } from './ui/ScreenLayout';
 import { useAnalyzeOperations } from './useAnalyzeOperations';
 import { useCardsLimit } from './useCardsLimit';
@@ -126,6 +128,12 @@ export const LookUpScreen: FC<Props> = ({
 
   const insets = useSafeAreaInsets();
 
+  const sectionTitleStyle = {
+    color: theme.colors.onSurfaceVariant,
+    paddingHorizontal: 16,
+    marginBottom: 8,
+  };
+
   const cardsLimit = useCardsLimit();
 
   const posthog = usePostHog();
@@ -134,10 +142,6 @@ export const LookUpScreen: FC<Props> = ({
 
   const isHistoryEnabled = !isSharedLookUp && !isModal;
   const { history, addHistoryItem, removeHistoryItem } = useHistory();
-  const isHistoryVisible =
-    isHistoryEnabled &&
-    history.status === 'loaded' &&
-    history.history.length > 0;
 
   const cancelThePreviousLookUp = () => {
     if (abortControllerRef.current) {
@@ -560,91 +564,71 @@ export const LookUpScreen: FC<Props> = ({
                   paddingTop: 24,
                   paddingLeft: insets.left + padding,
                   paddingRight: insets.right + padding,
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  flex: 1,
+                  gap: 32,
                 }}
               >
-                {isHistoryVisible && (
+                {isHistoryEnabled && (
                   <LookUpHistory
-                    style={{ width: '100%', marginBottom: 32 }}
                     history={history}
                     deleteHistoryItem={removeHistoryItem}
                     onSelect={lookUpHistoryItem}
                   />
                 )}
-                <View
-                  style={{
-                    gap: 12,
-                    alignItems: 'stretch',
-                    justifyContent: 'center',
-                    // Align with the history list edges when it is shown
-                    width: isHistoryVisible ? '100%' : '90%',
-                  }}
-                >
-                  <Text style={{ textAlign: 'center' }}>
-                    {t('lookUp.lookingForCollections')}
-                  </Text>
-                  <Button
-                    icon={'palette-swatch-outline'}
-                    textColor={theme.colors.onBackground}
-                    style={{
-                      borderColor: theme.colors.onBackground,
-                    }}
-                    mode={'outlined'}
-                    onPress={() => {
-                      if (searchInputRef.current) {
-                        searchInputRef.current.blur();
-                      }
-                      navigation.navigate('GenerateCards');
-                    }}
-                  >
-                    {t('lookUp.tryAiGenerator')}
-                  </Button>
-                  <Text style={{ textAlign: 'center', marginTop: 24 }}>
+                {isHistoryEnabled &&
+                  history.status === 'loaded' &&
+                  history.history.length === 0 && (
+                    <View>
+                      <Text variant="labelLarge" style={sectionTitleStyle}>
+                        {t('lookUp.lookingForCollections')}
+                      </Text>
+                      <CustomSurface>
+                        <ListItem
+                          leftIcon="palette-swatch-outline"
+                          title={t('lookUp.tryAiGenerator')}
+                          rightIcon=""
+                          onPress={() => {
+                            if (searchInputRef.current) {
+                              searchInputRef.current.blur();
+                            }
+                            navigation.navigate('GenerateCards');
+                          }}
+                        />
+                      </CustomSurface>
+                    </View>
+                  )}
+                <View>
+                  <Text variant="labelLarge" style={sectionTitleStyle}>
                     {t('lookUp.questionsOrSuggestions')}
                   </Text>
-                  <Button
-                    textColor={theme.colors.onBackground}
-                    style={{
-                      borderColor: theme.colors.onBackground,
-                    }}
-                    icon={({ size, color }) => (
-                      <Icon name="telegram" size={size} color={color} />
-                    )}
-                    mode={'outlined'}
-                    onPress={() => Linking.openURL('https://t.me/vocably')}
-                  >
-                    {t('lookUp.connectOnTelegram')}
-                  </Button>
-
-                  <Button
-                    textColor={theme.colors.onBackground}
-                    style={{
-                      borderColor: theme.colors.onBackground,
-                    }}
-                    icon={({ size, color }) => (
-                      <Icon name="discord" size={size} color={color} />
-                    )}
-                    mode={'outlined'}
-                    onPress={() =>
-                      Linking.openURL('https://discord.gg/9aRwbJ3qeh')
-                    }
-                  >
-                    {t('lookUp.joinDiscord')}
-                  </Button>
-
-                  <Button
-                    textColor={theme.colors.onBackground}
-                    style={{
-                      borderColor: theme.colors.onBackground,
-                    }}
-                    icon={'message-text-outline'}
-                    mode={'outlined'}
-                    onPress={() => navigation.navigate('Feedback')}
-                  >
-                    {t('lookUp.sendMessage')}
-                  </Button>
+                  <CustomSurface>
+                    <ListItem
+                      order="first"
+                      leftIcon="telegram"
+                      leftIconSet="material"
+                      rightIcon=""
+                      title={t('lookUp.connectOnTelegram')}
+                      onPress={() => Linking.openURL('https://t.me/vocably')}
+                    />
+                    <Divider />
+                    <ListItem
+                      order="middle"
+                      leftIcon="discord"
+                      leftIconSet="material"
+                      rightIcon=""
+                      title={t('lookUp.joinDiscord')}
+                      onPress={() =>
+                        Linking.openURL('https://discord.gg/9aRwbJ3qeh')
+                      }
+                    />
+                    <Divider />
+                    <ListItem
+                      order="last"
+                      leftIcon="message-text-outline"
+                      rightIcon=""
+                      title={t('lookUp.sendMessage')}
+                      onPress={() => navigation.navigate('Feedback')}
+                    />
+                  </CustomSurface>
                 </View>
               </View>
             )}
