@@ -216,13 +216,18 @@ const translations = {
       future: 'Planned',
     },
     empty: {
-      noCardsYet: 'You have no study cards yet.',
-      headOverToLookUp:
-        'Go to the Dictionary tab to find and add some new words. The dictionary in Vocably is powered by AI and is pretty smart.',
-      headOverToGenerator:
-        'Or use the AI card generator to create a list of words to study.',
-      goToLookUp: 'Go to dictionary',
-      goToGenerator: 'Use AI card generator',
+      title: 'Your collection is ready for its first words',
+      subtitle:
+        'Every word you save here turns into a flashcard for your daily practice. Pick a way to start:',
+      lookUpTitle: 'Look up a word',
+      lookUpDescription:
+        'Find any word or phrase in the AI-powered dictionary and save it in one tap.',
+      generatorTitle: 'Generate cards with AI',
+      generatorDescription:
+        'Pick a topic and get a ready-made list of words to study.',
+      stepFind: 'Find a word',
+      stepSave: 'Save it as a card',
+      stepRemember: 'Review it before you forget',
       noCardsForSearch: 'No cards found for <bold>{{searchText}}</bold>.',
       noCardsForTag:
         "You don't have any cards tagged with <bold>{{tagTitle}}</bold>.",

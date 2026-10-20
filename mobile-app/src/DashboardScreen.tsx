@@ -12,7 +12,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import {
   Alert,
   AppState,
@@ -33,11 +33,11 @@ import {
   TouchableRipple,
   useTheme,
 } from 'react-native-paper';
-import { Divider } from './ui/Divider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CardListItem, Separator } from './CardListItem';
+import { DashboardEmptyState } from './DashboardEmptyState';
 import {
   DashboardSearchInput,
   DashboardSearchInputRef,
@@ -48,13 +48,10 @@ import { LanguagesContext } from './languages/LanguagesContainer';
 import { LanguageSelector } from './LanguageSelector';
 import { Loader } from './loaders/Loader';
 import { getRandomizerEnabled } from './Settings/StudySettingsScreen';
-import { setSourceLanguage } from './SourceLanguageButton';
 import { swipeListButtonPressOpacity } from './stupidConstants';
 import { mainPadding } from './styles';
 import { TagsSelector } from './TagsSelector';
-import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 import { CustomSurface } from './ui/CustomSurface';
-import { ListItem } from './ui/ListItem';
 import { ScreenLayout } from './ui/ScreenLayout';
 import { useAsync } from './useAsync';
 import { useCurrentLanguageName } from './useCurrentLanguageName';
@@ -154,7 +151,6 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
   const [toBeDeletedId, setToBeDeletedId] = useState<string | null>(null);
   const [savingTagsForId, setSavingTagsForId] = useState<string | null>(null);
   const insets = useSafeAreaInsets();
-  const presetState = useTranslationPreset();
   const languageName = useCurrentLanguageName();
   const [isRandomEnabledResult] = useAsync(getRandomizerEnabled);
   const [isStatsViewEnabledResult, setIsStatsViewEnabled] = useAsync(
@@ -855,104 +851,12 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
             rightOpenValue={-SWIPE_MENU_BUTTON_SIZE * 2}
             contentContainerStyle={isEmpty && styles.emptyContentContainer}
             ListEmptyComponent={
-              <View
-                style={{
-                  paddingHorizontal: mainPadding,
-                  paddingTop: mainPadding,
-                  alignItems: 'center',
-                }}
-              >
-                {!isSearching && selectedTags.length === 0 && (
-                  <View style={{ width: '100%' }}>
-                    <View
-                      style={{
-                        paddingHorizontal: 16,
-                        marginBottom: 16,
-                        gap: 8,
-                      }}
-                    >
-                      <Text style={{ fontSize: 16 }}>
-                        <Trans
-                          i18nKey="dashboard.empty.noCardsYet"
-                          components={{
-                            bold: <Text style={{ fontWeight: 'bold' }} />,
-                          }}
-                        />
-                      </Text>
-                      <Text style={{ fontSize: 16 }}>
-                        {t('dashboard.empty.headOverToLookUp')}
-                      </Text>
-                      <Text style={{ fontSize: 16 }}>
-                        {t('dashboard.empty.headOverToGenerator')}
-                      </Text>
-                    </View>
-                    <CustomSurface>
-                      <ListItem
-                        leftIcon="translate"
-                        order="first"
-                        title={t('dashboard.empty.goToLookUp')}
-                        onPress={() => {
-                          navigation.navigate('LookUp');
-                          if (presetState.status === 'known') {
-                            presetState.setPreset(
-                              setSourceLanguage(
-                                deck.language,
-                                presetState.preset,
-                                presetState.languagePairs
-                              )
-                            );
-                          }
-                        }}
-                      />
-                      <Divider />
-                      <ListItem
-                        leftIcon="palette-swatch-outline"
-                        order="last"
-                        title={t('dashboard.empty.goToGenerator')}
-                        onPress={() => {
-                          navigation.navigate('GenerateCards');
-                          if (presetState.status === 'known') {
-                            presetState.setPreset(
-                              setSourceLanguage(
-                                deck.language,
-                                presetState.preset,
-                                presetState.languagePairs
-                              )
-                            );
-                          }
-                        }}
-                      />
-                    </CustomSurface>
-                  </View>
-                )}
-                {isSearching && searchText && (
-                  <Text style={{ fontSize: 16 }}>
-                    <Trans
-                      i18nKey="dashboard.empty.noCardsForSearch"
-                      values={{ searchText }}
-                      components={{
-                        bold: <Text style={{ fontWeight: 'bold' }} />,
-                      }}
-                    />
-                  </Text>
-                )}
-                {selectedTags.length === 1 && (
-                  <Text style={{ fontSize: 16 }}>
-                    <Trans
-                      i18nKey="dashboard.empty.noCardsForTag"
-                      values={{ tagTitle: selectedTags[0].data.title }}
-                      components={{
-                        bold: <Text style={{ fontWeight: 'bold' }} />,
-                      }}
-                    />
-                  </Text>
-                )}
-                {selectedTags.length > 1 && (
-                  <Text style={{ fontSize: 16 }}>
-                    {t('dashboard.empty.noCardsForTags')}
-                  </Text>
-                )}
-              </View>
+              <DashboardEmptyState
+                language={deck.language}
+                isSearching={isSearching}
+                searchText={searchText}
+                selectedTags={selectedTags}
+              />
             }
             ListHeaderComponentStyle={{
               paddingHorizontal: mainPadding,

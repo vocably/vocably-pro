@@ -217,13 +217,18 @@ const translations: BaseTranslations = {
       future: 'Planlanan',
     },
     empty: {
-      noCardsYet: 'Henüz çalışma kartın yok.',
-      headOverToLookUp:
-        "Yeni kelimeler bulup eklemek için Sözlük sekmesine geç. Vocably'nin sözlüğü yapay zekâyla çalışır ve oldukça akıllıdır.",
-      headOverToGenerator:
-        'Ya da AI kart oluşturucuyu kullanarak çalışılacak kelimelerin listesini oluştur.',
-      goToLookUp: 'Sözlüğe git',
-      goToGenerator: 'AI kart oluşturucuyu kullan',
+      title: 'Koleksiyonun ilk kelimelerine hazır',
+      subtitle:
+        'Buraya kaydettiğin her kelime, günlük pratiğin için bir karta dönüşür. Nasıl başlamak istediğini seç:',
+      lookUpTitle: 'Bir kelime ara',
+      lookUpDescription:
+        'Yapay zekâ destekli sözlükte herhangi bir kelime veya ifadeyi bul ve tek dokunuşla kaydet.',
+      generatorTitle: 'AI ile kart oluştur',
+      generatorDescription:
+        'Bir konu seç ve çalışmaya hazır bir kelime listesi al.',
+      stepFind: 'Bir kelime bul',
+      stepSave: 'Kart olarak kaydet',
+      stepRemember: 'Unutmadan tekrar et',
       noCardsForSearch: '<bold>{{searchText}}</bold> için kart bulunamadı.',
       noCardsForTag: '<bold>{{tagTitle}}</bold> etiketli kartın yok.',
       noCardsForTags: 'Seçili etiketler için kart bulunamadı.',

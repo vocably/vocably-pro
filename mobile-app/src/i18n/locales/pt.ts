@@ -217,13 +217,18 @@ const translations: BaseTranslations = {
       future: 'Planejados',
     },
     empty: {
-      noCardsYet: 'Você ainda não tem cartões de estudo.',
-      headOverToLookUp:
-        'Vá à aba Dicionário para encontrar e adicionar novas palavras. O dicionário do Vocably é movido a IA e é bem inteligente.',
-      headOverToGenerator:
-        'Ou use o gerador de cartões com IA para criar uma lista de palavras para estudar.',
-      goToLookUp: 'Ir para o dicionário',
-      goToGenerator: 'Utilizar o gerador de cartões com IA',
+      title: 'Sua coleção está pronta para as primeiras palavras',
+      subtitle:
+        'Cada palavra que você salvar aqui vira um cartão para a sua prática diária. Escolha como começar:',
+      lookUpTitle: 'Pesquise uma palavra',
+      lookUpDescription:
+        'Encontre qualquer palavra ou frase no dicionário com IA e salve com um toque.',
+      generatorTitle: 'Gere cartões com IA',
+      generatorDescription:
+        'Escolha um tema e receba uma lista de palavras pronta para estudar.',
+      stepFind: 'Encontre uma palavra',
+      stepSave: 'Salve como cartão',
+      stepRemember: 'Revise antes de esquecer',
       noCardsForSearch:
         'Nenhum cartão encontrado para <bold>{{searchText}}</bold>.',
       noCardsForTag:

@@ -211,13 +211,18 @@ const translations: BaseTranslations = {
       future: 'Dự kiến',
     },
     empty: {
-      noCardsYet: 'Bạn chưa có thẻ ghi nhớ nào.',
-      headOverToLookUp:
-        'Hãy chuyển sang tab Từ điển để tìm và thêm từ mới. Từ điển trong Vocably được hỗ trợ bởi AI và khá thông minh.',
-      headOverToGenerator:
-        'Hoặc dùng trình tạo thẻ học bằng AI để tạo danh sách các từ cần học.',
-      goToLookUp: 'Đến Từ điển',
-      goToGenerator: 'Sử dụng trình tạo thẻ học bằng AI',
+      title: 'Bộ sưu tập đã sẵn sàng cho những từ đầu tiên',
+      subtitle:
+        'Mỗi từ bạn lưu ở đây sẽ trở thành một thẻ ghi nhớ cho việc luyện tập hằng ngày. Hãy chọn cách bắt đầu:',
+      lookUpTitle: 'Tra một từ',
+      lookUpDescription:
+        'Tìm bất kỳ từ hoặc cụm từ nào trong từ điển AI và lưu lại chỉ với một chạm.',
+      generatorTitle: 'Tạo thẻ bằng AI',
+      generatorDescription:
+        'Chọn một chủ đề và nhận danh sách từ sẵn sàng để học.',
+      stepFind: 'Tìm một từ',
+      stepSave: 'Lưu thành thẻ',
+      stepRemember: 'Ôn lại trước khi quên',
       noCardsForSearch:
         'Không tìm thấy thẻ nào cho <bold>{{searchText}}</bold>.',
       noCardsForTag:
