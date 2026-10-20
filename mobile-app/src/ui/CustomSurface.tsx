@@ -11,7 +11,7 @@ type Props = PropsWithChildren<{
 // Layered shadows: a tight contact shadow for definition plus a wide,
 // soft ambient shadow for depth. Opacity stays low so cards lift off
 // the page without looking smudged.
-const lightShadows: Record<MD3Elevation, string> = {
+export const lightShadows: Record<MD3Elevation, string> = {
   0: 'none',
   1: '0px 1px 2px rgba(16, 24, 40, 0.04), 0px 4px 16px rgba(16, 24, 40, 0.06)',
   2: '0px 1px 3px rgba(16, 24, 40, 0.05), 0px 6px 20px rgba(16, 24, 40, 0.08)',
@@ -22,7 +22,7 @@ const lightShadows: Record<MD3Elevation, string> = {
 
 // On dark backgrounds shadows barely read, so depth comes mostly from the
 // lighter elevation color and a faint top-lit border.
-const darkShadows: Record<MD3Elevation, string> = {
+export const darkShadows: Record<MD3Elevation, string> = {
   0: 'none',
   1: '0px 1px 2px rgba(0, 0, 0, 0.3), 0px 4px 12px rgba(0, 0, 0, 0.25)',
   2: '0px 1px 3px rgba(0, 0, 0, 0.32), 0px 6px 16px rgba(0, 0, 0, 0.28)',
