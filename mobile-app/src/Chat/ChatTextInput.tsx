@@ -8,6 +8,7 @@ import React, {
 import { Animated, Platform, Text, TextInput, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { useAppTheme } from '../ThemeProvider';
+import { darkShadows, lightShadows } from '../ui/CustomSurface';
 
 type Props = {
   initialValue?: string;
@@ -137,9 +138,14 @@ export const ChatTextInput = forwardRef<ChatTextInputRef, Props>(
       onChange && onChange(text);
     };
 
-    const backgroundColor = focusAnimation.interpolate({
+    // Solid surface so the shadow reads as a raised field; focus is shown
+    // with a primary-tinted border instead of a darker fill.
+    const borderColor = focusAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [theme.colors.inputBg, theme.colors.inputBgFocused],
+      outputRange: [
+        theme.dark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(16, 24, 40, 0.06)',
+        theme.colors.primary,
+      ],
     });
 
     const isSearchDisabled = isEmpty;
@@ -152,7 +158,12 @@ export const ChatTextInput = forwardRef<ChatTextInputRef, Props>(
           justifyContent: 'center',
           borderRadius: 16,
           opacity: disabled ? 0.5 : 1,
-          backgroundColor: backgroundColor,
+          backgroundColor: theme.dark
+            ? theme.colors.elevation.level2
+            : theme.colors.surface,
+          borderWidth: 1,
+          borderColor,
+          boxShadow: (theme.dark ? darkShadows : lightShadows)[2],
           paddingLeft: 12,
         }}
       >
