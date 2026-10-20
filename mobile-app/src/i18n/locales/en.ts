@@ -327,6 +327,8 @@ const translations = {
     selectMotherTongue: 'Select your mother tongue',
     searchHintForExample: 'For example:',
     searchHintOr: 'or',
+    historyTitle: 'Recent searches',
+    removeHistoryItem: 'Remove from history',
   },
   notifications: {
     checking: 'Checking...',

@@ -320,6 +320,8 @@ const translations: BaseTranslations = {
     selectMotherTongue: 'Chọn tiếng mẹ đẻ của bạn',
     searchHintForExample: 'Ví dụ:',
     searchHintOr: 'hoặc',
+    historyTitle: 'Tìm kiếm gần đây',
+    removeHistoryItem: 'Xóa khỏi lịch sử',
   },
   notifications: {
     checking: 'Đang kiểm tra...',

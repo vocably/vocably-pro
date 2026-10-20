@@ -342,6 +342,8 @@ const translations: BaseTranslations = {
     selectMotherTongue: 'Выберите ваш родной язык',
     searchHintForExample: 'Например:',
     searchHintOr: 'или',
+    historyTitle: 'Недавние поиски',
+    removeHistoryItem: 'Удалить из истории',
   },
   notifications: {
     checking: 'Проверяю...',

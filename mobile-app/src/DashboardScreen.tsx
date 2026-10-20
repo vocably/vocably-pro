@@ -346,12 +346,15 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
   return (
     <ScreenLayout
       header={
-        <Surface
+        <CustomSurface
           elevation={1}
           style={{
             paddingTop: insets.top,
             paddingLeft: insets.left,
             paddingRight: insets.right,
+            paddingBottom: 0,
+            backgroundColor: theme.colors.elevation.level1,
+            borderRadius: 0,
           }}
         >
           <View
@@ -557,7 +560,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               )}
             </View>
           )}
-        </Surface>
+        </CustomSurface>
       }
       content={
         <View
