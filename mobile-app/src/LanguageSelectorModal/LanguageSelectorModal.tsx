@@ -109,9 +109,9 @@ export const LanguageSelectorModal: LanguageSelectorModal = ({
         <Surface
           elevation={0}
           style={{
-            paddingLeft: insets.left + mainPadding,
+            paddingLeft: insets.left + 12,
             paddingTop: 8,
-            paddingRight: insets.right + mainPadding,
+            paddingRight: insets.right + 12,
             paddingBottom: mainPadding,
           }}
         >
