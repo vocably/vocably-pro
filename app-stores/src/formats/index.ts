@@ -30,13 +30,6 @@ export const formats: AssetFormat[] = [
     gap: 100,
   },
   {
-    id: 'ios-icon',
-    store: 'app-store',
-    name: 'App icon',
-    width: 1024,
-    height: 1024,
-  },
-  {
     id: 'ios-header',
     store: 'app-store',
     name: 'Header',
@@ -72,13 +65,6 @@ export const formats: AssetFormat[] = [
     name: 'Feature graphic',
     width: 1024,
     height: 500,
-  },
-  {
-    id: 'play-icon',
-    store: 'google-play',
-    name: 'App icon',
-    width: 512,
-    height: 512,
   },
 ];
 
