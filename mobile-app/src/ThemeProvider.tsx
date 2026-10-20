@@ -40,7 +40,7 @@ export const lightTheme: AppTheme = {
     inputIconColor: 'rgba(106, 106, 106, 0.6)',
     inputPlaceholderColor: 'rgb(170, 170, 170)',
     primary: 'rgb(0, 80, 255)',
-    primaryVariant: 'rgb(66, 24, 178)',
+    primaryVariant: 'rgb(0, 61, 204)',
     onPrimary: 'rgb(255, 255, 255)',
     error: 'rgb(221, 34, 34)',
     onError: 'rgb(255, 255, 255)',
