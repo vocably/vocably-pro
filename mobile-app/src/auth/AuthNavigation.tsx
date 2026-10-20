@@ -98,6 +98,9 @@ export const AuthNavigation: FC<Props> = ({ initialRouteName }) => {
           // Modals have their own default header height, so don't inherit the
           // taller one from the navigator.
           headerStyle,
+          // The explicit background color makes the default header shadow
+          // (iOS hairline / Android elevation) visible, unlike RootModalStack.
+          headerShadowVisible: false,
           animation: Platform.OS === 'android' ? 'fade' : undefined,
           detachInactiveScreens: false,
           statusBarTranslucent: true,
