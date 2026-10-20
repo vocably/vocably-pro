@@ -16,6 +16,7 @@ import { AuthContext } from './AuthContainer';
 import { storeLanguagePairs } from '../TranslationPreset/useLanguagePairs';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { AppTheme } from '../ThemeProvider';
+import { FormText } from '../ui/FormText';
 
 export type RouteParams = {
   sourceLanguage: GoogleLanguage;
@@ -159,29 +160,15 @@ export const DiscoverySurveyScreen: FC<Props> = ({ route }) => {
               gap: 16,
             }}
           >
-            <Text>{t('discoverySurvey.whatIsIt')}</Text>
-            <View
-              style={{
-                backgroundColor: theme.colors.inputBgFocused,
-                padding: 16,
-                borderRadius: 16,
-                width: '100%',
-              }}
-            >
-              <TextInput
-                autoFocus={true}
-                value={otherSource}
-                onChangeText={setOtherSource}
-                onSubmitEditing={onNext}
-                returnKeyType="done"
-                placeholder={t('discoverySurvey.typePlaceholder')}
-                style={{
-                  fontSize: 18,
-                  color: theme.colors.onBackground,
-                }}
-                placeholderTextColor={theme.colors.inputPlaceholderColor}
-              />
-            </View>
+            <FormText
+              label={t('discoverySurvey.whatIsIt')}
+              autoFocus={true}
+              value={otherSource}
+              onChangeText={setOtherSource}
+              onSubmitEditing={onNext}
+              returnKeyType="done"
+              placeholder={t('discoverySurvey.typePlaceholder')}
+            />
             <Button mode="elevated" elevation={1} onPress={onNext}>
               {t('welcome.next')}
             </Button>
