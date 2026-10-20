@@ -1,4 +1,4 @@
-import { FC, ReactNode, useCallback, useRef } from 'react';
+import { FC, ReactNode, Ref, useCallback, useRef } from 'react';
 import {
   Animated,
   TextInput,
@@ -12,6 +12,7 @@ import { useAppTheme } from '../ThemeProvider';
 import { darkShadows, lightShadows } from './CustomSurface';
 
 type Props = TextInputProps & {
+  ref?: Ref<TextInput>;
   style?: ViewStyle;
   inputStyle?: TextInputProps['style'];
   label?: string;

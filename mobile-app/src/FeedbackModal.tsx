@@ -1,7 +1,8 @@
-import { NavigationProp, Route } from '@react-navigation/native';
+import { Route } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { sendPublicUserFeedback } from '@vocably/api';
-import { FC, useContext, useEffect, useState } from 'react';
-import { Alert, Platform, View } from 'react-native';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
+import { Alert, Platform, TextInput, View } from 'react-native';
 import { Trans, useTranslation } from 'react-i18next';
 import { Button, Text } from 'react-native-paper';
 import { useUserEmail } from './auth/useUserEmail';
@@ -13,7 +14,7 @@ import { isFunction, pickBy } from 'lodash-es';
 
 type Props = {
   route: Route<string, any>;
-  navigation: NavigationProp<any>;
+  navigation: StackNavigationProp<any>;
 };
 
 const containsEmail = (text: string) => {
@@ -29,6 +30,19 @@ export const FeedbackModal: FC<Props> = ({ navigation, route }) => {
   const authContext = useContext(AuthContext);
 
   const translationPreset = useTranslationPreset();
+
+  const inputRef = useRef<TextInput>(null);
+
+  // Focusing while the modal is still sliding in makes
+  // automaticallyAdjustKeyboardInsets overestimate the keyboard overlap
+  // and scroll the content out of view, so wait for the transition to end.
+  useEffect(() => {
+    return navigation.addListener('transitionEnd', (e) => {
+      if (!e.data.closing) {
+        inputRef.current?.focus();
+      }
+    });
+  }, [navigation]);
 
   const reallySend = async () => {
     setIsSending(true);
@@ -127,6 +141,7 @@ export const FeedbackModal: FC<Props> = ({ navigation, route }) => {
       <FormText
         placeholder={t('feedback.messagePlaceholder')}
         multiline
+        ref={inputRef}
         inputStyle={{ minHeight: 128 }}
         onChangeText={setText}
         value={text}
