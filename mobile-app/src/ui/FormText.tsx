@@ -3,7 +3,6 @@ import {
   Animated,
   TextInput,
   TextInputProps,
-  TextStyle,
   View,
   ViewStyle,
 } from 'react-native';
@@ -16,7 +15,6 @@ type Props = TextInputProps & {
   style?: ViewStyle;
   inputStyle?: TextInputProps['style'];
   label?: string;
-  labelStyle?: TextStyle;
   right?: ReactNode;
 };
 
@@ -26,7 +24,6 @@ export const FormText: FC<Props> = ({
   onBlur,
   inputStyle,
   label,
-  labelStyle,
   right,
   ...textInputProps
 }) => {
@@ -71,12 +68,12 @@ export const FormText: FC<Props> = ({
     <View
       style={[
         {
-          gap: 16,
+          gap: 6,
         },
         style,
       ]}
     >
-      {label && <Text style={labelStyle}>{label}</Text>}
+      {label && <Text style={{ marginLeft: 8 }}>{label}</Text>}
       <Animated.View
         style={{
           backgroundColor: theme.dark
