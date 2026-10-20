@@ -1,5 +1,10 @@
 import { NavigationProp } from '@react-navigation/native';
-import { AnalyzePayload, GoogleLanguage, UnitOfSpeech } from '@vocably/model';
+import {
+  AnalyzePayload,
+  GoogleLanguage,
+  isDirectAnalyzePayload,
+  UnitOfSpeech,
+} from '@vocably/model';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -48,6 +53,8 @@ import {
 } from './LookUpScreen/lookUpFocusRequest';
 import { SearchHint } from './LookUpScreen/SearchHint';
 import { useLookUpCount } from './LookUpScreen/useLookUpCount';
+import { getHistoryItemText, useHistory } from './LookUpScreen/useHistory';
+import { LookUpHistory } from './LookUpScreen/LookUpHistory';
 
 const padding = 16;
 
@@ -125,6 +132,13 @@ export const LookUpScreen: FC<Props> = ({
 
   const lookUpCount = useLookUpCount();
 
+  const isHistoryEnabled = !isSharedLookUp && !isModal;
+  const { history, addHistoryItem, removeHistoryItem } = useHistory();
+  const isHistoryVisible =
+    isHistoryEnabled &&
+    history.status === 'loaded' &&
+    history.history.length > 0;
+
   const cancelThePreviousLookUp = () => {
     if (abortControllerRef.current) {
       abortControllerRef.current?.abort();
@@ -171,7 +185,10 @@ export const LookUpScreen: FC<Props> = ({
 
   const lookUp = async (
     text: string = lookUpText,
-    { isDirect = false }: { isDirect?: boolean } = {}
+    {
+      isDirect = false,
+      payload: payloadOverride,
+    }: { isDirect?: boolean; payload?: AnalyzePayload } = {}
   ) => {
     cancelThePreviousLookUp();
 
@@ -195,7 +212,7 @@ export const LookUpScreen: FC<Props> = ({
       ...translationPresetState.preset,
     });
     // @ts-ignore
-    const payload: AnalyzePayload = {
+    const payload: AnalyzePayload = payloadOverride ?? {
       [translationPresetState.preset.isReverse && !isModal && !isDirect
         ? 'target'
         : 'source']: text,
@@ -232,6 +249,10 @@ export const LookUpScreen: FC<Props> = ({
 
     if (lookupResult.success) {
       lookUpCount.increment();
+
+      if (isHistoryEnabled) {
+        addHistoryItem(payload);
+      }
     }
 
     // Explain
@@ -291,6 +312,34 @@ export const LookUpScreen: FC<Props> = ({
   const { onAdd, onRemove, onTagsChange } = useAnalyzeOperations({
     deck,
   });
+
+  const lookUpHistoryItem = (item: AnalyzePayload) => {
+    if (translationPresetState.status !== 'known') {
+      return;
+    }
+
+    const text = getHistoryItemText(item);
+    setLookUpText(text);
+
+    const preset: Preset = {
+      sourceLanguage: item.sourceLanguage,
+      translationLanguage: item.targetLanguage,
+      isReverse: !isDirectAnalyzePayload(item),
+    };
+    const currentPreset = translationPresetState.preset;
+
+    if (
+      preset.sourceLanguage === currentPreset.sourceLanguage &&
+      preset.translationLanguage === currentPreset.translationLanguage &&
+      preset.isReverse === currentPreset.isReverse
+    ) {
+      lookUp(text, { payload: item });
+      return;
+    }
+
+    // The preset change triggers the look up (see the effect above)
+    translationPresetState.setPreset(preset);
+  };
 
   const lookUpExampleWord = (word: string) => {
     setLookUpText(word);
@@ -509,18 +558,28 @@ export const LookUpScreen: FC<Props> = ({
                 style={{
                   width: '100%',
                   paddingTop: 24,
-                  paddingHorizontal: 16,
+                  paddingLeft: insets.left + padding,
+                  paddingRight: insets.right + padding,
                   alignItems: 'center',
                   justifyContent: 'flex-start',
                   flex: 1,
                 }}
               >
+                {isHistoryVisible && (
+                  <LookUpHistory
+                    style={{ width: '100%', marginBottom: 32 }}
+                    history={history}
+                    deleteHistoryItem={removeHistoryItem}
+                    onSelect={lookUpHistoryItem}
+                  />
+                )}
                 <View
                   style={{
                     gap: 12,
                     alignItems: 'stretch',
                     justifyContent: 'center',
-                    width: '90%',
+                    // Align with the history list edges when it is shown
+                    width: isHistoryVisible ? '100%' : '90%',
                   }}
                 >
                   <Text style={{ textAlign: 'center' }}>

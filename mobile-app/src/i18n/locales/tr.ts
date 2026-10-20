@@ -327,6 +327,8 @@ const translations: BaseTranslations = {
     selectMotherTongue: 'Anadilini seç',
     searchHintForExample: 'Örneğin:',
     searchHintOr: 'veya',
+    historyTitle: 'Son aramalar',
+    removeHistoryItem: 'Geçmişten kaldır',
   },
   notifications: {
     checking: 'Kontrol ediliyor...',
