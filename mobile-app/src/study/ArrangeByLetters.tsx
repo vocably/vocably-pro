@@ -229,59 +229,70 @@ export const ArrangeByLetters: FC<Props> = ({
           hasChecked={isAnswerVisible}
           card={card}
         />
-        <Animated.View
-          style={[
-            {
-              flexDirection: isRtl ? 'row-reverse' : 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexWrap: 'wrap',
-              gap: 6,
-              width: 322,
-              padding: 12,
-              alignSelf: 'center',
-            },
-            { transform: [{ translateX: x }] },
-          ]}
-        >
-          {answer.map((indexOrFalse, itemIndex) => (
-            <TouchableRipple
-              key={itemIndex}
-              disabled={indexOrFalse === false}
-              borderless={true}
-              style={[
-                letterContainerStyle,
-                {
-                  borderColor: isCorrect
-                    ? theme.colors.primary
-                    : theme.colors.onSurface,
-                  backgroundColor: isCorrect ? theme.colors.primary : undefined,
-                },
-              ]}
-              onPress={() => {
-                if (indexOrFalse !== false) {
-                  removeAnswerIndex(indexOrFalse);
-                }
-              }}
-            >
-              <Text
+        <View>
+          <Animated.View
+            style={[
+              {
+                flexDirection: isRtl ? 'row-reverse' : 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                gap: 6,
+                width: 322,
+                padding: 12,
+                alignSelf: 'center',
+              },
+              { transform: [{ translateX: x }] },
+            ]}
+          >
+            {answer.map((indexOrFalse, itemIndex) => (
+              <TouchableRipple
+                key={itemIndex}
+                disabled={indexOrFalse === false}
+                borderless={true}
                 style={[
-                  letterStyle,
+                  letterContainerStyle,
                   {
-                    opacity: indexOrFalse !== false ? 1 : 0,
-                    color: isCorrect
-                      ? theme.colors.onPrimary
-                      : theme.colors.secondary,
+                    borderColor: isCorrect
+                      ? theme.colors.primary
+                      : theme.colors.onSurface,
+                    backgroundColor: isCorrect
+                      ? theme.colors.primary
+                      : undefined,
                   },
                 ]}
+                onPress={() => {
+                  if (indexOrFalse !== false) {
+                    removeAnswerIndex(indexOrFalse);
+                  }
+                }}
               >
-                {indexOrFalse === false
-                  ? '_'
-                  : lettersRef.current[indexOrFalse].replace(' ', '_')}
-              </Text>
-            </TouchableRipple>
-          ))}
-        </Animated.View>
+                <Text
+                  style={[
+                    letterStyle,
+                    {
+                      opacity: indexOrFalse !== false ? 1 : 0,
+                      color: isCorrect
+                        ? theme.colors.onPrimary
+                        : theme.colors.secondary,
+                    },
+                  ]}
+                >
+                  {indexOrFalse === false
+                    ? '_'
+                    : lettersRef.current[indexOrFalse].replace(' ', '_')}
+                </Text>
+              </TouchableRipple>
+            ))}
+          </Animated.View>
+          <Button
+            style={{ alignSelf: 'center' }}
+            disabled={isCorrect || answer.every((index) => index === false)}
+            onPress={() => setAnswer(answer.map(() => false))}
+          >
+            {t('study.arrangeByLetters.clearAll')}
+          </Button>
+        </View>
         <Surface
           elevation={2}
           mode="flat"
@@ -328,19 +339,10 @@ export const ArrangeByLetters: FC<Props> = ({
           style={{
             alignSelf: 'center',
             minHeight: 40,
-            flexDirection: 'row',
-            flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: 8,
           }}
         >
-          <Button
-            disabled={isCorrect || answer.every((index) => index === false)}
-            onPress={() => setAnswer(answer.map(() => false))}
-          >
-            {t('study.arrangeByLetters.clearAll')}
-          </Button>
           {!isAnswerVisible && (
             <Button
               onPress={() => {
