@@ -44,7 +44,7 @@ export const Streak: FC<Props> = ({ consecutiveDays, hasBeenShown }) => {
   ).current;
 
   const badgeScale = useRef(new Animated.Value(0.6)).current;
-  const flameScale = useRef(new Animated.Value(0)).current;
+  const capScale = useRef(new Animated.Value(0)).current;
   const ripple = useRef(new Animated.Value(0)).current;
   const burst = useRef(new Animated.Value(0)).current;
   const daysAppearance = useRef(
@@ -61,7 +61,7 @@ export const Streak: FC<Props> = ({ consecutiveDays, hasBeenShown }) => {
 
     Animated.sequence([
       Animated.delay(450),
-      Animated.spring(flameScale, {
+      Animated.spring(capScale, {
         toValue: 1,
         useNativeDriver: true,
         friction: 4,
@@ -297,25 +297,27 @@ export const Streak: FC<Props> = ({ consecutiveDays, hasBeenShown }) => {
               position: 'absolute',
               right: 2,
               bottom: 2,
-              transform: [{ scale: flameScale }],
+              transform: [{ scale: capScale }],
             }}
           >
-            <LinearGradient
-              colors={[FLAME_COLOR, FLAME_COLOR_DARK]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
+            <View
               style={{
-                width: 44,
-                height: 44,
-                borderRadius: 22,
+                width: 48,
+                height: 48,
+                borderRadius: 24,
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderWidth: 3,
-                borderColor: theme.colors.background,
+                borderColor: theme.colors.primary,
+                backgroundColor: theme.colors.aboveElevation,
               }}
             >
-              <Icon name="fire" size={24} color="white" />
-            </LinearGradient>
+              <Icon
+                name="rocket-launch"
+                size={26}
+                color={theme.colors.primary}
+              />
+            </View>
           </Animated.View>
         </Animated.View>
       </View>
@@ -374,13 +376,9 @@ export const Streak: FC<Props> = ({ consecutiveDays, hasBeenShown }) => {
                   transform: last ? [{ scale: dayScale }] : [],
                 }}
               >
-                {streakDay.checked ? (
+                {streakDay.checked && last && (
                   <LinearGradient
-                    colors={
-                      last
-                        ? [FLAME_COLOR, FLAME_COLOR_DARK]
-                        : [theme.colors.primary, theme.colors.primaryVariant]
-                    }
+                    colors={[theme.colors.primary, theme.colors.primaryVariant]}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
                     style={{
@@ -391,12 +389,30 @@ export const Streak: FC<Props> = ({ consecutiveDays, hasBeenShown }) => {
                     }}
                   >
                     <Icon
-                      name={last ? 'fire' : 'check-bold'}
-                      size={last ? 18 : 16}
-                      color="white"
+                      name="rocket-launch"
+                      size={18}
+                      color={theme.colors.onPrimary}
                     />
                   </LinearGradient>
-                ) : (
+                )}
+                {streakDay.checked && !last && (
+                  <View
+                    style={{
+                      flex: 1,
+                      borderRadius: 16,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: theme.colors.inversePrimary,
+                    }}
+                  >
+                    <Icon
+                      name="check-bold"
+                      size={16}
+                      color={theme.colors.primary}
+                    />
+                  </View>
+                )}
+                {!streakDay.checked && (
                   <View
                     style={{
                       flex: 1,
