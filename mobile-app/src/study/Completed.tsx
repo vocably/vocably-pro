@@ -1,4 +1,3 @@
-import { CardItem } from '@vocably/model';
 import { sample } from 'lodash-es';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useEffect, useRef, useState } from 'react';
@@ -7,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import LinearGradient from 'react-native-linear-gradient';
 import { Button, Text, useTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { RequestFeedback } from '../RequestFeedback';
 import { Streak } from '../Streak';
 import { AppTheme } from '../ThemeProvider';
 import { Displayer } from './Displayer';
@@ -16,10 +14,8 @@ import { PADDING_VERTICAL } from './StudyScreen';
 const MOTIVATIONAL_QUOTE_COUNT = 28;
 
 type Props = {
-  numberOfStudySessions?: number;
   onStudyAgain?: () => void;
   onDone?: () => void;
-  cards: CardItem[];
   streakHasBeenShown: boolean;
   streakDays: number;
   onShow: () => void;
@@ -29,8 +25,6 @@ type Props = {
 export const Completed: FC<Props> = ({
   onStudyAgain = () => {},
   onDone = () => {},
-  numberOfStudySessions,
-  cards,
   streakHasBeenShown,
   streakDays,
   onShow,
@@ -167,14 +161,6 @@ export const Completed: FC<Props> = ({
             </Button>
           )}
         </Animated.View>
-        {cards.length >= 10 && (
-          <RequestFeedback
-            numberOfStudySessions={numberOfStudySessions}
-            style={{
-              paddingHorizontal: 24,
-            }}
-          />
-        )}
       </ScrollView>
       <LinearGradient
         locations={[0.1, 1]}

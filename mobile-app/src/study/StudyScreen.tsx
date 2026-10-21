@@ -21,7 +21,6 @@ import {
 } from '../autoPlayState';
 import { useSelectedDeck } from '../languageDeck/useSelectedDeck';
 import { Loader } from '../loaders/Loader';
-import { useNumberOfStudySessions } from '../RequestFeedback/useNumberOfStudySessions';
 import {
   getMaximumCardsPerSession,
   getMaximumNeverStudiedCardsPerDay,
@@ -96,8 +95,6 @@ export const StudyScreen: Props = ({ route, navigation }) => {
   // Set cards studied to -1 as the initial state
   // this will be changed to 0 when filtered cards are loaded
   const [cardsStudied, setCardsStudied] = useState(-1);
-  const [numberOfStudySessions, increaseNumberOfStudySessions] =
-    useNumberOfStudySessions();
   const [cardsAnsweredToday, increaseCardsAnsweredToday] =
     useCardsAnsweredToday();
 
@@ -257,7 +254,6 @@ export const StudyScreen: Props = ({ route, navigation }) => {
 
     if (followingIndex === cards.length) {
       setBadgeCount(0);
-      increaseNumberOfStudySessions();
     }
   };
 
@@ -425,13 +421,7 @@ export const StudyScreen: Props = ({ route, navigation }) => {
           )}
           {cards.length === currentCardIndex && (
             <Completed
-              cards={allCards}
               onDone={() => navigation.goBack()}
-              numberOfStudySessions={
-                numberOfStudySessions.status === 'loaded'
-                  ? numberOfStudySessions.value
-                  : 0
-              }
               onStudyAgain={() => setCardsStudied(-1)}
               streakHasBeenShown={streakHasShownToday.value}
               streakDays={studyStreak.days}
