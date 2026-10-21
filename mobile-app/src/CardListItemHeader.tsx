@@ -164,6 +164,7 @@ export const CardListItemHeader: FC<Props> = ({
               {'\u00A0'}
             </>
           )}
+          {allowCopy && `\n`}
           {card.ipa && (
             <>
               {' '}

@@ -147,6 +147,7 @@ export const CardListItemHeaderRtl: FC<Props> = ({
             {' '}
           </>
         )}
+        {allowCopy && `\n`}
         {card.ipa && <> /{isolate(sanitizeTranscript(card.ipa))}/</>}
         {card.g && <> ({isolate(card.g)})</>}
         {card.partOfSpeech && (

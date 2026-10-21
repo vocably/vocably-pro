@@ -120,7 +120,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
         {!hideOperations && (
           <View
             style={{
-              marginTop: Platform.OS === 'android' ? 13 : 15,
+              marginTop: Platform.OS === 'android' ? 12 : 10,
               // To prevent jumping
               height: 90,
             }}
