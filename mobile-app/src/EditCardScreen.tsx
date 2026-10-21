@@ -12,7 +12,8 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, View } from 'react-native';
-import { Button, Chip, Text, useTheme } from 'react-native-paper';
+import { Button, Text, useTheme } from 'react-native-paper';
+import { Tag } from './ui/Tag';
 import { CardForm } from './CardForm';
 import { useLanguageDeck } from './languageDeck/useLanguageDeck';
 import { Loader } from './loaders/Loader';
@@ -199,16 +200,13 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
               }}
             >
               {cardData.tags.map((tag) => (
-                <Chip
+                <Tag
                   key={tag.id}
-                  selectedColor={theme.colors.outlineVariant}
-                  mode="outlined"
+                  label={tag.data.title}
                   onClose={() =>
                     onTagsChange(cardData.tags.filter((t) => t.id !== tag.id))
                   }
-                >
-                  {tag.data.title}
-                </Chip>
+                />
               ))}
             </View>
           )}

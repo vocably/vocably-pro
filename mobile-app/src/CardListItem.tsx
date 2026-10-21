@@ -2,15 +2,10 @@ import { Card, TagItem } from '@vocably/model';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleProp, View, ViewStyle } from 'react-native';
-import {
-  ActivityIndicator,
-  Chip,
-  Portal,
-  Text,
-  useTheme,
-} from 'react-native-paper';
+import { ActivityIndicator, Portal, Text, useTheme } from 'react-native-paper';
 import { Divider } from './ui/Divider';
 import { Snackbar } from './ui/Snackbar';
+import { Tag } from './ui/Tag';
 import { CardDefinition } from './CardDefinition';
 import { CardExample } from './CardExample';
 import { CardListItemHeader } from './CardListItemHeader';
@@ -118,14 +113,11 @@ export const CardListItem: FC<Props> = ({
           }}
         >
           {card.tags.map((tag) => (
-            <Chip
+            <Tag
               key={tag.id}
-              selectedColor={theme.colors.onSurface}
-              mode="outlined"
+              label={tag.data.title}
               onClose={onTagClose(tag)}
-            >
-              {tag.data.title}
-            </Chip>
+            />
           ))}
           {savingTagsInProgress && (
             <ActivityIndicator color={theme.colors.onBackground} />

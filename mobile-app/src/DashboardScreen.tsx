@@ -26,7 +26,6 @@ import {
   ActivityIndicator,
   Appbar,
   Button,
-  Chip,
   IconButton,
   Surface,
   Text,
@@ -53,6 +52,7 @@ import { mainPadding } from './styles';
 import { TagsSelector } from './TagsSelector';
 import { CustomSurface } from './ui/CustomSurface';
 import { ScreenLayout } from './ui/ScreenLayout';
+import { Tag } from './ui/Tag';
 import { useAsync } from './useAsync';
 import { useCurrentLanguageName } from './useCurrentLanguageName';
 import { usePresentPaywall } from './usePresentPaywall';
@@ -517,41 +517,24 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                 >
                   <Text>{t('dashboard.tagsLabel')}</Text>
                   {selectedTags.map((tag) => (
-                    // Wrap the chip in view to fix the close button on Android
-                    <View key={tag.id}>
-                      <Chip
-                        mode="outlined"
-                        selectedColor={theme.colors.onSurface}
-                        style={{
-                          backgroundColor: 'transparent',
-                        }}
-                        onClose={() =>
-                          setSelectedTagIds(
-                            selectedTags
-                              .filter(
-                                (selectedTag) => selectedTag.id !== tag.id
-                              )
-                              .map((t) => t.id)
-                          )
-                        }
-                      >
-                        {tag.data.title}
-                      </Chip>
-                    </View>
+                    <Tag
+                      key={tag.id}
+                      label={tag.data.title}
+                      onClose={() =>
+                        setSelectedTagIds(
+                          selectedTags
+                            .filter((selectedTag) => selectedTag.id !== tag.id)
+                            .map((t) => t.id)
+                        )
+                      }
+                    />
                   ))}
                   {noTags && (
-                    <View>
-                      <Chip
-                        mode="outlined"
-                        selectedColor={theme.colors.onSurface}
-                        style={{
-                          backgroundColor: 'transparent',
-                        }}
-                        onClose={() => setNoTags(false)}
-                      >
-                        {t('dashboard.cardsWithNoTags')}
-                      </Chip>
-                    </View>
+                    <Tag
+                      icon="tag-off-outline"
+                      label={t('dashboard.cardsWithNoTags')}
+                      onClose={() => setNoTags(false)}
+                    />
                   )}
                 </View>
               )}
