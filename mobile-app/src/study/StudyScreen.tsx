@@ -347,7 +347,7 @@ export const StudyScreen: Props = ({ route, navigation }) => {
           size={24}
           onPress={() => navigation.goBack()}
           style={{
-            backgroundColor: 'transparent',
+            backgroundColor: theme.colors.background,
           }}
         />
       ),
@@ -392,24 +392,36 @@ export const StudyScreen: Props = ({ route, navigation }) => {
           }}
         >
           {cards.length > currentCardIndex && (
-            <Grade
+            <View
               key={cards[currentCardIndex].id}
-              deckSettings={deckSettings ?? {}}
-              card={cards[currentCardIndex]}
-              onGrade={onGrade}
-              autoPlay={autoPlayResult.value}
-              playRandomExample={playRandomExampleResult.value}
-              existingCards={allCards}
-              studySteps={studySteps}
-              prerenderedCards={
-                translationLanguage
-                  ? getPredefinedMultiChoiceOptions(
-                      language as GoogleLanguage,
-                      translationLanguage
-                    )
-                  : []
-              }
-            />
+              style={{
+                flex: 1,
+                width: '100%',
+                flexGrow: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 48,
+                overflow: 'visible',
+              }}
+            >
+              <Grade
+                deckSettings={deckSettings ?? {}}
+                card={cards[currentCardIndex]}
+                onGrade={onGrade}
+                autoPlay={autoPlayResult.value}
+                playRandomExample={playRandomExampleResult.value}
+                existingCards={allCards}
+                studySteps={studySteps}
+                prerenderedCards={
+                  translationLanguage
+                    ? getPredefinedMultiChoiceOptions(
+                        language as GoogleLanguage,
+                        translationLanguage
+                      )
+                    : []
+                }
+              />
+            </View>
           )}
           {cards.length === currentCardIndex && (
             <Completed
