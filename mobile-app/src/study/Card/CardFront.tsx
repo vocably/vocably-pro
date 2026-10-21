@@ -3,11 +3,13 @@ import { isGoodPlural, sanitizeTranscript } from '@vocably/sulna';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { PixelRatio, Platform, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Text, useTheme } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { CardExample, CardExampleRef } from '../../CardExample';
 import { isolate } from '../../isolate';
 import { PlaySound, PlaySoundRef } from '../../PlaySound';
 import { studySmallFontSize } from '../../styles';
+import { Tag } from '../../Tag';
+import { useAppTheme } from '../../ThemeProvider';
 
 type Props = {
   card: CardItem;
@@ -25,7 +27,7 @@ export const CardFront: FC<Props> = ({
   showInflections = false,
   onPress,
 }) => {
-  const theme = useTheme();
+  const theme = useAppTheme();
   const { t } = useTranslation();
 
   const [isAutoPlayed, setIsAutoPlayed] = useState(false);
@@ -55,15 +57,26 @@ export const CardFront: FC<Props> = ({
 
   const fontScale = PixelRatio.getFontScale();
 
-  const present = card.data.presentTenses
-    ? t('common.presentTenses', { value: card.data.presentTenses })
-    : false;
-  const past =
-    card.data.tense === 'present' && card.data.pastTenses
-      ? t('common.pastTenses', { value: isolate(card.data.pastTenses) })
-      : false;
+  const tags = [
+    card.data.partOfSpeech &&
+      t(`language.${card.data.partOfSpeech}`, card.data.partOfSpeech),
+    card.data.g && isolate(card.data.g),
+  ].filter(Boolean) as string[];
 
-  const presentAndPast = [present, past].filter(Boolean).join(`\n`);
+  const inflections = showInflections
+    ? ([
+        card.data.presentTenses &&
+          t('common.presentTenses', { value: card.data.presentTenses }),
+        card.data.tense === 'present' &&
+          card.data.pastTenses &&
+          t('common.pastTenses', { value: isolate(card.data.pastTenses) }),
+        card.data.number === 'singular' &&
+          isGoodPlural(card.data.pluralForm) &&
+          t('common.plural', { value: isolate(card.data.pluralForm) }),
+      ].filter(Boolean) as string[])
+    : [];
+
+  const mutedColor = theme.colors.onSurfaceVariant;
 
   return (
     <View>
@@ -105,7 +118,9 @@ export const CardFront: FC<Props> = ({
           )}
           <Text
             style={{
-              fontSize: 32,
+              fontSize: 34,
+              fontWeight: '600',
+              letterSpacing: -0.3,
               color: theme.colors.secondary,
             }}
           >
@@ -113,48 +128,52 @@ export const CardFront: FC<Props> = ({
           </Text>
         </Text>
       </View>
-      {(card.data.ipa ||
-        card.data.partOfSpeech ||
-        card.data.g ||
-        (showInflections && presentAndPast)) && (
+      {(card.data.ipa || tags.length > 0) && (
         <View
           style={{
             flexDirection: 'row',
             flexWrap: 'wrap',
-            marginLeft: 8,
-            marginTop: 6,
+            alignItems: 'center',
+            marginTop: 10,
             gap: 8,
           }}
         >
           {card.data.ipa && (
-            <Text>/{isolate(sanitizeTranscript(card.data.ipa))}/</Text>
-          )}
-          {card.data.g && <Text>({isolate(card.data.g)})</Text>}
-          {card.data.partOfSpeech && (
-            <Text>
-              {t(`language.${card.data.partOfSpeech}`, card.data.partOfSpeech)}
+            <Text style={{ fontSize: 16, color: mutedColor }}>
+              /{isolate(sanitizeTranscript(card.data.ipa))}/
             </Text>
           )}
-          {showInflections && presentAndPast && <Text>{presentAndPast}</Text>}
-          {showInflections &&
-            card.data.number === 'singular' &&
-            isGoodPlural(card.data.pluralForm) && (
-              <Text>
-                {t('common.plural', {
-                  value: isolate(card.data.pluralForm),
-                })}
-              </Text>
-            )}
+          {tags.map((tag, index) => (
+            <Tag key={index}>{tag}</Tag>
+          ))}
+        </View>
+      )}
+      {inflections.length > 0 && (
+        <View style={{ marginTop: 10, gap: 2 }}>
+          {inflections.map((inflection, index) => (
+            <Text key={index} style={{ fontSize: 15, color: mutedColor }}>
+              {inflection}
+            </Text>
+          ))}
         </View>
       )}
       {card.data.example && (
-        <View style={{ marginTop: 12, marginLeft: 8 }}>
+        <View
+          style={{
+            marginTop: 20,
+            paddingStart: 12,
+            borderStartWidth: 3,
+            borderStartColor: theme.colors.divider,
+            borderRadius: 2,
+          }}
+        >
           <CardExample
             ref={cardExampleRef}
             example={card.data.example}
             textStyle={{ fontSize: studySmallFontSize }}
             language={card.data.language}
             onPress={onPress}
+            hideBul={true}
           />
         </View>
       )}

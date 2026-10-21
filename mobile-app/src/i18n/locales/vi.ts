@@ -388,7 +388,7 @@ const translations: BaseTranslations = {
       theAnswerIs: 'Câu trả lời là',
     },
     reverseCardFront: {
-      examples_other: 'Ví dụ:',
+      examples_other: 'Ví dụ',
     },
     motivationalQuotes: {
       '0': 'Mỗi từ mới bạn học hôm nay là một viên gạch xây nên sự thông thạo ngày mai.',
@@ -697,9 +697,9 @@ const translations: BaseTranslations = {
     neverAgain: 'Tôi không muốn thấy thông báo này nữa',
   },
   cardDefinition: {
-    present: 'Hiện tại:',
-    past: 'Quá khứ:',
-    plural: 'Số nhiều:',
+    present: 'Thì hiện tại',
+    past: 'Thì quá khứ',
+    plural: 'Dạng số nhiều',
   },
   streak: {
     consecutiveDays_other: 'ngày liên tiếp.',

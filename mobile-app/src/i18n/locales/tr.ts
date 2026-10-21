@@ -395,8 +395,8 @@ const translations: BaseTranslations = {
       theAnswerIs: 'Cevap',
     },
     reverseCardFront: {
-      examples_one: 'Örnek:',
-      examples_other: 'Örnekler:',
+      examples_one: 'Örnek',
+      examples_other: 'Örnekler',
     },
     motivationalQuotes: {
       '0': 'Akıcılık bir günde gelmez; her gün biraz daha yakına gelir. Devam et.',
@@ -709,9 +709,9 @@ const translations: BaseTranslations = {
     neverAgain: 'Bu mesajı bir daha görmek istemiyorum',
   },
   cardDefinition: {
-    present: 'Şimdiki:',
-    past: 'Geçmiş:',
-    plural: 'Çoğul:',
+    present: 'Şimdiki zaman',
+    past: 'Geçmiş zaman',
+    plural: 'Çoğul hali',
   },
   streak: {
     consecutiveDays_one: 'art arda gün.',

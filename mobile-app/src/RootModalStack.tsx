@@ -73,6 +73,7 @@ export const RootModalStack = () => {
           component={StudyScreen}
           options={{
             headerShown: true,
+            headerTransparent: true,
           }}
         />
         <Stack.Screen

@@ -407,13 +407,13 @@ const translations: BaseTranslations = {
       showCorrectAnswer: 'Показати правильну відповідь',
     },
     reverseCardBack: {
-      theAnswerIs: 'Відповідь:',
+      theAnswerIs: 'Відповідь',
     },
     reverseCardFront: {
-      examples_one: 'Приклад:',
-      examples_few: 'Приклади:',
-      examples_many: 'Приклади:',
-      examples_other: 'Приклади:',
+      examples_one: 'Приклад',
+      examples_few: 'Приклади',
+      examples_many: 'Приклади',
+      examples_other: 'Приклади',
     },
     motivationalQuotes: {
       '0': 'Кожне нове слово — це маленька перемога. Збирайте їх щодня, і вони стануть вільним володінням.',
@@ -725,9 +725,9 @@ const translations: BaseTranslations = {
     neverAgain: 'Не показувати більше',
   },
   cardDefinition: {
-    present: 'Теперішній:',
-    past: 'Минулий:',
-    plural: 'Мн.:',
+    present: 'Теперішній час',
+    past: 'Минулий час',
+    plural: 'Множина',
   },
   streak: {
     consecutiveDays_one: 'день поспіль.',

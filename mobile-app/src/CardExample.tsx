@@ -31,11 +31,20 @@ type Props = {
   mask?: Mask;
   onPress?: () => unknown;
   lookUpDisabled?: boolean;
+  hideBul?: boolean;
 };
 
 export const CardExample = forwardRef<CardExampleRef, Props>(
   (
-    { example, textStyle, mask, language, onPress, lookUpDisabled = false },
+    {
+      example,
+      textStyle,
+      mask,
+      language,
+      onPress,
+      lookUpDisabled = false,
+      hideBul = false,
+    },
     ref
   ) => {
     let examples = explode(example);
@@ -87,7 +96,12 @@ export const CardExample = forwardRef<CardExampleRef, Props>(
               gap: 4,
             }}
           >
-            {isGoogleTTSLanguage(language) ? (
+            {hideBul &&
+            (playDisabled ||
+              !isGoogleTTSLanguage(
+                language
+              )) ? // Disabled PlaySound renders a dot, which hideBul removes too
+            null : isGoogleTTSLanguage(language) ? (
               <PlaySound
                 ref={(el) => {
                   playSoundRefs.current[index] = el;

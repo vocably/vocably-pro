@@ -398,8 +398,8 @@ const translations: BaseTranslations = {
       theAnswerIs: 'A resposta é',
     },
     reverseCardFront: {
-      examples_one: 'Exemplo:',
-      examples_other: 'Exemplos:',
+      examples_one: 'Exemplo',
+      examples_other: 'Exemplos',
     },
     motivationalQuotes: {
       '0': 'Fluência não nasce de um dia perfeito, mas de muitos dias comuns em que você não desistiu.',
@@ -710,9 +710,9 @@ const translations: BaseTranslations = {
     neverAgain: 'Não quero ver esta mensagem novamente',
   },
   cardDefinition: {
-    present: 'Presente:',
-    past: 'Passado:',
-    plural: 'Plural:',
+    present: 'Tempo presente',
+    past: 'Tempo passado',
+    plural: 'Forma plural',
   },
   streak: {
     consecutiveDays_one: 'dia consecutivo.',
