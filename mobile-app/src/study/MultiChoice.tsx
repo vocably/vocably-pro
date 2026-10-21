@@ -17,7 +17,6 @@ import { PlaySound, PlaySoundRef } from '../PlaySound';
 import { CardFront } from './Card/CardFront';
 import { Displayer, DisplayerRef } from './Displayer';
 import { PADDING_VERTICAL } from './StudyScreen';
-import { studySmallFontSize } from '../styles';
 
 type Props = {
   autoPlay: boolean;
@@ -129,7 +128,6 @@ export const MultiChoice: FC<Props> = ({
                 <CardDefinition
                   card={card.data}
                   textStyle={{ fontSize: 24 }}
-                  partOfSpeechFontSize={studySmallFontSize}
                   maskSource={true}
                   hideDefinitions={deckSettings.hideDefinitions}
                   enrichWithPartOfSpeech={true}

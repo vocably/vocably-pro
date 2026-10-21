@@ -388,7 +388,7 @@ const translations: BaseTranslations = {
       theAnswerIs: 'Câu trả lời là',
     },
     reverseCardFront: {
-      examples_other: 'Ví dụ:',
+      examples_other: 'Ví dụ',
     },
     motivationalQuotes: {
       '0': 'Mỗi từ mới bạn học hôm nay là một viên gạch xây nên sự thông thạo ngày mai.',

@@ -407,13 +407,13 @@ const translations: BaseTranslations = {
       showCorrectAnswer: 'Показать правильный ответ',
     },
     reverseCardBack: {
-      theAnswerIs: 'Ответ:',
+      theAnswerIs: 'Ответ',
     },
     reverseCardFront: {
-      examples_one: 'Пример:',
-      examples_few: 'Примеры:',
-      examples_many: 'Примеры:',
-      examples_other: 'Примеры:',
+      examples_one: 'Пример',
+      examples_few: 'Примеры',
+      examples_many: 'Примеры',
+      examples_other: 'Примеры',
     },
     motivationalQuotes: {
       '0': 'Язык покоряется не тем, кто спешит, а тем, кто не останавливается.',

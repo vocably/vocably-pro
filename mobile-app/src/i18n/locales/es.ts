@@ -399,8 +399,8 @@ const translations: BaseTranslations = {
       theAnswerIs: 'La respuesta es',
     },
     reverseCardFront: {
-      examples_one: 'Ejemplo:',
-      examples_other: 'Ejemplos:',
+      examples_one: 'Ejemplo',
+      examples_other: 'Ejemplos',
     },
     motivationalQuotes: {
       '0': 'La fluidez no se alcanza de un salto, sino con un paso firme cada día.',

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Text, useTheme } from 'react-native-paper';
 import { maskTheWord } from './maskTheWord';
 import { i18n } from './i18n';
+import { Tag } from './Tag';
 
 type Props = {
   card: Card;
@@ -17,15 +18,12 @@ type Props = {
   lookUpDisabled?: boolean;
   hideDefinitions?: boolean;
   enrichWithPartOfSpeech?: boolean;
-  partOfSpeechFontSize?: number;
 };
 
 type Definition = {
   text: string;
   style: StyleProp<Text>;
   lookUpEnabled: boolean;
-  partOfSpeech: string;
-  bulStyle?: StyleProp<Text>;
 };
 
 export const CardDefinition: FC<Props> = ({
@@ -37,7 +35,6 @@ export const CardDefinition: FC<Props> = ({
   lookUpDisabled = false,
   hideDefinitions = false,
   enrichWithPartOfSpeech = false,
-  partOfSpeechFontSize,
 }) => {
   const theme = useTheme();
   const navigation = useNavigation();
@@ -85,21 +82,25 @@ export const CardDefinition: FC<Props> = ({
       ? i18n.t(`language.${card.partOfSpeech}`, card.partOfSpeech)
       : '';
 
-  if (partOfSpeech) {
-    definitions.unshift({
-      text: partOfSpeech + ':',
-      style: { fontSize: partOfSpeechFontSize },
-      lookUpEnabled: false,
-      bulStyle: { opacity: 0 },
-    });
-  }
-
   return (
     <View
       style={{
         maxWidth: '100%',
       }}
     >
+      {!!partOfSpeech && (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 4,
+          }}
+        >
+          {/* Invisible bullet aligns the tag with the definitions text */}
+          <Text style={[textStyle, { opacity: 0 }]}>{bul}</Text>
+          <Tag>{partOfSpeech}</Tag>
+        </View>
+      )}
       {definitions.map((item, index) => {
         const lookUpEnabled = !lookUpDisabled && item.lookUpEnabled;
         return (
@@ -112,7 +113,7 @@ export const CardDefinition: FC<Props> = ({
               gap: 4,
             }}
           >
-            <Text style={[textStyle, item.bulStyle]}>{bul}</Text>
+            <Text style={textStyle}>{bul}</Text>
 
             <Pressable
               style={({ pressed }) => [

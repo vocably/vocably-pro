@@ -395,8 +395,8 @@ const translations: BaseTranslations = {
       theAnswerIs: 'Cevap',
     },
     reverseCardFront: {
-      examples_one: 'Örnek:',
-      examples_other: 'Örnekler:',
+      examples_one: 'Örnek',
+      examples_other: 'Örnekler',
     },
     motivationalQuotes: {
       '0': 'Akıcılık bir günde gelmez; her gün biraz daha yakına gelir. Devam et.',

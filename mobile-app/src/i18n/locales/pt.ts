@@ -398,8 +398,8 @@ const translations: BaseTranslations = {
       theAnswerIs: 'A resposta é',
     },
     reverseCardFront: {
-      examples_one: 'Exemplo:',
-      examples_other: 'Exemplos:',
+      examples_one: 'Exemplo',
+      examples_other: 'Exemplos',
     },
     motivationalQuotes: {
       '0': 'Fluência não nasce de um dia perfeito, mas de muitos dias comuns em que você não desistiu.',
