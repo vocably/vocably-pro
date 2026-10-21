@@ -6,11 +6,11 @@ import {
   ActivityIndicator,
   Chip,
   Portal,
-  Snackbar,
   Text,
   useTheme,
 } from 'react-native-paper';
 import { Divider } from './ui/Divider';
+import { Snackbar } from './ui/Snackbar';
 import { CardDefinition } from './CardDefinition';
 import { CardExample } from './CardExample';
 import { CardListItemHeader } from './CardListItemHeader';

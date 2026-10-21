@@ -11,7 +11,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Portal, Snackbar, Text } from 'react-native-paper';
+import { Portal, Text } from 'react-native-paper';
 import Animated, {
   Easing,
   FadeIn,
@@ -28,6 +28,7 @@ import { setSourceLanguage } from './SourceLanguageButton';
 import { mainPadding } from './styles';
 import { useAppTheme } from './ThemeProvider';
 import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
+import { Snackbar } from './ui/Snackbar';
 
 const MINI_CARD_WIDTH = 64;
 const MINI_CARD_HEIGHT = 84;
