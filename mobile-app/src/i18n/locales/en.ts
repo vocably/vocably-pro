@@ -291,10 +291,11 @@ const translations = {
   generateCards: {
     loadingPreset: 'Loading translation preset...',
     errorUnable: 'Unable to generate cards. Please try again.',
-    intro: 'Type what you need, and Vocably will generate cards for you.',
+    intro:
+      'Name a topic and Vocably will turn it into flashcards in seconds, from kitchen vocabulary to verbs that refuse to follow the rules.',
     experimental:
-      'This is an experimental feature. <feedback>Let me know</feedback> if you find any bugs or have any suggestions.',
-    examplesToTry: 'Some examples to try:',
+      'This feature is fresh out of the oven. If something tastes off, <feedback>let me know</feedback>.',
+    examplesToTry: 'Not sure where to start? Try one of these:',
     exampleIrregularVerbs: 'irregular verbs',
     exampleAnimals: 'animals',
     examplePopularIdioms: 'popular idioms',

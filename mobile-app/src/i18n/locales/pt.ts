@@ -293,10 +293,11 @@ const translations: BaseTranslations = {
   generateCards: {
     loadingPreset: 'Carregando preset de tradução...',
     errorUnable: 'Não foi possível gerar os cartões. Tente novamente.',
-    intro: 'Digite o que precisa e o Vocably vai gerar cartões para você.',
+    intro:
+      'Escreva um tema e o Vocably transforma em cartões em segundos, de vocabulário de cozinha a verbos que se recusam a seguir as regras.',
     experimental:
-      'Este é um recurso experimental. <feedback>Me avise</feedback> se encontrar bugs ou tiver sugestões.',
-    examplesToTry: 'Alguns exemplos para experimentar:',
+      'Este recurso acabou de sair do forno. Se algo não estiver do seu gosto, <feedback>me avise</feedback>.',
+    examplesToTry: 'Não sabe por onde começar? Experimente um destes:',
     exampleIrregularVerbs: 'verbos irregulares',
     exampleAnimals: 'animais',
     examplePopularIdioms: 'expressões populares',

@@ -1,7 +1,16 @@
 import { FC, PropsWithChildren, useRef } from 'react';
-import { Animated, Pressable, StyleProp, ViewStyle } from 'react-native';
+import {
+  Animated,
+  Pressable,
+  PressableProps,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
-type Props = {
+type Props = Pick<
+  PressableProps,
+  'accessibilityRole' | 'accessibilityLabel'
+> & {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
 };
@@ -10,6 +19,7 @@ export const PressableScale: FC<PropsWithChildren<Props>> = ({
   onPress,
   children,
   style,
+  ...accessibilityProps
 }) => {
   const scale = useRef(new Animated.Value(1)).current;
 
@@ -33,6 +43,7 @@ export const PressableScale: FC<PropsWithChildren<Props>> = ({
 
   return (
     <Pressable
+      {...accessibilityProps}
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}

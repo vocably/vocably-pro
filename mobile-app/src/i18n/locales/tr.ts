@@ -291,10 +291,12 @@ const translations: BaseTranslations = {
   generateCards: {
     loadingPreset: 'Çeviri ön ayarı yükleniyor...',
     errorUnable: 'Kartlar oluşturulamadı. Lütfen tekrar dene.',
-    intro: 'Ne istediğini yaz, Vocably senin için kartları oluştursun.',
+    intro:
+      'Bir konu yaz, Vocably saniyeler içinde onu kartlara dönüştürsün: mutfak kelimelerinden kurallara uymayı reddeden fiillere kadar.',
     experimental:
-      'Bu deneysel bir özelliktir. Bir hata bulursan veya önerilerin varsa <feedback>bana bildir</feedback>.',
-    examplesToTry: 'Denemen için bazı örnekler:',
+      'Bu özellik fırından yeni çıktı. Tadında bir tuhaflık sezersen <feedback>bana haber ver</feedback>.',
+    examplesToTry:
+      'Nereden başlayacağını bilmiyor musun? Bunlardan birini dene:',
     exampleIrregularVerbs: 'düzensiz fiiller',
     exampleAnimals: 'hayvanlar',
     examplePopularIdioms: 'popüler deyimler',

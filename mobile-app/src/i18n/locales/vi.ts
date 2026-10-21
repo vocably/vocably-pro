@@ -284,10 +284,11 @@ const translations: BaseTranslations = {
   generateCards: {
     loadingPreset: 'Đang tải cài đặt dịch...',
     errorUnable: 'Không thể tạo thẻ. Vui lòng thử lại.',
-    intro: 'Hãy nhập điều bạn cần và Vocably sẽ tạo thẻ cho bạn.',
+    intro:
+      'Hãy nhập một chủ đề và Vocably sẽ biến nó thành thẻ học chỉ trong vài giây, từ từ vựng nhà bếp đến những động từ chẳng chịu theo quy tắc nào.',
     experimental:
-      'Đây là một tính năng thử nghiệm. <feedback>Hãy cho tôi biết</feedback> nếu bạn gặp lỗi hoặc có đề xuất.',
-    examplesToTry: 'Một vài ví dụ để thử:',
+      'Tính năng này vừa mới ra lò. Nếu có gì chưa ổn, <feedback>hãy cho tôi biết</feedback>.',
+    examplesToTry: 'Chưa biết bắt đầu từ đâu? Thử một trong những gợi ý sau:',
     exampleIrregularVerbs: 'động từ bất quy tắc',
     exampleAnimals: 'động vật',
     examplePopularIdioms: 'thành ngữ phổ biến',

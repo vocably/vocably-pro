@@ -7,8 +7,8 @@ import {
 import { last } from 'lodash-es';
 import { usePostHog } from 'posthog-react-native';
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
-import { Platform, ScrollView, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Platform, ScrollView, View } from 'react-native';
 import {
   KeyboardAvoidingView,
   KeyboardAwareScrollView,
@@ -26,6 +26,7 @@ import { ScreenLayout } from '../ui/ScreenLayout';
 import { useAnalyzeOperations } from '../useAnalyzeOperations';
 import { TranslationPresetFormCompact } from '../TranslationPresetFormCompact';
 import UnitsOfSpeechAnalyze from './UnitsOfSpeechAnalyze';
+import { GeneratorWelcome } from './GeneratorWelcome';
 import { useCardsLimit } from '../useCardsLimit';
 import { i18n } from '../i18n';
 
@@ -183,27 +184,14 @@ export const GenerateCardsModal: FC<Props> = ({ route, navigation }) => {
     }, 200);
   };
 
-  const runExample = (message: string) => async () => {
-    await send(message);
-  };
-
   if (translationPresetState.status === 'unknown') {
     return <Loader>{t('generateCards.loadingPreset')}</Loader>;
   }
-
-  const linkStyle = {
-    color: theme.colors.primary,
-  };
 
   const messageWrapperStyle = {
     paddingLeft: insets.left + padding,
     paddingRight: insets.left + padding,
     marginBottom: 8,
-  };
-
-  const infoTextStyle = {
-    fontSize: 16,
-    color: theme.colors.onBackground,
   };
 
   return (
@@ -223,72 +211,13 @@ export const GenerateCardsModal: FC<Props> = ({ route, navigation }) => {
             ref={scrollViewRef}
           >
             <View style={messageWrapperStyle}>
-              <View
-                style={{
-                  alignSelf: 'flex-start',
-                  backgroundColor: theme.colors.elevation.level5,
-                  borderRadius: 16,
-                  paddingHorizontal: 16,
-                  paddingVertical: 16,
-                  gap: 8,
-                }}
-              >
-                <Text style={infoTextStyle}>{t('generateCards.intro')}</Text>
-                <Text style={infoTextStyle}>
-                  <Trans
-                    i18nKey="generateCards.experimental"
-                    components={{
-                      feedback: (
-                        <Text
-                          style={linkStyle}
-                          onPress={() => navigation.navigate('Feedback')}
-                        />
-                      ),
-                    }}
-                  />
-                </Text>
-                <Text style={infoTextStyle}>
-                  {t('generateCards.examplesToTry')}
-                </Text>
-
-                <View style={{ gap: 4 }}>
-                  {languagesWithIrregularVerbs.includes(
-                    translationPresetState.preset.sourceLanguage
-                  ) && (
-                    <Text style={infoTextStyle}>
-                      -{' '}
-                      <Text
-                        style={linkStyle}
-                        onPress={runExample(
-                          t('generateCards.exampleIrregularVerbs')
-                        )}
-                      >
-                        {t('generateCards.exampleIrregularVerbs')}
-                      </Text>
-                    </Text>
-                  )}
-                  <Text
-                    style={infoTextStyle}
-                    onPress={runExample(t('generateCards.exampleAnimals'))}
-                  >
-                    -{' '}
-                    <Text style={linkStyle}>
-                      {t('generateCards.exampleAnimals')}
-                    </Text>
-                  </Text>
-                  <Text
-                    style={infoTextStyle}
-                    onPress={runExample(
-                      t('generateCards.examplePopularIdioms')
-                    )}
-                  >
-                    -{' '}
-                    <Text style={linkStyle}>
-                      {t('generateCards.examplePopularIdioms')}
-                    </Text>
-                  </Text>
-                </View>
-              </View>
+              <GeneratorWelcome
+                showIrregularVerbs={languagesWithIrregularVerbs.includes(
+                  translationPresetState.preset.sourceLanguage
+                )}
+                onExample={send}
+                onFeedback={() => navigation.navigate('Feedback')}
+              />
             </View>
             {messages.map((message, index) => (
               <View key={index}>
