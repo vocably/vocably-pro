@@ -725,9 +725,9 @@ const translations: BaseTranslations = {
     neverAgain: 'Не показувати більше',
   },
   cardDefinition: {
-    present: 'Теперішній:',
-    past: 'Минулий:',
-    plural: 'Мн.:',
+    present: 'Теперішній час',
+    past: 'Минулий час',
+    plural: 'Множина',
   },
   streak: {
     consecutiveDays_one: 'день поспіль.',

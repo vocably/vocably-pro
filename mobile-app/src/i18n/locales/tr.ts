@@ -709,9 +709,9 @@ const translations: BaseTranslations = {
     neverAgain: 'Bu mesajı bir daha görmek istemiyorum',
   },
   cardDefinition: {
-    present: 'Şimdiki:',
-    past: 'Geçmiş:',
-    plural: 'Çoğul:',
+    present: 'Şimdiki zaman',
+    past: 'Geçmiş zaman',
+    plural: 'Çoğul hali',
   },
   streak: {
     consecutiveDays_one: 'art arda gün.',

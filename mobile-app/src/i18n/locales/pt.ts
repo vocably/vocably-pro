@@ -710,9 +710,9 @@ const translations: BaseTranslations = {
     neverAgain: 'Não quero ver esta mensagem novamente',
   },
   cardDefinition: {
-    present: 'Presente:',
-    past: 'Passado:',
-    plural: 'Plural:',
+    present: 'Tempo presente',
+    past: 'Tempo passado',
+    plural: 'Forma plural',
   },
   streak: {
     consecutiveDays_one: 'dia consecutivo.',

@@ -128,15 +128,29 @@ export const StudyCardDefinition: FC<Props> = ({
       <View style={{ gap: 12 }}>
         {translationLine && renderLine(translationLine, -1)}
         {inflections.length > 0 && (
-          <View style={{ gap: 2 }}>
+          <View
+            style={{
+              gap: 10,
+              paddingLeft: 12,
+              borderLeftWidth: 2,
+              borderLeftColor: theme.colors.outlineVariant,
+            }}
+          >
             {inflections.map((inflection, index) => (
               <Pressable key={index} onPress={onPress}>
-                <Text style={definitionStyle}>
-                  <Text style={{ color: theme.colors.onSurfaceVariant }}>
-                    {inflection.label}
-                  </Text>{' '}
-                  {inflection.value}
+                <Text
+                  style={{
+                    fontSize: 11,
+                    lineHeight: 14,
+                    fontWeight: '600',
+                    letterSpacing: 0.8,
+                    textTransform: 'uppercase',
+                    color: theme.colors.onSurfaceVariant,
+                  }}
+                >
+                  {inflection.label}
                 </Text>
+                <Text style={definitionStyle}>{inflection.value}</Text>
               </Pressable>
             ))}
           </View>
