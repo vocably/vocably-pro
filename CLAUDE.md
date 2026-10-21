@@ -328,6 +328,10 @@ The system interface expected to be translated into following languages:
 - Turkish (tr)
 - Vietnamese (vi)
 
+### No emoji
+
+Never use emoji in UI texts, translations, or components. Use icons (e.g. MaterialCommunityIcons via React Native Paper's `Icon`) instead.
+
 ### Voice
 
 Vocably is developed by a single person. Never use "we", "us", or "our" (or their equivalents in other languages) in UI texts or translations. Use neutral wording ("This message will appear again…") or, when the author speaks directly, the first person singular ("I", "contact the author").

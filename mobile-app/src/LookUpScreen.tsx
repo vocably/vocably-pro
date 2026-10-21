@@ -17,12 +17,7 @@ import {
   Text,
   useTheme,
 } from 'react-native-paper';
-import Animated, {
-  FadeIn,
-  FadeOut,
-  SlideInUp,
-  SlideOutUp,
-} from 'react-native-reanimated';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { analyze } from './api';
 import { CardSkeletonLoader } from './CardSkeletonLoader';
@@ -47,8 +42,7 @@ import { createExplainPayload } from '@vocably/model-operations';
 import UnitsOfSpeechAnalyze from './GenerateCards/UnitsOfSpeechAnalyze';
 import { Thinking } from './Chat/Thinking';
 import { TranslationPresetFormCompact } from './TranslationPresetFormCompact';
-import { EnrichedMarkdownText } from 'react-native-enriched-markdown';
-import { greeting } from './LookUpScreen/greeting';
+import { HelloMessage } from './LookUpScreen/HelloMessage';
 import {
   consumeLookUpFocusRequest,
   onLookUpFocusRequest,
@@ -488,81 +482,18 @@ export const LookUpScreen: FC<Props> = ({
             }}
           >
             {showHelloMessage && (
-              <Animated.View
-                entering={SlideInUp.duration(300)}
-                exiting={SlideOutUp.duration(300)}
-                style={{
-                  width: '100%',
-                  alignItems: 'stretch',
-                  flex: 1,
-                  overflow: 'hidden',
+              <HelloMessage
+                language={translationPresetState.preset.translationLanguage}
+                leftInset={insets.left}
+                rightInset={insets.right}
+                onGenerateCards={() => {
+                  if (searchInputRef.current) {
+                    searchInputRef.current.blur();
+                  }
+                  navigation.navigate('GenerateCards');
                 }}
-              >
-                <View
-                  style={{
-                    paddingLeft: insets.left + padding,
-                    paddingRight: insets.right + padding,
-                    paddingVertical: padding,
-                    position: 'relative',
-                  }}
-                >
-                  <View
-                    style={{
-                      backgroundColor: theme.colors.elevation.level2,
-                      padding: 16,
-                      borderRadius: 8,
-                      gap: 8,
-                    }}
-                  >
-                    <EnrichedMarkdownText
-                      markdownStyle={{
-                        paragraph: {
-                          color: theme.colors.onBackground,
-                        },
-                      }}
-                      markdown={
-                        greeting[
-                          translationPresetState.preset
-                            .translationLanguage as GoogleLanguage
-                        ]?.body ??
-                        greeting['en']?.body ??
-                        ''
-                      }
-                    />
-
-                    <Button
-                      icon={'palette-swatch-outline'}
-                      textColor={theme.colors.onBackground}
-                      style={{
-                        borderColor: theme.colors.onBackground,
-                      }}
-                      mode={'outlined'}
-                      onPress={() => {
-                        if (searchInputRef.current) {
-                          searchInputRef.current.blur();
-                        }
-                        navigation.navigate('GenerateCards');
-                      }}
-                    >
-                      {greeting[
-                        translationPresetState.preset
-                          .translationLanguage as GoogleLanguage
-                      ]?.button ?? greeting['en']?.button}
-                    </Button>
-                  </View>
-
-                  <IconButton
-                    icon={'close'}
-                    style={{
-                      position: 'absolute',
-                      right: padding + 8,
-                      top: padding + 12,
-                    }}
-                    size={16}
-                    onPress={() => setShowHelloMessage(false)}
-                  />
-                </View>
-              </Animated.View>
+                onClose={() => setShowHelloMessage(false)}
+              />
             )}
             {!isAnalyzingPreset && !lookUpResult && !isSharedLookUp && (
               <View
