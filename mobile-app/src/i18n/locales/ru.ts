@@ -242,6 +242,7 @@ const translations: BaseTranslations = {
       noCardsForSearch: 'Карточки для <bold>{{searchText}}</bold> не найдены.',
       noCardsForTag: 'У вас нет карточек с тегом <bold>{{tagTitle}}</bold>.',
       noCardsForTags: 'Карточки для выбранных тегов не найдены.',
+      curious: 'Вы любознательный человек, и поэтому вы мне нравитесь.',
     },
     mayBeStudiedIn_one: 'Можно изучать через {{count}} минуту.',
     mayBeStudiedIn_few: 'Можно изучать через {{count}} минуты.',

@@ -234,6 +234,7 @@ const translations: BaseTranslations = {
       noCardsForTag:
         'Você não tem cartões marcados com <bold>{{tagTitle}}</bold>.',
       noCardsForTags: 'Nenhum cartão encontrado para as tags selecionadas.',
+      curious: 'Você é uma pessoa curiosa, e é por isso que eu gosto de você.',
     },
     mayBeStudiedIn_one: 'Poderá ser estudado em {{count}} minuto.',
     mayBeStudiedIn_other: 'Poderá ser estudado em {{count}} minutos.',

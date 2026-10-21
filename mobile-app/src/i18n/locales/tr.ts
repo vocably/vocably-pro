@@ -232,6 +232,7 @@ const translations: BaseTranslations = {
       noCardsForSearch: '<bold>{{searchText}}</bold> için kart bulunamadı.',
       noCardsForTag: '<bold>{{tagTitle}}</bold> etiketli kartın yok.',
       noCardsForTags: 'Seçili etiketler için kart bulunamadı.',
+      curious: 'Meraklı birisin ve bu yüzden seni sevdim.',
     },
     mayBeStudiedIn_one: '{{count}} dakika sonra çalışılabilir.',
     mayBeStudiedIn_other: '{{count}} dakika sonra çalışılabilir.',

@@ -232,6 +232,7 @@ const translations = {
       noCardsForTag:
         "You don't have any cards tagged with <bold>{{tagTitle}}</bold>.",
       noCardsForTags: 'No cards found for the selected tags.',
+      curious: 'You are curious, and I like that about you.',
     },
     mayBeStudiedIn_one: 'May be studied in {{count}} minute.',
     mayBeStudiedIn_other: 'May be studied in {{count}} minutes.',

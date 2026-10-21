@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import { TagItem } from '@vocably/model';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Text } from 'react-native-paper';
+import { Portal, Snackbar, Text } from 'react-native-paper';
 import Animated, {
   Easing,
   FadeIn,
@@ -65,7 +65,7 @@ const BackCard: FC<{ rotate: string; translateX: number }> = ({
   );
 };
 
-const CardsIllustration: FC = () => {
+const CardsIllustration: FC<{ onPress: () => void }> = ({ onPress }) => {
   const theme = useAppTheme();
   const offset = useSharedValue(0);
 
@@ -85,33 +85,36 @@ const CardsIllustration: FC = () => {
   }));
 
   return (
-    <Animated.View
-      entering={FadeIn.duration(500)}
-      style={{
-        height: MINI_CARD_HEIGHT + 24,
-        width: MINI_CARD_WIDTH * 2.6,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <BackCard rotate="-12deg" translateX={-34} />
-      <BackCard rotate="12deg" translateX={34} />
-      <Animated.View style={floatingStyle}>
-        <LinearGradient
-          colors={[theme.colors.primary, theme.colors.primaryVariant]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={{
-            width: MINI_CARD_WIDTH + 8,
-            height: MINI_CARD_HEIGHT + 8,
-            borderRadius: 14,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Icon name="plus" size={34} color={theme.colors.onPrimary} />
-        </LinearGradient>
-      </Animated.View>
+    <Animated.View entering={FadeIn.duration(500)}>
+      <Pressable
+        onPress={onPress}
+        style={({ pressed }) => ({
+          height: MINI_CARD_HEIGHT + 24,
+          width: MINI_CARD_WIDTH * 2.6,
+          alignItems: 'center',
+          justifyContent: 'center',
+          transform: [{ scale: pressed ? 0.95 : 1 }],
+        })}
+      >
+        <BackCard rotate="-12deg" translateX={-34} />
+        <BackCard rotate="12deg" translateX={34} />
+        <Animated.View style={floatingStyle}>
+          <LinearGradient
+            colors={[theme.colors.primary, theme.colors.primaryVariant]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={{
+              width: MINI_CARD_WIDTH + 8,
+              height: MINI_CARD_HEIGHT + 8,
+              borderRadius: 14,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Icon name="plus" size={34} color={theme.colors.onPrimary} />
+          </LinearGradient>
+        </Animated.View>
+      </Pressable>
     </Animated.View>
   );
 };
@@ -314,6 +317,7 @@ export const DashboardEmptyState: FC<Props> = ({
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const presetState = useTranslationPreset();
+  const [isCuriousVisible, setIsCuriousVisible] = useState(false);
 
   const navigateWithDeckLanguage = (screen: string) => {
     navigation.navigate(screen);
@@ -343,7 +347,7 @@ export const DashboardEmptyState: FC<Props> = ({
       {!isSearching && selectedTags.length === 0 && (
         <View style={{ width: '100%', maxWidth: 480, gap: 24 }}>
           <View style={{ alignItems: 'center', gap: 12 }}>
-            <CardsIllustration />
+            <CardsIllustration onPress={() => setIsCuriousVisible(true)} />
             <Animated.View
               entering={FadeInDown.delay(100).springify().damping(18)}
               style={{ gap: 8 }}
@@ -407,6 +411,15 @@ export const DashboardEmptyState: FC<Props> = ({
           {t('dashboard.empty.noCardsForTags')}
         </FilteredMessage>
       )}
+      <Portal>
+        <Snackbar
+          visible={isCuriousVisible}
+          onDismiss={() => setIsCuriousVisible(false)}
+          duration={3000}
+        >
+          {t('dashboard.empty.curious')}
+        </Snackbar>
+      </Portal>
     </View>
   );
 };

@@ -235,6 +235,7 @@ const translations: BaseTranslations = {
         'No tienes tarjetas con la etiqueta <bold>{{tagTitle}}</bold>.',
       noCardsForTags:
         'No se encontraron tarjetas para las etiquetas seleccionadas.',
+      curious: 'Eres una persona curiosa, y por eso me caes bien.',
     },
     mayBeStudiedIn_one: 'Se podrá estudiar en {{count}} minuto.',
     mayBeStudiedIn_other: 'Se podrá estudiar en {{count}} minutos.',

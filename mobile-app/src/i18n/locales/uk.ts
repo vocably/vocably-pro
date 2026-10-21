@@ -241,6 +241,7 @@ const translations: BaseTranslations = {
       noCardsForSearch: 'Картки для <bold>{{searchText}}</bold> не знайдені.',
       noCardsForTag: 'У вас немає карток із тегом <bold>{{tagTitle}}</bold>.',
       noCardsForTags: 'Картки для обраних тегів не знайдені.',
+      curious: 'Ви допитлива людина, і тому ви мені подобаєтесь.',
     },
     mayBeStudiedIn_one: 'Можна буде вивчати через {{count}} хвилину.',
     mayBeStudiedIn_few: 'Можна буде вивчати через {{count}} хвилини.',

@@ -228,6 +228,7 @@ const translations: BaseTranslations = {
       noCardsForTag:
         'Bạn không có thẻ nào gắn với tag <bold>{{tagTitle}}</bold>.',
       noCardsForTags: 'Không tìm thấy thẻ nào cho các tag đã chọn.',
+      curious: 'Bạn là người ham học hỏi, và vì thế tôi quý bạn.',
     },
     mayBeStudiedIn_other: 'Có thể học sau {{count}} phút.',
     dueDate: {
