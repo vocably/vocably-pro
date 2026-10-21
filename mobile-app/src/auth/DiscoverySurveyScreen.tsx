@@ -238,6 +238,14 @@ export const DiscoverySurveyScreen: FC<Props> = ({ route }) => {
     await startUsingTheApp();
   };
 
+  // Keeps the "Other" input and the next button visible when they appear
+  // and when the keyboard shrinks the scroll view.
+  const scrollToOther = () => {
+    if (showOther) {
+      scrollRef.current?.scrollToEnd({ animated: true });
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -250,6 +258,8 @@ export const DiscoverySurveyScreen: FC<Props> = ({ route }) => {
           flex: 1,
         }}
         keyboardShouldPersistTaps="handled"
+        onLayout={scrollToOther}
+        onContentSizeChange={scrollToOther}
         contentContainerStyle={{
           flexGrow: 1,
           alignItems: 'stretch',
@@ -324,7 +334,6 @@ export const DiscoverySurveyScreen: FC<Props> = ({ route }) => {
           <Animated.View
             entering={FadeInDown.springify().damping(18)}
             layout={LinearTransition}
-            onLayout={() => scrollRef.current?.scrollToEnd({ animated: true })}
             style={{
               gap: 16,
             }}
