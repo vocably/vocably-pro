@@ -145,8 +145,8 @@ export const StudyScreen: Props = ({ route, navigation }) => {
       }
 
       setCards(cloneDeep(sessionCards));
-      setCardsStudied(1);
-      setCurrentCardIndex(1);
+      setCardsStudied(0);
+      setCurrentCardIndex(0);
       setUsedPrevious(false);
     }
   }, [
