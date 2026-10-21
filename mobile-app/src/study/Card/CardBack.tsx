@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Icon, Text, useTheme } from 'react-native-paper';
-import { CardDefinition } from '../../CardDefinition';
+import { StudyCardDefinition } from '../StudyCardDefinition';
 
 type Props = {
   card: CardItem;
@@ -38,10 +38,9 @@ export const CardBack: FC<Props> = ({ card, onPress, deckSettings }) => {
   }
 
   return (
-    <CardDefinition
+    <StudyCardDefinition
       onPress={onPress}
       card={card.data}
-      textStyle={{ fontSize: 24 }}
       showInflections={true}
       hideDefinitions={deckSettings.hideDefinitions}
     />

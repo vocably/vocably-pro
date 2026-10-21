@@ -3,7 +3,7 @@ import { explode, join } from '@vocably/sulna';
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { CardDefinition } from '../../CardDefinition';
+import { StudyCardDefinition } from '../StudyCardDefinition';
 import { CardExample, CardExampleRef, Mask } from '../../CardExample';
 import { studySmallFontSize } from '../../styles';
 import { useAppTheme } from '../../ThemeProvider';
@@ -45,9 +45,8 @@ export const ReverseCardFront = forwardRef<ReverseCardFrontRef, Props>(
 
     return (
       <View>
-        <CardDefinition
+        <StudyCardDefinition
           card={card.data}
-          textStyle={{ fontSize: 24 }}
           maskSource={!hasChecked}
           onPress={onPress}
           hideDefinitions={deckSettings.hideDefinitions}

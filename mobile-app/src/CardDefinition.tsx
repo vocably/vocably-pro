@@ -1,23 +1,18 @@
 import { Card } from '@vocably/model';
-import { explode, isGoodPlural } from '@vocably/sulna';
+import { explode } from '@vocably/sulna';
 import { useNavigation } from '@react-navigation/native';
 import React, { FC } from 'react';
 import { Pressable, StyleProp, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { Text, useTheme } from 'react-native-paper';
 import { maskTheWord } from './maskTheWord';
-import { i18n } from './i18n';
-import { Tag } from './Tag';
 
 type Props = {
   card: Card;
   textStyle?: StyleProp<Text>;
   maskSource?: boolean;
-  showInflections?: boolean;
   onPress?: () => unknown;
   lookUpDisabled?: boolean;
   hideDefinitions?: boolean;
-  enrichWithPartOfSpeech?: boolean;
 };
 
 type Definition = {
@@ -30,15 +25,12 @@ export const CardDefinition: FC<Props> = ({
   card,
   textStyle,
   maskSource = false,
-  showInflections = false,
   onPress,
   lookUpDisabled = false,
   hideDefinitions = false,
-  enrichWithPartOfSpeech = false,
 }) => {
   const theme = useTheme();
   const navigation = useNavigation();
-  const { t } = useTranslation();
 
   let definitions: Definition[] = [];
 
@@ -77,30 +69,12 @@ export const CardDefinition: FC<Props> = ({
 
   const bul = '\u2022 ';
 
-  const partOfSpeech =
-    enrichWithPartOfSpeech && card.partOfSpeech
-      ? i18n.t(`language.${card.partOfSpeech}`, card.partOfSpeech)
-      : '';
-
   return (
     <View
       style={{
         maxWidth: '100%',
       }}
     >
-      {!!partOfSpeech && (
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 4,
-          }}
-        >
-          {/* Invisible bullet aligns the tag with the definitions text */}
-          <Text style={[textStyle, { opacity: 0 }]}>{bul}</Text>
-          <Tag>{partOfSpeech}</Tag>
-        </View>
-      )}
       {definitions.map((item, index) => {
         const lookUpEnabled = !lookUpDisabled && item.lookUpEnabled;
         return (
@@ -140,54 +114,6 @@ export const CardDefinition: FC<Props> = ({
           </View>
         );
       })}
-      {showInflections && card.presentTenses && (
-        <Text
-          style={[
-            textStyle,
-            {
-              marginTop: 16,
-            },
-          ]}
-        >
-          {t('cardDefinition.present')}{' '}
-          <Text style={{ color: theme.colors.secondary }}>
-            {card.presentTenses}
-          </Text>
-        </Text>
-      )}
-      {showInflections && card.tense === 'present' && card.pastTenses && (
-        <Text
-          style={[
-            textStyle,
-            {
-              marginTop: 16,
-            },
-          ]}
-        >
-          {t('cardDefinition.past')}{' '}
-          <Text style={{ color: theme.colors.secondary }}>
-            {card.pastTenses}
-          </Text>
-        </Text>
-      )}
-
-      {showInflections &&
-        card.number === 'singular' &&
-        isGoodPlural(card.pluralForm) && (
-          <Text
-            style={[
-              textStyle,
-              {
-                marginTop: 16,
-              },
-            ]}
-          >
-            {t('cardDefinition.plural')}{' '}
-            <Text style={{ color: theme.colors.secondary }}>
-              {card.pluralForm}
-            </Text>
-          </Text>
-        )}
     </View>
   );
 };
