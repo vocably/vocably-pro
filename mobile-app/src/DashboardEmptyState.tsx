@@ -2,7 +2,14 @@ import { useNavigation } from '@react-navigation/native';
 import { TagItem } from '@vocably/model';
 import React, { FC, useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, View } from 'react-native';
+import {
+  Pressable,
+  PressableProps,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Portal, Snackbar, Text } from 'react-native-paper';
 import Animated, {
@@ -13,6 +20,7 @@ import Animated, {
   useSharedValue,
   withRepeat,
   withSequence,
+  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -23,6 +31,38 @@ import { useTranslationPreset } from './TranslationPreset/useTranslationPreset';
 
 const MINI_CARD_WIDTH = 64;
 const MINI_CARD_HEIGHT = 84;
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
+const pressSpring = { damping: 15, stiffness: 300 };
+
+const ScalePressable: FC<
+  Omit<PressableProps, 'style'> & {
+    pressedScale: number;
+    style?: StyleProp<ViewStyle>;
+  }
+> = ({ pressedScale, style, onPressIn, onPressOut, ...props }) => {
+  const scale = useSharedValue(1);
+
+  const scaleStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  return (
+    <AnimatedPressable
+      {...props}
+      onPressIn={(event) => {
+        scale.value = withSpring(pressedScale, pressSpring);
+        onPressIn?.(event);
+      }}
+      onPressOut={(event) => {
+        scale.value = withSpring(1, pressSpring);
+        onPressOut?.(event);
+      }}
+      style={[style, scaleStyle]}
+    />
+  );
+};
 
 const BackCard: FC<{ rotate: string; translateX: number }> = ({
   rotate,
@@ -86,15 +126,15 @@ const CardsIllustration: FC<{ onPress: () => void }> = ({ onPress }) => {
 
   return (
     <Animated.View entering={FadeIn.duration(500)}>
-      <Pressable
+      <ScalePressable
         onPress={onPress}
-        style={({ pressed }) => ({
+        pressedScale={0.9}
+        style={{
           height: MINI_CARD_HEIGHT + 24,
           width: MINI_CARD_WIDTH * 2.6,
           alignItems: 'center',
           justifyContent: 'center',
-          transform: [{ scale: pressed ? 0.95 : 1 }],
-        })}
+        }}
       >
         <BackCard rotate="-12deg" translateX={-34} />
         <BackCard rotate="12deg" translateX={34} />
@@ -114,7 +154,7 @@ const CardsIllustration: FC<{ onPress: () => void }> = ({ onPress }) => {
             <Icon name="plus" size={34} color={theme.colors.onPrimary} />
           </LinearGradient>
         </Animated.View>
-      </Pressable>
+      </ScalePressable>
     </Animated.View>
   );
 };
@@ -138,13 +178,11 @@ const ActionTile: FC<{
         .springify()
         .damping(18)}
     >
-      <Pressable
+      <ScalePressable
         onPress={onPress}
+        pressedScale={0.96}
         accessibilityRole="button"
         accessibilityLabel={title}
-        style={({ pressed }) => ({
-          transform: [{ scale: pressed ? 0.97 : 1 }],
-        })}
       >
         <View
           style={{
@@ -209,7 +247,7 @@ const ActionTile: FC<{
           </View>
           <Icon name="chevron-right" size={24} color={foreground} />
         </View>
-      </Pressable>
+      </ScalePressable>
     </Animated.View>
   );
 };
