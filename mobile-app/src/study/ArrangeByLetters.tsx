@@ -7,23 +7,126 @@ import {
   Animated,
   Easing,
   PixelRatio,
+  Pressable,
   ScrollView,
   StyleProp,
-  TextStyle,
   View,
   ViewStyle,
 } from 'react-native';
-import {
-  Button,
-  Surface,
-  Text,
-  TouchableRipple,
-  useTheme,
-} from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import { ReverseCardFront, ReverseCardFrontRef } from './Card/ReverseCardFront';
 import { Displayer, DisplayerRef } from './Displayer';
 import { PlaySound, PlaySoundRef } from '../PlaySound';
 import { isRtlText } from '../isRtlText';
+import { useAppTheme } from '../ThemeProvider';
+
+const MAX_TILE_SIZE = 40;
+const MIN_TILE_SIZE = 28;
+const TILE_GAP = 8;
+const SMALL_TILE_GAP = 6;
+
+// Picks the largest tile that fits the word into the fewest rows, so long
+// words shrink a bit before wrapping instead of turning into a tall grid.
+const getTileLayout = (letterCount: number, availableWidth: number) => {
+  const maxSize = MAX_TILE_SIZE * Math.max(1, PixelRatio.getFontScale());
+
+  for (let rows = 1; rows <= letterCount; rows++) {
+    const perRow = Math.ceil(letterCount / rows);
+    const gap = perRow > 8 ? SMALL_TILE_GAP : TILE_GAP;
+    const size = Math.floor((availableWidth - gap * (perRow - 1)) / perRow);
+
+    if (size >= MIN_TILE_SIZE) {
+      return { size: Math.min(size, maxSize), gap };
+    }
+  }
+
+  return { size: MIN_TILE_SIZE, gap: SMALL_TILE_GAP };
+};
+
+type LetterTileProps = {
+  letter: string | false;
+  size: number;
+  disabled?: boolean;
+  onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
+  color: string;
+  popOnChange?: boolean;
+};
+
+const LetterTile: FC<LetterTileProps> = ({
+  letter,
+  size,
+  disabled,
+  onPress,
+  style,
+  color,
+  popOnChange = false,
+}) => {
+  const scale = useRef(new Animated.Value(1)).current;
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    if (!popOnChange || letter === false) {
+      return;
+    }
+
+    scale.setValue(0.6);
+    Animated.spring(scale, {
+      toValue: 1,
+      friction: 5,
+      tension: 220,
+      useNativeDriver: true,
+    }).start();
+  }, [letter]);
+
+  const animateTo = (toValue: number) =>
+    Animated.spring(scale, {
+      toValue,
+      friction: 6,
+      tension: 300,
+      useNativeDriver: true,
+    }).start();
+
+  return (
+    <Pressable
+      disabled={disabled}
+      onPress={onPress}
+      onPressIn={() => animateTo(0.88)}
+      onPressOut={() => animateTo(1)}
+    >
+      <Animated.View
+        style={[
+          {
+            width: size,
+            height: Math.round(size * 1.2),
+            borderRadius: Math.round(size * 0.3),
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          style,
+          { transform: [{ scale }] },
+        ]}
+      >
+        {letter !== false && (
+          <Text
+            style={{
+              fontSize: Math.round(size * 0.5),
+              fontWeight: '700',
+              color,
+            }}
+          >
+            {letter === ' ' ? '_' : letter}
+          </Text>
+        )}
+      </Animated.View>
+    </Pressable>
+  );
+};
 
 type Props = {
   card: CardItem;
@@ -41,12 +144,13 @@ export const ArrangeByLetters: FC<Props> = ({
   deckSettings,
 }) => {
   const displayerRef = useRef<DisplayerRef>(null);
-  const theme = useTheme();
+  const theme = useAppTheme();
   const { t } = useTranslation();
   const scrollViewRef = useRef<ScrollView>(null);
   const x = useRef(new Animated.Value(0)).current;
   const [hintedOrMistaken, setHintedOrMistaken] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [isWrong, setIsWrong] = useState(false);
 
   const correctString = card.data.source.toUpperCase();
   const isRtl = isRtlText(correctString);
@@ -55,8 +159,8 @@ export const ArrangeByLetters: FC<Props> = ({
     lettersRef.current.map(() => false)
   );
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
-
-  const fontScale = Math.max(1, PixelRatio.getFontScale());
+  const [tilesWidth, setTilesWidth] = useState(0);
+  const tileLayout = getTileLayout(lettersRef.current.length, tilesWidth);
 
   const playSoundRef = useRef<PlaySoundRef>(null);
   const reverseCardFrontRef = useRef<ReverseCardFrontRef>(null);
@@ -95,6 +199,21 @@ export const ArrangeByLetters: FC<Props> = ({
       clearTimeout(timeOutId);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isAnswerVisible) {
+      return;
+    }
+
+    // Long words push the revealed answer below the fold
+    const timeOutId = setTimeout(() => {
+      scrollViewRef.current?.scrollToEnd({ animated: true });
+    }, 100);
+
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [isAnswerVisible]);
 
   const shake = () => {
     const intensity = 14;
@@ -146,6 +265,7 @@ export const ArrangeByLetters: FC<Props> = ({
       return;
     } else {
       setHintedOrMistaken(true);
+      setIsWrong(true);
       shake();
     }
   };
@@ -155,7 +275,7 @@ export const ArrangeByLetters: FC<Props> = ({
       (indexOrFalse) => indexOrFalse === false
     );
 
-    if (firstFalseIndex === undefined) {
+    if (firstFalseIndex === -1) {
       return;
     }
 
@@ -174,25 +294,13 @@ export const ArrangeByLetters: FC<Props> = ({
   };
 
   const removeAnswerIndex = (answerLetterIndex: number) => {
+    setIsWrong(false);
     setAnswer(answer.map((i) => (i === answerLetterIndex ? false : i)));
   };
 
-  const letterContainerStyle: StyleProp<ViewStyle> = {
-    borderWidth: 1,
-    borderRadius: 12,
-    width: 32 * fontScale,
-    height: 32 * fontScale,
-    alignItems: 'center',
-    justifyContent: 'center',
-  };
-
-  const letterStyle: StyleProp<TextStyle> = {
-    fontSize: 16,
-    lineHeight: 30,
-    fontWeight: 'bold',
-    width: 32 * fontScale,
-    textAlign: 'center',
-    color: theme.colors.secondary,
+  const clearAll = () => {
+    setIsWrong(false);
+    setAnswer(answer.map(() => false));
   };
 
   const response: Array<number | false> = lettersRef.current.map((_, index) => {
@@ -202,6 +310,53 @@ export const ArrangeByLetters: FC<Props> = ({
       return false;
     }
   });
+
+  const nextSlotIndex = answer.findIndex(
+    (indexOrFalse) => indexOrFalse === false
+  );
+
+  const getSlotStyle = (
+    indexOrFalse: number | false,
+    slotIndex: number
+  ): StyleProp<ViewStyle> => {
+    if (isCorrect) {
+      return {
+        backgroundColor: theme.colors.primary,
+      };
+    }
+
+    if (indexOrFalse === false) {
+      const isNext = slotIndex === nextSlotIndex;
+      return {
+        backgroundColor: isNext
+          ? theme.colors.inversePrimary
+          : theme.colors.inputBg,
+        borderBottomWidth: 3,
+        borderBottomColor: isNext ? theme.colors.primary : theme.colors.divider,
+      };
+    }
+
+    return {
+      backgroundColor: isWrong ? 'transparent' : theme.colors.inversePrimary,
+      borderWidth: 1.5,
+      borderColor: isWrong ? theme.colors.error : theme.colors.primary,
+    };
+  };
+
+  const filledSlotColor = isCorrect
+    ? theme.colors.onPrimary
+    : isWrong
+      ? theme.colors.error
+      : theme.colors.primary;
+
+  const rowStyle: StyleProp<ViewStyle> = {
+    flexDirection: isRtl ? 'row-reverse' : 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    gap: tileLayout.gap,
+    alignSelf: 'stretch',
+  };
 
   return (
     <ScrollView
@@ -229,122 +384,101 @@ export const ArrangeByLetters: FC<Props> = ({
           hasChecked={isAnswerVisible}
           card={card}
         />
-        <View>
-          <Animated.View
-            style={[
-              {
-                flexDirection: isRtl ? 'row-reverse' : 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexWrap: 'wrap',
-                gap: 6,
-                width: 322,
-                padding: 12,
-                alignSelf: 'center',
-              },
-              { transform: [{ translateX: x }] },
-            ]}
-          >
+        <View
+          style={{ gap: 28, marginTop: 8, opacity: tilesWidth ? 1 : 0 }}
+          onLayout={(event) => setTilesWidth(event.nativeEvent.layout.width)}
+        >
+          <Animated.View style={[rowStyle, { transform: [{ translateX: x }] }]}>
             {answer.map((indexOrFalse, itemIndex) => (
-              <TouchableRipple
+              <LetterTile
                 key={itemIndex}
-                disabled={indexOrFalse === false}
-                borderless={true}
-                style={[
-                  letterContainerStyle,
-                  {
-                    borderColor: isCorrect
-                      ? theme.colors.primary
-                      : theme.colors.onSurface,
-                    backgroundColor: isCorrect
-                      ? theme.colors.primary
-                      : undefined,
-                  },
-                ]}
+                letter={
+                  indexOrFalse === false
+                    ? false
+                    : lettersRef.current[indexOrFalse]
+                }
+                disabled={isCorrect || indexOrFalse === false}
+                size={tileLayout.size}
+                popOnChange={true}
+                color={filledSlotColor}
+                style={getSlotStyle(indexOrFalse, itemIndex)}
                 onPress={() => {
                   if (indexOrFalse !== false) {
                     removeAnswerIndex(indexOrFalse);
                   }
                 }}
-              >
-                <Text
-                  style={[
-                    letterStyle,
-                    {
-                      opacity: indexOrFalse !== false ? 1 : 0,
-                      color: isCorrect
-                        ? theme.colors.onPrimary
-                        : theme.colors.secondary,
-                    },
-                  ]}
-                >
-                  {indexOrFalse === false
-                    ? '_'
-                    : lettersRef.current[indexOrFalse].replace(' ', '_')}
-                </Text>
-              </TouchableRipple>
+              />
             ))}
           </Animated.View>
+
+          <View style={rowStyle}>
+            {response.map((indexOrFalse, itemIndex) => (
+              <LetterTile
+                key={itemIndex}
+                letter={
+                  indexOrFalse === false
+                    ? false
+                    : lettersRef.current[indexOrFalse]
+                }
+                disabled={isCorrect || indexOrFalse === false}
+                size={tileLayout.size}
+                color={theme.colors.secondary}
+                style={
+                  indexOrFalse === false
+                    ? {
+                        borderWidth: 1.5,
+                        borderStyle: 'dashed',
+                        borderColor: theme.colors.tertiary,
+                      }
+                    : {
+                        backgroundColor: theme.colors.aboveElevation,
+                        borderWidth: 1,
+                        borderBottomWidth: 3,
+                        borderColor: theme.colors.tertiary,
+                        shadowColor: '#000',
+                        shadowOpacity: theme.dark ? 0.3 : 0.08,
+                        shadowRadius: 4,
+                        shadowOffset: { width: 0, height: 2 },
+                      }
+                }
+                onPress={() => {
+                  if (indexOrFalse !== false) {
+                    setAnswerIndex(indexOrFalse);
+                  }
+                }}
+              />
+            ))}
+          </View>
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            minHeight: 56,
+            marginTop: 4,
+          }}
+        >
           <Button
-            style={{ alignSelf: 'center' }}
+            icon="backspace-outline"
+            mode="outlined"
+            textColor={theme.colors.onBackground}
+            style={{ borderColor: theme.colors.tertiary }}
             disabled={isCorrect || answer.every((index) => index === false)}
-            onPress={() => setAnswer(answer.map(() => false))}
+            onPress={clearAll}
           >
             {t('study.arrangeByLetters.clearAll')}
           </Button>
-        </View>
-        <Surface
-          elevation={2}
-          mode="flat"
-          style={{
-            alignSelf: 'center',
-            flexDirection: isRtl ? 'row-reverse' : 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: 6,
-            width: 322,
-            padding: 12,
-            borderRadius: 24,
-          }}
-        >
-          {response.map((indexOrFalse, itemIndex) => (
-            <TouchableRipple
-              key={itemIndex}
-              disabled={indexOrFalse === false}
-              borderless={true}
-              style={[
-                letterContainerStyle,
-                {
-                  borderColor: theme.colors.onSurface,
-                  opacity: indexOrFalse !== false ? 1 : 0,
-                  backgroundColor: theme.colors.elevation.level4,
-                },
-              ]}
-              onPress={() => {
-                if (indexOrFalse !== false) {
-                  setAnswerIndex(indexOrFalse);
-                }
-              }}
-            >
-              <Text style={letterStyle}>
-                {indexOrFalse === false
-                  ? '_'
-                  : lettersRef.current[indexOrFalse].replace(' ', '_')}
-              </Text>
-            </TouchableRipple>
-          ))}
-        </Surface>
-        <View
-          style={{
-            alignSelf: 'center',
-            minHeight: 40,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
           {!isAnswerVisible && (
             <Button
+              icon="eye-outline"
+              mode="contained-tonal"
+              buttonColor={theme.colors.inversePrimary}
+              textColor={theme.colors.primary}
+              disabled={isCorrect}
               onPress={() => {
                 setIsAnswerVisible(true);
                 setHintedOrMistaken(true);
@@ -358,7 +492,14 @@ export const ArrangeByLetters: FC<Props> = ({
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                gap: 4,
+                gap: 8,
+                minHeight: 40,
+                paddingVertical: 4,
+                paddingLeft: isGoogleTTSLanguage(card.data.language) ? 8 : 20,
+                paddingRight: 20,
+                maxWidth: '100%',
+                borderRadius: 20,
+                backgroundColor: theme.colors.inversePrimary,
               }}
             >
               {isGoogleTTSLanguage(card.data.language) && (
@@ -367,9 +508,20 @@ export const ArrangeByLetters: FC<Props> = ({
                   text={card.data.source}
                   language={card.data.language}
                   size={24}
+                  color={theme.colors.primary}
                 />
               )}
-              <Text>{correctString}</Text>
+              <Text
+                style={{
+                  flexShrink: 1,
+                  fontSize: 18,
+                  fontWeight: '700',
+                  letterSpacing: 2,
+                  color: theme.colors.primary,
+                }}
+              >
+                {correctString}
+              </Text>
             </View>
           )}
         </View>

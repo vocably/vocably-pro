@@ -12,12 +12,11 @@ import { Platform, ScrollView, View } from 'react-native';
 import { Trans, useTranslation } from 'react-i18next';
 import LinearGradient from 'react-native-linear-gradient';
 import { Button, Text, TouchableRipple, useTheme } from 'react-native-paper';
-import { CardDefinition } from '../CardDefinition';
+import { StudyCardDefinition } from './StudyCardDefinition';
 import { PlaySound, PlaySoundRef } from '../PlaySound';
 import { CardFront } from './Card/CardFront';
 import { Displayer, DisplayerRef } from './Displayer';
 import { PADDING_VERTICAL } from './StudyScreen';
-import { studySmallFontSize } from '../styles';
 
 type Props = {
   autoPlay: boolean;
@@ -126,10 +125,8 @@ export const MultiChoice: FC<Props> = ({
           {direction === 'back' && (
             <>
               <View style={{ alignSelf: 'flex-start' }}>
-                <CardDefinition
+                <StudyCardDefinition
                   card={card.data}
-                  textStyle={{ fontSize: 24 }}
-                  partOfSpeechFontSize={studySmallFontSize}
                   maskSource={true}
                   hideDefinitions={deckSettings.hideDefinitions}
                   enrichWithPartOfSpeech={true}

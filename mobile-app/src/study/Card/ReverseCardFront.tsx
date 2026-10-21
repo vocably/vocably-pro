@@ -2,11 +2,12 @@ import { CardItem, DeckSettings } from '@vocably/model';
 import { explode, join } from '@vocably/sulna';
 import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { View } from 'react-native';
-import { Trans, useTranslation } from 'react-i18next';
-import { Text, useTheme } from 'react-native-paper';
-import { CardDefinition } from '../../CardDefinition';
+import { useTranslation } from 'react-i18next';
+import { StudyCardDefinition } from '../StudyCardDefinition';
 import { CardExample, CardExampleRef, Mask } from '../../CardExample';
 import { studySmallFontSize } from '../../styles';
+import { useAppTheme } from '../../ThemeProvider';
+import { SectionLabel } from './SectionLabel';
 
 export type ReverseCardFrontRef = {
   playExample: () => Promise<void>;
@@ -22,6 +23,7 @@ type Props = {
 export const ReverseCardFront = forwardRef<ReverseCardFrontRef, Props>(
   ({ card, hasChecked, onPress, deckSettings }, ref) => {
     const { t } = useTranslation();
+    const theme = useAppTheme();
 
     let examples = card.data.example ? explode(card.data.example) : [];
 
@@ -43,37 +45,39 @@ export const ReverseCardFront = forwardRef<ReverseCardFrontRef, Props>(
 
     return (
       <View>
-        <CardDefinition
+        <StudyCardDefinition
           card={card.data}
-          textStyle={{ fontSize: 24 }}
           maskSource={!hasChecked}
           onPress={onPress}
           hideDefinitions={deckSettings.hideDefinitions}
           enrichWithPartOfSpeech={true}
-          partOfSpeechFontSize={studySmallFontSize}
         />
         {examples.length > 0 && (
-          <>
-            <Text
-              style={{
-                fontSize: 24,
-                marginTop: 12,
-                marginBottom: 12,
-              }}
-            >
+          <View style={{ marginTop: 24 }}>
+            <SectionLabel style={{ marginBottom: 6 }}>
               {t('study.reverseCardFront.examples', {
                 count: examples.length,
               })}
-            </Text>
-            <CardExample
-              ref={cardExampleRef}
-              mask={mask}
-              example={join(examples)}
-              language={card.data.language}
-              textStyle={{ fontSize: studySmallFontSize }}
-              onPress={onPress}
-            />
-          </>
+            </SectionLabel>
+            <View
+              style={{
+                paddingStart: 12,
+                borderStartWidth: 3,
+                borderStartColor: theme.colors.divider,
+                borderRadius: 2,
+              }}
+            >
+              <CardExample
+                ref={cardExampleRef}
+                mask={mask}
+                example={join(examples)}
+                language={card.data.language}
+                textStyle={{ fontSize: studySmallFontSize }}
+                onPress={onPress}
+                hideBul={true}
+              />
+            </View>
+          </View>
         )}
       </View>
     );

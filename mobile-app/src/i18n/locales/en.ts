@@ -395,8 +395,8 @@ const translations = {
       theAnswerIs: 'The answer is',
     },
     reverseCardFront: {
-      examples_one: 'Example:',
-      examples_other: 'Examples:',
+      examples_one: 'Example',
+      examples_other: 'Examples',
     },
     motivationalQuotes: {
       '0': 'Perseverance is not a long race; it is many short races one after the other.',
@@ -711,9 +711,9 @@ const translations = {
     neverAgain: "I don't want to see this message again",
   },
   cardDefinition: {
-    present: 'Present:',
-    past: 'Past:',
-    plural: 'Plural:',
+    present: 'Present tense',
+    past: 'Past tense',
+    plural: 'Plural form',
   },
   streak: {
     consecutiveDays_one: 'consecutive day.',

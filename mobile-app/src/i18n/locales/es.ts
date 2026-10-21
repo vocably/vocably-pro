@@ -399,8 +399,8 @@ const translations: BaseTranslations = {
       theAnswerIs: 'La respuesta es',
     },
     reverseCardFront: {
-      examples_one: 'Ejemplo:',
-      examples_other: 'Ejemplos:',
+      examples_one: 'Ejemplo',
+      examples_other: 'Ejemplos',
     },
     motivationalQuotes: {
       '0': 'La fluidez no se alcanza de un salto, sino con un paso firme cada día.',
@@ -713,9 +713,9 @@ const translations: BaseTranslations = {
     neverAgain: 'No quiero volver a ver este mensaje',
   },
   cardDefinition: {
-    present: 'Presente:',
-    past: 'Pasado:',
-    plural: 'Plural:',
+    present: 'Tiempo presente',
+    past: 'Tiempo pasado',
+    plural: 'Forma plural',
   },
   streak: {
     consecutiveDays_one: 'día consecutivo.',
