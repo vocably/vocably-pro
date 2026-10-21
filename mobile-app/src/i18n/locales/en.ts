@@ -381,6 +381,7 @@ const translations = {
       gotIt: 'Got it!',
     },
     arrangeByLetters: {
+      clearAll: 'Clear all',
       showMeTheAnswer: 'Show me the answer',
     },
     cardBack: {
