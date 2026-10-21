@@ -294,7 +294,7 @@ const translations = {
     intro:
       'Name a topic and Vocably will turn it into flashcards in seconds, from kitchen vocabulary to verbs that refuse to follow the rules.',
     experimental:
-      'This feature is fresh out of the oven. If something tastes off, <feedback>let me know</feedback>.',
+      'This feature is new. If something could be better, <feedback>send me a message</feedback>.',
     examplesToTry: 'Not sure where to start? Try one of these:',
     exampleIrregularVerbs: 'irregular verbs',
     exampleAnimals: 'animals',

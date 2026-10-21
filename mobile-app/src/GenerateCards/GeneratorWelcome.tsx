@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
-import Animated, { FadeIn } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SuggestionChip } from '../Chat/SuggestionChip';
 import { WelcomeBubble } from '../Chat/WelcomeBubble';
@@ -46,8 +45,7 @@ export const GeneratorWelcome: FC<Props> = ({
   return (
     <WelcomeBubble intro={t('generateCards.intro')}>
       <View style={{ gap: 10 }}>
-        <Animated.Text
-          entering={FadeIn.delay(150).duration(400)}
+        <Text
           style={{
             fontSize: 14,
             fontWeight: '600',
@@ -55,21 +53,19 @@ export const GeneratorWelcome: FC<Props> = ({
           }}
         >
           {t('generateCards.examplesToTry')}
-        </Animated.Text>
+        </Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-          {examples.map((example, index) => (
+          {examples.map((example) => (
             <SuggestionChip
               key={example.icon}
               {...example}
-              index={index}
               onPress={() => onExample(example.label)}
             />
           ))}
         </View>
       </View>
 
-      <Animated.View
-        entering={FadeIn.delay(500).duration(500)}
+      <View
         style={{
           flexDirection: 'row',
           gap: 8,
@@ -108,7 +104,7 @@ export const GeneratorWelcome: FC<Props> = ({
             }}
           />
         </Text>
-      </Animated.View>
+      </View>
     </WelcomeBubble>
   );
 };

@@ -297,7 +297,7 @@ const translations: BaseTranslations = {
     intro:
       'Escribe un tema y Vocably lo convertirá en tarjetas en segundos, desde vocabulario de cocina hasta verbos que se saltan las reglas.',
     experimental:
-      'Esta función acaba de salir del horno. Si algo no te sabe bien, <feedback>avísame</feedback>.',
+      'Esta función es nueva. Si algo se puede mejorar, <feedback>envíame un mensaje</feedback>.',
     examplesToTry: '¿No sabes por dónde empezar? Prueba con uno de estos:',
     exampleIrregularVerbs: 'verbos irregulares',
     exampleAnimals: 'animales',

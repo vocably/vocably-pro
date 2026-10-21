@@ -57,12 +57,11 @@ export const ChatWithCardWelcome: FC<Props> = ({
   return (
     <WelcomeBubble intro={intro}>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-        {suggestions.map((suggestion, index) => (
+        {suggestions.map((suggestion) => (
           <SuggestionChip
             key={suggestion.icon}
             icon={suggestion.icon}
             label={suggestion.label}
-            index={index}
             disabled={disabled}
             onPress={() => onSuggestion(suggestion.message)}
           />

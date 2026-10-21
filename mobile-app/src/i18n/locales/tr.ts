@@ -294,7 +294,7 @@ const translations: BaseTranslations = {
     intro:
       'Bir konu yaz, Vocably saniyeler içinde onu kartlara dönüştürsün: mutfak kelimelerinden kurallara uymayı reddeden fiillere kadar.',
     experimental:
-      'Bu özellik fırından yeni çıktı. Tadında bir tuhaflık sezersen <feedback>bana haber ver</feedback>.',
+      'Bu özellik yeni. Geliştirilebilecek bir şey varsa <feedback>bana mesaj gönder</feedback>.',
     examplesToTry:
       'Nereden başlayacağını bilmiyor musun? Bunlardan birini dene:',
     exampleIrregularVerbs: 'düzensiz fiiller',

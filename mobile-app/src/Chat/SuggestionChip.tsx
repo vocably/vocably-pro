@@ -1,6 +1,6 @@
 import { FC } from 'react';
+import { View } from 'react-native';
 import { Text } from 'react-native-paper';
-import Animated, { FadeInDown } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useAppTheme } from '../ThemeProvider';
 import { PressableScale } from '../ui/PressableScale';
@@ -8,7 +8,6 @@ import { PressableScale } from '../ui/PressableScale';
 type Props = {
   icon: string;
   label: string;
-  index: number;
   onPress: () => void;
   disabled?: boolean;
 };
@@ -16,19 +15,13 @@ type Props = {
 export const SuggestionChip: FC<Props> = ({
   icon,
   label,
-  index,
   onPress,
   disabled = false,
 }) => {
   const theme = useAppTheme();
 
   return (
-    <Animated.View
-      entering={FadeInDown.delay(250 + index * 80)
-        .springify()
-        .damping(18)}
-      style={{ opacity: disabled ? 0.4 : 1 }}
-    >
+    <View style={{ opacity: disabled ? 0.4 : 1 }}>
       <PressableScale
         onPress={disabled ? undefined : onPress}
         accessibilityRole="button"
@@ -57,6 +50,6 @@ export const SuggestionChip: FC<Props> = ({
           {label}
         </Text>
       </PressableScale>
-    </Animated.View>
+    </View>
   );
 };

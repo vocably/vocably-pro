@@ -287,7 +287,7 @@ const translations: BaseTranslations = {
     intro:
       'Hãy nhập một chủ đề và Vocably sẽ biến nó thành thẻ học chỉ trong vài giây, từ từ vựng nhà bếp đến những động từ chẳng chịu theo quy tắc nào.',
     experimental:
-      'Tính năng này vừa mới ra lò. Nếu có gì chưa ổn, <feedback>hãy cho tôi biết</feedback>.',
+      'Đây là tính năng mới. Nếu có gì cần cải thiện, <feedback>hãy nhắn cho tôi</feedback>.',
     examplesToTry: 'Chưa biết bắt đầu từ đâu? Thử một trong những gợi ý sau:',
     exampleIrregularVerbs: 'động từ bất quy tắc',
     exampleAnimals: 'động vật',
