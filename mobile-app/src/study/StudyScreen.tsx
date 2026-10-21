@@ -300,6 +300,7 @@ export const StudyScreen: Props = ({ route, navigation }) => {
           {cards.length > 0 && originalCard && (
             <>
               <IconButton
+                testID="study-chat"
                 icon={'creation'}
                 size={24}
                 onPress={() =>
@@ -312,6 +313,7 @@ export const StudyScreen: Props = ({ route, navigation }) => {
                 }}
               />
               <IconButton
+                testID="study-edit-card"
                 icon={'pencil'}
                 size={24}
                 onPress={() =>
@@ -326,6 +328,7 @@ export const StudyScreen: Props = ({ route, navigation }) => {
             </>
           )}
           <IconButton
+            testID="study-autoplay-toggle"
             icon={autoPlayResult.value ? 'volume-high' : 'volume-variant-off'}
             size={24}
             animated={true}
@@ -339,6 +342,7 @@ export const StudyScreen: Props = ({ route, navigation }) => {
       ),
       headerLeft: () => (
         <IconButton
+          testID="study-close"
           icon={'close'}
           size={24}
           onPress={() => navigation.goBack()}
@@ -458,6 +462,7 @@ export const StudyScreen: Props = ({ route, navigation }) => {
                 }}
               >
                 <IconButton
+                  testID="study-previous"
                   icon={'chevron-left'}
                   loading={isPrevPaying}
                   disabled={!previousIsPossible}
@@ -516,6 +521,7 @@ export const StudyScreen: Props = ({ route, navigation }) => {
                 {cards.length}
               </Text>
               <IconButton
+                testID="study-next"
                 icon={'chevron-right'}
                 disabled={!nextIsPossible}
                 iconColor={theme.colors.primary}

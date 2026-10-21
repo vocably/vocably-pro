@@ -36,6 +36,7 @@ export const AppLanguageScreen: FC = () => {
           return (
             <View key={locale.code}>
               <ListItem
+                testID={`app-language-${locale.code}`}
                 order={order}
                 title={locale.label}
                 rightIcon={locale.code === current ? 'check' : ''}

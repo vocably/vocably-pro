@@ -270,7 +270,10 @@ export const TagsMenu: FC<Props> = ({
             </>
           )}
           {isAllowedToAdd && (
-            <TouchableRipple onPress={() => displayCreateModal()}>
+            <TouchableRipple
+              testID="tag-menu-add-new"
+              onPress={() => displayCreateModal()}
+            >
               <View
                 style={{
                   padding: 12,
@@ -305,6 +308,7 @@ export const TagsMenu: FC<Props> = ({
             ItemSeparatorComponent={Divider}
             renderItem={({ item: tag }) => (
               <TouchableRipple
+                testID={`tag-menu-item-${tag.data.title}`}
                 onPress={tagPressed(tag)}
                 style={{ backgroundColor: theme.colors.elevation.level2 }}
               >
@@ -364,6 +368,7 @@ export const TagsMenu: FC<Props> = ({
                 }}
               >
                 <Pressable
+                  testID={`tag-menu-delete-${data.item.data.title}`}
                   onPress={deleteTagPressed(data.item)}
                   disabled={isRemovingTagId !== null}
                   style={({ pressed }) => [
@@ -391,6 +396,7 @@ export const TagsMenu: FC<Props> = ({
                   )}
                 </Pressable>
                 <Pressable
+                  testID={`tag-menu-edit-${data.item.data.title}`}
                   onPress={() => {
                     editTagPressed(data.item, rowMap[extractKey(data.item)]);
                   }}
@@ -426,6 +432,7 @@ export const TagsMenu: FC<Props> = ({
                 <>
                   <Divider />
                   <TouchableRipple
+                    testID="tag-menu-no-tags"
                     style={{ backgroundColor: theme.colors.elevation.level2 }}
                     onPress={() => onNoTagsCheck(!noTagsChecked)}
                   >
@@ -502,6 +509,7 @@ export const TagsMenu: FC<Props> = ({
               </Dialog.Title>
               <Dialog.Content>
                 <VocablyInputText
+                  testID="tag-form-input"
                   value={tagFormValue}
                   placeholder={t('tagMenu.newTagName')}
                   onChange={(value) => setTagFormValue(value)}
@@ -513,10 +521,14 @@ export const TagsMenu: FC<Props> = ({
                 />
               </Dialog.Content>
               <Dialog.Actions>
-                <Button onPress={() => setShowTagForm(false)}>
+                <Button
+                  testID="tag-form-cancel"
+                  onPress={() => setShowTagForm(false)}
+                >
                   {t('common.cancel')}
                 </Button>
                 <Button
+                  testID="tag-form-save"
                   onPress={() => {
                     const title = tagFormValue.trim();
                     setShowTagForm(false);

@@ -79,6 +79,7 @@ export const FrequencyIndicator: FC<Props> = ({
     // indicator is inlined into.
     <View style={style}>
       <Pressable
+        testID="frequency-indicator"
         onPress={openHint}
         hitSlop={{ top: 8, bottom: 8, left: 4, right: 4 }}
         accessibilityRole="button"

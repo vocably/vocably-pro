@@ -367,6 +367,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                 {isRandomEnabledResult.value === false &&
                   deck.cards.length > 0 && (
                     <Appbar.Action
+                      testID="dashboard-stats-toggle"
                       animated={false}
                       icon={
                         isStatsViewEnabledResult.value
@@ -382,6 +383,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                   )}
                 <View style={{ flexGrow: 1 }}></View>
                 <Appbar.Action
+                  testID="dashboard-edit-deck"
                   icon={'pencil-outline'}
                   onPress={() => navigation.navigate('EditDeck')}
                   size={22 * fontScale}
@@ -405,6 +407,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
             )}
             {canBeSearched && (
               <Appbar.Action
+                testID="dashboard-search-toggle"
                 icon={isSearching ? 'close' : 'magnify'}
                 onPress={() => setIsSearching(!isSearching)}
                 size={24 * fontScale}
@@ -422,6 +425,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
             >
               <View style={{ flexDirection: 'row', gap: 4 }}>
                 <Button
+                  testID="dashboard-study"
                   style={{
                     height: 40 * fontScale,
                     justifyContent: 'center',
@@ -477,6 +481,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                       deck={selectedDeck}
                       renderAnchor={({ openMenu, disabled }) => (
                         <Pressable
+                          testID="dashboard-study-tags"
                           style={({ pressed }) => [
                             {
                               backgroundColor: theme.colors.primary,
@@ -518,6 +523,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                   <Text>{t('dashboard.tagsLabel')}</Text>
                   {selectedTags.map((tag) => (
                     <Tag
+                      closeTestID={`dashboard-tag-remove-${tag.data.title}`}
                       key={tag.id}
                       label={tag.data.title}
                       onClose={() =>
@@ -531,6 +537,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                   ))}
                   {noTags && (
                     <Tag
+                      closeTestID="dashboard-no-tags-remove"
                       icon="tag-off-outline"
                       label={t('dashboard.cardsWithNoTags')}
                       onClose={() => setNoTags(false)}
@@ -571,6 +578,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
               return (
                 <>
                   <TouchableRipple
+                    testID={`dashboard-section-${section.section.id}`}
                     onPress={() => toggleSection(section.section.id as string)}
                     style={{
                       zIndex: 1,
@@ -630,6 +638,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                       {sections.length > 1 &&
                         section.section.id === 'notStarted' && (
                           <IconButton
+                            testID="dashboard-study-never-studied"
                             style={{ marginLeft: 'auto', marginVertical: -8 }}
                             icon="school-outline"
                             size={20}
@@ -647,6 +656,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                         section.section.all.filter(hasStudied(now.getTime()))
                           .length > 0 && (
                           <IconButton
+                            testID="dashboard-study-for-tomorrow"
                             style={{ marginLeft: 'auto', marginVertical: -8 }}
                             icon="school-outline"
                             size={20}
@@ -740,6 +750,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                 }}
               >
                 <Pressable
+                  testID={`card-delete-${data.item.data.source}`}
                   onPress={() => deleteCard(data.item.id)}
                   disabled={toBeDeletedId === data.item.id}
                   style={({ pressed }) => [
@@ -771,6 +782,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                   }}
                 >
                   <Pressable
+                    testID={`card-edit-${data.item.data.source}`}
                     style={({ pressed }) => [
                       {
                         // @ts-ignore
@@ -806,6 +818,7 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
                     deck={selectedDeck}
                     renderAnchor={({ openMenu, disabled }) => (
                       <Pressable
+                        testID={`card-tags-${data.item.data.source}`}
                         style={({ pressed }) => [
                           {
                             backgroundColor: theme.colors.primary,

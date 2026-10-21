@@ -43,12 +43,17 @@ export const RequestFeedbackForm: FC<Props> = ({
         </Text>
       </View>
       <View style={{ alignSelf: 'stretch' }}>
-        <Button mode={'contained'} onPress={() => onAction('review')}>
+        <Button
+          testID="request-feedback-rate"
+          mode={'contained'}
+          onPress={() => onAction('review')}
+        >
           {t('requestFeedback.rateButton', { storeName: mobileStoreName })}
         </Button>
       </View>
       <View>
         <Button
+          testID="request-feedback-later"
           mode={'text'}
           textColor={theme.colors.onSurface}
           onPress={() => onAction('later')}
@@ -60,6 +65,7 @@ export const RequestFeedbackForm: FC<Props> = ({
         <Text style={{ textAlign: 'center' }}>
           {t('requestFeedback.feedbackBefore')}{' '}
           <Text
+            testID="request-feedback-feedback-link"
             style={{ color: theme.colors.primary }}
             onPress={() => navigation.navigate('Feedback')}
           >
@@ -70,6 +76,7 @@ export const RequestFeedbackForm: FC<Props> = ({
       </View>
       <View>
         <Button
+          testID="request-feedback-never"
           mode="text"
           textColor={theme.colors.onSurface}
           onPress={() => onAction('never')}

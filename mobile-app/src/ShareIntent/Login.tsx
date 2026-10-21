@@ -49,6 +49,7 @@ export const Login: FC<PropsWithChildren<Props>> = ({ children, os }) => {
         }}
       >
         <IconButton
+          testID="share-login-close"
           icon={'close'}
           onPress={exitSharedScreen}
           style={{ alignSelf: 'flex-end' }}
@@ -59,6 +60,7 @@ export const Login: FC<PropsWithChildren<Props>> = ({ children, os }) => {
       </Text>
       {os === 'android' && (
         <Button
+          testID="share-login-open-vocably"
           mode="contained"
           onPress={() => Linking.openURL('vocably-pro://login')}
         >

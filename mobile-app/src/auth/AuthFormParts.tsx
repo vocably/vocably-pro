@@ -61,6 +61,7 @@ export const PasswordInput: FC<ComponentProps<typeof FormText>> = (props) => {
       secureTextEntry={!isVisible}
       right={
         <IconButton
+          testID="password-visibility-toggle"
           icon={isVisible ? 'eye-off-outline' : 'eye-outline'}
           onPress={() => setIsVisible(!isVisible)}
           accessibilityLabel={t(
@@ -128,6 +129,7 @@ export const TermsNotice: FC<{ agreeKey: string }> = ({ agreeKey }) => {
     <Text style={{ textAlign: 'center' }}>
       {t(agreeKey)}{' '}
       <Text
+        testID="terms-link"
         style={{ color: theme.colors.primary }}
         onPress={() =>
           Linking.openURL('https://vocably.pro/terms-and-conditions.html')
@@ -137,6 +139,7 @@ export const TermsNotice: FC<{ agreeKey: string }> = ({ agreeKey }) => {
       </Text>{' '}
       {t('loginForm.and')}{' '}
       <Text
+        testID="privacy-policy-link"
         style={{ color: theme.colors.primary }}
         onPress={() =>
           Linking.openURL('https://vocably.pro/privacy-policy.html')

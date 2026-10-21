@@ -94,6 +94,7 @@ export const GeneratorWelcome: FC<Props> = ({
             components={{
               feedback: (
                 <Text
+                  testID="generator-feedback-link"
                   style={{
                     fontWeight: '600',
                     color: theme.colors.primary,

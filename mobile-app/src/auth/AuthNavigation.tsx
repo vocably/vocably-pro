@@ -49,6 +49,7 @@ export const AuthNavigation: FC<Props> = ({ initialRouteName }) => {
           }
           return (
             <Appbar.BackAction
+              testID="auth-back"
               onPress={navigation.goBack}
               size={18}
               style={{ backgroundColor: 'transparent' }}
@@ -57,6 +58,7 @@ export const AuthNavigation: FC<Props> = ({ initialRouteName }) => {
         },
         headerRight: () => (
           <Button
+            testID="auth-header-sign-in"
             style={{ marginRight: 16 }}
             onPress={() => navigation.navigate('login')}
             maxFontSizeMultiplier={1}
@@ -112,6 +114,7 @@ export const AuthNavigation: FC<Props> = ({ initialRouteName }) => {
           headerRightContainerStyle: {},
           headerLeft: () => (
             <Appbar.BackAction
+              testID="auth-back"
               onPress={navigation.goBack}
               size={18}
               style={{ backgroundColor: 'transparent' }}

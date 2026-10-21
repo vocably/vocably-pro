@@ -17,6 +17,7 @@ export const Header: Header = ({ options, back, navigation, route }) => {
     >
       {back && (
         <Appbar.BackAction
+          testID="header-back"
           onPress={navigation.goBack}
           style={{ backgroundColor: 'transparent' }}
         />

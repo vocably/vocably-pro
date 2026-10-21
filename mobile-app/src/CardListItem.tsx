@@ -114,6 +114,7 @@ export const CardListItem: FC<Props> = ({
         >
           {card.tags.map((tag) => (
             <Tag
+              closeTestID={`card-tag-remove-${tag.data.title}`}
               key={tag.id}
               label={tag.data.title}
               onClose={onTagClose(tag)}

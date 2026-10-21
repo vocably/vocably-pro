@@ -48,6 +48,7 @@ export const RootModalStack = () => {
           headerRightContainerStyle: {},
           headerLeft: () => (
             <Appbar.BackAction
+              testID="modal-back"
               onPress={navigation.goBack}
               size={18}
               style={{ backgroundColor: 'transparent' }}

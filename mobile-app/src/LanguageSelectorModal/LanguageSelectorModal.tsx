@@ -29,6 +29,7 @@ const createItem =
     const theme = useTheme();
     return (
       <Pressable
+        testID={`language-option-${item.key}`}
         style={({ pressed }) => [
           {
             backgroundColor: pressed

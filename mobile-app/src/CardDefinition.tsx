@@ -90,6 +90,7 @@ export const CardDefinition: FC<Props> = ({
             <Text style={textStyle}>{bul}</Text>
 
             <Pressable
+              testID={`card-definition-${index}`}
               style={({ pressed }) => [
                 { opacity: pressed && lookUpEnabled && item ? 0.6 : 1.0 },
                 {

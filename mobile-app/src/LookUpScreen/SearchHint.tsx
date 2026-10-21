@@ -20,6 +20,7 @@ const ExampleWord: FC<{ word: string; onPress: () => void }> = ({
 
   return (
     <Pressable
+      testID={`search-hint-example-${word}`}
       onPress={onPress}
       hitSlop={8}
       accessibilityRole="button"

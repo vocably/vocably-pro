@@ -99,6 +99,7 @@ const SourceTile: FC<{
       }}
     >
       <Pressable
+        testID={`discovery-source-${source.value}`}
         onPress={onPress}
         disabled={disabled}
         accessibilityRole="button"
@@ -339,6 +340,7 @@ export const DiscoverySurveyScreen: FC<Props> = ({ route }) => {
             }}
           >
             <FormText
+              testID="discovery-other-input"
               label={t('discoverySurvey.whatIsIt')}
               autoFocus={true}
               value={otherSource}
@@ -348,6 +350,7 @@ export const DiscoverySurveyScreen: FC<Props> = ({ route }) => {
               placeholder={t('discoverySurvey.typePlaceholder')}
             />
             <Button
+              testID="discovery-next"
               mode="contained"
               buttonColor={theme.colors.primaryVariant}
               icon="arrow-right"

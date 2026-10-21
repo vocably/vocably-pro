@@ -63,6 +63,7 @@ export const ExportDeckModal: FC<Props> = ({ route, navigation }) => {
         <Text style={{ fontSize: 16 }}>
           {i18n.t('exportDeck.advancedExportInfo')}{' '}
           <Text
+            testID="export-deck-advanced-link"
             onPress={() =>
               Linking.openURL(
                 `https://app.vocably.pro/deck/${language}/edit/export`
@@ -85,7 +86,12 @@ export const ExportDeckModal: FC<Props> = ({ route, navigation }) => {
             {i18n.t('exportDeck.deprecatedCardsExcluded')}
           </Text>
         )}
-        <Button icon={'content-copy'} onPress={handleCopy} mode="outlined">
+        <Button
+          testID="export-deck-copy"
+          icon={'content-copy'}
+          onPress={handleCopy}
+          mode="outlined"
+        >
           {i18n.t('exportDeck.copyToClipboard')}
         </Button>
         <ScrollView

@@ -67,6 +67,7 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
     navigation.setOptions({
       headerRight: () => (
         <Button
+          testID="edit-card-save"
           loading={isUpdating}
           disabled={isUpdating}
           onPress={onUpdate}
@@ -179,6 +180,7 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
             deck={deck}
             renderAnchor={({ openMenu, disabled }) => (
               <Button
+                testID="edit-card-tags"
                 onPress={openMenu}
                 disabled={disabled}
                 icon={'tag'}
@@ -201,6 +203,7 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
             >
               {cardData.tags.map((tag) => (
                 <Tag
+                  closeTestID={`edit-card-tag-remove-${tag.data.title}`}
                   key={tag.id}
                   label={tag.data.title}
                   onClose={() =>
@@ -224,6 +227,7 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
 
         <View style={{ flexDirection: 'row', marginTop: 24 }}>
           <Button
+            testID="edit-card-delete"
             icon={'delete'}
             textColor={theme.colors.error}
             onPress={onDelete}
@@ -232,6 +236,7 @@ export const EditCardScreen: FC<Props> = ({ route, navigation }) => {
           </Button>
           {
             <Button
+              testID="edit-card-reset-progress"
               style={{ marginLeft: 'auto' }}
               disabled={isNew(card) || hasReset || isResettingStudyProgress}
               loading={isResettingStudyProgress}

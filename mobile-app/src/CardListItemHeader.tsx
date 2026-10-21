@@ -110,6 +110,7 @@ export const CardListItemHeader: FC<Props> = ({
               {'\u00A0'}
               {'\u00A0'}
               <Pressable
+                testID={`card-copy-${card.source}`}
                 hitSlop={5}
                 onPress={() => {
                   Clipboard.setString(card.source);
@@ -136,6 +137,7 @@ export const CardListItemHeader: FC<Props> = ({
               {'\u00A0'}
               {'\u00A0'}
               <Pressable
+                testID={`card-chat-${card.source}`}
                 hitSlop={10}
                 onPress={() => {
                   // @ts-ignore

@@ -43,6 +43,7 @@ export const SocialSignInButtons: FC<Props> = ({
   return (
     <View style={{ gap: 12 }}>
       <Button
+        testID="sign-in-google"
         mode="outlined"
         icon="google"
         loading={signingInWith === 'Google'}
@@ -52,6 +53,7 @@ export const SocialSignInButtons: FC<Props> = ({
         {t('loginForm.continueWithGoogle')}
       </Button>
       <Button
+        testID="sign-in-apple"
         mode="outlined"
         icon="apple"
         loading={signingInWith === 'Apple'}

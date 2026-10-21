@@ -52,6 +52,7 @@ export const EditDeckScreen: FC<Props> = ({ navigation }) => {
 
       <CustomSurface style={{ marginBottom: 8 }}>
         <ListItem
+          testID="edit-deck-study-settings"
           title={t('editDeck.studySettings')}
           onPress={() => {
             navigation.navigate('StudySettingsModal');
@@ -62,6 +63,7 @@ export const EditDeckScreen: FC<Props> = ({ navigation }) => {
         ></ListItem>
         <Divider />
         <ListItem
+          testID="edit-deck-export"
           title={t('editDeck.exportDeck')}
           onPress={() => {
             navigation.navigate('ExportDeckModal', {
@@ -74,6 +76,7 @@ export const EditDeckScreen: FC<Props> = ({ navigation }) => {
         ></ListItem>
         <Divider />
         <ListItem
+          testID="edit-deck-study-reminders"
           title={t('editDeck.studyReminders')}
           onPress={() => navigation.navigate('Notifications')}
           leftIcon="bell-outline"
@@ -100,6 +103,7 @@ export const EditDeckScreen: FC<Props> = ({ navigation }) => {
       <>
         <CustomSurface style={{ marginBottom: 8 }}>
           <ListSwitch
+            testID="edit-deck-hide-definitions"
             title={t('editDeck.hideDefinitions')}
             value={deck.deck.settings?.hideDefinitions ?? false}
             onChange={async (value: boolean) => {
@@ -122,6 +126,7 @@ export const EditDeckScreen: FC<Props> = ({ navigation }) => {
 
       <CustomSurface style={{ marginBottom: 8 }}>
         <ListItem
+          testID="edit-deck-feedback"
           leftIcon="message-text-outline"
           title={t('settings.feedback.title')}
           onPress={() => navigation.navigate('Feedback')}

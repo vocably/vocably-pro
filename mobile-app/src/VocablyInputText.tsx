@@ -8,6 +8,7 @@ type Props = {
   autoFocus?: boolean;
   onChange?: (value: string) => any;
   onSubmit?: (value: string) => any;
+  testID?: string;
 };
 
 export const VocablyInputText: FC<Props> = ({
@@ -16,6 +17,7 @@ export const VocablyInputText: FC<Props> = ({
   onChange,
   onSubmit,
   autoFocus = false,
+  testID = 'vocably-input',
 }) => {
   const [value, setValue] = useState(initialValue);
   const [isFocused, setIsFocused] = useState(false);
@@ -47,6 +49,7 @@ export const VocablyInputText: FC<Props> = ({
       }}
     >
       <TextInput
+        testID={testID}
         style={{
           flex: 1,
           height: '100%',

@@ -38,6 +38,7 @@ export const SlideSelectToTranslate: FC<Props> = ({
             components={{
               bold: (
                 <Text
+                  testID="welcome-safari-extension-link"
                   style={{ color: theme.colors.primary }}
                   onPress={() => {
                     Linking.openURL(

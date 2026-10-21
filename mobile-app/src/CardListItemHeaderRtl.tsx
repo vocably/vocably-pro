@@ -108,6 +108,7 @@ export const CardListItemHeaderRtl: FC<Props> = ({
           <>
             {'  '}
             <Icon
+              testID={`card-copy-${card.source}`}
               name="content-copy"
               size={17 * fontScale}
               color={theme.colors.onSurface}
@@ -126,6 +127,7 @@ export const CardListItemHeaderRtl: FC<Props> = ({
           <>
             {'   '}
             <Icon
+              testID={`card-chat-${card.source}`}
               name="creation"
               size={17 * fontScale}
               color={

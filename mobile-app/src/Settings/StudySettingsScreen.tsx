@@ -128,7 +128,7 @@ export const StudySettingsScreen: FC<Props> = () => {
             <Text style={{ fontSize: 16, width: 36 * fontScale }}>
               {maximumCardsPerSession.value}
             </Text>
-            <View style={{ flex: 1 }}>
+            <View testID="study-settings-cards-per-session" style={{ flex: 1 }}>
               <Slider
                 minimumValue={5}
                 maximumValue={100}
@@ -169,7 +169,7 @@ export const StudySettingsScreen: FC<Props> = () => {
             <Text style={{ fontSize: 16, width: 36 * fontScale }}>
               {maximumNeverStudiedCardsPerDay.value}
             </Text>
-            <View style={{ flex: 1 }}>
+            <View testID="study-settings-new-cards-per-day" style={{ flex: 1 }}>
               <Slider
                 minimumValue={0}
                 maximumValue={40}
@@ -198,6 +198,7 @@ export const StudySettingsScreen: FC<Props> = () => {
         <>
           <CustomSurface style={{ marginBottom: 8 }}>
             <ListSwitch
+              testID="study-settings-pronounce-example"
               title={t('studySettings.pronounceExample')}
               value={playRandomExample.value}
               onChange={onPlayRandomExampleChange}
@@ -222,6 +223,7 @@ export const StudySettingsScreen: FC<Props> = () => {
       {isRandomizerEnabled.status === 'loaded' && (
         <CustomSurface style={{ marginBottom: 8 }}>
           <ListSwitch
+            testID="study-settings-randomize"
             title={t('studySettings.randomize')}
             value={isRandomizerEnabled.value}
             onChange={onRandomizerEnabledChange}
@@ -241,7 +243,10 @@ export const StudySettingsScreen: FC<Props> = () => {
               bold: <Text style={{ fontWeight: 'bold' }} />,
             }}
           />{' '}
-          <Text onPress={() => Linking.openURL('https://vocably.pro/srs.html')}>
+          <Text
+            testID="study-settings-srs-link"
+            onPress={() => Linking.openURL('https://vocably.pro/srs.html')}
+          >
             <Text
               style={{
                 textDecorationLine: 'underline',

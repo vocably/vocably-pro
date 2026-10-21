@@ -123,6 +123,7 @@ export const TranslationPresetForm: FC<Props> = ({
           }}
         >
           <IconButton
+            testID="translation-preset-swap"
             icon={'swap-horizontal'}
             onPress={clickReverse}
             mode="contained"

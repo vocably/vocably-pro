@@ -31,6 +31,7 @@ export const HowToImportAndExportScreen: FC<Props> = () => {
     <CustomScrollView>
       <CustomSurface style={{ marginBottom: 8 }}>
         <ListItem
+          testID="import-cards"
           leftIcon="open-in-new"
           title={t('tips.howToImportAndExport.importCards')}
           onPress={() => Linking.openURL('https://app.vocably.pro/import')}
@@ -50,6 +51,7 @@ export const HowToImportAndExportScreen: FC<Props> = () => {
           <View key={language} style={{ alignSelf: 'stretch' }}>
             {index > 0 && <Divider />}
             <ListItem
+              testID={`export-cards-${language}`}
               leftIcon="file-delimited-outline"
               title={t('tips.howToImportAndExport.exportCards', {
                 languageName: get(languageList, language),

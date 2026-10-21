@@ -113,6 +113,7 @@ export const HelloMessage: FC<Props> = ({
         </Text>
 
         <Button
+          testID="hello-message-generate-cards"
           icon={'palette-swatch-outline'}
           mode={'contained-tonal'}
           onPress={onGenerateCards}
@@ -121,6 +122,7 @@ export const HelloMessage: FC<Props> = ({
         </Button>
 
         <IconButton
+          testID="hello-message-close"
           icon={'close'}
           size={16}
           style={{ position: 'absolute', right: 4, top: 4 }}

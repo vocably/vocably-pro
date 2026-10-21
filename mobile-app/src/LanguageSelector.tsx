@@ -64,6 +64,7 @@ export const LanguageSelector: FC<Props> = ({ style }) => {
         }}
         anchor={
           <TouchableRipple
+            testID="language-selector"
             hitSlop={24}
             onPress={openMenu}
             borderless={true}
@@ -88,6 +89,7 @@ export const LanguageSelector: FC<Props> = ({ style }) => {
       >
         {languages.map((language) => (
           <Menu.Item
+            testID={`language-selector-${language}`}
             key={language}
             title={upperFirst(t(`language.nominative_${language}`))}
             onPress={() => onSelect(language)}
@@ -102,6 +104,7 @@ export const LanguageSelector: FC<Props> = ({ style }) => {
         ))}
         <Divider />
         <Menu.Item
+          testID="language-selector-add-new"
           title={t('languageSelector.addNewLanguage')}
           onPress={onAddNewLanguageClick}
           titleStyle={{ color: theme.colors.secondary }}

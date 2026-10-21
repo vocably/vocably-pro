@@ -106,7 +106,7 @@ export const Card: FC<Props> = ({
             }}
           />
         )}
-      <TouchableWithoutFeedback onPress={onPress}>
+      <TouchableWithoutFeedback testID="study-card" onPress={onPress}>
         <View
           style={{
             flex: 1,

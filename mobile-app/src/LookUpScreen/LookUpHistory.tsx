@@ -66,6 +66,7 @@ export const LookUpHistory: FC<Props> = ({
                 />
               )}
               <TouchableRipple
+                testID={`lookup-history-${text}`}
                 onPress={onSelect ? () => onSelect(item) : undefined}
                 disabled={!onSelect}
                 borderless={true}
@@ -108,6 +109,7 @@ export const LookUpHistory: FC<Props> = ({
                     </Text>
                   </View>
                   <IconButton
+                    testID={`lookup-history-remove-${text}`}
                     icon="close"
                     size={18}
                     iconColor={theme.colors.onSurfaceVariant}

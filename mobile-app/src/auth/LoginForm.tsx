@@ -87,6 +87,7 @@ export const LoginForm: FC<Props> = ({
 
       <OrDivider />
       <FormText
+        testID="login-email"
         {...emailInputProps}
         label={t('loginForm.email')}
         value={email}
@@ -94,6 +95,7 @@ export const LoginForm: FC<Props> = ({
         returnKeyType="next"
       />
       <PasswordInput
+        testID="login-password"
         label={t('loginForm.password')}
         value={password}
         onChangeText={setPassword}
@@ -104,6 +106,7 @@ export const LoginForm: FC<Props> = ({
       />
       <AuthErrorText code={emailError} />
       <Button
+        testID="login-submit"
         mode="contained"
         onPress={submit}
         loading={isSubmitting || loading}
@@ -112,6 +115,7 @@ export const LoginForm: FC<Props> = ({
         {t('loginForm.submit')}
       </Button>
       <Button
+        testID="login-forgot-password"
         mode="text"
         onPress={() =>
           navigation.navigate('forgotPassword', {
@@ -124,6 +128,7 @@ export const LoginForm: FC<Props> = ({
       <Text style={{ textAlign: 'center' }}>
         {t('loginForm.noAccount')}{' '}
         <Text
+          testID="login-create-account"
           style={{ color: theme.colors.primary }}
           onPress={() =>
             onCreateAccount

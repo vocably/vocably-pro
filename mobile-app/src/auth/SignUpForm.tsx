@@ -94,6 +94,7 @@ export const SignUpForm: FC<Props> = ({
 
       <OrDivider />
       <FormText
+        testID="sign-up-email"
         {...emailInputProps}
         label={t('loginForm.email')}
         value={email}
@@ -107,6 +108,7 @@ export const SignUpForm: FC<Props> = ({
         </Text>
       )}
       <PasswordInput
+        testID="sign-up-password"
         label={t('loginForm.password')}
         value={password}
         onChangeText={setPassword}
@@ -118,6 +120,7 @@ export const SignUpForm: FC<Props> = ({
       <PasswordRequirements password={password} />
       <AuthErrorText code={emailError} />
       <Button
+        testID="sign-up-submit"
         mode="contained"
         onPress={submit}
         loading={isSubmitting || loading}
@@ -129,6 +132,7 @@ export const SignUpForm: FC<Props> = ({
       <Text style={{ textAlign: 'center' }}>
         {t('signUp.haveAccount')}{' '}
         <Text
+          testID="sign-up-sign-in"
           style={{ color: theme.colors.primary }}
           onPress={() =>
             onSignIn

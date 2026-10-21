@@ -31,6 +31,7 @@ export const TimePicker: FC<Props> = ({ time, onChange, disabled = false }) => {
             {t('notifications.receiveAt')}
           </Text>
           <DateTimePicker
+            testID="notifications-time-picker"
             value={value}
             minuteInterval={15}
             mode={'time'}
@@ -52,6 +53,7 @@ export const TimePicker: FC<Props> = ({ time, onChange, disabled = false }) => {
       {Platform.OS !== 'ios' && (
         <>
           <ListItem
+            testID="notifications-time"
             leftIcon="clock-time-ten-outline"
             rightIcon=""
             disabled={disabled}
@@ -60,6 +62,7 @@ export const TimePicker: FC<Props> = ({ time, onChange, disabled = false }) => {
           />
           {isAndroidVisible && (
             <DateTimePicker
+              testID="notifications-time-picker"
               value={value}
               minuteInterval={15}
               display={'spinner'}

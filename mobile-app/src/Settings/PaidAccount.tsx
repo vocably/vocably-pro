@@ -37,6 +37,7 @@ export const PaidAccount: FC<Props> = ({ style }) => {
           />
           <Text style={{ fontSize: 16 }}>{t('paidAccount.youArePremium')}</Text>
           <Button
+            testID="premium-explanation"
             onPress={() => {
               posthog.capture('premiumExplanationClicked');
               setExplanationVisible(true);
@@ -69,6 +70,7 @@ export const PaidAccount: FC<Props> = ({ style }) => {
                 components={{
                   rate: (
                     <Text
+                      testID="premium-explanation-rate-link"
                       style={{ color: theme.colors.primary }}
                       onPress={() => {
                         posthog.capture('premiumExplanationRateClicked');
@@ -82,7 +84,10 @@ export const PaidAccount: FC<Props> = ({ style }) => {
             </Text>
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={() => setExplanationVisible(false)}>
+            <Button
+              testID="premium-explanation-close"
+              onPress={() => setExplanationVisible(false)}
+            >
               {t('common.close')}
             </Button>
           </Dialog.Actions>

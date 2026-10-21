@@ -383,6 +383,7 @@ export const LookUpScreen: FC<Props> = ({
               >
                 <Text style={{ fontSize: 18 }}>Vocably</Text>
                 <Button
+                  testID="lookup-share-close"
                   style={{ marginLeft: 'auto' }}
                   onPress={async () => {
                     exitSharedScreen();
@@ -418,6 +419,7 @@ export const LookUpScreen: FC<Props> = ({
                   }}
                 >
                   <IconButton
+                    testID="lookup-close"
                     icon="close"
                     onPress={() => {
                       navigation.goBack();
@@ -521,6 +523,7 @@ export const LookUpScreen: FC<Props> = ({
                       </Text>
                       <CustomSurface>
                         <ListItem
+                          testID="lookup-try-ai-generator"
                           leftIcon="palette-swatch-outline"
                           title={t('lookUp.tryAiGenerator')}
                           rightIcon=""
@@ -540,6 +543,7 @@ export const LookUpScreen: FC<Props> = ({
                   </Text>
                   <CustomSurface>
                     <ListItem
+                      testID="lookup-telegram"
                       order="first"
                       leftIcon="telegram"
                       leftIconSet="material"
@@ -549,6 +553,7 @@ export const LookUpScreen: FC<Props> = ({
                     />
                     <Divider />
                     <ListItem
+                      testID="lookup-discord"
                       order="middle"
                       leftIcon="discord"
                       leftIconSet="material"
@@ -560,6 +565,7 @@ export const LookUpScreen: FC<Props> = ({
                     />
                     <Divider />
                     <ListItem
+                      testID="lookup-send-message"
                       order="last"
                       leftIcon="message-text-outline"
                       rightIcon=""

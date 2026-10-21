@@ -203,6 +203,7 @@ export const StudySteps: FC<Props> = ({ style, scrollableRef }) => {
             >
               <View style={{ paddingRight: 8 }}>
                 <StudyStepSwitch
+                  testID={`study-step-switch-${item.id}`}
                   value={isEnabled}
                   disabled={needsPremium && !isPremium}
                   readonly={!changeIsEnabled}
@@ -223,6 +224,7 @@ export const StudySteps: FC<Props> = ({ style, scrollableRef }) => {
                 </View>
                 {previewStep && (
                   <PressableScale
+                    testID={`study-step-preview-${item.id}`}
                     style={{
                       alignSelf: 'flex-start',
                       flexDirection: 'row',
@@ -268,6 +270,7 @@ export const StudySteps: FC<Props> = ({ style, scrollableRef }) => {
                       </Text>
                     </View>
                     <PressableScale
+                      testID={`study-step-go-premium-${item.id}`}
                       style={{
                         alignSelf: 'flex-start',
                         flexDirection: 'row',

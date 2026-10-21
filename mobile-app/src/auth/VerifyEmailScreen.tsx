@@ -84,6 +84,7 @@ export const VerifyEmailScreen: FC<Props> = ({ route }) => {
       <AuthErrorText code={error} />
 
       <FormText
+        testID="verify-email-code"
         label={t('verifyEmail.code')}
         value={code}
         onChangeText={setCode}
@@ -95,6 +96,7 @@ export const VerifyEmailScreen: FC<Props> = ({ route }) => {
         onSubmitEditing={submit}
       />
       <Button
+        testID="verify-email-submit"
         mode="contained"
         onPress={submit}
         loading={isSubmitting}
@@ -103,6 +105,7 @@ export const VerifyEmailScreen: FC<Props> = ({ route }) => {
         {t('verifyEmail.submit')}
       </Button>
       <Button
+        testID="verify-email-resend"
         mode="outlined"
         onPress={resend}
         loading={isResending}
@@ -112,7 +115,11 @@ export const VerifyEmailScreen: FC<Props> = ({ route }) => {
           ? t('verifyEmail.resendIn', { seconds: cooldown.remaining })
           : t('verifyEmail.resend')}
       </Button>
-      <Button mode="text" onPress={() => navigation.goBack()}>
+      <Button
+        testID="verify-email-change-email"
+        mode="text"
+        onPress={() => navigation.goBack()}
+      >
         {t('verifyEmail.changeEmail')}
       </Button>
     </AuthScrollView>

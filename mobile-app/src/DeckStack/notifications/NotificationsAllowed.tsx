@@ -137,6 +137,7 @@ export const NotificationsAllowed: FC<Props> = ({ language }) => {
         <>
           <CustomSurface style={{ marginBottom: 8 }}>
             <ListSwitch
+              testID="notifications-switch"
               title={t('notifications.enabledFor', {
                 languageString: t(`language.for_${language}`),
               })}

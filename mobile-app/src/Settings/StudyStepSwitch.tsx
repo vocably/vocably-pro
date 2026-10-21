@@ -6,6 +6,7 @@ type Props = {
   onValueChange: (value: boolean) => void;
   disabled: boolean;
   readonly: boolean;
+  testID?: string;
 };
 
 export const StudyStepSwitch: FC<Props> = ({
@@ -13,6 +14,7 @@ export const StudyStepSwitch: FC<Props> = ({
   onValueChange,
   disabled,
   readonly,
+  testID,
 }) => {
   const [isEnabled, setIsEnabled] = useState(value);
 
@@ -22,6 +24,7 @@ export const StudyStepSwitch: FC<Props> = ({
 
   return (
     <Switch
+      testID={testID}
       value={isEnabled}
       disabled={disabled}
       onValueChange={(newValue) => {

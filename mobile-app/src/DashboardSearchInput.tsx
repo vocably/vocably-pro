@@ -39,6 +39,7 @@ export const DashboardSearchInput = forwardRef<DashboardSearchInputRef, Props>(
 
     return (
       <Pressable
+        testID="dashboard-search"
         onPress={() => {
           if (inputRef.current) {
             inputRef.current.focus();
@@ -72,6 +73,7 @@ export const DashboardSearchInput = forwardRef<DashboardSearchInputRef, Props>(
             }}
           />
           <TextInput
+            testID="dashboard-search-input"
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             ref={inputRef}
@@ -92,6 +94,7 @@ export const DashboardSearchInput = forwardRef<DashboardSearchInputRef, Props>(
           />
           {value && (
             <IconButton
+              testID="dashboard-search-clear"
               icon={'close-circle'}
               iconColor={theme.colors.outlineVariant}
               onPress={() => onChange('')}

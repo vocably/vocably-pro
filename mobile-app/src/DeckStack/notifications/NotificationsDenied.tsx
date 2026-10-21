@@ -22,7 +22,11 @@ export const NotificationsDenied: FC<Props> = () => {
       {Platform.OS === 'ios' && (
         <>
           <Text>{t('notifications.deniedIosMessage')}</Text>
-          <Button mode="contained" onPress={() => Linking.openSettings()}>
+          <Button
+            testID="notifications-open-settings"
+            mode="contained"
+            onPress={() => Linking.openSettings()}
+          >
             {t('notifications.openSettings')}
           </Button>
         </>

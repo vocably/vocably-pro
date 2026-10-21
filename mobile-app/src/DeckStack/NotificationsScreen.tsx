@@ -133,6 +133,7 @@ export const NotificationsScreen: FC<Props> = () => {
         <>
           <CustomSurface style={{ marginBottom: 8 }}>
             <ListItem
+              testID="notifications-enable"
               leftIcon="bell"
               title={t('notifications.enableReminders')}
               onPress={requestPermissions}

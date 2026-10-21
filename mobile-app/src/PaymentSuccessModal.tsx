@@ -57,7 +57,11 @@ export const PaymentSuccessModal: FC<Props> = () => {
           </Text>
         </View>
         <View style={{ alignSelf: 'stretch' }}>
-          <Button mode={'contained'} onPress={rateClick}>
+          <Button
+            testID="payment-success-rate"
+            mode={'contained'}
+            onPress={rateClick}
+          >
             {t('paymentSuccess.rateButton', { storeName: mobileStoreName })}
           </Button>
         </View>
@@ -65,6 +69,7 @@ export const PaymentSuccessModal: FC<Props> = () => {
           <Text style={{ textAlign: 'center' }}>
             {t('paymentSuccess.feedbackBefore')}{' '}
             <Text
+              testID="payment-success-feedback-link"
               style={{ color: theme.colors.primary }}
               onPress={() => navigation.navigate('Feedback')}
             >

@@ -23,6 +23,7 @@ export const SuggestionChip: FC<Props> = ({
   return (
     <View style={{ opacity: disabled ? 0.4 : 1 }}>
       <PressableScale
+        testID={`suggestion-${icon}`}
         onPress={disabled ? undefined : onPress}
         accessibilityRole="button"
         accessibilityLabel={label}

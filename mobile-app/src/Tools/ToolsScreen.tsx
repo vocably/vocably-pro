@@ -61,6 +61,7 @@ export const ToolsScreen: FC<Props> = () => {
     >
       <CustomSurface style={{ marginBottom: 32 }}>
         <ListItem
+          testID="tools-card-generator"
           order="first"
           leftIcon="palette-swatch-outline"
           title={t('tips.menu.aiCardGenerator')}
@@ -71,6 +72,7 @@ export const ToolsScreen: FC<Props> = () => {
         ></ListItem>
         <Divider style={{ alignSelf: 'stretch' }} />
         <ListItem
+          testID="tools-grammar-checker"
           order="last"
           leftIcon="spellcheck"
           title={t('tips.menu.grammarChecker')}
@@ -117,6 +119,7 @@ export const ToolsScreen: FC<Props> = () => {
       <CustomSurface style={{ marginBottom: 32 }}>
         {Platform.OS === 'android' && (
           <ListItem
+            testID="tools-android-translate"
             order="first"
             title={t('tips.menu.androidTranslate')}
             onPress={() => {
@@ -131,6 +134,7 @@ export const ToolsScreen: FC<Props> = () => {
         )}
         {Platform.OS === 'ios' && (
           <ListItem
+            testID="tools-ios-translate"
             order="first"
             title={t('tips.menu.iosTranslate')}
             onPress={() => {
@@ -147,6 +151,7 @@ export const ToolsScreen: FC<Props> = () => {
         )}
         <Divider style={{ alignSelf: 'stretch' }} />
         <ListItem
+          testID="tools-desktop-extension"
           leftIcon="laptop"
           order="last"
           title={t('tips.menu.desktopExtension')}
@@ -165,6 +170,7 @@ export const ToolsScreen: FC<Props> = () => {
       </Text>
       <CustomSurface style={{ marginBottom: 32 }}>
         <ListItem
+          testID="tools-edit-cards"
           order="first"
           title={t('tips.menu.editCards')}
           onPress={() => {
@@ -176,6 +182,7 @@ export const ToolsScreen: FC<Props> = () => {
         ></ListItem>
         <Divider style={{ alignSelf: 'stretch' }} />
         <ListItem
+          testID="tools-group-cards"
           order="middle"
           title={t('tips.menu.groupCards')}
           onPress={() => {
@@ -187,6 +194,7 @@ export const ToolsScreen: FC<Props> = () => {
         ></ListItem>
         <Divider style={{ alignSelf: 'stretch' }} />
         <ListItem
+          testID="tools-import-export"
           order="middle"
           title={t('tips.menu.importExportCsv')}
           onPress={() => {
@@ -198,6 +206,7 @@ export const ToolsScreen: FC<Props> = () => {
         ></ListItem>
         <Divider style={{ alignSelf: 'stretch' }} />
         <ListItem
+          testID="tools-study-plan"
           order="last"
           title={t('tips.menu.studyPlan')}
           onPress={() => {
@@ -214,6 +223,7 @@ export const ToolsScreen: FC<Props> = () => {
       </View>
       <CustomSurface style={{ marginBottom: 32 }}>
         <ListItem
+          testID="tools-feedback"
           leftIcon="message-text-outline"
           title={t('tips.menu.provideFeedback')}
           onPress={() => {
@@ -228,6 +238,7 @@ export const ToolsScreen: FC<Props> = () => {
       </View>
       <CustomSurface style={{ marginBottom: 8 }}>
         <ListItem
+          testID="tools-rate"
           order="first"
           leftIcon="star-outline"
           title={t('tips.menu.rate', { storeName: mobileStoreName })}
@@ -238,6 +249,7 @@ export const ToolsScreen: FC<Props> = () => {
         />
         <Divider />
         <ListItem
+          testID="tools-share-facebook"
           order="middle"
           leftIcon="facebook"
           title={t('tips.menu.shareOnFacebook')}
@@ -250,6 +262,7 @@ export const ToolsScreen: FC<Props> = () => {
         />
         <Divider />
         <ListItem
+          testID="tools-share-twitter"
           order="last"
           leftIcon="twitter"
           title={t('tips.menu.shareOnTwitter')}

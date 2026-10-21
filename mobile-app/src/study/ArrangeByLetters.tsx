@@ -51,6 +51,7 @@ type LetterTileProps = {
   style?: StyleProp<ViewStyle>;
   color: string;
   popOnChange?: boolean;
+  testID?: string;
 };
 
 const LetterTile: FC<LetterTileProps> = ({
@@ -61,6 +62,7 @@ const LetterTile: FC<LetterTileProps> = ({
   style,
   color,
   popOnChange = false,
+  testID,
 }) => {
   const scale = useRef(new Animated.Value(1)).current;
   const isFirstRender = useRef(true);
@@ -94,6 +96,7 @@ const LetterTile: FC<LetterTileProps> = ({
 
   return (
     <Pressable
+      testID={testID}
       disabled={disabled}
       onPress={onPress}
       onPressIn={() => animateTo(0.88)}
@@ -391,6 +394,7 @@ export const ArrangeByLetters: FC<Props> = ({
           <Animated.View style={[rowStyle, { transform: [{ translateX: x }] }]}>
             {answer.map((indexOrFalse, itemIndex) => (
               <LetterTile
+                testID={`study-letter-answer-${itemIndex}`}
                 key={itemIndex}
                 letter={
                   indexOrFalse === false
@@ -414,6 +418,7 @@ export const ArrangeByLetters: FC<Props> = ({
           <View style={rowStyle}>
             {response.map((indexOrFalse, itemIndex) => (
               <LetterTile
+                testID={`study-letter-option-${itemIndex}`}
                 key={itemIndex}
                 letter={
                   indexOrFalse === false
@@ -463,6 +468,7 @@ export const ArrangeByLetters: FC<Props> = ({
           }}
         >
           <Button
+            testID="study-letters-clear-all"
             icon="backspace-outline"
             mode="outlined"
             textColor={theme.colors.onBackground}
@@ -474,6 +480,7 @@ export const ArrangeByLetters: FC<Props> = ({
           </Button>
           {!isAnswerVisible && (
             <Button
+              testID="study-letters-show-answer"
               icon="eye-outline"
               mode="contained-tonal"
               buttonColor={theme.colors.inversePrimary}

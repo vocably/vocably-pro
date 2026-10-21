@@ -98,6 +98,7 @@ export const StudyCardDefinition: FC<Props> = ({
 
   const renderLine = (line: Line, index: number) => (
     <Pressable
+      testID={`study-card-definition-${index}`}
       key={index}
       style={({ pressed }) => ({
         opacity: pressed && line.lookUpEnabled ? 0.6 : 1.0,
@@ -137,7 +138,11 @@ export const StudyCardDefinition: FC<Props> = ({
             }}
           >
             {inflections.map((inflection, index) => (
-              <Pressable key={index} onPress={onPress}>
+              <Pressable
+                testID={`study-card-inflection-${index}`}
+                key={index}
+                onPress={onPress}
+              >
                 <Text
                   style={{
                     fontSize: 11,

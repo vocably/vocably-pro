@@ -283,6 +283,7 @@ export const LanguageScreen: FC<Props> = () => {
           style={{ marginTop: 8 }}
         >
           <Button
+            testID="language-screen-next"
             mode="contained"
             buttonColor={theme.colors.primaryVariant}
             icon="arrow-right"

@@ -26,6 +26,7 @@ type Props = {
   hitSlop?: number | Insets;
   style?: StyleProp<ViewStyle>;
   color?: ColorValue;
+  testID?: string;
 };
 
 export const PlaySound = forwardRef<PlaySoundRef, Props>(
@@ -38,6 +39,7 @@ export const PlaySound = forwardRef<PlaySoundRef, Props>(
       color,
       hitSlop = 20,
       disabled = false,
+      testID = 'play-sound',
     },
     ref
   ) => {
@@ -74,6 +76,7 @@ export const PlaySound = forwardRef<PlaySoundRef, Props>(
 
     return (
       <Pressable
+        testID={testID}
         hitSlop={hitSlop}
         disabled={disabled}
         style={({ pressed }) => [

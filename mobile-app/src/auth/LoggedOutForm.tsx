@@ -33,6 +33,7 @@ export const LoggedOutForm: FC<Props> = ({
         {t('auth.sessionExpired')}
       </Text>
       <Button
+        testID="logged-out-sign-in-again"
         mode="contained"
         onPress={onSignInAgain}
         style={{ alignSelf: 'stretch' }}
@@ -40,6 +41,7 @@ export const LoggedOutForm: FC<Props> = ({
         {t('auth.signInAgain')}
       </Button>
       <Button
+        testID="logged-out-sign-out"
         mode="outlined"
         style={{ alignSelf: 'stretch' }}
         onPress={async () => {

@@ -399,6 +399,7 @@ export const SwipeGrade: FC<{
         }}
       >
         <TouchableRipple
+          testID="study-grade-weak"
           onPress={weak}
           borderless={true}
           style={{
@@ -444,6 +445,7 @@ export const SwipeGrade: FC<{
           </View>
         </TouchableRipple>
         <TouchableRipple
+          testID="study-grade-medium"
           onPress={medium}
           borderless={true}
           style={{
@@ -488,6 +490,7 @@ export const SwipeGrade: FC<{
         </TouchableRipple>
 
         <TouchableRipple
+          testID="study-grade-strong"
           onPress={strong}
           borderless={true}
           style={{

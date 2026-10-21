@@ -105,6 +105,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
         >
           <View style={{ flex: 1, alignItems: 'flex-start' }}>
             <Button
+              testID="welcome-back"
               style={{
                 opacity: swiperIndex > 0 ? 1 : 0,
                 pointerEvents: swiperIndex > 0 ? 'auto' : 'none',
@@ -137,6 +138,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
 
           <View style={{ flex: 1, alignItems: 'flex-end' }}>
             <Button
+              testID="welcome-skip"
               style={{
                 opacity: isSet && swiperIndex > 0 ? 1 : 0,
                 pointerEvents: isSet ? 'auto' : 'none',
@@ -247,6 +249,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
             >
               {(totalSlides === 1 || swiperIndex < totalSlides - 1) && (
                 <Button
+                  testID="welcome-next"
                   mode="elevated"
                   elevation={3}
                   // @ts-ignore
@@ -260,6 +263,7 @@ export const WelcomeScreen: FC<Props> = ({ navigation }) => {
               )}
               {totalSlides !== 1 && swiperIndex === totalSlides - 1 && (
                 <Button
+                  testID="welcome-done"
                   mode="elevated"
                   elevation={2}
                   buttonColor={theme.colors.primary}

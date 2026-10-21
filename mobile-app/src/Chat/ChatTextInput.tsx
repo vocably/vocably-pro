@@ -191,6 +191,7 @@ export const ChatTextInput = forwardRef<ChatTextInputRef, Props>(
             </Text>
           )}
           <TextInput
+            testID="chat-input"
             key={remountKey}
             ref={inputRef}
             style={{
@@ -222,6 +223,7 @@ export const ChatTextInput = forwardRef<ChatTextInputRef, Props>(
           />
         </View>
         <IconButton
+          testID="chat-send"
           icon={'send-circle'}
           size={32}
           mode="contained"

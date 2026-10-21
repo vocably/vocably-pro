@@ -128,6 +128,7 @@ const CardsIllustration: FC<{ onPress: () => void }> = ({ onPress }) => {
   return (
     <Animated.View entering={FadeIn.duration(500)}>
       <ScalePressable
+        testID="dashboard-empty-illustration"
         onPress={onPress}
         pressedScale={0.9}
         style={{
@@ -167,7 +168,8 @@ const ActionTile: FC<{
   highlighted: boolean;
   index: number;
   onPress: () => void;
-}> = ({ icon, title, description, highlighted, index, onPress }) => {
+  testID: string;
+}> = ({ icon, title, description, highlighted, index, onPress, testID }) => {
   const theme = useAppTheme();
   const foreground = highlighted
     ? theme.colors.onPrimary
@@ -180,6 +182,7 @@ const ActionTile: FC<{
         .damping(18)}
     >
       <ScalePressable
+        testID={testID}
         onPress={onPress}
         pressedScale={0.96}
         accessibilityRole="button"
@@ -408,6 +411,7 @@ export const DashboardEmptyState: FC<Props> = ({
           </View>
           <View style={{ gap: 12 }}>
             <ActionTile
+              testID="dashboard-empty-look-up"
               index={0}
               highlighted={true}
               icon="translate"
@@ -416,6 +420,7 @@ export const DashboardEmptyState: FC<Props> = ({
               onPress={() => navigateWithDeckLanguage('LookUp')}
             />
             <ActionTile
+              testID="dashboard-empty-generator"
               index={1}
               highlighted={false}
               icon="palette-swatch-outline"

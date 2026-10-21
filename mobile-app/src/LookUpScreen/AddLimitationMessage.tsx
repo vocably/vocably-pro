@@ -56,7 +56,10 @@ export const AddLimitationMessage: FC<Props> = ({
             </Text>
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={() => setUpgradeDialogVisibility(false)}>
+            <Button
+              testID="add-limitation-ok"
+              onPress={() => setUpgradeDialogVisibility(false)}
+            >
               {t('common.ok')}
             </Button>
           </Dialog.Actions>
@@ -96,6 +99,7 @@ export const AddLimitationMessage: FC<Props> = ({
           />
         </Text>
         <Button
+          testID="add-limitation-upgrade"
           mode="contained"
           onPress={upgradeClick}
           icon={({ size, color }) => (

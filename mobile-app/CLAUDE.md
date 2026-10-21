@@ -37,6 +37,26 @@ npm run list-devices      # List available iOS simulators
 
 There is no testing or linting configured for this project.
 
+## Driving the App in the iOS Simulator
+
+Navigate the running app through the accessibility tree, not screenshots.
+
+- Use the `agent-device` skill (`npx agent-device ...`). `snapshot -i` lists interactive elements with their refs and `testID`s; act with `press id=<testID>`, `fill id=<testID> "text"`, `scroll down --until id=<testID>`.
+- `axe` (`/opt/homebrew/bin/axe`) is a lower-level alternative: `axe describe-ui --udid <udid>` dumps the tree, `axe tap --id <testID> --udid <udid>` taps.
+- Take a screenshot only to check something visual (layout, colors) or when the snapshot comes back sparse. Never tap by coordinates when an element has a `testID`.
+- Prefer `id=` over `label=`: labels change with the UI language.
+
+### testID Conventions
+
+Every interactive element (buttons, pressables, inputs, switches, list items, menu items, tab bar buttons) has a `testID`. React Native maps it to `accessibilityIdentifier` on iOS.
+
+- kebab-case, prefixed by screen or component: `login-submit`, `settings-sign-out`, `study-grade-strong`, `tab-look-up`.
+- Repeated items carry their data: `` `card-edit-${card.source}` ``, `` `language-option-${item.key}` ``, `` `app-language-${locale.code}` ``.
+- Components rendered once per screen set their IDs internally: `search-input`, `search-submit`, `source-language-button`, `target-language-button`, `chat-input`, `chat-send`.
+- Shared components forward a `testID` prop: `ListItem`, `ListSwitch`, `PressableScale`, `PlaySound`, `VocablyInputText`, `StudyStepSwitch`; `ui/Tag` takes `closeTestID` for its close button.
+- Tab bar buttons use `tabBarButtonTestID` (`tab-cards`, `tab-look-up`, `tab-tools`, `tab-settings`).
+- When adding an interactive element, give it a `testID`. When an element you need to reach has none, add one in the source instead of falling back to coordinates or screenshots.
+
 ## User interface language
 
 The system interface is expected to be translated into the following languages:

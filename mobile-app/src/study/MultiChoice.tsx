@@ -166,6 +166,7 @@ export const MultiChoice: FC<Props> = ({
                 }}
               >
                 <TouchableRipple
+                  testID={`study-choice-${index}`}
                   borderless={true}
                   disabled={wrong.includes(answerCard.id)}
                   onPress={() => validate(answerCard)}
@@ -270,6 +271,7 @@ export const MultiChoice: FC<Props> = ({
               </View>
             ))}
             <Button
+              testID="study-choice-show-answer"
               style={{ marginTop: 16, alignSelf: 'center' }}
               onPress={showAnswer}
               textColor={theme.colors.onBackground}

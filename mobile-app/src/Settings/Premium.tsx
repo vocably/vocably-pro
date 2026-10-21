@@ -39,6 +39,7 @@ export const Premium: FC<Props> = ({
       )}
       {premium.willRenew && customerInfo.managementURL && (
         <Text
+          testID="premium-manage-subscription"
           style={{ color: theme.colors.primary }}
           onPress={() => {
             Linking.openURL(customerInfo.managementURL ?? '');
@@ -54,6 +55,7 @@ export const Premium: FC<Props> = ({
           <Text>{t('premium.refreshHint')}</Text>
 
           <Button
+            testID="premium-refresh"
             icon={'refresh'}
             mode="outlined"
             loading={isRefreshing}

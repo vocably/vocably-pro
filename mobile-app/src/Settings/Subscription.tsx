@@ -80,6 +80,7 @@ export const Subscription: FC<Props> = ({
           )}
           {!isPremium(customerInfoStatus.customerInformation) && (
             <ListItem
+              testID="settings-go-premium"
               order={isInGroup ? 'last' : 'single'}
               leftIcon="workspace-premium"
               leftIconSet="material"

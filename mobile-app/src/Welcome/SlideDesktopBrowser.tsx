@@ -25,6 +25,7 @@ export const SlideDesktopBrowser: FC<Props> = ({
       <Text style={{ fontSize: 22, textAlign: 'center' }}>
         {t('welcome.slideDesktopBrowser.intro')}{' '}
         <Text
+          testID="welcome-chrome-store-link"
           style={{ color: theme.colors.primary }}
           onPress={() => {
             Linking.openURL(
@@ -37,6 +38,7 @@ export const SlideDesktopBrowser: FC<Props> = ({
         </Text>{' '}
         {t('welcome.slideDesktopBrowser.or')}{' '}
         <Text
+          testID="welcome-app-store-link"
           style={{ color: theme.colors.primary }}
           onPress={() => {
             Linking.openURL('https://apps.apple.com/app/id6464076425');

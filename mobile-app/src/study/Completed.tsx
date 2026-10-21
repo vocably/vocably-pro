@@ -140,6 +140,7 @@ export const Completed: FC<Props> = ({
           style={[{ alignItems: 'center', gap: 8 }, slideUp(actionsAppearance)]}
         >
           <Button
+            testID="study-completed-done"
             onPress={onDone}
             mode="contained"
             icon="check"
@@ -151,6 +152,7 @@ export const Completed: FC<Props> = ({
           </Button>
           {canStudyAgain && (
             <Button
+              testID="study-completed-study-again"
               onPress={onStudyAgain}
               icon="refresh"
               style={{ width: 260, borderRadius: 28 }}

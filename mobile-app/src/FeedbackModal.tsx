@@ -102,6 +102,7 @@ export const FeedbackModal: FC<Props> = ({ navigation, route }) => {
     navigation.setOptions({
       headerRight: () => (
         <Button
+          testID="feedback-send"
           disabled={text.trim().length === 0 || isSending}
           onPress={sendFeedback}
           loading={isSending}
@@ -139,6 +140,7 @@ export const FeedbackModal: FC<Props> = ({ navigation, route }) => {
         )}
       </View>
       <FormText
+        testID="feedback-input"
         placeholder={t('feedback.messagePlaceholder')}
         multiline
         ref={inputRef}

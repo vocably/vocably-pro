@@ -9,7 +9,7 @@ import {
 
 type Props = Pick<
   PressableProps,
-  'accessibilityRole' | 'accessibilityLabel'
+  'accessibilityRole' | 'accessibilityLabel' | 'testID'
 > & {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;

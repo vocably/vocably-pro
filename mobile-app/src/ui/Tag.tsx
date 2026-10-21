@@ -15,6 +15,7 @@ type Props = {
   icon?: string;
   onClose?: () => void;
   closeAccessibilityLabel?: string;
+  closeTestID?: string;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -23,6 +24,7 @@ export const Tag: FC<Props> = ({
   icon = 'tag-outline',
   onClose,
   closeAccessibilityLabel,
+  closeTestID,
   style,
 }) => {
   const theme = useAppTheme();
@@ -68,6 +70,7 @@ export const Tag: FC<Props> = ({
       </Text>
       {onClose && (
         <Pressable
+          testID={closeTestID}
           onPress={onClose}
           hitSlop={8}
           accessibilityRole="button"

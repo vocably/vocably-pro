@@ -79,6 +79,7 @@ export const TabsNavigator: FC<Props> = ({ navigation }) => {
           options={{
             headerShown: false,
             title: t('nav.myCards'),
+            tabBarButtonTestID: 'tab-cards',
             tabBarIcon: ({ color }) => (
               <Icon name="card-multiple-outline" color={color} size={24} />
             ),
@@ -94,6 +95,7 @@ export const TabsNavigator: FC<Props> = ({ navigation }) => {
           options={{
             headerShown: false,
             title: t('nav.lookUp'),
+            tabBarButtonTestID: 'tab-look-up',
             tabBarIcon: ({ color }) => (
               <Icon name="translate" color={color} size={24} />
             ),
@@ -105,6 +107,7 @@ export const TabsNavigator: FC<Props> = ({ navigation }) => {
           options={{
             headerShown: false,
             title: t('nav.tools'),
+            tabBarButtonTestID: 'tab-tools',
             tabBarIcon: ({ color }) => (
               <Icon name="toolbox-outline" color={color} size={24} />
             ),
@@ -116,6 +119,7 @@ export const TabsNavigator: FC<Props> = ({ navigation }) => {
           options={{
             title: t('nav.settings'),
             headerShown: false,
+            tabBarButtonTestID: 'tab-settings',
             tabBarIcon: ({ color }) => (
               <Icon name="tune-variant" color={color} size={24} />
             ),

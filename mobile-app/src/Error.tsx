@@ -59,6 +59,7 @@ export const Error: Error = ({ children, onRetry }) => {
       <Text style={{ textAlign: 'center' }}>{children}</Text>
       {onRetry && (
         <Button
+          testID="error-retry"
           mode={'contained'}
           style={{ marginTop: 16 }}
           loading={retrying}
@@ -67,7 +68,11 @@ export const Error: Error = ({ children, onRetry }) => {
           {nRetries >= 2 ? t('error.tryHarder') : t('error.tryAgain')}
         </Button>
       )}
-      <Button mode="text" onPress={clearStorageAndLogOut}>
+      <Button
+        testID="error-clear-and-sign-out"
+        mode="text"
+        onPress={clearStorageAndLogOut}
+      >
         {t('error.clearAndSignOut')}
       </Button>
     </View>

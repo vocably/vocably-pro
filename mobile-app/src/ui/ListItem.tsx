@@ -14,6 +14,7 @@ type Props = {
   onPress: () => void;
   disabled?: boolean;
   order?: 'single' | 'first' | 'last' | 'middle';
+  testID?: string;
 };
 
 const BORDER_RADIUS = 12;
@@ -30,6 +31,7 @@ export const ListItem: FC<Props> = ({
   title,
   disabled = false,
   order = 'single',
+  testID,
 }) => {
   const theme = useTheme();
   const LeftIcon = leftIconSet === 'material' ? MaterialIcon : Icon;
@@ -37,6 +39,7 @@ export const ListItem: FC<Props> = ({
 
   return (
     <TouchableRipple
+      testID={testID}
       disabled={disabled}
       borderless={true}
       style={[

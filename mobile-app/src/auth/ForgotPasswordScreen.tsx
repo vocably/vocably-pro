@@ -58,6 +58,7 @@ export const ForgotPasswordScreen: FC<Props> = ({ route }) => {
       <AuthErrorText code={error} />
 
       <FormText
+        testID="forgot-password-email"
         {...emailInputProps}
         label={t('loginForm.email')}
         value={email}
@@ -66,6 +67,7 @@ export const ForgotPasswordScreen: FC<Props> = ({ route }) => {
         onSubmitEditing={submit}
       />
       <Button
+        testID="forgot-password-submit"
         mode="contained"
         onPress={submit}
         loading={isSubmitting}
@@ -73,7 +75,11 @@ export const ForgotPasswordScreen: FC<Props> = ({ route }) => {
       >
         {t('forgotPassword.submit')}
       </Button>
-      <Button mode="text" onPress={() => popToLoginScreen(navigation)}>
+      <Button
+        testID="forgot-password-back-to-sign-in"
+        mode="text"
+        onPress={() => popToLoginScreen(navigation)}
+      >
         {t('forgotPassword.backToSignIn')}
       </Button>
     </AuthScrollView>

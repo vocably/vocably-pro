@@ -98,7 +98,8 @@ export const CardExample = forwardRef<CardExampleRef, Props>(
           >
             {hideBul &&
             (playDisabled ||
-              !isGoogleTTSLanguage(language)) ? null : isGoogleTTSLanguage( // Disabled PlaySound renders a dot, which hideBul removes too
+              !isGoogleTTSLanguage(language)) ? null : isGoogleTTSLanguage(
+                // Disabled PlaySound renders a dot, which hideBul removes too
                 language
               ) ? (
               <PlaySound
@@ -121,6 +122,7 @@ export const CardExample = forwardRef<CardExampleRef, Props>(
             )}
 
             <Pressable
+              testID={`card-example-${index}`}
               style={({ pressed }) => [
                 { opacity: pressed && !lookUpDisabled ? 0.6 : 1.0 },
                 {

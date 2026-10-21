@@ -126,6 +126,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
             }}
           >
             <IconButton
+              testID={`analyze-result-toggle-${item.card.source}`}
               icon={!item.id ? 'plus-circle-outline' : 'bookmark-check'}
               animated={Platform.OS !== 'android'}
               iconColor={theme.colors.primary}
@@ -140,6 +141,7 @@ export const AnalyzeResultItem: AnalyzeResultItem = ({
                 deck={deck}
                 renderAnchor={({ openMenu, disabled }) => (
                   <IconButton
+                    testID={`analyze-result-tags-${item.card.source}`}
                     icon={'tag-plus'}
                     iconColor={theme.colors.primary}
                     onPress={openMenu}

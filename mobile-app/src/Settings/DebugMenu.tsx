@@ -43,7 +43,12 @@ export const DebugMenu: FC<Props> = () => {
     >
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
         <Text style={{ fontSize: 24 }}>{t('debug.menuTitle')}</Text>
-        <IconButton size={24} icon={'reload'} onPress={() => refresh()} />
+        <IconButton
+          testID="debug-refresh"
+          size={24}
+          icon={'reload'}
+          onPress={() => refresh()}
+        />
       </View>
       {transformations && (
         <>
@@ -64,6 +69,7 @@ export const DebugMenu: FC<Props> = () => {
         </>
       )}
       <Button
+        testID="debug-clear-storage"
         mode="outlined"
         textColor={theme.colors.error}
         style={{ borderColor: theme.colors.error }}

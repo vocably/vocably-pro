@@ -86,6 +86,7 @@ export const GenerateCardsModal: FC<Props> = ({ route, navigation }) => {
       },
       headerRight: () => (
         <Button
+          testID="generator-restart"
           icon={'restart'}
           onPress={() => {
             setMessages([]);

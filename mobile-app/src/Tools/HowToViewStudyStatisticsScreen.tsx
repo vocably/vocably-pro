@@ -22,12 +22,14 @@ export const HowToViewStudyStatisticsScreen: FC<Props> = () => {
   const chartBoxIcon = <Icon name={'chart-box-outline'} size={24} />;
   const myCards = (
     <Text
+      testID="study-statistics-my-cards-link"
       style={{ color: theme.colors.primary }}
       onPress={() => navigation.navigate('DeckScreen')}
     />
   );
   const studySettings = (
     <Text
+      testID="study-statistics-study-settings-link"
       onPress={navigateToStudySettings}
       style={{ color: theme.colors.primary }}
     />

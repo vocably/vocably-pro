@@ -16,6 +16,7 @@ export const Viewport: FC<PropsWithChildren<Props>> = ({ children, os }) => {
   return (
     <>
       <Pressable
+        testID="share-viewport-backdrop"
         onPress={() => BackHandler.exitApp()}
         style={{
           width: '100%',

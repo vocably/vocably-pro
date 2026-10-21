@@ -61,6 +61,7 @@ export const TargetLanguageButton: FC<Props> = ({
 
   return (
     <Button
+      testID="target-language-button"
       style={style}
       contentStyle={
         compact && {

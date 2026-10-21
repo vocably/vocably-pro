@@ -8,6 +8,7 @@ type Props = {
   value: boolean;
   onChange: (value: boolean) => Promise<void>;
   disabled?: boolean;
+  testID?: string;
 };
 
 export const ListSwitch: FC<Props> = ({
@@ -16,6 +17,7 @@ export const ListSwitch: FC<Props> = ({
   onChange,
   title,
   disabled = false,
+  testID,
 }) => {
   const theme = useTheme();
   return (
@@ -43,7 +45,7 @@ export const ListSwitch: FC<Props> = ({
       </View>
 
       <View style={{ width: 48 }}>
-        <Switch value={value} onValueChange={onChange} />
+        <Switch testID={testID} value={value} onValueChange={onChange} />
       </View>
     </View>
   );

@@ -94,6 +94,7 @@ export const ResetPasswordScreen: FC<Props> = ({ route }) => {
       <AuthErrorText code={error} />
 
       <FormText
+        testID="reset-password-code"
         label={t('resetPassword.code')}
         value={code}
         onChangeText={setCode}
@@ -104,6 +105,7 @@ export const ResetPasswordScreen: FC<Props> = ({ route }) => {
         returnKeyType="next"
       />
       <PasswordInput
+        testID="reset-password-new-password"
         label={t('resetPassword.newPassword')}
         value={password}
         onChangeText={setPassword}
@@ -114,6 +116,7 @@ export const ResetPasswordScreen: FC<Props> = ({ route }) => {
       />
       <PasswordRequirements password={password} />
       <Button
+        testID="reset-password-submit"
         mode="contained"
         onPress={submit}
         loading={isSubmitting}
@@ -122,6 +125,7 @@ export const ResetPasswordScreen: FC<Props> = ({ route }) => {
         {t('resetPassword.submit')}
       </Button>
       <Button
+        testID="reset-password-resend"
         mode="outlined"
         onPress={resend}
         loading={isResending}
@@ -131,7 +135,11 @@ export const ResetPasswordScreen: FC<Props> = ({ route }) => {
           ? t('verifyEmail.resendIn', { seconds: cooldown.remaining })
           : t('verifyEmail.resend')}
       </Button>
-      <Button mode="text" onPress={() => popToLoginScreen(navigation)}>
+      <Button
+        testID="reset-password-back-to-sign-in"
+        mode="text"
+        onPress={() => popToLoginScreen(navigation)}
+      >
         {t('forgotPassword.backToSignIn')}
       </Button>
     </AuthScrollView>

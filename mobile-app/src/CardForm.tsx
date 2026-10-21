@@ -38,16 +38,19 @@ export const CardForm: FC<Props> = ({ card, onChange }) => {
   return (
     <View style={{ gap: 16 }}>
       <FormText
+        testID="card-form-source"
         label={t('cardForm.wordOrPhrase')}
         value={card.source}
         onChangeText={onTextChange('source')}
       />
       <FormText
+        testID="card-form-translation"
         label={t('cardForm.translation')}
         value={card.translation}
         onChangeText={onTextChange('translation')}
       />
       <FormText
+        testID="card-form-part-of-speech"
         label={t('cardForm.partOfSpeech')}
         value={card.partOfSpeech}
         onChangeText={onTextChange('partOfSpeech')}
@@ -60,6 +63,7 @@ export const CardForm: FC<Props> = ({ card, onChange }) => {
             }}
             anchor={
               <IconButton
+                testID="card-form-part-of-speech-menu"
                 icon={'menu-down'}
                 onPress={() => setPartOfSpeechMenuVisible(true)}
                 style={{
@@ -71,6 +75,7 @@ export const CardForm: FC<Props> = ({ card, onChange }) => {
           >
             {partsOfSpeech.map((pos) => (
               <Menu.Item
+                testID={`card-form-part-of-speech-${pos}`}
                 key={pos}
                 onPress={() => {
                   onTextChange('partOfSpeech')(pos);
@@ -83,17 +88,20 @@ export const CardForm: FC<Props> = ({ card, onChange }) => {
         }
       />
       <FormText
+        testID="card-form-ipa"
         label={t('cardForm.transcriptionIpa')}
         value={card.ipa}
         onChangeText={onTextChange('ipa')}
       />
       <FormText
+        testID="card-form-definition"
         label={t('cardForm.definition')}
         value={card.definition}
         multiline={true}
         onChangeText={onTextChange('definition')}
       />
       <FormText
+        testID="card-form-example"
         label={t('cardForm.example')}
         value={card.example}
         multiline={true}

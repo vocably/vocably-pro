@@ -188,6 +188,7 @@ export const FrequencyHint: FC<Props> = ({
           ]}
         >
           <Pressable
+            testID="frequency-hint-backdrop"
             style={StyleSheet.absoluteFill}
             onPress={onClose}
             accessibilityRole="button"
@@ -304,6 +305,7 @@ export const FrequencyHint: FC<Props> = ({
                   </Text>
                 ) : (
                   <Button
+                    testID="frequency-hint-upgrade"
                     mode="contained"
                     onPress={upgrade}
                     icon={({ size, color }) => (

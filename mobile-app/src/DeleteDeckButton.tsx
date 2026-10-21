@@ -51,6 +51,7 @@ export const DeleteDeckButton: FC = () => {
 
   return (
     <ListItem
+      testID="delete-deck"
       leftIcon="delete"
       rightIcon=""
       title={t('editDeck.deleteDeck')}

@@ -162,6 +162,7 @@ export const SettingsScreen: FC<Props> = ({ navigation }) => {
         {!isRegisteredUser && (
           <>
             <ListItem
+              testID="settings-create-account"
               order="first"
               title={t('settings.createAccount')}
               onPress={onCreateAccount}
@@ -180,6 +181,7 @@ export const SettingsScreen: FC<Props> = ({ navigation }) => {
 
       <CustomSurface style={{ marginBottom: marginBottom }}>
         <ListItem
+          testID="settings-app-language"
           leftIcon="translate"
           title={t('settings.appLanguage', { label: appLanguageLabel })}
           onPress={() => navigation.navigate('AppLanguage')}
@@ -188,6 +190,7 @@ export const SettingsScreen: FC<Props> = ({ navigation }) => {
 
       <CustomSurface style={{ marginBottom: marginBottom }}>
         <ListItem
+          testID="settings-study-settings"
           leftIcon="school-outline"
           title={t('settings.studySettings')}
           onPress={() => navigation.navigate('StudySettings')}
@@ -198,6 +201,7 @@ export const SettingsScreen: FC<Props> = ({ navigation }) => {
         <>
           <CustomSurface style={{ marginBottom: 8 }}>
             <ListItem
+              testID="settings-study-reminders"
               leftIcon="bell-outline"
               title={t('settings.studyReminders.title')}
               onPress={goToStudyReminders}
@@ -230,6 +234,7 @@ export const SettingsScreen: FC<Props> = ({ navigation }) => {
 
       <CustomSurface style={{ marginBottom: 8 }}>
         <ListItem
+          testID="settings-feedback"
           leftIcon="message-text-outline"
           title={t('settings.feedback.title')}
           onPress={() => navigation.navigate('Feedback')}
@@ -243,6 +248,7 @@ export const SettingsScreen: FC<Props> = ({ navigation }) => {
       {isRegisteredUser && (
         <CustomSurface style={{ marginBottom: marginBottom }}>
           <ListItem
+            testID="settings-sign-out"
             order="first"
             title={t('settings.signOut')}
             onPress={onSignOut}
@@ -251,6 +257,7 @@ export const SettingsScreen: FC<Props> = ({ navigation }) => {
           />
           <Divider />
           <ListItem
+            testID="settings-delete-account"
             order="last"
             title={t('settings.deleteAccount.menuItem')}
             onPress={onAccountDelete}
@@ -264,6 +271,7 @@ export const SettingsScreen: FC<Props> = ({ navigation }) => {
       {!isRegisteredUser && (
         <CustomSurface style={{ marginBottom: marginBottom }}>
           <ListItem
+            testID="settings-delete-data"
             title={t('settings.deleteData.menuItem')}
             onPress={onDataDelete}
             color={theme.colors.error}
@@ -290,6 +298,7 @@ export const SettingsScreen: FC<Props> = ({ navigation }) => {
           }}
         >
           <Pressable
+            testID="settings-version"
             onPress={() => setVersionPressedTimes(versionPressedTimes + 1)}
             style={{ backgroundColor: 'transparent' }}
           >
