@@ -195,9 +195,9 @@ const translations: BaseTranslations = {
     inputDisabled: 'Bu giriş şu anda devre dışı.',
     inputPlaceholder: 'Mesajını buraya yaz...',
     initialMessage:
-      '**{{source}}** hakkında istediğin her şeyi sorabilirsin, örneğin:\n\n  * anlamını açıkla\n  * örnekler ver\n  * hatırlamama yardım et',
+      '<bold>{{source}}</bold> hakkında istediğin her şeyi sor ya da hazır seçeneklerden birini kullan:',
     initialMessageWithPartOfSpeech:
-      '{{partOfSpeech}} **{{source}}** hakkında istediğin her şeyi sorabilirsin, örneğin:\n\n  * anlamını açıkla\n  * örnekler ver\n  * hatırlamama yardım et',
+      '{{partOfSpeech}} <bold>{{source}}</bold> hakkında istediğin her şeyi sor ya da hazır seçeneklerden birini kullan:',
   },
   dashboard: {
     loadingCards: 'Kartlar yükleniyor...',

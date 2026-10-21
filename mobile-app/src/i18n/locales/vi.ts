@@ -189,9 +189,9 @@ const translations: BaseTranslations = {
     inputDisabled: 'Ô nhập này đang bị tắt.',
     inputPlaceholder: 'Tin nhắn của bạn...',
     initialMessage:
-      'Bạn có thể hỏi bất cứ điều gì về **{{source}}**, ví dụ:\n\n  * giải thích nghĩa\n  * cung cấp ví dụ\n  * giúp ghi nhớ',
+      'Hãy hỏi bất cứ điều gì về <bold>{{source}}</bold>, hoặc dùng một trong các gợi ý có sẵn:',
     initialMessageWithPartOfSpeech:
-      'Bạn có thể hỏi bất cứ điều gì về {{partOfSpeech}} **{{source}}**, ví dụ:\n\n  * giải thích nghĩa\n  * cung cấp ví dụ\n  * giúp ghi nhớ',
+      'Hãy hỏi bất cứ điều gì về {{partOfSpeech}} <bold>{{source}}</bold>, hoặc dùng một trong các gợi ý có sẵn:',
   },
   dashboard: {
     loadingCards: 'Đang tải thẻ...',

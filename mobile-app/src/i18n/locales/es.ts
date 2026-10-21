@@ -195,9 +195,9 @@ const translations: BaseTranslations = {
     inputDisabled: 'Esta entrada está desactivada por ahora.',
     inputPlaceholder: 'Tu mensaje...',
     initialMessage:
-      'Puedes preguntar lo que quieras sobre **{{source}}**, por ejemplo:\n\n  * explicar el significado\n  * dar ejemplos\n  * ayudarte a recordarla',
+      'Pregunta lo que quieras sobre <bold>{{source}}</bold> o usa una de las opciones predefinidas:',
     initialMessageWithPartOfSpeech:
-      'Puedes preguntar lo que quieras sobre el/la {{partOfSpeech}} **{{source}}**, por ejemplo:\n\n  * explicar el significado\n  * dar ejemplos\n  * ayudarte a recordarla',
+      'Pregunta lo que quieras sobre el/la {{partOfSpeech}} <bold>{{source}}</bold> o usa una de las opciones predefinidas:',
   },
   dashboard: {
     loadingCards: 'Cargando tarjetas...',

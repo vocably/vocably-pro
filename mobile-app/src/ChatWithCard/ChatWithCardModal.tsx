@@ -10,14 +10,14 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, ScrollView, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
-import { Button, useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { chatWithCard } from '../api';
 import { ChatTextInput, ChatTextInputRef } from '../Chat/ChatTextInput';
 import { Message } from '../Chat/Message';
 import { Thinking } from '../Chat/Thinking';
 import { ScreenLayout } from '../ui/ScreenLayout';
-import { getInitialMessage } from './getInitialMessage';
+import { ChatWithCardWelcome } from './ChatWithCardWelcome';
 import { i18n } from '../i18n';
 
 export type ChatWithCardParams = {
@@ -141,11 +141,13 @@ export const ChatWithCardModal: FC<Props> = ({ route, navigation }) => {
             }}
             ref={scrollViewRef}
           >
-            <Message
-              direction="fromAi"
-              message={getInitialMessage(card)}
-              style={messageWrapperStyle}
-            />
+            <View style={messageWrapperStyle}>
+              <ChatWithCardWelcome
+                card={card}
+                disabled={isThinking}
+                onSuggestion={send}
+              />
+            </View>
             {messages.map((message) => (
               <Message
                 key={message.timestamp}
@@ -177,74 +179,6 @@ export const ChatWithCardModal: FC<Props> = ({ route, navigation }) => {
               borderTopColor: theme.colors.elevation.level5,
             }}
           >
-            <View
-              style={{
-                flexDirection: 'row',
-                gap: 4,
-                marginBottom: 8,
-              }}
-            >
-              <Button
-                mode="outlined"
-                compact={true}
-                textColor={theme.colors.onSurface}
-                style={{
-                  borderColor: isThinking
-                    ? theme.colors.surfaceDisabled
-                    : theme.colors.onSurface,
-                }}
-                labelStyle={{
-                  marginHorizontal: 8,
-                  marginVertical: 4,
-                }}
-                disabled={isThinking}
-                onPress={() => {
-                  send(t('chat.explainMessage'));
-                }}
-              >
-                {t('chat.explain')}
-              </Button>
-              <Button
-                mode="outlined"
-                compact={true}
-                textColor={theme.colors.onSurface}
-                style={{
-                  borderColor: isThinking
-                    ? theme.colors.surfaceDisabled
-                    : theme.colors.onSurface,
-                }}
-                labelStyle={{
-                  marginHorizontal: 8,
-                  marginVertical: 4,
-                }}
-                disabled={isThinking}
-                onPress={() => {
-                  send(t('chat.examplesMessage'));
-                }}
-              >
-                {t('chat.examples')}
-              </Button>
-              <Button
-                mode="outlined"
-                compact={true}
-                textColor={theme.colors.onSurface}
-                style={{
-                  borderColor: isThinking
-                    ? theme.colors.surfaceDisabled
-                    : theme.colors.onSurface,
-                }}
-                labelStyle={{
-                  marginHorizontal: 8,
-                  marginVertical: 4,
-                }}
-                disabled={isThinking}
-                onPress={() => {
-                  send(t('chat.rememberMessage'));
-                }}
-              >
-                {t('chat.remember')}
-              </Button>
-            </View>
             <ChatTextInput
               ref={inputRef}
               disabled={isThinking}

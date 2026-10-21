@@ -194,9 +194,9 @@ const translations = {
     inputDisabled: 'This input is disabled now.',
     inputPlaceholder: 'Type your message here...',
     initialMessage:
-      'You can ask anything about **{{source}}**, like:\n\n  * explain the meaning\n  * provide examples\n  * help to remember',
+      'Ask anything about <bold>{{source}}</bold>, or use one of the ready-made options:',
     initialMessageWithPartOfSpeech:
-      'You can ask anything about the {{partOfSpeech}} **{{source}}**, like:\n\n  * explain the meaning\n  * provide examples\n  * help to remember',
+      'Ask anything about the {{partOfSpeech}} <bold>{{source}}</bold>, or use one of the ready-made options:',
   },
   dashboard: {
     loadingCards: 'Loading cards...',
