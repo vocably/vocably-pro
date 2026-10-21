@@ -234,22 +234,48 @@ const uploadScreenshot = async (setId: string, filePath: string) => {
   return screenshot.id;
 };
 
-const waitForProcessing = async (screenshotId: string, filePath: string) => {
-  for (let attempt = 0; attempt < 60; attempt++) {
-    const { data } = await api<{ data: Resource }>(
-      'GET',
-      `/v1/appScreenshots/${screenshotId}?fields[appScreenshots]=assetDeliveryState`
-    );
-    const { state, errors } = data.attributes.assetDeliveryState ?? {};
-    if (state === 'COMPLETE') return;
-    if (state === 'FAILED') {
+// Apple can take many minutes to process a batch of screenshots, so all of
+// them are uploaded first and waited for together.
+const processingTimeout = 30 * 60 * 1000;
+
+const waitForProcessing = async (
+  screenshots: { id: string; filePath: string }[]
+) => {
+  const deadline = Date.now() + processingTimeout;
+  let pending = screenshots;
+
+  while (pending.length > 0) {
+    const stillPending: typeof pending = [];
+    for (const screenshot of pending) {
+      const { data } = await api<{ data: Resource }>(
+        'GET',
+        `/v1/appScreenshots/${screenshot.id}?fields[appScreenshots]=assetDeliveryState`
+      );
+      const { state, errors } = data.attributes.assetDeliveryState ?? {};
+      if (state === 'FAILED') {
+        throw new Error(
+          `App Store Connect rejected ${screenshot.filePath}: ${JSON.stringify(errors)}`
+        );
+      }
+      if (state !== 'COMPLETE') stillPending.push(screenshot);
+    }
+
+    if (stillPending.length === 0) return;
+    if (Date.now() > deadline) {
       throw new Error(
-        `App Store Connect rejected ${filePath}: ${JSON.stringify(errors)}`
+        `Timed out waiting for App Store Connect to process:\n${stillPending
+          .map((s) => `  ${s.filePath}`)
+          .join('\n')}`
       );
     }
-    await sleep(2000);
+    if (stillPending.length !== pending.length) {
+      console.log(
+        `  ${screenshots.length - stillPending.length}/${screenshots.length} processed`
+      );
+    }
+    pending = stillPending;
+    await sleep(5000);
   }
-  throw new Error(`Timed out waiting for ${filePath} to be processed.`);
 };
 
 // Uploads the file to the Asset Library and waits until it can be placed.
@@ -394,6 +420,9 @@ const assetLibraryId = placementType
 // Asset Library image per language, shared by the locales it is placed on.
 const libraryImages = new Map<string, string>();
 
+// Screenshot sets to order once their screenshots are processed.
+const uploadedSets: { setId: string; ids: string[]; files: string[] }[] = [];
+
 for (const { language, locale, localizationId, files } of jobs) {
   if (placementType) {
     const { data: existing } = await api<{ data: Resource[] }>(
@@ -498,17 +527,26 @@ for (const { language, locale, localizationId, files } of jobs) {
     ids.push(await uploadScreenshot(set!.id, file));
   }
 
-  for (let i = 0; i < ids.length; i++) {
-    await waitForProcessing(ids[i], files[i]);
-  }
+  uploadedSets.push({ setId: set!.id, ids, files });
+}
 
-  await api(
-    'PATCH',
-    `/v1/appScreenshotSets/${set!.id}/relationships/appScreenshots`,
-    {
-      data: ids.map((id) => ({ type: 'appScreenshots', id })),
-    }
+if (uploadedSets.length > 0) {
+  console.log('Waiting for App Store Connect to process the screenshots...');
+  await waitForProcessing(
+    uploadedSets.flatMap(({ ids, files }) =>
+      ids.map((id, i) => ({ id, filePath: files[i] }))
+    )
   );
+
+  for (const { setId, ids } of uploadedSets) {
+    await api(
+      'PATCH',
+      `/v1/appScreenshotSets/${setId}/relationships/appScreenshots`,
+      {
+        data: ids.map((id) => ({ type: 'appScreenshots', id })),
+      }
+    );
+  }
 }
 
 console.log(dryRun ? 'Dry run, nothing changed.' : 'Done.');
