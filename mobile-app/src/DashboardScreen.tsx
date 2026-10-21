@@ -364,21 +364,22 @@ export const DashboardScreen: FC<Props> = ({ navigation }) => {
             {(!canBeSearched || !isSearching) && (
               <>
                 <LanguageSelector style={{ marginLeft: 12 }} />
-                {isRandomEnabledResult.value === false && (
-                  <Appbar.Action
-                    animated={false}
-                    icon={
-                      isStatsViewEnabledResult.value
-                        ? 'chart-box'
-                        : 'chart-box-outline'
-                    }
-                    onPress={() =>
-                      setIsStatsViewEnabled(!isStatsViewEnabledResult.value)
-                    }
-                    size={24 * fontScale}
-                    style={{ backgroundColor: 'transparent' }}
-                  />
-                )}
+                {isRandomEnabledResult.value === false &&
+                  deck.cards.length > 0 && (
+                    <Appbar.Action
+                      animated={false}
+                      icon={
+                        isStatsViewEnabledResult.value
+                          ? 'chart-box'
+                          : 'chart-box-outline'
+                      }
+                      onPress={() =>
+                        setIsStatsViewEnabled(!isStatsViewEnabledResult.value)
+                      }
+                      size={24 * fontScale}
+                      style={{ backgroundColor: 'transparent' }}
+                    />
+                  )}
                 <View style={{ flexGrow: 1 }}></View>
                 <Appbar.Action
                   icon={'pencil-outline'}
