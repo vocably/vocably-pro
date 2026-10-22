@@ -534,6 +534,9 @@ export const uk = {
   'srs.reverse_front.type_in_the': 'Введи',
   'srs.reverse_front.example': 'Приклад',
   'srs.reverse_front.examples': 'Приклади',
+  'srs.front.present_tenses': '(теперішній: {{value}})',
+  'srs.front.past_tenses': '(минулий: {{value}})',
+  'srs.front.plural': '(мн.: {{value}})',
 
   // Header
   'header.menu': 'Меню',

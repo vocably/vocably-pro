@@ -531,6 +531,9 @@ export const pt = {
   'srs.reverse_front.type_in_the': 'Digite o',
   'srs.reverse_front.example': 'Exemplo',
   'srs.reverse_front.examples': 'Exemplos',
+  'srs.front.present_tenses': '(presente: {{value}})',
+  'srs.front.past_tenses': '(passado: {{value}})',
+  'srs.front.plural': '(plural: {{value}})',
 
   // Header
   'header.menu': 'Menu',

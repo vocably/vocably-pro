@@ -523,6 +523,9 @@ export const vi = {
   'srs.reverse_front.type_in_the': 'Nhập',
   'srs.reverse_front.example': 'Ví dụ',
   'srs.reverse_front.examples': 'Ví dụ',
+  'srs.front.present_tenses': '(hiện tại: {{value}})',
+  'srs.front.past_tenses': '(quá khứ: {{value}})',
+  'srs.front.plural': '(số nhiều: {{value}})',
 
   // Header
   'header.menu': 'Menu',

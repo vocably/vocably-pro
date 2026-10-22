@@ -535,6 +535,9 @@ export const ru = {
   'srs.reverse_front.type_in_the': 'Введи',
   'srs.reverse_front.example': 'Пример',
   'srs.reverse_front.examples': 'Примеры',
+  'srs.front.present_tenses': '(настоящее: {{value}})',
+  'srs.front.past_tenses': '(прошедшее: {{value}})',
+  'srs.front.plural': '(мн.ч.: {{value}})',
 
   // Header
   'header.menu': 'Меню',

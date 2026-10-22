@@ -526,6 +526,9 @@ export const en = {
   'srs.reverse_front.type_in_the': 'Type in the',
   'srs.reverse_front.example': 'Example',
   'srs.reverse_front.examples': 'Examples',
+  'srs.front.present_tenses': '(present: {{value}})',
+  'srs.front.past_tenses': '(past: {{value}})',
+  'srs.front.plural': '(plural: {{value}})',
 
   // Header
   'header.menu': 'Menu',

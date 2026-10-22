@@ -535,6 +535,9 @@ export const es = {
   'srs.reverse_front.type_in_the': 'Escribe el',
   'srs.reverse_front.example': 'Ejemplo',
   'srs.reverse_front.examples': 'Ejemplos',
+  'srs.front.present_tenses': '(presente: {{value}})',
+  'srs.front.past_tenses': '(pasado: {{value}})',
+  'srs.front.plural': '(plural: {{value}})',
 
   // Header
   'header.menu': 'Menú',

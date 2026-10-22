@@ -532,6 +532,9 @@ export const tr = {
   'srs.reverse_front.type_in_the': 'Yaz',
   'srs.reverse_front.example': 'Örnek',
   'srs.reverse_front.examples': 'Örnekler',
+  'srs.front.present_tenses': '(şimdiki: {{value}})',
+  'srs.front.past_tenses': '(geçmiş: {{value}})',
+  'srs.front.plural': '(çoğul: {{value}})',
 
   // Header
   'header.menu': 'Menü',
