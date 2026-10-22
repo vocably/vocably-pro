@@ -460,6 +460,7 @@ export const vi = {
 
   // Header
   'header.menu': 'Menu',
+  'header.your_cards': 'Thẻ của bạn',
   'header.setup': 'Thiết lập tiện ích',
   'header.premium': 'Premium',
   'header.settings': 'Cài đặt hệ thống',

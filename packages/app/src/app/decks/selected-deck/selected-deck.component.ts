@@ -48,6 +48,7 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
   public isLoading = true;
   public language: GoogleLanguage | '' = '';
   cleanScreen = false;
+  hideYourCards = false;
   title = '';
 
   constructor(
@@ -59,6 +60,7 @@ export class SelectedDeckComponent implements OnInit, OnDestroy {
   ) {
     routerParams.data$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
       this.cleanScreen = data['cleanScreen'] ?? false;
+      this.hideYourCards = data['hideYourCards'] ?? false;
       this.title = data['title'] ?? '';
     });
 

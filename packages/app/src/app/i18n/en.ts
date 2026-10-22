@@ -465,6 +465,7 @@ export const en = {
 
   // Header
   'header.menu': 'Menu',
+  'header.your_cards': 'Your cards',
   'header.setup': 'Setup Extension',
   'header.premium': 'Premium',
   'header.settings': 'System Settings',

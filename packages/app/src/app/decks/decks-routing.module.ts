@@ -26,6 +26,9 @@ const routes: Routes = [
             path: '',
             title: 'page.dashboard',
             component: DashboardPageComponent,
+            data: {
+              hideYourCards: true,
+            },
           },
           {
             path: 'study',

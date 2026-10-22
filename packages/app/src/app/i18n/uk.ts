@@ -471,6 +471,7 @@ export const uk = {
 
   // Header
   'header.menu': 'Меню',
+  'header.your_cards': 'Ваші картки',
   'header.setup': 'Налаштувати розширення',
   'header.premium': 'Premium',
   'header.settings': 'Системні налаштування',

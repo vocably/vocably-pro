@@ -468,6 +468,7 @@ export const pt = {
 
   // Header
   'header.menu': 'Menu',
+  'header.your_cards': 'Seus cartões',
   'header.setup': 'Configurar extensão',
   'header.premium': 'Premium',
   'header.settings': 'Configurações do sistema',

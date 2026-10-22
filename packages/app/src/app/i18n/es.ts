@@ -473,6 +473,7 @@ export const es = {
 
   // Header
   'header.menu': 'Menú',
+  'header.your_cards': 'Tus tarjetas',
   'header.setup': 'Configurar extensión',
   'header.premium': 'Premium',
   'header.settings': 'Configuración del sistema',

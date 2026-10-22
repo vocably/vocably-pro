@@ -474,6 +474,7 @@ export const tr = {
 
   // Header
   'header.menu': 'Menü',
+  'header.your_cards': 'Kartlarınız',
   'header.setup': 'Uzantıyı Kur',
   'header.premium': 'Premium',
   'header.settings': 'Sistem Ayarları',

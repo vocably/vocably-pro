@@ -472,6 +472,7 @@ export const ru = {
 
   // Header
   'header.menu': 'Меню',
+  'header.your_cards': 'Ваши карточки',
   'header.setup': 'Настроить экстеншн',
   'header.premium': 'Premium',
   'header.settings': 'Настройки системы',

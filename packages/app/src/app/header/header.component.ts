@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @Input() title: string = '';
   @Input() dense = false;
+  @Input() showYourCards = true;
 
   isLoggedIn: boolean | null = null;
   extensionCanBeInstalled = canExtensionBeInstalled;

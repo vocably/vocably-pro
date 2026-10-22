@@ -5,7 +5,18 @@
         class="flex-1 display-md-block"
         [class.display-none]="dense && title"
       >
-        <a href="/"><app-logo class="logo-image"></app-logo></a>
+        <div class="display-flex align-items-center">
+          <a href="/" class="display-flex"
+            ><app-logo class="logo-image"></app-logo
+          ></a>
+          <a
+            *ngIf="isLoggedIn && showYourCards"
+            [routerLink]="['/']"
+            class="your-cards-button ml-1"
+            data-test="your-cards"
+            >{{ 'header.your_cards' | transloco }}</a
+          >
+        </div>
       </div>
       <div
         class="flex-1 mat-headline-6 m-0 text-md-center text-emphasize"
