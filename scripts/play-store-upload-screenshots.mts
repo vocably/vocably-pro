@@ -2,11 +2,11 @@
 
 // Uploads the screenshots exported by app-stores/ to Google Play.
 //
-//   ./scripts/play-store-upload-screenshots.mts [--dry-run]
+//   ./scripts/play-store-upload-screenshots.mts [--dry-run] [format ...]
 //
-// Expects tmp/play-phone.zip, tmp/play-tablet-10.zip and
-// tmp/play-feature-graphic.zip (one folder per interface language:
-// en/01.png, …). Unpacks each into tmp/<format>/, and for every language
+// Formats are play-phone, play-tablet-10 and play-feature-graphic; all three
+// are uploaded when none is given. Expects tmp/<format>.zip for each of them
+// (one folder per interface language: en/01.png, …). Unpacks each into tmp/<format>/, and for every language
 // deletes the images of that type on the store listing and uploads the new
 // ones. All changes go into one edit, which is committed at the end, so a
 // failure leaves the store listing untouched.
@@ -62,16 +62,26 @@ const localeMap: Record<string, string[]> = {
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 
-const unknownArgs = args.filter((arg) => arg !== '--dry-run');
+const allFormatIds = Object.keys(imageTypes);
+const requestedFormatIds = args.filter((arg) => arg !== '--dry-run');
+
+const unknownArgs = requestedFormatIds.filter(
+  (arg) => !allFormatIds.includes(arg)
+);
 if (unknownArgs.length > 0) {
   console.error(
     `Unknown argument(s): ${unknownArgs.join(' ')}\n` +
-      'Usage: ./scripts/play-store-upload-screenshots.mts [--dry-run]'
+      `Usage: ./scripts/play-store-upload-screenshots.mts [--dry-run] [${allFormatIds.join(
+        '|'
+      )} ...]`
   );
   process.exit(1);
 }
 
-const formatIds = Object.keys(imageTypes);
+const formatIds =
+  requestedFormatIds.length > 0
+    ? allFormatIds.filter((formatId) => requestedFormatIds.includes(formatId))
+    : allFormatIds;
 const zipPath = (formatId: string) => `${rootDir}/tmp/${formatId}.zip`;
 const unpackedDir = (formatId: string) => `${rootDir}/tmp/${formatId}`;
 
