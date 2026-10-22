@@ -455,6 +455,7 @@ export const es = {
   'srs.card.space_hint': 'Espacio en el teclado',
   'srs.card.show_question': 'Mostrar la pregunta',
   'srs.card.show_answer': 'Mostrar la respuesta',
+  'srs.card.clear_all': 'Borrar todo',
   'srs.card.left_arrow': 'Flecha izquierda o 1 en el teclado',
   'srs.card.weak': 'Débil',
   'srs.card.not_yet': 'Todavía no',

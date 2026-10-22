@@ -3,43 +3,70 @@
     class="srs-card-font"
     [card]="card"
   ></app-srs-reverse-front>
-  <div class="answer" [@shake]="wrong">
-    @for (letterIndex of answer; track $index) {
-      <button
-        class="letter"
-        [disabled]="letterIndex === false"
-        (click)="unuseLetter($index)"
-      >
-        {{
-          letterIndex !== false
-            ? accessibleLetter(letters[letterIndex])
-            : '&nbsp;'
-        }}
-      </button>
-    }
-  </div>
-  <div class="answer options">
-    @for (letter of letters; track $index) {
-      @let isUsed = answer.includes($index);
-      <button class="letter" [disabled]="isUsed" (click)="useLetter($index)">
-        {{ accessibleLetter(letter) }}
-      </button>
-    }
-  </div>
-  <div class="text-center hint">
-    <div class="hint-text" [class.visible]="answerDisplayed">
-      <app-play-sound
-        [language]="card.data.language"
-        [text]="card.data.source"
-      ></app-play-sound>
-      {{ correctAnswer }}
+  <div
+    class="tiles"
+    [style.--count]="letters.length"
+    [style.--gap]="tileGap + 'px'"
+  >
+    <div class="row" [class.rtl]="isRtl" [@shake]="wrong">
+      @for (letterIndex of answer; track $index) {
+        <button
+          class="tile slot"
+          [class.next]="letterIndex === false && $index === nextSlotIndex"
+          [class.filled]="letterIndex !== false"
+          [class.wrong]="wrong"
+          [class.correct]="correct"
+          [disabled]="correct || letterIndex === false"
+          (click)="unuseLetter($index)"
+        >
+          @if (letterIndex !== false) {
+            {{ accessibleLetter(letters[letterIndex]) }}
+          }
+        </button>
+      }
     </div>
+    <div class="row" [class.rtl]="isRtl">
+      @for (letter of letters; track $index) {
+        @let isUsed = answer.includes($index);
+        <button
+          class="tile option"
+          [class.used]="isUsed"
+          [disabled]="correct || isUsed"
+          (click)="useLetter($index)"
+        >
+          @if (!isUsed) {
+            {{ accessibleLetter(letter) }}
+          }
+        </button>
+      }
+    </div>
+  </div>
+  <div class="actions">
     <button
-      class="show-answer-button hint-button"
-      (click)="answerDisplayed = true"
-      [disabled]="answerDisplayed"
+      class="action outlined"
+      [disabled]="correct || isAnswerEmpty"
+      (click)="clearAll()"
     >
-      {{ 'srs.card.show_answer' | transloco }}
+      <mat-icon aria-hidden="true">backspace</mat-icon>
+      {{ 'srs.card.clear_all' | transloco }}
     </button>
+    @if (!answerDisplayed) {
+      <button
+        class="action tonal"
+        [disabled]="correct"
+        (click)="answerDisplayed = true"
+      >
+        <mat-icon aria-hidden="true">visibility</mat-icon>
+        {{ 'srs.card.show_answer' | transloco }}
+      </button>
+    } @else {
+      <div class="revealed">
+        <app-play-sound
+          [language]="card.data.language"
+          [text]="card.data.source"
+        ></app-play-sound>
+        <span class="revealed-text">{{ correctAnswer }}</span>
+      </div>
+    }
   </div>
 </div>

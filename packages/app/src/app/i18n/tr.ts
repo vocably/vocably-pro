@@ -456,6 +456,7 @@ export const tr = {
   'srs.card.space_hint': 'Klavyede boşluk tuşu',
   'srs.card.show_question': 'Soruyu göster',
   'srs.card.show_answer': 'Cevabı göster',
+  'srs.card.clear_all': 'Tümünü temizle',
   'srs.card.left_arrow': 'Klavyede sol ok veya 1',
   'srs.card.weak': 'Zayıf',
   'srs.card.not_yet': 'Henüz değil',

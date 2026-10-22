@@ -450,6 +450,7 @@ export const pt = {
   'srs.card.space_hint': 'Espaço no teclado',
   'srs.card.show_question': 'Mostrar a pergunta',
   'srs.card.show_answer': 'Mostrar a resposta',
+  'srs.card.clear_all': 'Limpar tudo',
   'srs.card.left_arrow': 'Seta esquerda ou 1 no teclado',
   'srs.card.weak': 'Fraco',
   'srs.card.not_yet': 'Ainda não',

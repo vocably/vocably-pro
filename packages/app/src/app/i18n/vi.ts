@@ -442,6 +442,7 @@ export const vi = {
   'srs.card.space_hint': 'Dấu cách trên bàn phím',
   'srs.card.show_question': 'Hiển thị câu hỏi',
   'srs.card.show_answer': 'Hiển thị câu trả lời',
+  'srs.card.clear_all': 'Xóa tất cả',
   'srs.card.left_arrow': 'Mũi tên trái hoặc 1 trên bàn phím',
   'srs.card.weak': 'Yếu',
   'srs.card.not_yet': 'Chưa biết',

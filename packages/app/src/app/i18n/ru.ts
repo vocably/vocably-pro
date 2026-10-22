@@ -454,6 +454,7 @@ export const ru = {
   'srs.card.space_hint': 'Пробел на клавиатуре',
   'srs.card.show_question': 'Показать вопрос',
   'srs.card.show_answer': 'Показать ответ',
+  'srs.card.clear_all': 'Очистить всё',
   'srs.card.left_arrow': 'Стрелка влево или 1 на клавиатуре',
   'srs.card.weak': 'Слабо',
   'srs.card.not_yet': 'Не знаю',

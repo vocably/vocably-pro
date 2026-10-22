@@ -453,6 +453,7 @@ export const uk = {
   'srs.card.space_hint': 'Пробіл на клавіатурі',
   'srs.card.show_question': 'Показати питання',
   'srs.card.show_answer': 'Показати відповідь',
+  'srs.card.clear_all': 'Очистити все',
   'srs.card.left_arrow': 'Стрілка вліво або 1 на клавіатурі',
   'srs.card.weak': 'Слабко',
   'srs.card.not_yet': 'Не знаю',

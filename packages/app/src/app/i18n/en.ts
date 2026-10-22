@@ -447,6 +447,7 @@ export const en = {
   'srs.card.space_hint': 'Space on the keyboard',
   'srs.card.show_question': 'Show the question',
   'srs.card.show_answer': 'Show the answer',
+  'srs.card.clear_all': 'Clear all',
   'srs.card.left_arrow': 'Left arrow or 1 on the keyboard',
   'srs.card.weak': 'Weak',
   'srs.card.not_yet': 'Not yet',
