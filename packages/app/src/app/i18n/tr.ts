@@ -530,7 +530,8 @@ export const tr = {
   'srs.streak.days.6': 'Cmt',
   'srs.reverse_front.guess_the': 'Tahmin et',
   'srs.reverse_front.type_in_the': 'Yaz',
-  'srs.reverse_front.meaning': 'anlamı:',
+  'srs.reverse_front.example': 'Örnek',
+  'srs.reverse_front.examples': 'Örnekler',
 
   // Header
   'header.menu': 'Menü',

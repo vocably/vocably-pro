@@ -533,7 +533,8 @@ export const ru = {
   'srs.streak.days.6': 'Сб',
   'srs.reverse_front.guess_the': 'Угадай',
   'srs.reverse_front.type_in_the': 'Введи',
-  'srs.reverse_front.meaning': 'значение:',
+  'srs.reverse_front.example': 'Пример',
+  'srs.reverse_front.examples': 'Примеры',
 
   // Header
   'header.menu': 'Меню',

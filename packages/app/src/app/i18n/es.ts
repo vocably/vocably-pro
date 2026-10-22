@@ -533,7 +533,8 @@ export const es = {
   'srs.streak.days.6': 'Sáb',
   'srs.reverse_front.guess_the': 'Adivina el',
   'srs.reverse_front.type_in_the': 'Escribe el',
-  'srs.reverse_front.meaning': 'significado:',
+  'srs.reverse_front.example': 'Ejemplo',
+  'srs.reverse_front.examples': 'Ejemplos',
 
   // Header
   'header.menu': 'Menú',

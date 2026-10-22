@@ -1,4 +1,64 @@
+// Sizes follow mobile-app/src/study/Card/ReverseCardFront.tsx, scaled
+// relative to the translation (30px on mobile) so they follow .srs-card-font
 :host {
   display: block;
-  height: 100%;
+  max-width: 100%;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.tag {
+  display: inline-block;
+  margin-bottom: 0.33em;
+  padding: 0.1em 0.75em 0.2em;
+  border-radius: 1em;
+  background: var(--contrast-bg);
+  color: var(--text-muted);
+  font-size: max(0.8125rem, 0.43em);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+.translation {
+  font-size: 1em;
+  line-height: 1.27;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-color);
+}
+
+.definition {
+  font-size: 0.67em;
+  line-height: 1.4;
+}
+
+.examples {
+  margin-top: 0.8em;
+}
+
+.section-label {
+  margin-bottom: 0.4rem;
+  font-size: max(0.8125rem, 0.43em);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.examples-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  padding-inline-start: 0.75rem;
+  border-inline-start: 3px solid var(--border-color);
+  border-radius: 2px;
+  font-size: 0.6em;
+  line-height: 1.4;
 }

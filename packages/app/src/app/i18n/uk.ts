@@ -532,7 +532,8 @@ export const uk = {
   'srs.streak.days.6': 'Сб',
   'srs.reverse_front.guess_the': 'Вгадай',
   'srs.reverse_front.type_in_the': 'Введи',
-  'srs.reverse_front.meaning': 'значення:',
+  'srs.reverse_front.example': 'Приклад',
+  'srs.reverse_front.examples': 'Приклади',
 
   // Header
   'header.menu': 'Меню',

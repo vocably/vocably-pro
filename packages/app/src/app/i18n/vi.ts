@@ -521,7 +521,8 @@ export const vi = {
   'srs.streak.days.6': 'T7',
   'srs.reverse_front.guess_the': 'Đoán',
   'srs.reverse_front.type_in_the': 'Nhập',
-  'srs.reverse_front.meaning': 'nghĩa:',
+  'srs.reverse_front.example': 'Ví dụ',
+  'srs.reverse_front.examples': 'Ví dụ',
 
   // Header
   'header.menu': 'Menu',

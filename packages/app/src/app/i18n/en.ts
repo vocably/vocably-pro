@@ -524,7 +524,8 @@ export const en = {
   'srs.streak.days.6': 'Sat',
   'srs.reverse_front.guess_the': 'Guess the',
   'srs.reverse_front.type_in_the': 'Type in the',
-  'srs.reverse_front.meaning': 'meaning:',
+  'srs.reverse_front.example': 'Example',
+  'srs.reverse_front.examples': 'Examples',
 
   // Header
   'header.menu': 'Menu',

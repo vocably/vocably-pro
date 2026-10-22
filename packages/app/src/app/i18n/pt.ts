@@ -529,7 +529,8 @@ export const pt = {
   'srs.streak.days.6': 'Sáb',
   'srs.reverse_front.guess_the': 'Adivinhe o',
   'srs.reverse_front.type_in_the': 'Digite o',
-  'srs.reverse_front.meaning': 'significado:',
+  'srs.reverse_front.example': 'Exemplo',
+  'srs.reverse_front.examples': 'Exemplos',
 
   // Header
   'header.menu': 'Menu',

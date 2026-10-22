@@ -1,7 +1,7 @@
 $track: var(--border-color-muted, rgba(128, 128, 128, 0.2));
 
 .study-container {
-  height: var(--app-height);
+  min-height: var(--app-height);
   display: flex;
   flex-direction: column;
 }
@@ -17,6 +17,13 @@ $track: var(--border-color-muted, rgba(128, 128, 128, 0.2));
   padding: var(--container-padding) 1rem 0.5rem;
   box-sizing: border-box;
   min-height: 3.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--body-bg);
+  // Extends the background to the edges of the viewport
+  box-shadow: 0 0 0 100vmax var(--body-bg);
+  clip-path: inset(0 -100vmax);
 }
 
 .back {
@@ -71,15 +78,18 @@ $track: var(--border-color-muted, rgba(128, 128, 128, 0.2));
 
 .study-body {
   flex: 1;
-  min-height: 0;
+  display: flex;
+  flex-direction: column;
   position: relative;
 }
 
 .study-list {
-  display: block;
-  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .study-body .hero {
-  height: 100%;
+  flex: 1;
+  min-height: 0;
 }
