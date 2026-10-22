@@ -5,18 +5,35 @@ $spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   flex-direction: column;
   align-items: center;
   flex: 1;
-  padding: 1.5rem;
 }
 
-.inner {
-  margin: auto 0;
-  width: 100%;
-  max-width: 700px;
+// Takes the space between the header and the footer and centers the
+// question in it. Long questions grow it and make the page scroll.
+.content {
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  max-width: calc(700px + 3rem);
+  padding: 1.5rem 1.5rem 0;
+}
+
+// Tiles and actions stay pinned to the bottom of the screen
+.footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+  max-width: calc(700px + 3rem);
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
   align-items: stretch;
   gap: 1rem;
+  background: color-mix(in srgb, var(--body-bg) 30%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
 }
 
 .tiles {
@@ -29,7 +46,6 @@ $spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   );
 
   container-type: inline-size;
-  margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 28px;

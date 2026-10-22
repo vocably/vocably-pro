@@ -20,7 +20,7 @@ $back-size: 2.5rem;
   position: sticky;
   top: 0;
   z-index: 1;
-  background: color-mix(in srgb, var(--body-bg) 60%, transparent);
+  background: color-mix(in srgb, var(--body-bg) 30%, transparent);
   -webkit-backdrop-filter: saturate(180%) blur(16px);
   backdrop-filter: saturate(180%) blur(16px);
 }

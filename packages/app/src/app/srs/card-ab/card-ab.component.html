@@ -1,9 +1,11 @@
-<div class="inner">
+<div class="content">
   <app-srs-reverse-front
     class="srs-card-font"
     [card]="card"
     [isChecked]="correct || answerDisplayed"
   ></app-srs-reverse-front>
+</div>
+<div class="footer">
   <div
     class="tiles"
     [style.--count]="letters.length"
