@@ -10,11 +10,10 @@ $back-size: 2.5rem;
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 1rem;
   width: 100%;
   // Full-width bar; content stays within 820px
-  padding: var(--container-padding) max(1rem, calc((100% - 820px) / 2 + 1rem))
-    0.5rem;
+  --header-inline-padding: max(1rem, calc((100% - 820px) / 2 + 1rem));
+  padding: var(--container-padding) var(--header-inline-padding) 0.5rem;
   box-sizing: border-box;
   min-height: 3.5rem;
   position: sticky;
@@ -26,7 +25,9 @@ $back-size: 2.5rem;
 }
 
 .back {
-  flex-shrink: 0;
+  // Out of flow so the heading is centered across the whole header
+  position: absolute;
+  left: var(--header-inline-padding);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -49,6 +50,8 @@ $back-size: 2.5rem;
 .heading {
   flex: 1;
   min-width: 0;
+  // Keeps long titles clear of the back button on both sides
+  padding: 0 calc(#{$back-size} + 1rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,12 +76,6 @@ $back-size: 2.5rem;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
-}
-
-// Mirrors the back button so the heading stays optically centered
-.spacer {
-  flex-shrink: 0;
-  width: $back-size;
 }
 
 .study-body {
