@@ -1,6 +1,5 @@
 @if (studyStreak && studyStreak.days > 0) {
   <app-srs-streak
-    style="margin-bottom: 2rem"
     [consecutiveDays]="studyStreak.days"
     [hasBeenShown]="streakAnimationShown"
   ></app-srs-streak>
@@ -15,8 +14,19 @@
     ></span
   >
 }
-<div class="text-center">
-  <button mat-button color="accent" (click)="oneMoreRound.emit()">
+<figure class="quote appear">
+  <mat-icon class="quote-icon" aria-hidden="true">format_quote</mat-icon>
+  <blockquote class="quote-text">
+    {{ 'srs.success.quote.' + quoteIndex | transloco }}
+  </blockquote>
+</figure>
+<div class="actions appear">
+  <a class="action primary" [routerLink]="['../']">
+    <mat-icon aria-hidden="true">check</mat-icon>
+    {{ 'srs.success.finish' | transloco }}
+  </a>
+  <button class="action secondary" (click)="oneMoreRound.emit()">
+    <mat-icon aria-hidden="true">refresh</mat-icon>
     {{ 'srs.success.one_more' | transloco }}
   </button>
 </div>

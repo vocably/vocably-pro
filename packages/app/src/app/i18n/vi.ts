@@ -452,6 +452,63 @@ export const vi = {
   'srs.card.strong': 'Mạnh',
   'srs.card.got_it': 'Biết rồi',
   'srs.success.one_more': 'Một vòng nữa',
+  'srs.success.finish': 'Kết thúc',
+  'srs.success.quote.0':
+    'Mỗi từ mới bạn học hôm nay là một viên gạch xây nên sự thông thạo ngày mai.',
+  'srs.success.quote.1':
+    'Học ngôn ngữ là một cuộc marathon, không phải chạy nước rút. Cứ bước đều, bạn sẽ đến đích.',
+  'srs.success.quote.2':
+    'Đừng sợ quên — mỗi lần ôn lại, từ ngữ càng khắc sâu hơn trong trí nhớ.',
+  'srs.success.quote.3':
+    'Sự thông thạo không đến từ một ngày học miệt mài, mà từ những ngày đều đặn không bỏ cuộc.',
+  'srs.success.quote.4':
+    'Mỗi câu bạn lắp ghép sai hôm nay là một câu bạn sẽ nói đúng vào ngày mai.',
+  'srs.success.quote.5':
+    'Ngôn ngữ mở ra một thế giới mới; mỗi từ bạn nhớ là một chiếc chìa khóa trong tay.',
+  'srs.success.quote.6':
+    'Tiến bộ chậm vẫn là tiến bộ. Đừng so sánh, hãy cứ kiên trì.',
+  'srs.success.quote.7':
+    'Những phút học ngắn mỗi ngày mạnh hơn nhiều giờ học dồn vào một lần.',
+  'srs.success.quote.8':
+    'Khó khăn hôm nay chính là kỹ năng của bạn ngày mai. Hãy tiếp tục.',
+  'srs.success.quote.9':
+    'Mỗi tấm thẻ bạn ôn lại là một bước nhỏ đưa bạn gần hơn đến sự lưu loát.',
+  'srs.success.quote.10':
+    'Người nói thành thạo cũng từng là người mới bắt đầu chưa bao giờ bỏ cuộc.',
+  'srs.success.quote.11':
+    'Não bộ học ngôn ngữ qua sự lặp lại — vậy nên hãy quay lại mỗi ngày.',
+  'srs.success.quote.12':
+    'Bạn không thất bại khi quên một từ; bạn chỉ thất bại khi ngừng ôn lại nó.',
+  'srs.success.quote.13':
+    'Kiên trì học ngôn ngữ là món quà bạn tặng cho chính mình trong tương lai.',
+  'srs.success.quote.14':
+    'Từng từ, từng ngày — đó là cách mọi ngôn ngữ được chinh phục.',
+  'srs.success.quote.15':
+    'Đừng đợi cảm hứng. Hãy mở thẻ học, và cảm hứng sẽ theo sau.',
+  'srs.success.quote.16':
+    'Mỗi lần bạn muốn dừng lại nhưng vẫn tiếp tục, sự thông thạo lại tiến gần hơn.',
+  'srs.success.quote.17':
+    'Một ngôn ngữ không được học trong một đêm, mà được nuôi dưỡng qua từng ngày bền bỉ.',
+  'srs.success.quote.18':
+    'Sai lầm là người thầy tốt nhất của người học ngôn ngữ. Hãy đón nhận chúng.',
+  'srs.success.quote.19':
+    'Hôm nay bạn hiểu nhiều hơn hôm qua một chút — đó chính là chiến thắng.',
+  'srs.success.quote.20':
+    'Sự đều đặn đánh bại tài năng khi tài năng không chịu luyện tập.',
+  'srs.success.quote.21':
+    'Mỗi buổi ôn tập là một lời hứa bạn giữ với chính mình.',
+  'srs.success.quote.22':
+    'Con đường đến lưu loát được lát bằng những lần ôn tập nhỏ bé, kiên trì.',
+  'srs.success.quote.23':
+    'Đừng đếm số từ còn phải học; hãy trân trọng từng từ bạn đã làm chủ.',
+  'srs.success.quote.24':
+    'Ngôn ngữ trả công cho lòng kiên nhẫn. Hãy gieo hôm nay và gặt mai sau.',
+  'srs.success.quote.25':
+    'Khi việc học trở nên khó, đó là dấu hiệu bạn đang thực sự tiến bộ.',
+  'srs.success.quote.26':
+    'Mỗi ngày bạn quay lại học là một ngày bạn từ chối bỏ cuộc.',
+  'srs.success.quote.27':
+    'Sự thông thạo không phải đích đến, mà là phần thưởng cho người không ngừng bước đi.',
   'srs.streak.consecutive_day': 'ngày liên tiếp.',
   'srs.streak.consecutive_days': 'ngày liên tiếp.',
   'srs.reverse_front.guess_the': 'Đoán',

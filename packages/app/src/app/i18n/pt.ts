@@ -460,6 +460,63 @@ export const pt = {
   'srs.card.strong': 'Bem',
   'srs.card.got_it': 'Sei',
   'srs.success.one_more': 'Mais uma rodada',
+  'srs.success.finish': 'Finalizar',
+  'srs.success.quote.0':
+    'Fluência não nasce de um dia perfeito, mas de muitos dias comuns em que você não desistiu.',
+  'srs.success.quote.1':
+    'A palavra que hoje escapa de você amanhã será sua — basta voltar para buscá-la.',
+  'srs.success.quote.2':
+    'Aprender um idioma é como pingar água na pedra: é a repetição, não a pressa, que abre caminho.',
+  'srs.success.quote.3':
+    'Não conte os dias em que estudou; faça com que cada dia conte um pouco mais.',
+  'srs.success.quote.4':
+    'Quem volta amanhã ao mesmo idioma já está mais perto da fluência do que imagina.',
+  'srs.success.quote.5':
+    'Cada revisão é um tijolo; um dia você perceberá que construiu uma ponte para outro mundo.',
+  'srs.success.quote.6':
+    'O segredo de quem fala vários idiomas não é o talento, é a teimosia de continuar.',
+  'srs.success.quote.7':
+    'Esquecer faz parte de lembrar. Reveja, repita e siga em frente.',
+  'srs.success.quote.8':
+    'Você não precisa estudar muito hoje; precisa estudar de novo amanhã.',
+  'srs.success.quote.9':
+    'A constância vence a intensidade: dez minutos por dia derrotam dez horas uma vez por mês.',
+  'srs.success.quote.10':
+    'Todo idioma parece impossível até o dia em que, de repente, parece natural.',
+  'srs.success.quote.11':
+    'A frustração de hoje é só o som do seu cérebro aprendendo algo novo.',
+  'srs.success.quote.12':
+    'Pequenos passos diários levam a conversas que um dia você achou impossíveis.',
+  'srs.success.quote.13':
+    'Não existe palavra difícil demais — existe palavra que você ainda não revisou o suficiente.',
+  'srs.success.quote.14':
+    'Cada cartão que você estuda é uma promessa que você cumpre consigo mesmo.',
+  'srs.success.quote.15':
+    'A fluência é paciente: ela espera por quem não desiste de aparecer.',
+  'srs.success.quote.16':
+    'O progresso silencioso de hoje vira a conversa fluente de amanhã.',
+  'srs.success.quote.17':
+    'Você está mais perto do que estava ontem — e isso já é motivo para continuar.',
+  'srs.success.quote.18':
+    'Aprender um idioma é ganhar uma segunda janela para enxergar o mundo.',
+  'srs.success.quote.19':
+    'Erre sem medo: cada engano corrigido é uma palavra que você nunca mais esquece.',
+  'srs.success.quote.20':
+    'A perseverança transforma o estranho em familiar e o familiar em fluente.',
+  'srs.success.quote.21':
+    'Quem rega a planta todos os dias não percebe o crescimento, mas a colheita chega.',
+  'srs.success.quote.22':
+    'O idioma não pertence aos mais rápidos, mas aos que não param de praticar.',
+  'srs.success.quote.23':
+    'Continue — a versão de você que fala esse idioma está sendo construída agora.',
+  'srs.success.quote.24':
+    'Manhãs cansadas e palavras esquecidas também fazem parte do caminho da fluência.',
+  'srs.success.quote.25':
+    'Um pouco hoje, um pouco amanhã, e um dia você se surpreende falando sem pensar.',
+  'srs.success.quote.26':
+    'A jornada de mil palavras começa com a coragem de revisar a primeira de novo.',
+  'srs.success.quote.27':
+    'Persistir é o verdadeiro atalho: não há caminho mais curto até um novo idioma.',
   'srs.streak.consecutive_day': 'dia consecutivo.',
   'srs.streak.consecutive_days': 'dias consecutivos.',
   'srs.reverse_front.guess_the': 'Adivinhe o',

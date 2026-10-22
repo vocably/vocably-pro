@@ -465,6 +465,62 @@ export const es = {
   'srs.card.strong': 'Bien',
   'srs.card.got_it': 'Lo sé',
   'srs.success.one_more': 'Una ronda más',
+  'srs.success.finish': 'Finalizar',
+  'srs.success.quote.0':
+    'La fluidez no se alcanza de un salto, sino con un paso firme cada día.',
+  'srs.success.quote.1':
+    'Cada palabra que repasas hoy es una que no olvidarás mañana.',
+  'srs.success.quote.2':
+    'Aprender un idioma es un maratón, no un sprint; sigue a tu propio ritmo.',
+  'srs.success.quote.3':
+    'No cuentes los días sin estudiar; haz que cada día de estudio cuente.',
+  'srs.success.quote.4':
+    'La constancia vence al talento cuando el talento no es constante.',
+  'srs.success.quote.5': 'Un idioma se conquista palabra a palabra, día a día.',
+  'srs.success.quote.6':
+    'Los pequeños esfuerzos diarios construyen una fluidez que dura toda la vida.',
+  'srs.success.quote.7':
+    'Cada error al hablar es una lección que te acerca a la fluidez.',
+  'srs.success.quote.8':
+    'No tienes que ser perfecto hoy; solo tienes que volver mañana.',
+  'srs.success.quote.9':
+    'La gota de agua, con su constancia, termina perforando la piedra.',
+  'srs.success.quote.10':
+    'El progreso lento sigue siendo progreso; nunca dejes de avanzar.',
+  'srs.success.quote.11':
+    'Quien practica un poco cada día llega más lejos que quien practica mucho una vez.',
+  'srs.success.quote.12':
+    'La motivación te hace empezar; el hábito te lleva a la fluidez.',
+  'srs.success.quote.13':
+    'Hoy una palabra, mañana una frase, algún día una conversación entera.',
+  'srs.success.quote.14':
+    'Aprender un idioma es plantar un árbol: riégalo cada día y dará sombra.',
+  'srs.success.quote.15':
+    'No te rindas; lo difícil de hoy será lo natural de mañana.',
+  'srs.success.quote.16':
+    'Tu cerebro aprende mientras tú insistes; la repetición es tu mejor aliada.',
+  'srs.success.quote.17':
+    'Cada repaso teje un hilo más en la red de tu memoria.',
+  'srs.success.quote.18':
+    'La perseverancia es el idioma que todo el mundo entiende.',
+  'srs.success.quote.19':
+    'Los días en que no quieres estudiar son los que más te hacen crecer.',
+  'srs.success.quote.20':
+    'La fluidez no es más que constancia sostenida en el tiempo.',
+  'srs.success.quote.21':
+    'No midas tu avance por lo que falta, sino por lo lejos que ya has llegado.',
+  'srs.success.quote.22':
+    'Una palabra nueva al día son trescientas sesenta y cinco al año.',
+  'srs.success.quote.23':
+    'Sigue ahí cada día: la dedicación silenciosa construye grandes resultados.',
+  'srs.success.quote.24':
+    'Cada sesión de estudio es una inversión en la persona que quieres llegar a ser.',
+  'srs.success.quote.25':
+    'El que persiste en aprender abre puertas que otros ni siquiera ven.',
+  'srs.success.quote.26':
+    'La fluidez pertenece a quienes se niegan a abandonar.',
+  'srs.success.quote.27':
+    'Confía en el proceso: cada repaso te acerca un poco más a tu meta.',
   'srs.streak.consecutive_day': 'día consecutivo.',
   'srs.streak.consecutive_days': 'días consecutivos.',
   'srs.reverse_front.guess_the': 'Adivina el',

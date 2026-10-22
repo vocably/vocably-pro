@@ -466,6 +466,58 @@ export const tr = {
   'srs.card.strong': 'Güçlü',
   'srs.card.got_it': 'Anladım',
   'srs.success.one_more': 'Bir tur daha',
+  'srs.success.finish': 'Bitir',
+  'srs.success.quote.0':
+    'Akıcılık bir günde gelmez; her gün biraz daha yakına gelir. Devam et.',
+  'srs.success.quote.1':
+    'Bıraktığın yerde değil, devam ettiğin yerde dili öğrenirsin.',
+  'srs.success.quote.2':
+    'Bugün anlamadığın cümle, yarın ezbere bildiğin cümle olacak.',
+  'srs.success.quote.3':
+    'Her tekrar, beynine «bu kelime önemli» demenin bir yoludur.',
+  'srs.success.quote.4': 'Yavaş ilerlemek, durmaktan sonsuz kez daha iyidir.',
+  'srs.success.quote.5':
+    'Dil öğrenmek zor değildir; sadece sabır ister. Sen sabırlısın.',
+  'srs.success.quote.6':
+    'Unutmak öğrenmenin bir parçasıdır; hatırlamak için geri dönmek yeter.',
+  'srs.success.quote.7':
+    'Bir kelimeyi onuncu kez gördüğünde, ilk dokuz seferin işe yaradığını anlarsın.',
+  'srs.success.quote.8':
+    'Mükemmel cümleler kurmayı bekleme; hatalı cümlelerle konuşmaya başla.',
+  'srs.success.quote.9':
+    'Her gün on dakika, ayda bir gün maratondan daha çok şey öğretir.',
+  'srs.success.quote.10': 'Zor günler, en çok büyüdüğün günlerdir. Pes etme.',
+  'srs.success.quote.11': 'Akıcılık yeteneğin değil, ısrarın ödülüdür.',
+  'srs.success.quote.12':
+    'Bugün öğrendiğin kelime, gelecekteki bir konuşmanın anahtarıdır.',
+  'srs.success.quote.13':
+    'Bir dili konuşmak için cesaret, öğrenmek için ise sebat gerekir.',
+  'srs.success.quote.14':
+    'Geri kaldığını sandığın anlar, çoğu kişinin vazgeçtiği anlardır. Sen vazgeçme.',
+  'srs.success.quote.15':
+    'Küçük adımlar da seni zirveye taşır; yeter ki adım atmaya devam et.',
+  'srs.success.quote.16':
+    'Dil bir kas gibidir; çalıştırdıkça güçlenir, bıraktıkça unutulur.',
+  'srs.success.quote.17': 'Bugünkü çaban, gelecekteki rahatlığının bedelidir.',
+  'srs.success.quote.18':
+    'Her yeni kelime, dünyaya açılan yeni bir penceredir.',
+  'srs.success.quote.19':
+    'Hata yapmaktan korkma; her hata seni doğruya bir adım yaklaştırır.',
+  'srs.success.quote.20': 'Tekrarın sıkıcı olduğu yerde, ustalık başlar.',
+  'srs.success.quote.21':
+    'Bir dili öğrenmek, sabırla örülen bir köprü inşa etmek gibidir.',
+  'srs.success.quote.22':
+    'Bugün zor gelen, yarın doğal gelecek. Sadece devam et.',
+  'srs.success.quote.23':
+    'Vazgeçmediğin sürece başarısız olamazsın; sadece henüz varmadın.',
+  'srs.success.quote.24':
+    'Her çalışma seansı, gelecekteki kendine verdiğin bir armağandır.',
+  'srs.success.quote.25':
+    'İlerleme bazen görünmezdir; ama her tekrar sessizce iz bırakır.',
+  'srs.success.quote.26':
+    'Yeni bir dil, yeni bir hayatın kapısını aralar. Anahtarı bırakma.',
+  'srs.success.quote.27':
+    'Süreklilik, yetenekten daha güçlüdür. Her gün geri dön.',
   'srs.streak.consecutive_day': 'gün üst üste.',
   'srs.streak.consecutive_days': 'gün üst üste.',
   'srs.reverse_front.guess_the': 'Tahmin et',
