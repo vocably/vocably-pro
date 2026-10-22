@@ -1,8 +1,12 @@
 // Sizes follow mobile-app/src/study/Card/ReverseCardFront.tsx, scaled
 // relative to the translation (30px on mobile) so they follow .srs-card-font
+// Shrinks to the content and centers itself, while long content
+// still takes the full width
 :host {
   display: block;
+  width: fit-content;
   max-width: 100%;
+  margin-inline: auto;
   text-align: start;
   overflow-wrap: anywhere;
 }
