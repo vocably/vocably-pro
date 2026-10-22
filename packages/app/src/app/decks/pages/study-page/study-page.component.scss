@@ -12,18 +12,17 @@ $track: var(--border-color-muted, rgba(128, 128, 128, 0.2));
   align-items: center;
   gap: 1rem;
   width: 100%;
-  max-width: 820px;
-  margin: 0 auto;
-  padding: var(--container-padding) 1rem 0.5rem;
+  // Full-width bar; content stays within 820px
+  padding: var(--container-padding) max(1rem, calc((100% - 820px) / 2 + 1rem))
+    0.5rem;
   box-sizing: border-box;
   min-height: 3.5rem;
   position: sticky;
   top: 0;
   z-index: 1;
-  background: var(--body-bg);
-  // Extends the background to the edges of the viewport
-  box-shadow: 0 0 0 100vmax var(--body-bg);
-  clip-path: inset(0 -100vmax);
+  background: color-mix(in srgb, var(--body-bg) 60%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
 }
 
 .back {
