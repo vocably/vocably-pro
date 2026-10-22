@@ -12,21 +12,43 @@ import { maskTheWord } from '../maskTheWord';
 })
 export class ReverseFrontComponent {
   public card!: CardItem;
+  public isChecked = false;
   public definitions: string[] = [];
   public examples: string[] = [];
 
   @Input('card') set setCard(card: CardItem) {
     this.card = card;
+    this.update();
+  }
 
-    const mask = maskTheWord(card.data.source, card.data.language);
+  @Input('isChecked') set setIsChecked(isChecked: boolean) {
+    this.isChecked = isChecked;
+    this.update();
+  }
+
+  private update() {
+    if (!this.card) {
+      return;
+    }
+
+    const definitions = explode(this.card.data.definition);
+    const examples = explode(this.card.data.example ?? '');
+
+    if (this.isChecked) {
+      this.definitions = definitions;
+      this.examples = examples;
+      return;
+    }
+
+    const mask = maskTheWord(this.card.data.source, this.card.data.language);
 
     // The source is the answer, so it must not leak through
     // the definitions or the examples
-    this.definitions = explode(card.data.definition)
+    this.definitions = definitions
       .filter((text) => !(text.includes('[') && text.includes(']')))
       .map((text) => mask(text).value);
 
-    this.examples = explode(card.data.example ?? '')
+    this.examples = examples
       .map(mask)
       .filter(({ masked }) => masked)
       .map(({ value }) => value);
