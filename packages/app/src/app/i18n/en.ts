@@ -457,8 +457,70 @@ export const en = {
   'srs.card.strong': 'Strong',
   'srs.card.got_it': 'Got it',
   'srs.success.one_more': 'Take one more round',
+  'srs.success.finish': 'Finish',
+  'srs.success.quote.0':
+    'Perseverance is not a long race; it is many short races one after the other.',
+  'srs.success.quote.1':
+    'A river cuts through rock not because of its power, but because of its persistence.',
+  'srs.success.quote.2': 'Persistence guarantees that results are inevitable.',
+  'srs.success.quote.3':
+    'Patience and persistence are the keys to unlocking greatness.',
+  'srs.success.quote.4':
+    'Every step forward, no matter how small, is progress.',
+  'srs.success.quote.5':
+    'Persistence turns dreams into reality; every effort is a seed for success.',
+  'srs.success.quote.6':
+    'Every time you push forward, you rewrite your story to include success.',
+  'srs.success.quote.7':
+    'Keep believing in yourself — your persistence is your superpower.',
+  'srs.success.quote.8':
+    'Success is built on the bricks of persistence, laid one by one.',
+  'srs.success.quote.9':
+    'The universe moves for those who never stop moving forward.',
+  'srs.success.quote.10':
+    'The energy you put in today fuels the success of tomorrow.',
+  'srs.success.quote.11':
+    'Persistence transforms the impossible into the inevitable.',
+  'srs.success.quote.12':
+    'Each word you learn brings you closer to understanding a new culture.',
+  'srs.success.quote.13':
+    "Language learning is a marathon, not a sprint. You're doing great!",
+  'srs.success.quote.14':
+    'Persistence is the secret ingredient in becoming fluent. Keep going!',
+  'srs.success.quote.15':
+    'Practice is the key to success in language learning. You are on the right track!',
+  'srs.success.quote.16':
+    'A second language is not just a skill, but a gift that keeps giving.',
+  'srs.success.quote.17':
+    "Each time you study, you're rewriting your brain for success.",
+  'srs.success.quote.18': 'A language learner is a world explorer in disguise.',
+  'srs.success.quote.19':
+    "Every mistake you make while learning is proof that you're growing.",
+  'srs.success.quote.20':
+    'Languages are the keys to the world; every word you master unlocks new doors.',
+  'srs.success.quote.21':
+    "Fluency is not about speed; it's about showing up and practicing every day.",
+  'srs.success.quote.22':
+    "A new language doesn't just teach you words; it teaches you new ways of thinking.",
+  'srs.success.quote.23':
+    'Small, consistent efforts lead to big, life-changing results in language learning.',
+  'srs.success.quote.24':
+    "You'll never regret the time you spend learning a language — it's an investment in yourself.",
+  'srs.success.quote.25':
+    'Every language you learn adds a new dimension to your identity.',
+  'srs.success.quote.26':
+    'Even if it feels hard today, tomorrow your efforts will make you smile.',
+  'srs.success.quote.27':
+    'The journey to fluency is a story worth telling — keep writing it.',
   'srs.streak.consecutive_day': 'consecutive day.',
   'srs.streak.consecutive_days': 'consecutive days.',
+  'srs.streak.days.0': 'Sun',
+  'srs.streak.days.1': 'Mon',
+  'srs.streak.days.2': 'Tue',
+  'srs.streak.days.3': 'Wed',
+  'srs.streak.days.4': 'Thu',
+  'srs.streak.days.5': 'Fri',
+  'srs.streak.days.6': 'Sat',
   'srs.reverse_front.guess_the': 'Guess the',
   'srs.reverse_front.type_in_the': 'Type in the',
   'srs.reverse_front.meaning': 'meaning:',

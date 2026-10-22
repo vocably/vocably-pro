@@ -1,34 +1,60 @@
-<div class="streak-container">
-  <div class="numbers-wrapper">
-    <div class="number previous" @slideOut [@.disabled]="hasBeenShown">
-      {{ previousValue }}
+<div class="stage">
+  @for (particle of particles; track $index) {
+    <span
+      class="particle"
+      [style.width.px]="particle.width"
+      [style.height.px]="particle.height"
+      [style.border-radius.px]="particle.width / 2"
+      [style.background]="particle.color"
+      [style.--x]="particle.x + 'px'"
+      [style.--y]="particle.y + 'px'"
+      [style.--rotate]="particle.rotate + 'deg'"
+    ></span>
+  }
+
+  <span class="ripple"></span>
+  <span class="halo"></span>
+
+  <div class="badge">
+    <div class="badge-face" [class.animated]="!hasBeenShown">
+      @if (!hasBeenShown) {
+        <span class="number previous">{{ previousValue }}</span>
+      }
+      <span class="number current">{{ currentValue }}</span>
     </div>
 
-    <div class="number current" @slideIn [@.disabled]="hasBeenShown">
-      {{ currentValue }}
-    </div>
+    <span class="cap">
+      <mat-icon aria-hidden="true">rocket_launch</mat-icon>
+    </span>
   </div>
+</div>
 
-  <div class="subtitle">
-    {{
-      currentValue === 1
-        ? ('srs.streak.consecutive_day' | transloco)
-        : ('srs.streak.consecutive_days' | transloco)
-    }}
-  </div>
+<div class="subtitle">
+  {{
+    currentValue === 1
+      ? ('srs.streak.consecutive_day' | transloco)
+      : ('srs.streak.consecutive_days' | transloco)
+  }}
+</div>
 
-  <div class="days-list">
+<div class="days">
+  @for (day of days; track day.day; let i = $index) {
     <div
-      class="day-item"
-      *ngFor="let day of days; let i = index"
+      class="day"
       [class.checked]="day.checked"
-      [class.last-checked]="isLastChecked(i)"
-      [@pop]
-      [@.disabled]="!isLastChecked(i)"
+      [class.last]="isLastChecked(i)"
+      [style.animation-delay.ms]="i * 60"
     >
-      <div class="day-circle">
-        <span class="day-text">{{ dayToString(day.day) }}</span>
-      </div>
+      <span class="day-circle">
+        @if (day.checked && isLastChecked(i)) {
+          <mat-icon aria-hidden="true">rocket_launch</mat-icon>
+        } @else if (day.checked) {
+          <mat-icon aria-hidden="true">check</mat-icon>
+        }
+      </span>
+      <span class="day-label">{{
+        'srs.streak.days.' + day.day | transloco
+      }}</span>
     </div>
-  </div>
+  }
 </div>

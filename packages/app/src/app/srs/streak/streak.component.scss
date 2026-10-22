@@ -1,93 +1,308 @@
-@use '@angular/material' as mat;
+$badge-size: 148px;
+$spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
 :host {
-  display: block;
-}
+  --streak-flame-color: rgb(255, 149, 0);
+  --streak-flame-color-dark: rgb(255, 94, 58);
+  --streak-primary-variant: color-mix(in srgb, var(--primary-color) 75%, black);
+  --streak-gradient: linear-gradient(
+    150deg,
+    var(--primary-color),
+    var(--streak-primary-variant)
+  );
 
-.streak-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.numbers-wrapper {
+.stage {
   position: relative;
-  margin-bottom: 1rem;
+  width: $badge-size * 1.9;
+  height: $badge-size * 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.particle {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  animation: burst 1100ms cubic-bezier(0.33, 1, 0.68, 1) 250ms both;
+}
+
+@keyframes burst {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(var(--rotate));
+  }
+  15% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) rotate(var(--rotate));
+  }
+}
+
+.ripple {
+  position: absolute;
+  width: $badge-size;
+  height: $badge-size;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  pointer-events: none;
+  animation: ripple 2400ms cubic-bezier(0.5, 1, 0.89, 1) infinite;
+}
+
+@keyframes ripple {
+  from {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+.halo {
+  position: absolute;
+  width: $badge-size + 24px;
+  height: $badge-size + 24px;
+  border-radius: 50%;
+  background: rgba(var(--primary-rgb), 0.1);
+  pointer-events: none;
+}
+
+.badge {
+  position: relative;
+  border-radius: 50%;
+  box-shadow: 0 8px 36px rgba(var(--primary-rgb), 0.35);
+  animation: badge-in 700ms $spring both;
+}
+
+@keyframes badge-in {
+  from {
+    transform: scale(0.6);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.badge-face {
+  position: relative;
+  width: $badge-size;
+  height: $badge-size;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--streak-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .number {
-  font-size: 8rem;
-  line-height: 6.2rem;
-  font-weight: 400; // Adjust as needed
-  color: var(--text-color);
+  font-size: 64px;
+  line-height: 76px;
+  font-weight: 700;
+  color: var(--on-primari-color);
 
   &.previous {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    text-align: center;
+  }
+
+  .animated & {
+    animation: 1000ms ease-in-out both;
+
+    &.previous {
+      animation-name: number-out;
+    }
+
+    &.current {
+      animation-name: number-in;
+    }
+  }
+}
+
+@keyframes number-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
     opacity: 0;
-    transform: translateY(-100%);
+    transform: translateY(-100px);
+  }
+}
+
+@keyframes number-in {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cap {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 48px;
+  height: 48px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 3px solid var(--primary-color);
+  background:
+    linear-gradient(var(--contrast-bg), var(--contrast-bg)), var(--body-bg);
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pop-in 500ms $spring 450ms both;
+
+  mat-icon {
+    width: 26px;
+    height: 26px;
+    font-size: 26px;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
   }
 }
 
 .subtitle {
-  margin-bottom: 1rem;
-  color: var(--text-color);
+  margin-bottom: 20px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--emphasize-color);
 }
 
-.days-list {
+.days {
   display: flex;
   flex-direction: row;
-  gap: 6px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  height: 42px; // Fixed height to accommodate scaling
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 20px;
+  background: var(--contrast-bg);
 }
 
-.day-item {
+.day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: day-in 500ms $spring both;
+}
+
+@keyframes day-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.day-circle {
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px dashed var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
 
-  &.last-checked {
-    width: 42px;
-    height: 42px;
-
-    .day-circle {
-      width: 42px;
-      height: 42px;
-      border-radius: 42px;
-    }
+  mat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    font-weight: 700;
   }
 
-  .day-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: 32px;
-    background-color: var(--contrast-bg); // Unchecked background
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+  .checked & {
+    border: none;
+    background: rgba(var(--primary-rgb), 0.1);
+    color: var(--primary-color);
   }
 
-  .day-text {
-    font-size: 10px;
-    color: var(--text-color); // Unchecked text
+  .checked.last & {
+    background: var(--streak-gradient);
+    color: var(--on-primari-color);
+    animation: day-pulse 700ms ease-out 800ms both;
+
+    mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+    }
+  }
+}
+
+@keyframes day-pulse {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.2);
+  }
+  60% {
+    transform: scale(0.92);
+  }
+  80% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.day-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-color);
+
+  .last & {
+    font-weight: 700;
+    color: var(--emphasize-color);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .particle,
+  .ripple {
+    display: none;
   }
 
-  &.checked {
-    .day-circle {
-      background-color: var(--primary-color);
-    }
+  .badge,
+  .cap,
+  .day,
+  .day-circle,
+  .number {
+    animation: none !important;
+  }
 
-    .day-text {
-      color: var(--on-primari-color);
-    }
+  .number.previous {
+    display: none;
   }
 }

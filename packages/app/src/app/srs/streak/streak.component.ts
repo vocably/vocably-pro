@@ -1,63 +1,55 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 import { TranslocoModule } from '@jsverse/transloco';
 import { getStreakDays, StreakDay } from '@vocably/sulna';
-import {
-  trigger,
-  style,
-  transition,
-  animate,
-  keyframes,
-} from '@angular/animations';
-import { get } from 'lodash-es';
+
+const BADGE_SIZE = 148;
+const PARTICLE_COUNT = 14;
+const PARTICLE_COLORS = [
+  'var(--primary-color)',
+  'var(--streak-flame-color)',
+  'var(--streak-primary-variant)',
+  'var(--streak-flame-color-dark)',
+];
+
+type Particle = {
+  width: number;
+  height: number;
+  color: string;
+  x: number;
+  y: number;
+  rotate: number;
+};
 
 @Component({
   selector: 'app-srs-streak',
   standalone: true,
-  imports: [CommonModule, TranslocoModule],
+  imports: [CommonModule, TranslocoModule, MatIcon],
   templateUrl: './streak.component.html',
   styleUrl: './streak.component.scss',
-  animations: [
-    trigger('slideIn', [
-      transition(':enter', [
-        style({ transform: 'translateY(100%)', opacity: 0 }),
-        animate(
-          '1500ms cubic-bezier(0.25, 0.8, 0.25, 1)',
-          style({ transform: 'translateY(0)', opacity: 1 })
-        ),
-      ]),
-    ]),
-    trigger('slideOut', [
-      transition(':enter', [
-        style({
-          transform: 'translateY(0)',
-          opacity: 1,
-        }),
-        animate(
-          '1000ms cubic-bezier(0.25, 0.8, 0.25, 1)',
-          style({ transform: 'translateY(-100%)', opacity: 0 })
-        ),
-      ]),
-    ]),
-    trigger('pop', [
-      transition(':enter', [
-        animate(
-          '1000ms',
-          keyframes([
-            style({ transform: 'scale(1)', offset: 0 }),
-            style({ transform: 'scale(1.2)', offset: 0.5 }),
-            style({ transform: 'scale(1)', offset: 1 }),
-          ])
-        ),
-      ]),
-    ]),
-  ],
 })
 export class StreakComponent implements OnInit {
   @Input() consecutiveDays: number = 0;
   @Input() hasBeenShown: boolean = false;
 
   days: StreakDay[] = [];
+
+  readonly particles: Particle[] = Array.from({ length: PARTICLE_COUNT }).map(
+    (_, i) => {
+      const angle = (i / PARTICLE_COUNT) * Math.PI * 2;
+      const distance = BADGE_SIZE * (0.62 + (i % 3) * 0.12);
+      const size = 6 + (i % 3) * 2;
+      return {
+        width: size,
+        height: i % 2 === 0 ? size : size * 2,
+        color: PARTICLE_COLORS[i % PARTICLE_COLORS.length],
+        x: Math.cos(angle) * distance,
+        y: Math.sin(angle) * distance * 0.85,
+        rotate: (i * 47) % 360,
+      };
+    }
+  );
 
   ngOnInit(): void {
     this.updateDays();
@@ -74,19 +66,6 @@ export class StreakComponent implements OnInit {
       return parts.length > 1 ? parts[parts.length - 1].toUpperCase() : 'US';
     }
     return 'US';
-  }
-
-  dayToString(day: number): string {
-    const daysMap = {
-      0: 'Sun',
-      1: 'Mon',
-      2: 'Tue',
-      3: 'Wed',
-      4: 'Thu',
-      5: 'Fri',
-      6: 'Sat',
-    };
-    return get(daysMap, day, '');
   }
 
   isLastChecked(index: number): boolean {
