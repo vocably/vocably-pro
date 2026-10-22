@@ -8,6 +8,7 @@ import { CardExample, CardExampleRef, Mask } from '../../CardExample';
 import { studySmallFontSize } from '../../styles';
 import { useAppTheme } from '../../ThemeProvider';
 import { SectionLabel } from './SectionLabel';
+import { maskTheWord } from '../../maskTheWord';
 
 export type ReverseCardFrontRef = {
   playExample: () => Promise<void>;
@@ -33,6 +34,10 @@ export const ReverseCardFront = forwardRef<ReverseCardFrontRef, Props>(
         text: card.data.source,
         language: card.data.language,
       };
+
+      // CardExample hides examples that can't be masked
+      const maskExample = maskTheWord(mask.text, mask.language);
+      examples = examples.filter((example) => maskExample(example).masked);
     }
 
     const cardExampleRef = useRef<CardExampleRef>(null);
