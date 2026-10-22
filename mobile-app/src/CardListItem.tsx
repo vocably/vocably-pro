@@ -92,7 +92,7 @@ export const CardListItem: FC<Props> = ({
         />
       </View>
       {showExamples && card.example && (
-        <View style={{ marginTop: 8 }}>
+        <View style={{ marginTop: 8, gap: 6 }}>
           <Text style={{ fontWeight: 'bold' }}>{t('common.examples')}</Text>
           <CardExample
             example={card.example}
