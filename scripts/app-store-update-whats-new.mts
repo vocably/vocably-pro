@@ -29,31 +29,31 @@ dotenv.config({ path: `${scriptsDir}/.env`, quiet: true });
 // version.
 const whatsNew: Record<string, string> = {
   en: [
-    '- New word frequency indicator: see at a glance whether a word is rare, fairly common or common, and learn the words that matter most first.',
+    '- Search history.',
     '- Visual tweaks for your aesthetic pleasure.',
   ].join('\n'),
   ru: [
-    '- Новый индикатор частотности: сразу видно, редкое слово, довольно распространённое или частое, — и можно сначала учить самые нужные слова.',
+    '- История поиска.',
     '- Визуальные улучшения для вашего эстетического удовольствия.',
   ].join('\n'),
   uk: [
-    '- Новий індикатор частотності: одразу видно, чи слово рідкісне, досить поширене або часте, — і можна спершу вчити найпотрібніші слова.',
+    '- Історія пошуку.',
     '- Візуальні покращення для вашої естетичної насолоди.',
   ].join('\n'),
   es: [
-    '- Nuevo indicador de frecuencia: ve de un vistazo si una palabra es rara, bastante común o común, y aprende primero las que más importan.',
+    '- Historial de búsqueda.',
     '- Retoques visuales para tu placer estético.',
   ].join('\n'),
   pt: [
-    '- Novo indicador de frequência: veja de relance se uma palavra é rara, razoavelmente comum ou comum, e aprenda primeiro as que mais importam.',
+    '- Histórico de pesquisa.',
     '- Ajustes visuais para o seu prazer estético.',
   ].join('\n'),
   tr: [
-    '- Yeni kelime sıklığı göstergesi: bir kelimenin nadir mi, oldukça yaygın mı yoksa yaygın mı olduğunu bir bakışta görün ve önce en önemli kelimeleri öğrenin.',
+    '- Arama geçmişi.',
     '- Estetik zevkiniz için görsel iyileştirmeler.',
   ].join('\n'),
   vi: [
-    '- Chỉ báo tần suất từ mới: nhìn qua là biết một từ hiếm gặp, khá phổ biến hay phổ biến, để học trước những từ quan trọng nhất.',
+    '- Lịch sử tìm kiếm.',
     '- Tinh chỉnh giao diện để bạn thêm phần thích mắt.',
   ].join('\n'),
 };
