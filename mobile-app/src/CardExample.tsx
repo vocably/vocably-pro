@@ -85,12 +85,16 @@ export const CardExample = forwardRef<CardExampleRef, Props>(
     const fontScale = PixelRatio.getFontScale();
 
     return (
-      <View style={{ maxWidth: '100%' }}>
+      <View
+        style={{
+          maxWidth: '100%',
+          gap: 6,
+        }}
+      >
         {examples.map((text, index) => (
           <View
             key={index}
             style={{
-              marginTop: 6,
               flexDirection: 'row',
               alignItems: 'flex-start',
               gap: 4,
