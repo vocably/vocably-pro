@@ -118,6 +118,7 @@ export const CardExample = forwardRef<CardExampleRef, Props>(
                 style={{
                   height: get(textStyle, 'fontSize', 14) * 1.3 * fontScale,
                   justifyContent: 'center',
+                  marginTop: Platform.OS === 'android' ? 1.8 * fontScale : 0,
                   opacity: playDisabled ? 0.8 : 0.2,
                 }}
               />

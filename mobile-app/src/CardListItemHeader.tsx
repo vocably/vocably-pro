@@ -71,7 +71,7 @@ export const CardListItemHeader: FC<Props> = ({
                 size={22}
                 style={{
                   transform: [
-                    { translateY: Platform.OS === 'android' ? 6 : 2 },
+                    { translateY: Platform.OS === 'android' ? 4 : 2 },
                   ],
                   justifyContent: 'center',
                 }}

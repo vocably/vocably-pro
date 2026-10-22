@@ -318,6 +318,8 @@ export const ArrangeByLetters: FC<Props> = ({
     (indexOrFalse) => indexOrFalse === false
   );
 
+  // Every variant sets borderBottomWidth explicitly: on Android a dropped
+  // borderBottomWidth becomes 0 instead of falling back to borderWidth.
   const getSlotStyle = (
     indexOrFalse: number | false,
     slotIndex: number
@@ -325,6 +327,8 @@ export const ArrangeByLetters: FC<Props> = ({
     if (isCorrect) {
       return {
         backgroundColor: theme.colors.primary,
+        borderWidth: 0,
+        borderBottomWidth: 0,
       };
     }
 
@@ -334,6 +338,7 @@ export const ArrangeByLetters: FC<Props> = ({
         backgroundColor: isNext
           ? theme.colors.inversePrimary
           : theme.colors.inputBg,
+        borderWidth: 0,
         borderBottomWidth: 3,
         borderBottomColor: isNext ? theme.colors.primary : theme.colors.divider,
       };
@@ -342,6 +347,7 @@ export const ArrangeByLetters: FC<Props> = ({
     return {
       backgroundColor: isWrong ? 'transparent' : theme.colors.inversePrimary,
       borderWidth: 1.5,
+      borderBottomWidth: 1.5,
       borderColor: isWrong ? theme.colors.error : theme.colors.primary,
     };
   };
@@ -432,6 +438,7 @@ export const ArrangeByLetters: FC<Props> = ({
                   indexOrFalse === false
                     ? {
                         borderWidth: 1.5,
+                        borderBottomWidth: 1.5,
                         borderStyle: 'dashed',
                         borderColor: theme.colors.tertiary,
                       }

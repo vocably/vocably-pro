@@ -94,6 +94,10 @@ export const CardFront: FC<Props> = ({
           style={{
             fontSize: 18,
             textAlignVertical: 'top',
+            // The transparent border is a quick fix for
+            // Android to vertically align then PlaySound icon
+            borderWidth: 1,
+            borderColor: 'transparent',
           }}
         >
           {isGoogleTTSLanguage(card.data.language) && (
@@ -109,7 +113,7 @@ export const CardFront: FC<Props> = ({
                       translateY:
                         Platform.OS === 'ios'
                           ? -1 * fontScale
-                          : 4 * 1.2 * fontScale,
+                          : 3 * 1.2 * fontScale,
                     },
                   ],
                 }}
