@@ -442,6 +442,7 @@ export const vi = {
   'srs.card.space_hint': 'Dấu cách trên bàn phím',
   'srs.card.show_question': 'Hiển thị câu hỏi',
   'srs.card.show_answer': 'Hiển thị câu trả lời',
+  'srs.card.clear_all': 'Xóa tất cả',
   'srs.card.left_arrow': 'Mũi tên trái hoặc 1 trên bàn phím',
   'srs.card.weak': 'Yếu',
   'srs.card.not_yet': 'Chưa biết',
@@ -520,7 +521,16 @@ export const vi = {
   'srs.streak.days.6': 'T7',
   'srs.reverse_front.guess_the': 'Đoán',
   'srs.reverse_front.type_in_the': 'Nhập',
-  'srs.reverse_front.meaning': 'nghĩa:',
+  'srs.reverse_front.example': 'Ví dụ',
+  'srs.reverse_front.examples': 'Ví dụ',
+  'srs.front.present_tenses': '(hiện tại: {{value}})',
+  'srs.front.past_tenses': '(quá khứ: {{value}})',
+  'srs.front.plural': '(số nhiều: {{value}})',
+  'srs.back.present': 'Thì hiện tại',
+  'srs.back.past': 'Thì quá khứ',
+  'srs.back.plural': 'Dạng số nhiều',
+  'srs.back.empty_card':
+    'Thẻ này không có bản dịch hay định nghĩa. Hãy chỉnh sửa thẻ.',
 
   // Header
   'header.menu': 'Menu',

@@ -1,17 +1,20 @@
 :host {
-  display: block;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   position: relative;
 }
 
 .inner {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .card {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   perspective: 1000px;
   user-select: none;
   transform: translateZ(0);
@@ -24,8 +27,8 @@
 
 .card-inner {
   position: relative;
+  flex: 1;
   width: 100%;
-  height: 100%;
   transition: transform 0.6s;
   transform-style: preserve-3d;
 }
@@ -68,6 +71,7 @@
   right: 0;
   left: 0;
   padding: 1rem;
+  padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

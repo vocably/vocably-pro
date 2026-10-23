@@ -1,12 +1,74 @@
+// Sizes follow mobile-app/src/study/Card/CardFront.tsx, scaled relative to
+// the source (34px on mobile) so they follow .srs-card-font
+// Shrinks to the content and centers itself, while long content
+// still takes the full width
 :host {
   display: block;
-  height: 100%;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  text-align: start;
+  overflow-wrap: anywhere;
 }
 
-.pos {
-  font-size: 40%;
+.title {
+  font-size: 1em;
+  line-height: 1.2;
 }
 
 .play-sound {
-  font-size: 0.8em;
+  font-size: 0.7em;
+  margin-inline-end: 0.15em;
+}
+
+.source {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--emphasize-color);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.3em;
+}
+
+.ipa {
+  font-size: max(1rem, 0.47em);
+  color: var(--text-muted);
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.1em 0.75em 0.2em;
+  border-radius: 1em;
+  background: var(--contrast-bg);
+  color: var(--text-muted);
+  font-size: max(0.8125rem, 0.38em);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+
+.inflections {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  margin-top: 0.3em;
+  font-size: max(0.9375rem, 0.44em);
+  color: var(--text-muted);
+}
+
+.examples {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  margin-top: 0.6em;
+  padding-inline-start: 0.75rem;
+  border-inline-start: 3px solid var(--border-color);
+  border-radius: 2px;
+  font-size: max(1rem, 0.53em);
+  line-height: 1.4;
 }

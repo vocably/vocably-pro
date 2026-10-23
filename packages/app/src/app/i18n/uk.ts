@@ -453,6 +453,7 @@ export const uk = {
   'srs.card.space_hint': 'Пробіл на клавіатурі',
   'srs.card.show_question': 'Показати питання',
   'srs.card.show_answer': 'Показати відповідь',
+  'srs.card.clear_all': 'Очистити все',
   'srs.card.left_arrow': 'Стрілка вліво або 1 на клавіатурі',
   'srs.card.weak': 'Слабко',
   'srs.card.not_yet': 'Не знаю',
@@ -531,7 +532,16 @@ export const uk = {
   'srs.streak.days.6': 'Сб',
   'srs.reverse_front.guess_the': 'Вгадай',
   'srs.reverse_front.type_in_the': 'Введи',
-  'srs.reverse_front.meaning': 'значення:',
+  'srs.reverse_front.example': 'Приклад',
+  'srs.reverse_front.examples': 'Приклади',
+  'srs.front.present_tenses': '(теперішній: {{value}})',
+  'srs.front.past_tenses': '(минулий: {{value}})',
+  'srs.front.plural': '(мн.: {{value}})',
+  'srs.back.present': 'Теперішній час',
+  'srs.back.past': 'Минулий час',
+  'srs.back.plural': 'Множина',
+  'srs.back.empty_card':
+    'Ця картка не має ні перекладу, ні визначення. Відредагуйте її.',
 
   // Header
   'header.menu': 'Меню',

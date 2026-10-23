@@ -1,9 +1,9 @@
 <div class="inner">
   <div class="question srs-card-font">
     @if (reverse) {
-      <app-srs-reverse-front [card]="card" />
+      <app-srs-reverse-front [card]="card" [isChecked]="correct" />
     } @else {
-      <app-srs-front [card]="card" />
+      <app-srs-front [card]="card" [showInflections]="true" />
     }
   </div>
   <div class="options">

@@ -450,6 +450,7 @@ export const pt = {
   'srs.card.space_hint': 'Espaço no teclado',
   'srs.card.show_question': 'Mostrar a pergunta',
   'srs.card.show_answer': 'Mostrar a resposta',
+  'srs.card.clear_all': 'Limpar tudo',
   'srs.card.left_arrow': 'Seta esquerda ou 1 no teclado',
   'srs.card.weak': 'Fraco',
   'srs.card.not_yet': 'Ainda não',
@@ -528,7 +529,16 @@ export const pt = {
   'srs.streak.days.6': 'Sáb',
   'srs.reverse_front.guess_the': 'Adivinhe o',
   'srs.reverse_front.type_in_the': 'Digite o',
-  'srs.reverse_front.meaning': 'significado:',
+  'srs.reverse_front.example': 'Exemplo',
+  'srs.reverse_front.examples': 'Exemplos',
+  'srs.front.present_tenses': '(presente: {{value}})',
+  'srs.front.past_tenses': '(passado: {{value}})',
+  'srs.front.plural': '(plural: {{value}})',
+  'srs.back.present': 'Tempo presente',
+  'srs.back.past': 'Tempo passado',
+  'srs.back.plural': 'Forma plural',
+  'srs.back.empty_card':
+    'Este cartão não tem traduções nem definições. Edite este cartão.',
 
   // Header
   'header.menu': 'Menu',

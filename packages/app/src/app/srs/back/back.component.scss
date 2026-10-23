@@ -1,0 +1,70 @@
+// Sizes follow mobile-app/src/study/StudyCardDefinition.tsx, scaled
+// relative to the translation (30px on mobile) so they follow .srs-card-font
+// Shrinks to the content and centers itself, while long content
+// still takes the full width
+:host {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+.translation {
+  font-size: 1em;
+  line-height: 1.27;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--emphasize-color);
+}
+
+.definition {
+  font-size: 0.67em;
+  line-height: 1.4;
+}
+
+.inflections {
+  display: flex;
+  flex-direction: column;
+  gap: 0.33em;
+  padding-inline-start: 0.75rem;
+  border-inline-start: 2px solid var(--border-color);
+}
+
+.inflection-label {
+  font-size: max(0.6875rem, 0.37em);
+  line-height: 1.27;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding-inline: 0.5rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.empty-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 2.5rem;
+}
+
+.empty-message {
+  max-width: 24rem;
+  font-size: 1.125rem;
+  line-height: 1.45;
+}

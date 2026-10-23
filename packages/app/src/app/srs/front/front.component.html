@@ -1,23 +1,39 @@
-<div class="text-left">
-  <span class="text-emphasize"
-    ><app-play-sound
+<div class="title" dir="ltr">
+  @if (canPlaySound) {
+    <app-play-sound
       class="play-sound"
       [text]="card.data.source"
       [language]="card.data.language"
     />
-    {{ card.data.source }}</span
-  >
-  @if (card.data.partOfSpeech) {
-    <span class="pos muted inline-block ml-0_5">{{
-      card.data.partOfSpeech | transloco
-    }}</span>
   }
-  @if (card.data.ipa) {
-    <span class="pos inline-block ml-0_5"
-      >/{{ sanitizeTranscript(card.data.ipa) }}/</span
-    >
-  }
-  @if (card.data.example) {
-    <ul style="font-size: 60%" text-list [text]="card.data.example"></ul>
-  }
+  <bdi class="source">{{ card.data.source }}</bdi>
 </div>
+@if (card.data.ipa || tags.length > 0) {
+  <div class="meta">
+    @if (card.data.ipa) {
+      <span class="ipa"
+        >/<bdi>{{ sanitizeTranscript(card.data.ipa) }}</bdi
+        >/</span
+      >
+    }
+    @for (tag of tags; track $index) {
+      <span class="tag"
+        ><bdi>{{ tag }}</bdi></span
+      >
+    }
+  </div>
+}
+@if (inflections.length > 0) {
+  <div class="inflections">
+    @for (inflection of inflections; track $index) {
+      <div class="inflection">{{ inflection }}</div>
+    }
+  </div>
+}
+@if (examples.length > 0) {
+  <div class="examples">
+    @for (example of examples; track $index) {
+      <div class="example" dir="auto">{{ example }}</div>
+    }
+  </div>
+}

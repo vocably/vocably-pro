@@ -1,0 +1,29 @@
+@if (isEmpty) {
+  <div class="empty">
+    <mat-icon class="empty-icon" aria-hidden="true">article</mat-icon>
+    <div class="empty-message">
+      {{ 'srs.back.empty_card' | transloco }}
+    </div>
+  </div>
+} @else {
+  <div class="lines">
+    @if (card.data.translation) {
+      <div class="translation" dir="auto">{{ card.data.translation }}</div>
+    }
+    @if (inflections.length > 0) {
+      <div class="inflections">
+        @for (inflection of inflections; track $index) {
+          <div>
+            <div class="inflection-label">
+              {{ inflection.label | transloco }}
+            </div>
+            <div class="definition">{{ inflection.value }}</div>
+          </div>
+        }
+      </div>
+    }
+    @for (definition of definitions; track $index) {
+      <div class="definition" dir="auto">{{ definition }}</div>
+    }
+  </div>
+}

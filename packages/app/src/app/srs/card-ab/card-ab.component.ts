@@ -20,25 +20,30 @@ import {
 } from '@angular/animations';
 import { hideAnimation } from '../hide-animation';
 import { PlaySoundComponent } from '../../components/play-sound/play-sound.component';
+import { MatIcon } from '@angular/material/icon';
+import { isRtlText } from '../isRtlText';
 
 @Component({
   selector: 'app-srs-card-ab',
-  imports: [ReverseFrontComponent, TranslocoModule, PlaySoundComponent],
+  imports: [
+    ReverseFrontComponent,
+    TranslocoModule,
+    PlaySoundComponent,
+    MatIcon,
+  ],
   templateUrl: './card-ab.component.html',
   styleUrl: './card-ab.component.scss',
   animations: [
     trigger('shake', [
       transition('false => true', [
+        // Damped offsets: starts strong, decays naturally
         animate(
-          '400ms ease-in-out',
-          keyframes([
-            style({ transform: 'translateX(0)', offset: 0 }),
-            style({ transform: 'translateX(-10px)', offset: 0.2 }),
-            style({ transform: 'translateX(10px)', offset: 0.4 }),
-            style({ transform: 'translateX(-10px)', offset: 0.6 }),
-            style({ transform: 'translateX(10px)', offset: 0.8 }),
-            style({ transform: 'translateX(0)', offset: 1.0 }),
-          ])
+          '420ms ease-out',
+          keyframes(
+            [0, -1, 1, -0.8, 0.8, -0.6, 0.6, -0.3, 0.3, 0].map((o) =>
+              style({ transform: `translateX(${o * 14}px)` })
+            )
+          )
         ),
       ]),
     ]),
@@ -56,6 +61,7 @@ export class CardAbComponent implements OnInit {
   correctAnswer: string = '';
   letters: string[] = [];
   answer: Array<number | false> = [];
+  isRtl = false;
 
   answerDisplayed = false;
   wrong = false;
@@ -65,6 +71,10 @@ export class CardAbComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
+    if (this.correct) {
+      return;
+    }
+
     if (event.key === 'Backspace') {
       for (
         let letterIndex = this.answer.length - 1;
@@ -99,6 +109,7 @@ export class CardAbComponent implements OnInit {
 
   ngOnInit() {
     this.correctAnswer = this.card.data.source.toUpperCase();
+    this.isRtl = isRtlText(this.correctAnswer);
     this.letters = shuffle(this.correctAnswer.split(''));
     this.answer = this.letters.map(() => false);
   }
@@ -133,6 +144,24 @@ export class CardAbComponent implements OnInit {
   unuseLetter(index: number) {
     this.answer[index] = false;
     this.wrong = false;
+  }
+
+  clearAll() {
+    this.answer = this.answer.map(() => false);
+    this.wrong = false;
+  }
+
+  get nextSlotIndex(): number {
+    return this.answer.indexOf(false);
+  }
+
+  get isAnswerEmpty(): boolean {
+    return this.answer.every((letterIndex) => letterIndex === false);
+  }
+
+  // Shrinks the tiles of long words a bit before they start wrapping
+  get tileGap(): number {
+    return this.letters.length > 8 ? 6 : 8;
   }
 
   onHideAnimationCompleted = () => {

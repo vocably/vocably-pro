@@ -1,43 +1,65 @@
-$back-size: 2.5rem;
-
 .study-container {
-  height: var(--app-height);
+  min-height: var(--app-height);
   display: flex;
   flex-direction: column;
 }
 
 .study-header {
   flex-shrink: 0;
+  width: 100%;
+  // Full-width bar; the banner matches the 820px card container
+  padding: var(--container-padding) max(1rem, calc((100% - 820px) / 2)) 0.5rem;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: color-mix(in srgb, var(--body-bg) 30%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+}
+
+.header-banner {
   display: flex;
   align-items: center;
   gap: 1rem;
-  width: 100%;
-  max-width: 820px;
-  margin: 0 auto;
-  padding: var(--container-padding) 1rem 0.5rem;
-  box-sizing: border-box;
   min-height: 3.5rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  background: rgba(var(--primary-rgb), 0.06);
 }
 
 .back {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: $back-size;
-  height: $back-size;
-  border-radius: 50%;
+  gap: 0.25rem;
+  padding: 0.375rem 0.625rem 0.375rem 0.375rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
   color: var(--text-muted);
   text-decoration: none;
   transition:
     background-color 0.15s ease-in-out,
     color 0.15s ease-in-out;
 
+  mat-icon {
+    font-size: 1.125rem;
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
   &:hover,
   &:focus-visible {
     color: var(--emphasize-color);
-    background: rgba(var(--primary-rgb), 0.08);
+    background: rgba(var(--primary-rgb), 0.1);
   }
+}
+
+.spacer {
+  visibility: hidden;
 }
 
 .heading {
@@ -69,16 +91,10 @@ $back-size: 2.5rem;
   max-width: 100%;
 }
 
-// Mirrors the back button so the heading stays optically centered
-.spacer {
-  flex-shrink: 0;
-  width: $back-size;
-}
-
 .study-body {
   flex: 1;
-  min-height: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -214,5 +230,10 @@ $back-size: 2.5rem;
 }
 
 .card-container {
-  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  // Matches .grade-container on the study page
+  width: 100%;
+  max-width: 820px;
 }

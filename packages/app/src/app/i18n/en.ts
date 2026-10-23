@@ -447,6 +447,7 @@ export const en = {
   'srs.card.space_hint': 'Space on the keyboard',
   'srs.card.show_question': 'Show the question',
   'srs.card.show_answer': 'Show the answer',
+  'srs.card.clear_all': 'Clear all',
   'srs.card.left_arrow': 'Left arrow or 1 on the keyboard',
   'srs.card.weak': 'Weak',
   'srs.card.not_yet': 'Not yet',
@@ -523,7 +524,16 @@ export const en = {
   'srs.streak.days.6': 'Sat',
   'srs.reverse_front.guess_the': 'Guess the',
   'srs.reverse_front.type_in_the': 'Type in the',
-  'srs.reverse_front.meaning': 'meaning:',
+  'srs.reverse_front.example': 'Example',
+  'srs.reverse_front.examples': 'Examples',
+  'srs.front.present_tenses': '(present: {{value}})',
+  'srs.front.past_tenses': '(past: {{value}})',
+  'srs.front.plural': '(plural: {{value}})',
+  'srs.back.present': 'Present tense',
+  'srs.back.past': 'Past tense',
+  'srs.back.plural': 'Plural form',
+  'srs.back.empty_card':
+    'This card has no translations or definitions. Edit this card.',
 
   // Header
   'header.menu': 'Menu',

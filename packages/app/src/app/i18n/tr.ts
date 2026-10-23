@@ -456,6 +456,7 @@ export const tr = {
   'srs.card.space_hint': 'Klavyede boşluk tuşu',
   'srs.card.show_question': 'Soruyu göster',
   'srs.card.show_answer': 'Cevabı göster',
+  'srs.card.clear_all': 'Tümünü temizle',
   'srs.card.left_arrow': 'Klavyede sol ok veya 1',
   'srs.card.weak': 'Zayıf',
   'srs.card.not_yet': 'Henüz değil',
@@ -529,7 +530,16 @@ export const tr = {
   'srs.streak.days.6': 'Cmt',
   'srs.reverse_front.guess_the': 'Tahmin et',
   'srs.reverse_front.type_in_the': 'Yaz',
-  'srs.reverse_front.meaning': 'anlamı:',
+  'srs.reverse_front.example': 'Örnek',
+  'srs.reverse_front.examples': 'Örnekler',
+  'srs.front.present_tenses': '(şimdiki: {{value}})',
+  'srs.front.past_tenses': '(geçmiş: {{value}})',
+  'srs.front.plural': '(çoğul: {{value}})',
+  'srs.back.present': 'Şimdiki zaman',
+  'srs.back.past': 'Geçmiş zaman',
+  'srs.back.plural': 'Çoğul hali',
+  'srs.back.empty_card':
+    'Bu kartın çevirisi veya tanımı yok. Bu kartı düzenle.',
 
   // Header
   'header.menu': 'Menü',

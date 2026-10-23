@@ -454,6 +454,7 @@ export const ru = {
   'srs.card.space_hint': 'Пробел на клавиатуре',
   'srs.card.show_question': 'Показать вопрос',
   'srs.card.show_answer': 'Показать ответ',
+  'srs.card.clear_all': 'Очистить всё',
   'srs.card.left_arrow': 'Стрелка влево или 1 на клавиатуре',
   'srs.card.weak': 'Слабо',
   'srs.card.not_yet': 'Не знаю',
@@ -532,7 +533,16 @@ export const ru = {
   'srs.streak.days.6': 'Сб',
   'srs.reverse_front.guess_the': 'Угадай',
   'srs.reverse_front.type_in_the': 'Введи',
-  'srs.reverse_front.meaning': 'значение:',
+  'srs.reverse_front.example': 'Пример',
+  'srs.reverse_front.examples': 'Примеры',
+  'srs.front.present_tenses': '(настоящее: {{value}})',
+  'srs.front.past_tenses': '(прошедшее: {{value}})',
+  'srs.front.plural': '(мн.ч.: {{value}})',
+  'srs.back.present': 'Настоящее время',
+  'srs.back.past': 'Прошедшее время',
+  'srs.back.plural': 'Множественное число',
+  'srs.back.empty_card':
+    'Эта карточка не содержит перевода или определения. Отредактируйте её.',
 
   // Header
   'header.menu': 'Меню',

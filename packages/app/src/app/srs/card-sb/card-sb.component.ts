@@ -15,5 +15,6 @@ import { FrontComponent } from '../front/front.component';
 export class CardSbComponent {
   @Input() card!: CardItem;
   @Output() grade = new EventEmitter<SrsScore>();
+  isChecked = false;
   protected readonly sanitizeTranscript = sanitizeTranscript;
 }
