@@ -22,8 +22,10 @@
 .question {
   margin-bottom: 1rem;
 
-  & > * {
-    min-width: 480px;
+  @media (width > 500px) {
+    & > * {
+      min-width: 480px;
+    }
   }
 }
 
