@@ -106,6 +106,8 @@
   },
   "overrides": {
     "handlebars": "^4.7.9",
+    "piscina": "^4.9.4",
+    "pacote": "^20.0.1",
     "protobufjs": "^8.0.0",
     "google-gax": "^5.0.0"
   },
