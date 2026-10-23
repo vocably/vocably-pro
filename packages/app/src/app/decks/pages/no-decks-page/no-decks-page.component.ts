@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
+import { GoogleLanguage } from '@vocably/model';
+import { getLastLanguage } from '../../../../deckStorage';
 import { HeaderComponent } from '../../../header/header.component';
 import { DeckListStoreService } from '../../deck-list-store.service';
 
@@ -16,8 +18,16 @@ export class NoDecksPageComponent implements OnInit {
     router: Router,
     route: ActivatedRoute
   ) {
-    if (deckListStore.decks$.value.length > 0) {
-      router.navigate([deckListStore.decks$.value[0]], {
+    const decks = deckListStore.decks$.value;
+
+    if (decks.length > 0) {
+      const lastLanguage = getLastLanguage();
+      const language =
+        lastLanguage && decks.includes(lastLanguage as GoogleLanguage)
+          ? lastLanguage
+          : decks[0];
+
+      router.navigate([language], {
         relativeTo: route,
         replaceUrl: true,
       });

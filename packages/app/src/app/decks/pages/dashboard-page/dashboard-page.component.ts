@@ -12,6 +12,7 @@ import {
   getLanguageTagStorage,
   setLanguageTagStorage,
 } from '../../../../tagsStorage';
+import { setLastLanguage } from '../../../../deckStorage';
 import { MatIcon } from '@angular/material/icon';
 import { MatChip, MatChipRemove, MatChipSet } from '@angular/material/chips';
 import { TagsDropdownComponent } from '../../../tags/tags-dropdown/tags-dropdown.component';
@@ -58,6 +59,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
       this.allCards$.next(deck.cards.sort(byDate));
       this.tags = deck.tags;
       this.language = deck.language;
+      setLastLanguage(deck.language);
 
       const storage = getLanguageTagStorage(deck.language);
       this.noTags$.next(storage.noTags);
