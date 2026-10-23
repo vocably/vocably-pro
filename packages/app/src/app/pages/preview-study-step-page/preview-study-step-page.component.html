@@ -1,19 +1,27 @@
 <div class="study-container">
   <header class="study-header">
-    <a
-      href="settings"
-      (click)="backToSettings($event)"
-      class="back"
-      [attr.aria-label]="'preview_step.back_to_settings' | transloco"
-      [attr.title]="'preview_step.back_to_settings' | transloco"
-    >
-      <mat-icon>arrow_back</mat-icon>
-    </a>
-    <div class="heading">
-      <span class="eyebrow">{{
-        'settings.study_steps.preview' | transloco
-      }}</span>
-      <h1 class="title">{{ stepLabel }}</h1>
+    <div class="header-banner">
+      <a
+        href="settings"
+        (click)="backToSettings($event)"
+        class="back"
+        [attr.aria-label]="'preview_step.back_to_settings' | transloco"
+        [attr.title]="'preview_step.back_to_settings' | transloco"
+      >
+        <mat-icon>arrow_back</mat-icon>
+        <span>{{ 'settings.title' | transloco }}</span>
+      </a>
+      <div class="heading">
+        <span class="eyebrow">{{
+          'settings.study_steps.preview' | transloco
+        }}</span>
+        <h1 class="title">{{ stepLabel }}</h1>
+      </div>
+      <!-- Invisible copy of the back link so the heading stays centered -->
+      <span class="back spacer" aria-hidden="true">
+        <mat-icon>arrow_back</mat-icon>
+        <span>{{ 'settings.title' | transloco }}</span>
+      </span>
     </div>
   </header>
   <main class="study-body">
