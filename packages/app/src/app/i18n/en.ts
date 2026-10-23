@@ -529,6 +529,11 @@ export const en = {
   'srs.front.present_tenses': '(present: {{value}})',
   'srs.front.past_tenses': '(past: {{value}})',
   'srs.front.plural': '(plural: {{value}})',
+  'srs.back.present': 'Present tense',
+  'srs.back.past': 'Past tense',
+  'srs.back.plural': 'Plural form',
+  'srs.back.empty_card':
+    'This card has no translations or definitions. Edit this card.',
 
   // Header
   'header.menu': 'Menu',

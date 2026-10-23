@@ -21,6 +21,10 @@
 
 .question {
   margin-bottom: 1rem;
+
+  & > * {
+    min-width: 480px;
+  }
 }
 
 // Takes the width of the question without widening it

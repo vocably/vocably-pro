@@ -534,6 +534,11 @@ export const pt = {
   'srs.front.present_tenses': '(presente: {{value}})',
   'srs.front.past_tenses': '(passado: {{value}})',
   'srs.front.plural': '(plural: {{value}})',
+  'srs.back.present': 'Tempo presente',
+  'srs.back.past': 'Tempo passado',
+  'srs.back.plural': 'Forma plural',
+  'srs.back.empty_card':
+    'Este cartão não tem traduções nem definições. Edite este cartão.',
 
   // Header
   'header.menu': 'Menu',

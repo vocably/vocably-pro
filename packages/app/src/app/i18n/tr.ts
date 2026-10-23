@@ -535,6 +535,11 @@ export const tr = {
   'srs.front.present_tenses': '(şimdiki: {{value}})',
   'srs.front.past_tenses': '(geçmiş: {{value}})',
   'srs.front.plural': '(çoğul: {{value}})',
+  'srs.back.present': 'Şimdiki zaman',
+  'srs.back.past': 'Geçmiş zaman',
+  'srs.back.plural': 'Çoğul hali',
+  'srs.back.empty_card':
+    'Bu kartın çevirisi veya tanımı yok. Bu kartı düzenle.',
 
   // Header
   'header.menu': 'Menü',

@@ -526,6 +526,11 @@ export const vi = {
   'srs.front.present_tenses': '(hiện tại: {{value}})',
   'srs.front.past_tenses': '(quá khứ: {{value}})',
   'srs.front.plural': '(số nhiều: {{value}})',
+  'srs.back.present': 'Thì hiện tại',
+  'srs.back.past': 'Thì quá khứ',
+  'srs.back.plural': 'Dạng số nhiều',
+  'srs.back.empty_card':
+    'Thẻ này không có bản dịch hay định nghĩa. Hãy chỉnh sửa thẻ.',
 
   // Header
   'header.menu': 'Menu',

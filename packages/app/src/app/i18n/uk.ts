@@ -537,6 +537,11 @@ export const uk = {
   'srs.front.present_tenses': '(теперішній: {{value}})',
   'srs.front.past_tenses': '(минулий: {{value}})',
   'srs.front.plural': '(мн.: {{value}})',
+  'srs.back.present': 'Теперішній час',
+  'srs.back.past': 'Минулий час',
+  'srs.back.plural': 'Множина',
+  'srs.back.empty_card':
+    'Ця картка не має ні перекладу, ні визначення. Відредагуйте її.',
 
   // Header
   'header.menu': 'Меню',

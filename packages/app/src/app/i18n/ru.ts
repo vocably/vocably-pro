@@ -538,6 +538,11 @@ export const ru = {
   'srs.front.present_tenses': '(настоящее: {{value}})',
   'srs.front.past_tenses': '(прошедшее: {{value}})',
   'srs.front.plural': '(мн.ч.: {{value}})',
+  'srs.back.present': 'Настоящее время',
+  'srs.back.past': 'Прошедшее время',
+  'srs.back.plural': 'Множественное число',
+  'srs.back.empty_card':
+    'Эта карточка не содержит перевода или определения. Отредактируйте её.',
 
   // Header
   'header.menu': 'Меню',
