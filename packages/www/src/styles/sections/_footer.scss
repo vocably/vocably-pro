@@ -64,10 +64,10 @@
 
     &:hover,
     &:focus-visible {
-      transform: translateY(-4px);
-      border-color: fade-out($white, 0.7);
-      background-color: fade-out($white, 0.9);
-      box-shadow: 0 1rem 2rem rgb(0 0 0 / 0.25);
+      transform: translateY(-2px);
+      border-color: fade-out($white, 0.75);
+      background-color: fade-out($white, 0.92);
+      box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 0.12);
       color: var(--color);
       text-decoration: none;
 
@@ -89,15 +89,15 @@
     font-size: 1.4rem;
 
     &--dictionary {
-      background: linear-gradient(135deg, #4f7bff, #2f4de0);
+      background-color: #3a5ff0;
     }
 
     &--grammar {
-      background: linear-gradient(135deg, #2fcf9a, #139a8a);
+      background-color: #18a88f;
     }
 
     &--ai {
-      background: linear-gradient(135deg, #b46cff, #e0508f);
+      background-color: #c45ec4;
     }
   }
 
